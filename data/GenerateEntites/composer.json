@@ -1,0 +1,6 @@
+{
+    "require": {
+        "doctrine/orm": "*",
+        "symfony/yaml": "*"
+    }
+}

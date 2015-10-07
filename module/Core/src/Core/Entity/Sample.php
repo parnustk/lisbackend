@@ -7,6 +7,7 @@ use Zend\Form\Annotation;
 
 /**
  * @author sander
+ * @ORM\Table(name="sample")
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SampleRepository")
  */
 class Sample extends \Core\Utils\EntityValidation
