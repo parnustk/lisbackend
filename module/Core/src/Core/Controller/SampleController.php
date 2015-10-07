@@ -104,10 +104,10 @@ class SampleController extends AbstractBaseController
 //     * @param  mixed $data
 //     * @return mixed
 //     */
-//    public function update($id, $data)
-//    {
-//        return new JsonModel([$id => $data]);
-//    }
+    public function update($id, $data)
+    {
+        return new JsonModel([$id => $data]);
+    }
 //
 //    /**
 //     * Delete an existing resource
