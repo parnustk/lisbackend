@@ -19,7 +19,7 @@ class Sample extends \Core\Utils\EntityValidation
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Annotation\Exclude()
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
