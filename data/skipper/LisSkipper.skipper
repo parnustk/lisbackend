@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<skipper version="3.2.4.1253" mvc="Zend Framework" orm="Doctrine2" name="LisSkipper" uuid="57f94a20-004e-4167-928e-d6ce9364128e">
+  <module name="\MainBundle" local-name="MainBundle" namespace="\" export-format="Doctrine2Php" export-path="Entities" uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c">
+    <entity name="\Vocation" local-name="Vocation" namespace="\" local-namespace="\" uuid="140c3460-bb20-4ce8-84ca-1c17241963fc">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="71ea786e-0188-4f1b-9d33-2f6dd8d2a2b4"/>
+      <field name="name" type="string" size="255" required="true" uuid="1d72f978-5ac7-42ff-90db-c7e7aa894ca2"/>
+      <field name="code" type="string" size="255" required="true" unique="true" uuid="7fbb7a60-d5c7-480f-8ac9-92c5567ebdad"/>
+      <field name="durationEKAP" type="integer" required="true" uuid="1db9265a-b16f-47bd-b4cb-1d0d1fd9bf32"/>
+      <index name="vocationname">
+        <index-field name="name"/>
+      </index>
+      <index name="vocationcode">
+        <index-field name="code"/>
+      </index>
+    </entity>
+    <entity name="\Module" local-name="Module" namespace="\" uuid="2bd41295-3c97-404a-870e-066a146589a8">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="bef89550-597a-46c6-89a2-d475dcdc57d1"/>
+      <field name="name" type="string" size="255" required="true" uuid="4e63e674-9e6b-4469-916d-f30472f692fd"/>
+      <field name="duration" type="integer" required="true" uuid="79deba94-70fc-416e-8318-c7c282064b4f"/>
+      <field name="code" type="string" size="255" required="true" uuid="544258c8-c536-461f-b135-511462afd014"/>
+      <field name="vocation_id" type="bigint" required="true" uuid="e1f8cf6d-4b37-4251-8071-7af6c1a898e9"/>
+      <field name="module_type_id" type="bigint" required="true" uuid="e41a786e-3191-44e9-b02d-53fca7d76da5"/>
+      <index name="modulename">
+        <index-field name="name"/>
+      </index>
+      <index name="modulecode">
+        <index-field name="code"/>
+      </index>
+    </entity>
+    <association from="\Module" to="\Vocation" caption="Vocation Module" owner-alias="module" inverse-alias="vocation" many-owner="true" many-inverse="false" parent-required="true" uuid="d833a08a-acb7-491c-848e-d8077d515f3b">
+      <association-field from="vocation_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Module" to="\ModuleType" caption="ModuleType Module" owner-alias="module" inverse-alias="moduleType" many-owner="true" many-inverse="false" parent-required="true" uuid="7c5dadd8-c76e-4f5b-959c-772d1c489203">
+      <association-field from="module_type_id" to="id"/>
+    </association>
+    <entity name="\ModuleType" local-name="ModuleType" namespace="\" uuid="2aedd1ed-28bb-4cd7-a2fc-caaf62f74e7e">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="eeb19781-767d-4ed0-8fb3-5c59a2290577"/>
+      <field name="name" type="string" size="255" required="true" uuid="cc999616-cabf-4784-8783-4cc091b79319"/>
+      <index name="moduletypename">
+        <index-field name="name"/>
+      </index>
+    </entity>
+    <entity name="\Subject" local-name="Subject" namespace="\" uuid="24262c8a-10be-45e0-a6de-b098b13568a0">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="c96c69cc-9760-4524-b046-a85abf3971b0"/>
+      <field name="code" type="string" size="255" required="true" uuid="172048a4-650d-45a0-9085-cba4c297b842"/>
+      <field name="name" type="string" size="255" required="true" uuid="de709c10-2fa1-4d99-ae3f-8d522bd18201"/>
+      <field name="durationAllAK" type="integer" required="true" uuid="e990d093-9ea4-469b-afbc-9cac88aa0bf7"/>
+      <field name="durationContactAK" type="integer" required="true" uuid="88722894-bc8a-45c4-a9ef-a80b183f1a79"/>
+      <field name="durationIndependentAK" type="integer" required="true" uuid="409c6687-c488-462c-bd60-a6fe5b17c793"/>
+      <field name="module_id" type="bigint" required="true" uuid="6a60e82a-461e-4605-8a10-3d1fb10c09a7"/>
+      <index name="subjectname">
+        <index-field name="name"/>
+      </index>
+      <index name="subjectcode">
+        <index-field name="code"/>
+      </index>
+    </entity>
+    <association from="\Subject" to="\Module" caption="Module Subject" owner-alias="subject" inverse-alias="module" many-owner="true" many-inverse="false" parent-required="true" uuid="6ea50c29-026f-4e70-873b-47e0d795a537">
+      <association-field from="module_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\SubjectRound" local-name="SubjectRound" namespace="\" uuid="b5e6ba8f-9ca3-472c-bdc4-e2abfbf11a1c">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="1d04b8e7-3e8c-4b8b-873f-1574ea4b3dbf"/>
+      <field name="teacher_id" type="integer" required="true" uuid="aad4f5a4-46fe-4e4d-aeca-c9776f89bc0e"/>
+      <field name="subject_id" type="bigint" required="true" uuid="5f3c437d-6983-4ec8-84aa-051c1514de5b"/>
+      <field name="group_id" type="bigint" required="true" uuid="cd8a323c-96cd-426a-8a88-0715ce0504d7"/>
+    </entity>
+    <association from="\SubjectRound" to="\Teacher" caption="Teacher SubjectRound" owner-alias="subjectRound" inverse-alias="teacher" many-owner="true" many-inverse="false" parent-required="true" uuid="ca1c3702-7bbc-40a5-9f02-5ce3c1adaa33">
+      <association-field from="teacher_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">RESTRICT</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\SubjectRound" to="\Subject" caption="Subject SubjectRound" owner-alias="subjectRound" inverse-alias="subject" many-owner="true" many-inverse="false" parent-required="true" uuid="4b57edbe-01aa-4ddf-aea1-7920edf24300">
+      <association-field from="subject_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">RESTRICT</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\SubjectRound" to="\Group" caption="Group SubjectRound" owner-alias="subjectRound" inverse-alias="group" many-owner="true" many-inverse="false" parent-required="true" uuid="2edbaf5b-fb2f-40ae-a543-83577dae1349">
+      <association-field from="group_id" to="id"/>
+    </association>
+    <entity name="\GradingType" local-name="GradingType" namespace="\" uuid="f1bfe515-8651-4ab3-8e2c-a54856e08176">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="5d4f78ab-2717-4619-8a79-64fa41bd6853"/>
+      <field name="gradingType" type="string" required="true" uuid="1897e25e-c4b5-45ee-9c67-fea440fc2d05"/>
+    </entity>
+    <entity name="\GradingTypeToModule" local-name="GradingTypeToModule" namespace="\" uuid="c79af1c1-6f5b-4634-9916-781d12fdc8a4">
+      <field name="grading_type_id" type="integer" required="true" primary="true" uuid="953317b0-1dea-4546-8b67-ace42e698dc7"/>
+      <field name="module_id" type="bigint" required="true" primary="true" uuid="5a42b3b4-99a2-4bb6-a5d9-1a58dff9f569"/>
+    </entity>
+    <many-to-many mn-entity="\GradingTypeToModule" caption="GradingType to Module" uuid="95df7f04-9fcb-4f9e-a1fa-31c50b1cef2c">
+      <many-to-many-entity name="\Module" owning-side="true" alias="module" uuid="d0bcfe34-b87f-4133-b673-186fc26eaab4">
+        <many-to-many-field from="module_id" to="id"/>
+        <orm-attributes>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+      <many-to-many-entity name="\GradingType" owning-side="false" alias="gradingType" uuid="39b8ff9f-1f66-4cb8-b769-f89a4f023b88">
+        <many-to-many-field from="grading_type_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\GradingTypeToSubject" local-name="GradingTypeToSubject" namespace="\" uuid="936d3e24-d380-471e-8278-7fe71ac0edba">
+      <field name="grading_type_id" type="integer" required="true" primary="true" uuid="bbece193-bbe2-4459-9221-ee89691b1e08"/>
+      <field name="subject_id" type="bigint" required="true" primary="true" uuid="09d47828-988d-47ee-aaa3-f769450dc8c5"/>
+    </entity>
+    <many-to-many mn-entity="\GradingTypeToSubject" caption="GradingType to Subject" uuid="f145f53b-bec9-475d-83bc-c189f71906b7">
+      <many-to-many-entity name="\Subject" owning-side="true" alias="subject" uuid="a92a4a81-36ea-4390-a114-da855f991bed">
+        <many-to-many-field from="subject_id" to="id"/>
+        <orm-attributes>
+          <attribute name="on-delete">CASCADE</attribute>
+        </orm-attributes>
+      </many-to-many-entity>
+      <many-to-many-entity name="\GradingType" owning-side="false" alias="gradingType" uuid="75c30693-f405-440b-af16-f311ac8878b5">
+        <many-to-many-field from="grading_type_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\Teacher" local-name="Teacher" namespace="\" uuid="1f20d5ac-6119-4e11-bd07-4d97d62479c7">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="0caf5b03-3c1a-4114-b632-db530c4db9ac"/>
+      <field name="firstName" type="string" size="255" required="true" uuid="7b98ade2-b6ee-4c5f-9061-3c3b593d11dd"/>
+      <field name="lastName" type="string" size="255" required="true" uuid="b9662af6-223f-411b-b509-49114d7980ae"/>
+      <field name="code" type="string" size="255" required="true" unique="true" uuid="70ff7bd9-72b3-4f38-b769-62379b81aaef"/>
+      <field name="email" type="string" size="255" required="true" uuid="04fea30a-3456-4eb9-944b-da05c58d4688"/>
+      <index name="teachercode">
+        <index-field name="code"/>
+      </index>
+      <index name="teacherfirstname">
+        <index-field name="firstName"/>
+      </index>
+      <index name="teacherlastname">
+        <index-field name="lastName"/>
+      </index>
+    </entity>
+    <entity name="\User" local-name="User" namespace="\" uuid="065e63d3-55eb-4719-8701-df642561d5ea">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="ac29f333-c847-415c-8978-12245be0b443"/>
+    </entity>
+    <entity name="\Student" local-name="Student" namespace="\" uuid="41ede2e1-f3ba-4a2d-96fb-544867096b53">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="936b72aa-1263-4a5a-87ab-bf63ef966d63"/>
+      <field name="firstName" type="string" size="255" required="true" uuid="fbfbce7b-072a-42f9-8bc9-5ee7794fc8ef"/>
+      <field name="lastName" type="string" size="255" required="true" uuid="872caa2b-51c8-4e76-8cc7-bb6257f1bbc9"/>
+      <field name="code" type="string" size="255" required="true" unique="true" uuid="f8d602b1-c513-4d56-b726-bc53eb0ec714"/>
+      <field name="email" type="string" size="255" required="true" uuid="c7aeeccc-d53c-4cb3-865c-387bc1a9db20"/>
+      <field name="group_id" type="bigint" required="true" uuid="7aaca7f3-f1d6-49e6-b7ae-df31dabe4e8b"/>
+      <index name="studentcode">
+        <index-field name="code"/>
+      </index>
+      <index name="studentfirstname">
+        <index-field name="firstName"/>
+      </index>
+      <index name="studentlastname">
+        <index-field name="lastName"/>
+      </index>
+    </entity>
+    <association from="\Student" to="\Group" caption="Group Student" owner-alias="student" inverse-alias="group" many-owner="true" many-inverse="false" parent-required="true" uuid="09cc16e6-815c-4e0e-8712-a4e4d5025172">
+      <association-field from="group_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">RESTRICT</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\Group" local-name="Group" namespace="\" uuid="dec0a0d0-dc78-4d63-a1d1-0f44f3e08eca">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="0e4ee6b7-25f6-44d8-94d5-bd72023ef908"/>
+      <field name="name" type="string" size="255" required="true" uuid="6cf13478-5d9c-490e-9564-86c37882ba5a"/>
+      <field name="vocation_id" type="bigint" required="true" unique="true" uuid="0b8aae91-b215-496b-991a-e637a4eb2e31"/>
+    </entity>
+    <association from="\Group" to="\Vocation" caption="Vocation Group" owner-alias="group" inverse-alias="vocation" many-owner="false" many-inverse="false" parent-required="true" uuid="dc984b61-06fb-42f7-9dba-c38d10957a36">
+      <association-field from="vocation_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">RESTRICT</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\IndependentWork" local-name="IndependentWork" namespace="\" uuid="8518592d-da7d-4e83-806b-8d5472d837d7">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="bb5cdb3e-2f59-47d6-9e33-0d58a26c6bbd"/>
+      <field name="duedate" type="datetime" required="true" uuid="2ed12b56-d57f-4945-a674-351e008c0e5a"/>
+      <field name="description" type="string" required="true" uuid="3103824f-0966-43cb-bb34-263c82c5e23d"/>
+      <field name="durationAK" type="integer" required="true" uuid="e0625939-a039-446a-beaa-f9496a589242"/>
+      <field name="subject_round_id" type="bigint" required="true" uuid="b53e249e-7190-4f22-95f9-b43f0d01dd59"/>
+      <index name="homeworkdate">
+        <index-field name="duedate"/>
+      </index>
+      <index name="independentworkduedate">
+        <index-field name="duedate"/>
+      </index>
+    </entity>
+    <association from="\IndependentWork" to="\SubjectRound" caption="SubjectRound IndependentWork" owner-alias="independentWork" inverse-alias="subjectRound" many-owner="true" many-inverse="false" parent-required="true" uuid="81f4eb32-df09-404e-9f8c-96460d02589e">
+      <association-field from="subject_round_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\ContactLesson" local-name="ContactLesson" namespace="\" uuid="86ccd6eb-3824-4a95-93cd-12e6aec2cf70">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="d8c3ac37-2907-4869-869c-a84702c531d6"/>
+      <field name="lessonDate" type="datetime" required="true" uuid="f59462f8-f415-4ad9-9ff8-cc7f845d643a"/>
+      <field name="description" type="string" size="255" required="true" uuid="f9d4eb82-f78f-4851-8e60-1049a32be8c0"/>
+      <field name="durationAK" type="integer" required="true" uuid="9b9d3fe3-321c-41c9-9bb4-22cf1e5086fe"/>
+      <field name="subject_round_id" type="bigint" required="true" uuid="4311803b-d654-4c4b-92c9-04d9e934f211"/>
+      <field name="rooms_id" type="integer" uuid="5b216007-303d-40f9-9abb-9acf5db54ce6"/>
+      <index name="contactlessonlessondate">
+        <index-field name="lessonDate"/>
+      </index>
+    </entity>
+    <association from="\ContactLesson" to="\SubjectRound" caption="SubjectRound ContactLesson" owner-alias="contactLesson" inverse-alias="subjectRound" many-owner="true" many-inverse="false" parent-required="true" uuid="ff2ecab5-be63-4361-a4e9-f548575dc81b">
+      <association-field from="subject_round_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\Rooms" caption="Rooms ContactLesson" owner-alias="contactLesson" inverse-alias="rooms" many-owner="true" many-inverse="false" uuid="0e9b1098-b9b0-454b-b7a5-a28bd1593ac9">
+      <association-field from="rooms_id" to="id"/>
+    </association>
+    <entity name="\Rooms" local-name="Rooms" namespace="\" uuid="e113a96b-e62a-41d4-99f9-72a040e36551">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="28059141-554b-4fa0-865d-fa2a92ba3c03"/>
+      <field name="name" type="string" required="true" uuid="01b1f885-a712-4cf5-8008-8b6eca5cdfa2"/>
+    </entity>
+    <entity name="\Absence" local-name="Absence" namespace="\" uuid="295e33ee-0b90-4775-95c8-90f32f154b47">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="f7f18856-63ed-4fbd-9c38-0ea4ca56af23"/>
+      <field name="description" type="string" size="255" required="true" uuid="6789ffe2-7c65-4042-87d2-bf85a798ce7d"/>
+      <field name="absence_reason_id" type="integer" uuid="7b8f7cb0-831e-4f8e-ab35-c1a55812d96d"/>
+      <field name="student_id" type="bigint" required="true" uuid="302218d4-3a87-4588-842e-9f46036a56d7"/>
+      <field name="contact_lesson_id" type="integer" required="true" uuid="ea008b93-93d3-4440-8dfc-ee3a43478a46"/>
+    </entity>
+    <association from="\Absence" to="\AbsenceReason" caption="AbsenceReason Absence" owner-alias="absence" inverse-alias="absenceReason" many-owner="true" many-inverse="false" uuid="01aac92b-f9e4-4fa1-aa28-5eab8681da8a">
+      <association-field from="absence_reason_id" to="id"/>
+    </association>
+    <association from="\Absence" to="\Student" caption="Student Absence" owner-alias="absence" inverse-alias="student" many-owner="true" many-inverse="false" parent-required="true" uuid="34a60c5e-4d22-48bc-b7fc-0a640233064d">
+      <association-field from="student_id" to="id"/>
+    </association>
+    <association from="\Absence" to="\ContactLesson" caption="ContactLesson Absence" owner-alias="absence" inverse-alias="contactLesson" many-owner="true" many-inverse="false" parent-required="true" uuid="c8f6c334-19cf-4ad4-aa97-0cf31e6d5a70">
+      <association-field from="contact_lesson_id" to="id"/>
+    </association>
+    <entity name="\AbsenceReason" local-name="AbsenceReason" namespace="\" uuid="b185bb7d-6ca4-423e-b1c1-10e15bcfbfdf">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="b398f852-f0d5-42a9-b55e-3da01249116b"/>
+      <field name="name" type="string" size="255" required="true" uuid="08fe799c-bb30-4cd4-afe0-4e45a0709bca"/>
+    </entity>
+  </module>
+  <visual-data>
+    <association uuid="01aac92b-f9e4-4fa1-aa28-5eab8681da8a" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="09cc16e6-815c-4e0e-8712-a4e4d5025172" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="0e9b1098-b9b0-454b-b7a5-a28bd1593ac9" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="2edbaf5b-fb2f-40ae-a543-83577dae1349" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="34a60c5e-4d22-48bc-b7fc-0a640233064d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="4b57edbe-01aa-4ddf-aea1-7920edf24300" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="6ea50c29-026f-4e70-873b-47e0d795a537" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="7c5dadd8-c76e-4f5b-959c-772d1c489203" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="81f4eb32-df09-404e-9f8c-96460d02589e" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="c8f6c334-19cf-4ad4-aa97-0cf31e6d5a70" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="ca1c3702-7bbc-40a5-9f02-5ce3c1adaa33" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="d833a08a-acb7-491c-848e-d8077d515f3b" caption1-position-x="-1" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="dc984b61-06fb-42f7-9dba-c38d10957a36" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="ff2ecab5-be63-4361-a4e9-f548575dc81b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <entity uuid="065e63d3-55eb-4719-8701-df642561d5ea" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1025" position-y="-12" size-x="0" size-x2="67" size-y="0" size-y2="31"/>
+    <entity uuid="140c3460-bb20-4ce8-84ca-1c17241963fc" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="171" position-y="1" size-x="0" size-x2="116" size-y="0" size-y2="73"/>
+    <entity uuid="1f20d5ac-6119-4e11-bd07-4d97d62479c7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="766" position-y="298" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
+    <entity uuid="24262c8a-10be-45e0-a6de-b098b13568a0" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="245" position-y="466" size-x="0" size-x2="154" size-y="0" size-y2="115"/>
+    <entity uuid="295e33ee-0b90-4775-95c8-90f32f154b47" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="925" position-y="386" size-x="0" size-x2="138" size-y="0" size-y2="73"/>
+    <entity uuid="2aedd1ed-28bb-4cd7-a2fc-caaf62f74e7e" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="14" position-y="124" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
+    <entity uuid="2bd41295-3c97-404a-870e-066a146589a8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="176" position-y="182" size-x="0" size-x2="117" size-y="0" size-y2="101"/>
+    <entity uuid="41ede2e1-f3ba-4a2d-96fb-544867096b53" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="840" position-y="18" size-x="0" size-x2="114" size-y="0" size-y2="101"/>
+    <entity uuid="8518592d-da7d-4e83-806b-8d5472d837d7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="629" position-y="542" size-x="0" size-x2="122" size-y="0" size-y2="87"/>
+    <entity uuid="86ccd6eb-3824-4a95-93cd-12e6aec2cf70" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="455" position-y="455" size-x="0" size-x2="119" size-y="0" size-y2="73"/>
+    <entity uuid="936d3e24-d380-471e-8278-7fe71ac0edba" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-6" position-y="420" size-x="0" size-x2="128" size-y="0" size-y2="60"/>
+    <entity uuid="b185bb7d-6ca4-423e-b1c1-10e15bcfbfdf" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="932" position-y="533" size-x="0" size-x2="20" size-y="0" size-y2="20"/>
+    <entity uuid="b5e6ba8f-9ca3-472c-bdc4-e2abfbf11a1c" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="430" position-y="223" size-x="0" size-x2="102" size-y="0" size-y2="59"/>
+    <entity uuid="c79af1c1-6f5b-4634-9916-781d12fdc8a4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="12" position-y="6" size-x="0" size-x2="127" size-y="0" size-y2="60"/>
+    <entity uuid="dec0a0d0-dc78-4d63-a1d1-0f44f3e08eca" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="630" position-y="106" size-x="0" size-x2="99" size-y="0" size-y2="59"/>
+    <entity uuid="e113a96b-e62a-41d4-99f9-72a040e36551" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="460" position-y="614" size-x="0" size-x2="77" size-y="0" size-y2="45"/>
+    <entity uuid="f1bfe515-8651-4ab3-8e2c-a54856e08176" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-3" position-y="236" size-x="0" size-x2="104" size-y="0" size-y2="45"/>
+    <many-to-many-association uuid="95df7f04-9fcb-4f9e-a1fa-31c50b1cef2c" color="#969696"/>
+    <many-to-many-association uuid="f145f53b-bec9-475d-83bc-c189f71906b7" color="#969696"/>
+    <many-to-many-association-entity uuid="39b8ff9f-1f66-4cb8-b769-f89a4f023b88" caption1-position-x="3" caption1-position-y="51" center-position-x="0" center-position-y="0"/>
+    <many-to-many-association-entity uuid="a92a4a81-36ea-4390-a114-da855f991bed" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <many-to-many-association-entity uuid="d0bcfe34-b87f-4133-b673-186fc26eaab4" caption1-position-x="1" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <module uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c" bg-color="#EAE4F1" position-x="61" position-y="72" size-x="11" size-x2="1096" size-y="30" size-y2="674"/>
+    <project uuid="57f94a20-004e-4167-928e-d6ce9364128e" size-x="0" size-x2="1157" size-y="0" size-y2="796"/>
+  </visual-data>
+</skipper>
