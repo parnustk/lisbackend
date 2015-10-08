@@ -41,6 +41,12 @@ class Student
     private $email;
 
     /**
+     * @ORM\OneToOne(targetEntity="LisUser", inversedBy="student")
+     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", unique=true)
+     */
+    private $lisUser;
+
+    /**
      * @ORM\OneToMany(targetEntity="Absence", mappedBy="student")
      */
     private $absence;

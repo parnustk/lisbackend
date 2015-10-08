@@ -125,6 +125,7 @@
       <field name="lastName" type="string" size="255" required="true" uuid="b9662af6-223f-411b-b509-49114d7980ae"/>
       <field name="code" type="string" size="255" required="true" unique="true" uuid="70ff7bd9-72b3-4f38-b769-62379b81aaef"/>
       <field name="email" type="string" size="255" required="true" uuid="04fea30a-3456-4eb9-944b-da05c58d4688"/>
+      <field name="lis_user_id" type="bigint" unique="true" uuid="87e96c8d-86b7-44f8-b06a-de44787b0bd8"/>
       <index name="teachercode">
         <index-field name="code"/>
       </index>
@@ -135,8 +136,14 @@
         <index-field name="lastName"/>
       </index>
     </entity>
-    <entity name="\User" local-name="User" namespace="\" uuid="065e63d3-55eb-4719-8701-df642561d5ea">
-      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="ac29f333-c847-415c-8978-12245be0b443"/>
+    <association from="\Teacher" to="\LisUser" caption="LisUser Teacher" owner-alias="teacher" inverse-alias="lisUser" many-owner="false" many-inverse="false" uuid="2f12d0d4-09e7-4ba8-a9d7-b5209fab8e18">
+      <association-field from="lis_user_id" to="id"/>
+    </association>
+    <entity name="\LisUser" local-name="LisUser" namespace="\" uuid="065e63d3-55eb-4719-8701-df642561d5ea">
+      <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="ac29f333-c847-415c-8978-12245be0b443"/>
+      <field name="email" type="string" size="255" required="true" unique="true" uuid="3b157728-6846-4654-8284-9cd39ac437c2"/>
+      <field name="password" type="string" size="255" required="true" uuid="75fa3a1a-79d2-4d4c-8cde-a5e5faca6fc9"/>
+      <field name="state" type="integer" required="true" uuid="9b0cb011-4db5-4c1e-94b9-83e924e2fe74"/>
     </entity>
     <entity name="\Student" local-name="Student" namespace="\" uuid="41ede2e1-f3ba-4a2d-96fb-544867096b53">
       <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="936b72aa-1263-4a5a-87ab-bf63ef966d63"/>
@@ -145,6 +152,7 @@
       <field name="code" type="string" size="255" required="true" unique="true" uuid="f8d602b1-c513-4d56-b726-bc53eb0ec714"/>
       <field name="email" type="string" size="255" required="true" uuid="c7aeeccc-d53c-4cb3-865c-387bc1a9db20"/>
       <field name="group_id" type="bigint" required="true" uuid="7aaca7f3-f1d6-49e6-b7ae-df31dabe4e8b"/>
+      <field name="lis_user_id" type="bigint" unique="true" uuid="8ff14abc-9e4e-4d0f-ae70-748d1937bc78"/>
       <index name="studentcode">
         <index-field name="code"/>
       </index>
@@ -160,6 +168,9 @@
       <orm-attributes>
         <attribute name="on-delete">RESTRICT</attribute>
       </orm-attributes>
+    </association>
+    <association from="\Student" to="\LisUser" caption="LisUser Student" owner-alias="student" inverse-alias="lisUser" many-owner="false" many-inverse="false" uuid="c0b2894f-de36-42ab-b49d-0ee5e96a8a65">
+      <association-field from="lis_user_id" to="id"/>
     </association>
     <entity name="\Group" local-name="Group" namespace="\" uuid="dec0a0d0-dc78-4d63-a1d1-0f44f3e08eca">
       <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="0e4ee6b7-25f6-44d8-94d5-bd72023ef908"/>
@@ -244,7 +255,7 @@
       <field name="student_id" type="bigint" required="true" uuid="d7162c60-b7a1-487d-8e30-a8ef0419c904"/>
       <field name="grade_choice_id" type="integer" required="true" uuid="f3332353-5297-45e1-851f-97078bfa31d2"/>
       <field name="teacher_id" type="integer" required="true" uuid="768abf4d-af97-49ad-92c1-0b80c2558603"/>
-      <inheritance-parent type="SINGLE_TABLE" uuid="98d66d2b-8cde-4f72-9dc5-9a4198daaf5a"/>
+      <inheritance-parent type="JOINED" uuid="98d66d2b-8cde-4f72-9dc5-9a4198daaf5a"/>
     </entity>
     <association from="\StudentGrade" to="\Student" caption="Student StudentGrade" owner-alias="studentGrade" inverse-alias="student" many-owner="true" many-inverse="false" parent-required="true" uuid="fa0c8f54-4b21-42c2-8749-33cf2540b55d">
       <association-field from="student_id" to="id"/>
@@ -288,21 +299,34 @@
         <attribute name="on-delete">RESTRICT</attribute>
       </orm-attributes>
     </association>
+    <entity name="\Administrator" local-name="Administrator" namespace="\" uuid="b2c5cbe7-b60e-48c8-ba87-b8af33258472">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="9ff2cbc7-3e3a-4872-a95e-55bfd3b61d0d"/>
+      <field name="firstName" type="string" size="255" required="true" uuid="c8f67d23-ba1b-49fe-9091-c0cefbc95e25"/>
+      <field name="lastName" type="string" size="255" required="true" uuid="65c51db1-25ae-436d-a5f7-2f6e5cf109c5"/>
+      <field name="code" type="string" size="255" required="true" unique="true" uuid="7b9637ef-4b60-438c-8ea4-700526f2e1b4"/>
+      <field name="lis_user_id" type="bigint" required="true" unique="true" uuid="828fd8b9-5073-45e7-a4c9-106feec216e0"/>
+    </entity>
+    <association from="\Administrator" to="\LisUser" caption="LisUser Administrator" owner-alias="administrator" inverse-alias="lisUser" many-owner="false" many-inverse="false" parent-required="true" uuid="51a855a5-771b-4bc7-a679-165427571996">
+      <association-field from="lis_user_id" to="id"/>
+    </association>
   </module>
   <visual-data>
     <association uuid="01aac92b-f9e4-4fa1-aa28-5eab8681da8a" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="09cc16e6-815c-4e0e-8712-a4e4d5025172" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="0e9b1098-b9b0-454b-b7a5-a28bd1593ac9" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="2edbaf5b-fb2f-40ae-a543-83577dae1349" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="2f12d0d4-09e7-4ba8-a9d7-b5209fab8e18" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="3230c2da-afa1-4265-9233-d6acb75eb166" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="34a60c5e-4d22-48bc-b7fc-0a640233064d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="4b57edbe-01aa-4ddf-aea1-7920edf24300" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="51a855a5-771b-4bc7-a679-165427571996" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="6ea50c29-026f-4e70-873b-47e0d795a537" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="7c5dadd8-c76e-4f5b-959c-772d1c489203" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="81f4eb32-df09-404e-9f8c-96460d02589e" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="899277dd-1566-48e2-91df-15ee9ca6c95d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="8c8e3c4a-9150-44f4-a379-4759b979e0df" caption1-position-x="0" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="c0a768a4-a979-43d9-9492-5cd243ebc7d0" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="c0b2894f-de36-42ab-b49d-0ee5e96a8a65" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="c8f6c334-19cf-4ad4-aa97-0cf31e6d5a70" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="ca1c3702-7bbc-40a5-9f02-5ce3c1adaa33" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="d833a08a-acb7-491c-848e-d8077d515f3b" caption1-position-x="-1" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
@@ -310,7 +334,7 @@
     <association uuid="fa0c8f54-4b21-42c2-8749-33cf2540b55d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="fd06b362-0855-4aaa-b7ea-720b1ad55103" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="ff2ecab5-be63-4361-a4e9-f548575dc81b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <entity uuid="065e63d3-55eb-4719-8701-df642561d5ea" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1025" position-y="-12" size-x="0" size-x2="67" size-y="0" size-y2="31"/>
+    <entity uuid="065e63d3-55eb-4719-8701-df642561d5ea" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1038" position-y="143" size-x="0" size-x2="114" size-y="0" size-y2="73"/>
     <entity uuid="140c3460-bb20-4ce8-84ca-1c17241963fc" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="286" position-y="-10" size-x="0" size-x2="116" size-y="0" size-y2="73"/>
     <entity uuid="1f20d5ac-6119-4e11-bd07-4d97d62479c7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="612" position-y="300" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
     <entity uuid="24262c8a-10be-45e0-a6de-b098b13568a0" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="245" position-y="466" size-x="0" size-x2="154" size-y="0" size-y2="115"/>
@@ -325,6 +349,7 @@
     <entity uuid="86ccd6eb-3824-4a95-93cd-12e6aec2cf70" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="445" position-y="520" size-x="0" size-x2="122" size-y="0" size-y2="101"/>
     <entity uuid="936d3e24-d380-471e-8278-7fe71ac0edba" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-6" position-y="420" size-x="0" size-x2="128" size-y="0" size-y2="60"/>
     <entity uuid="b185bb7d-6ca4-423e-b1c1-10e15bcfbfdf" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1004" position-y="554" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
+    <entity uuid="b2c5cbe7-b60e-48c8-ba87-b8af33258472" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1033" position-y="-29" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
     <entity uuid="b5e6ba8f-9ca3-472c-bdc4-e2abfbf11a1c" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="439" position-y="188" size-x="0" size-x2="102" size-y="0" size-y2="73"/>
     <entity uuid="c79af1c1-6f5b-4634-9916-781d12fdc8a4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-3" position-y="138" size-x="0" size-x2="127" size-y="0" size-y2="60"/>
     <entity uuid="dec0a0d0-dc78-4d63-a1d1-0f44f3e08eca" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="630" position-y="106" size-x="0" size-x2="99" size-y="0" size-y2="59"/>
@@ -340,7 +365,7 @@
     <many-to-many-association-entity uuid="39b8ff9f-1f66-4cb8-b769-f89a4f023b88" caption1-position-x="3" caption1-position-y="51" center-position-x="0" center-position-y="0"/>
     <many-to-many-association-entity uuid="a92a4a81-36ea-4390-a114-da855f991bed" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
     <many-to-many-association-entity uuid="d0bcfe34-b87f-4133-b673-186fc26eaab4" caption1-position-x="1" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
-    <module uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c" bg-color="#EAE4F1" position-x="61" position-y="72" size-x="11" size-x2="1120" size-y="30" size-y2="731"/>
-    <project uuid="57f94a20-004e-4167-928e-d6ce9364128e" size-x="0" size-x2="1207" size-y="8" size-y2="853"/>
+    <module uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c" bg-color="#EAE4F1" position-x="61" position-y="72" size-x="11" size-x2="1159" size-y="32" size-y2="731"/>
+    <project uuid="57f94a20-004e-4167-928e-d6ce9364128e" size-x="0" size-x2="1270" size-y="10" size-y2="853"/>
   </visual-data>
 </skipper>

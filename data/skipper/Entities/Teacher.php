@@ -41,6 +41,12 @@ class Teacher
     private $email;
 
     /**
+     * @ORM\OneToOne(targetEntity="LisUser", inversedBy="teacher")
+     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", unique=true)
+     */
+    private $lisUser;
+
+    /**
      * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="teacher")
      */
     private $subjectRound;
