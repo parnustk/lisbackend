@@ -358,7 +358,7 @@
     <entity uuid="f1bfe515-8651-4ab3-8e2c-a54856e08176" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="5" position-y="262" size-x="0" size-x2="104" size-y="0" size-y2="45"/>
     <entity uuid="f6a508ef-c32a-4955-bcde-1aa1fa87f62f" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="881" position-y="500" size-x="0" size-x2="139" size-y="0" size-y2="45"/>
     <inheritance-child uuid="0320381c-542f-409f-90da-37bfe6473d8d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <inheritance-child uuid="74ba4846-0853-4dd6-828d-2459c0f00840" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <inheritance-child uuid="74ba4846-0853-4dd6-828d-2459c0f00840" caption1-position-x="-1" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
     <inheritance-child uuid="d119c6d5-b566-4f62-80a1-eceddac0b1a7" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <many-to-many-association uuid="95df7f04-9fcb-4f9e-a1fa-31c50b1cef2c" color="#969696"/>
     <many-to-many-association uuid="f145f53b-bec9-475d-83bc-c189f71906b7" color="#969696"/>
