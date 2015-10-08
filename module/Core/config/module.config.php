@@ -11,6 +11,7 @@ return [
 
         'invokables' => [
             'Core\Controller\Sample' => 'Core\Controller\SampleController',
+            'Core\Controller\Login' => 'Core\Controller\LoginController',
         ],
     ],
     'router' => [

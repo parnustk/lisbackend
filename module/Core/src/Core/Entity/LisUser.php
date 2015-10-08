@@ -46,6 +46,11 @@ class LisUser
      * @ORM\OneToOne(targetEntity="Administrator", mappedBy="lisUser")
      */
     protected $administrator;
+    
+    public function __construct()
+    {
+        $this->state = 1;
+    }
 
     public function getId()
     {
