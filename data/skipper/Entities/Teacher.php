@@ -44,4 +44,9 @@ class Teacher
      * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="teacher")
      */
     private $subjectRound;
+
+    /**
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="teacher")
+     */
+    private $studentGrade;
 }

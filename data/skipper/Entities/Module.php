@@ -37,6 +37,11 @@ class Module
     private $subject;
 
     /**
+     * @ORM\OneToMany(targetEntity="GradeModule", mappedBy="module")
+     */
+    private $gradeModule;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="module")
      * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */

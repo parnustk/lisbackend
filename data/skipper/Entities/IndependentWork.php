@@ -35,6 +35,11 @@ class IndependentWork
     private $durationAK;
 
     /**
+     * @ORM\OneToMany(targetEntity="GradeIndependentWork", mappedBy="independentWork")
+     */
+    private $gradeIndependent;
+
+    /**
      * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="independentWork")
      * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */

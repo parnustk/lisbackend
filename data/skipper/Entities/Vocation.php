@@ -40,9 +40,4 @@ class Vocation
      * @ORM\OneToMany(targetEntity="Module", mappedBy="vocation")
      */
     private $module;
-
-    /**
-     * 
-     */
-    private $durationEkap;
 }

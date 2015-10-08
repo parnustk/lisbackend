@@ -235,45 +235,112 @@
       <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="b398f852-f0d5-42a9-b55e-3da01249116b"/>
       <field name="name" type="string" size="255" required="true" uuid="08fe799c-bb30-4cd4-afe0-4e45a0709bca"/>
     </entity>
+    <entity name="\GradeChoice" local-name="GradeChoice" namespace="\" uuid="6a0fe87a-b56c-43e3-a450-979a3fa50db9">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="62b3e3cc-961d-4e87-97dd-40a1e409df1e"/>
+      <field name="name" type="string" required="true" uuid="b60f500d-f394-4ba8-9326-7c5a3e57f3d4"/>
+    </entity>
+    <entity name="\StudentGrade" local-name="StudentGrade" namespace="\" uuid="31b1764d-61e4-4425-961f-ed41ead92c34">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="d5fac8c1-1de7-4bbf-b473-21433780b434"/>
+      <field name="student_id" type="bigint" required="true" uuid="d7162c60-b7a1-487d-8e30-a8ef0419c904"/>
+      <field name="grade_choice_id" type="integer" required="true" uuid="f3332353-5297-45e1-851f-97078bfa31d2"/>
+      <field name="teacher_id" type="integer" required="true" uuid="768abf4d-af97-49ad-92c1-0b80c2558603"/>
+      <inheritance-parent type="SINGLE_TABLE" uuid="98d66d2b-8cde-4f72-9dc5-9a4198daaf5a"/>
+    </entity>
+    <association from="\StudentGrade" to="\Student" caption="Student StudentGrade" owner-alias="studentGrade" inverse-alias="student" many-owner="true" many-inverse="false" parent-required="true" uuid="fa0c8f54-4b21-42c2-8749-33cf2540b55d">
+      <association-field from="student_id" to="id"/>
+    </association>
+    <association from="\StudentGrade" to="\GradeChoice" caption="GradeChoice StudentGrade" owner-alias="studentGrade" inverse-alias="gradeChoice" many-owner="true" many-inverse="false" parent-required="true" uuid="3230c2da-afa1-4265-9233-d6acb75eb166">
+      <association-field from="grade_choice_id" to="id"/>
+    </association>
+    <association from="\StudentGrade" to="\Teacher" caption="Teacher StudentGrade" owner-alias="studentGrade" inverse-alias="teacher" many-owner="true" many-inverse="false" parent-required="true" uuid="fd06b362-0855-4aaa-b7ea-720b1ad55103">
+      <association-field from="teacher_id" to="id"/>
+    </association>
+    <entity name="\GradeModule" local-name="GradeModule" namespace="\" uuid="e7035ada-ff53-4a77-a3d6-6e1f0bf032ca">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="16ef5fdc-7a76-4b3e-9851-4e3e11c5655c"/>
+      <field name="module_id" type="bigint" required="true" uuid="5ac713d4-b8f5-4415-affc-b83f865096b9"/>
+      <inheritance-child derived-from="\StudentGrade" caption="New inheritance" uuid="d119c6d5-b566-4f62-80a1-eceddac0b1a7"/>
+    </entity>
+    <association from="\GradeModule" to="\Module" caption="Module GradeModule" owner-alias="gradeModule" inverse-alias="module" many-owner="true" many-inverse="false" parent-required="true" uuid="c0a768a4-a979-43d9-9492-5cd243ebc7d0">
+      <association-field from="module_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">RESTRICT</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\GradeIndependentWork" local-name="GradeIndependentWork" namespace="\" uuid="f6a508ef-c32a-4955-bcde-1aa1fa87f62f">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="46c31bb9-4db6-4de2-88bc-217be1845256"/>
+      <field name="independent_work_id" type="bigint" required="true" uuid="bef0018a-39ef-487b-b27d-b0c4d487a900"/>
+      <inheritance-child derived-from="\StudentGrade" caption="New inheritance" uuid="74ba4846-0853-4dd6-828d-2459c0f00840"/>
+    </entity>
+    <association from="\GradeIndependentWork" to="\IndependentWork" caption="IndependentWork GradeIndependent" owner-alias="gradeIndependent" inverse-alias="independentWork" many-owner="true" many-inverse="false" parent-required="true" uuid="899277dd-1566-48e2-91df-15ee9ca6c95d">
+      <association-field from="independent_work_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">RESTRICT</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\GradeSubjectRound" local-name="GradeSubjectRound" namespace="\" uuid="719874d0-8003-40cd-b199-9245cb82197d">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="e51d6a7d-1087-40e2-832e-4fd5232042e9"/>
+      <field name="subject_round_id" type="bigint" required="true" uuid="9bb1e8c2-ba42-467d-ad46-9102edefcbb0"/>
+      <inheritance-child derived-from="\StudentGrade" caption="New inheritance" uuid="0320381c-542f-409f-90da-37bfe6473d8d"/>
+    </entity>
+    <association from="\GradeSubjectRound" to="\SubjectRound" caption="SubjectRound GradeSubjectRound" owner-alias="gradeSubjectRound" inverse-alias="subjectRound" many-owner="true" many-inverse="false" parent-required="true" uuid="8c8e3c4a-9150-44f4-a379-4759b979e0df">
+      <association-field from="subject_round_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">RESTRICT</attribute>
+      </orm-attributes>
+    </association>
   </module>
   <visual-data>
     <association uuid="01aac92b-f9e4-4fa1-aa28-5eab8681da8a" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="09cc16e6-815c-4e0e-8712-a4e4d5025172" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="0e9b1098-b9b0-454b-b7a5-a28bd1593ac9" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="2edbaf5b-fb2f-40ae-a543-83577dae1349" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="3230c2da-afa1-4265-9233-d6acb75eb166" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="34a60c5e-4d22-48bc-b7fc-0a640233064d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="4b57edbe-01aa-4ddf-aea1-7920edf24300" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="6ea50c29-026f-4e70-873b-47e0d795a537" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="7c5dadd8-c76e-4f5b-959c-772d1c489203" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="81f4eb32-df09-404e-9f8c-96460d02589e" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="899277dd-1566-48e2-91df-15ee9ca6c95d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="8c8e3c4a-9150-44f4-a379-4759b979e0df" caption1-position-x="0" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="c0a768a4-a979-43d9-9492-5cd243ebc7d0" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="c8f6c334-19cf-4ad4-aa97-0cf31e6d5a70" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="ca1c3702-7bbc-40a5-9f02-5ce3c1adaa33" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="d833a08a-acb7-491c-848e-d8077d515f3b" caption1-position-x="-1" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="dc984b61-06fb-42f7-9dba-c38d10957a36" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="fa0c8f54-4b21-42c2-8749-33cf2540b55d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="fd06b362-0855-4aaa-b7ea-720b1ad55103" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="ff2ecab5-be63-4361-a4e9-f548575dc81b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <entity uuid="065e63d3-55eb-4719-8701-df642561d5ea" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1025" position-y="-12" size-x="0" size-x2="67" size-y="0" size-y2="31"/>
-    <entity uuid="140c3460-bb20-4ce8-84ca-1c17241963fc" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="171" position-y="1" size-x="0" size-x2="116" size-y="0" size-y2="73"/>
-    <entity uuid="1f20d5ac-6119-4e11-bd07-4d97d62479c7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="766" position-y="298" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
+    <entity uuid="140c3460-bb20-4ce8-84ca-1c17241963fc" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="286" position-y="-10" size-x="0" size-x2="116" size-y="0" size-y2="73"/>
+    <entity uuid="1f20d5ac-6119-4e11-bd07-4d97d62479c7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="612" position-y="300" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
     <entity uuid="24262c8a-10be-45e0-a6de-b098b13568a0" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="245" position-y="466" size-x="0" size-x2="154" size-y="0" size-y2="115"/>
-    <entity uuid="295e33ee-0b90-4775-95c8-90f32f154b47" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="925" position-y="386" size-x="0" size-x2="138" size-y="0" size-y2="73"/>
-    <entity uuid="2aedd1ed-28bb-4cd7-a2fc-caaf62f74e7e" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="14" position-y="124" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
-    <entity uuid="2bd41295-3c97-404a-870e-066a146589a8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="176" position-y="182" size-x="0" size-x2="117" size-y="0" size-y2="101"/>
+    <entity uuid="295e33ee-0b90-4775-95c8-90f32f154b47" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="962" position-y="281" size-x="0" size-x2="138" size-y="0" size-y2="87"/>
+    <entity uuid="2aedd1ed-28bb-4cd7-a2fc-caaf62f74e7e" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="115" position-y="16" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
+    <entity uuid="2bd41295-3c97-404a-870e-066a146589a8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="180" position-y="216" size-x="0" size-x2="117" size-y="0" size-y2="101"/>
+    <entity uuid="31b1764d-61e4-4425-961f-ed41ead92c34" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="773" position-y="169" size-x="0" size-x2="126" size-y="0" size-y2="59"/>
     <entity uuid="41ede2e1-f3ba-4a2d-96fb-544867096b53" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="840" position-y="18" size-x="0" size-x2="114" size-y="0" size-y2="101"/>
-    <entity uuid="8518592d-da7d-4e83-806b-8d5472d837d7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="629" position-y="542" size-x="0" size-x2="122" size-y="0" size-y2="87"/>
-    <entity uuid="86ccd6eb-3824-4a95-93cd-12e6aec2cf70" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="455" position-y="455" size-x="0" size-x2="119" size-y="0" size-y2="73"/>
+    <entity uuid="6a0fe87a-b56c-43e3-a450-979a3fa50db9" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="744" position-y="-15" size-x="0" size-x2="77" size-y="0" size-y2="45"/>
+    <entity uuid="719874d0-8003-40cd-b199-9245cb82197d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="776" position-y="644" size-x="0" size-x2="122" size-y="0" size-y2="45"/>
+    <entity uuid="8518592d-da7d-4e83-806b-8d5472d837d7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="630" position-y="561" size-x="0" size-x2="122" size-y="0" size-y2="87"/>
+    <entity uuid="86ccd6eb-3824-4a95-93cd-12e6aec2cf70" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="445" position-y="520" size-x="0" size-x2="122" size-y="0" size-y2="101"/>
     <entity uuid="936d3e24-d380-471e-8278-7fe71ac0edba" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-6" position-y="420" size-x="0" size-x2="128" size-y="0" size-y2="60"/>
-    <entity uuid="b185bb7d-6ca4-423e-b1c1-10e15bcfbfdf" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="932" position-y="533" size-x="0" size-x2="20" size-y="0" size-y2="20"/>
-    <entity uuid="b5e6ba8f-9ca3-472c-bdc4-e2abfbf11a1c" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="430" position-y="223" size-x="0" size-x2="102" size-y="0" size-y2="59"/>
-    <entity uuid="c79af1c1-6f5b-4634-9916-781d12fdc8a4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="12" position-y="6" size-x="0" size-x2="127" size-y="0" size-y2="60"/>
+    <entity uuid="b185bb7d-6ca4-423e-b1c1-10e15bcfbfdf" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1004" position-y="554" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
+    <entity uuid="b5e6ba8f-9ca3-472c-bdc4-e2abfbf11a1c" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="439" position-y="188" size-x="0" size-x2="102" size-y="0" size-y2="73"/>
+    <entity uuid="c79af1c1-6f5b-4634-9916-781d12fdc8a4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-3" position-y="138" size-x="0" size-x2="127" size-y="0" size-y2="60"/>
     <entity uuid="dec0a0d0-dc78-4d63-a1d1-0f44f3e08eca" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="630" position-y="106" size-x="0" size-x2="99" size-y="0" size-y2="59"/>
-    <entity uuid="e113a96b-e62a-41d4-99f9-72a040e36551" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="460" position-y="614" size-x="0" size-x2="77" size-y="0" size-y2="45"/>
-    <entity uuid="f1bfe515-8651-4ab3-8e2c-a54856e08176" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-3" position-y="236" size-x="0" size-x2="104" size-y="0" size-y2="45"/>
+    <entity uuid="e113a96b-e62a-41d4-99f9-72a040e36551" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="397" position-y="680" size-x="0" size-x2="77" size-y="0" size-y2="45"/>
+    <entity uuid="e7035ada-ff53-4a77-a3d6-6e1f0bf032ca" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="737" position-y="391" size-x="0" size-x2="95" size-y="0" size-y2="45"/>
+    <entity uuid="f1bfe515-8651-4ab3-8e2c-a54856e08176" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="5" position-y="262" size-x="0" size-x2="104" size-y="0" size-y2="45"/>
+    <entity uuid="f6a508ef-c32a-4955-bcde-1aa1fa87f62f" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="881" position-y="500" size-x="0" size-x2="139" size-y="0" size-y2="45"/>
+    <inheritance-child uuid="0320381c-542f-409f-90da-37bfe6473d8d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <inheritance-child uuid="74ba4846-0853-4dd6-828d-2459c0f00840" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <inheritance-child uuid="d119c6d5-b566-4f62-80a1-eceddac0b1a7" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <many-to-many-association uuid="95df7f04-9fcb-4f9e-a1fa-31c50b1cef2c" color="#969696"/>
     <many-to-many-association uuid="f145f53b-bec9-475d-83bc-c189f71906b7" color="#969696"/>
     <many-to-many-association-entity uuid="39b8ff9f-1f66-4cb8-b769-f89a4f023b88" caption1-position-x="3" caption1-position-y="51" center-position-x="0" center-position-y="0"/>
     <many-to-many-association-entity uuid="a92a4a81-36ea-4390-a114-da855f991bed" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
     <many-to-many-association-entity uuid="d0bcfe34-b87f-4133-b673-186fc26eaab4" caption1-position-x="1" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
-    <module uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c" bg-color="#EAE4F1" position-x="61" position-y="72" size-x="11" size-x2="1096" size-y="30" size-y2="674"/>
-    <project uuid="57f94a20-004e-4167-928e-d6ce9364128e" size-x="0" size-x2="1157" size-y="0" size-y2="796"/>
+    <module uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c" bg-color="#EAE4F1" position-x="61" position-y="72" size-x="11" size-x2="1120" size-y="30" size-y2="731"/>
+    <project uuid="57f94a20-004e-4167-928e-d6ce9364128e" size-x="0" size-x2="1207" size-y="8" size-y2="853"/>
   </visual-data>
 </skipper>

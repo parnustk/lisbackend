@@ -24,6 +24,11 @@ class SubjectRound
     private $contactLesson;
 
     /**
+     * @ORM\OneToMany(targetEntity="GradeSubjectRound", mappedBy="subjectRound")
+     */
+    private $gradeSubjectRound;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */

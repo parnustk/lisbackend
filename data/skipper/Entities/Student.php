@@ -46,6 +46,11 @@ class Student
     private $absence;
 
     /**
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="student")
+     */
+    private $studentGrade;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="student")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
