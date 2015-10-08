@@ -261,3 +261,5 @@ http://canjs.com/guides/Why.html
 http://www.sitepoint.com/using-requirejs-angularjs-applications/  
 http://blog.falafel.com/building-single-page-applications-with-canjs-and-requirejs/  
 winner at the moment CanJs
+
+## Auth think of http://framework.zend.com/manual/current/en/modules/zend.authentication.adapter.http.html
