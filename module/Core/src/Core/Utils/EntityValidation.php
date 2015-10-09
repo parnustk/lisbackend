@@ -10,7 +10,7 @@ use Zend\Form\Form;
 /**
  * @author sander and Inspired by http://luci.criosweb.ro/simplify-handling-of-tables-entities-forms-and-validations-in-zf2-by-using-annotations/
  */
-class EntityValidation
+abstract class EntityValidation
 {
 
     /**
