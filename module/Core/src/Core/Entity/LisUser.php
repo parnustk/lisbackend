@@ -1,7 +1,4 @@
-<?php
-
-namespace Core\Entity;
-
+<?php namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -9,7 +6,6 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class LisUser
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -46,87 +42,4 @@ class LisUser
      * @ORM\OneToOne(targetEntity="Administrator", mappedBy="lisUser")
      */
     protected $administrator;
-    
-    public function __construct()
-    {
-        $this->state = 1;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
-    public function getAdministrator()
-    {
-        return $this->administrator;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
-    }
-
-    public function setState($state)
-    {
-        $this->state = $state;
-        return $this;
-    }
-
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-        return $this;
-    }
-
-    public function setStudent($student)
-    {
-        $this->student = $student;
-        return $this;
-    }
-
-    public function setAdministrator($administrator)
-    {
-        $this->administrator = $administrator;
-        return $this;
-    }
-
 }

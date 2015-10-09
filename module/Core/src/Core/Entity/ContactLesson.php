@@ -1,7 +1,4 @@
-<?php
-
-namespace Core\Entity;
-
+<?php namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -10,7 +7,6 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class ContactLesson
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -45,86 +41,22 @@ class ContactLesson
     protected $subjectRound;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Rooms", inversedBy="contactLesson")
-     * @ORM\JoinColumn(name="rooms_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="Rooms", inversedBy="contactLesson")
+     * @ORM\JoinTable(
+     *     name="RoomsToContactLesson",
+     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="rooms_id", referencedColumnName="id", nullable=false)}
+     * )
      */
     protected $rooms;
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getLessonDate()
-    {
-        return $this->lessonDate;
-    }
-
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    public function getDurationAK()
-    {
-        return $this->durationAK;
-    }
-
-    public function getAbsence()
-    {
-        return $this->absence;
-    }
-
-    public function getSubjectRound()
-    {
-        return $this->subjectRound;
-    }
-
-    public function getRooms()
-    {
-        return $this->rooms;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setLessonDate($lessonDate)
-    {
-        $this->lessonDate = $lessonDate;
-        return $this;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setDurationAK($durationAK)
-    {
-        $this->durationAK = $durationAK;
-        return $this;
-    }
-
-    public function setAbsence($absence)
-    {
-        $this->absence = $absence;
-        return $this;
-    }
-
-    public function setSubjectRound($subjectRound)
-    {
-        $this->subjectRound = $subjectRound;
-        return $this;
-    }
-
-    public function setRooms($rooms)
-    {
-        $this->rooms = $rooms;
-        return $this;
-    }
-
+    /**
+     * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="contactLesson")
+     * @ORM\JoinTable(
+     *     name="TeacherToContactLesson",
+     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
+     * )
+     */
+    protected $teacher;
 }

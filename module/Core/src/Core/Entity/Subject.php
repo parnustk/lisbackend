@@ -1,7 +1,4 @@
-<?php
-
-namespace Core\Entity;
-
+<?php namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -12,7 +9,6 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class Subject
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -65,104 +61,4 @@ class Subject
      * )
      */
     protected $gradingType;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getDurationAllAK()
-    {
-        return $this->durationAllAK;
-    }
-
-    public function getDurationContactAK()
-    {
-        return $this->durationContactAK;
-    }
-
-    public function getDurationIndependentAK()
-    {
-        return $this->durationIndependentAK;
-    }
-
-    public function getSubjectRound()
-    {
-        return $this->subjectRound;
-    }
-
-    public function getModule()
-    {
-        return $this->module;
-    }
-
-    public function getGradingType()
-    {
-        return $this->gradingType;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setCode($code)
-    {
-        $this->code = $code;
-        return $this;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function setDurationAllAK($durationAllAK)
-    {
-        $this->durationAllAK = $durationAllAK;
-        return $this;
-    }
-
-    public function setDurationContactAK($durationContactAK)
-    {
-        $this->durationContactAK = $durationContactAK;
-        return $this;
-    }
-
-    public function setDurationIndependentAK($durationIndependentAK)
-    {
-        $this->durationIndependentAK = $durationIndependentAK;
-        return $this;
-    }
-
-    public function setSubjectRound($subjectRound)
-    {
-        $this->subjectRound = $subjectRound;
-        return $this;
-    }
-
-    public function setModule($module)
-    {
-        $this->module = $module;
-        return $this;
-    }
-
-    public function setGradingType($gradingType)
-    {
-        $this->gradingType = $gradingType;
-        return $this;
-    }
-
 }

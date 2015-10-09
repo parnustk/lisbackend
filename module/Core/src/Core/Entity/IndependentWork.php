@@ -1,7 +1,4 @@
-<?php
-
-namespace Core\Entity;
-
+<?php namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -15,7 +12,6 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class IndependentWork
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -49,70 +45,9 @@ class IndependentWork
      */
     protected $subjectRound;
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getDuedate()
-    {
-        return $this->duedate;
-    }
-
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    public function getDurationAK()
-    {
-        return $this->durationAK;
-    }
-
-    public function getGradeIndependent()
-    {
-        return $this->gradeIndependent;
-    }
-
-    public function getSubjectRound()
-    {
-        return $this->subjectRound;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setDuedate($duedate)
-    {
-        $this->duedate = $duedate;
-        return $this;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setDurationAK($durationAK)
-    {
-        $this->durationAK = $durationAK;
-        return $this;
-    }
-
-    public function setGradeIndependent($gradeIndependent)
-    {
-        $this->gradeIndependent = $gradeIndependent;
-        return $this;
-    }
-
-    public function setSubjectRound($subjectRound)
-    {
-        $this->subjectRound = $subjectRound;
-        return $this;
-    }
-
+    /**
+     * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="independentWork")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
+     */
+    protected $teacher;
 }

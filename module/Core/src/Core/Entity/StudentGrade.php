@@ -1,7 +1,4 @@
-<?php
-
-namespace Core\Entity;
-
+<?php namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -10,7 +7,6 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class StudentGrade
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -35,49 +31,4 @@ class StudentGrade
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
      */
     protected $teacher;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
-    public function getGradeChoice()
-    {
-        return $this->gradeChoice;
-    }
-
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setStudent($student)
-    {
-        $this->student = $student;
-        return $this;
-    }
-
-    public function setGradeChoice($gradeChoice)
-    {
-        $this->gradeChoice = $gradeChoice;
-        return $this;
-    }
-
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-        return $this;
-    }
-
 }

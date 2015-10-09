@@ -1,7 +1,4 @@
-<?php
-
-namespace Core\Entity;
-
+<?php namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -9,7 +6,6 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class SubjectRound
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -33,12 +29,6 @@ class SubjectRound
     protected $gradeSubjectRound;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="subjectRound")
-     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     */
-    protected $teacher;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Subject", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
@@ -50,81 +40,13 @@ class SubjectRound
      */
     protected $group;
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getIndependentWork()
-    {
-        return $this->independentWork;
-    }
-
-    public function getContactLesson()
-    {
-        return $this->contactLesson;
-    }
-
-    public function getGradeSubjectRound()
-    {
-        return $this->gradeSubjectRound;
-    }
-
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setIndependentWork($independentWork)
-    {
-        $this->independentWork = $independentWork;
-        return $this;
-    }
-
-    public function setContactLesson($contactLesson)
-    {
-        $this->contactLesson = $contactLesson;
-        return $this;
-    }
-
-    public function setGradeSubjectRound($gradeSubjectRound)
-    {
-        $this->gradeSubjectRound = $gradeSubjectRound;
-        return $this;
-    }
-
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-        return $this;
-    }
-
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-        return $this;
-    }
-
-    public function setGroup($group)
-    {
-        $this->group = $group;
-        return $this;
-    }
-
+    /**
+     * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="subjectRound")
+     * @ORM\JoinTable(
+     *     name="TeacherToSubjectRound",
+     *     joinColumns={@ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
+     * )
+     */
+    protected $teacher;
 }

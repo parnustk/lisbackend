@@ -1,7 +1,4 @@
-<?php
-
-namespace Core\Entity;
-
+<?php namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -9,7 +6,6 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class AbsenceReason
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -26,38 +22,4 @@ class AbsenceReason
      * @ORM\OneToMany(targetEntity="Absence", mappedBy="absenceReason")
      */
     protected $absence;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getAbsence()
-    {
-        return $this->absence;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function setAbsence($absence)
-    {
-        $this->absence = $absence;
-        return $this;
-    }
-
 }
