@@ -41,8 +41,22 @@ class ContactLesson
     private $subjectRound;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Rooms", inversedBy="contactLesson")
-     * @ORM\JoinColumn(name="rooms_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="Rooms", inversedBy="contactLesson")
+     * @ORM\JoinTable(
+     *     name="RoomsToContactLesson",
+     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="rooms_id", referencedColumnName="id", nullable=false)}
+     * )
      */
     private $rooms;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="contactLesson")
+     * @ORM\JoinTable(
+     *     name="TeacherToContactLesson",
+     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
+     * )
+     */
+    private $teacher;
 }

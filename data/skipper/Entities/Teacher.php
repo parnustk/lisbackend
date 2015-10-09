@@ -47,12 +47,22 @@ class Teacher
     private $lisUser;
 
     /**
-     * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="teacher")
+     * @ORM\OneToMany(targetEntity="IndependentWork", mappedBy="teacher")
      */
-    private $subjectRound;
+    private $independentWork;
 
     /**
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="teacher")
      */
     private $studentGrade;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="SubjectRound", mappedBy="teacher")
+     */
+    private $subjectRound;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="teacher")
+     */
+    private $contactLesson;
 }

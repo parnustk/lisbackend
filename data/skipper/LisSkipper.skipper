@@ -66,16 +66,9 @@
     </association>
     <entity name="\SubjectRound" local-name="SubjectRound" namespace="\" uuid="b5e6ba8f-9ca3-472c-bdc4-e2abfbf11a1c">
       <field name="id" type="bigint" required="true" unique="true" primary="true" auto-increment="true" uuid="1d04b8e7-3e8c-4b8b-873f-1574ea4b3dbf"/>
-      <field name="teacher_id" type="integer" required="true" uuid="aad4f5a4-46fe-4e4d-aeca-c9776f89bc0e"/>
       <field name="subject_id" type="bigint" required="true" uuid="5f3c437d-6983-4ec8-84aa-051c1514de5b"/>
       <field name="group_id" type="bigint" required="true" uuid="cd8a323c-96cd-426a-8a88-0715ce0504d7"/>
     </entity>
-    <association from="\SubjectRound" to="\Teacher" caption="Teacher SubjectRound" owner-alias="subjectRound" inverse-alias="teacher" many-owner="true" many-inverse="false" parent-required="true" uuid="ca1c3702-7bbc-40a5-9f02-5ce3c1adaa33">
-      <association-field from="teacher_id" to="id"/>
-      <orm-attributes>
-        <attribute name="on-delete">RESTRICT</attribute>
-      </orm-attributes>
-    </association>
     <association from="\SubjectRound" to="\Subject" caption="Subject SubjectRound" owner-alias="subjectRound" inverse-alias="subject" many-owner="true" many-inverse="false" parent-required="true" uuid="4b57edbe-01aa-4ddf-aea1-7920edf24300">
       <association-field from="subject_id" to="id"/>
       <orm-attributes>
@@ -189,6 +182,7 @@
       <field name="description" type="string" required="true" uuid="3103824f-0966-43cb-bb34-263c82c5e23d"/>
       <field name="durationAK" type="integer" required="true" uuid="e0625939-a039-446a-beaa-f9496a589242"/>
       <field name="subject_round_id" type="bigint" required="true" uuid="b53e249e-7190-4f22-95f9-b43f0d01dd59"/>
+      <field name="teacher_id" type="integer" required="true" uuid="290e67e8-f262-4f09-b418-fa5bdcfcbfc7"/>
       <index name="homeworkdate">
         <index-field name="duedate"/>
       </index>
@@ -202,13 +196,15 @@
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
     </association>
+    <association from="\IndependentWork" to="\Teacher" caption="Teacher IndependentWork" owner-alias="independentWork" inverse-alias="teacher" many-owner="true" many-inverse="false" parent-required="true" uuid="a479dead-79ec-429d-81f0-a324165048e5">
+      <association-field from="teacher_id" to="id"/>
+    </association>
     <entity name="\ContactLesson" local-name="ContactLesson" namespace="\" uuid="86ccd6eb-3824-4a95-93cd-12e6aec2cf70">
       <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="d8c3ac37-2907-4869-869c-a84702c531d6"/>
       <field name="lessonDate" type="datetime" required="true" uuid="f59462f8-f415-4ad9-9ff8-cc7f845d643a"/>
       <field name="description" type="string" size="255" required="true" uuid="f9d4eb82-f78f-4851-8e60-1049a32be8c0"/>
       <field name="durationAK" type="integer" required="true" uuid="9b9d3fe3-321c-41c9-9bb4-22cf1e5086fe"/>
       <field name="subject_round_id" type="bigint" required="true" uuid="4311803b-d654-4c4b-92c9-04d9e934f211"/>
-      <field name="rooms_id" type="integer" uuid="5b216007-303d-40f9-9abb-9acf5db54ce6"/>
       <index name="contactlessonlessondate">
         <index-field name="lessonDate"/>
       </index>
@@ -218,9 +214,6 @@
       <orm-attributes>
         <attribute name="on-delete">CASCADE</attribute>
       </orm-attributes>
-    </association>
-    <association from="\ContactLesson" to="\Rooms" caption="Rooms ContactLesson" owner-alias="contactLesson" inverse-alias="rooms" many-owner="true" many-inverse="false" uuid="0e9b1098-b9b0-454b-b7a5-a28bd1593ac9">
-      <association-field from="rooms_id" to="id"/>
     </association>
     <entity name="\Rooms" local-name="Rooms" namespace="\" uuid="e113a96b-e62a-41d4-99f9-72a040e36551">
       <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="28059141-554b-4fa0-865d-fa2a92ba3c03"/>
@@ -309,11 +302,46 @@
     <association from="\Administrator" to="\LisUser" caption="LisUser Administrator" owner-alias="administrator" inverse-alias="lisUser" many-owner="false" many-inverse="false" parent-required="true" uuid="51a855a5-771b-4bc7-a679-165427571996">
       <association-field from="lis_user_id" to="id"/>
     </association>
+    <entity name="\RoomsToContactLesson" local-name="RoomsToContactLesson" namespace="\" uuid="bad5dddb-c199-4e98-b63d-b2fc040b8b80">
+      <field name="rooms_id" type="integer" required="true" primary="true" uuid="85ba838a-0676-4f19-9579-98e0e990d8e5"/>
+      <field name="contact_lesson_id" type="integer" required="true" primary="true" uuid="f5075ec3-8a34-408a-bade-cc7684dee047"/>
+    </entity>
+    <many-to-many mn-entity="\RoomsToContactLesson" caption="Rooms to ContactLesson" uuid="a99ba174-c062-4cc7-ba16-6126cbbae33d">
+      <many-to-many-entity name="\ContactLesson" owning-side="true" alias="contactLesson" uuid="e18cd508-7fdc-4aa5-b6b0-12572c3934a1">
+        <many-to-many-field from="contact_lesson_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\Rooms" owning-side="false" alias="rooms" uuid="360de368-cc7b-418c-8c6c-db61c980d810">
+        <many-to-many-field from="rooms_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\TeacherToSubjectRound" local-name="TeacherToSubjectRound" namespace="\" uuid="3ef71aac-419b-454e-b34a-b1f5df55aae1">
+      <field name="teacher_id" type="integer" required="true" primary="true" uuid="1d3593d5-0300-490d-a9b2-c2d0542ea7d7"/>
+      <field name="subject_round_id" type="bigint" required="true" primary="true" uuid="346e5419-f206-48dc-9bf4-a0a8d3b12d51"/>
+    </entity>
+    <many-to-many mn-entity="\TeacherToSubjectRound" caption="Teacher to SubjectRound" uuid="00800255-30ca-4676-8c3e-9897eacbad3a">
+      <many-to-many-entity name="\SubjectRound" owning-side="true" alias="subjectRound" uuid="ca95883b-57fc-4531-8ebf-806ff463823a">
+        <many-to-many-field from="subject_round_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\Teacher" owning-side="false" alias="teacher" uuid="8d1fea5e-a7ec-4a72-ad58-febc99ddd6de">
+        <many-to-many-field from="teacher_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="\TeacherToContactLesson" local-name="TeacherToContactLesson" namespace="\" uuid="7d481cab-376d-4e3e-9d8c-214589b3f27a">
+      <field name="teacher_id" type="integer" required="true" primary="true" uuid="4f37265f-549f-4333-8497-f077e0469a32"/>
+      <field name="contact_lesson_id" type="integer" required="true" primary="true" uuid="41c14bf4-4a23-4c6f-aac8-965c0840a255"/>
+    </entity>
+    <many-to-many mn-entity="\TeacherToContactLesson" caption="Teacher to ContactLesson" uuid="d866b448-5f6c-480c-91b0-51ace109f9ac">
+      <many-to-many-entity name="\ContactLesson" owning-side="true" alias="contactLesson" uuid="f5a3f9ae-66d2-4023-84dd-45b2cd052021">
+        <many-to-many-field from="contact_lesson_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\Teacher" owning-side="false" alias="teacher" uuid="2c866927-bc9d-4523-9b33-81aeb18d6ee3">
+        <many-to-many-field from="teacher_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
   </module>
   <visual-data>
     <association uuid="01aac92b-f9e4-4fa1-aa28-5eab8681da8a" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="09cc16e6-815c-4e0e-8712-a4e4d5025172" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="0e9b1098-b9b0-454b-b7a5-a28bd1593ac9" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="2edbaf5b-fb2f-40ae-a543-83577dae1349" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="2f12d0d4-09e7-4ba8-a9d7-b5209fab8e18" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="3230c2da-afa1-4265-9233-d6acb75eb166" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
@@ -325,10 +353,10 @@
     <association uuid="81f4eb32-df09-404e-9f8c-96460d02589e" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="899277dd-1566-48e2-91df-15ee9ca6c95d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="8c8e3c4a-9150-44f4-a379-4759b979e0df" caption1-position-x="0" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="a479dead-79ec-429d-81f0-a324165048e5" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="c0a768a4-a979-43d9-9492-5cd243ebc7d0" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="c0b2894f-de36-42ab-b49d-0ee5e96a8a65" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="c8f6c334-19cf-4ad4-aa97-0cf31e6d5a70" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="ca1c3702-7bbc-40a5-9f02-5ce3c1adaa33" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="d833a08a-acb7-491c-848e-d8077d515f3b" caption1-position-x="-1" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="dc984b61-06fb-42f7-9dba-c38d10957a36" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <association uuid="fa0c8f54-4b21-42c2-8749-33cf2540b55d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
@@ -336,36 +364,42 @@
     <association uuid="ff2ecab5-be63-4361-a4e9-f548575dc81b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <entity uuid="065e63d3-55eb-4719-8701-df642561d5ea" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1038" position-y="143" size-x="0" size-x2="114" size-y="0" size-y2="73"/>
     <entity uuid="140c3460-bb20-4ce8-84ca-1c17241963fc" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="286" position-y="-10" size-x="0" size-x2="116" size-y="0" size-y2="73"/>
-    <entity uuid="1f20d5ac-6119-4e11-bd07-4d97d62479c7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="612" position-y="300" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
+    <entity uuid="1f20d5ac-6119-4e11-bd07-4d97d62479c7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="594" position-y="286" size-x="0" size-x2="114" size-y="0" size-y2="101"/>
     <entity uuid="24262c8a-10be-45e0-a6de-b098b13568a0" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="245" position-y="466" size-x="0" size-x2="154" size-y="0" size-y2="115"/>
-    <entity uuid="295e33ee-0b90-4775-95c8-90f32f154b47" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="962" position-y="281" size-x="0" size-x2="138" size-y="0" size-y2="87"/>
+    <entity uuid="295e33ee-0b90-4775-95c8-90f32f154b47" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1193" position-y="298" size-x="0" size-x2="138" size-y="0" size-y2="87"/>
     <entity uuid="2aedd1ed-28bb-4cd7-a2fc-caaf62f74e7e" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="115" position-y="16" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
     <entity uuid="2bd41295-3c97-404a-870e-066a146589a8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="180" position-y="216" size-x="0" size-x2="117" size-y="0" size-y2="101"/>
     <entity uuid="31b1764d-61e4-4425-961f-ed41ead92c34" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="773" position-y="169" size-x="0" size-x2="126" size-y="0" size-y2="59"/>
+    <entity uuid="3ef71aac-419b-454e-b34a-b1f5df55aae1" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="439" position-y="-40" size-x="0" size-x2="135" size-y="0" size-y2="60"/>
     <entity uuid="41ede2e1-f3ba-4a2d-96fb-544867096b53" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="840" position-y="18" size-x="0" size-x2="114" size-y="0" size-y2="101"/>
     <entity uuid="6a0fe87a-b56c-43e3-a450-979a3fa50db9" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="744" position-y="-15" size-x="0" size-x2="77" size-y="0" size-y2="45"/>
     <entity uuid="719874d0-8003-40cd-b199-9245cb82197d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="776" position-y="644" size-x="0" size-x2="122" size-y="0" size-y2="45"/>
+    <entity uuid="7d481cab-376d-4e3e-9d8c-214589b3f27a" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="62" position-y="635" size-x="0" size-x2="138" size-y="0" size-y2="60"/>
     <entity uuid="8518592d-da7d-4e83-806b-8d5472d837d7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="630" position-y="561" size-x="0" size-x2="122" size-y="0" size-y2="87"/>
     <entity uuid="86ccd6eb-3824-4a95-93cd-12e6aec2cf70" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="445" position-y="520" size-x="0" size-x2="122" size-y="0" size-y2="101"/>
     <entity uuid="936d3e24-d380-471e-8278-7fe71ac0edba" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-6" position-y="420" size-x="0" size-x2="128" size-y="0" size-y2="60"/>
-    <entity uuid="b185bb7d-6ca4-423e-b1c1-10e15bcfbfdf" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1004" position-y="554" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
+    <entity uuid="b185bb7d-6ca4-423e-b1c1-10e15bcfbfdf" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1213" position-y="457" size-x="0" size-x2="98" size-y="0" size-y2="45"/>
     <entity uuid="b2c5cbe7-b60e-48c8-ba87-b8af33258472" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="1033" position-y="-29" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
     <entity uuid="b5e6ba8f-9ca3-472c-bdc4-e2abfbf11a1c" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="439" position-y="188" size-x="0" size-x2="102" size-y="0" size-y2="73"/>
+    <entity uuid="bad5dddb-c199-4e98-b63d-b2fc040b8b80" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="479" position-y="665" size-x="0" size-x2="135" size-y="0" size-y2="60"/>
     <entity uuid="c79af1c1-6f5b-4634-9916-781d12fdc8a4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-3" position-y="138" size-x="0" size-x2="127" size-y="0" size-y2="60"/>
     <entity uuid="dec0a0d0-dc78-4d63-a1d1-0f44f3e08eca" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="630" position-y="106" size-x="0" size-x2="99" size-y="0" size-y2="59"/>
-    <entity uuid="e113a96b-e62a-41d4-99f9-72a040e36551" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="397" position-y="680" size-x="0" size-x2="77" size-y="0" size-y2="45"/>
+    <entity uuid="e113a96b-e62a-41d4-99f9-72a040e36551" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="266" position-y="658" size-x="0" size-x2="77" size-y="0" size-y2="45"/>
     <entity uuid="e7035ada-ff53-4a77-a3d6-6e1f0bf032ca" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="737" position-y="391" size-x="0" size-x2="95" size-y="0" size-y2="45"/>
     <entity uuid="f1bfe515-8651-4ab3-8e2c-a54856e08176" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="5" position-y="262" size-x="0" size-x2="104" size-y="0" size-y2="45"/>
     <entity uuid="f6a508ef-c32a-4955-bcde-1aa1fa87f62f" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="881" position-y="500" size-x="0" size-x2="139" size-y="0" size-y2="45"/>
     <inheritance-child uuid="0320381c-542f-409f-90da-37bfe6473d8d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
     <inheritance-child uuid="74ba4846-0853-4dd6-828d-2459c0f00840" caption1-position-x="-1" caption1-position-y="1" center-position-x="0" center-position-y="0" color="#969696"/>
     <inheritance-child uuid="d119c6d5-b566-4f62-80a1-eceddac0b1a7" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <many-to-many-association uuid="00800255-30ca-4676-8c3e-9897eacbad3a" color="#969696"/>
     <many-to-many-association uuid="95df7f04-9fcb-4f9e-a1fa-31c50b1cef2c" color="#969696"/>
+    <many-to-many-association uuid="a99ba174-c062-4cc7-ba16-6126cbbae33d" color="#969696"/>
+    <many-to-many-association uuid="d866b448-5f6c-480c-91b0-51ace109f9ac" color="#969696"/>
     <many-to-many-association uuid="f145f53b-bec9-475d-83bc-c189f71906b7" color="#969696"/>
     <many-to-many-association-entity uuid="39b8ff9f-1f66-4cb8-b769-f89a4f023b88" caption1-position-x="3" caption1-position-y="51" center-position-x="0" center-position-y="0"/>
     <many-to-many-association-entity uuid="a92a4a81-36ea-4390-a114-da855f991bed" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
     <many-to-many-association-entity uuid="d0bcfe34-b87f-4133-b673-186fc26eaab4" caption1-position-x="1" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
-    <module uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c" bg-color="#EAE4F1" position-x="61" position-y="72" size-x="11" size-x2="1159" size-y="32" size-y2="731"/>
-    <project uuid="57f94a20-004e-4167-928e-d6ce9364128e" size-x="0" size-x2="1270" size-y="10" size-y2="853"/>
+    <module uuid="3d0c44ba-b128-4be1-876d-51fe614edc7c" bg-color="#EAE4F1" position-x="61" position-y="72" size-x="11" size-x2="1350" size-y="60" size-y2="731"/>
+    <project uuid="57f94a20-004e-4167-928e-d6ce9364128e" size-x="0" size-x2="1461" size-y="10" size-y2="853"/>
   </visual-data>
 </skipper>

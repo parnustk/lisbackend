@@ -44,4 +44,10 @@ class IndependentWork
      * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $subjectRound;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="independentWork")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
+     */
+    private $teacher;
 }

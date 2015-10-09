@@ -29,12 +29,6 @@ class SubjectRound
     private $gradeSubjectRound;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="subjectRound")
-     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     */
-    private $teacher;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Subject", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
@@ -45,4 +39,14 @@ class SubjectRound
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)
      */
     private $group;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="subjectRound")
+     * @ORM\JoinTable(
+     *     name="TeacherToSubjectRound",
+     *     joinColumns={@ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
+     * )
+     */
+    private $teacher;
 }

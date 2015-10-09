@@ -19,7 +19,7 @@ class Rooms
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="ContactLesson", mappedBy="rooms")
+     * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="rooms")
      */
     private $contactLesson;
 }
