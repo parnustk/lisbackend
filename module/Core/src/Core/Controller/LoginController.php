@@ -15,6 +15,17 @@ class LoginController extends AbstractBaseController
 {
 
     /**
+     * OPTIONS
+     * headers are sent from .htaccess
+     * 
+     * @return type
+     */
+    public function options()
+    {
+        return new JsonModel([]);
+    }
+
+    /**
      * @var Form
      */
     protected $loginForm;
@@ -47,17 +58,17 @@ class LoginController extends AbstractBaseController
     public function create($data)
     {
         try {
-            if ($this->zfcUserAuthentication()->hasIdentity()) {
+            if ($this->zfcUserAuthentication()->hasIdentity()) {//does not work
                 return new JsonModel([
                     'success' => true,
                     'message' => 'Already logged in.'
                 ]);
             }
             $form = $this->getLoginForm();
-            
+
             $form->setData($data);
             $form->isValid();
-            print_r($form->getData());
+
             if (!$form->isValid()) {
                 throw new Exception('INVALID LOGIN');
             }
@@ -73,7 +84,7 @@ class LoginController extends AbstractBaseController
             ]);
         }
     }
-    
+
     /**
      * Logout
      * @return JsonModel

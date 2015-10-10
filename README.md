@@ -112,6 +112,11 @@ Or oneliner:
     sudo a2ensite lis.local.conf && sudo a2ensite lis.local-ssl.conf && 
         sudo a2enmod ssl && sudo service apache2 restart
 
+More apache modules:
+
+    sudo a2enmod headers
+    sudo a2enmod rewrite
+
 ### Set up ORM DB connection
 
 Add database in your local MySQL(or other) server. MySQL possible collation for database is utf8 bin - enables UTF8 safe case-sensitivity.
@@ -263,3 +268,12 @@ http://blog.falafel.com/building-single-page-applications-with-canjs-and-require
 winner at the moment CanJs
 
 ## Auth think of http://framework.zend.com/manual/current/en/modules/zend.authentication.adapter.http.html
+
+## CanJS AMD
+Helps:
+
+    https://github.com/kloy/diving-into-canjs-amd  
+    http://canjs.com/guides/using-production.html  
+    https://github.com/canjs/can-compile/tree/master/example  
+    google CanJs in production  
+    https://github.com/bitovi/canjs/issues/111 (set headers)
