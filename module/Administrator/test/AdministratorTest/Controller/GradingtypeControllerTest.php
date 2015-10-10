@@ -92,7 +92,7 @@ class GradingtypeControllerTest extends \PHPUnit_Framework_TestCase
             print_r($result->msg);
             echo "\n--------------------------------------------------------\n";
         } else {
-//            print_r($result);
+            //print_r($result);
         }
         //print_r($s);
         $this->assertEquals(1, $s);
@@ -126,7 +126,7 @@ class GradingtypeControllerTest extends \PHPUnit_Framework_TestCase
         //create one to delete first
         $em = $this->controller->getEntityManager();
 
-        $sample = new \Core\Entity\ModuleType($em);
+        $sample = new \Core\Entity\GradingType($em);
         $sample->hydrate(['gradingType' => 'PHPUNIT']);
 
         if (!$sample->validate()) {

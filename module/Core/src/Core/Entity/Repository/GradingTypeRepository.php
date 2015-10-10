@@ -42,7 +42,7 @@ class GradingTypeRepository extends EntityRepository
      */
     public function GetList()
     {
-        $dql = "SELECT partial s.{id,name} FROM Core\Entity\GradingType s";
+        $dql = "SELECT partial s.{id,gradingType} FROM Core\Entity\GradingType s";
         $q = $this->getEntityManager()->createQuery($dql);
         $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         return $r;
