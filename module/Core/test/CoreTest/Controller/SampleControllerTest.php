@@ -61,49 +61,46 @@ class SampleControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $s);
     }
 
-    public function testGetList()
-    {
+//    public function testGetList()
+//    {
+//
+//        $this->request->setMethod('get');
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $s = (int) $result->success;
+//        if ($s !== 1) {
+//            echo "\n--------------------------------------------------------\n";
+//            print_r($result->msg);
+//            echo "\n--------------------------------------------------------\n";
+//        } else {
+////            print_r($result);
+//        }
+//        //print_r($s);
+//        $this->assertEquals(1, $s);
+//    }
 
-        $this->request->setMethod('get');
+    public function testUpdate()
+    {
+        $this->routeMatch->setParam('id', '1');
+
+        $this->request->setMethod('put');
+
+        $this->request->setContent(http_build_query([
+            "name" => "Ahoi Tere"
+        ]));
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $s = (int) $result->success;
         if ($s !== 1) {
             echo "\n--------------------------------------------------------\n";
-            print_r($result->msg);
+            print_r($result);
             echo "\n--------------------------------------------------------\n";
         } else {
-//            print_r($result);
+            //print_r($result);
         }
-        //print_r($s);
         $this->assertEquals(1, $s);
     }
-    
-//     public function testUpdate()
-//    {
-//        $this->routeMatch->setParam('id', '1');
-//
-//        $this->request->setMethod('put');
-//
-//        $this->request->setContent(http_build_query([
-//            "name" => "Ahoi Tere"
-//        ]));
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $s = (int) $result->success;
-//        if ($s !== 1)
-//        {
-//            echo "\n--------------------------------------------------------\n";
-//            print_r($result);
-//            echo "\n--------------------------------------------------------\n";
-//        }
-//        else
-//        {
-//            //print_r($result);
-//        }
-//        $this->assertEquals(1, $s);
-//    }
 
 }
