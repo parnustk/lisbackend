@@ -19,8 +19,6 @@ class ModuleController extends AbstractBaseController
      */
     public function create($data)
     {
-        print_r($data);
-
         return new JsonModel(
                 $this
                         ->getServiceLocator()
