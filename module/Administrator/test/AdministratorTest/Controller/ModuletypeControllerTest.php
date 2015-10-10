@@ -43,14 +43,73 @@ class ModuletypeControllerTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $this->request->setMethod('post');
-        
-        //set correct data
         $this->request->getPost()->set("name", "Test Tere Maailm");
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
 
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $s = (int) $result->success;
+        if ($s !== 1) {
+            echo "\n--------------------------------------------------------\n";
+            print_r($result);
+            echo "\n--------------------------------------------------------\n";
+        } else {
+//            print_r($result);
+        }
+        $this->assertEquals(1, $s);
+    }
+
+    public function testGet()
+    {
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', '1');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
+        $s = (int) $result->success;
+        if ($s !== 1) {
+            echo "\n--------------------------------------------------------\n";
+            print_r($result->msg);
+            echo "\n--------------------------------------------------------\n";
+        } else {
+//            print_r($result);
+        }
+        //print_r($s);
+        $this->assertEquals(1, $s);
+    }
 
+    public function testGetList()
+    {
+
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $s = (int) $result->success;
+        if ($s !== 1) {
+            echo "\n--------------------------------------------------------\n";
+            print_r($result->msg);
+            echo "\n--------------------------------------------------------\n";
+        } else {
+//            print_r($result);
+        }
+        //print_r($s);
+        $this->assertEquals(1, $s);
+    }
+
+    public function testUpdate()
+    {
+        $this->routeMatch->setParam('id', '1');
+
+        $this->request->setMethod('put');
+
+        $this->request->setContent(http_build_query([
+            "name" => "Ahoi Tere"
+        ]));
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
         $s = (int) $result->success;
         if ($s !== 1) {
             echo "\n--------------------------------------------------------\n";
@@ -61,47 +120,39 @@ class ModuletypeControllerTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals(1, $s);
     }
-//
-////    public function testGetList()
-////    {
-////
-////        $this->request->setMethod('get');
-////        $result = $this->controller->dispatch($this->request);
-////        $response = $this->controller->getResponse();
-////        $this->assertEquals(200, $response->getStatusCode());
-////        $s = (int) $result->success;
-////        if ($s !== 1) {
-////            echo "\n--------------------------------------------------------\n";
-////            print_r($result->msg);
-////            echo "\n--------------------------------------------------------\n";
-////        } else {
-//////            print_r($result);
-////        }
-////        //print_r($s);
-////        $this->assertEquals(1, $s);
-////    }
-//
-//    public function testUpdate()
-//    {
-//        $this->routeMatch->setParam('id', '1');
-//
-//        $this->request->setMethod('put');
-//
-//        $this->request->setContent(http_build_query([
-//            "name" => "Ahoi Tere"
-//        ]));
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $s = (int) $result->success;
-//        if ($s !== 1) {
-//            echo "\n--------------------------------------------------------\n";
+
+    public function testDelete()
+    {
+        //create one to delete first
+        $em = $this->controller->getEntityManager();
+
+        $sample = new \Core\Entity\ModuleType($em);
+        $sample->hydrate(['name' => 'PHPUNIT']);
+
+        if (!$sample->validate()) {
+            throw new Exception(Json::encode($sample->getMessages(), true));
+        }
+
+        $em->persist($sample);
+        $em->flush($sample);
+
+        $this->routeMatch->setParam('id', $sample->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $s = (int) $result->success;
+        if ($s !== 1) {
+            echo "\n--------------------------------------------------------\n";
+            print_r($result);
+            echo "\n--------------------------------------------------------\n";
+        } else {
 //            print_r($result);
-//            echo "\n--------------------------------------------------------\n";
-//        } else {
-//            //print_r($result);
-//        }
-//        $this->assertEquals(1, $s);
-//    }
+        }
+        $this->assertEquals(1, $s);
+    }
 
 }

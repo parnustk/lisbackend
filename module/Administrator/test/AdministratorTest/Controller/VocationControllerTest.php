@@ -39,6 +39,14 @@ class SampleControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($serviceManager);
     }
+    
+    /**
+     * Dummy test for testclass
+     */
+    public function testT()
+    {
+        $this->assertEquals(1, 1);
+    }
 
 //    public function testCreate()
 //    {
@@ -103,5 +111,4 @@ class SampleControllerTest extends \PHPUnit_Framework_TestCase
 //        }
 //        $this->assertEquals(1, $s);
 //    }
-
 }

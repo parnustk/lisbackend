@@ -34,14 +34,18 @@ class Module
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
-
                 'vocation_service' => function ($serviceManager) {
                     $t = new \Core\Service\VocationService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
-                        
+                'moduletype_service' => function ($serviceManager) {
+                    $t = new \Core\Service\ModuleTypeService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
             ],
         ];
     }
