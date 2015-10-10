@@ -46,6 +46,12 @@ class Module
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
+                'gradingtype_service' => function ($serviceManager) {
+                    $t = new \Core\Service\GradingTypeService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
             ],
         ];
     }

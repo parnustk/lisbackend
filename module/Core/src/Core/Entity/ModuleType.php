@@ -21,17 +21,17 @@ class ModuleType extends \Core\Utils\EntityValidation
     protected $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      * @Annotation\Validator({"name":"StringLength", "options":{"min":1, "max":255}})
      * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z ]/"}})
-     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
 
     /**
-     * @Annotation\Exclude()
      * @ORM\OneToMany(targetEntity="Module", mappedBy="moduleType")
+     * @Annotation\Exclude()
      */
     protected $module;
 
