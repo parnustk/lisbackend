@@ -3,7 +3,7 @@
 namespace AdministratorTest\Controller;
 
 use AdministratorTest\Bootstrap;
-use Administrator\Controller\VocationController;
+use Administrator\Controller\ModuletypeController;
 use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
@@ -15,7 +15,7 @@ use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 /**
  * @author sander
  */
-class SampleControllerTest extends \PHPUnit_Framework_TestCase
+class ModuletypeControllerTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $controller;
@@ -27,7 +27,7 @@ class SampleControllerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $serviceManager = Bootstrap::getServiceManager();
-        $this->controller = new VocationController();
+        $this->controller = new ModuletypeController();
         $this->request = new Request();
         $this->routeMatch = new RouteMatch(array('controller' => 'index'));
         $this->event = new MvcEvent();
@@ -40,27 +40,27 @@ class SampleControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setServiceLocator($serviceManager);
     }
 
-//    public function testCreate()
-//    {
-//        $this->request->setMethod('post');
-//        
-//        //set correct data
-//        $this->request->getPost()->set("name", "Test Tere Maailm");
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//
-//        $s = (int) $result->success;
-//        if ($s !== 1) {
-//            echo "\n--------------------------------------------------------\n";
-//            print_r($result);
-//            echo "\n--------------------------------------------------------\n";
-//        } else {
-//            //print_r($result);
-//        }
-//        $this->assertEquals(1, $s);
-//    }
+    public function testCreate()
+    {
+        $this->request->setMethod('post');
+        
+        //set correct data
+        $this->request->getPost()->set("name", "Test Tere Maailm");
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $s = (int) $result->success;
+        if ($s !== 1) {
+            echo "\n--------------------------------------------------------\n";
+            print_r($result);
+            echo "\n--------------------------------------------------------\n";
+        } else {
+            //print_r($result);
+        }
+        $this->assertEquals(1, $s);
+    }
 //
 ////    public function testGetList()
 ////    {
