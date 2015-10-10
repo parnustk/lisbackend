@@ -50,7 +50,7 @@ class ModuleControllerTest extends \PHPUnit_Framework_TestCase
         $vocation->hydrate([
             'name' => 'VocationName',
             'code' => uniqid(),
-            'durationEKAP' => '12'
+            'durationEKAP' => '12',
         ]);
 
         if (!$vocation->validate()) {

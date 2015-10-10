@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityRepository;
 //use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 //use Zend\Paginator\Paginator;
 use Core\Entity\ModuleType;
+use Exception;
+use Zend\Json\Json;
 
 /**
  * @author sander

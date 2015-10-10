@@ -63,16 +63,19 @@ class Module extends \Core\Utils\EntityValidation
     /**
      * @ORM\ManyToOne(targetEntity="ModuleType", inversedBy="module")
      * @ORM\JoinColumn(name="module_type_id", referencedColumnName="id", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $moduleType;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\ManyToMany(targetEntity="GradingType", inversedBy="module")
      * @ORM\JoinTable(
      *     name="GradingTypeToModule",
      *     joinColumns={@ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="grading_type_id", referencedColumnName="id", nullable=false)}
      * )
+     * 
      */
     protected $gradingType;
 

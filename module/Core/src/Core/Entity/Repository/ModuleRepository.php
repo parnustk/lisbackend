@@ -33,6 +33,11 @@ class ModuleRepository extends EntityRepository
                 throw new Exception(Json::encode($entity->getMessages(), true));
             }
             
+            //manytomany manually
+            if (!count($entity->getGradingType())) {
+                throw new Exception(Json::encode('Missing gradingType', true));
+            }
+            
             $this->getEntityManager()->persist($entity);
             $this->getEntityManager()->flush($entity);
 
