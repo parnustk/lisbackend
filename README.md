@@ -249,6 +249,11 @@ after succeed move to OAUTH2 if theres time.
 https://github.com/coolcsn/CsnAuthorization/blob/master/src/CsnAuthorization/Entity/Resource.php
 http://luci.criosweb.ro/simplify-handling-of-tables-entities-forms-and-validations-in-zf2-by-using-annotations/
 
+## Doctrine hydrator
+See:
+
+    https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
+
 ## Front End research
 
 Reqs:
@@ -286,3 +291,5 @@ Helps:
     https://github.com/canjs/can-compile/tree/master/example  
     google CanJs in production  
     https://github.com/bitovi/canjs/issues/111 (set headers)
+
+http://stackoverflow.com/questions/26290976/canjs-extending-can-model-with-additional-methods

@@ -36,7 +36,7 @@ class Vocation extends \Core\Utils\EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
-     * @ORM\Column(type="float", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationEKAP;
 
