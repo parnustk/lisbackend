@@ -4,27 +4,25 @@
 PHP >= 5.4  
 Mysql >= 5.4  
 
-## If You want to set up Your own new Zend2 + ORM project follow: 
-http://framework.zend.com/manual/current/en/user-guide/skeleton-application.html  
-https://getcomposer.org/doc/00-intro.md  
-http://marco-pivetta.com/doctrine-orm-zf2-tutorial/#/  
+## If You want to set up Your own new Zend2 + ORM project 
+follow: 
 
-## Instructions
-Following instructions are written for Ubuntu and Lamp. All can be accomplished 
-using Mac or Windows or other Linux distro.  
-  
+    http://framework.zend.com/manual/current/en/user-guide/skeleton-application.html  
+    https://getcomposer.org/doc/00-intro.md  
+    http://marco-pivetta.com/doctrine-orm-zf2-tutorial/#/  
+
 ### Instructions
+
 Following instructions are written for Ubuntu and Lamp. All can be accomplished 
 using Mac or Windows or other Linux distro.  
-Install Main project  
+Install Main project - open up terminal
 
     mkdir ~/web # Your own path
     cd ~/web # Your own pat
     mkdir lis # Your own pat
     cd lis # Inside project root
-    git clone https://sandermets@bitbucket.org/sandermets/lisbackend.git .
+    git clone https://github.com/parnustk/lisbackend.git .
     curl -sS https://getcomposer.org/installer | php
-    php composer.phar self-update  
     php composer.phar update  
 
 You should have now folder vendor in Your project's root folder.  
@@ -151,7 +149,6 @@ Add file config/autoload/doctrineorm.local.php:
         ],
     ];
 
-
 All done! Open https://lis.local/ and http://lis.local/ to test.
 
 ## Install database from Entities
@@ -161,6 +158,10 @@ All done! Open https://lis.local/ and http://lis.local/ to test.
 Create Entities against database(in current projects root directory):
     
     php vendor/bin/doctrine-module orm:schema-tool:create
+
+Now installation is complete time for sunning tests:
+
+    TODO
 
 #### More helpers
 
@@ -190,7 +191,9 @@ Generate proxies:
 
 
 ### Optional Helper ZF-tool
+
 http://framework.zend.com/manual/current/en/modules/zendtool.introduction.html
+
 Install in project root:
 
   php composer.phar require zendframework/zftool:dev-master
@@ -209,12 +212,14 @@ Create controller
     vendor/bin/zf.php create controller Sample Core
 
 ## Testing
+
 We will use FUNCTIONAL testing. Testing will be against REAL DATABASE in LOCAL ENVIRONMENT.  
 In other words we are testing Controllers only if no volunteers found.
 We probably have no time for UNIT tests.  
 Test stories will be generated using TSLgenerator.  
 
 ### PHPUnit
+
 https://phpunit.de/getting-started.html  
 Install php unit(Latest phpunit reqs php >= 5.6 so we use older version):
     
@@ -225,6 +230,7 @@ Install php unit(Latest phpunit reqs php >= 5.6 so we use older version):
     phpunit --version
 
 ### Testing module
+
 In projects root:
 
     cd module/Core/src/test
@@ -235,6 +241,7 @@ https://zfmodules.com/:
 
     ZfcUserDoctrineORM
     LdcZfcUserOAuth2
+
 TODO first make it work with ZfcUserDoctrineORM
 after succeed move to OAUTH2 if theres time. 
 
@@ -270,6 +277,7 @@ winner at the moment CanJs
 ## Auth think of http://framework.zend.com/manual/current/en/modules/zend.authentication.adapter.http.html
 
 ## CanJS AMD
+
 Helps:
 
     https://github.com/kloy/diving-into-canjs-amd  
