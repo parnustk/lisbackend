@@ -57,11 +57,8 @@ class SampleRepository extends EntityRepository
      */
     public function Update($id, $data)
     {
-
         $sample = $this->find($id);
-
         $sample->setEntityManager($this->getEntityManager());
-
         $sample->hydrate($data);
 
         if (!$sample->validate()) {
