@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\VocationRepository")
  * @ORM\Table(
  *     indexes={@ORM\Index(name="vocationname", columns={"name"}),@ORM\Index(name="vocationcode", columns={"code"})}
  * )
@@ -18,6 +18,7 @@ class Vocation extends \Core\Utils\EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
@@ -35,7 +36,7 @@ class Vocation extends \Core\Utils\EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="float", nullable=false)
      */
     protected $durationEKAP;
 

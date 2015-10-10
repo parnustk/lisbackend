@@ -3,8 +3,6 @@
 namespace Core\Controller;
 
 use Zend\View\Model\JsonModel;
-use Exception;
-use Zend\Json\Json;
 use Core\Controller\AbstractBaseController;
 
 /**
