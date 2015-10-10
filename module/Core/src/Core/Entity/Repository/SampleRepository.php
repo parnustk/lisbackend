@@ -74,4 +74,11 @@ class SampleRepository extends EntityRepository
         return $sample;
     }
 
+    public function Delete($id)
+    {
+        $sample = $this->find($id);
+        $this->getEntityManager()->remove($sample);
+        $this->getEntityManager()->flush();
+    }
+
 }

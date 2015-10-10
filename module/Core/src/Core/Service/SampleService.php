@@ -15,6 +15,28 @@ class SampleService extends AbstractBaseService
      * 
      * @return type
      */
+    public function Get($id)
+    {
+        try {
+            $r = $this->getEntityManager()
+                    ->getRepository('Core\Entity\Sample')
+                    ->find($id);
+            return [
+                'success' => true,
+                'data' => $r
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * 
+     * @return type
+     */
     public function GetList()
     {
         try {
@@ -22,7 +44,7 @@ class SampleService extends AbstractBaseService
                     ->getRepository('Core\Entity\Sample')
                     ->GetList();
             return [
-                'success' => false,
+                'success' => true,
                 'data' => $r
             ];
         } catch (Exception $ex) {
@@ -78,6 +100,27 @@ class SampleService extends AbstractBaseService
             ];
         } catch (\Exception $ex) {
 
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function Delete($id)
+    {
+        try {
+            $this->getEntityManager()
+                    ->getRepository('Core\Entity\Sample')
+                    ->Delete($id);
+            return [
+                'success' => true
+            ];
+        } catch (Exception $ex) {
             return [
                 'success' => false,
                 'message' => $ex->getMessage()

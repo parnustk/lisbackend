@@ -30,6 +30,22 @@ class SampleController extends AbstractBaseController
     /**
      * GET
      * 
+     * @param type $id
+     * @return JsonModel
+     */
+    public function get($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('sample_service')
+                        ->Get($id)
+        );
+    }
+
+    /**
+     * GET
+     * 
      * @return JsonModel
      */
     public function getList()
@@ -56,6 +72,23 @@ class SampleController extends AbstractBaseController
                         ->getServiceLocator()
                         ->get('sample_service')
                         ->Update($id, $data)
+        );
+    }
+
+    /**
+     * DELETE
+     * 
+     * @param type $id
+     * @param type $data
+     * @return JsonModel
+     */
+    public function delete($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('sample_service')
+                        ->Delete($id)
         );
     }
 
