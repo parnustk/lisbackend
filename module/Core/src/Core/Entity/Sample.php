@@ -1,5 +1,6 @@
-<?php namespace Core\Entity;
+<?php
 
+namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;

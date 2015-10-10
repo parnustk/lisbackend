@@ -1,12 +1,17 @@
-<?php namespace Core\Entity;
+<?php
+
+namespace Core\Entity;
+
 use Doctrine\ORM\Mapping AS ORM;
+use Zend\Form\Annotation;
 
 /**
  * @ORM\Entity
  * @ORM\Table(indexes={@ORM\Index(name="contactlessonlessondate", columns={"lessonDate"})})
  */
-class ContactLesson
+class ContactLesson extends \Core\Utils\EntityValidation
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -15,6 +20,7 @@ class ContactLesson
     protected $id;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="datetime", nullable=false)
      */
     protected $lessonDate;
@@ -25,6 +31,7 @@ class ContactLesson
     protected $description;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationAK;
@@ -44,8 +51,8 @@ class ContactLesson
      * @ORM\ManyToMany(targetEntity="Rooms", inversedBy="contactLesson")
      * @ORM\JoinTable(
      *     name="RoomsToContactLesson",
-     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="rooms_id", referencedColumnName="id", nullable=false)}
+     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=true)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="rooms_id", referencedColumnName="id", nullable=true)}
      * )
      */
     protected $rooms;
@@ -59,4 +66,87 @@ class ContactLesson
      * )
      */
     protected $teacher;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getLessonDate()
+    {
+        return $this->lessonDate;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getDurationAK()
+    {
+        return $this->durationAK;
+    }
+
+    public function getAbsence()
+    {
+        return $this->absence;
+    }
+
+    public function getSubjectRound()
+    {
+        return $this->subjectRound;
+    }
+
+    public function getRooms()
+    {
+        return $this->rooms;
+    }
+
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+
+    public function setLessonDate($lessonDate)
+    {
+        $this->lessonDate = $lessonDate;
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setDurationAK($durationAK)
+    {
+        $this->durationAK = $durationAK;
+        return $this;
+    }
+
+    public function setAbsence($absence)
+    {
+        $this->absence = $absence;
+        return $this;
+    }
+
+    public function setSubjectRound($subjectRound)
+    {
+        $this->subjectRound = $subjectRound;
+        return $this;
+    }
+
+    public function setRooms($rooms)
+    {
+        $this->rooms = $rooms;
+        return $this;
+    }
+
+    public function setTeacher($teacher)
+    {
+        $this->teacher = $teacher;
+        return $this;
+    }
+
 }

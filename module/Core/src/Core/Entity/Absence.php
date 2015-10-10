@@ -3,11 +3,12 @@
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
+use Zend\Form\Annotation;
 
 /**
  * @ORM\Entity
  */
-class Absence
+class Absence extends \Core\Utils\EntityValidation
 {
 
     /**
@@ -18,6 +19,7 @@ class Absence
     protected $id;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $description;
@@ -29,12 +31,14 @@ class Absence
     protected $absenceReason;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="absence")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
     protected $student;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\ManyToOne(targetEntity="ContactLesson", inversedBy="absence")
      * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)
      */
@@ -63,12 +67,6 @@ class Absence
     public function getContactLesson()
     {
         return $this->contactLesson;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function setDescription($description)

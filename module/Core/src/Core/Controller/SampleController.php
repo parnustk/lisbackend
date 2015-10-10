@@ -20,21 +20,11 @@ class SampleController extends AbstractBaseController
      */
     public function create($data)
     {
-        try {
-            $sampleService = $this
-                    ->getServiceLocator()
-                    ->get('sample_service');
-
-            $r = $sampleService->AddSample($data);
-            return new JsonModel([
-                'success' => $r,
-            ]);
-        } catch (\Exception $exc) {
-            return new JsonModel([
-                'success' => false,
-                'message' => $exc->getMessage()
-            ]);
-        }
+        $sampleService = $this
+                ->getServiceLocator()
+                ->get('sample_service');
+        $r = $sampleService->Create($data);
+        return new JsonModel($r);
     }
 
     /**
@@ -49,7 +39,7 @@ class SampleController extends AbstractBaseController
                     ->getServiceLocator()
                     ->get('sample_service');
 
-            $r = $sampleService->GetSamples();
+            $r = $sampleService->GetList();
 
             return new JsonModel([
                 'success' => true,
@@ -62,6 +52,7 @@ class SampleController extends AbstractBaseController
             ]);
         }
     }
+
 //    NOT TESTED YET
 //    /**
 //     * Return single resource
@@ -108,6 +99,7 @@ class SampleController extends AbstractBaseController
     {
         return new JsonModel([$id => $data]);
     }
+
 //
 //    /**
 //     * Delete an existing resource

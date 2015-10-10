@@ -1,5 +1,5 @@
 <?php namespace Core\Entity;
-use Doctrine\ORM\Mapping AS ORM;
+use Doctrine\ORM\Mapping AS ORM; use Zend\Form\Annotation; 
 
 /**
  * @ORM\Entity

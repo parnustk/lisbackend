@@ -209,7 +209,7 @@ Create module:
 
 Create controller
 
-    vendor/bin/zf.php create controller Sample Core
+    vendor/bin/zf.php create   Sample Core
 
 ## Testing
 

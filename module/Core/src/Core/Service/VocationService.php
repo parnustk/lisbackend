@@ -13,7 +13,7 @@ use Zend\Json\Json;
  * Teting Service set up. Remove later on.
  * @author sander
  */
-class SampleService implements ServiceManagerAwareInterface
+class VocationService implements ServiceManagerAwareInterface
 {
 
     /**
@@ -88,6 +88,7 @@ class SampleService implements ServiceManagerAwareInterface
                 'message' => $ex->getMessage()
             ];
         }
+        
     }
 
     /**
@@ -95,7 +96,7 @@ class SampleService implements ServiceManagerAwareInterface
      * @param array $data
      * @throws Exception
      */
-    public function Create(array $data)
+    public function Create($data)
     {
         try {
             $sample = $this->getEntityManager()
@@ -106,29 +107,13 @@ class SampleService implements ServiceManagerAwareInterface
                 'success' => true,
                 'data' => $sample->getArrayCopy()
             ];
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
 
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
             ];
         }
-    }
-
-    /**
-     * Update an existing resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return mixed
-     */
-    public function update($id, $data)
-    {
-        $this->response->setStatusCode(405);
-
-        return [
-            'content' => 'Method Not Allowed'
-        ];
     }
 
 }
