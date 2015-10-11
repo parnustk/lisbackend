@@ -20,12 +20,10 @@ class ModuleController extends AbstractBaseController
     public function create($data)
     {
         $r = $this
-                        ->getServiceLocator()
-                        ->get('module_service')
-                        ->Create($data);
+                    ->getServiceLocator()
+                    ->get('module_service')
+                    ->Create($data);
        
-        $a = new JsonModel($r);
-        print_r($a->serialize()); die('here');
         return new JsonModel($r);
     }
 

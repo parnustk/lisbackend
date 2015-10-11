@@ -65,16 +65,55 @@ class ModuleRepository extends EntityRepository
         return $entity;
     }
 
+    public function Get($id, $returnPartial = false)
+    {
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial m.{id,name,duration,code},
+                        partial vocation.{id,name,code,durationEKAP},
+                        partial moduleType.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Module m
+                    JOIN m.vocation vocation 
+                    JOIN m.moduleType moduleType
+                    JOIN m.gradingType gradingType 
+                    WHERE m.id = " . $id . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
+    }
+
     /**
      * 
      * @return Array
      */
-    public function GetList()
+    public function GetList($returnPartial = false)
     {
-        $dql = "SELECT partial s.{id,name} FROM Core\Entity\Module s";
-        $q = $this->getEntityManager()->createQuery($dql);
-        $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-        return $r;
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial m.{id,name,duration,code},
+                        partial vocation.{id,name,code,durationEKAP},
+                        partial moduleType.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Module m
+                    JOIN m.vocation vocation 
+                    JOIN m.moduleType moduleType
+                    JOIN m.gradingType gradingType
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->findAll();
     }
 
     /**
@@ -84,7 +123,7 @@ class ModuleRepository extends EntityRepository
      * @return Sample
      * @throws Exception
      */
-    public function Update($id, $data)
+    public function Update($id, $data, $returnPartial = false)
     {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
@@ -97,6 +136,27 @@ class ModuleRepository extends EntityRepository
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
 
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial m.{id,name,duration,code},
+                        partial vocation.{id,name,code,durationEKAP},
+                        partial moduleType.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Module m
+                    JOIN m.vocation vocation 
+                    JOIN m.moduleType moduleType
+                    JOIN m.gradingType gradingType 
+                    WHERE m.id = " . $id . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+            return $r;
+        }
         return $entity;
     }
 

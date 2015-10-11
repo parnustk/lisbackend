@@ -20,7 +20,7 @@ class ModuleService extends AbstractBaseService
         try {
             $r = $this->getEntityManager()
                     ->getRepository('Core\Entity\Module')
-                    ->find($id);
+                    ->Get($id, true);
             return [
                 'success' => true,
                 'data' => $r
@@ -42,7 +42,7 @@ class ModuleService extends AbstractBaseService
         try {
             $r = $this->getEntityManager()
                     ->getRepository('Core\Entity\Module')
-                    ->GetList();
+                    ->GetList(true);
             return [
                 'success' => true,
                 'data' => $r
@@ -66,7 +66,7 @@ class ModuleService extends AbstractBaseService
             $sample = $this->getEntityManager()
                     ->getRepository('Core\Entity\Module')
                     ->Create($data, true);
-            
+
             return [
                 'success' => true,
                 'data' => $sample
@@ -92,11 +92,11 @@ class ModuleService extends AbstractBaseService
         try {
             $sample = $this->getEntityManager()
                     ->getRepository('Core\Entity\Module')
-                    ->Update($id, $data);
+                    ->Update($id, $data, true);
 
             return [
                 'success' => true,
-                'data' => $sample->getArrayCopy()
+                'data' => $sample
             ];
         } catch (\Exception $ex) {
 
