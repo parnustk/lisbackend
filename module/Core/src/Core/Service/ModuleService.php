@@ -65,11 +65,11 @@ class ModuleService extends AbstractBaseService
         try {
             $sample = $this->getEntityManager()
                     ->getRepository('Core\Entity\Module')
-                    ->Create($data);
-
+                    ->Create($data, true);
+            
             return [
                 'success' => true,
-                'data' => $sample->getArrayCopy()
+                'data' => $sample
             ];
         } catch (\Exception $ex) {
 

@@ -105,10 +105,9 @@ class Module extends \Core\Utils\EntityValidation
      */
     public function removeGradingType(Collection $gradingTypes)
     {
-//        foreach ($gradingTypes as $gradingType) {
-//            //$gradingType->setModule(null);
-//            $this->gradingType->removeElement($gradingType);
-//        }
+        foreach ($gradingTypes as $gradingType) {
+            $this->gradingType->removeElement($gradingType);
+        }
     }
 
     public function getId()
@@ -201,12 +200,6 @@ class Module extends \Core\Utils\EntityValidation
     public function setModuleType($moduleType)
     {
         $this->moduleType = $moduleType;
-        return $this;
-    }
-
-    public function setGradingType($gradingType)
-    {
-        $this->gradingType = $gradingType;
         return $this;
     }
 

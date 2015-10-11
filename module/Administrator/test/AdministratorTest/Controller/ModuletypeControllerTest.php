@@ -101,7 +101,6 @@ class ModuletypeControllerTest extends \PHPUnit_Framework_TestCase
     public function testUpdate()
     {
         $this->routeMatch->setParam('id', '1');
-
         $this->request->setMethod('put');
 
         $this->request->setContent(http_build_query([

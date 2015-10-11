@@ -19,30 +19,50 @@ class ModuleRepository extends EntityRepository
     /**
      * 
      * @param array $data
-     * @param type $params
+     * @param boolean $returnPartial
+     * @return mixed
      * @throws Exception
      */
-    public function Create($data)
+    public function Create($data, $returnPartial = false)
     {
-            
-            $entity = new Module($this->getEntityManager());
-            
-            $entity->hydrate($data);
-            
-            if (!$entity->validate()) {
-                throw new Exception(Json::encode($entity->getMessages(), true));
-            }
-            
-            //manytomany manually
-            if (!count($entity->getGradingType())) {
-                throw new Exception(Json::encode('Missing gradingType', true));
-            }
-            
-            $this->getEntityManager()->persist($entity);
-            $this->getEntityManager()->flush($entity);
 
-            return $entity;
-     
+        $entity = new Module($this->getEntityManager());
+
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+
+        //manytomany validate manually
+        if (!count($entity->getGradingType())) {
+            throw new Exception(Json::encode('Missing gradingType', true));
+        }
+
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial m.{id,name,duration,code},
+                        partial vocation.{id,name,code,durationEKAP},
+                        partial moduleType.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Module m
+                    JOIN m.vocation vocation 
+                    JOIN m.moduleType moduleType
+                    JOIN m.gradingType gradingType 
+                    WHERE m.id = " . $entity->getId() . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $entity;
     }
 
     /**
