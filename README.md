@@ -246,10 +246,12 @@ TODO first make it work with ZfcUserDoctrineORM
 after succeed move to OAUTH2 if theres time. 
 
 ## Validation of entities
+
 https://github.com/coolcsn/CsnAuthorization/blob/master/src/CsnAuthorization/Entity/Resource.php
 http://luci.criosweb.ro/simplify-handling-of-tables-entities-forms-and-validations-in-zf2-by-using-annotations/
 
 ## Doctrine hydrator
+
 See:
 
     https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
@@ -280,6 +282,7 @@ http://blog.falafel.com/building-single-page-applications-with-canjs-and-require
 winner at the moment CanJs
 
 ## Auth 
+
 think of http://framework.zend.com/manual/current/en/modules/zend.authentication.adapter.http.html
 
 ## CanJS AMD
@@ -295,9 +298,11 @@ Helps:
 http://stackoverflow.com/questions/26290976/canjs-extending-can-model-with-additional-methods
 
 ## Final winner AngularJS
+
 After some extra research - final winner is AngularJS.
 
 ### Set up
+
 Gulp:
 
     https://github.com/paislee/healthy-gulp-angular  
