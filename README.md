@@ -313,4 +313,5 @@ Examples:
 Rest($resource):
 
     http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
+    (https://github.com/jsprodotcom/source/blob/master/movieApp.zip)
 
