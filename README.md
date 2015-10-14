@@ -293,3 +293,24 @@ Helps:
     https://github.com/bitovi/canjs/issues/111 (set headers)
 
 http://stackoverflow.com/questions/26290976/canjs-extending-can-model-with-additional-methods
+
+## Final winner AngularJS
+After some extra research - final winner is AngularJS.
+
+### Set up
+Gulp:
+
+    https://github.com/paislee/healthy-gulp-angular  
+    https://github.com/Hyra/Frickle/  
+
+Examples:
+    
+    http://www.w3schools.com/angular/
+    http://jasonwatmore.com/post/2015/03/10/AngularJS-User-Registration-and-Login-Example.aspx  
+    http://www.codeproject.com/Articles/637430/Angular-js-example-application  
+    http://www.codeproject.com/Articles/607873/Extending-HTML-with-AngularJS-Directives  
+
+Rest($resource):
+
+    http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
+
