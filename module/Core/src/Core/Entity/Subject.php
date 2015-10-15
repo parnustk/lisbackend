@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRepository")
  * @ORM\Table(
  *     indexes={@ORM\Index(name="subjectname", columns={"name"}),@ORM\Index(name="subjectcode", columns={"code"})}
  * )
@@ -20,42 +20,50 @@ class Subject extends \Core\Utils\EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $name;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $durationAllAK;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $durationContactAK;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $durationIndependentAK;
 
     /**
      * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="subject")
+     * @Annotation\Exclude()
      */
     protected $subjectRound;
 
     /**
      * @ORM\ManyToOne(targetEntity="Module", inversedBy="subject")
      * @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Annotation\Required({"required":"true"})
      */
     protected $module;
 

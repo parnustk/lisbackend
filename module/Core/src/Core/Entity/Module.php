@@ -32,6 +32,7 @@ class Module extends \Core\Utils\EntityValidation
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $duration;
 

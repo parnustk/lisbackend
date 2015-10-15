@@ -58,6 +58,12 @@ class Module
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
+                'subject_service' => function ($serviceManager) {
+                    $t = new \Core\Service\SubjectService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
             ],
         ];
     }
