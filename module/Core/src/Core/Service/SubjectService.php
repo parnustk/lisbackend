@@ -64,7 +64,7 @@ class SubjectService extends AbstractBaseService
     {
         try {
             $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
+                    ->getRepository('Core\Entity\Subject')
                     ->Create($data, true);
 
             return [
@@ -91,7 +91,7 @@ class SubjectService extends AbstractBaseService
     {
         try {
             $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
+                    ->getRepository('Core\Entity\Subject')
                     ->Update($id, $data, true);
 
             return [
@@ -115,7 +115,7 @@ class SubjectService extends AbstractBaseService
     {
         try {
             $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
+                    ->getRepository('Core\Entity\Subject')
                     ->Delete($id);
             return [
                 'success' => true
