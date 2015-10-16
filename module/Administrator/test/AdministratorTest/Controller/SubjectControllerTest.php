@@ -15,7 +15,7 @@ class SubjectControllerTest extends UnitHelpers
 
     protected function setUp()
     {
-        $this->controller = new ModuleController();
+        $this->controller = new SubjectController();
         parent::setUp();
     }
 
