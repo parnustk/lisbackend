@@ -139,4 +139,30 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    /**
+     * 
+     * @param array $data | null
+     * @return Core\Entity\Subject
+     */
+    protected function CreateSubject($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\Subject');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        return $repository->Create([
+                    'code' => uniqid(),
+                    'name' => 'asd',
+                    'duration' => 12,
+                    'vocation' => $this->CreateVocation()->getId(),
+                    'moduleType' => $this->CreateModuleType()->getId(),
+                    'gradingType' => [
+                        ['id' => $this->CreateGradingType()->getId()],
+                        ['id' => $this->CreateGradingType()->getId()]
+                    ],
+        ]);
+    }
+
 }

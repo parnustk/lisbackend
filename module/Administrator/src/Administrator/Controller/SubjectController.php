@@ -14,7 +14,7 @@ class SubjectController extends AbstractBaseController
     /**
      * POST
      * 
-     * @param type $data
+     * @param array $data
      * @return JsonModel
      */
     public function create($data)
@@ -30,7 +30,7 @@ class SubjectController extends AbstractBaseController
     /**
      * GET
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
@@ -61,8 +61,8 @@ class SubjectController extends AbstractBaseController
     /**
      * PUT
      * 
-     * @param type $id
-     * @param type $data
+     * @param int $id
+     * @param array $data
      * @return JsonModel
      */
     public function update($id, $data)
@@ -78,8 +78,8 @@ class SubjectController extends AbstractBaseController
     /**
      * DELETE
      * 
-     * @param type $id
-     * @param type $data
+     * @param int $id
+     * @param array $data
      * @return JsonModel
      */
     public function delete($id)

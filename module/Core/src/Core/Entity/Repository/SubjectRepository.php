@@ -6,9 +6,10 @@ use Doctrine\ORM\EntityRepository;
 //use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 //use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 //use Zend\Paginator\Paginator;
-use Core\Entity\Module;
+use Core\Entity\Subject;
 use Exception;
 use Zend\Json\Json;
+use Doctrine\ORM\Query;
 
 /**
  * @author sander
@@ -26,7 +27,7 @@ class SubjectRepository extends EntityRepository
     public function Create($data, $returnPartial = false)
     {
 
-        $entity = new Module($this->getEntityManager());
+        $entity = new Subject($this->getEntityManager());
 
         $entity->hydrate($data);
 
@@ -35,31 +36,31 @@ class SubjectRepository extends EntityRepository
         }
 
         //manytomany validate manually
-//        if (!count($entity->getGradingType())) {
-//            throw new Exception(Json::encode('Missing gradingType', true));
-//        }
+        if (!count($entity->getGradingType())) {
+            throw new Exception(Json::encode('Missing gradingType', true));
+        }
 
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
 
         if ($returnPartial) {
 
-//            $dql = "
-//                    SELECT 
-//                        partial m.{id,name,duration,code},
-//                        partial vocation.{id,name,code,durationEKAP},
-//                        partial moduleType.{id,name},
-//                        partial gradingType.{id,gradingType}
-//                    FROM Core\Entity\Module m
-//                    JOIN m.vocation vocation 
-//                    JOIN m.moduleType moduleType
-//                    JOIN m.gradingType gradingType 
-//                    WHERE m.id = " . $entity->getId() . "
-//                ";
+            $dql = "
+                    SELECT 
+                        partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
+                        partial module.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Subject s
+                    JOIN s.module module 
+                    JOIN s.gradingType gradingType
+                    WHERE s.id = " . $entity->getId() . "
+                ";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
 
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+//            print_r($data);
+//            die('tere');
             return $r;
         }
         return $entity;
@@ -68,7 +69,7 @@ class SubjectRepository extends EntityRepository
     public function Get($id, $returnPartial = false)
     {
         if ($returnPartial) {
-            
+
 //            $dql = "
 //                    SELECT 
 //                        partial m.{id,name,duration,code},
@@ -97,7 +98,7 @@ class SubjectRepository extends EntityRepository
     public function GetList($returnPartial = false)
     {
         if ($returnPartial) {
-            
+
 //            $dql = "
 //                    SELECT 
 //                        partial m.{id,name,duration,code},

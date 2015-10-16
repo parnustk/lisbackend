@@ -60,16 +60,15 @@ class SubjectService extends AbstractBaseService
      * @param array $data
      * @throws Exception
      */
-    public function Create(array $data)
+    public function Create($data)
     {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Subject')
-                    ->Create($data, true);
-
             return [
                 'success' => true,
-                'data' => $sample
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Subject')
+                        ->Create($data, true)
             ];
         } catch (\Exception $ex) {
 
