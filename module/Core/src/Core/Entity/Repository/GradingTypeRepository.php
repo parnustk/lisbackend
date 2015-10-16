@@ -38,7 +38,7 @@ class GradingTypeRepository extends EntityRepository
 
             $dql = "
                     SELECT 
-                        partial gt.{id,name}
+                        partial gt.{id,gradingType}
                     FROM Core\Entity\GradingType gt
                     WHERE gt.id = " . $entity->getId() . "
                 ";
@@ -51,16 +51,37 @@ class GradingTypeRepository extends EntityRepository
         return $entity;
     }
 
+    public function Get($id, $returnPartial = false)
+    {
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial gt.{id,gradingType}
+                    FROM Core\Entity\GradingType gt
+                    WHERE gt.id = " . $id . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
+    }
+
     /**
      * 
      * @return Array
      */
-    public function GetList()
+    public function GetList($returnPartial = false)
     {
-        $dql = "SELECT partial s.{id,gradingType} FROM Core\Entity\GradingType s";
-        $q = $this->getEntityManager()->createQuery($dql);
-        $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-        return $r;
+        if ($returnPartial) {
+            $dql = "SELECT partial s.{id,gradingType} FROM Core\Entity\GradingType s";
+            $q = $this->getEntityManager()->createQuery($dql);
+            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->findAll();
     }
 
     /**
@@ -70,7 +91,7 @@ class GradingTypeRepository extends EntityRepository
      * @return Sample
      * @throws Exception
      */
-    public function Update($id, $data)
+    public function Update($id, $data, $returnPartial = false)
     {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
@@ -83,14 +104,28 @@ class GradingTypeRepository extends EntityRepository
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
 
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial gt.{id,gradingType}
+                    FROM Core\Entity\GradingType gt
+                    WHERE gt.id = " . $id . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
         return $entity;
     }
 
     public function Delete($id)
     {
-        $entity = $this->find($id);
-        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();
+        return $id;
     }
 
 }

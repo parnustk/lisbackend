@@ -17,12 +17,11 @@ class GradingTypeService extends AbstractBaseService
     public function Get($id)
     {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\GradingType')
-                    ->find($id);
             return [
                 'success' => true,
-                'data' => $r
+                'data' => $this->getEntityManager()
+                        ->getRepository('Core\Entity\GradingType')
+                        ->Get($id, true)
             ];
         } catch (Exception $ex) {
             return [
@@ -39,12 +38,12 @@ class GradingTypeService extends AbstractBaseService
     public function GetList()
     {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\GradingType')
-                    ->GetList();
             return [
                 'success' => true,
-                'data' => $r
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\GradingType')
+                        ->GetList(true)
             ];
         } catch (Exception $ex) {
             return [
@@ -62,16 +61,14 @@ class GradingTypeService extends AbstractBaseService
     public function Create(array $data)
     {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\GradingType')
-                    ->Create($data);
-
             return [
                 'success' => true,
-                'data' => $sample->getArrayCopy()
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\GradingType')
+                        ->Create($data, true)
             ];
         } catch (\Exception $ex) {
-
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -113,11 +110,12 @@ class GradingTypeService extends AbstractBaseService
     public function Delete($id)
     {
         try {
-            $this->getEntityManager()
-                    ->getRepository('Core\Entity\GradingType')
-                    ->Delete($id);
             return [
-                'success' => true
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\GradingType')
+                        ->Delete($id)
             ];
         } catch (Exception $ex) {
             return [

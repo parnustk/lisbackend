@@ -167,7 +167,7 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
 
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
 
         //test it is not in the database anymore
         $deletedModule = $this->em

@@ -165,8 +165,7 @@ class ModuleRepository extends EntityRepository
      */
     public function Delete($id)
     {
-        $entity = $this->find($id);
-        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();
         return $id;
     }

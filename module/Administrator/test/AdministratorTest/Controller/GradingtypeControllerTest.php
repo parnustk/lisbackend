@@ -15,29 +15,13 @@ chdir(__DIR__);
 /**
  * @author sander
  */
-class GradingtypeControllerTest extends \PHPUnit_Framework_TestCase
+class GradingtypeControllerTest extends UnitHelpers
 {
-
-    protected $controller;
-    protected $request;
-    protected $response;
-    protected $routeMatch;
-    protected $event;
 
     protected function setUp()
     {
-        $serviceManager = Bootstrap::getServiceManager();
         $this->controller = new GradingtypeController();
-        $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'index'));
-        $this->event = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        parent::setUp();
     }
 
     public function testCreate()
@@ -46,113 +30,88 @@ class GradingtypeControllerTest extends \PHPUnit_Framework_TestCase
         $this->request->getPost()->set("gradingType", "Test Tere Maailm");
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->assertEquals(200, $response->getStatusCode());
-
-        $s = (int) $result->success;
-        if ($s !== 1) {
-            echo "\n--------------------------------------------------------\n";
-            print_r($result);
-            echo "\n--------------------------------------------------------\n";
-        } else {
-//            print_r($result);
-        }
-        $this->assertEquals(1, $s);
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, false);
     }
 
     public function testGet()
     {
         $this->request->setMethod('get');
-        $this->routeMatch->setParam('id', '1');
+        $this->routeMatch->setParam('id', $this->CreateGradingType()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
-        $s = (int) $result->success;
-        if ($s !== 1) {
-            echo "\n--------------------------------------------------------\n";
-            print_r($result->msg);
-            echo "\n--------------------------------------------------------\n";
-        } else {
-//            print_r($result);
-        }
-        //print_r($s);
-        $this->assertEquals(1, $s);
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, false);
     }
 
     public function testGetList()
     {
-
+        $this->CreateGradingType();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
-        $s = (int) $result->success;
-        if ($s !== 1) {
-            echo "\n--------------------------------------------------------\n";
-            print_r($result->msg);
-            echo "\n--------------------------------------------------------\n";
-        } else {
-            //print_r($result);
-        }
-        //print_r($s);
-        $this->assertEquals(1, $s);
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+        $this->PrintOut($result, false);
     }
 
     public function testUpdate()
     {
-        $this->routeMatch->setParam('id', '1');
+        $gradingType = $this->CreateGradingType();
 
+        $nameOld = $gradingType->getGradingType();
+
+        $this->routeMatch->setParam('id', $gradingType->getId());
         $this->request->setMethod('put');
 
         $this->request->setContent(http_build_query([
-            "gradingType" => "Ahoi Tere"
+            "gradingType" => "Updated"
         ]));
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->assertEquals(200, $response->getStatusCode());
-        $s = (int) $result->success;
-        if ($s !== 1) {
-            echo "\n--------------------------------------------------------\n";
-            print_r($result);
-            echo "\n--------------------------------------------------------\n";
-        } else {
-            //print_r($result);
-        }
-        $this->assertEquals(1, $s);
+        $this->assertEquals(1, $result->success);
+
+        $r = $this->em
+                ->getRepository('Core\Entity\GradingType')
+                ->find($result->data['id']);
+
+        $this->assertNotEquals(
+                $nameOld, $r->getGradingType()
+        );
+
+        $this->PrintOut($result, false);
     }
 
     public function testDelete()
     {
-        //create one to delete first
-        $em = $this->controller->getEntityManager();
+        $gradingType = $this->CreateGradingType();
 
-        $sample = new \Core\Entity\GradingType($em);
-        $sample->hydrate(['gradingType' => 'PHPUNIT']);
+        $idOld = $gradingType->getId();
 
-        if (!$sample->validate()) {
-            throw new Exception(Json::encode($sample->getMessages(), true));
-        }
-
-        $em->persist($sample);
-        $em->flush($sample);
-
-        $this->routeMatch->setParam('id', $sample->getId());
+        $this->routeMatch->setParam('id', $gradingType->getId());
         $this->request->setMethod('delete');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
 
-        $s = (int) $result->success;
-        if ($s !== 1) {
-            echo "\n--------------------------------------------------------\n";
-            print_r($result);
-            echo "\n--------------------------------------------------------\n";
-        } else {
-//            print_r($result);
-        }
-        $this->assertEquals(1, $s);
+        //test it is not in the database anymore
+        $deletedModule = $this->em
+                ->getRepository('Core\Entity\GradingType')
+                ->find($idOld);
+
+        $this->assertEquals(null, $deletedModule);
+        
+        $this->PrintOut($result, true);
     }
 
 }
