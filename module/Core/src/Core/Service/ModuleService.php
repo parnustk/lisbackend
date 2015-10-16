@@ -63,13 +63,12 @@ class ModuleService extends AbstractBaseService
     public function Create(array $data)
     {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
-                    ->Create($data, true);
-
             return [
                 'success' => true,
-                'data' => $sample
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Module')
+                        ->Create($data, true)
             ];
         } catch (\Exception $ex) {
 
@@ -90,15 +89,14 @@ class ModuleService extends AbstractBaseService
     public function Update($id, $data)
     {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
-                    ->Update($id, $data, true);
-
             return [
                 'success' => true,
-                'data' => $sample
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Module')
+                        ->Update($id, $data, true)
             ];
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
 
             return [
                 'success' => false,
@@ -114,11 +112,12 @@ class ModuleService extends AbstractBaseService
     public function Delete($id)
     {
         try {
-            $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
-                    ->Delete($id);
             return [
-                'success' => true
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Module')
+                        ->Delete($id)
             ];
         } catch (Exception $ex) {
             return [

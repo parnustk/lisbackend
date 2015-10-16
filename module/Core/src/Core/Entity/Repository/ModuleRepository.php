@@ -152,7 +152,6 @@ class ModuleRepository extends EntityRepository
                 ";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
             $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
 
             return $r;
@@ -160,11 +159,16 @@ class ModuleRepository extends EntityRepository
         return $entity;
     }
 
+    /**
+     * 
+     * @param type $id
+     */
     public function Delete($id)
     {
         $entity = $this->find($id);
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
+        return $id;
     }
 
 }

@@ -59,81 +59,58 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
     /**
      * 
+     * @param array $data | null
      * @return Core\Entity\Vocation
      */
     protected function CreateVocation($data = null)
     {
-        if ($data) {
-            $vocation = $this->em->getRepository('Core\Entity\Vocation')
-                    ->Create($data);
+        $repository = $this->em->getRepository('Core\Entity\Vocation');
 
-            return $vocation;
+        if ($data) {
+            return $repository->Create($data);
         }
-        $vocation = $this->em->getRepository('Core\Entity\Vocation')->Create([
-            'name' => 'VocationName',
-            'code' => uniqid(),
-            'durationEKAP' => '12',
+
+        return $repository->Create([
+                    'name' => 'VocationName',
+                    'code' => uniqid(),
+                    'durationEKAP' => '12',
         ]);
-        
-        return $vocation;
-        
-//        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
-//            'name' => 'VocationName',
-//            'code' => uniqid(),
-//            'durationEKAP' => '12',
-//        ]);
-//
-//        if (!$vocation->validate()) {
-//            print_r($vocation->getMessages());
-//        }
-//
-//        $this->em->persist($vocation);
-//        $this->em->flush();
-//
-//        return $vocation;
     }
 
     /**
      * 
+     * @param array $data | null
      * @return Core\Entity\ModuleType
      */
     protected function CreateModuleType($data = null)
     {
+        $repository = $this->em->getRepository('Core\Entity\ModuleType');
+
         if ($data) {
-            
+            return $repository->Create($data);
         }
 
-        $moduleType = (new \Core\Entity\ModuleType($this->em))->hydrate([
-            'name' => 'ModuleTypeName',
+        return $repository->Create([
+                    'name' => 'ModuleTypeName',
         ]);
-
-        if (!$moduleType->validate()) {
-            print_r($moduleType->getMessages());
-        }
-
-        $this->em->persist($moduleType);
-        $this->em->flush();
-
-        return $moduleType;
     }
 
     /**
      * 
+     * @param array $data | null
      * @return Core\Entity\GradingType
      */
     protected function CreateGradingType($data = null)
     {
-        $gradingType = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
+        $repository = $this->em->getRepository('Core\Entity\GradingType');
 
-        if (!$gradingType->validate()) {
-            print_r($gradingType->getMessages());
+        if ($data) {
+            return $repository->Create($data);
         }
-        $this->em->persist($gradingType);
-        $this->em->flush();
 
-        return $gradingType;
+        return $repository->Create([
+                    'gradingType' => 'GradingTypeName',
+        ]);
     }
 
     /**
@@ -143,24 +120,23 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      */
     protected function CreateModule($data = null)
     {
+        $repository = $this->em->getRepository('Core\Entity\Module');
+
         if ($data) {
-            $module = $this->em->getRepository('Core\Entity\Module')->Create($data);
-            return $module;
+            return $repository->Create($data);
         }
 
-        $module = $this->em->getRepository('Core\Entity\Module')->Create([
-            'code' => uniqid(),
-            'name' => 'asd',
-            'duration' => 12,
-            'vocation' => $this->CreateVocation()->getId(),
-            'moduleType' => $this->CreateModuleType()->getId(),
-            'gradingType' => [
-                ['id' => $this->CreateGradingType()->getId()],
-                ['id' => $this->CreateGradingType()->getId()]
-            ],
+        return $repository->Create([
+                    'code' => uniqid(),
+                    'name' => 'asd',
+                    'duration' => 12,
+                    'vocation' => $this->CreateVocation()->getId(),
+                    'moduleType' => $this->CreateModuleType()->getId(),
+                    'gradingType' => [
+                        ['id' => $this->CreateGradingType()->getId()],
+                        ['id' => $this->CreateGradingType()->getId()]
+                    ],
         ]);
-
-        return $module;
     }
 
 }

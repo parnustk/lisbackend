@@ -33,9 +33,9 @@ class ModuleControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
     }
-/*
+
     public function testCreateNoData()
     {
         $this->request->setMethod('post');
@@ -75,63 +75,7 @@ class ModuleControllerTest extends UnitHelpers
     public function testGetList()
     {
         //create one to get first
-        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
-            'name' => 'VocationName',
-            'code' => uniqid(),
-            'durationEKAP' => '12',
-        ]);
-        if (!$vocation->validate()) {
-            $this->PrintOut($vocation->getMessages());
-        }
-        $this->em->persist($vocation);
-        $moduleType = (new \Core\Entity\ModuleType($this->em))->hydrate([
-            'name' => 'ModuleTypeName',
-        ]);
-        if (!$moduleType->validate()) {
-            $this->PrintOut($moduleType->getMessages());
-        }
-        $this->em->persist($moduleType);
-
-        $gradingType = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType->validate()) {
-            $this->PrintOut($gradingType->getMessages());
-        }
-        $this->em->persist($gradingType);
-
-        $gradingType1 = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType1->validate()) {
-            $this->PrintOut($gradingType1->getMessages(), false);
-        }
-        $this->em->persist($gradingType1);
-
-        $this->em->flush();
-
-        $gradingTypes = [
-            ['id' => $gradingType->getId()],
-            ['id' => $gradingType1->getId()]
-        ];
-
-        $this->PrintOut($gradingTypes, false);
-
-        $module = $this->em->getRepository('Core\Entity\Module')->Create([
-            'code' => uniqid(),
-            'name' => 'asd',
-            'duration' => 12,
-            'vocation' => $vocation->getId(),
-            'moduleType' => $moduleType->getId(),
-            'gradingType' => $gradingTypes,
-                ], true);
-
-        $this->PrintOut($module, false);
-
-        $createdModule = $this->em
-                ->getRepository('Core\Entity\Module')
-                ->find($module['id']);
-
+        $this->CreateModule();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -143,123 +87,36 @@ class ModuleControllerTest extends UnitHelpers
 
     public function testUpdate()
     {
-        //Create one to update
-        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
-            'name' => 'VocationName',
-            'code' => uniqid(),
-            'durationEKAP' => '12',
-        ]);
-        if (!$vocation->validate()) {
-            $this->PrintOut($vocation->getMessages());
+        $createdModule = $this->CreateModule();
+
+        $nameOld = $createdModule->getName();
+        $codeOld = $createdModule->getCode();
+        $durationOld = $createdModule->getDuration();
+
+        $vocationIdOld = $createdModule->getVocation()->getId();
+        $moduleTypeOld = $createdModule->getModuleType()->getId();
+
+        $gradingTypesOld = [];
+        foreach ($createdModule->getGradingType() as $gType) {
+            $gradingTypesOld[] = $gType->getId();
         }
-        $this->em->persist($vocation);
-        $moduleType = (new \Core\Entity\ModuleType($this->em))->hydrate([
-            'name' => 'ModuleTypeName',
-        ]);
-        if (!$moduleType->validate()) {
-            $this->PrintOut($moduleType->getMessages());
-        }
-        $this->em->persist($moduleType);
 
-        $gradingType = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType->validate()) {
-            $this->PrintOut($gradingType->getMessages());
-        }
-        $this->em->persist($gradingType);
-
-        $gradingType1 = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType1->validate()) {
-            $this->PrintOut($gradingType1->getMessages(), false);
-        }
-        $this->em->persist($gradingType1);
-
-        $this->em->flush();
-
-        $gradingTypes = [
-            ['id' => $gradingType->getId()],
-            ['id' => $gradingType1->getId()]
-        ];
-
-        $gradingTypesOldArray = [
-            $gradingType->getId(),
-            $gradingType1->getId()
-        ];
-
-
-        $this->PrintOut($gradingTypes, false);
-
-        $module = $this->em->getRepository('Core\Entity\Module')->Create([
-            'code' => uniqid(),
-            'name' => 'asd',
-            'duration' => 12,
-            'vocation' => $vocation->getId(),
-            'moduleType' => $moduleType->getId(),
-            'gradingType' => $gradingTypes,
-                ], true);
-        $this->PrintOut($module, false);
-        $createdModule = $this->em
-                ->getRepository('Core\Entity\Module')
-                ->find($module['id']);
-
-//        foreach ($createdModule->getGradingType() as $gType) {
-//            $this->PrintOut($gType->getId(), false);
-//        }
-
-        $this->routeMatch->setParam('id', $createdModule->getId());
         $this->request->setMethod('put');
-
-        $vocationU = (new \Core\Entity\Vocation($this->em))->hydrate([
-            'name' => 'UPDATED',
-            'code' => uniqid(),
-            'durationEKAP' => 888,
-        ]);
-        if (!$vocationU->validate()) {
-            $this->PrintOut($vocationU->getMessages());
-        }
-        $this->em->persist($vocationU);
-
-        $moduleTypeU = (new \Core\Entity\ModuleType($this->em))->hydrate([
-            'name' => 'UPDATED',
-        ]);
-        if (!$moduleTypeU->validate()) {
-            $this->PrintOut($moduleTypeU->getMessages());
-        }
-        $this->em->persist($moduleTypeU);
-
-        $gradingTypeU = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'UPDATED',
-        ]);
-        if (!$gradingTypeU->validate()) {
-            $this->PrintOut($gradingTypeU->getMessages());
-        }
-        $this->em->persist($gradingTypeU);
-
-        $gradingType1U = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'UPDATED',
-        ]);
-        if (!$gradingType1U->validate()) {
-            $this->PrintOut($gradingType1U->getMessages(), false);
-        }
-        $this->em->persist($gradingType1U);
-
-        $this->em->flush();
+        $this->routeMatch->setParam('id', $createdModule->getId());
 
         $this->request->setContent(http_build_query([
             "name" => "Updated",
             'code' => uniqid(),
             'name' => 'Updated',
             'duration' => 888,
-            'vocation' => $vocationU->getId(),
-            'moduleType' => $moduleTypeU->getId(),
+            'vocation' => $this->CreateVocation()->getId(),
+            'moduleType' => $this->CreateModuleType()->getId(),
             'gradingType' => [
-                ['id' => $gradingTypeU->getId()],
-                ['id' => $gradingType1U->getId()]
+                ['id' => $this->CreateGradingType()->getId()],
+                ['id' => $this->CreateGradingType()->getId()]
             ],
         ]));
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
@@ -268,84 +125,40 @@ class ModuleControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
 
-        $this->PrintOut($result->data['gradingType'], false);
-
-//        $this->assertNotEquals($resultModule, $response);
-
-
         $resultModule = $this->em
                 ->getRepository('Core\Entity\Module')
                 ->find($result->data['id']);
 
+        $this->assertNotEquals(
+                $nameOld, $resultModule->getName()
+        );
+
+        $this->assertNotEquals(
+                $codeOld, $resultModule->getCode()
+        );
+
+        $this->assertNotEquals(
+                $durationOld, $resultModule->getDuration()
+        );
+
+        $this->assertNotEquals(
+                $vocationIdOld, $resultModule->getVocation()->getId()
+        );
+        $this->assertNotEquals(
+                $moduleTypeOld, $resultModule->getModuleType()->getId()
+        );
         //test that gradeTypes have beeing updated
         foreach ($resultModule->getGradingType() as $gtU) {
             $this->assertEquals(
-                    false, in_array($gtU->getId(), $gradingTypesOldArray)
+                    false, in_array($gtU->getId(), $gradingTypesOld)
             );
         }
     }
 
     public function testDelete()
     {
-        //create one to delete first
-        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
-            'name' => 'VocationName',
-            'code' => uniqid(),
-            'durationEKAP' => '12',
-        ]);
-        if (!$vocation->validate()) {
-            $this->PrintOut($vocation->getMessages());
-        }
-        $this->em->persist($vocation);
-        $moduleType = (new \Core\Entity\ModuleType($this->em))->hydrate([
-            'name' => 'ModuleTypeName',
-        ]);
-        if (!$moduleType->validate()) {
-            $this->PrintOut($moduleType->getMessages());
-        }
-        $this->em->persist($moduleType);
-
-        $gradingType = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType->validate()) {
-            $this->PrintOut($gradingType->getMessages());
-        }
-        $this->em->persist($gradingType);
-
-        $gradingType1 = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType1->validate()) {
-            $this->PrintOut($gradingType1->getMessages(), false);
-        }
-        $this->em->persist($gradingType1);
-
-        $this->em->flush();
-
-        $gradingTypes = [
-            ['id' => $gradingType->getId()],
-            ['id' => $gradingType1->getId()]
-        ];
-
-        $this->PrintOut($gradingTypes, false);
-
-        $module = $this->em->getRepository('Core\Entity\Module')->Create([
-            'code' => uniqid(),
-            'name' => 'asd',
-            'duration' => 12,
-            'vocation' => $vocation->getId(),
-            'moduleType' => $moduleType->getId(),
-            'gradingType' => $gradingTypes,
-                ], true);
-
-        $this->PrintOut($module, false);
-
-        $createdModule = $this->em
-                ->getRepository('Core\Entity\Module')
-                ->find($module['id']);
-
-        $this->routeMatch->setParam('id', $createdModule->getId());
+        $idOld = $this->CreateModule()->getId();        
+        $this->routeMatch->setParam('id', $idOld);
         $this->request->setMethod('delete');
 
         $result = $this->controller->dispatch($this->request);
@@ -354,13 +167,13 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
 
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        $this->PrintOut($result, true);
 
         //test it is not in the database anymore
         $deletedModule = $this->em
                 ->getRepository('Core\Entity\Module')
-                ->find($module['id']);
+                ->find($idOld);
         $this->assertEquals(null, $deletedModule);
     }
-*/
+
 }
