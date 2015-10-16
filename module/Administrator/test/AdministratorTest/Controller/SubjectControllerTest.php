@@ -43,7 +43,7 @@ class SubjectControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 
-    public function testCreateGradingType()
+    public function testCreateNoGradingType()
     {
         $this->request->setMethod('post');
 
@@ -189,7 +189,7 @@ class SubjectControllerTest extends UnitHelpers
         
         $this->assertEquals(null, $deletedModule);
         
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
     }
 
 }
