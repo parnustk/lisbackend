@@ -49,47 +49,22 @@ class ModuleControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
     }
 
     public function testCreateNoGradingType()
     {
         $this->request->setMethod('post');
-
-        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
-            'name' => 'VocationName',
-            'code' => uniqid(),
-            'durationEKAP' => '12',
-        ]);
-        if (!$vocation->validate()) {
-            throw new Exception(Json::encode($vocation->getMessages(), true));
-        }
-        $this->em->persist($vocation);
-
-        $moduleType = new \Core\Entity\ModuleType($this->em);
-        $moduleType->hydrate([
-            'name' => 'ModuleTypeName',
-        ]);
-
-        if (!$moduleType->validate()) {
-            throw new Exception(Json::encode($moduleType->getMessages(), true));
-        }
-        $this->em->persist($moduleType);
-        $this->em->flush();
-
-        $this->request->getPost()->set("vocation", $vocation->getId());
-        $this->request->getPost()->set("moduleType", $moduleType->getId());
+        $this->request->getPost()->set("vocation", $this->GetVocation()->getId());
+        $this->request->getPost()->set("moduleType", $this->GetModuleType()->getId());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
         $this->request->getPost()->set("code", uniqid());
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
-
-        $this->PrintOut($result);
+        $this->PrintOut($result, false);
     }
 
     public function testGet()

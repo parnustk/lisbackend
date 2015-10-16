@@ -118,4 +118,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         return $gradingType;
     }
 
+    protected function GetModule()
+    {
+        
+    }
+
 }
