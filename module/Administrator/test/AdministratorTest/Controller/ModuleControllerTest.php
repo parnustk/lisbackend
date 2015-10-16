@@ -4,8 +4,8 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\ModuleController;
 
-//error_reporting(E_ALL | E_STRICT);
-//chdir(__DIR__);
+error_reporting(E_ALL | E_STRICT);
+chdir(__DIR__);
 
 /**
  * @author sander
@@ -23,41 +23,10 @@ class ModuleControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
 
-        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
-            'name' => 'VocationName',
-            'code' => uniqid(),
-            'durationEKAP' => '12',
-        ]);
+        $this->request->getPost()->set("vocation", $this->GetVocation()->getId());
+        $this->request->getPost()->set("moduleType", $this->GetModuleType()->getId());
 
-        if (!$vocation->validate()) {
-            throw new Exception(Json::encode($vocation->getMessages(), true));
-        }
-
-        $this->em->persist($vocation);
-
-        $moduleType = (new \Core\Entity\ModuleType($this->em))->hydrate([
-            'name' => 'ModuleTypeName',
-        ]);
-
-        if (!$moduleType->validate()) {
-            throw new Exception(Json::encode($moduleType->getMessages(), true));
-        }
-        $this->em->persist($moduleType);
-
-        $gradingType = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-
-        if (!$gradingType->validate()) {
-            throw new Exception(Json::encode($gradingType->getMessages(), true));
-        }
-        $this->em->persist($gradingType);
-        $this->em->flush();
-
-        $this->request->getPost()->set("vocation", $vocation->getId());
-        $this->request->getPost()->set("moduleType", $moduleType->getId());
-
-        $this->request->getPost()->set("gradingType", $gradingType->getId());
+        $this->request->getPost()->set("gradingType", $this->GetGradingType()->getId());
 //        $this->request->getPost()->set("gradingType", ['id' => $gradingType->getId()]);
 
         $this->request->getPost()->set("name", "Test Tere Maailm");
@@ -70,7 +39,7 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
-        $this->PrintOut($result);
+        $this->PrintOut($result, false);
     }
 
     public function testCreateNoData()
@@ -80,7 +49,7 @@ class ModuleControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
-        $this->PrintOut($result);
+        $this->PrintOut($result, true);
     }
 
     public function testCreateNoGradingType()
