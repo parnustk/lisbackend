@@ -122,9 +122,7 @@ class ModuleControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
-
+        
         $resultModule = $this->em
                 ->getRepository('Core\Entity\Module')
                 ->find($result->data['id']);
@@ -153,6 +151,7 @@ class ModuleControllerTest extends UnitHelpers
                     false, in_array($gtU->getId(), $gradingTypesOld)
             );
         }
+         $this->PrintOut($result, false);
     }
 
     public function testDelete()
@@ -167,13 +166,15 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
 
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
 
         //test it is not in the database anymore
         $deletedModule = $this->em
                 ->getRepository('Core\Entity\Module')
                 ->find($idOld);
+        
         $this->assertEquals(null, $deletedModule);
+        
+        $this->PrintOut($result, false);
     }
 
 }

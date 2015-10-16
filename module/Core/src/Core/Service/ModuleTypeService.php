@@ -18,12 +18,12 @@ class ModuleTypeService extends AbstractBaseService
     public function Get($id)
     {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\ModuleType')
-                    ->find($id);
             return [
                 'success' => true,
-                'data' => $r
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\ModuleType')
+                        ->find($id, true)
             ];
         } catch (Exception $ex) {
             return [
@@ -40,12 +40,12 @@ class ModuleTypeService extends AbstractBaseService
     public function GetList()
     {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\ModuleType')
-                    ->GetList();
             return [
                 'success' => true,
-                'data' => $r
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\ModuleType')
+                        ->GetList(true)
             ];
         } catch (Exception $ex) {
             return [
@@ -63,15 +63,14 @@ class ModuleTypeService extends AbstractBaseService
     public function Create(array $data)
     {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\ModuleType')
-                    ->Create($data);
-
             return [
                 'success' => true,
-                'data' => $sample->getArrayCopy()
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\ModuleType')
+                        ->Create($data, true)
             ];
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
 
             return [
                 'success' => false,
@@ -90,16 +89,14 @@ class ModuleTypeService extends AbstractBaseService
     public function Update($id, $data)
     {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\ModuleType')
-                    ->Update($id, $data);
-
             return [
                 'success' => true,
-                'data' => $sample->getArrayCopy()
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\ModuleType')
+                        ->Update($id, $data, true)
             ];
-        } catch (\Exception $ex) {
-
+        } catch (Exception $ex) {
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -114,11 +111,12 @@ class ModuleTypeService extends AbstractBaseService
     public function Delete($id)
     {
         try {
-            $this->getEntityManager()
-                    ->getRepository('Core\Entity\ModuleType')
-                    ->Delete($id);
             return [
-                'success' => true
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\ModuleType')
+                        ->Delete($id)
             ];
         } catch (Exception $ex) {
             return [

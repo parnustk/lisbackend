@@ -68,7 +68,7 @@ class GradingTypeService extends AbstractBaseService
                         ->getRepository('Core\Entity\GradingType')
                         ->Create($data, true)
             ];
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -94,7 +94,7 @@ class GradingTypeService extends AbstractBaseService
                 'success' => true,
                 'data' => $sample->getArrayCopy()
             ];
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
 
             return [
                 'success' => false,

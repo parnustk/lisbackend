@@ -111,7 +111,7 @@ class GradingtypeControllerTest extends UnitHelpers
 
         $this->assertEquals(null, $deletedModule);
         
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
     }
 
 }

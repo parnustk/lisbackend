@@ -15,11 +15,11 @@ use Zend\Json\Json;
  */
 class ModuleTypeRepository extends EntityRepository
 {
-
     /**
      * 
-     * @param array $data
-     * @param type $params
+     * @param type $data
+     * @param type $returnPartial
+     * @return ModuleType
      * @throws Exception
      */
     public function Create($data, $returnPartial = false)
@@ -52,16 +52,39 @@ class ModuleTypeRepository extends EntityRepository
         return $entity;
     }
 
+    public function Get($id, $returnPartial = false)
+    {
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial mt.{id,name}
+                    FROM Core\Entity\ModuleType mt
+                    WHERE mt.id = " . $id . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
+    }
+
     /**
      * 
      * @return Array
      */
-    public function GetList()
+    public function GetList($returnPartial = false)
     {
-        $dql = "SELECT partial s.{id,name} FROM Core\Entity\ModuleType s";
-        $q = $this->getEntityManager()->createQuery($dql);
-        $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-        return $r;
+        if ($returnPartial) {
+            $dql = "
+                    SELECT partial mt.{id,name} 
+                    FROM Core\Entity\ModuleType mt";
+            $q = $this->getEntityManager()->createQuery($dql);
+            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->findAll();
     }
 
     /**
@@ -71,7 +94,7 @@ class ModuleTypeRepository extends EntityRepository
      * @return Sample
      * @throws Exception
      */
-    public function Update($id, $data)
+    public function Update($id, $data, $returnPartial = false)
     {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
@@ -84,13 +107,23 @@ class ModuleTypeRepository extends EntityRepository
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
 
+        if ($returnPartial) {
+            $dql = "
+                    SELECT partial mt.{id,name}
+                    FROM Core\Entity\ModuleType mt
+                    WHERE mt.id = " . $id . "
+                ";
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
         return $entity;
     }
 
     public function Delete($id)
     {
-        $entity = $this->find($id);
-        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();
     }
 
