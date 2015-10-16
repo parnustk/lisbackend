@@ -61,30 +61,48 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * 
      * @return Core\Entity\Vocation
      */
-    protected function GetVocation()
+    protected function CreateVocation($data = null)
     {
-        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
+        if ($data) {
+            $vocation = $this->em->getRepository('Core\Entity\Vocation')
+                    ->Create($data);
+
+            return $vocation;
+        }
+        $vocation = $this->em->getRepository('Core\Entity\Vocation')->Create([
             'name' => 'VocationName',
             'code' => uniqid(),
             'durationEKAP' => '12',
         ]);
-
-        if (!$vocation->validate()) {
-            print_r($vocation->getMessages());
-        }
-
-        $this->em->persist($vocation);
-        $this->em->flush();
-
+        
         return $vocation;
+        
+//        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
+//            'name' => 'VocationName',
+//            'code' => uniqid(),
+//            'durationEKAP' => '12',
+//        ]);
+//
+//        if (!$vocation->validate()) {
+//            print_r($vocation->getMessages());
+//        }
+//
+//        $this->em->persist($vocation);
+//        $this->em->flush();
+//
+//        return $vocation;
     }
 
     /**
      * 
      * @return Core\Entity\ModuleType
      */
-    protected function GetModuleType()
+    protected function CreateModuleType($data = null)
     {
+        if ($data) {
+            
+        }
+
         $moduleType = (new \Core\Entity\ModuleType($this->em))->hydrate([
             'name' => 'ModuleTypeName',
         ]);
@@ -103,7 +121,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * 
      * @return Core\Entity\GradingType
      */
-    protected function GetGradingType()
+    protected function CreateGradingType($data = null)
     {
         $gradingType = (new \Core\Entity\GradingType($this->em))->hydrate([
             'gradingType' => 'GradingTypeName',
@@ -118,9 +136,31 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         return $gradingType;
     }
 
-    protected function GetModule()
+    /**
+     * 
+     * @param array $data | null
+     * @return Core\Entity\Module
+     */
+    protected function CreateModule($data = null)
     {
-        
+        if ($data) {
+            $module = $this->em->getRepository('Core\Entity\Module')->Create($data);
+            return $module;
+        }
+
+        $module = $this->em->getRepository('Core\Entity\Module')->Create([
+            'code' => uniqid(),
+            'name' => 'asd',
+            'duration' => 12,
+            'vocation' => $this->CreateVocation()->getId(),
+            'moduleType' => $this->CreateModuleType()->getId(),
+            'gradingType' => [
+                ['id' => $this->CreateGradingType()->getId()],
+                ['id' => $this->CreateGradingType()->getId()]
+            ],
+        ]);
+
+        return $module;
     }
 
 }

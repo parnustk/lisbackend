@@ -17,10 +17,11 @@ class GradingTypeRepository extends EntityRepository
     /**
      * 
      * @param array $data
-     * @param type $params
+     * @param boolean $returnPartial
+     * @return GradingType
      * @throws Exception
      */
-    public function Create($data, $params = null)
+    public function Create($data, $returnPartial = false)
     {
         $entity = new GradingType($this->getEntityManager());
 
@@ -32,6 +33,20 @@ class GradingTypeRepository extends EntityRepository
 
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial gt.{id,name}
+                    FROM Core\Entity\GradingType gt
+                    WHERE gt.id = " . $entity->getId() . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
 
         return $entity;
     }

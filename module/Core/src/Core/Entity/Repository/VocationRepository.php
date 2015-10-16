@@ -6,8 +6,9 @@ use Doctrine\ORM\EntityRepository;
 //use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 //use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 //use Zend\Paginator\Paginator;
-
-//use Core\Entity\Sample;
+use Core\Entity\Vocation;
+use Exception;
+use Zend\Json\Json;
 
 /**
  * @author sander
@@ -21,20 +22,33 @@ class VocationRepository extends EntityRepository
      * @param type $params
      * @throws Exception
      */
-    public function Create($data, $params = null)
+    public function Create($data, $returnPartial = false)
     {
-//        $sample = new Sample($this->getEntityManager());
+        $entity = new Vocation($this->getEntityManager());
+        $entity->hydrate($data);
 
-        $sample->hydrate($data);
-
-        if (!$sample->validate()) {
-            throw new Exception(Json::encode($sample->getMessages(), true));
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
         }
 
-        $this->getEntityManager()->persist($sample);
-        $this->getEntityManager()->flush($sample);
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
 
-        return $sample;
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial v.{id,name,code,durationEKAP}
+                    FROM Core\Entity\Vocation v
+                    WHERE v.id = " . $entity->getId() . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+
+        return $entity;
     }
 
     /**

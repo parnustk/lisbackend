@@ -22,26 +22,20 @@ class ModuleControllerTest extends UnitHelpers
     public function testCreate()
     {
         $this->request->setMethod('post');
-
-        $this->request->getPost()->set("vocation", $this->GetVocation()->getId());
-        $this->request->getPost()->set("moduleType", $this->GetModuleType()->getId());
-
-        $this->request->getPost()->set("gradingType", $this->GetGradingType()->getId());
+        $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
+        $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
+        $this->request->getPost()->set("gradingType", $this->CreateGradingType()->getId());
 //        $this->request->getPost()->set("gradingType", ['id' => $gradingType->getId()]);
-
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
         $this->request->getPost()->set("code", uniqid());
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
+        $this->PrintOut($result, true);
     }
-
+/*
     public function testCreateNoData()
     {
         $this->request->setMethod('post');
@@ -55,8 +49,8 @@ class ModuleControllerTest extends UnitHelpers
     public function testCreateNoGradingType()
     {
         $this->request->setMethod('post');
-        $this->request->getPost()->set("vocation", $this->GetVocation()->getId());
-        $this->request->getPost()->set("moduleType", $this->GetModuleType()->getId());
+        $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
+        $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
         $this->request->getPost()->set("code", uniqid());
@@ -69,72 +63,12 @@ class ModuleControllerTest extends UnitHelpers
 
     public function testGet()
     {
-        //create one to get first
-        $vocation = (new \Core\Entity\Vocation($this->em))->hydrate([
-            'name' => 'VocationName',
-            'code' => uniqid(),
-            'durationEKAP' => '12',
-        ]);
-        if (!$vocation->validate()) {
-            $this->PrintOut($vocation->getMessages());
-        }
-        $this->em->persist($vocation);
-        $moduleType = (new \Core\Entity\ModuleType($this->em))->hydrate([
-            'name' => 'ModuleTypeName',
-        ]);
-        if (!$moduleType->validate()) {
-            $this->PrintOut($moduleType->getMessages());
-        }
-        $this->em->persist($moduleType);
-
-        $gradingType = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType->validate()) {
-            $this->PrintOut($gradingType->getMessages());
-        }
-        $this->em->persist($gradingType);
-
-        $gradingType1 = (new \Core\Entity\GradingType($this->em))->hydrate([
-            'gradingType' => 'GradingTypeName',
-        ]);
-        if (!$gradingType1->validate()) {
-            $this->PrintOut($gradingType1->getMessages(), false);
-        }
-        $this->em->persist($gradingType1);
-
-        $this->em->flush();
-
-        $gradingTypes = [
-            ['id' => $gradingType->getId()],
-            ['id' => $gradingType1->getId()]
-        ];
-
-        $this->PrintOut($gradingTypes, false);
-
-        $module = $this->em->getRepository('Core\Entity\Module')->Create([
-            'code' => uniqid(),
-            'name' => 'asd',
-            'duration' => 12,
-            'vocation' => $vocation->getId(),
-            'moduleType' => $moduleType->getId(),
-            'gradingType' => $gradingTypes,
-                ], true);
-
-        $this->PrintOut($module, false);
-
-        $createdModule = $this->em
-                ->getRepository('Core\Entity\Module')
-                ->find($module['id']);
-
         $this->request->setMethod('get');
-        $this->routeMatch->setParam('id', $createdModule->getId());
-
+        $this->routeMatch->setParam('id', $this->CreateModule()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
         $this->PrintOut($result, false);
     }
 
@@ -428,5 +362,5 @@ class ModuleControllerTest extends UnitHelpers
                 ->find($module['id']);
         $this->assertEquals(null, $deletedModule);
     }
-
+*/
 }

@@ -22,7 +22,7 @@ class ModuleTypeRepository extends EntityRepository
      * @param type $params
      * @throws Exception
      */
-    public function Create($data, $params = null)
+    public function Create($data, $returnPartial = false)
     {
         $entity = new ModuleType($this->getEntityManager());
 
@@ -34,6 +34,20 @@ class ModuleTypeRepository extends EntityRepository
 
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial mt.{id,name}
+                    FROM Core\Entity\ModuleType mt
+                    WHERE mt.id = " . $entity->getId() . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
 
         return $entity;
     }
