@@ -18,12 +18,11 @@ class SubjectService extends AbstractBaseService
     public function Get($id)
     {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Subject')
-                    ->Get($id, true);
             return [
                 'success' => true,
-                'data' => $r
+                'data' => $this->getEntityManager()
+                        ->getRepository('Core\Entity\Subject')
+                        ->Get($id, true)
             ];
         } catch (Exception $ex) {
             return [
@@ -113,11 +112,11 @@ class SubjectService extends AbstractBaseService
     public function Delete($id)
     {
         try {
-            $this->getEntityManager()
-                    ->getRepository('Core\Entity\Subject')
-                    ->Delete($id);
             return [
-                'success' => true
+                'success' => true,
+                'id' => $this->getEntityManager()
+                        ->getRepository('Core\Entity\Subject')
+                        ->Delete($id)
             ];
         } catch (Exception $ex) {
             return [

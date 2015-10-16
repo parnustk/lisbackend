@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Core\Utils\EntityValidation;
+use Zend\Stdlib\ArraySerializableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")
@@ -13,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
  *     indexes={@ORM\Index(name="modulename", columns={"name"}),@ORM\Index(name="modulecode", columns={"code"})}
  * )
  */
-class Module extends \Core\Utils\EntityValidation
+class Module extends EntityValidation
 {
 
     /**

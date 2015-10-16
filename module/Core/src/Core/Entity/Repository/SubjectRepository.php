@@ -3,9 +3,9 @@
 namespace Core\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-//use Zend\Paginator\Paginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
 use Core\Entity\Subject;
 use Exception;
 use Zend\Json\Json;
@@ -26,7 +26,6 @@ class SubjectRepository extends EntityRepository
      */
     public function Create($data, $returnPartial = false)
     {
-
         $entity = new Subject($this->getEntityManager());
 
         $entity->hydrate($data);
@@ -53,14 +52,15 @@ class SubjectRepository extends EntityRepository
                     FROM Core\Entity\Subject s
                     JOIN s.module module 
                     JOIN s.gradingType gradingType
-                    WHERE s.id = " . $entity->getId() . "
-                ";
+                    WHERE s.id = " . $entity->getId();
+            
+            try {
+                $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+                $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            } catch (Exception $exc) {
+                throw new Exception($exc->getTraceAsString());
+            }
 
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-//            print_r($data);
-//            die('tere');
             return $r;
         }
         return $entity;
@@ -69,23 +69,23 @@ class SubjectRepository extends EntityRepository
     public function Get($id, $returnPartial = false)
     {
         if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
+                        partial module.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Subject s
+                    JOIN s.module module 
+                    JOIN s.gradingType gradingType
+                    WHERE s.id = " . $id;
 
-//            $dql = "
-//                    SELECT 
-//                        partial m.{id,name,duration,code},
-//                        partial vocation.{id,name,code,durationEKAP},
-//                        partial moduleType.{id,name},
-//                        partial gradingType.{id,gradingType}
-//                    FROM Core\Entity\Module m
-//                    JOIN m.vocation vocation 
-//                    JOIN m.moduleType moduleType
-//                    JOIN m.gradingType gradingType 
-//                    WHERE m.id = " . $id . "
-//                ";
+            try {
+                $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+                $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            } catch (Exception $exc) {
+                throw new Exception($exc->getTraceAsString());
+            }
 
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
             return $r;
         }
         return $this->find($id);
@@ -99,22 +99,22 @@ class SubjectRepository extends EntityRepository
     {
         if ($returnPartial) {
 
-//            $dql = "
-//                    SELECT 
-//                        partial m.{id,name,duration,code},
-//                        partial vocation.{id,name,code,durationEKAP},
-//                        partial moduleType.{id,name},
-//                        partial gradingType.{id,gradingType}
-//                    FROM Core\Entity\Module m
-//                    JOIN m.vocation vocation 
-//                    JOIN m.moduleType moduleType
-//                    JOIN m.gradingType gradingType
-//                ";
+            $dql = "
+                    SELECT 
+                        partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
+                        partial module.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Subject s
+                    JOIN s.module module 
+                    JOIN s.gradingType gradingType";
 
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
+            try {
+                $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+                $r = $q->getResult(Query::HYDRATE_ARRAY);
+                return $r;
+            } catch (Exception $exc) {
+                throw new Exception($exc->getTraceAsString());
+            }
         }
         return $this->findAll();
     }
@@ -141,22 +141,21 @@ class SubjectRepository extends EntityRepository
 
         if ($returnPartial) {
 
-//            $dql = "
-//                    SELECT 
-//                        partial m.{id,name,duration,code},
-//                        partial vocation.{id,name,code,durationEKAP},
-//                        partial moduleType.{id,name},
-//                        partial gradingType.{id,gradingType}
-//                    FROM Core\Entity\Module m
-//                    JOIN m.vocation vocation 
-//                    JOIN m.moduleType moduleType
-//                    JOIN m.gradingType gradingType 
-//                    WHERE m.id = " . $id . "
-//                ";
+            $dql = "SELECT 
+                        partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
+                        partial module.{id,name},
+                        partial gradingType.{id,gradingType}
+                    FROM Core\Entity\Subject s
+                    JOIN s.module module 
+                    JOIN s.gradingType gradingType
+                    WHERE s.id = " . $id;
 
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            try {
+                $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+                $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            } catch (Exception $exc) {
+                throw new Exception($exc->getTraceAsString());
+            }
 
             return $r;
         }
@@ -165,9 +164,13 @@ class SubjectRepository extends EntityRepository
 
     public function Delete($id)
     {
-        $entity = $this->find($id);
-        $this->getEntityManager()->remove($entity);
-        $this->getEntityManager()->flush();
+        try {
+            $this->getEntityManager()->remove($this->find($id));
+            $this->getEntityManager()->flush();
+        } catch (Exception $exc) {
+            throw new Exception($exc->getTraceAsString());
+        }
+        return $id;
     }
 
 }

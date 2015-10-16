@@ -155,9 +155,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         return $repository->Create([
                     'code' => uniqid(),
                     'name' => 'asd',
-                    'duration' => 12,
-                    'vocation' => $this->CreateVocation()->getId(),
-                    'moduleType' => $this->CreateModuleType()->getId(),
+                    'durationAllAk' => 30,
+                    'durationContactAk' => 20,
+                    'durationIndependentAk' => 10,
+                    'module' => $this->CreateModule()->getId(),
                     'gradingType' => [
                         ['id' => $this->CreateGradingType()->getId()],
                         ['id' => $this->CreateGradingType()->getId()]

@@ -107,7 +107,6 @@ class ModuleControllerTest extends UnitHelpers
         $this->request->setContent(http_build_query([
             "name" => "Updated",
             'code' => uniqid(),
-            'name' => 'Updated',
             'duration' => 888,
             'vocation' => $this->CreateVocation()->getId(),
             'moduleType' => $this->CreateModuleType()->getId(),

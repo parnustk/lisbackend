@@ -6,11 +6,12 @@ use Zend\Form\Annotation\AnnotationBuilder;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Doctrine\ORM\EntityManager;
 use Zend\Form\Form;
+use Zend\Stdlib\ArraySerializableInterface;
 
 /**
  * @author sander and Inspired by http://luci.criosweb.ro/simplify-handling-of-tables-entities-forms-and-validations-in-zf2-by-using-annotations/
  */
-abstract class EntityValidation
+abstract class EntityValidation implements ArraySerializableInterface
 {
 
     /**
@@ -68,7 +69,7 @@ abstract class EntityValidation
         $this->entityManager = $em;
         return $this;
     }
-    
+
     /**
      * 
      * @param EntityManager $em
@@ -97,7 +98,19 @@ abstract class EntityValidation
     }
 
     /**
-     * 
+     * Exchange internal values from provided array
+     *
+     * @param  array $array
+     * @return void
+     */
+    public function exchangeArray(array $array)
+    {
+        $this->hydrate($array);
+    }
+
+    /**
+     * Return an array representation of the object
+     *
      * @return array
      */
     public function getArrayCopy()

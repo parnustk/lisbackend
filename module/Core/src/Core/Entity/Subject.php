@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManager;
+use Core\Utils\EntityValidation;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRepository")
@@ -13,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
  *     indexes={@ORM\Index(name="subjectname", columns={"name"}),@ORM\Index(name="subjectcode", columns={"code"})}
  * )
  */
-class Subject extends \Core\Utils\EntityValidation
+class Subject extends EntityValidation
 {
 
     /**
@@ -74,14 +76,15 @@ class Subject extends \Core\Utils\EntityValidation
      *     joinColumns={@ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="grading_type_id", referencedColumnName="id", nullable=false)}
      * )
+     * @Annotation\Required({"required":"true"})
      */
     protected $gradingType;
 
     /**
      * 
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param EntityManager $em
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em = null)
+    public function __construct(EntityManager $em = null)
     {
         $this->gradingType = new ArrayCollection();
         parent::__construct($em);
