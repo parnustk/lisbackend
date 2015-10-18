@@ -19,12 +19,12 @@ class SubjectController extends AbstractBaseController
      */
     public function create($data)
     {
-        $r = $this
-                    ->getServiceLocator()
-                    ->get('subject_service')
-                    ->Create($data);
-       
-        return new JsonModel($r);
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('subject_service')
+                        ->Create($data)
+        );
     }
 
     /**

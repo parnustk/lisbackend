@@ -5,7 +5,6 @@ namespace Core\Service;
 use Exception;
 
 /**
- * Teting Service set up. Remove later on.
  * @author sander
  */
 class SubjectService extends AbstractBaseService
@@ -20,7 +19,8 @@ class SubjectService extends AbstractBaseService
         try {
             return [
                 'success' => true,
-                'data' => $this->getEntityManager()
+                'data' => $this
+                        ->getEntityManager()
                         ->getRepository('Core\Entity\Subject')
                         ->Get($id, true)
             ];
@@ -39,12 +39,12 @@ class SubjectService extends AbstractBaseService
     public function GetList()
     {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Subject')
-                    ->GetList(true);
             return [
                 'success' => true,
-                'data' => $r
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Subject')
+                        ->GetList(true)
             ];
         } catch (Exception $ex) {
             return [
@@ -69,8 +69,7 @@ class SubjectService extends AbstractBaseService
                         ->getRepository('Core\Entity\Subject')
                         ->Create($data, true)
             ];
-        } catch (\Exception $ex) {
-
+        } catch (Exception $ex) {
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -88,16 +87,14 @@ class SubjectService extends AbstractBaseService
     public function Update($id, $data)
     {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Subject')
-                    ->Update($id, $data, true);
-
             return [
                 'success' => true,
-                'data' => $sample
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Subject')
+                        ->Update($id, $data, true)
             ];
-        } catch (\Exception $ex) {
-
+        } catch (Exception $ex) {
             return [
                 'success' => false,
                 'message' => $ex->getMessage()

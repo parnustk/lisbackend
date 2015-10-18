@@ -5,7 +5,6 @@ namespace Core\Service;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Doctrine\ORM\EntityManager;
-use Exception;
 
 /**
  * Teting Service set up. Remove later on.
