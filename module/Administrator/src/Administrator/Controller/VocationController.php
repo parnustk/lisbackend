@@ -20,7 +20,7 @@ class VocationController extends AbstractBaseController {
         return new JsonModel(
                 $this
                         ->getServiceLocator()
-                        ->get('vocation')
+                        ->get('vocation_service')
                         ->Create($data)
         );
     }
@@ -33,7 +33,7 @@ class VocationController extends AbstractBaseController {
     public function getList() {
         return new JsonModel($this
                         ->getServiceLocator()
-                        ->get('vocation')
+                        ->get('vocation_service')
                         ->GetList()
         );
     }
