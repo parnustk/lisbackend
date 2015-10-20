@@ -23,10 +23,13 @@ Install Main project - open up terminal
     cd lis # Inside project root
     git clone https://github.com/parnustk/lisbackend.git .
     curl -sS https://getcomposer.org/installer | php
-    php composer.phar update  
+    php composer.phar update
 
-You should have now folder vendor in Your project's root folder.  
-Composer update follows composer.json
+You should have now folder vendor in Your project's root folder.
+Composer update follows composer.json file.
+In Windows download Composer on https://getcomposer.org/download/. Use context 
+menu in Windows Explorer on root directory of the project to install the 
+dependencies.
 
 ### Create virtual host  
 
@@ -159,6 +162,10 @@ Create Entities against database(in current projects root directory):
     
     php vendor/bin/doctrine-module orm:schema-tool:create
 
+in Windows use CMD :
+vendor\bin\doctrine-module.bat orm:schema-tool:create
+
+
 Now installation is complete time for sunning tests:
 
     TODO
@@ -168,6 +175,7 @@ Now installation is complete time for sunning tests:
 Validate tables:
 
     php vendor/bin/doctrine-module orm:validate-schema
+
 
 Delete DATABASE - NB! AKA DROP:
 
