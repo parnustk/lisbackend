@@ -15,100 +15,73 @@ use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 /**
  * @author sander
  */
-class SampleControllerTest extends \PHPUnit_Framework_TestCase
+class SampleControllerTest extends UnitHelpers
 {
-
-    protected $controller;
-    protected $request;
-    protected $response;
-    protected $routeMatch;
-    protected $event;
 
     protected function setUp()
     {
-        $serviceManager = Bootstrap::getServiceManager();
         $this->controller = new VocationController();
-        $this->request = new Request();
-        $this->routeMatch = new RouteMatch(array('controller' => 'index'));
-        $this->event = new MvcEvent();
-        $config = $serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-        $router = HttpRouter::factory($routerConfig);
-        $this->event->setRouter($router);
-        $this->event->setRouteMatch($this->routeMatch);
-        $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
-    }
-    
-    /**
-     * Dummy test for testclass
-     */
-    public function testT()
-    {
-        $this->assertEquals(1, 1);
+        parent::setUp();
     }
 
-//    public function testCreate()
+    /**
+     * create new with correct data see entity
+     */
+    public function testCreate()
+    {
+        $this->request->setMethod('post');
+        
+        $this->request->getPost()->set("name", "Name vocation");
+        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("durationEKAP", 120);
+        
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+    
+//    /**
+//     * create one before getting
+//     */
+//    public function testGet()
 //    {
-//        $this->request->setMethod('post');
-//        
-//        //set correct data
-//        $this->request->getPost()->set("name", "Test Tere Maailm");
-//
+//        $this->request->setMethod('get');
+//        $this->routeMatch->setParam('id', $this->CreateVocation()->getId());
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
 //        $this->assertEquals(200, $response->getStatusCode());
-//
-//        $s = (int) $result->success;
-//        if ($s !== 1) {
-//            echo "\n--------------------------------------------------------\n";
-//            print_r($result);
-//            echo "\n--------------------------------------------------------\n";
-//        } else {
-//            //print_r($result);
-//        }
-//        $this->assertEquals(1, $s);
+//        $this->assertEquals(1, $result->success);
+//        $this->PrintOut($result, false);
 //    }
-//
-////    public function testGetList()
-////    {
-////
-////        $this->request->setMethod('get');
-////        $result = $this->controller->dispatch($this->request);
-////        $response = $this->controller->getResponse();
-////        $this->assertEquals(200, $response->getStatusCode());
-////        $s = (int) $result->success;
-////        if ($s !== 1) {
-////            echo "\n--------------------------------------------------------\n";
-////            print_r($result->msg);
-////            echo "\n--------------------------------------------------------\n";
-////        } else {
-//////            print_r($result);
-////        }
-////        //print_r($s);
-////        $this->assertEquals(1, $s);
-////    }
-//
+  
+//    /**
+//     * create one before asking list
+//     */
+//    public function testGetList()
+//    {
+//        $this->CreateVocation();
+//        $this->request->setMethod('get');
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->assertGreaterThan(0, count($result->data));
+//        $this->PrintOut($result, false);
+//    }
+  
+    
+//    //update jääb sulle pärast endale teha
 //    public function testUpdate()
 //    {
-//        $this->routeMatch->setParam('id', '1');
-//
-//        $this->request->setMethod('put');
-//
-//        $this->request->setContent(http_build_query([
-//            "name" => "Ahoi Tere"
-//        ]));
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $s = (int) $result->success;
-//        if ($s !== 1) {
-//            echo "\n--------------------------------------------------------\n";
-//            print_r($result);
-//            echo "\n--------------------------------------------------------\n";
-//        } else {
-//            //print_r($result);
-//        }
-//        $this->assertEquals(1, $s);
+//        //TODO
+//        //create vocation
+//        
+//        //put values to variables
+//        
+//        //create update query with different values
+//        
+//        //get answer check that values are changed
 //    }
 }
