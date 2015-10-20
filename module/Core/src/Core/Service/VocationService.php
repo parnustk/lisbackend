@@ -5,18 +5,37 @@ namespace Core\Service;
 use Exception;
 
 /**
- * Teting Service set up. Remove later on.
- * @author sander
+ * Testing Service set up. Remove later on.
+ * @author Juhan
  */
-class VocationService extends AbstractBaseService
-{
+class VocationService extends AbstractBaseService {
 
     /**
      * 
      * @return type
      */
-    public function GetList()
-    {
+    public function Get($id) {
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Vocation')
+                        ->find($id, true)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function GetList() {
         try {
             $r = $this->getEntityManager()
                     ->getRepository('Core\Entity\Vocation')
@@ -31,7 +50,28 @@ class VocationService extends AbstractBaseService
                 'message' => $ex->getMessage()
             ];
         }
-        
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
+    public function Delete($id) {
+        try {
+            return [
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Vocation')
+                        ->Delete($id)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
     }
 
     /**
@@ -39,8 +79,7 @@ class VocationService extends AbstractBaseService
      * @param array $data
      * @throws Exception
      */
-    public function Create($data)
-    {
+    public function Create($data) {
         try {
             $sample = $this->getEntityManager()
                     ->getRepository('Core\Entity\Vocation')
