@@ -125,6 +125,7 @@ class ModuleTypeRepository extends EntityRepository
     {
         $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();
+        return $id;
     }
 
 }

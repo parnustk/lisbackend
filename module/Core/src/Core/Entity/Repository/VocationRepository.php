@@ -13,17 +13,14 @@ use Zend\Json\Json;
 /**
  * @author sander
  */
-class VocationRepository extends EntityRepository
-{
+class VocationRepository extends EntityRepository {
 
     /**
      * 
      * @param array $data
-     * @param type $params
      * @throws Exception
      */
-    public function Create($data, $returnPartial = false)
-    {
+    public function Create($data, $returnPartial = false) {
         $entity = new Vocation($this->getEntityManager());
         $entity->hydrate($data);
 
@@ -51,16 +48,37 @@ class VocationRepository extends EntityRepository
         return $entity;
     }
 
+    public function Get($id, $returnPartial = false) {
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial v.{id,name, code, durationEKAP}
+                    FROM Core\Entity\Vocation v
+                    WHERE mt.id = " . $id;
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
+    }
+
     /**
      * 
      * @return Array
      */
-    public function GetList()
-    {
-//        $dql = "SELECT partial s.{id,name} FROM Core\Entity\Sample s";
-        $q = $this->getEntityManager()->createQuery($dql);
-        $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-        return $r;
+    public function GetList($returnPartial = false) {
+        if ($returnPartial) {
+            $dql = "
+                  
+                    SELECT partial v.{id,name, code, durationEKAP}
+                    FROM Core\Entity\Vocation v";
+            $q = $this->getEntityManager()->createQuery($dql);
+            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->findAll();
     }
 
     /**
@@ -70,23 +88,36 @@ class VocationRepository extends EntityRepository
      * @return Sample
      * @throws Exception
      */
-    public function Update($id, $data)
-    {
+    public function Update($id, $data, $returnPartial = false) {
+        $entity = $this->find($id);
+        $entity->setEntityManager($this->getEntityManager());
+        $entity->hydrate($data);
 
-        $sample = $this->find($id);
-
-        $sample->setEntityManager($this->getEntityManager());
-
-        $sample->hydrate($data);
-
-        if (!$sample->validate()) {
-            throw new Exception(Json::encode($sample->getMessages(), true));
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
         }
 
-        $this->getEntityManager()->persist($sample);
-        $this->getEntityManager()->flush($sample);
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
 
-        return $sample;
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial v.{id,name, code, durationEKAP}
+                    FROM Core\Entity\Vocation v
+                    WHERE mt.id = " . $id;
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $entity;
+    }
+
+    public function Delete($id) {
+        $this->getEntityManager()->remove($this->find($id));
+        $this->getEntityManager()->flush();
+        return $id;
     }
 
 }

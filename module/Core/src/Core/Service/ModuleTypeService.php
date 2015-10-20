@@ -23,7 +23,7 @@ class ModuleTypeService extends AbstractBaseService
                 'data' => $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\ModuleType')
-                        ->find($id, true)
+                        ->Get($id, true)
             ];
         } catch (Exception $ex) {
             return [

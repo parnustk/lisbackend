@@ -8,20 +8,22 @@ use Exception;
  * Testing Service set up. Remove later on.
  * @author Juhan
  */
-class VocationService extends AbstractBaseService {
+class VocationService extends AbstractBaseService
+{
 
     /**
      * 
      * @return type
      */
-    public function Get($id) {
+    public function Get($id)
+    {
         try {
             return [
                 'success' => true,
                 'data' => $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\Vocation')
-                        ->find($id, true)
+                        ->Get($id, true)
             ];
         } catch (Exception $ex) {
             return [
@@ -35,14 +37,15 @@ class VocationService extends AbstractBaseService {
      * 
      * @return type
      */
-    public function GetList() {
+    public function GetList()
+    {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Vocation')
-                    ->GetList();
+
             return [
                 'success' => false,
-                'data' => $r
+                'data' => $this->getEntityManager()
+                        ->getRepository('Core\Entity\Vocation')
+                        ->GetList(true)
             ];
         } catch (Exception $ex) {
             return [
@@ -57,7 +60,8 @@ class VocationService extends AbstractBaseService {
      * @param type $id
      * @return type
      */
-    public function Delete($id) {
+    public function Delete($id)
+    {
         try {
             return [
                 'success' => true,
@@ -79,18 +83,43 @@ class VocationService extends AbstractBaseService {
      * @param array $data
      * @throws Exception
      */
-    public function Create($data) {
+    public function Create($data)
+    {
         try {
-            $sample = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Vocation')
-                    ->Create($data);
-
             return [
                 'success' => true,
-                'data' => $sample->getArrayCopy()
+                'data' => $this
+                    ->getEntityManager()
+                    ->getRepository('Core\Entity\Vocation')
+                    ->Create($data, true)
             ];
         } catch (Exception $ex) {
 
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    
+    /**
+     * Update an existing resource
+     *
+     * @param  mixed $id
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function Update($id, $data)
+    {
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Vocation')
+                        ->Update($id, $data, true)
+            ];
+        } catch (Exception $ex) {
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
