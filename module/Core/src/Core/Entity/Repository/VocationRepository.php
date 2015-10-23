@@ -2,11 +2,11 @@
 
 namespace Core\Entity\Repository;
 
+use Core\Entity\Vocation;
 use Doctrine\ORM\EntityRepository;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
-use Core\Entity\Vocation;
 use Exception;
 use Zend\Json\Json;
 use Doctrine\ORM\Query;
@@ -19,7 +19,6 @@ class VocationRepository extends EntityRepository
 
     /**
      * 
-     * @param bool $returnPartial
      * @param stdClass $params
      * @return Paginator
      */

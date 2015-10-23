@@ -2,19 +2,52 @@
 
 namespace Core\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
-//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-//use Zend\Paginator\Paginator;
 use Core\Entity\Module;
+use Doctrine\ORM\EntityRepository;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
 use Exception;
 use Zend\Json\Json;
+use Doctrine\ORM\Query;
 
 /**
  * @author sander
  */
 class ModuleRepository extends EntityRepository
 {
+
+    /**
+     * 
+     * @param stdClass $params
+     * @return Paginator
+     */
+    public function GetList($params = null)
+    {
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT 
+                    partial m.{id,name,duration,code},
+                    partial vocation.{id,name,code,durationEKAP},
+                    partial moduleType.{id,name},
+                    partial gradingType.{id,gradingType}
+                FROM Core\Entity\Module m
+                JOIN m.vocation vocation 
+                JOIN m.moduleType moduleType
+                JOIN m.gradingType gradingType";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
+    }
 
     /**
      * 
@@ -91,36 +124,10 @@ class ModuleRepository extends EntityRepository
 
     /**
      * 
-     * @return Array
-     */
-    public function GetList($returnPartial = false)
-    {
-        if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial m.{id,name,duration,code},
-                        partial vocation.{id,name,code,durationEKAP},
-                        partial moduleType.{id,name},
-                        partial gradingType.{id,gradingType}
-                    FROM Core\Entity\Module m
-                    JOIN m.vocation vocation 
-                    JOIN m.moduleType moduleType
-                    JOIN m.gradingType gradingType
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->findAll();
-    }
-
-    /**
-     * 
-     * @param type $id
-     * @param type $data
-     * @return Sample
+     * @param int $id
+     * @param array $data
+     * @param bool $returnPartial
+     * @return mixed
      * @throws Exception
      */
     public function Update($id, $data, $returnPartial = false)

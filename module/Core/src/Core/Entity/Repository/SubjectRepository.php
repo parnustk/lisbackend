@@ -2,11 +2,11 @@
 
 namespace Core\Entity\Repository;
 
+use Core\Entity\Subject;
 use Doctrine\ORM\EntityRepository;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
-use Core\Entity\Subject;
 use Exception;
 use Zend\Json\Json;
 use Doctrine\ORM\Query;
@@ -19,7 +19,8 @@ class SubjectRepository extends EntityRepository
 
     /**
      * 
-     * @return Array
+     * @param stdClass $params
+     * @return Paginator
      */
     public function GetList($params = null)
     {
@@ -44,27 +45,6 @@ class SubjectRepository extends EntityRepository
                 )
                 )
         );
-        
-//        if ($returnPartial) {
-//
-//            $dql = "
-//                    SELECT 
-//                        partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
-//                        partial module.{id,name},
-//                        partial gradingType.{id,gradingType}
-//                    FROM Core\Entity\Subject s
-//                    JOIN s.module module 
-//                    JOIN s.gradingType gradingType";
-//
-//            try {
-//                $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-//                $r = $q->getResult(Query::HYDRATE_ARRAY);
-//                return $r;
-//            } catch (Exception $exc) {
-//                throw new Exception($exc->getTraceAsString());
-//            }
-//        }
-//        return $this->findAll();
     }
 
     /**

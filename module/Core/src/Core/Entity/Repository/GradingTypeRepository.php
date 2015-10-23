@@ -2,18 +2,45 @@
 
 namespace Core\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
-//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-//use Zend\Paginator\Paginator;
 use Core\Entity\GradingType;
+use Doctrine\ORM\EntityRepository;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
 use Exception;
 use Zend\Json\Json;
+use Doctrine\ORM\Query;
+
 /**
  * @author sander
  */
 class GradingTypeRepository extends EntityRepository
 {
+
+    /**
+     * 
+     * @param stdClass $params
+     * @return Paginator
+     */
+    public function GetList($params = null)
+    {
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT partial s.{id,gradingType} 
+                FROM Core\Entity\GradingType s";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
+    }
 
     /**
      * 
@@ -68,21 +95,6 @@ class GradingTypeRepository extends EntityRepository
             return $r;
         }
         return $this->find($id);
-    }
-
-    /**
-     * 
-     * @return Array
-     */
-    public function GetList($returnPartial = false)
-    {
-        if ($returnPartial) {
-            $dql = "SELECT partial s.{id,gradingType} FROM Core\Entity\GradingType s";
-            $q = $this->getEntityManager()->createQuery($dql);
-            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->findAll();
     }
 
     /**
