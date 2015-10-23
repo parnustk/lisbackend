@@ -25,7 +25,7 @@ class ModuleTypeRepository extends EntityRepository
     public function GetList($params = null)
     {
         if ($params) {
-            //todo if neccessary
+            //use if neccessary
         }
 
         $dql = "SELECT partial mt.{id,name} 
