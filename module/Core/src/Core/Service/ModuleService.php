@@ -5,7 +5,6 @@ namespace Core\Service;
 use Exception;
 
 /**
- * Teting Service set up. Remove later on.
  * @author sander
  */
 class ModuleService extends AbstractBaseService
@@ -13,19 +12,29 @@ class ModuleService extends AbstractBaseService
 
     /**
      * 
-     * @return type
+     * @param stdClass $params
+     * @return array
      */
-    public function Get($id)
+    public function GetList($params)
     {
         try {
-            $r = $this->getEntityManager()
+            $p = $this->getEntityManager()
                     ->getRepository('Core\Entity\Module')
-                    ->Get($id, true);
+                    ->GetList($params);
+
+            $p->setItemCountPerPage($params->limit);
+            $p->setCurrentPageNumber($params->page);
+
             return [
                 'success' => true,
-                'data' => $r
+                'currentPage' => $params->page,
+                'itemCount' => $p->getTotalItemCount(),
+                'countPages' => $p->count(),
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
             ];
         } catch (Exception $ex) {
+
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -35,17 +44,17 @@ class ModuleService extends AbstractBaseService
 
     /**
      * 
-     * @return type
+     * @return array
      */
-    public function GetList()
+    public function Get($id)
     {
         try {
-            $r = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
-                    ->GetList(true);
             return [
                 'success' => true,
-                'data' => $r
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Module')
+                        ->Get($id, true)
             ];
         } catch (Exception $ex) {
             return [

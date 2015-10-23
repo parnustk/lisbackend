@@ -5,7 +5,6 @@ namespace Core\Service;
 use Exception;
 
 /**
- * Testing Service set up. Remove later on.
  * @author Juhan, Sander
  */
 class VocationService extends AbstractBaseService

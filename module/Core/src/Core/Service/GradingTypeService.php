@@ -12,18 +12,29 @@ class GradingTypeService extends AbstractBaseService
 
     /**
      * 
-     * @return type
+     * @param stdClass $params
+     * @return array
      */
-    public function Get($id)
+    public function GetList($params)
     {
         try {
+            $p = $this->getEntityManager()
+                    ->getRepository('Core\Entity\GradingType')
+                    ->GetList($params);
+
+            $p->setItemCountPerPage($params->limit);
+            $p->setCurrentPageNumber($params->page);
+
             return [
                 'success' => true,
-                'data' => $this->getEntityManager()
-                        ->getRepository('Core\Entity\GradingType')
-                        ->Get($id, true)
+                'currentPage' => $params->page,
+                'itemCount' => $p->getTotalItemCount(),
+                'countPages' => $p->count(),
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
             ];
         } catch (Exception $ex) {
+
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -35,15 +46,14 @@ class GradingTypeService extends AbstractBaseService
      * 
      * @return type
      */
-    public function GetList()
+    public function Get($id)
     {
         try {
             return [
                 'success' => true,
-                'data' => $this
-                        ->getEntityManager()
+                'data' => $this->getEntityManager()
                         ->getRepository('Core\Entity\GradingType')
-                        ->GetList(true)
+                        ->Get($id, true)
             ];
         } catch (Exception $ex) {
             return [

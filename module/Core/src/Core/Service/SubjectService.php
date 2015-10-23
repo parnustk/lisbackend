@@ -12,7 +12,8 @@ class SubjectService extends AbstractBaseService
 
     /**
      * 
-     * @return type
+     * @param stdClass $params
+     * @return array
      */
     public function GetList($params)
     {

@@ -5,11 +5,42 @@ namespace Core\Service;
 use Exception;
 
 /**
- * Teting Service set up. Remove later on.
  * @author sander
  */
 class ModuleTypeService extends AbstractBaseService
 {
+
+    /**
+     * 
+     * @param stdClass $params
+     * @return array
+     */
+    public function GetList($params)
+    {
+        try {
+            $p = $this->getEntityManager()
+                    ->getRepository('Core\Entity\ModuleType')
+                    ->GetList($params);
+
+            $p->setItemCountPerPage($params->limit);
+            $p->setCurrentPageNumber($params->page);
+
+            return [
+                'success' => true,
+                'currentPage' => $params->page,
+                'itemCount' => $p->getTotalItemCount(),
+                'countPages' => $p->count(),
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
+            ];
+        } catch (Exception $ex) {
+
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
 
     /**
      * 
@@ -24,28 +55,6 @@ class ModuleTypeService extends AbstractBaseService
                         ->getEntityManager()
                         ->getRepository('Core\Entity\ModuleType')
                         ->Get($id, true)
-            ];
-        } catch (Exception $ex) {
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function GetList()
-    {
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\ModuleType')
-                        ->GetList(true)
             ];
         } catch (Exception $ex) {
             return [
