@@ -12,6 +12,21 @@ class ModuleController extends AbstractBaseController
 {
 
     /**
+     * GET
+     * 
+     * @return JsonModel
+     */
+    public function getList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('module_service')
+                        ->GetList($this->GetParams())
+        );
+    }
+
+    /**
      * POST
      * 
      * @param type $data
@@ -20,10 +35,10 @@ class ModuleController extends AbstractBaseController
     public function create($data)
     {
         $r = $this
-                    ->getServiceLocator()
-                    ->get('module_service')
-                    ->Create($data);
-       
+                ->getServiceLocator()
+                ->get('module_service')
+                ->Create($data);
+
         return new JsonModel($r);
     }
 
@@ -40,21 +55,6 @@ class ModuleController extends AbstractBaseController
                         ->getServiceLocator()
                         ->get('module_service')
                         ->Get($id)
-        );
-    }
-
-    /**
-     * GET
-     * 
-     * @return JsonModel
-     */
-    public function getList()
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('module_service')
-                        ->GetList()
         );
     }
 

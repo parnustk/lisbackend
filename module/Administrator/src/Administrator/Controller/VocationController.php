@@ -18,7 +18,8 @@ class VocationController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel($this
+        return new JsonModel(
+                $this
                         ->getServiceLocator()
                         ->get('vocation_service')
                         ->GetList($this->GetParams())

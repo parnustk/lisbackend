@@ -12,6 +12,21 @@ class GradingtypeController extends AbstractBaseController
 {
 
     /**
+     * GET
+     * 
+     * @return JsonModel
+     */
+    public function getList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('gradingtype_service')
+                        ->GetList($this->GetParams())
+        );
+    }
+
+    /**
      * POST
      * 
      * @param type $data
@@ -40,21 +55,6 @@ class GradingtypeController extends AbstractBaseController
                         ->getServiceLocator()
                         ->get('gradingtype_service')
                         ->Get($id)
-        );
-    }
-
-    /**
-     * GET
-     * 
-     * @return JsonModel
-     */
-    public function getList()
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradingtype_service')
-                        ->GetList()
         );
     }
 

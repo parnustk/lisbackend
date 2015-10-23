@@ -12,6 +12,21 @@ class ModuletypeController extends AbstractBaseController
 {
 
     /**
+     * GET
+     * 
+     * @return JsonModel
+     */
+    public function getList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('moduletype_service')
+                        ->GetList($this->GetParams())
+        );
+    }
+
+    /**
      * POST
      * 
      * @param type $data
@@ -40,21 +55,6 @@ class ModuletypeController extends AbstractBaseController
                         ->getServiceLocator()
                         ->get('moduletype_service')
                         ->Get($id)
-        );
-    }
-
-    /**
-     * GET
-     * 
-     * @return JsonModel
-     */
-    public function getList()
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('moduletype_service')
-                        ->GetList()
         );
     }
 
