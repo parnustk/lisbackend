@@ -2,18 +2,13 @@
 
 namespace AdministratorTest\Controller;
 
-use AdministratorTest\Bootstrap;
 use Administrator\Controller\VocationController;
-use Zend\Http\Request;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 
-//error_reporting(E_ALL | E_STRICT);
-//chdir(__DIR__);
+error_reporting(E_ALL | E_STRICT);
+chdir(__DIR__);
 
 /**
- * @author sander
+ * @author sander, juhan
  */
 class SampleControllerTest extends UnitHelpers
 {
@@ -93,30 +88,22 @@ class SampleControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        //put values to variables
-        //create update query with different values
-        //get answer check that values are changed
-
+        
         $r = $this->em
                 ->getRepository('Core\Entity\Vocation')
                 ->find($result->data['id']);
-
         $this->assertNotEquals(
                 $nameOld, $r->getName()
         );
-
         $this->assertNotEquals(
                 $codeOld, $r->getCode()
         );
-
         $this->assertNotEquals(
                 $durationEKAPOld, $r->getDurationEKAP()
         );
-
         $this->PrintOut($result, FALSE);
     }
 

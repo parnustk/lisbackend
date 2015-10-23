@@ -2,12 +2,7 @@
 
 namespace AdministratorTest\Controller;
 
-use AdministratorTest\Bootstrap;
 use Administrator\Controller\GradingtypeController;
-use Zend\Http\Request;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
@@ -102,7 +97,7 @@ class GradingtypeControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         //test it is not in the database anymore
         $deletedModule = $this->em
                 ->getRepository('Core\Entity\GradingType')
