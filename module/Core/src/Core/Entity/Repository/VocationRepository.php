@@ -118,7 +118,7 @@ class VocationRepository extends EntityRepository
                     SELECT 
                         partial v.{id,name, code, durationEKAP}
                     FROM Core\Entity\Vocation v
-                    WHERE mt.id = " . $id;
+                    WHERE v.id = " . $id;
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
 
             $r = $q->getSingleResult(Query::HYDRATE_ARRAY);

@@ -71,18 +71,54 @@ class SampleControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
     }
 
-    //update jääb sulle pärast endale teha
-//    public function testUpdate()
-//    {
-//        //TODO
-//        //create vocation
-//        
-//        //put values to variables
-//        
-//        //create update query with different values
-//        
-//        //get answer check that values are changed
-//    }
+    public function testUpdate()
+    {
+        //TODO
+        //create vocation
+        $entity = $this->CreateVocation();
+        $id = $entity->getId();
+
+        $nameOld = $entity->getName();
+        $codeOld = $entity->getCode();
+        $durationEKAPOld = $entity->getDurationEKAP();
+
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+
+        $this->request->setContent(http_build_query([
+            'name' => 'Updated',
+            'code' => uniqid(),
+            'durationEKAP' => '456',
+        ]));
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        //put values to variables
+        //create update query with different values
+        //get answer check that values are changed
+
+        $r = $this->em
+                ->getRepository('Core\Entity\Vocation')
+                ->find($result->data['id']);
+
+        $this->assertNotEquals(
+                $nameOld, $r->getName()
+        );
+
+        $this->assertNotEquals(
+                $codeOld, $r->getCode()
+        );
+
+        $this->assertNotEquals(
+                $durationEKAPOld, $r->getDurationEKAP()
+        );
+
+        $this->PrintOut($result, FALSE);
+    }
 
     public function testDelete()
     {
