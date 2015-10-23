@@ -19,6 +19,56 @@ class SubjectRepository extends EntityRepository
 
     /**
      * 
+     * @return Array
+     */
+    public function GetList($params = null)
+    {
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT 
+                    partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
+                    partial module.{id,name},
+                    partial gradingType.{id,gradingType}
+                FROM Core\Entity\Subject s
+                JOIN s.module module 
+                JOIN s.gradingType gradingType";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
+        
+//        if ($returnPartial) {
+//
+//            $dql = "
+//                    SELECT 
+//                        partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
+//                        partial module.{id,name},
+//                        partial gradingType.{id,gradingType}
+//                    FROM Core\Entity\Subject s
+//                    JOIN s.module module 
+//                    JOIN s.gradingType gradingType";
+//
+//            try {
+//                $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+//                $r = $q->getResult(Query::HYDRATE_ARRAY);
+//                return $r;
+//            } catch (Exception $exc) {
+//                throw new Exception($exc->getTraceAsString());
+//            }
+//        }
+//        return $this->findAll();
+    }
+
+    /**
+     * 
      * @param array $data
      * @param boolean $returnPartial
      * @return mixed
@@ -53,7 +103,7 @@ class SubjectRepository extends EntityRepository
                     JOIN s.module module 
                     JOIN s.gradingType gradingType
                     WHERE s.id = " . $entity->getId();
-            
+
             try {
                 $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
                 $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
@@ -89,34 +139,6 @@ class SubjectRepository extends EntityRepository
             return $r;
         }
         return $this->find($id);
-    }
-
-    /**
-     * 
-     * @return Array
-     */
-    public function GetList($returnPartial = false)
-    {
-        if ($returnPartial) {
-
-            $dql = "
-                    SELECT 
-                        partial s.{id,code,name,durationAllAK,durationContactAK,durationIndependentAK},
-                        partial module.{id,name},
-                        partial gradingType.{id,gradingType}
-                    FROM Core\Entity\Subject s
-                    JOIN s.module module 
-                    JOIN s.gradingType gradingType";
-
-            try {
-                $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-                $r = $q->getResult(Query::HYDRATE_ARRAY);
-                return $r;
-            } catch (Exception $exc) {
-                throw new Exception($exc->getTraceAsString());
-            }
-        }
-        return $this->findAll();
     }
 
     /**

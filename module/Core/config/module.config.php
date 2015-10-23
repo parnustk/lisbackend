@@ -7,36 +7,38 @@ namespace Core;
  */
 return [
 
-    'controllers' => [
-
-        'invokables' => [
-            'Core\Controller\Sample' => 'Core\Controller\SampleController',
-            'Core\Controller\Login' => 'Core\Controller\LoginController',
-        ],
-    ],
-    'router' => [
-        'routes' => [
-            'RestReport' => [
-                'type' => 'Segment',
-                'options' => [
-                    'route' => '/api[/:controller][/:id]',
-                    'constraints' => [
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+'
-                    ],
-                    'defaults' => [
-                        '__NAMESPACE__' => 'Core\Controller',
-                        'controller' => 'Core\Controller\Sample',
-                    ],
-                ],
-            ],
-        ],
-    ],
-    'view_manager' => [
-        'strategies' => [
-            'ViewJsonStrategy',
-        ],
-    ],
+    //Core is not accessible over net
+//    'controllers' => [
+//
+//        
+//        'invokables' => [
+//            'Core\Controller\Sample' => 'Core\Controller\SampleController',
+//            'Core\Controller\Login' => 'Core\Controller\LoginController',
+//        ],
+//    ],
+//    'router' => [
+//        'routes' => [
+//            'RestReport' => [
+//                'type' => 'Segment',
+//                'options' => [
+//                    'route' => '/api[/:controller][/:id]',
+//                    'constraints' => [
+//                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                        'id' => '[0-9]+'
+//                    ],
+//                    'defaults' => [
+//                        '__NAMESPACE__' => 'Core\Controller',
+//                        'controller' => 'Core\Controller\Sample',
+//                    ],
+//                ],
+//            ],
+//        ],
+//    ],
+//    'view_manager' => [
+//        'strategies' => [
+//            'ViewJsonStrategy',
+//        ],
+//    ],
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [

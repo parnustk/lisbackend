@@ -3,63 +3,76 @@
 namespace Core;
 
 use ZfcUser\Controller\Plugin\ZfcUserAuthentication;
+use Core\Service\VocationService;
+use Core\Service\ModuleTypeService;
+use Core\Service\GradingTypeService;
+use Core\Service\ModuleService;
+use Core\Service\SubjectService;
 
+/**
+ * 
+ */
 class Module
 {
 
+    /**
+     * 
+     * @return type
+     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
 
+    /**
+     * 
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
+    /**
+     * 
+     * @return array
+     */
     public function getServiceConfig()
     {
         return [
             'factories' => [
-
-                'sample_service' => function ($serviceManager) {
-                    $t = new \Core\Service\SampleService();
-                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
-                    $t->setEntityManager($entityManager);
-                    return $t;
-                },
                 'vocation_service' => function ($serviceManager) {
-                    $t = new \Core\Service\VocationService();
+                    $t = new VocationService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
                 'moduletype_service' => function ($serviceManager) {
-                    $t = new \Core\Service\ModuleTypeService();
+                    $t = new ModuleTypeService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
                 'gradingtype_service' => function ($serviceManager) {
-                    $t = new \Core\Service\GradingTypeService();
+                    $t = new GradingTypeService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
                 'module_service' => function ($serviceManager) {
-                    $t = new \Core\Service\ModuleService();
+                    $t = new ModuleService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
                 'subject_service' => function ($serviceManager) {
-                    $t = new \Core\Service\SubjectService();
+                    $t = new SubjectService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
@@ -68,6 +81,10 @@ class Module
         ];
     }
 
+    /**
+     * 
+     * @return ZfcUserAuthentication
+     */
     public function getControllerPluginConfig()
     {
         return array(

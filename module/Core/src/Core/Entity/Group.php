@@ -19,7 +19,7 @@ class Group
     protected $name;
 
     /**
-     * @ORM\OneToOne(targetEntity="Vocation", inversedBy="group")
+     * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="group")
      * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false, unique=true, onDelete="RESTRICT")
      */
     protected $vocation;

@@ -103,14 +103,12 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         
-
         //test it is not in the database anymore
         $deletedModule = $this->em
                 ->getRepository('Core\Entity\GradingType')
                 ->find($idOld);
 
         $this->assertEquals(null, $deletedModule);
-        
         $this->PrintOut($result, false);
     }
 

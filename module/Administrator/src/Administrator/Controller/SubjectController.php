@@ -12,6 +12,21 @@ class SubjectController extends AbstractBaseController
 {
 
     /**
+     * GET
+     * 
+     * @return JsonModel
+     */
+    public function getList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('subject_service')
+                        ->GetList($this->GetParams())
+        );
+    }
+
+    /**
      * POST
      * 
      * @param array $data
@@ -40,21 +55,6 @@ class SubjectController extends AbstractBaseController
                         ->getServiceLocator()
                         ->get('subject_service')
                         ->Get($id)
-        );
-    }
-
-    /**
-     * GET
-     * 
-     * @return JsonModel
-     */
-    public function getList()
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subject_service')
-                        ->GetList()
         );
     }
 

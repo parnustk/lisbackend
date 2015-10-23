@@ -8,36 +8,20 @@ use Core\Controller\AbstractBaseController;
 /**
  * @author Juhan
  */
-class VocationController extends AbstractBaseController {
+class VocationController extends AbstractBaseController
+{
 
     /**
-     * POST
-     * 
-     * @param type $data
+     * GET
+     *
      * @return JsonModel
      */
-    public function create($data) {
-        return new JsonModel(
-                $this
+    public function getList()
+    {
+        return new JsonModel($this
                         ->getServiceLocator()
                         ->get('vocation_service')
-                        ->Create($data)
-        );
-    }
-
-    /**
-     * DELETE
-     * 
-     * @param type $id
-     * @param type $data
-     * @return JsonModel
-     */
-    public function delete($id) {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('vocation_service')
-                        ->Delete($id)
+                        ->GetList($this->GetParams())
         );
     }
 
@@ -47,7 +31,8 @@ class VocationController extends AbstractBaseController {
      * @param type $id
      * @return JsonModel
      */
-    public function get($id) {
+    public function get($id)
+    {
         return new JsonModel(
                 $this
                         ->getServiceLocator()
@@ -57,15 +42,18 @@ class VocationController extends AbstractBaseController {
     }
 
     /**
-     * GET
-     *
+     * POST
+     * 
+     * @param type $data
      * @return JsonModel
      */
-    public function getList() {
-        return new JsonModel($this
+    public function create($data)
+    {
+        return new JsonModel(
+                $this
                         ->getServiceLocator()
                         ->get('vocation_service')
-                        ->GetList()
+                        ->Create($data)
         );
     }
 
@@ -76,12 +64,29 @@ class VocationController extends AbstractBaseController {
      * @param type $data
      * @return JsonModel
      */
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         return new JsonModel(
                 $this
                         ->getServiceLocator()
                         ->get('vocation_service')
                         ->Update($id, $data)
+        );
+    }
+
+    /**
+     * DELETE
+     * 
+     * @param int $id
+     * @return JsonModel
+     */
+    public function delete($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('vocation_service')
+                        ->Delete($id)
         );
     }
 

@@ -14,6 +14,7 @@ return [
             'Administrator\Controller\Module' => 'Administrator\Controller\ModuleController',
             'Administrator\Controller\Moduletype' => 'Administrator\Controller\ModuletypeController',
             'Administrator\Controller\Gradingtype' => 'Administrator\Controller\GradingtypeController',
+            'Administrator\Controller\Subject' => 'Administrator\Controller\SubjectController',
         ],
     ],
     'router' => [
@@ -28,7 +29,7 @@ return [
                     ],
                     'defaults' => [
                         '__NAMESPACE__' => 'Administrator\Controller',
-                        'controller' => 'Administrator\Controller\Gradingtype',
+                        'controller' => 'Administrator\Controller\Vocation',
                     ],
                 ],
             ],

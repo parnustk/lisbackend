@@ -3,24 +3,69 @@
 namespace Core\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-//use Zend\Paginator\Paginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
 use Core\Entity\Vocation;
 use Exception;
 use Zend\Json\Json;
+use Doctrine\ORM\Query;
 
 /**
  * @author sander
  */
-class VocationRepository extends EntityRepository {
+class VocationRepository extends EntityRepository
+{
+
+    /**
+     * 
+     * @param bool $returnPartial
+     * @param stdClass $params
+     * @return Paginator
+     */
+    public function GetList($params = null)
+    {
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT partial v.{id,name, code, durationEKAP}
+                FROM Core\Entity\Vocation v";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
+    }
+
+    public function Get($id, $returnPartial = false)
+    {
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial v.{id,name,code,durationEKAP}
+                    FROM Core\Entity\Vocation v
+                    WHERE v.id = " . $id;
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            return $q->getSingleResult(Query::HYDRATE_ARRAY);
+        }
+        return $this->find($id);
+    }
 
     /**
      * 
      * @param array $data
      * @throws Exception
      */
-    public function Create($data, $returnPartial = false) {
+    public function Create($data, $returnPartial = false)
+    {
         $entity = new Vocation($this->getEntityManager());
         $entity->hydrate($data);
 
@@ -41,44 +86,11 @@ class VocationRepository extends EntityRepository {
                 ";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
             return $r;
         }
 
         return $entity;
-    }
-
-    public function Get($id, $returnPartial = false) {
-        if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial v.{id,name, code, durationEKAP}
-                    FROM Core\Entity\Vocation v
-                    WHERE mt.id = " . $id;
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->find($id);
-    }
-
-    /**
-     * 
-     * @return Array
-     */
-    public function GetList($returnPartial = false) {
-        if ($returnPartial) {
-            $dql = "
-                  
-                    SELECT partial v.{id,name, code, durationEKAP}
-                    FROM Core\Entity\Vocation v";
-            $q = $this->getEntityManager()->createQuery($dql);
-            $r = $q->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->findAll();
     }
 
     /**
@@ -88,7 +100,8 @@ class VocationRepository extends EntityRepository {
      * @return Sample
      * @throws Exception
      */
-    public function Update($id, $data, $returnPartial = false) {
+    public function Update($id, $data, $returnPartial = false)
+    {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
         $entity->hydrate($data);
@@ -108,13 +121,14 @@ class VocationRepository extends EntityRepository {
                     WHERE mt.id = " . $id;
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
 
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
             return $r;
         }
         return $entity;
     }
 
-    public function Delete($id) {
+    public function Delete($id)
+    {
         $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();
         return $id;
