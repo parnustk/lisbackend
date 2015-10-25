@@ -25,3 +25,4 @@
 
     vm - http://www.johnpapa.net/angularjss-controller-as-and-the-vm-variable/
     http://beletsky.net/2013/11/using-angular-dot-js-with-require-dot-js.html
+    http://stackoverflow.com/questions/12529083/does-it-make-sense-to-use-require-js-with-angular-js

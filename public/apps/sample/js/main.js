@@ -27,15 +27,12 @@ requirejs.config({
         "foundation.topbar": 'lib/foundation/js/foundation/foundation.topbar',
         "imagesloaded": 'lib/imagesloaded/imagesloaded.pkgd',
         "angular": 'lib/angular/angular',
-        "angularRoute": 'lib/angular-route/angular-route',
-        "angularCookies": 'lib/angular-cookies/angular-cookies'
+        "angular-route": 'lib/angular-route/angular-route',
+        "angular-cookies": 'lib/angular-cookies/angular-cookies',
+        "app": 'app',
+        'coreModule': 'coreModule'
     },
     shim: {
-        "angular": {
-            exports: 'angular'
-        },
-        "angularRoute": ['angular'],
-        "angularCookies": ['angular'],
         "jquery": ['modernizr'],
         "jquery.cookie": ['jquery'],
         "foundation": ['jquery'],
@@ -54,7 +51,19 @@ requirejs.config({
         "foundation.slider": ['foundation'],
         "foundation.tab": ['foundation'],
         "foundation.toolbar": ['foundation'],
-        "foundation.topbar": ['foundation']
+        "foundation.topbar": ['foundation'],
+        "angular": ['foundation'],
+        "angular-route": ['angular'],
+//        'app': {
+//            deps: ['angular', 'coreModule']
+//        },
+        'coreModule': {
+            deps: ['angular-route']
+        }
     },
-    deps: ['foundation', 'app']
+    deps: ['foundation', 'coreModule']
 });
+//
+//require(['app'], function () {
+//    /* */
+//});
