@@ -29,6 +29,7 @@ requirejs.config({
         "angular": 'lib/angular/angular',
         "angular-route": 'lib/angular-route/angular-route',
         "angular-cookies": 'lib/angular-cookies/angular-cookies',
+        "angular-resource": 'lib/angular-resource/angular-resource',
         "adminModule": 'module/admin/adminModule',
         "app": 'app'
     },
@@ -54,8 +55,9 @@ requirejs.config({
         "foundation.topbar": ['foundation'],
         "angular": ['foundation'],
         "angular-route": ['angular'],
+        "angular-resource": ['angular'],
         'app': {
-            deps: ['angular-route']
+            deps: ['angular-route', 'angular-resource']
         }
     },
     deps: ['app']
