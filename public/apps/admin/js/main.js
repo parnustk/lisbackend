@@ -30,6 +30,8 @@ requirejs.config({
         "angular-route": 'lib/angular-route/angular-route',
         "angular-cookies": 'lib/angular-cookies/angular-cookies',
         "angular-resource": 'lib/angular-resource/angular-resource',
+        "angular-touch": 'lib/angular-touch/angular-touch',
+        "angular-ui-grid": 'lib/angular-ui-grid/ui-grid',
         "adminModule": 'module/admin/adminModule',
         "app": 'app'
     },
@@ -56,8 +58,10 @@ requirejs.config({
         "angular": ['foundation'],
         "angular-route": ['angular'],
         "angular-resource": ['angular'],
+        "angular-touch": ['angular'],
+        "angular-ui-grid": ['angular-touch'],
         'app': {
-            deps: ['angular-route', 'angular-resource']
+            deps: ['angular-route', 'angular-resource', 'angular-ui-grid']
         }
     },
     deps: ['app']

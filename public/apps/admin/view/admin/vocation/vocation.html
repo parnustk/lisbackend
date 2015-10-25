@@ -1,1 +1,8 @@
 <h1>{{ title }}</h1>
+<a href="#/vocation" class="small button">Värskenda</a>
+<br>
+<strong>Data Length:</strong> {{ gridOptions.data.length | number }}
+<br>
+<strong>Last Cell Edited:</strong> {{editMessage.lastCellEdited}}
+<br>
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav class="grid"></div>

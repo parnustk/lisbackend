@@ -1,27 +1,50 @@
 /* global GlobalConf */
 
+/**
+ * Main entry point to app
+ * @returns {undefined}
+ */
 define(function () {
 
-    var adminModule = angular.module('adminModule', ['ngRoute', 'ngResource']);
+    /**
+     * Init angular module
+     * @type @exp;angular@call;module
+     */
+    var adminModule = angular.module('adminModule', [
+        'ngRoute',
+        'ngResource',
+        'ngTouch',
+        'ui.grid',
+        'ui.grid.edit',
+        'ui.grid.cellNav'
+    ]);
 
+    /**
+     * setup for Lazyload
+     */
     adminModule.config(['$controllerProvider', function ($controllerProvider) {
             adminModule.registerController = $controllerProvider.register;
         }]);
 
+    /**
+     * Models: TODO think of separate model files
+     */
     adminModule.factory("VocationModel", function ($resource) {
         return $resource(
                 "http://lis.localhost/admin/vocation/:Id",
                 {id: "@Id"},
         {
             "update": {method: "PUT"},
+            'query': {method: 'GET', isArray: false},
             "reviews": {'method': 'GET', 'params': {'reviews_only': "true"}, isArray: true}
 
         }
         );
     });
 
-
-    //Router - the application executes based on URL. Uses Lazyload
+    /**
+     * Router - the application executes based on URL. Uses Lazyload
+     */
     adminModule.config(['$routeProvider', function ($routeProvider) {
 
             $routeProvider.when('/', {
@@ -58,6 +81,8 @@ define(function () {
 
         }]);
 
-
+    /**
+     * Start the god damn app
+     */
     angular.bootstrap(document, ['adminModule']);
 });
