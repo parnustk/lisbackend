@@ -16,7 +16,14 @@ define(function () {
         'ngTouch',
         'ui.grid',
         'ui.grid.edit',
-        'ui.grid.cellNav'
+        'ui.grid.cellNav',
+        'ui.grid.saveState', 
+        'ui.grid.selection', 
+        'ui.grid.cellNav', 
+        'ui.grid.resizeColumns', 
+        'ui.grid.moveColumns', 
+        'ui.grid.pinning', 
+        'ui.grid.grouping'
     ]);
 
     /**
