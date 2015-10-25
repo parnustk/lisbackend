@@ -26,6 +26,7 @@ requirejs.config({
         "foundation.toolbar": 'lib/foundation/js/foundation/foundation.toolbar',
         "foundation.topbar": 'lib/foundation/js/foundation/foundation.topbar',
         "imagesloaded": 'lib/imagesloaded/imagesloaded.pkgd',
+        "moment": 'lib/moment/moment-with-locales',
         "angular": 'lib/angular/angular',
         "angular-route": 'lib/angular-route/angular-route',
         "angular-cookies": 'lib/angular-cookies/angular-cookies',

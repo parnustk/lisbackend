@@ -56,7 +56,7 @@ define(function () {
 
             $routeProvider.when('/', {
                 controller: 'mainController',
-                templateUrl: '/view/admin/main/main.html',
+                templateUrl: '/view/admin/main.html',
                 resolve: {
                     load: ['$q', function ($q) {
                             var deferred = $q.defer();
@@ -72,12 +72,28 @@ define(function () {
 
             $routeProvider.when('/vocation', {
                 controller: 'vocationController',
-                templateUrl: '/view/admin/vocation/vocation.html',
+                templateUrl: '/view/admin/vocation.html',
                 resolve: {
                     load: ['$q', function ($q) {
                             var deferred = $q.defer();
                             require(
                                     [GlobalConf.BaseUrl + 'module/admin/controller/vocationController'],
+                                    function () {
+                                        deferred.resolve();
+                                    });
+                            return deferred.promise;
+                        }]
+                }
+            });
+            
+            $routeProvider.when('/diary', {
+                controller: 'diaryController',
+                templateUrl: '/view/admin/diary.html',
+                resolve: {
+                    load: ['$q', function ($q) {
+                            var deferred = $q.defer();
+                            require(
+                                    [GlobalConf.BaseUrl + 'module/admin/controller/diaryController'],
                                     function () {
                                         deferred.resolve();
                                     });
