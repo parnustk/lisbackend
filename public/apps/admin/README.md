@@ -16,3 +16,12 @@
 ## Deploy JS
 
     $ r.js -o build.js
+
+## Angular API
+    
+    https://docs.angularjs.org/api/ngCookies
+    
+## Reading
+
+    vm - http://www.johnpapa.net/angularjss-controller-as-and-the-vm-variable/
+    http://beletsky.net/2013/11/using-angular-dot-js-with-require-dot-js.html

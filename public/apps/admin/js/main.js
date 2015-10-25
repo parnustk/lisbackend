@@ -1,3 +1,7 @@
+/**
+ * front end Development set up
+ * @param {type} param
+ */
 requirejs.config({
     baseUrl: (typeof BaseUrl !== 'undefined') ? BaseUrl : './js/',
     paths: {
@@ -22,10 +26,20 @@ requirejs.config({
         "foundation.toolbar": 'lib/foundation/js/foundation/foundation.toolbar',
         "foundation.topbar": 'lib/foundation/js/foundation/foundation.topbar',
         "imagesloaded": 'lib/imagesloaded/imagesloaded.pkgd',
-        "angular": 'lib/angular/angular'
+        "angular": 'lib/angular/angular',
+        "angularRoute": 'lib/angular-route/angular-route',
+        "angularCookies": 'lib/angular-cookies/angular-cookies'
     },
     shim: {
-        angular: {
+        "angular": {
+            exports: 'angular'
+        },
+        "angularRoute": {
+            deps: ['angular'],
+            exports: 'angular'
+        },
+        "angularCookies": {
+            deps: ['angular'],
             exports: 'angular'
         },
         "jquery": ['modernizr'],
@@ -48,5 +62,5 @@ requirejs.config({
         "foundation.toolbar": ['foundation'],
         "foundation.topbar": ['foundation']
     },
-    deps: ['app']
+    deps: ['foundation', 'app']
 });
