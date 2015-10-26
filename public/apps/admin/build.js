@@ -1,5 +1,5 @@
 ({
-    baseUrl: './js/',
+    baseUrl: (typeof BaseUrl !== 'undefined') ? BaseUrl : './js/',
     paths: {
         "modernizr": 'lib/modernizr/modernizr',
         "jquery": 'lib/jquery/dist/jquery.min',
@@ -21,7 +21,16 @@
         "foundation.tab": 'lib/foundation/js/foundation/foundation.tab',
         "foundation.toolbar": 'lib/foundation/js/foundation/foundation.toolbar',
         "foundation.topbar": 'lib/foundation/js/foundation/foundation.topbar',
-        "imagesloaded": 'lib/imagesloaded/imagesloaded.pkgd'
+        "imagesloaded": 'lib/imagesloaded/imagesloaded.pkgd',
+        "moment": 'lib/moment/moment',
+        "angular": 'lib/angular/angular',
+        "angular-route": 'lib/angular-route/angular-route',
+        "angular-cookies": 'lib/angular-cookies/angular-cookies',
+        "angular-resource": 'lib/angular-resource/angular-resource',
+        "angular-touch": 'lib/angular-touch/angular-touch',
+        "angular-ui-grid": 'lib/angular-ui-grid/ui-grid',
+        "adminModule": 'module/admin/adminModule',
+        "app": 'app'
     },
     shim: {
         "jquery": ['modernizr'],
@@ -42,8 +51,15 @@
         "foundation.slider": ['foundation'],
         "foundation.tab": ['foundation'],
         "foundation.toolbar": ['foundation'],
-        "foundation.topbar": ['foundation']
+        "foundation.topbar": ['foundation'],
+        "angular": ['foundation'],
+        "angular-route": ['angular'],
+        "angular-resource": ['angular'],
+        "angular-touch": ['angular'],
+        "angular-ui-grid": ['angular-touch']
+
     },
+    deps: ['app'],
     name: "main",
     mainConfigFile: "./js/main.js",
     out: "./app.js",

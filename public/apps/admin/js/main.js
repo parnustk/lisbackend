@@ -26,7 +26,7 @@ requirejs.config({
         "foundation.toolbar": 'lib/foundation/js/foundation/foundation.toolbar',
         "foundation.topbar": 'lib/foundation/js/foundation/foundation.topbar',
         "imagesloaded": 'lib/imagesloaded/imagesloaded.pkgd',
-        "moment": 'lib/moment/moment-with-locales',
+        "moment": 'lib/moment/moment',
         "angular": 'lib/angular/angular',
         "angular-route": 'lib/angular-route/angular-route',
         "angular-cookies": 'lib/angular-cookies/angular-cookies',
@@ -60,10 +60,7 @@ requirejs.config({
         "angular-route": ['angular'],
         "angular-resource": ['angular'],
         "angular-touch": ['angular'],
-        "angular-ui-grid": ['angular-touch'],
-        'app': {
-            deps: ['angular-route', 'angular-resource', 'angular-ui-grid']
-        }
+        "angular-ui-grid": ['angular']
     },
     deps: ['app']
 });

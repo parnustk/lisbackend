@@ -1,12 +1,18 @@
-define(function () {
-    
+/**
+ * 
+ * @param {type} moment
+ * @returns {undefined}
+ */
+define(['moment'], function (moment) {
+
     angular.module('adminModule').registerController(
             'diaryController', ['$scope', 'VocationModel',
                 function ($scope, VocationModel) {
+                    console.log(moment());
                     //good one http://stackoverflow.com/questions/25070690/angularjs-handling-resource-promise-errors
                     //http://brianhann.com/6-ways-to-take-control-of-how-your-ui-grid-data-is-displayed/
                     $scope.gridOptions = {enableCellEditOnFocus: true};
-                    
+
                     $scope.dateArray = [
                         '12.12',
                         '13.12',
@@ -22,13 +28,13 @@ define(function () {
                         {name: 'id', visible: false, enableCellEdit: false, width: '10%'},
                         {name: 'name', enableCellEdit: true, width: '10%'}
                     ];
-                    for(var x in $scope.dateArray) {
-           
-                       $scope.columnDefs.push({
-                           name: $scope.dateArray[x], enableCellEdit: true
-                       });
+                    for (var x in $scope.dateArray) {
+
+                        $scope.columnDefs.push({
+                            name: $scope.dateArray[x], enableCellEdit: true
+                        });
                     }
-                    
+
                     $scope.gridOptions.columnDefs = $scope.columnDefs;
 
 //                    function getDateRange(startDate, endDate, dateFormat) {
