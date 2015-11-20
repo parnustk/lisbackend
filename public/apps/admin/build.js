@@ -30,7 +30,7 @@
         "angular-touch": 'lib/angular-touch/angular-touch',
         "angular-ui-grid": 'lib/angular-ui-grid/ui-grid',
         "adminModule": 'module/admin/adminModule',
-        "app": 'app'
+        "bootstrap": 'bootstrap'
     },
     shim: {
         "jquery": ['modernizr'],
@@ -59,7 +59,7 @@
         "angular-ui-grid": ['angular-touch']
 
     },
-    deps: ['app'],
+    deps: ['bootstrap'],
     name: "main",
     mainConfigFile: "./js/main.js",
     out: "./app.js",
