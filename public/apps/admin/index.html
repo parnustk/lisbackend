@@ -10,15 +10,15 @@
 
         <script>
             var GlobalConf = {
-                BaseUrl: ''
+                BaseUrl: '',
+                RestUrl: 'http://lis.localhost/admin/'
             };
         </script>
-        <!-- Develop -->
-        <script data-main="js/main" src="js/lib/requirejs/require.js"></script>
+        <!--  <script data-main="js/main" src="js/lib/requirejs/require.js"></script> -->
         
-        <!-- Production
-        <script src="app.js"></script>
-        -->
+<script src="app.js"></script>
+        
+     
     </head>
     <body>
         <nav class="top-bar" data-topbar role="navigation">
@@ -35,10 +35,9 @@
                 <!-- Right Nav Section -->
                 <ul class="right">
                     <li class="has-dropdown">
-                        <a href="#/">Õppekava</a>
+                        <a href="#/vocation">Õppekava</a>
                         <ul class="dropdown">
                             <li><a href="#/vocation">Erialad</a></li>
-
                         </ul>
                     </li>
                 </ul>

@@ -3,7 +3,7 @@
  * @param {type} param
  */
 requirejs.config({
-    baseUrl: (typeof GlobalConf !== 'undefined') ? GlobalConf.url + '/js/' : './js/',
+    baseUrl: (typeof GlobalConf !== 'undefined') ? GlobalConf.BaseUrl + '/js/' : './js/',
     paths: {
         "modernizr": 'lib/modernizr/modernizr',
         "jquery": 'lib/jquery/dist/jquery.min',
@@ -33,7 +33,7 @@ requirejs.config({
         "angular-resource": 'lib/angular-resource/angular-resource',
         "angular-touch": 'lib/angular-touch/angular-touch',
         "angular-ui-grid": 'lib/angular-ui-grid/ui-grid',
-        "adminModule": 'module/admin/adminModule',
+        "adminModule": 'module/adminModule',
         "bootstrap": 'bootstrap'
     },
     shim: {
@@ -61,6 +61,5 @@ requirejs.config({
         "angular-resource": ['angular'],
         "angular-touch": ['angular'],
         "angular-ui-grid": ['angular']
-    },
     deps: ['bootstrap']
 });

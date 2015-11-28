@@ -1,5 +1,6 @@
 ({
-    baseUrl: (typeof BaseUrl !== 'undefined') ? BaseUrl : './js/',
+    // https://blog.serverdensity.com/improving-frontend-web-performance-using-requirejs-optimiser/
+    baseUrl: (typeof GlobalConf !== 'undefined') ? GlobalConf.BaseUrl : './js/',
     paths: {
         "modernizr": 'lib/modernizr/modernizr',
         "jquery": 'lib/jquery/dist/jquery.min',
@@ -29,7 +30,7 @@
         "angular-resource": 'lib/angular-resource/angular-resource',
         "angular-touch": 'lib/angular-touch/angular-touch',
         "angular-ui-grid": 'lib/angular-ui-grid/ui-grid',
-        "adminModule": 'module/admin/adminModule',
+        'adminModule': 'module/adminModule',
         "bootstrap": 'bootstrap'
     },
     shim: {
@@ -57,14 +58,16 @@
         "angular-resource": ['angular'],
         "angular-touch": ['angular'],
         "angular-ui-grid": ['angular-touch']
-
     },
     deps: ['bootstrap'],
     name: "main",
     mainConfigFile: "./js/main.js",
     out: "./app.js",
-    preserveLicenseComments: false,
-    include: ['lib/requirejs/require.js']
+    preserveLicenseComments: true,
+    findNestedDependencies: true,//TODO this one 
+    include: [
+        'lib/requirejs/require.js'
+    ]
 });
 
 

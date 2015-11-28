@@ -1,41 +1,38 @@
-/**
- * 
- * @param {type} moment
- * @returns {undefined}
- */
-define(['moment'], function (moment) {
+(function (angular) {
+    
+    define(['moment'], function (moment) {
 
-    angular.module('adminModule').registerController(
-            'diaryController', ['$scope', 'VocationModel',
-                function ($scope, VocationModel) {
-                    console.log(moment());
-                    //good one http://stackoverflow.com/questions/25070690/angularjs-handling-resource-promise-errors
-                    //http://brianhann.com/6-ways-to-take-control-of-how-your-ui-grid-data-is-displayed/
-                    $scope.gridOptions = {enableCellEditOnFocus: true};
+        angular.module('adminModule').registerController(
+                'diaryController', ['$scope', 'VocationModel',
+                    function ($scope, VocationModel) {
+                        console.log(moment());
+                        //good one http://stackoverflow.com/questions/25070690/angularjs-handling-resource-promise-errors
+                        //http://brianhann.com/6-ways-to-take-control-of-how-your-ui-grid-data-is-displayed/
+                        $scope.gridOptions = {enableCellEditOnFocus: true};
 
-                    $scope.dateArray = [
-                        '12.12',
-                        '13.12',
-                        '14.12',
-                        '15.12',
-                        '16.12',
-                        '17.12',
-                        '18.12',
-                        '19.12',
-                        '20.12'
-                    ];
-                    $scope.columnDefs = [
-                        {name: 'id', visible: false, enableCellEdit: false, width: '10%'},
-                        {name: 'name', enableCellEdit: true, width: '10%'}
-                    ];
-                    for (var x in $scope.dateArray) {
+                        $scope.dateArray = [
+                            '12.12',
+                            '13.12',
+                            '14.12',
+                            '15.12',
+                            '16.12',
+                            '17.12',
+                            '18.12',
+                            '19.12',
+                            '20.12'
+                        ];
+                        $scope.columnDefs = [
+                            {name: 'id', visible: false, enableCellEdit: false, width: '10%'},
+                            {name: 'name', enableCellEdit: true, width: '10%'}
+                        ];
+                        for (var x in $scope.dateArray) {
 
-                        $scope.columnDefs.push({
-                            name: $scope.dateArray[x], enableCellEdit: true
-                        });
-                    }
+                            $scope.columnDefs.push({
+                                name: $scope.dateArray[x], enableCellEdit: true
+                            });
+                        }
 
-                    $scope.gridOptions.columnDefs = $scope.columnDefs;
+                        $scope.gridOptions.columnDefs = $scope.columnDefs;
 
 //                    function getDateRange(startDate, endDate, dateFormat) {
 //                        var dates = [],
@@ -57,14 +54,14 @@ define(['moment'], function (moment) {
 //                    console.log(getDateRange(startDate, endDate, 'dd.mm.YYYY'));
 
 
-                    VocationModel.query({tere: 12}, function (data) {
-                        console.log(data);
-                        if (data.success) {
-                            $scope.gridOptions.data = data.data;
-                        } else {
-                            alert('error');
-                        }
-                    });
+                        VocationModel.query({tere: 12}, function (data) {
+                            console.log(data);
+                            if (data.success) {
+                                $scope.gridOptions.data = data.data;
+                            } else {
+                                alert('error');
+                            }
+                        });
 //                    $scope.title = 'Erialad';
 //                    $scope.editMessage = {};
 //
@@ -106,9 +103,10 @@ define(['moment'], function (moment) {
 //                        $scope.gridApi.saveState.restore($scope, $scope.state);
 //                    };
 //                    
-                }
+                    }
 
-            ]);
-});
-
+                ]);
+    });
+    
+} (angular));
 
