@@ -11,6 +11,7 @@ use Core\Service\SubjectService;
 use Core\Service\AbsenceReasonService;
 use Core\Service\StudentService;
 use Core\Service\GroupService;
+use Core\Service\TeacherService;
 
 /**
  * 
@@ -94,6 +95,12 @@ class Module
                 },
                 'group_service' => function ($serviceManager) {
                     $t = new GroupService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
+                'teacher_service' => function ($serviceManager) {
+                    $t = new TeacherService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
