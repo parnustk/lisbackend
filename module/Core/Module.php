@@ -12,19 +12,18 @@ use Core\Service\AbsenceReasonService;
 use Core\Service\StudentService;
 use Core\Service\GroupService;
 use Core\Service\TeacherService;
+use Core\Service\GradeChoiceService;
 
 /**
  * 
  */
-class Module
-{
+class Module {
 
     /**
      * 
      * @return type
      */
-    public function getConfig()
-    {
+    public function getConfig() {
         return include __DIR__ . '/config/module.config.php';
     }
 
@@ -32,8 +31,7 @@ class Module
      * 
      * @return array
      */
-    public function getAutoloaderConfig()
-    {
+    public function getAutoloaderConfig() {
         return [
             'Zend\Loader\StandardAutoloader' => [
                 'namespaces' => [
@@ -47,8 +45,7 @@ class Module
      * 
      * @return array
      */
-    public function getServiceConfig()
-    {
+    public function getServiceConfig() {
         return [
             'factories' => [
                 'vocation_service' => function ($serviceManager) {
@@ -93,6 +90,7 @@ class Module
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
+
                 'group_service' => function ($serviceManager) {
                     $t = new GroupService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
@@ -105,6 +103,13 @@ class Module
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
+
+                'gradechoice_service' => function ($serviceManager) {
+                    $t = new GradeChoiceService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
             ],
         ];
     }
@@ -113,8 +118,7 @@ class Module
      * 
      * @return ZfcUserAuthentication
      */
-    public function getControllerPluginConfig()
-    {
+    public function getControllerPluginConfig() {
         return array(
             'factories' => array(
                 'zfcUserAuthentication' => function ($sm) {
