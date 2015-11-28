@@ -8,6 +8,7 @@ use Core\Service\ModuleTypeService;
 use Core\Service\GradingTypeService;
 use Core\Service\ModuleService;
 use Core\Service\SubjectService;
+use Core\Service\AbsenceReasonService;
 
 /**
  * 
@@ -73,6 +74,12 @@ class Module
                 },
                 'subject_service' => function ($serviceManager) {
                     $t = new SubjectService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
+                'absencereason_service' => function ($serviceManager) {
+                    $t = new AbsenceReasonService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
