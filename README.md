@@ -35,7 +35,7 @@ List of used technologies:
     NodeJS, 
     Gulp, 
     Foundation
-    TODO test framework for JS
+    TODO find and implement testframework for JS
 
 ## Demo link
 TODO
