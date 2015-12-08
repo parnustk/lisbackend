@@ -12,11 +12,11 @@
 ## Purpose
 
 Purpose of the current project is to provide web based e-diary for http://www.saksatk.ee/en/. Deadline is 1st June of 2016. 
-Project will be taken as internship for all developers and final practical work to graduate school.
+Project will be taken as internship and final practical work to graduate school for all developers involved with the project.  
 
 ## Starting point
 
-Teams has being provided with documentation from 2015 gradutates. Docs can be found from https://drive.google.com/file/d/0B9YsOhSay3OcdGRmN0lGOXBtcXc/view relevant pages: 12 - 18.
+Teams has being provided with documentation by 2015 gradutates. Docs can be found here: https://drive.google.com/file/d/0B9YsOhSay3OcdGRmN0lGOXBtcXc/view relevant pages are 12-18.
 
 ## Technical requirements
 
