@@ -1,25 +1,29 @@
-# LearningInformationSystem
+# LearningInformationSystem for http://www.saksatk.ee/en/
 
-## LIS Restful + ORM  Backend prerequisites
+## Developers
+
+    Eleri Apsolon - developer
+    Marten Kähr - developer
+    Juhan Kõks - developer
+    Kristen Sepp - developer
+    Arnold Tserepov - developer
+    Sander Mets - developer, team lead
+
+## Setup and other specifics
+
+### LIS Restful + ORM  Backend prerequisites
 PHP >= 5.4  
 Mysql >= 5.4  
 
-## If You want to set up Your own new Zend2 + ORM project 
-follow: 
-
-    http://framework.zend.com/manual/current/en/user-guide/skeleton-application.html  
-    https://getcomposer.org/doc/00-intro.md  
-    http://marco-pivetta.com/doctrine-orm-zf2-tutorial/#/  
-
-### Instructions
+#### Instructions
 
 Following instructions are written for Ubuntu and Lamp. All can be accomplished 
 using Mac or Windows or other Linux distro.  
-Install Main project - open up terminal
+open up terminal:
 
     mkdir ~/web # Your own path
-    cd ~/web # Your own pat
-    mkdir lis # Your own pat
+    cd ~/web # Your own path
+    mkdir lis # Your own path
     cd lis # Inside project root
     git clone https://github.com/parnustk/lisbackend.git .
     curl -sS https://getcomposer.org/installer | php
@@ -31,7 +35,7 @@ In Windows download Composer on https://getcomposer.org/download/. Use context
 menu in Windows Explorer on root directory of the project to install the 
 dependencies.
 
-### Create virtual host  
+#### Create virtual host  
 
 Add following line to /etc/hosts :
 
@@ -118,7 +122,7 @@ More apache modules:
     sudo a2enmod headers
     sudo a2enmod rewrite
 
-### Set up ORM DB connection
+#### Set up ORM DB connection
 
 Add database in your local MySQL(or other) server. MySQL possible collation for database is utf8 bin - enables UTF8 safe case-sensitivity.
 Add file config/autoload/doctrineorm.local.php:
@@ -154,9 +158,9 @@ Add file config/autoload/doctrineorm.local.php:
 
 All done! Open https://lis.local/ and http://lis.local/ to test.
 
-## Install database from Entities
+### Install database from Entities
 
-### Use Doctrine CLI
+#### Use Doctrine CLI
 
 Create Entities against database(in current projects root directory):
     
@@ -198,7 +202,7 @@ Generate proxies:
     vendor/bin/doctrine-module orm:generate-proxies
 
 
-### Optional Helper ZF-tool
+#### Optional Helper ZF-tool
 
 http://framework.zend.com/manual/current/en/modules/zendtool.introduction.html
 
@@ -219,14 +223,14 @@ Create controller
 
     vendor/bin/zf.php create   Sample Core
 
-## Testing
+### Testing
 
 We will use FUNCTIONAL testing. Testing will be against REAL DATABASE in LOCAL ENVIRONMENT.  
 In other words we are testing Controllers only if no volunteers found.
 We probably have no time for UNIT tests.  
 Test stories will be generated using TSLgenerator.  
 
-### PHPUnit
+#### PHPUnit
 
 https://phpunit.de/getting-started.html  
 Install php unit(Latest phpunit reqs php >= 5.6 so we use older version):
@@ -237,14 +241,14 @@ Install php unit(Latest phpunit reqs php >= 5.6 so we use older version):
     sudo mv phpunit.phar /usr/local/bin/phpunit
     phpunit --version
 
-### Testing module
+#### Testing module
 
 In projects root:
 
     cd module/Core/src/test
     phpunit
     
-## Future auth research
+### Future auth research
 https://zfmodules.com/:
 
     ZfcUserDoctrineORM
@@ -253,18 +257,18 @@ https://zfmodules.com/:
 TODO first make it work with ZfcUserDoctrineORM
 after succeed move to OAUTH2 if theres time. 
 
-## Validation of entities
+### Validation of entities
 
 https://github.com/coolcsn/CsnAuthorization/blob/master/src/CsnAuthorization/Entity/Resource.php
 http://luci.criosweb.ro/simplify-handling-of-tables-entities-forms-and-validations-in-zf2-by-using-annotations/
 
-## Doctrine hydrator
+### Doctrine hydrator
 
 See:
 
     https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
 
-## Front End research
+### Front End research
 
 Reqs:
 
@@ -289,11 +293,11 @@ http://www.sitepoint.com/using-requirejs-angularjs-applications/
 http://blog.falafel.com/building-single-page-applications-with-canjs-and-requirejs/  
 winner at the moment CanJs
 
-## Auth 
+### Auth 
 
 think of http://framework.zend.com/manual/current/en/modules/zend.authentication.adapter.http.html
 
-## CanJS AMD
+### CanJS AMD
 
 Helps:
 
@@ -305,11 +309,11 @@ Helps:
 
 http://stackoverflow.com/questions/26290976/canjs-extending-can-model-with-additional-methods
 
-## Final winner AngularJS
+### Final winner AngularJS
 
 After some extra research - final winner is AngularJS.
 
-### Set up
+#### Set up
 
 Gulp:
 
@@ -327,4 +331,11 @@ Rest($resource):
 
     http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
     (https://github.com/jsprodotcom/source/blob/master/movieApp.zip)
+    
+### If You want to set up Your own new Zend2 + ORM project 
+follow: 
+
+    http://framework.zend.com/manual/current/en/user-guide/skeleton-application.html  
+    https://getcomposer.org/doc/00-intro.md  
+    http://marco-pivetta.com/doctrine-orm-zf2-tutorial/#/  
 
