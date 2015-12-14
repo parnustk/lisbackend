@@ -1,1 +1,0 @@
-# Student front-end
