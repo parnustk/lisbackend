@@ -25,7 +25,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
         
-        $this->request->getPost()->set('tere', ['oi'=>'oi']);
+        $this->request->getPost()->set('name', 'TEST');
         
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
