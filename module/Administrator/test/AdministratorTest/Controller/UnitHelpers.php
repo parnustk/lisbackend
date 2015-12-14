@@ -165,6 +165,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     ],
         ]);
     }
+
     /**
      * 
      * @param array $data | null
@@ -180,9 +181,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         return $repository->Create([
                     'name' => 'asd',
-                    'vocation_id' => ['id' => $this->CreateVocation()->getId()],
+                    'vocation' => $this->CreateVocation()->getId(),
         ]);
     }
+
     /**
      * 
      * @param array $data | null
@@ -197,9 +199,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-            'firstName' => 'asd',
-            'lastName' => 'asd',
-            'group_id' => ['id' => $this->CreateVocation()->getId()],
+                    'firstName' => 'asd',
+                    'lastName' => 'asd',
+                    'group_id' => ['id' => $this->CreateVocation()->getId()],
         ]);
     }
 

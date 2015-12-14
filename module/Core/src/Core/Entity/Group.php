@@ -1,11 +1,17 @@
-<?php namespace Core\Entity;
-use Doctrine\ORM\Mapping AS ORM; use Zend\Form\Annotation;
+<?php
+
+namespace Core\Entity;
+
+use Doctrine\ORM\Mapping AS ORM;
+use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\GroupRepository")
  */
-class Group
+class Group extends EntityValidation
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -33,4 +39,60 @@ class Group
      * @ORM\OneToMany(targetEntity="Student", mappedBy="group")
      */
     protected $student;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getVocation()
+    {
+        return $this->vocation;
+    }
+
+    public function getSubjectRound()
+    {
+        return $this->subjectRound;
+    }
+
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setVocation($vocation)
+    {
+        $this->vocation = $vocation;
+        return $this;
+    }
+
+    public function setSubjectRound($subjectRound)
+    {
+        $this->subjectRound = $subjectRound;
+        return $this;
+    }
+
+    public function setStudent($student)
+    {
+        $this->student = $student;
+        return $this;
+    }
+
 }

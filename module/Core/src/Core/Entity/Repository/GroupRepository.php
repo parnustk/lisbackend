@@ -2,7 +2,7 @@
 
 namespace Core\Entity\Repository;
 
-use Core\Entity\Vocation;
+use Core\Entity\Group;
 use Doctrine\ORM\EntityRepository;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -65,16 +65,19 @@ class GroupRepository extends EntityRepository
      */
     public function Create($data, $returnPartial = false)
     {
-        $entity = new Vocation($this->getEntityManager());
+        $entity = new Group($this->getEntityManager());
         $entity->hydrate($data);
-
+       
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
 
         $this->getEntityManager()->persist($entity);
+         
         $this->getEntityManager()->flush($entity);
-
+        
+        die('asd');
+        
         if ($returnPartial) {
 
             $dql = "

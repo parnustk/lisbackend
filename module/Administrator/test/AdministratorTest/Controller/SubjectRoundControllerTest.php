@@ -19,18 +19,20 @@ class SubjectRoundControllerTest extends UnitHelpers
     public function testCreate()
     {
         $this->request->setMethod('post');
-     
-        $this->request->getPost()->set('name', 'TEST');
 
+        $group = $this->CreateGroup();
         
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        
-        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
+        //
+        ////        $this->request->getPost()->set('name', 'TEST');
+//
+//        
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        
+//        $this->assertEquals(200, $response->getStatusCode());
+////        $this->assertEquals(1, $result->success);
 //        
 //        $this->PrintOut($result, true);
-                
     }
 
 }
