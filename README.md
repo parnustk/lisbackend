@@ -7,6 +7,7 @@
     Juhan Kõks - developer
     Kristen Sepp - developer
     Arnold Tserepov - developer
+    Alar Aasa - developer
     Sander Mets - developer, team lead
 
 ## Purpose
