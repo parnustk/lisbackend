@@ -2,6 +2,7 @@
 use Doctrine\ORM\Mapping AS ORM; use Zend\Form\Annotation; 
 
 /**
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentRepository")
  * @ORM\Entity
  * @ORM\Table(
  *     indexes={
