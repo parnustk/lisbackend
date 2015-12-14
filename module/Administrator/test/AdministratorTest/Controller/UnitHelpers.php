@@ -171,9 +171,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\Group
      */
-    protected function CreateGroup($data = null)
+    protected function CreateStudentGroup($data = null)
     {
-        $repository = $this->em->getRepository('Core\Entity\Group');
+        $repository = $this->em->getRepository('Core\Entity\StudentGroup');
 
         if ($data) {
             return $repository->Create($data);
@@ -192,17 +192,17 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      */
     protected function CreateStudent($data = null)
     {
-        $repository = $this->em->getRepository('Core\Entity\Student');
-
-        if ($data) {
-            return $repository->Create($data);
-        }
-
-        return $repository->Create([
-                    'firstName' => 'asd',
-                    'lastName' => 'asd',
-                    'group_id' => ['id' => $this->CreateVocation()->getId()],
-        ]);
+//        $repository = $this->em->getRepository('Core\Entity\Student');
+//
+//        if ($data) {
+//            return $repository->Create($data);
+//        }
+//
+//        return $repository->Create([
+//                    'firstName' => 'asd',
+//                    'lastName' => 'asd',
+//                    'group_id' => ['id' => $this->CreateVocation()->getId()],
+//        ]);
     }
 
 }

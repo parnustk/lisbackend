@@ -5,7 +5,7 @@ namespace Administrator\Controller;
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
-class GroupController extends AbstractBaseController
+class StudentGroupController extends AbstractBaseController
 {
 
     /**
@@ -15,7 +15,7 @@ class GroupController extends AbstractBaseController
      */
     public function create($data)
     {
-        $s = $this->getServiceLocator()->get('group_service');
+        $s = $this->getServiceLocator()->get('studentgroup_service');
         $result = $s->Create($data);
         return new JsonModel($result);
     }

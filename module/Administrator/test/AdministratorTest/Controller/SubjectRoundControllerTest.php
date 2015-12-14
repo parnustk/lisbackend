@@ -20,7 +20,7 @@ class SubjectRoundControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
 
-        $group = $this->CreateGroup();
+        $group = $this->CreateStudentGroup();
         
         //
         ////        $this->request->getPost()->set('name', 'TEST');

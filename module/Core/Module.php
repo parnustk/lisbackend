@@ -95,8 +95,8 @@ class Module
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
-                'group_service' => function ($serviceManager) {
-                    $t = new GroupService();
+                'studentgroup_service' => function ($serviceManager) {
+                    $t = new StudentGroupService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;

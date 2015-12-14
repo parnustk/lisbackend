@@ -2,14 +2,14 @@
 
 namespace AdministratorTest\Controller;
 
-use Administrator\Controller\GroupController;
+use Administrator\Controller\StudentGroupController;
 
-class GroupControllerTest extends UnitHelpers
+class StudentGroupControllerTest extends UnitHelpers
 {
 
     protected function setUp()
     {
-        $this->controller = new GroupController();
+        $this->controller = new StudentGroupController();
         parent::setUp();
     }
 
@@ -20,7 +20,7 @@ class GroupControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
         
-        $this->request->getPost()->set('name', 'TESTname');
+        $this->request->getPost()->set('tere', 'TEST');
         $this->request->getPost()->set('Pärnu', 'Linn');
         
         $result = $this->controller->dispatch($this->request);

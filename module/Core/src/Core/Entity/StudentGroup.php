@@ -7,7 +7,7 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 
 /**
- * @ORM\Entity(repositoryClass="Core\Entity\Repository\StrudentGroupRepository")
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentGroupRepository")
  */
 class StudentGroup extends EntityValidation
 {

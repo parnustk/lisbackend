@@ -2,7 +2,7 @@
 
 namespace Core\Entity\Repository;
 
-use Core\Entity\Group;
+use Core\Entity\StudentGroup;
 use Doctrine\ORM\EntityRepository;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -65,7 +65,7 @@ class StudentGroupRepository extends EntityRepository
      */
     public function Create($data, $returnPartial = false)
     {
-        $entity = new Group($this->getEntityManager());
+        $entity = new StudentGroup($this->getEntityManager());
         $entity->hydrate($data);
        
         if (!$entity->validate()) {
@@ -83,7 +83,7 @@ class StudentGroupRepository extends EntityRepository
             $dql = "
                     SELECT 
                         partial g.{id,name}
-                    FROM Core\Entity\Group g
+                    FROM Core\Entity\StudentGroup g
                     WHERE g.id = " . $entity->getId() . "
                 ";
 
