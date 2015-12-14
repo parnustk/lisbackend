@@ -10,7 +10,7 @@ use Core\Service\ModuleService;
 use Core\Service\SubjectService;
 use Core\Service\AbsenceReasonService;
 use Core\Service\StudentService;
-use Core\Service\GroupService;
+use Core\Service\StudentGroupService;
 use Core\Service\TeacherService;
 use Core\Service\GradeChoiceService;
 use Core\Service\SubjectRoundService;
