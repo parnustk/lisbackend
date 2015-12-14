@@ -20,7 +20,7 @@ class GroupControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
         
-        $this->request->getPost()->set('tere', 'TEST');
+        $this->request->getPost()->set('name', 'TESTname');
         $this->request->getPost()->set('Pärnu', 'Linn');
         
         $result = $this->controller->dispatch($this->request);
