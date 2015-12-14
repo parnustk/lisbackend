@@ -76,8 +76,6 @@ class StudentGroupRepository extends EntityRepository
          
         $this->getEntityManager()->flush($entity);
         
-        die('asd');
-        
         if ($returnPartial) {
 
             $dql = "
