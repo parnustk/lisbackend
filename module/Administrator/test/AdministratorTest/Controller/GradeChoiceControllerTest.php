@@ -23,8 +23,8 @@ class GradeChoiceControllerTest extends UnitHelpers {
      */
     public function testCreate() {
         $this->request->setMethod('post');
-        $this->request->getPost()->set("tere", "Maailm");
-        $this->request->getPost()->set("Parnu", "Linn");
+        $this->request->getPost()->set("name", "TEST");
+       /* $this->request->getPost()->set("Parnu", "Linn");*/
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
