@@ -2,11 +2,12 @@
 
 ## Developers
 
-    Eleri Apsolon - developer
+    Eleri Apsolon - developer, eleri.apsolon@gmail.com
     Marten Kähr - developer
     Juhan Kõks - developer
     Kristen Sepp - developer
-    Arnold Tserepov - developer
+    Arnold Tserepov - developer,tserepov@gmail.com
+    Alar Aasa - developer
     Sander Mets - developer, team lead
 
 ## Purpose
