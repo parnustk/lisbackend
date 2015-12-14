@@ -2,7 +2,7 @@
 
 ## Developers
 
-    Eleri Apsolon - developer
+    Eleri Apsolon - developer, eleri.apsolon@gmail.com
     Marten Kähr - developer
     Juhan Kõks - developer
     Kristen Sepp - developer
