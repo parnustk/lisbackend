@@ -44,3 +44,6 @@ TODO
 ## Installation
 Instructions can be found - https://github.com/parnustk/lisbackend/wiki/Install  
 
+## Quick helper
+php vendor/bin/doctrine-module orm:validate-schema
+php vendor/bin/doctrine-module orm:validate-create

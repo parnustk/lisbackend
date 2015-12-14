@@ -58,8 +58,8 @@ class Student
     protected $studentGrade;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="student")
+     * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="student")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
-    protected $group;
+    protected $studentGroup;
 }

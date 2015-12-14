@@ -35,10 +35,10 @@ class SubjectRound
     protected $subject;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="subjectRound")
+     * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)
      */
-    protected $group;
+    protected $studentGroup;
 
     /**
      * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="subjectRound")

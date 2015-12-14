@@ -7,9 +7,9 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 
 /**
- * @ORM\Entity(repositoryClass="Core\Entity\Repository\GroupRepository")
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\StrudentGroupRepository")
  */
-class Group extends EntityValidation
+class StudentGroup extends EntityValidation
 {
 
     /**
@@ -25,18 +25,18 @@ class Group extends EntityValidation
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="group")
+     * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="studentGroup")
      * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false, unique=true, onDelete="RESTRICT")
      */
     protected $vocation;
 
     /**
-     * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="group")
+     * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="studentGroup")
      */
     protected $subjectRound;
 
     /**
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="group")
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="studentGroup")
      */
     protected $student;
 

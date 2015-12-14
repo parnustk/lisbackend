@@ -14,7 +14,7 @@ use Doctrine\ORM\Query;
 /**
  * @author marten
  */
-class GroupRepository extends EntityRepository
+class StudentGroupRepository extends EntityRepository
 {
 
     /**

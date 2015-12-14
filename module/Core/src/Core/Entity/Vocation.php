@@ -41,9 +41,9 @@ class Vocation extends \Core\Utils\EntityValidation
     protected $durationEKAP;
 
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="vocation")
+     * @ORM\OneToMany(targetEntity="StudentGroup", mappedBy="vocation")
      */
-    protected $group;
+    protected $studentGroup;
 
     /**
      * @ORM\OneToMany(targetEntity="Module", mappedBy="vocation")
