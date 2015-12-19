@@ -1,9 +1,7 @@
-(function () {
-    define([
-        'adminModule',
-        'module/model/vocationModel'
-    ], function () {
-        return undefined;
-    });
-}());
 
+define([
+    'adminModule',
+    'module/model/vocationModel'
+], function () {
+    return undefined;
+});

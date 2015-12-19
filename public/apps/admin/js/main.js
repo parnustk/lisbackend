@@ -1,9 +1,11 @@
-/**
- * front end Development set up
- * @param {type} param
- */
+/*global require*/
+
+'use strict';
+
 requirejs.config({
+    
     baseUrl: (typeof GlobalConf !== 'undefined') ? GlobalConf.BaseUrl + '/js/' : './js/',
+    
     paths: {
         "modernizr": 'lib/modernizr/modernizr',
         "jquery": 'lib/jquery/dist/jquery.min',
@@ -36,6 +38,7 @@ requirejs.config({
         "adminModule": 'module/adminModule',
         "bootstrap": 'bootstrap'
     },
+    
     shim: {
         "jquery": ['modernizr'],
         "jquery.cookie": ['jquery'],
@@ -56,10 +59,18 @@ requirejs.config({
         "foundation.tab": ['foundation'],
         "foundation.toolbar": ['foundation'],
         "foundation.topbar": ['foundation'],
-        "angular": ['foundation'],
+        
+        "angular": {
+            deps: ['foundation'],
+            exports: 'angular'
+        },
+        
         "angular-route": ['angular'],
         "angular-resource": ['angular'],
         "angular-touch": ['angular'],
         "angular-ui-grid": ['angular']
+    },
+    
     deps: ['bootstrap']
+    
 });

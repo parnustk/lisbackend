@@ -6,16 +6,16 @@
 
 ## Install
 
-    $ npm install
-    $ bower install
+    npm install
+    bower install
 
 ## Develop
 
-    $ gulp develop
+    gulp develop
 
 ## Deploy JS
 
-    $ r.js -o build.js
+    r.js -o build.js
 
 ## Angular API
     

@@ -53,7 +53,10 @@
         "foundation.tab": ['foundation'],
         "foundation.toolbar": ['foundation'],
         "foundation.topbar": ['foundation'],
-        "angular": ['foundation'],
+        "angular": {
+            deps: ['foundation'],
+            exports: 'angular'
+        },
         "angular-route": ['angular'],
         "angular-resource": ['angular'],
         "angular-touch": ['angular'],
@@ -64,7 +67,7 @@
     mainConfigFile: "./js/main.js",
     out: "./app.js",
     preserveLicenseComments: true,
-    findNestedDependencies: true,//TODO this one 
+    findNestedDependencies: true, //TODO this one 
     include: [
         'lib/requirejs/require.js'
     ]
