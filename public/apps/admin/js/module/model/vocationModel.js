@@ -1,6 +1,7 @@
 /* global GlobalConf */
 
 (function (angular, GlobalConf) {
+    
     "use strict";
     
     var adminModule = angular.module('adminModule');
