@@ -1,17 +1,24 @@
+/*global document, define, require */
 
-"use strict";
+define(
+    [
+        'jquery',
+        'foundation',
+        'foundation.reveal'
+    ],
+    /**
+     * 
+     * @param {type} $
+     * @returns {undefined}
+     */
+    function ($) {
 
-define([
-    'jquery',
-    'foundation',
-    'foundation.reveal'
+        "use strict";
 
-], function ($) {
+        $(document).ready(function () { //DOM loaded
+            $(document).foundation(); //start foundation
+            require(['adminModule']);
+        });
 
-    $(document).ready(function () { //DOM loaded
-        $(document).foundation(); //start foundation
-        require(['adminModule']);
-    });
-    
-});
-
+    }
+);

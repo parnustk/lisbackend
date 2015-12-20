@@ -1,7 +1,10 @@
+/*jshint node: true*/
+
 var gulp = require('gulp'),
-        connect = require('gulp-connect'),
-        gutil = require('gulp-util'),
-        sass = require('gulp-sass');
+    connect = require('gulp-connect'),
+    gutil = require('gulp-util'),
+    sass = require('gulp-sass'),
+    jshint = require('gulp-jshint');
 
 /**
  * Info
@@ -15,12 +18,11 @@ gulp.task('default', ['develop'], function () {
  */
 gulp.task('styles', function () {
     gulp.src('./scss/style.scss')
-            .pipe(sass({
-                includePaths: ['./js/lib/foundation/scss'],
-                outputStyle: 'compressed'
-            })
-            .on('error', sass.logError))
-            .pipe(gulp.dest('./'));
+        .pipe(sass({
+            includePaths: ['./js/lib/foundation/scss'],
+            outputStyle: 'compressed'
+        }).on('error', sass.logError))
+        .pipe(gulp.dest('./'));
 });
 
 /**
@@ -48,6 +50,15 @@ gulp.task('webserver-live', function () {
 });
 
 /**
- * 
+ * JS validation
  */
-gulp.task('develop', ['styles', 'webserver-live', 'watch-styles']);
+gulp.task('lint', function () {
+    gulp.src('./js/module/adminModule.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default', {verbose: true}));
+});
+
+
+
+
+

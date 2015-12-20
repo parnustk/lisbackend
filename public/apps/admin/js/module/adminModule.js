@@ -1,5 +1,3 @@
-
-
 /* global GlobalConf */
 
 define([
@@ -9,6 +7,8 @@ define([
     'angular-ui-grid',
     'angular-touch'
 ], function (angular) {
+
+    "use strict";
 
     var adminModule = angular.module('adminModule', [
         'ngRoute',
@@ -29,16 +29,17 @@ define([
     adminModule.factory("VocationModel", function ($resource) {
 
         return $resource(
-                GlobalConf.RestUrl + "vocation/:Id",
-                {id: "@Id"},
-                {
-                    update: {method: "PUT"},
-                    query: {method: 'GET', isArray: false},
-                    reviews: {method: 'GET', params: {reviews_only: "true"}, isArray: true}
-
-                }
+            GlobalConf.RestUrl + "vocation/:Id",
+            {id: "@Id"},
+            {
+                update: {method: "PUT"},
+                query: {method: 'GET', isArray: false},
+                reviews: {method: 'GET', params: {reviews_only: "true"}, isArray: true}
+            }
         );
     });
+    
+    
 
     return adminModule;
 });
