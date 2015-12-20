@@ -17,7 +17,9 @@ Project will be taken into account as internship and final practical work to gra
 
 ## Starting point
 
-Team has been provided with documentation by 2015 gradutates. Docs can be found here: https://drive.google.com/file/d/0B9YsOhSay3OcdGRmN0lGOXBtcXc/view relevant pages are 12-18.
+Team has been provided with documentation by 2015 gradutates. Docs can be found here:
+
+https://drive.google.com/file/d/0B9YsOhSay3OcdGRmN0lGOXBtcXc/view relevant pages are 12-18.
 
 ## Technical requirements
 
@@ -36,14 +38,29 @@ List of used technologies:
     NodeJS, 
     Gulp, 
     Foundation
-    TODO find and implement testframework for JS
+    TODO find and implement testframework(s) for JS(Angular)
 
 ## Demo link
 TODO
 
 ## Installation
-Instructions can be found - https://github.com/parnustk/lisbackend/wiki/Install  
+
+    Instructions can be found - https://github.com/parnustk/lisbackend/wiki/Install  
 
 ## Quick helper
-php vendor/bin/doctrine-module orm:validate-schema
-php vendor/bin/doctrine-module orm:validate-create
+
+### Linux:
+
+    php vendor/bin/doctrine-module orm:validate-schema
+    php vendor/bin/doctrine-module orm:validate-create
+   
+### Windows:
+
+    vendor\bin\doctrine-module.bat orm:validate-schema
+    vendor\bin\doctrine-module.bat orm:schema-tool:create
+    
+## Material
+
+    "PHP Data Persistence with Doctrine 2 ORM Concepts, Techniques and Practical Solutions" by Michael Romer
+    http://framework.zend.com/manual/current/en/index.html
+    
