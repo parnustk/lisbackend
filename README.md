@@ -8,7 +8,7 @@
     Kristen Sepp - developer
     Arnold Tserepov - developer,tserepov@gmail.com
     Alar Aasa - developer
-    Sander Mets - developer, team lead
+    Sander Mets - developer, team lead sandermets0@gmail.com
 
 ## Purpose
 
@@ -17,7 +17,7 @@ Project will be taken into account as internship and final practical work to gra
 
 ## Starting point
 
-Teams has being provided with documentation by 2015 gradutates. Docs can be found here: https://drive.google.com/file/d/0B9YsOhSay3OcdGRmN0lGOXBtcXc/view relevant pages are 12-18.
+Team has been provided with documentation by 2015 gradutates. Docs can be found here: https://drive.google.com/file/d/0B9YsOhSay3OcdGRmN0lGOXBtcXc/view relevant pages are 12-18.
 
 ## Technical requirements
 
