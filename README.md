@@ -38,7 +38,7 @@ List of used technologies:
     NodeJS, 
     Gulp, 
     Foundation
-    TODO find and implement testframework(s) for JS(Angular)
+    TODO choose between CasperJS and Karma, or both?
 
 ## Demo link
 TODO
