@@ -10,7 +10,7 @@ chdir(__DIR__);
 /**
  * @author sander, juhan
  */
-class SampleControllerTest extends UnitHelpers
+class VocationControllerTest extends UnitHelpers
 {
 
     protected function setUp()
