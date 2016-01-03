@@ -52,7 +52,7 @@ TODO
 ### Linux:
 
     php vendor/bin/doctrine-module orm:validate-schema
-    php vendor/bin/doctrine-module orm:validate-create
+    php vendor/bin/doctrine-module orm:schema-tool:create
    
 ### Windows:
 

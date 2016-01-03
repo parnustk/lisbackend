@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentRepository")
- * @ORM\Entity
  * @ORM\Table(
  *     indexes={
  *         @ORM\Index(name="studentcode", columns={"code"}),

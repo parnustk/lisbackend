@@ -7,7 +7,7 @@ use Zend\Form\Annotation;
 use Doctrine\ORM\EntityManager;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradeSubjectRoundRepository")
  */
 class GradeSubjectRound extends StudentGrade
 {
