@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Core\Utils\EntityValidation;
 use Zend\Stdlib\ArraySerializableInterface;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")
@@ -84,9 +85,9 @@ class Module extends EntityValidation
 
     /**
      * 
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param EntityManager $em
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em = null)
+    public function __construct(EntityManager $em = null)
     {
         $this->gradingType = new ArrayCollection();
         parent::__construct($em);
@@ -156,12 +157,6 @@ class Module extends EntityValidation
     public function getGradingType()
     {
         return $this->gradingType;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function setName($name)

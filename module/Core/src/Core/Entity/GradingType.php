@@ -4,11 +4,13 @@ namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradingTypeRepository")
  */
-class GradingType extends \Core\Utils\EntityValidation
+class GradingType extends EntityValidation
 {
 
     /**
@@ -42,9 +44,9 @@ class GradingType extends \Core\Utils\EntityValidation
 
     /**
      * 
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param EntityManager $em
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em = null)
+    public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
     }

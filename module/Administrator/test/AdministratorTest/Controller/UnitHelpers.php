@@ -204,5 +204,14 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 //                    'group_id' => ['id' => $this->CreateVocation()->getId()],
 //        ]);
     }
+    
+    /**
+     * 
+     * @param type $data
+     */
+    protected function CreateSubjectRound($data = null)
+    {
+        
+    }
 
 }

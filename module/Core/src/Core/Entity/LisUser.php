@@ -1,11 +1,18 @@
-<?php namespace Core\Entity;
-use Doctrine\ORM\Mapping AS ORM; use Zend\Form\Annotation; 
+<?php
+
+namespace Core\Entity;
+
+use Doctrine\ORM\Mapping AS ORM;
+use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\LisUserRepository")
  */
-class LisUser
+class LisUser extends EntityValidation
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -42,4 +49,85 @@ class LisUser
      * @ORM\OneToOne(targetEntity="Administrator", mappedBy="lisUser")
      */
     protected $administrator;
+
+    /**
+     * 
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em = null)
+    {
+        parent::__construct($em);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    public function getAdministrator()
+    {
+        return $this->administrator;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    public function setState($state)
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    public function setTeacher($teacher)
+    {
+        $this->teacher = $teacher;
+        return $this;
+    }
+
+    public function setStudent($student)
+    {
+        $this->student = $student;
+        return $this;
+    }
+
+    public function setAdministrator($administrator)
+    {
+        $this->administrator = $administrator;
+        return $this;
+    }
+
 }

@@ -4,12 +4,14 @@ namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleTypeRepository")
  * @ORM\Table(indexes={@ORM\Index(name="moduletypename", columns={"name"})})
  */
-class ModuleType extends \Core\Utils\EntityValidation
+class ModuleType extends EntityValidation
 {
 
     /**
@@ -37,9 +39,9 @@ class ModuleType extends \Core\Utils\EntityValidation
 
     /**
      * 
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param EntityManager $em
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em = null)
+    public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
     }

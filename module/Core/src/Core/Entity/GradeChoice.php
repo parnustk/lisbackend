@@ -4,11 +4,13 @@ namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradeChoiceRepository")
  */
-class GradeChoice extends \Core\Utils\EntityValidation
+class GradeChoice extends EntityValidation
 {
 
     /**
@@ -27,6 +29,15 @@ class GradeChoice extends \Core\Utils\EntityValidation
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="gradeChoice")
      */
     protected $studentGrade;
+
+    /**
+     * 
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em = null)
+    {
+        parent::__construct($em);
+    }
 
     public function getId()
     {

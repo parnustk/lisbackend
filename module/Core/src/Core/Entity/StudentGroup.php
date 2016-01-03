@@ -5,6 +5,7 @@ namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentGroupRepository")
@@ -39,6 +40,15 @@ class StudentGroup extends EntityValidation
      * @ORM\OneToMany(targetEntity="Student", mappedBy="studentGroup")
      */
     protected $student;
+    
+    /**
+     * 
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em = null)
+    {
+        parent::__construct($em);
+    }
 
     public function getId()
     {
@@ -63,12 +73,6 @@ class StudentGroup extends EntityValidation
     public function getStudent()
     {
         return $this->student;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function setName($name)

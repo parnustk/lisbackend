@@ -4,6 +4,8 @@ namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\VocationRepository")
@@ -11,7 +13,7 @@ use Zend\Form\Annotation;
  *     indexes={@ORM\Index(name="vocationname", columns={"name"}),@ORM\Index(name="vocationcode", columns={"code"})}
  * )
  */
-class Vocation extends \Core\Utils\EntityValidation
+class Vocation extends EntityValidation
 {
 
     /**
@@ -52,9 +54,9 @@ class Vocation extends \Core\Utils\EntityValidation
 
     /**
      * 
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param EntityManager $em
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em = null)
+    public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
     }

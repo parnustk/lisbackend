@@ -26,7 +26,7 @@ class ContactLessonTest extends UnitHelpers
         $durationAK = 4;
         $this->request->getPost()->set("durationAK", $durationAK);        
         
-        
+        $subjectRound 
         $result = $this->controller->dispatch($this->request);
         $this->PrintOut($result, true);
         $response = $this->controller->getResponse();

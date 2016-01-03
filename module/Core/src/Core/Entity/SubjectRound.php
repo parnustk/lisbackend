@@ -1,11 +1,18 @@
-<?php namespace Core\Entity;
-use Doctrine\ORM\Mapping AS ORM; use Zend\Form\Annotation; 
+<?php
+
+namespace Core\Entity;
+
+use Doctrine\ORM\Mapping AS ORM;
+use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRoundRepository")
  */
-class SubjectRound
+class SubjectRound extends EntityValidation
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -49,4 +56,85 @@ class SubjectRound
      * )
      */
     protected $teacher;
+
+    /**
+     * 
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em = null)
+    {
+        parent::__construct($em);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getIndependentWork()
+    {
+        return $this->independentWork;
+    }
+
+    public function getContactLesson()
+    {
+        return $this->contactLesson;
+    }
+
+    public function getGradeSubjectRound()
+    {
+        return $this->gradeSubjectRound;
+    }
+
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    public function getStudentGroup()
+    {
+        return $this->studentGroup;
+    }
+
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+
+    public function setIndependentWork($independentWork)
+    {
+        $this->independentWork = $independentWork;
+        return $this;
+    }
+
+    public function setContactLesson($contactLesson)
+    {
+        $this->contactLesson = $contactLesson;
+        return $this;
+    }
+
+    public function setGradeSubjectRound($gradeSubjectRound)
+    {
+        $this->gradeSubjectRound = $gradeSubjectRound;
+        return $this;
+    }
+
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
+    public function setStudentGroup($studentGroup)
+    {
+        $this->studentGroup = $studentGroup;
+        return $this;
+    }
+
+    public function setTeacher($teacher)
+    {
+        $this->teacher = $teacher;
+        return $this;
+    }
+
 }
