@@ -14,15 +14,16 @@ use Doctrine\ORM\Query;
 /**
  * @author sander
  */
-class SubjectRepository extends EntityRepository
+class SubjectRepository extends EntityRepository  implements CRUD
 {
 
     /**
      * 
-     * @param stdClass $params
+     * @param type $params
+     * @param type $extra
      * @return Paginator
      */
-    public function GetList($params = null)
+    public function GetList($params = null, $extra = null)
     {
         if ($params) {
             //use if neccessary
@@ -49,12 +50,13 @@ class SubjectRepository extends EntityRepository
 
     /**
      * 
-     * @param array $data
-     * @param boolean $returnPartial
-     * @return mixed
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return Subject
      * @throws Exception
      */
-    public function Create($data, $returnPartial = false)
+    public function Create($data, $returnPartial = false, $extra = null)
     {
         $entity = new Subject($this->getEntityManager());
 
@@ -95,8 +97,16 @@ class SubjectRepository extends EntityRepository
         }
         return $entity;
     }
-
-    public function Get($id, $returnPartial = false)
+    
+    /**
+     * 
+     * @param type $id
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
+    public function Get($id, $returnPartial = false, $extra = null)
     {
         if ($returnPartial) {
             $dql = "
@@ -125,10 +135,12 @@ class SubjectRepository extends EntityRepository
      * 
      * @param type $id
      * @param type $data
-     * @return Sample
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
      * @throws Exception
      */
-    public function Update($id, $data, $returnPartial = false)
+    public function Update($id, $data, $returnPartial = false, $extra = null)
     {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
@@ -163,8 +175,15 @@ class SubjectRepository extends EntityRepository
         }
         return $entity;
     }
-
-    public function Delete($id)
+    
+    /**
+     * 
+     * @param type $id
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
+    public function Delete($id, $extra = null)
     {
         try {
             $this->getEntityManager()->remove($this->find($id));

@@ -14,7 +14,7 @@ use Doctrine\ORM\Query;
 /**
  * @author sander
  */
-class ContactLessonRepository extends EntityRepository
+class ContactLessonRepository extends EntityRepository implements CRUD
 {
 
     /**
@@ -22,7 +22,7 @@ class ContactLessonRepository extends EntityRepository
      * @param stdClass $params
      * @return Paginator
      */
-    public function GetList($params = null)
+    public function GetList($params = null, $extra = null)
     {
         if ($params) {
             //use if neccessary
@@ -42,6 +42,24 @@ class ContactLessonRepository extends EntityRepository
         );
     }
 
+    public function Get($id, $returnPartial = false, $extra = null)
+    {
+//        if ($returnPartial) {
+//            $dql = "
+//                    SELECT 
+//                        partial mt.{id,name}
+//                    FROM Core\Entity\ModuleType mt
+//                    WHERE mt.id = " . $id . "
+//                ";
+//
+//            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+//
+//            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+//            return $r;
+//        }
+//        return $this->find($id);
+    }
+
     /**
      * 
      * @param type $data
@@ -49,7 +67,7 @@ class ContactLessonRepository extends EntityRepository
      * @return ModuleType
      * @throws Exception
      */
-    public function Create($data, $returnPartial = false)
+    public function Create($data, $returnPartial = false, $extra = null)
     {
 
         $entity = new ContactLesson($this->getEntityManager());
@@ -80,24 +98,6 @@ class ContactLessonRepository extends EntityRepository
 //        return $entity;
     }
 
-    public function Get($id, $returnPartial = false)
-    {
-//        if ($returnPartial) {
-//            $dql = "
-//                    SELECT 
-//                        partial mt.{id,name}
-//                    FROM Core\Entity\ModuleType mt
-//                    WHERE mt.id = " . $id . "
-//                ";
-//
-//            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-//
-//            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-//            return $r;
-//        }
-//        return $this->find($id);
-    }
-
     /**
      * 
      * @param type $id
@@ -105,7 +105,7 @@ class ContactLessonRepository extends EntityRepository
      * @return Sample
      * @throws Exception
      */
-    public function Update($id, $data, $returnPartial = false)
+    public function Update($id, $data, $returnPartial = false, $extra = null)
     {
 //        $entity = $this->find($id);
 //        $entity->setEntityManager($this->getEntityManager());
@@ -132,7 +132,7 @@ class ContactLessonRepository extends EntityRepository
 //        return $entity;
     }
 
-    public function Delete($id)
+    public function Delete($id, $extra = null)
     {
 //        $this->getEntityManager()->remove($this->find($id));
 //        $this->getEntityManager()->flush();

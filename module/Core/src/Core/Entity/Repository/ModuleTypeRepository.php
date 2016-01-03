@@ -14,7 +14,7 @@ use Doctrine\ORM\Query;
 /**
  * @author sander
  */
-class ModuleTypeRepository extends EntityRepository
+class ModuleTypeRepository extends EntityRepository implements CRUD
 {
 
     /**
@@ -22,7 +22,7 @@ class ModuleTypeRepository extends EntityRepository
      * @param stdClass $params
      * @return Paginator
      */
-    public function GetList($params = null)
+    public function GetList($params = null, $extra = null)
     {
         if ($params) {
             //use if neccessary
@@ -49,7 +49,7 @@ class ModuleTypeRepository extends EntityRepository
      * @return ModuleType
      * @throws Exception
      */
-    public function Create($data, $returnPartial = false)
+    public function Create($data, $returnPartial = false, $extra = null)
     {
         $entity = new ModuleType($this->getEntityManager());
 
@@ -79,7 +79,7 @@ class ModuleTypeRepository extends EntityRepository
         return $entity;
     }
 
-    public function Get($id, $returnPartial = false)
+    public function Get($id, $returnPartial = false, $extra = null)
     {
         if ($returnPartial) {
             $dql = "
@@ -104,7 +104,7 @@ class ModuleTypeRepository extends EntityRepository
      * @return Sample
      * @throws Exception
      */
-    public function Update($id, $data, $returnPartial = false)
+    public function Update($id, $data, $returnPartial = false, $extra = null)
     {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
@@ -131,7 +131,7 @@ class ModuleTypeRepository extends EntityRepository
         return $entity;
     }
 
-    public function Delete($id)
+    public function Delete($id, $extra = null)
     {
         $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();

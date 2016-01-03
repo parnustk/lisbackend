@@ -14,15 +14,16 @@ use Doctrine\ORM\Query;
 /**
  * @author sander
  */
-class GradingTypeRepository extends EntityRepository
+class GradingTypeRepository extends EntityRepository implements CRUD
 {
-
+    
     /**
      * 
-     * @param stdClass $params
+     * @param type $params
+     * @param type $extra
      * @return Paginator
      */
-    public function GetList($params = null)
+    public function GetList($params = null, $extra = null)
     {
         if ($params) {
             //use if neccessary
@@ -41,15 +42,41 @@ class GradingTypeRepository extends EntityRepository
                 )
         );
     }
+    
+    /**
+     * 
+     * @param type $id
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    public function Get($id, $returnPartial = false, $extra = null)
+    {
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial gt.{id,gradingType}
+                    FROM Core\Entity\GradingType gt
+                    WHERE gt.id = " . $id . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
+    }
 
     /**
      * 
-     * @param array $data
-     * @param boolean $returnPartial
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
      * @return GradingType
      * @throws Exception
      */
-    public function Create($data, $returnPartial = false)
+    public function Create($data, $returnPartial = false, $extra = null)
     {
         $entity = new GradingType($this->getEntityManager());
 
@@ -79,32 +106,16 @@ class GradingTypeRepository extends EntityRepository
         return $entity;
     }
 
-    public function Get($id, $returnPartial = false)
-    {
-        if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial gt.{id,gradingType}
-                    FROM Core\Entity\GradingType gt
-                    WHERE gt.id = " . $id . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->find($id);
-    }
-
     /**
      * 
      * @param type $id
      * @param type $data
-     * @return Sample
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
      * @throws Exception
      */
-    public function Update($id, $data, $returnPartial = false)
+    public function Update($id, $data, $returnPartial = false, $extra = null)
     {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
@@ -133,8 +144,14 @@ class GradingTypeRepository extends EntityRepository
         }
         return $entity;
     }
-
-    public function Delete($id)
+    
+    /**
+     * 
+     * @param type $id
+     * @param type $extra
+     * @return type
+     */
+    public function Delete($id, $extra = null)
     {
         $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();
