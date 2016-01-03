@@ -4,18 +4,20 @@ namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
  * @ORM\Table(indexes={@ORM\Index(name="contactlessonlessondate", columns={"lessonDate"})})
  */
-class ContactLesson extends \Core\Utils\EntityValidation
+class ContactLesson extends EntityValidation
 {
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
@@ -27,12 +29,13 @@ class ContactLesson extends \Core\Utils\EntityValidation
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $description;
 
     /**
-     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="integer", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $durationAK;
 
@@ -44,6 +47,7 @@ class ContactLesson extends \Core\Utils\EntityValidation
     /**
      * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="contactLesson")
      * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Annotation\Required({"required":"true"})
      */
     protected $subjectRound;
 
@@ -64,6 +68,7 @@ class ContactLesson extends \Core\Utils\EntityValidation
      *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
      *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
      * )
+     * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
 

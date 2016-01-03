@@ -15,17 +15,20 @@ use Core\Service\TeacherService;
 use Core\Service\GradeChoiceService;
 use Core\Service\SubjectRoundService;
 use Core\Service\RoomService;
+use Core\Service\ContactLessonService;
 
 /**
  * 
  */
-class Module {
+class Module
+{
 
     /**
      * 
      * @return type
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return include __DIR__ . '/config/module.config.php';
     }
 
@@ -33,7 +36,8 @@ class Module {
      * 
      * @return array
      */
-    public function getAutoloaderConfig() {
+    public function getAutoloaderConfig()
+    {
         return [
             'Zend\Loader\StandardAutoloader' => [
                 'namespaces' => [
@@ -47,7 +51,8 @@ class Module {
      * 
      * @return array
      */
-    public function getServiceConfig() {
+    public function getServiceConfig()
+    {
         return [
             'factories' => [
                 'vocation_service' => function ($serviceManager) {
@@ -122,6 +127,12 @@ class Module {
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
+                'contactlesson_service' => function ($serviceManager) {
+                    $t = new ContactLessonService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
             ],
         ];
     }
@@ -130,9 +141,15 @@ class Module {
      * 
      * @return ZfcUserAuthentication
      */
-    public function getControllerPluginConfig() {
-        return array(
-            'factories' => array(
+
+    /**
+     * 
+     * @return array
+     */
+    public function getControllerPluginConfig()
+    {
+        return [
+            'factories' => [
                 'zfcUserAuthentication' => function ($sm) {
                     $serviceLocator = $sm->getServiceLocator();
                     $authService = $serviceLocator->get('zfcuser_auth_service');
@@ -142,8 +159,8 @@ class Module {
                     $controllerPlugin->setAuthAdapter($authAdapter);
                     return $controllerPlugin;
                 },
-            ),
-        );
+            ],
+        ];
     }
 
 }
