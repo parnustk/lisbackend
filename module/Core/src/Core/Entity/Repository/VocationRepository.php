@@ -19,7 +19,8 @@ class VocationRepository extends EntityRepository implements CRUD
 
     /**
      * 
-     * @param stdClass $params
+     * @param type $params
+     * @param type $extra
      * @return Paginator
      */
     public function GetList($params = null, $extra = null)
@@ -41,7 +42,14 @@ class VocationRepository extends EntityRepository implements CRUD
                 )
         );
     }
-
+    
+    /**
+     * 
+     * @param type $id
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     public function Get($id, $returnPartial = false, $extra = null)
     {
         if ($returnPartial) {
@@ -60,7 +68,10 @@ class VocationRepository extends EntityRepository implements CRUD
 
     /**
      * 
-     * @param array $data
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return Vocation
      * @throws Exception
      */
     public function Create($data, $returnPartial = false, $extra = null)
@@ -96,7 +107,9 @@ class VocationRepository extends EntityRepository implements CRUD
      * 
      * @param type $id
      * @param type $data
-     * @return Sample
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
      * @throws Exception
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
@@ -125,7 +138,13 @@ class VocationRepository extends EntityRepository implements CRUD
         }
         return $entity;
     }
-
+    
+    /**
+     * 
+     * @param type $id
+     * @param type $extra
+     * @return type
+     */
     public function Delete($id, $extra = null)
     {
         $this->getEntityManager()->remove($this->find($id));
