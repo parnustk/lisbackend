@@ -5,6 +5,9 @@ namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
@@ -22,8 +25,8 @@ class ContactLesson extends EntityValidation
     protected $id;
 
     /**
-     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="datetime", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $lessonDate;
 
@@ -71,6 +74,37 @@ class ContactLesson extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
+
+    /**
+     * 
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em = null)
+    {
+        $this->teacher = new ArrayCollection();
+        parent::__construct($em);
+    }
+
+    /**
+     * @param Collection $teachers
+     */
+    public function addTeacher(Collection $teachers)
+    {
+        foreach ($teachers as $teacher) {
+            //$gradingType->setModule($this);
+            $this->teacher->add($teacher);
+        }
+    }
+
+    /**
+     * @param Collection $teachers
+     */
+    public function removeTeacher(Collection $teachers)
+    {
+        foreach ($teachers as $teacher) {
+            $this->teacher->removeElement($teacher);
+        }
+    }
 
     public function getId()
     {

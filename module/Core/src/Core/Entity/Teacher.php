@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\TeacherRepository")
@@ -29,21 +31,25 @@ class Teacher extends EntityValidation
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $firstName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $lastName;
 
     /**
      * @ORM\Column(type="string", unique=true, length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $email;
 
@@ -79,6 +85,8 @@ class Teacher extends EntityValidation
      */
     public function __construct(EntityManager $em = null)
     {
+//        $this->subjectRound = new ArrayCollection();
+//        $this->contactLesson = new ArrayCollection();
         parent::__construct($em);
     }
 

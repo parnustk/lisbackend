@@ -58,6 +58,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Vocation
      * 
      * @param array $data | null
      * @return Core\Entity\Vocation
@@ -78,6 +79,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * ModuleType
      * 
      * @param array $data | null
      * @return Core\Entity\ModuleType
@@ -96,6 +98,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * GradingType
      * 
      * @param array $data | null
      * @return Core\Entity\GradingType
@@ -114,6 +117,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Module
      * 
      * @param array $data | null
      * @return Core\Entity\Module
@@ -140,6 +144,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Subject
      * 
      * @param array $data | null
      * @return Core\Entity\Subject
@@ -167,9 +172,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * StudentGroup
      * 
      * @param array $data | null
-     * @return Core\Entity\Group
+     * @return Core\Entity\StudentGroup
      */
     protected function CreateStudentGroup($data = null)
     {
@@ -186,6 +192,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Student
      * 
      * @param array $data | null
      * @return Core\Entity\Student
@@ -204,14 +211,78 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 //                    'group_id' => ['id' => $this->CreateVocation()->getId()],
 //        ]);
     }
-    
+
+    /**
+     * Teacher
+     * 
+     * @param type $data
+     * @return Core\Entity\Teacher
+     */
+    protected function CreateTeacher($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\Teacher');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        return $repository->Create([
+                    'firstName' => 'tFirstName' . uniqid(),
+                    'lastName' => 'tLirstName' . uniqid(),
+                    'code' => uniqid(),
+                    'email' => uniqid() . '@asd.ee',
+        ]);
+    }
+
     /**
      * 
      * @param type $data
+     * @return Core\Entity\SubjectRound
      */
     protected function CreateSubjectRound($data = null)
     {
+        $repository = $this->em->getRepository('Core\Entity\SubjectRound');
+        if ($data) {
+            return $repository->Create($data);
+        }
+        $subject = $this->CreateSubject();
+        $studentGroup = $this->CreateStudentGroup();
+        $teacher1 = $this->CreateTeacher();
+        $teacher2 = $this->CreateTeacher();
+
+        return $repository->Create([
+                    'subject' => $subject->getId(),
+                    'studentGroup' => $studentGroup->getId(),
+                    'teacher' => [
+                        $teacher1->getId(),
+                        $teacher2->getId(),
+                    ],
+        ]);
+    }
+
+    protected function CreateContactLesson($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        $subjectRound = $this->CreateSubjectRound();
         
+        $teachers = [];
+        foreach ($subjectRound->getTeacher() as $teacher) {
+            $teachers[] = [
+                'id' => $teacher->getId()
+            ];
+        }
+
+        return $repository->Create([
+                    'lessonDate' => new \DateTime,
+                    'description' => uniqid() . ' Description for contactlesson',
+                    'durationAK' => 6,
+                    'subjectRound' => $subjectRound->getId(),
+                    'teacher' => $teachers,
+        ]);
     }
 
 }

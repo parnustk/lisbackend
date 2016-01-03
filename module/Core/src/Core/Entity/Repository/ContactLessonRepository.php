@@ -78,24 +78,28 @@ class ContactLessonRepository extends EntityRepository implements CRUD
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
 
+        //manytomany validate manually
+        if (!count($entity->getTeacher())) {
+            throw new Exception(Json::encode('Missing teachers', true));
+        }
         $this->getEntityManager()->persist($entity);
-//        $this->getEntityManager()->flush($entity);
-//
-//        if ($returnPartial) {
-//
-//            $dql = "
-//                    SELECT 
-//                        partial mt.{id,description}
-//                    FROM Core\Entity\ContactLesson cl
-//                    WHERE cl.id = " . $entity->getId() . "
-//                ";
-//
-//            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-//            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-//            return $r;
-//        }
-//
-//        return $entity;
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial cl.{id,description}
+                    FROM Core\Entity\ContactLesson cl
+                    WHERE cl.id = " . $entity->getId() . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+
+        return $entity;
     }
 
     /**

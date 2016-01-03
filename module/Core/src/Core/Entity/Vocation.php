@@ -25,20 +25,20 @@ class Vocation extends EntityValidation
     protected $id;
 
     /**
-     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $name;
 
     /**
-     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="string", unique=true, length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $code;
 
     /**
-     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="integer", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $durationEKAP;
 

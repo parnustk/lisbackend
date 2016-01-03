@@ -3,6 +3,13 @@
 namespace Core\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Core\Entity\SubjectRound;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
+use Exception;
+use Zend\Json\Json;
+use Doctrine\ORM\Query;
 
 /**
  * SubjectRoundRepository
@@ -15,7 +22,36 @@ class SubjectRoundRepository extends EntityRepository implements CRUD
 
     public function Create($data, $returnPartial = false, $extra = null)
     {
+        $entity = new SubjectRound($this->getEntityManager());
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
         
+        //manytomany validate manually
+        if (!count($entity->getTeacher())) {
+            throw new Exception(Json::encode('Missing teachers', true));
+        }
+        
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial sr.{id,name}
+                    FROM Core\Entity\SubjectRound sr
+                    WHERE sr.id = " . $entity->getId() . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+
+        return $entity;
     }
 
     public function Delete($id, $extra = null)

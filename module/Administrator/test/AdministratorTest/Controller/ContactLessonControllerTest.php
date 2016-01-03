@@ -24,15 +24,24 @@ class ContactLessonTest extends UnitHelpers
         $description = uniqid() . ' Description for contactlesson';
         $this->request->getPost()->set("description", $description);
         $durationAK = 4;
-        $this->request->getPost()->set("durationAK", $durationAK);        
-        
-//        $subjectRound 
+        $this->request->getPost()->set("durationAK", $durationAK);
+
+        $subjectRound = $this->CreateSubjectRound();
+        $this->request->getPost()->set("subjectRound", $subjectRound->getId());
+
+        $teachers = [];
+        foreach ($subjectRound->getTeacher() as $teacher) {
+            $teachers[] = [
+                'id' => $teacher->getId()
+            ];
+        }
+        $this->request->getPost()->set("teacher", $teachers);
         $result = $this->controller->dispatch($this->request);
         $this->PrintOut($result, true);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
     }
 
     public function testGet()

@@ -4,11 +4,12 @@ namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
+use Core\Utils\EntityValidation;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Core\Utils\EntityValidation;
 use Zend\Stdlib\ArraySerializableInterface;
-use Doctrine\ORM\EntityManager;
+
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")

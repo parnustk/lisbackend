@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRoundRepository")
@@ -38,12 +40,14 @@ class SubjectRound extends EntityValidation
     /**
      * @ORM\ManyToOne(targetEntity="Subject", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Annotation\Required({"required":"true"})
      */
     protected $subject;
 
     /**
      * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $studentGroup;
 
@@ -54,6 +58,7 @@ class SubjectRound extends EntityValidation
      *     joinColumns={@ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false)},
      *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
      * )
+     * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
 
@@ -63,7 +68,29 @@ class SubjectRound extends EntityValidation
      */
     public function __construct(EntityManager $em = null)
     {
+        $this->teacher = new ArrayCollection();
         parent::__construct($em);
+    }
+
+    /**
+     * @param Collection $teachers
+     */
+    public function addTeacher(Collection $teachers)
+    {
+        foreach ($teachers as $teacher) {
+            //$gradingType->setModule($this);
+            $this->teacher->add($teacher);
+        }
+    }
+
+    /**
+     * @param Collection $teachers
+     */
+    public function removeTeacher(Collection $teachers)
+    {
+        foreach ($teachers as $teacher) {
+            $this->teacher->removeElement($teacher);
+        }
     }
 
     public function getId()
