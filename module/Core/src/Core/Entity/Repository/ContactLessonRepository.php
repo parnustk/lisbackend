@@ -95,10 +95,9 @@ class ContactLessonRepository extends EntityRepository implements CRUD
                 ";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
             return $r;
         }
-
         return $entity;
     }
 
@@ -111,29 +110,46 @@ class ContactLessonRepository extends EntityRepository implements CRUD
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-//        $entity = $this->find($id);
-//        $entity->setEntityManager($this->getEntityManager());
-//        $entity->hydrate($data);
-//
-//        if (!$entity->validate()) {
-//            throw new Exception(Json::encode($entity->getMessages(), true));
-//        }
-//
-//        $this->getEntityManager()->persist($entity);
-//        $this->getEntityManager()->flush($entity);
-//
-//        if ($returnPartial) {
-//            $dql = "
-//                    SELECT partial mt.{id,name}
-//                    FROM Core\Entity\ModuleType mt
-//                    WHERE mt.id = " . $id . "
-//                ";
-//            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-//
-//            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-//            return $r;
-//        }
-//        return $entity;
+        $entity = $this->find($id);
+        $entity->setEntityManager($this->getEntityManager());
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+        //manytomany validate manually
+        if (!count($entity->getTeacher())) {
+            throw new Exception(Json::encode('Missing teachers for contact lesson', true));
+        }
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+            $dql = "
+                    SELECT
+                        partial cl.{
+                            id,
+                            lessonDate,
+                            description,
+                            durationAK
+                        },
+                        partial sr.{
+                            id
+                        },
+                        partial t. {
+                            id
+                        }
+                    FROM Core\Entity\ContactLesson cl
+                    JOIN cl.subjectRound sr
+                    JOIN cl.teacher t
+                    WHERE cl.id = " . $entity->getId() . "
+                ";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $entity;
     }
 
     public function Delete($id, $extra = null)

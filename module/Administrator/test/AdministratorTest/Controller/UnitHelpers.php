@@ -245,19 +245,23 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         if ($data) {
             return $repository->Create($data);
         }
-        $subject = $this->CreateSubject();
-        $studentGroup = $this->CreateStudentGroup();
-        $teacher1 = $this->CreateTeacher();
-        $teacher2 = $this->CreateTeacher();
 
         return $repository->Create([
-                    'subject' => $subject->getId(),
-                    'studentGroup' => $studentGroup->getId(),
+                    'subject' => $this->CreateSubject()->getId(),
+                    'studentGroup' => $this->CreateStudentGroup()->getId(),
                     'teacher' => [
-                        $teacher1->getId(),
-                        $teacher2->getId(),
+                        ['id' => $this->CreateTeacher()->getId()],
+                        ['id' => $this->CreateTeacher()->getId()],
                     ],
         ]);
+
+        /* seems to work also
+          return $repository->Create([
+          'subject' => $this->CreateSubject()->getId(),
+          'studentGroup' => $this->CreateStudentGroup()->getId(),
+          'teacher' => [$this->CreateTeacher(), $this->CreateTeacher()],
+          ]);
+         */
     }
 
     protected function CreateContactLesson($data = null)
@@ -268,7 +272,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         $subjectRound = $this->CreateSubjectRound();
-        
+
         $teachers = [];
         foreach ($subjectRound->getTeacher() as $teacher) {
             $teachers[] = [

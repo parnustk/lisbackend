@@ -96,20 +96,20 @@ class ContactLessonService extends AbstractBaseService
      */
     public function Update($id, $data)
     {
-//        try {
-//            return [
-//                'success' => true,
-//                'data' => $this
-//                        ->getEntityManager()
-//                        ->getRepository('Core\Entity\ModuleType')
-//                        ->Update($id, $data, true)
-//            ];
-//        } catch (Exception $ex) {
-//            return [
-//                'success' => false,
-//                'message' => $ex->getMessage()
-//            ];
-//        }
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\ContactLesson')
+                        ->Update($id, $data, true)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
     }
 
     /**
