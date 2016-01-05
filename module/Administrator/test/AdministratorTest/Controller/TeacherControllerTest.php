@@ -4,6 +4,9 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\TeacherController;
 
+/**
+ * @author juhan
+ */
 class TeacherControllerTest extends UnitHelpers
 {
 
@@ -13,15 +16,14 @@ class TeacherControllerTest extends UnitHelpers
         parent::setUp();
     }
 
-    public function testCreate()
+    public function testCreateNoData()
     {
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, TRUE);
+        $this->assertEquals(null, $result->success);
+        $this->PrintOut($result, false);
     }
 
 }

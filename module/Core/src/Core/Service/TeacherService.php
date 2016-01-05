@@ -4,6 +4,9 @@ namespace Core\Service;
 
 use Exception;
 
+/**
+ * @author juhan
+ */
 class TeacherService extends AbstractBaseService
 {
     /*
@@ -11,9 +14,23 @@ class TeacherService extends AbstractBaseService
      * @return type
      */
 
-    public function Create(array $data)
+    public function Create($data)
     {
-        return ["success" => TRUE];
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Teacher')
+                        ->Create($data, true)
+            ];
+        } catch (Exception $ex) {
+
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
     }
 
 }
