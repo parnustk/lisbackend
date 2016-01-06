@@ -68,7 +68,31 @@ class StudentRepository extends EntityRepository implements CRUD
 
     public function Get($id, $returnPartial = false, $extra = null)
     {
-        
+        if($returnpartial) {
+            //generate dql
+            $dql = "
+                    SELECT 
+                        partial student.{
+                            id,
+                            firstName,
+                            lastName,
+                            code,
+                            email
+                        },
+                        partial studentGroup.{
+                            id
+                        }
+                    FROM Core\Entity\Student student
+                    JOIN student.studentGroup studentGroup
+                    WHERE student.id = " . $id . "
+                ";
+            //return
+            $q = $this->getEntityManager()->createQuery($dql);
+//            print_r($q->getSQL());
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
     }
 
     public function GetList($params = null, $extra = null)

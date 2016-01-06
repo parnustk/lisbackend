@@ -17,6 +17,16 @@ class StudentControllerTest extends UnitHelpers
         parent::setUp();
     }
     //put code here
+    public function testGet() {
+        
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $this->CreateStudent()->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1,$result->success);
+        $this->PrintOut($result, true);
+    }
     public function testCreate()
     {
         $firstName = 'studentFirstName' . uniqid();
