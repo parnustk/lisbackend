@@ -27,6 +27,7 @@ class ContactLessonTest extends UnitHelpers
         $this->request->getPost()->set("durationAK", $durationAK);
 
         $subjectRound = $this->CreateSubjectRound();
+        
         $this->request->getPost()->set("subjectRound", $subjectRound->getId());
 
         $teachers = [];

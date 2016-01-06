@@ -11,6 +11,9 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRoundRepository")
+ * @ORM\Table(
+ *     indexes={@ORM\Index(name="index_trashed", columns={"trashed"})}
+ * )
  */
 class SubjectRound extends EntityValidation
 {
@@ -19,6 +22,7 @@ class SubjectRound extends EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
@@ -61,6 +65,33 @@ class SubjectRound extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
+
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+
+    /**
+     * 
+     * @return type
+     */
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    /**
+     * 
+     * @param type $trashed
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
 
     /**
      * 
