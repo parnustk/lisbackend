@@ -12,12 +12,125 @@ class StudentGroupService extends AbstractBaseService
      * @param array $data
      * @return type
      */
-    public function Create(array $data)
+    public function Create($data)
     {
-        return [
-            'success' => true,
-            $data
-        ];
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\StudentGroup')
+                        ->Create($data, true)
+            ];
+        } catch (Exception $ex) {
+
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function Get($id)
+    {
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\StudentGroup')
+                        ->Get($id, true)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    
+    /**
+     * 
+     * @param stdClass $params
+     * @return array
+     */
+    public function GetList($params)
+    {
+        try {
+
+            $p = $this->getEntityManager()
+                    ->getRepository('Core\Entity\StudentGroup')
+                    ->GetList($params);
+
+            $p->setItemCountPerPage($params->limit);
+            $p->setCurrentPageNumber($params->page);
+
+            return [
+                'success' => true,
+                'currentPage' => $params->page,
+                'itemCount' => $p->getTotalItemCount(),
+                'countPages' => $p->count(),
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    
+    /**
+     * Update an existing resource
+     *
+     * @param  mixed $id
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function Update($id, $data)
+    {
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\StudentGroup')
+                        ->Update($id, $data, true)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
+    public function Delete($id)
+    {
+        try {
+            return [
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\StudentGroup')
+                        ->Delete($id)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
     }
 
 }

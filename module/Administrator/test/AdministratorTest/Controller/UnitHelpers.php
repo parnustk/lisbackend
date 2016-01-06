@@ -186,7 +186,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'name' => 'asd',
+                    'name' => 'StudentGroup'.  uniqid(),
                     'vocation' => $this->CreateVocation()->getId(),
         ]);
     }
