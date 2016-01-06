@@ -15,7 +15,8 @@ use Doctrine\Common\Collections\Collection;
  *     indexes={
  *         @ORM\Index(name="teachercode", columns={"code"}),
  *         @ORM\Index(name="teacherfirstname", columns={"firstName"}),
- *         @ORM\Index(name="teacherlastname", columns={"lastName"})
+ *         @ORM\Index(name="teacherlastname", columns={"lastName"}),
+ *         @ORM\Index(name="teachertrashed", columns={"trashed"}),
  *     }
  * )
  */
@@ -26,6 +27,7 @@ class Teacher extends EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
@@ -55,7 +57,7 @@ class Teacher extends EntityValidation
 
     /**
      * @ORM\OneToOne(targetEntity="LisUser", inversedBy="teacher")
-     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", unique=true)
+     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id")
      */
     protected $lisUser;
 
@@ -78,6 +80,13 @@ class Teacher extends EntityValidation
      * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="teacher")
      */
     protected $contactLesson;
+
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
 
     /**
      * 
@@ -139,8 +148,12 @@ class Teacher extends EntityValidation
     {
         return $this->contactLesson;
     }
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
 
-    public function setFirstName($firstName)
+        public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
         return $this;
@@ -193,5 +206,15 @@ class Teacher extends EntityValidation
         $this->contactLesson = $contactLesson;
         return $this;
     }
+   public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+  public  function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+    }
+
 
 }

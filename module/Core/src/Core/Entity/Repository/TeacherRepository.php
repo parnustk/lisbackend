@@ -28,7 +28,7 @@ class TeacherRepository extends EntityRepository implements CRUD
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
-        
+
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
 
@@ -36,9 +36,9 @@ class TeacherRepository extends EntityRepository implements CRUD
 
             $dql = "
                     SELECT 
-                        partial t.{id,name}
-                    FROM Core\Entity\Teacher t
-                    WHERE t.id = " . $entity->getId() . "
+                        partial te.{id,firstName,lastName,code,email}
+                    FROM Core\Entity\Teacher te
+                    WHERE te.id = " . $entity->getId() . "
                 ";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
@@ -51,12 +51,27 @@ class TeacherRepository extends EntityRepository implements CRUD
 
     public function Delete($id, $extra = null)
     {
-        
+        $entity = $this->find($id);
+        $entity->setTrashed(1);
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
     }
 
     public function Get($id, $returnPartial = false, $extra = null)
     {
-        
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial te.{id,firstName,lastName,code,email}
+                    FROM Core\Entity\Teacher te
+                    WHERE te.id = :id";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $q->setParameter("id", $id);
+
+            return $q->getSingleResult(Query::HYDRATE_ARRAY);
+        }
+        return $this->find($id);
     }
 
     public function GetList($params = null, $extra = null)
@@ -66,7 +81,29 @@ class TeacherRepository extends EntityRepository implements CRUD
 
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        
+        $entity = $this->find($id);
+        $entity->setEntityManager($this->getEntityManager());
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial te.{id,firstName,lastName,code,email}
+                    FROM Core\Entity\Teacher te
+                    WHERE te.id = :id";
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $q->setParameter("id", $id);
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $entity;
     }
 
 }
