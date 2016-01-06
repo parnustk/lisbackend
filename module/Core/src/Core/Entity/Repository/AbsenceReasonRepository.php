@@ -137,7 +137,11 @@ class AbsenceReasonRepository extends EntityRepository implements CRUD
      */
     public function Delete($id, $extra = null)
     {
-        ;//TODO
+        $entity = $this->find($id);
+        $entity->setTrashed(1);
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+        return $id;
     }
 
 }

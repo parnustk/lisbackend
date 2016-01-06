@@ -94,6 +94,32 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->assertNotEquals($nameOld, $result->data['name']);
         
     }
+    
+    public function testDelete()
+    {
+        $absenceReasonRepository = $this->em->getRepository('Core\Entity\AbsenceReason');
+        
+        //create one to delete later on
+        $entity = $this->CreateAbsenceReason();
+        $idOld = $entity->getId();
+
+        $this->assertNull($absenceReasonRepository->find($idOld)->getTrashed());
+        
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        $this->PrintOut($result, false);
+        
+        
+        
+        $this->assertNotNull($absenceReasonRepository->find($idOld)->getTrashed());
+    }
 
 
 //

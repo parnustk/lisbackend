@@ -9,6 +9,11 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceReasonRepository")
+ * @ORM\Table(
+ *     indexes={@ORM\Index(name="index_trashed", columns={"trashed"})}
+ * )
+ *
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceReasonRepository")
  */
 class AbsenceReason extends EntityValidation
 {
@@ -34,10 +39,31 @@ class AbsenceReason extends EntityValidation
     protected $absence;
 
     /**
-     * @ORM\Column(type= "integer", nullable= true, options={"default":0})
+     * @ORM\Column(type= "integer", nullable= true)
      * @Annotation\Exclude()
      */
     protected $trashed;
+
+    /**
+     * 
+     * @return type
+     */
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    /**
+     * 
+     * @param type $trashed
+     * @return \Core\Entity\AbsenceReason
+     */
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
     /**
      * 
      * @param EntityManager $em
