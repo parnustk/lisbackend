@@ -199,17 +199,19 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      */
     protected function CreateStudent($data = null)
     {
-//        $repository = $this->em->getRepository('Core\Entity\Student');
-//
-//        if ($data) {
-//            return $repository->Create($data);
-//        }
-//
-//        return $repository->Create([
-//                    'firstName' => 'asd',
-//                    'lastName' => 'asd',
-//                    'group_id' => ['id' => $this->CreateVocation()->getId()],
-//        ]);
+        $repository = $this->em->getRepository('Core\Entity\Student');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        return $repository->Create([
+            'firstName' => 'firstName'.uniqid(),
+            'lastName' => 'lastName'.uniqid(),
+            'code' => 'code'.uniqid(),
+            'email' => 'email'.uniqid(),
+            'studentGroup' => $this->CreateStudentGroup()->getId()
+        ]);
     }
 
     /**

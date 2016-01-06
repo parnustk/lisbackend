@@ -11,12 +11,23 @@ use Exception;
 class StudentService extends \Core\Service\AbstractBaseService
 {
 
-    public function Create(array $data)
+    public function Create($data)
     {
-        return [
-            'success' => true,
-            $data
-        ];
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Student')
+                        ->Create($data, true)
+            ];
+        } catch (Exception $ex) {
+
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
     }
 
 }

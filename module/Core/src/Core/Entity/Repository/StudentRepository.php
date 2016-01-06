@@ -2,7 +2,7 @@
 
 namespace Core\Entity\Repository;
 
-use Core\Entity\Vocation;
+use Core\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -24,7 +24,7 @@ class StudentRepository extends EntityRepository implements CRUD
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-        $entity = new Vocation($this->getEntityManager());
+        $entity = new Student($this->getEntityManager());
         $entity->hydrate($data);
 
         if (!$entity->validate()) {
@@ -38,9 +38,19 @@ class StudentRepository extends EntityRepository implements CRUD
 
             $dql = "
                     SELECT 
-                        partial s.{id,firstName,lastName,code,email}
-                    FROM Core\Entity\Student s
-                    WHERE s.id = " . $entity->getId() . "
+                        partial student.{
+                            id,
+                            firstName,
+                            lastName,
+                            code,
+                            email
+                        },
+                        partial studentGroup.{
+                            id
+                        }
+                    FROM Core\Entity\Student student
+                    JOIN student.studentGroup studentGroup
+                    WHERE student.id = " . $entity->getId() . "
                 ";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
@@ -66,9 +76,10 @@ class StudentRepository extends EntityRepository implements CRUD
         
     }
 
+
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        
+        ; //TODO
     }
 
 }

@@ -29,27 +29,31 @@ class Student extends EntityValidation
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $firstName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $lastName;
 
     /**
      * @ORM\Column(type="string", unique=true, length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $email;
 
     /**
      * @ORM\OneToOne(targetEntity="LisUser", inversedBy="student")
-     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", unique=true)
+     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id")
      */
     protected $lisUser;
 
@@ -66,6 +70,7 @@ class Student extends EntityValidation
     /**
      * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="student")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Annotation\Required({"required":"true"})
      */
     protected $studentGroup;
 
