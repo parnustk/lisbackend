@@ -19,10 +19,21 @@ class AbsenceReasonService extends AbstractBaseService
      */
     public function Create(array $data)
     {
-        return [
-            'success' => true,
-            $data
-        ];
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\AbsenceReason')
+                        ->Create($data, true)
+            ];
+        } catch (Exception $ex) {
+
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
     }
 
 }

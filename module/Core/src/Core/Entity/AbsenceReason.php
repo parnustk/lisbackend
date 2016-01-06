@@ -21,6 +21,9 @@ class AbsenceReason extends EntityValidation
     protected $id;
 
     /**
+     * 
+     * 
+     * 
      * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="string", length=255, nullable=false)
      */

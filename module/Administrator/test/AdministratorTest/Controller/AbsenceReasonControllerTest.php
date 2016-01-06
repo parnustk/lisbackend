@@ -25,7 +25,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
         
-        $this->request->getPost()->set('name', 'TEST');
+        $this->request->getPost()->set('name', 'Name absencereason');
         
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -36,15 +36,15 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->PrintOut($result, true);
     }
     
-//    protected function setUp()
-//    {
-//        
-//    }
-//    
-//    public function testDummyTest() {
-//        $a = 0;
-//        $this-> assertEquals(1,$a);
-//    }
-    
+//public function testGet()
+//{
+//    $this->request->setMethod('get');
+//        $this->routeMatch->setParam('id', $this->CreateAbsenceReason()->getId());
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->PrintOut($result, false);
+//}
     
 }
