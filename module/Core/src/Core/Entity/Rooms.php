@@ -12,16 +12,18 @@ use Doctrine\ORM\EntityManager;
  */
 class Rooms extends EntityValidation
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
+
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $name;
 

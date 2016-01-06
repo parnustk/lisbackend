@@ -18,18 +18,18 @@ class RoomControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
+        $name = 'Classroom name';
         $this->request->setMethod('post');
 //       
-        $this->request->getPost()->set('name', 'TEST');
-//        $this->request->getPost()->set('Pärnu', 'Linn');
+        $this->request->getPost()->set('name', $name);
         
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         
         $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
+        $this->assertEquals(1, $result->success);
 //        
-//        $this->PrintOut($result, true);
+        $this->PrintOut($result, true);
 //                
     }
 
