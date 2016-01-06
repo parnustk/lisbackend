@@ -93,7 +93,7 @@ class AbsenceReasonController extends AbstractBaseController
                 $this
                         ->getServiceLocator()
                         ->get('absencereason_service')
-                        ->Delere($id)
+                        ->Delete($id)
         );
     }
 

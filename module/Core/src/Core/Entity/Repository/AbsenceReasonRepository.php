@@ -2,7 +2,14 @@
 
 namespace Core\Entity\Repository;
 
+use Core\Entity\AbsenceReason;
 use Doctrine\ORM\EntityRepository;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
+use Exception;
+use Zend\Json\Json;
+use Doctrine\ORM\Query;
 
 /**
  * AbsenceReasonRepository
@@ -31,7 +38,22 @@ class AbsenceReasonRepository extends EntityRepository implements CRUD
      */
     public function Get($id, $returnPartial = false, $extra = null)
     {
-        ;//TODO
+         if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial ar.{id,name}
+                    FROM Core\Entity\AbsenceReason ar
+                    WHERE ar.id = :id "
+                ;//ar is alias
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $q->setParameter('id', $id);
+            
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
     }
 
     /**
@@ -42,7 +64,33 @@ class AbsenceReasonRepository extends EntityRepository implements CRUD
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-        ;//TODO
+        
+        
+        $entity = new AbsenceReason($this->getEntityManager());
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity); // teeb AB-i päringu, row is saved
+
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial ar.{id,name}
+                    FROM Core\Entity\AbsenceReason ar
+                    WHERE ar.id = " . $entity->getId() . "
+                ";//ar is alias
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+
+        return $entity;
     }
 
     /**
@@ -54,7 +102,32 @@ class AbsenceReasonRepository extends EntityRepository implements CRUD
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        ;//TODO
+        $entity = $this->find($id);
+        $entity->setEntityManager($this->getEntityManager());
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+
+            $dql = "
+                    SELECT 
+                        partial ar.{id,name}
+                    FROM Core\Entity\AbsenceReason ar
+                    WHERE ar.id = :id "
+                ;//ar is alias
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $q->setParameter('id', $id);
+            
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $entity;
     }
 
     /**

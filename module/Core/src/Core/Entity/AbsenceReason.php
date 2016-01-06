@@ -17,15 +17,14 @@ class AbsenceReason extends EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
      * 
-     * 
-     * 
-     * @Annotation\Required({"required":"true"})
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $name;
 
@@ -34,6 +33,11 @@ class AbsenceReason extends EntityValidation
      */
     protected $absence;
 
+    /**
+     * @ORM\Column(type= "integer", nullable= true, options={"default":0})
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
     /**
      * 
      * @param EntityManager $em

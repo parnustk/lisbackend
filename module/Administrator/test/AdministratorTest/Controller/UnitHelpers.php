@@ -291,4 +291,17 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    protected function CreateAbsenceReason($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        return $repository->Create([
+                    'name' => uniqid() . 'AbsenceReasonName',
+        ]);
+    }
+
 }
