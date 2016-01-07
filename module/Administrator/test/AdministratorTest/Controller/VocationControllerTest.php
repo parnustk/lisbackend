@@ -37,6 +37,58 @@ class VocationControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
     
+    public function testCreateNoName()
+    {
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("durationEKAP", 120);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+    
+    public function testCreateNoCode()
+    {
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set("name", "Name vocation");
+        $this->request->getPost()->set("durationEKAP", 120);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+    
+    public function testCreateNodurationEKAP()
+    {
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set("name", "Name vocation");
+        $this->request->getPost()->set("code", uniqid());
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+    
+    public function testCreateNoData()
+    {
+        $this->request->setMethod('post');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+    
     public function testGet()
     {
         $this->request->setMethod('get');
@@ -122,6 +174,31 @@ class VocationControllerTest extends UnitHelpers
 
         $this->assertEquals(null, $deleted);
 
+        $this->PrintOut($result, false);
+    }
+    
+    public function testGetListWithPaginaton()
+    {
+        $this->request->setMethod('get');
+
+        //create 2 entities
+        $this->CreateSubjectRound();
+        $this->CreateSubjectRound();
+
+        //set record limit to 1
+        $q = 'page=1&limit=1';//imitate real param format
+        
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertLessThanOrEqual(1, count($result->data));
         $this->PrintOut($result, false);
     }
 

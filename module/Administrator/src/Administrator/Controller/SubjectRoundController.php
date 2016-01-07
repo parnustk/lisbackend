@@ -13,6 +13,12 @@ class SubjectRoundController extends AbstractBaseController
 
     /**
      * GET
+     * HTTP(S) params:
+     * array(
+     *      limit: int
+     *      page: int
+     *      ...TODO
+     * )
      *
      * @return JsonModel
      */
@@ -28,6 +34,8 @@ class SubjectRoundController extends AbstractBaseController
 
     /**
      * GET
+     * HTTP(S) params:
+     *      *id: int
      * 
      * @param type $id
      * @return JsonModel
@@ -45,7 +53,27 @@ class SubjectRoundController extends AbstractBaseController
     /**
      * POST
      * 
-     * method to create new enitty
+     * HTTP(S) body:
+     * Array
+     *   (
+     *       *[subject] => int
+     *       *[studentGroup] => int
+     *       *[teacher] => Array
+     *           (
+     *               [0] => Array
+     *                   (
+     *                       *[id] => int
+     *                   )
+     *
+     *               [1] => Array
+     *                   (
+     *                       [id] => int
+     *                   )
+     *
+     *           )
+     *
+     *   )
+     *
      */
     public function create($data)
     {
@@ -59,6 +87,29 @@ class SubjectRoundController extends AbstractBaseController
 
     /**
      * PUT
+     * HTTP(S) parameters:
+     *      id: int
+     * 
+     * HTTP(S) body:
+     * Array
+     *   (
+     *       [subject] => int
+     *       [studentGroup] => int
+     *       [teacher] => Array
+     *           (
+     *               [0] => Array
+     *                   (
+     *                       [id] => int
+     *                   )
+     *
+     *               [1] => Array
+     *                   (
+     *                       [id] => int
+     *                   )
+     *
+     *           )
+     *
+     *   )
      * 
      * @param type $id
      * @param type $data
@@ -76,6 +127,8 @@ class SubjectRoundController extends AbstractBaseController
 
     /**
      * DELETE
+     * params:
+     *      id: int
      * 
      * @param int $id
      * @return JsonModel
