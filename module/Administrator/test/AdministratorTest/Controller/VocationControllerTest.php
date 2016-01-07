@@ -36,10 +36,7 @@ class VocationControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-
-    /**
-     * create one before getting
-     */
+    
     public function testGet()
     {
         $this->request->setMethod('get');
@@ -51,9 +48,6 @@ class VocationControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
     }
 
-    /**
-     * create one before asking list
-     */
     public function testGetList()
     {
         $this->CreateVocation();
@@ -68,7 +62,6 @@ class VocationControllerTest extends UnitHelpers
 
     public function testUpdate()
     {
-        //TODO
         //create vocation
         $entity = $this->CreateVocation();
         $id = $entity->getId();

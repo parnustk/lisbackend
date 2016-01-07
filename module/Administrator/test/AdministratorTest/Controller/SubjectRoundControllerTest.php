@@ -4,6 +4,9 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\SubjectRoundController;
 
+/**
+ * @author sander
+ */
 class SubjectRoundControllerTest extends UnitHelpers
 {
 
@@ -179,6 +182,19 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertNotNull($subjectRoundRepository->find($idOld)->getTrashed());
+    }
+    
+    public function testGetList()
+    {
+        $this->CreateSubjectRound();
+        $this->request->setMethod('get');
+        
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+        $this->PrintOut($result, FALSE);
     }
 
 }

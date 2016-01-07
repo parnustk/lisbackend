@@ -20,6 +20,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
 
     /**
      * Allow CORS
+     * 
      * @return JsonModel
      */
     public function options()
@@ -29,7 +30,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
 
     /**
      * 
-     * @return Doctrine\ORM\EntityManager
+     * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()
     {
@@ -38,14 +39,14 @@ abstract class AbstractBaseController extends AbstractRestfulController
 
     /**
      * 
-     * @return type
+     * @return stdClass
      */
     protected function GetParams()
     {
         $this->params = new stdClass;
         $this->params->all = $this->params()->fromQuery();
         $this->params->page = $this->params()->fromQuery('page', 1);
-        $this->params->limit = $this->params()->fromQuery('limit', 200);
+        $this->params->limit = $this->params()->fromQuery('limit', 10000);
         return $this->params;
     }
 
