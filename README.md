@@ -58,7 +58,18 @@ TODO
 
     vendor\bin\doctrine-module.bat orm:validate-schema
     vendor\bin\doctrine-module.bat orm:schema-tool:create
-    
+
+### API Documentation
+
+#### Install apigen;
+
+    See http://www.apigen.org/
+
+### Generate api docs:
+
+    apigen generate -s "module/Administrator/src/Administrator/Controller/","module/Teacher/src/Teacher/Controller/","module/Student/src/Student/Controller/" -d public/apidocs --template-theme "bootstrap" --title "LIS eDiary API documentation" --no-source-code
+
+
 ## Material
 
     "PHP Data Persistence with Doctrine 2 ORM Concepts, Techniques and Practical Solutions" by Michael Romer

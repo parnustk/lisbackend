@@ -6,13 +6,13 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author sander
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class SubjectRoundController extends AbstractBaseController
 {
 
     /**
-     * GET
+     * GET<br>
      * HTTP(S) params:
      * array(
      *      limit: int
@@ -51,29 +51,21 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * POST
+     * ####POST BODY
+     *   
+     *  *[subject] => int<br>
+     *  *[studentGroup] => int<br>
+     *  *[teacher] => Array(<br>
+     *    [0] => Array(<br>  
+     *                       *[id] => int<br>  
+     *               )<br>
+     *               [1] => Array(<br>  
+     *                       [id] => int<br>  
+     *                   )<br>
+     *           )<br>
      * 
-     * HTTP(S) body:
-     * Array
-     *   (
-     *       *[subject] => int
-     *       *[studentGroup] => int
-     *       *[teacher] => Array
-     *           (
-     *               [0] => Array
-     *                   (
-     *                       *[id] => int
-     *                   )
-     *
-     *               [1] => Array
-     *                   (
-     *                       [id] => int
-     *                   )
-     *
-     *           )
-     *
-     *   )
-     *
+     * @param type $data
+     * @return JsonModel
      */
     public function create($data)
     {

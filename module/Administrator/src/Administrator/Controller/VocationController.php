@@ -6,7 +6,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author Juhan
+ * @author Sander Mets <sandermets0@gmail.com>, Juhan
  */
 class VocationController extends AbstractBaseController
 {

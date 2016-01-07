@@ -8,7 +8,7 @@ error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 
 /**
- * @author sander, juhan
+ * @author sander juhan
  */
 class VocationControllerTest extends UnitHelpers
 {
