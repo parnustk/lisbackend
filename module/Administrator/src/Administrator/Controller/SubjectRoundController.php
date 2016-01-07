@@ -6,20 +6,22 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
+ * Rest API access to subjectround data.
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * @license   TODO
  * @author Sander Mets <sandermets0@gmail.com>
  */
 class SubjectRoundController extends AbstractBaseController
 {
 
     /**
-     * GET<br>
-     * HTTP(S) params:
-     * array(
-     *      limit: int
-     *      page: int
-     *      ...TODO
-     * )
-     *
+     * ###GET<br>
+     * ####URL PARAMETERS<br>
+     * <i>limit(integer)</i><br>
+     * <i>page(integer)</i><br>
+     * 
      * @return JsonModel
      */
     public function getList()
@@ -33,11 +35,11 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * GET
-     * HTTP(S) params:
-     *      *id: int
+     * ###GET<br>
+     * ####URL PARAMETERS<br>
+     * <b>id(integer)</b><br>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
@@ -51,20 +53,13 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * ####POST BODY
-     *   
-     *  *[subject] => int<br>
-     *  *[studentGroup] => int<br>
-     *  *[teacher] => Array(<br>
-     *    [0] => Array(<br>  
-     *                       *[id] => int<br>  
-     *               )<br>
-     *               [1] => Array(<br>  
-     *                       [id] => int<br>  
-     *                   )<br>
-     *           )<br>
+     * ###POST<br>
+     * ####BODY<br>
+     * <b>subject(integer)</b><br>
+     * <b>studentGroup(integer)</b><br>
+     * <b>teacher(array) [ { id(integer) } ] ]</b><br>
      * 
-     * @param type $data
+     * @param array $data
      * @return JsonModel
      */
     public function create($data)
@@ -78,30 +73,13 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * PUT
-     * HTTP(S) parameters:
-     *      id: int
-     * 
-     * HTTP(S) body:
-     * Array
-     *   (
-     *       [subject] => int
-     *       [studentGroup] => int
-     *       [teacher] => Array
-     *           (
-     *               [0] => Array
-     *                   (
-     *                       [id] => int
-     *                   )
-     *
-     *               [1] => Array
-     *                   (
-     *                       [id] => int
-     *                   )
-     *
-     *           )
-     *
-     *   )
+     * ###PUT<br>
+     * ####URL PARAMETERS<br>
+     * <b>id(integer)</b><br>
+     * ####BODY<br>
+     * <i>subject(integer)</i><br>
+     * <i>studentGroup(integer)</i><br>
+     * <i>teacher(array) [ { id(integer) } ] ]</i><br>
      * 
      * @param type $id
      * @param type $data
@@ -118,9 +96,9 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * DELETE
-     * params:
-     *      id: int
+     * ###DELETE<br>
+     * ####URL PARAMETERS<br>
+     * <b>id(integer)</b><br>
      * 
      * @param int $id
      * @return JsonModel
