@@ -87,7 +87,8 @@ class StudentGroupRepository extends EntityRepository implements CRUD
         }
 
         $dql = "SELECT partial studentgroup.{id,name}
-                FROM Core\Entity\StudentGroup studentgroup";
+                FROM Core\Entity\StudentGroup studentgroup
+                WHERE studentgroup.trashed IS NULL";
 
         return new Paginator(
                 new DoctrinePaginator(

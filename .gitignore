@@ -10,3 +10,5 @@ nbproject
 vendor
 composer.phar
 /public/apps/admin/node_modules/
+/public/apps/admin1/node_modules/
+/public/apps/sample/node_modules/
