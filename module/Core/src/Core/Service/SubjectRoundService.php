@@ -4,8 +4,43 @@ namespace Core\Service;
 
 use Exception;
 
+/**
+ * @author sander
+ */
 class SubjectRoundService extends AbstractBaseService
 {
+
+    /**
+     * 
+     * @param array $params
+     * @return array
+     */
+    public function GetList($params)
+    {
+        try {
+
+            $p = $this->getEntityManager()
+                    ->getRepository('Core\Entity\Vocation')
+                    ->GetList($params);
+
+            $p->setItemCountPerPage($params['limit']);
+            $p->setCurrentPageNumber($params['page']);
+
+            $params['itemCount'] = $p->getTotalItemCount();
+            $params['pageCount'] = $p->count();
+
+            return [
+                'success' => true,
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
 
     /**
      * 
@@ -46,6 +81,7 @@ class SubjectRoundService extends AbstractBaseService
                         ->Get($id, true)
             ];
         } catch (Exception $ex) {
+
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -63,6 +99,7 @@ class SubjectRoundService extends AbstractBaseService
     public function Update($id, $data)
     {
         try {
+
             return [
                 'success' => true,
                 'data' => $this
@@ -71,13 +108,14 @@ class SubjectRoundService extends AbstractBaseService
                         ->Update($id, $data, true)
             ];
         } catch (Exception $ex) {
+
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
             ];
         }
     }
-    
+
     /**
      * 
      * @param type $id
@@ -86,6 +124,7 @@ class SubjectRoundService extends AbstractBaseService
     public function Delete($id)
     {
         try {
+
             return [
                 'success' => true,
                 'id' => $this
@@ -94,10 +133,12 @@ class SubjectRoundService extends AbstractBaseService
                         ->Delete($id)
             ];
         } catch (Exception $ex) {
+
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
             ];
         }
     }
+
 }

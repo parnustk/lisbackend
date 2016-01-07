@@ -5,6 +5,9 @@ namespace Administrator\Controller;
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
+/**
+ * @author sander
+ */
 class SubjectRoundController extends AbstractBaseController
 {
 

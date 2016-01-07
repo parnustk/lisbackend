@@ -12,7 +12,7 @@ class VocationService extends AbstractBaseService
 
     /**
      * 
-     * @param stdClass $params
+     * @param array $params
      * @return array
      */
     public function GetList($params)
@@ -23,14 +23,14 @@ class VocationService extends AbstractBaseService
                     ->getRepository('Core\Entity\Vocation')
                     ->GetList($params);
 
-            $p->setItemCountPerPage($params->limit);
-            $p->setCurrentPageNumber($params->page);
+            $p->setItemCountPerPage($params['limit']);
+            $p->setCurrentPageNumber($params['page']);
+
+            $params['itemCount'] = $p->getTotalItemCount();
+            $params['pageCount'] = $p->count();
 
             return [
                 'success' => true,
-                'currentPage' => $params->page,
-                'itemCount' => $p->getTotalItemCount(),
-                'countPages' => $p->count(),
                 'params' => $params,
                 'data' => (array) $p->getCurrentItems(),
             ];

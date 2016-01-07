@@ -3,7 +3,6 @@
 namespace Core\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
-use stdClass;
 use Zend\View\Model\JsonModel;
 
 /**
@@ -39,14 +38,13 @@ abstract class AbstractBaseController extends AbstractRestfulController
 
     /**
      * 
-     * @return stdClass
+     * @return array
      */
     protected function GetParams()
     {
-        $this->params = new stdClass;
-        $this->params->all = $this->params()->fromQuery();
-        $this->params->page = $this->params()->fromQuery('page', 1);
-        $this->params->limit = $this->params()->fromQuery('limit', 10000);
+        $this->params = $this->params()->fromQuery();
+        $this->params['page'] = $this->params()->fromQuery('page', 1);
+        $this->params['limit'] = $this->params()->fromQuery('limit', 10000);
         return $this->params;
     }
 
