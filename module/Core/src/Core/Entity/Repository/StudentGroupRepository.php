@@ -65,11 +65,13 @@ class StudentGroupRepository extends EntityRepository implements CRUD
                     SELECT 
                         partial studentgroup.{id,name}
                     FROM Core\Entity\StudentGroup studentgroup
-                    WHERE studentgroup.id = ".$id;
+                    WHERE studentgroup.id = :id";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            return $q->getSingleResult(Query::HYDRATE_ARRAY);
+            $q->setParameter('id', $id);
+            
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
         }
         return $this->find($id);
     }
@@ -128,9 +130,10 @@ class StudentGroupRepository extends EntityRepository implements CRUD
                     SELECT 
                         partial studentgroup.{id,name}
                     FROM Core\Entity\StudentGroup studentgroup
-                    WHERE studentgroup.id = ".$id;
+                    WHERE studentgroup.id = :id";
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
+            $q->setParameter('id', $id);
+            
             $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
             return $r;
         }

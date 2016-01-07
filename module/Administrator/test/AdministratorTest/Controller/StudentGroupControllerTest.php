@@ -55,7 +55,7 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, FALSE);
     }
     
     /**
@@ -69,7 +69,7 @@ class StudentGroupControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, true);
     }
     
     public function testUpdate()
@@ -96,7 +96,7 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->assertNotEquals(
                 $nameOld, $r->getName()
         );
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, true);
     }
     
     public function testDelete()
