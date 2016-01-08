@@ -55,7 +55,7 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, true);
     }
     
     /**
@@ -69,7 +69,7 @@ class StudentGroupControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, FALSE);
     }
     
     public function testUpdate()
@@ -96,23 +96,31 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->assertNotEquals(
                 $nameOld, $r->getName()
         );
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, FALSE);
     }
     
     public function testDelete()
     {
-        $studentGroupRepository = $this->em->getRepository('Core\Entity\StudentGroup');
-        // create one to delete later
         $entity = $this->CreateStudentGroup();
         $idOld = $entity->getId();
+
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
+
         $result = $this->controller->dispatch($this->request);
-        // get response
         $response = $this->controller->getResponse();
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\StudentGroup')
+                ->Get($idOld);
+
+        $this->assertEquals(null, $deleted);
+
         $this->PrintOut($result, FALSE);
-        $this->assertNotNull($studentGroupRepository->find($idOld)->getTrashed());
     }
 }

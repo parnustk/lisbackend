@@ -66,14 +66,14 @@ class StudentGroupService extends AbstractBaseService
                     ->getRepository('Core\Entity\StudentGroup')
                     ->GetList($params);
 
-            $p->setItemCountPerPage($params->limit);
-            $p->setCurrentPageNumber($params->page);
+            $p->setItemCountPerPage($params['limit']);
+            $p->setCurrentPageNumber($params['page']);
+
+            $params['itemCount'] = $p->getTotalItemCount();
+            $params['pageCount'] = $p->count();
 
             return [
                 'success' => true,
-                'currentPage' => $params->page,
-                'itemCount' => $p->getTotalItemCount(),
-                'countPages' => $p->count(),
                 'params' => $params,
                 'data' => (array) $p->getCurrentItems(),
             ];
