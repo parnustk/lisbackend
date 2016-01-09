@@ -22,10 +22,10 @@ class AbsenceReasonController extends AbstractBaseController
 {
 
     /**
-     * <h1>GET</h1>
-     * <h3>URL PARAMETERS</h3><br>
+     * <h2>GET admin/absencereason</h2>
+     * <h3>URL Parameters</h3>
      * <code>limit(integer)
-     * page(integer)</code><br>
+     * page(integer)</code>
      * 
      * @return JsonModel
      */
@@ -40,9 +40,9 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * <h1>GET</h1><br>
-     * <h3>URL PARAMETERS</h3><br>
-     * <code>id(integer)</code><br>
+     * <h2>GET admin/absencereason/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
@@ -58,9 +58,9 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * <h1>POST</h1><br>
-     * <h3>BODY</h3><br>
-     * <code>name(string)</code><br>
+     * <h2>POST admin/absencereason</h2>
+     * <h3>Body</h3>
+     * <code>name(string)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -76,11 +76,11 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * <h1>PUT</h1><br>
-     * <h3>URL PARAMETERS</h3><br>
-     * <code>id(integer)</code><br>
-     * <h3>BODY</h3><br>
-     * <code>name(string)</code><br>
+     * <h2>PUT admin/absencereason/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code>name(string)*</code>
      * 
      * @param type $id
      * @param type $data
@@ -97,9 +97,9 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * <h1>DELETE</h1><br>
-     * <h3>URL PARAMETERS</h3><br>
-     * <code>id(integer)</code><br>
+     * <h2>DELETE admin/absencereason/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
