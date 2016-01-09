@@ -2,9 +2,6 @@
 
 namespace Administrator;
 
-/**
- * Core will not hold accessibla controllers in the future
- */
 return [
 
     'controllers' => [
@@ -15,6 +12,7 @@ return [
             'Administrator\Controller\Moduletype' => 'Administrator\Controller\ModuletypeController',
             'Administrator\Controller\Gradingtype' => 'Administrator\Controller\GradingtypeController',
             'Administrator\Controller\Subject' => 'Administrator\Controller\SubjectController',
+            'Administrator\Controller\AbsenceReason' => 'Administrator\Controller\AbsenceReasonController',
         ],
     ],
     'router' => [

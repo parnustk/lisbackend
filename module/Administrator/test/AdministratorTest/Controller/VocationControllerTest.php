@@ -12,9 +12,6 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\VocationController;
 
-error_reporting(E_ALL | E_STRICT);
-chdir(__DIR__);
-
 /**
  * @author Juhan, Sander Mets <sandermets0@gmail.com>
  */

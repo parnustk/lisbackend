@@ -16,6 +16,7 @@ use Core\Service\GradeChoiceService;
 use Core\Service\SubjectRoundService;
 use Core\Service\RoomService;
 use Core\Service\ContactLessonService;
+use Core\Service\AdministratorService;
 
 /**
  * 
@@ -133,14 +134,15 @@ class Module
                     $t->setEntityManager($entityManager);
                     return $t;
                 },
+                'administrator_service' => function ($serviceManager) {
+                    $t = new AdministratorService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
             ],
         ];
     }
-
-    /**
-     * 
-     * @return ZfcUserAuthentication
-     */
 
     /**
      * 

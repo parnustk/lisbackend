@@ -15,7 +15,7 @@ namespace Core\Service;
  *
  * @author Sander Mets <sandermets0@gmail.com>
  */
-class AdministratorService
+class AdministratorService extends AbstractBaseService
 {
 
     /**
