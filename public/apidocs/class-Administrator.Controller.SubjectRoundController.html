@@ -129,7 +129,7 @@ Core\Controller\AbstractBaseController
 		
 
 				<b>Author:</b>
-				Sander Mets <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#115;&#97;&#x6e;&#x64;&#101;&#114;m&#x65;&#x74;&#115;&#48;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#115;&#97;&#x6e;&#x64;&#101;&#114;m&#x65;&#x74;&#115;&#48;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a><br>
+				Sander Mets <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#115;&#97;&#x6e;&#x64;&#101;&#114;m&#x65;&#x74;&#115;&#48;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#115;&#97;&#x6e;&#x64;&#101;&#114;m&#x65;&#x74;&#115;&#48;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a>, Eleri Apsolon <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a><br>
 			<b>Located at</b> SubjectRoundController.php		<br>
 	</div>
 
@@ -152,25 +152,21 @@ Core\Controller\AbstractBaseController
 			<code>getList( )</code>
 
 			<div class="description short">
-				<h1>GET</h1>
+				<h2>GET admin/subjectround</h2>
 
-<p><br></p>
+<h3>URL Parameters</h3>
 
-<h4>URL PARAMETERS<br></h4>
-
-<p><i>limit(integer)</i><br>
-<i>page(integer)</i><br></p>
+<pre>limit(integer)
+page(integer)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<h1>GET</h1>
+				<h2>GET admin/subjectround</h2>
 
-<p><br></p>
+<h3>URL Parameters</h3>
 
-<h4>URL PARAMETERS<br></h4>
-
-<p><i>limit(integer)</i><br>
-<i>page(integer)</i><br></p>
+<pre>limit(integer)
+page(integer)</pre>
 
 
 
@@ -199,19 +195,19 @@ Core\Controller\AbstractBaseController
 			<code>get( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<h3>GET<br></h3>
+				<h2>GET admin/subjectround/:id</h2>
 
-<h4>URL PARAMETERS<br></h4>
+<h3>URL Parameters</h3>
 
-<p><b>id(integer)</b><br></p>
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<h3>GET<br></h3>
+				<h2>GET admin/subjectround/:id</h2>
 
-<h4>URL PARAMETERS<br></h4>
+<h3>URL Parameters</h3>
 
-<p><b>id(integer)</b><br></p>
+<pre>id(integer)*</pre>
 
 
 					<h4>Parameters</h4>
@@ -245,23 +241,23 @@ Core\Controller\AbstractBaseController
 			<code>create( <span>array <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<h3>POST<br></h3>
+				<h2>POST admin/subjectround</h2>
 
-<h4>BODY<br></h4>
+<h3>Body</h3>
 
-<p><b>subject(integer)</b><br>
-<b>studentGroup(integer)</b><br>
-<b>teacher(array) [ { id(integer) } ] ]</b><br></p>
+<pre>subject(integer)*
+studentGroup(integer)*
+teacher(<span class="php-keyword1">array</span>) [ { id(integer) } ] ]*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<h3>POST<br></h3>
+				<h2>POST admin/subjectround</h2>
 
-<h4>BODY<br></h4>
+<h3>Body</h3>
 
-<p><b>subject(integer)</b><br>
-<b>studentGroup(integer)</b><br>
-<b>teacher(array) [ { id(integer) } ] ]</b><br></p>
+<pre>subject(integer)*
+studentGroup(integer)*
+teacher(<span class="php-keyword1">array</span>) [ { id(integer) } ] ]*</pre>
 
 
 					<h4>Parameters</h4>
@@ -295,31 +291,31 @@ Core\Controller\AbstractBaseController
 			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<h3>PUT<br></h3>
+				<h2>PUT admin/subjectround/:id</h2>
 
-<h4>URL PARAMETERS<br></h4>
+<h3>URL Parameters</h3>
 
-<p><b>id(integer)</b><br></p>
+<pre>id(integer)*</pre>
 
-<h4>BODY<br></h4>
+<h3>Body</h3>
 
-<p><i>subject(integer)</i><br>
-<i>studentGroup(integer)</i><br>
-<i>teacher(array) [ { id(integer) } ] ]</i><br></p>
+<pre>subject(integer)*
+studentGroup(integer)*
+teacher(<span class="php-keyword1">array</span>) [ { id(integer) } ] ]*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<h3>PUT<br></h3>
+				<h2>PUT admin/subjectround/:id</h2>
 
-<h4>URL PARAMETERS<br></h4>
+<h3>URL Parameters</h3>
 
-<p><b>id(integer)</b><br></p>
+<pre>id(integer)*</pre>
 
-<h4>BODY<br></h4>
+<h3>Body</h3>
 
-<p><i>subject(integer)</i><br>
-<i>studentGroup(integer)</i><br>
-<i>teacher(array) [ { id(integer) } ] ]</i><br></p>
+<pre>subject(integer)*
+studentGroup(integer)*
+teacher(<span class="php-keyword1">array</span>) [ { id(integer) } ] ]*</pre>
 
 
 					<h4>Parameters</h4>
@@ -355,19 +351,19 @@ Core\Controller\AbstractBaseController
 			<code>delete( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<h3>DELETE<br></h3>
+				<h2>DELETE admin/subjectround/:id</h2>
 
-<h4>URL PARAMETERS<br></h4>
+<h3>URL Parameters</h3>
 
-<p><b>id(integer)</b><br></p>
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<h3>DELETE<br></h3>
+				<h2>DELETE admin/subjectround/:id</h2>
 
-<h4>URL PARAMETERS<br></h4>
+<h3>URL Parameters</h3>
 
-<p><b>id(integer)</b><br></p>
+<pre>id(integer)*</pre>
 
 
 					<h4>Parameters</h4>

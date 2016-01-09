@@ -16,16 +16,16 @@ use Core\Controller\AbstractBaseController;
 /**
  * Rest API access to subjectround data.
  * 
- * @author Sander Mets <sandermets0@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class SubjectRoundController extends AbstractBaseController
 {
 
     /**
-     * <h1>GET</h1><br>
-     * ####URL PARAMETERS<br>
-     * <i>limit(integer)</i><br>
-     * <i>page(integer)</i><br>
+     * <h2>GET admin/subjectround</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
      * 
      * @return JsonModel
      */
@@ -40,9 +40,9 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * ###GET<br>
-     * ####URL PARAMETERS<br>
-     * <b>id(integer)</b><br>
+     * <h2>GET admin/subjectround/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
@@ -58,11 +58,11 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * ###POST<br>
-     * ####BODY<br>
-     * <b>subject(integer)</b><br>
-     * <b>studentGroup(integer)</b><br>
-     * <b>teacher(array) [ { id(integer) } ] ]</b><br>
+     * <h2>POST admin/subjectround</h2>
+     * <h3>Body</h3>
+     * <code>subject(integer)*
+     * studentGroup(integer)*
+     * teacher(array) [ { id(integer) } ] ]*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -78,13 +78,13 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * ###PUT<br>
-     * ####URL PARAMETERS<br>
-     * <b>id(integer)</b><br>
-     * ####BODY<br>
-     * <i>subject(integer)</i><br>
-     * <i>studentGroup(integer)</i><br>
-     * <i>teacher(array) [ { id(integer) } ] ]</i><br>
+     * <h2>PUT admin/subjectround/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code>subject(integer)*
+     * studentGroup(integer)*
+     * teacher(array) [ { id(integer) } ] ]*</code>
      * 
      * @param type $id
      * @param type $data
@@ -101,9 +101,9 @@ class SubjectRoundController extends AbstractBaseController
     }
 
     /**
-     * ###DELETE<br>
-     * ####URL PARAMETERS<br>
-     * <b>id(integer)</b><br>
+     * <h2>DELETE admin/subjectround/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
