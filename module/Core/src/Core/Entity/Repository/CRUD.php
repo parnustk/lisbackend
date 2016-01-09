@@ -27,7 +27,7 @@ interface CRUD
      * 
      * @param type $id
      * @param type $returnPartial
-     * @param type $extra
+     * @param \stdClass $extra
      */
     public function Get($id, $returnPartial = false, $extra = null);
 
@@ -35,7 +35,7 @@ interface CRUD
      * 
      * @param type $data
      * @param type $returnPartial
-     * @param type $extra
+     * @param \stdClass $extra
      */
     public function Create($data, $returnPartial = false, $extra = null);
 
@@ -44,14 +44,14 @@ interface CRUD
      * @param type $id
      * @param type $data
      * @param type $returnPartial
-     * @param type $extra
+     * @param \stdClass $extra
      */
     public function Update($id, $data, $returnPartial = false, $extra = null);
 
     /**
      * 
-     * @param type $id
-     * @param type $extra
+     * @param int $id
+     * @param \stdClass $extra
      */
     public function Delete($id, $extra = null);
 }

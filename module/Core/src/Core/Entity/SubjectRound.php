@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRoundRepository")
  * @ORM\Table(
- *     indexes={@ORM\Index(name="index_trashed", columns={"trashed"})}
+ *     indexes={@ORM\Index(name="subjectround_index_trashed", columns={"trashed"})}
  * )
  */
 class SubjectRound extends EntityValidation

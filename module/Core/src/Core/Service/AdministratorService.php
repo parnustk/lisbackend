@@ -10,25 +10,26 @@
 
 namespace Core\Service;
 
-use Exception;
-
 /**
+ * Description of AdministratorService
+ *
  * @author Sander Mets <sandermets0@gmail.com>
  */
-class SubjectRoundService extends AbstractBaseService
+class AdministratorService
 {
 
     /**
      * 
      * @param array $params
-     * @param stdClass|null $extra
+     * @param stdClass|NULL $extra
      * @return array
      */
     public function GetList($params, $extra = null)
     {
         try {
+
             $p = $this->getEntityManager()
-                    ->getRepository('Core\Entity\SubjectRound')
+                    ->getRepository('Core\Entity\Administrator')
                     ->GetList($params, $extra);
 
             $p->setItemCountPerPage($params['limit']);
@@ -53,7 +54,7 @@ class SubjectRoundService extends AbstractBaseService
     /**
      * 
      * @param int $id
-     * @param stdClass|null $extra
+     * @param stdClass|NULL $extra
      * @return array
      */
     public function Get($id, $extra = null)
@@ -63,7 +64,7 @@ class SubjectRoundService extends AbstractBaseService
                 'success' => true,
                 'data' => $this
                         ->getEntityManager()
-                        ->getRepository('Core\Entity\SubjectRound')
+                        ->getRepository('Core\Entity\Administrator')
                         ->Get($id, true, $extra)
             ];
         } catch (Exception $ex) {
@@ -77,7 +78,7 @@ class SubjectRoundService extends AbstractBaseService
     /**
      * 
      * @param array $data
-     * @param stdClass|null $extra
+     * @param stdClass|NULL $extra
      * @return array
      */
     public function Create($data, $extra = null)
@@ -87,7 +88,7 @@ class SubjectRoundService extends AbstractBaseService
                 'success' => true,
                 'data' => $this
                         ->getEntityManager()
-                        ->getRepository('Core\Entity\SubjectRound')
+                        ->getRepository('Core\Entity\Administrator')
                         ->Create($data, true, $extra)
             ];
         } catch (Exception $ex) {
@@ -103,7 +104,7 @@ class SubjectRoundService extends AbstractBaseService
      * 
      * @param int $id
      * @param array $data
-     * @param stdClass|null $extra
+     * @param stdClass|NULL $extra
      * @return array
      */
     public function Update($id, $data, $extra = null)
@@ -113,7 +114,7 @@ class SubjectRoundService extends AbstractBaseService
                 'success' => true,
                 'data' => $this
                         ->getEntityManager()
-                        ->getRepository('Core\Entity\SubjectRound')
+                        ->getRepository('Core\Entity\Administrator')
                         ->Update($id, $data, true, $extra)
             ];
         } catch (Exception $ex) {
@@ -127,7 +128,7 @@ class SubjectRoundService extends AbstractBaseService
     /**
      * 
      * @param int $id
-     * @param stdClass|null $extra
+     * @param stdClass|NULL $extra
      * @return array
      */
     public function Delete($id, $extra = null)
@@ -137,7 +138,7 @@ class SubjectRoundService extends AbstractBaseService
                 'success' => true,
                 'id' => $this
                         ->getEntityManager()
-                        ->getRepository('Core\Entity\SubjectRound')
+                        ->getRepository('Core\Entity\Administrator')
                         ->Delete($id, $extra)
             ];
         } catch (Exception $ex) {

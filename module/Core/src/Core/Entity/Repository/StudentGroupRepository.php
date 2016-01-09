@@ -19,6 +19,64 @@ class StudentGroupRepository extends EntityRepository implements CRUD
 
     /**
      * 
+     * @param type $params
+     * @param type $extra
+     * @return Paginator
+     */
+    public function GetList($params = null, $extra = null)
+    {
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT 
+                    partial studentgroup.{
+                        id,
+                        name
+                    }
+                FROM Core\Entity\StudentGroup studentgroup
+                WHERE studentgroup.trashed IS NULL";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    public function Get($id, $returnPartial = false, $extra = null)
+    {
+        if ($returnPartial) {
+
+            $dql = "SELECT 
+                        partial studentgroup.{
+                            id,
+                            name
+                        }
+                    FROM Core\Entity\StudentGroup studentgroup
+                    WHERE studentgroup.id = :id";
+
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $q->setParameter('id', $id);
+
+            return $q->getSingleResult(Query::HYDRATE_ARRAY);
+        }
+        return $this->find($id);
+    }
+
+    /**
+     * 
      * @param array $data
      * @throws Exception
      */
@@ -37,72 +95,21 @@ class StudentGroupRepository extends EntityRepository implements CRUD
 
         if ($returnPartial) {
 
-            $dql = "
-                    SELECT 
-                        partial studentgroup.{id,name}
+            $dql = "SELECT 
+                        partial studentgroup.{
+                            id,
+                            name
+                        }
                     FROM Core\Entity\StudentGroup studentgroup
                     WHERE studentgroup.id = " . $entity->getId();
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
+            return $q->getSingleResult(Query::HYDRATE_ARRAY);
         }
 
         return $entity;
     }
-    
-    /**
-     * 
-     * @param type $id
-     * @param type $returnPartial
-     * @param type $extra
-     * @return type
-     */
-    public function Get($id, $returnPartial = false, $extra = null)
-    {
-        if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial studentgroup.{id,name}
-                    FROM Core\Entity\StudentGroup studentgroup
-                    WHERE studentgroup.id = :id";
 
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $q->setParameter('id', $id);
-            
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->find($id);
-    }
-    
-    /**
-     * 
-     * @param type $params
-     * @param type $extra
-     * @return Paginator
-     */
-    public function GetList($params = null, $extra = null)
-    {
-        if ($params) {
-            //todo if neccessary
-        }
-
-        $dql = "SELECT partial studentgroup.{id,name}
-                FROM Core\Entity\StudentGroup studentgroup
-                WHERE studentgroup.trashed IS NULL";
-
-        return new Paginator(
-                new DoctrinePaginator(
-                new ORMPaginator(
-                $this->getEntityManager()
-                        ->createQuery($dql)
-                        ->setHydrationMode(Query::HYDRATE_ARRAY)
-                )
-                )
-        );
-    }
-    
     /**
      * 
      * @param type $id
@@ -126,20 +133,23 @@ class StudentGroupRepository extends EntityRepository implements CRUD
         $this->getEntityManager()->flush($entity);
 
         if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial studentgroup.{id,name}
+
+            $dql = "SELECT 
+                        partial studentgroup.{
+                            id,
+                            name
+                        }
                     FROM Core\Entity\StudentGroup studentgroup
                     WHERE studentgroup.id = :id";
+
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
             $q->setParameter('id', $id);
-            
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
+
+            return $q->getSingleResult(Query::HYDRATE_ARRAY);
         }
         return $entity;
     }
-    
+
     /**
      * 
      * @param type $id
@@ -152,4 +162,5 @@ class StudentGroupRepository extends EntityRepository implements CRUD
         $this->getEntityManager()->flush();
         return $id;
     }
+
 }

@@ -10,7 +10,11 @@ use Doctrine\ORM\EntityManager;
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\VocationRepository")
  * @ORM\Table(
- *     indexes={@ORM\Index(name="vocationname", columns={"name"}),@ORM\Index(name="vocationcode", columns={"code"})}
+ *     indexes={
+ *          @ORM\Index(name="vocationname", columns={"name"}),
+ *          @ORM\Index(name="vocationcode", columns={"code"}),
+ *          @ORM\Index(name="vocation_index_trashed", columns={"trashed"})
+ *     }
  * )
  */
 class Vocation extends EntityValidation
@@ -53,6 +57,13 @@ class Vocation extends EntityValidation
     protected $module;
 
     /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+
+    /**
      * 
      * @param EntityManager $em
      */
@@ -81,14 +92,19 @@ class Vocation extends EntityValidation
         return $this->durationEKAP;
     }
 
-    public function getGroup()
+    public function getStudentGroup()
     {
-        return $this->group;
+        return $this->studentGroup;
     }
 
     public function getModule()
     {
         return $this->module;
+    }
+
+    public function getTrashed()
+    {
+        return $this->trashed;
     }
 
     public function setName($name)
@@ -109,15 +125,21 @@ class Vocation extends EntityValidation
         return $this;
     }
 
-    public function setGroup($group)
+    public function setStudentGroup($studentGroup)
     {
-        $this->group = $group;
+        $this->studentGroup = $studentGroup;
         return $this;
     }
 
     public function setModule($module)
     {
         $this->module = $module;
+        return $this;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
         return $this;
     }
 

@@ -1,50 +1,27 @@
 <?php
 
-namespace Core\Controller;
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author sander
+ * Description of AdministratorController
+ *
+ * @author Sander Mets <sandermets0@gmail.com>
  */
-class SampleController extends AbstractBaseController
+class AdministratorController extends AbstractBaseController
 {
 
     /**
-     * POST
-     * 
-     * @param type $data
-     * @return JsonModel
-     */
-    public function create($data)
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('sample_service')
-                        ->Create($data)
-        );
-    }
-
-    /**
-     * GET
-     * 
-     * @param type $id
-     * @return JsonModel
-     */
-    public function get($id)
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('sample_service')
-                        ->Get($id)
-        );
-    }
-
-    /**
-     * GET
      * 
      * @return JsonModel
      */
@@ -53,16 +30,45 @@ class SampleController extends AbstractBaseController
         return new JsonModel(
                 $this
                         ->getServiceLocator()
-                        ->get('sample_service')
-                        ->GetList()
+                        ->get('administrator_service')
+                        ->GetList($this->GetParams())
         );
     }
 
     /**
-     * PUT
      * 
-     * @param type $id
-     * @param type $data
+     * @param int $id
+     * @return JsonModel
+     */
+    public function get($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('administrator_service')
+                        ->Get($id)
+        );
+    }
+
+    /**
+     * 
+     * @param int $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('administrator_service')
+                        ->Create($data)
+        );
+    }
+
+    /**
+     * 
+     * @param int $id
+     * @param array $data
      * @return JsonModel
      */
     public function update($id, $data)
@@ -70,16 +76,14 @@ class SampleController extends AbstractBaseController
         return new JsonModel(
                 $this
                         ->getServiceLocator()
-                        ->get('sample_service')
+                        ->get('administrator_service')
                         ->Update($id, $data)
         );
     }
 
     /**
-     * DELETE
      * 
-     * @param type $id
-     * @param type $data
+     * @param int $id
      * @return JsonModel
      */
     public function delete($id)
@@ -87,7 +91,7 @@ class SampleController extends AbstractBaseController
         return new JsonModel(
                 $this
                         ->getServiceLocator()
-                        ->get('sample_service')
+                        ->get('administrator_service')
                         ->Delete($id)
         );
     }

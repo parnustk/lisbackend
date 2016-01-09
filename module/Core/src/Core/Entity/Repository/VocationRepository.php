@@ -19,8 +19,8 @@ class VocationRepository extends EntityRepository implements CRUD
 
     /**
      * 
-     * @param type $params
-     * @param type $extra
+     * @param array|null $params
+     * @param stdClass|null $extra
      * @return Paginator
      */
     public function GetList($params = null, $extra = null)
@@ -29,8 +29,15 @@ class VocationRepository extends EntityRepository implements CRUD
             //todo if neccessary
         }
 
-        $dql = "SELECT partial v.{id,name, code, durationEKAP}
-                FROM Core\Entity\Vocation v";
+        $dql = "SELECT 
+                    partial vocation.{
+                        id,
+                        name, 
+                        code, 
+                        durationEKAP
+                    }
+                FROM Core\Entity\Vocation vocation
+                WHERE vocation.trashed IS NULL";
 
         return new Paginator(
                 new DoctrinePaginator(
@@ -42,24 +49,29 @@ class VocationRepository extends EntityRepository implements CRUD
                 )
         );
     }
-    
+
     /**
      * 
-     * @param type $id
-     * @param type $returnPartial
-     * @param type $extra
+     * @param int $id
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
      * @return type
      */
     public function Get($id, $returnPartial = false, $extra = null)
     {
         if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial v.{id,name,code,durationEKAP}
-                    FROM Core\Entity\Vocation v
-                    WHERE v.id = " . $id;
+            $dql = "SELECT 
+                        partial vocation.{
+                            id,
+                            name,
+                            code,
+                            durationEKAP
+                        }
+                    FROM Core\Entity\Vocation vocation
+                    WHERE vocation.id = :id";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+            $q->setParameter('id', $id);
 
             return $q->getSingleResult(Query::HYDRATE_ARRAY);
         }
@@ -68,10 +80,10 @@ class VocationRepository extends EntityRepository implements CRUD
 
     /**
      * 
-     * @param type $data
-     * @param type $returnPartial
-     * @param type $extra
-     * @return Vocation
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return Vocation|array
      * @throws Exception
      */
     public function Create($data, $returnPartial = false, $extra = null)
@@ -88,12 +100,15 @@ class VocationRepository extends EntityRepository implements CRUD
 
         if ($returnPartial) {
 
-            $dql = "
-                    SELECT 
-                        partial v.{id,name,code,durationEKAP}
-                    FROM Core\Entity\Vocation v
-                    WHERE v.id = " . $entity->getId() . "
-                ";
+            $dql = "SELECT 
+                        partial vocation.{
+                            id,
+                            name,
+                            code,
+                            durationEKAP
+                        }
+                    FROM Core\Entity\Vocation vocation
+                    WHERE vocation.id = " . $entity->getId();
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
             $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
@@ -105,10 +120,10 @@ class VocationRepository extends EntityRepository implements CRUD
 
     /**
      * 
-     * @param type $id
-     * @param type $data
-     * @param type $returnPartial
-     * @param type $extra
+     * @param int|string $id
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
      * @return type
      * @throws Exception
      */
@@ -138,12 +153,12 @@ class VocationRepository extends EntityRepository implements CRUD
         }
         return $entity;
     }
-    
+
     /**
      * 
-     * @param type $id
+     * @param int $id
      * @param type $extra
-     * @return type
+     * @return int
      */
     public function Delete($id, $extra = null)
     {

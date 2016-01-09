@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis dev team
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
@@ -8,16 +16,13 @@ use Core\Controller\AbstractBaseController;
 /**
  * Rest API access to subjectround data.
  * 
- * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * @license   TODO
  * @author Sander Mets <sandermets0@gmail.com>
  */
 class SubjectRoundController extends AbstractBaseController
 {
 
     /**
-     * ###GET<br>
+     * <h1>GET</h1><br>
      * ####URL PARAMETERS<br>
      * <i>limit(integer)</i><br>
      * <i>page(integer)</i><br>

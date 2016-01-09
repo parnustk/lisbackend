@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\VocationController;
@@ -8,11 +16,14 @@ error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 
 /**
- * @author sander juhan
+ * @author Juhan, Sander Mets <sandermets0@gmail.com>
  */
 class VocationControllerTest extends UnitHelpers
 {
 
+    /**
+     * REST access setup
+     */
     protected function setUp()
     {
         $this->controller = new VocationController();
@@ -20,7 +31,7 @@ class VocationControllerTest extends UnitHelpers
     }
 
     /**
-     * create new with correct data see entity
+     * TEST row gets created
      */
     public function testCreate()
     {
@@ -36,7 +47,10 @@ class VocationControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
+    /**
+     * TEST row gets not created
+     */
     public function testCreateNoName()
     {
         $this->request->setMethod('post');
@@ -50,7 +64,10 @@ class VocationControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
+    /**
+     * TEST row gets not created
+     */
     public function testCreateNoCode()
     {
         $this->request->setMethod('post');
@@ -64,7 +81,10 @@ class VocationControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
+    /**
+     * TEST row gets not created
+     */
     public function testCreateNodurationEKAP()
     {
         $this->request->setMethod('post');
@@ -78,7 +98,10 @@ class VocationControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
+    /**
+     * TEST row gets not created
+     */
     public function testCreateNoData()
     {
         $this->request->setMethod('post');
@@ -88,7 +111,10 @@ class VocationControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
+    /**
+     * TEST row gets read by id
+     */
     public function testGet()
     {
         $this->request->setMethod('get');
@@ -100,6 +126,9 @@ class VocationControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
     }
 
+    /**
+     * TEST rows get read
+     */
     public function testGetList()
     {
         $this->CreateVocation();
@@ -109,9 +138,12 @@ class VocationControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, false);
     }
 
+    /**
+     * TEST row gets updated by id
+     */
     public function testUpdate()
     {
         //create vocation
@@ -133,10 +165,10 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $r = $this->em
                 ->getRepository('Core\Entity\Vocation')
                 ->find($result->data['id']);
@@ -152,6 +184,9 @@ class VocationControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
     }
 
+    /**
+     * TEST row gets deleted by id
+     */
     public function testDelete()
     {
         $entity = $this->CreateVocation();
@@ -176,7 +211,10 @@ class VocationControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
-    
+
+    /**
+     * TEST rows get read by limit and page params
+     */
     public function testGetListWithPaginaton()
     {
         $this->request->setMethod('get');
@@ -186,8 +224,7 @@ class VocationControllerTest extends UnitHelpers
         $this->CreateSubjectRound();
 
         //set record limit to 1
-        $q = 'page=1&limit=1';//imitate real param format
-        
+        $q = 'page=1&limit=1'; //imitate real param format
         $params = [];
         parse_str($q, $params);
         foreach ($params as $key => $value) {

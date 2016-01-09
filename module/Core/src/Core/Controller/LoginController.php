@@ -15,21 +15,14 @@ class LoginController extends AbstractBaseController
 {
 
     /**
-     * OPTIONS
-     * headers are sent from .htaccess
-     * 
-     * @return type
-     */
-    public function options()
-    {
-        return new JsonModel([]);
-    }
-
-    /**
      * @var Form
      */
     protected $loginForm;
 
+    /**
+     * 
+     * @return type
+     */
     public function getLoginForm()
     {
         if (!$this->loginForm) {
@@ -37,7 +30,12 @@ class LoginController extends AbstractBaseController
         }
         return $this->loginForm;
     }
-
+    
+    /**
+     * 
+     * @param Form $loginForm
+     * @return \Core\Controller\LoginController
+     */
     public function setLoginForm(Form $loginForm)
     {
         $this->loginForm = $loginForm;
@@ -87,6 +85,8 @@ class LoginController extends AbstractBaseController
 
     /**
      * Logout
+     * 
+     * @param int $id
      * @return JsonModel
      */
     public function delete($id)

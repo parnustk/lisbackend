@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
 /**
+ * Abstract Base controller
+ * 
  * @author sander
  */
 abstract class AbstractBaseController extends AbstractRestfulController

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
 namespace Core\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;

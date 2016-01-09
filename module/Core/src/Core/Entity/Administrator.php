@@ -9,6 +9,9 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AdministratorRepository")
+ * @ORM\Table(
+ *     indexes={@ORM\Index(name="administrator_index_trashed", columns={"trashed"})}
+ * )
  */
 class Administrator extends EntityValidation
 {
@@ -21,32 +24,44 @@ class Administrator extends EntityValidation
     protected $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $firstName;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $lastName;
 
     /**
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
     protected $code;
 
     /**
      * 
      * @ORM\OneToOne(targetEntity="LisUser", inversedBy="administrator")
-     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", nullable=false, unique=true)
      */
     protected $lisUser;
+
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+
+//    protected $createdBy;
+//    protected $updatedBy;
+//    protected $createdWhen;
+//    protected $updatedWhen;
 
     /**
      * 

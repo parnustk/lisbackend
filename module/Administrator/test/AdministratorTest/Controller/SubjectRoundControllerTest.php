@@ -160,25 +160,20 @@ class SubjectRoundControllerTest extends UnitHelpers
     public function testDelete()
     {
         $subjectRoundRepository = $this->em->getRepository('Core\Entity\SubjectRound');
-
         //create one to delete later on
         $entity = $this->CreateSubjectRound();
         $idOld = $entity->getId();
-
-        $this->assertNull($subjectRoundRepository->find($idOld)->getTrashed());
-
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
+        $this->em->clear();
+        //test it is not in the database anymore
+        $deleted = $subjectRoundRepository->Get($idOld);
+        $this->assertEquals(null, $deleted);
         $this->PrintOut($result, false);
-
-        $this->assertNotNull($subjectRoundRepository->find($idOld)->getTrashed());
     }
 
     public function testGetList()
