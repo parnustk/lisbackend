@@ -1,20 +1,31 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * Description of AbsenceReasonController
+ * Rest API access to absencereason data.
  *
- * @author eleri
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class AbsenceReasonController extends AbstractBaseController
 {
 
     /**
-     * GET
+     * ###GET<br>
+     * ####URL PARAMETERS<br>
+     * <i>limit(integer)</i><br>
+     * <i>page(integer)</i><br>
      * 
      * @return JsonModel
      */
@@ -29,9 +40,11 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * GET
+     * ###GET<br>
+     * ####URL PARAMETERS<br>
+     * <b>id(integer)</b><br>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
@@ -45,10 +58,13 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * POST
+     * ###POST<br>
+     * ####BODY<br>
+     * <b>subject(integer)</b><br>
+     * <b>studentGroup(integer)</b><br>
+     * <b>teacher(array) [ { id(integer) } ] ]</b><br>
      * 
-     * method to create new entity
-     * @param type $data
+     * @param array $data
      * @return JsonModel
      */
     public function create($data)
@@ -59,14 +75,16 @@ class AbsenceReasonController extends AbstractBaseController
                         ->get('absencereason_service')
                         ->Create($data)
         );
-//        $s = $this->getServiceLocator()->get('absencereason_service');
-//        $result = $s->Create($data);
-//        return new JsonModel($result);
-//        // return new JsonModel($data);
     }
 
     /**
-     * PUT
+     * ###PUT<br>
+     * ####URL PARAMETERS<br>
+     * <b>id(integer)</b><br>
+     * ####BODY<br>
+     * <i>subject(integer)</i><br>
+     * <i>studentGroup(integer)</i><br>
+     * <i>teacher(array) [ { id(integer) } ] ]</i><br>
      * 
      * @param type $id
      * @param type $data
@@ -83,9 +101,11 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * DELETE
+     * ###DELETE<br>
+     * ####URL PARAMETERS<br>
+     * <b>id(integer)</b><br>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function delete($id)

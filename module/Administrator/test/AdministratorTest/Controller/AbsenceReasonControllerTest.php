@@ -1,9 +1,12 @@
 <?php
 
 /**
- * Description of AbsenceReasonControllerTest
+ * LIS development
+ * Rest API ControllerTests
  *
- * @author eleri
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://opensource.org/licenses/MIT MIT License
  */
 
 namespace AdministratorTest\Controller;
@@ -13,6 +16,11 @@ use Administrator\Controller\AbsenceReasonController;
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 
+/**
+ * REST API ControllerTests
+ * 
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
 class AbsenceReasonControllerTest extends UnitHelpers
 {
 
@@ -41,7 +49,6 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
-    
     
     public function testCreateNoData()
     {

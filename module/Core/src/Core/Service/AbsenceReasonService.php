@@ -1,17 +1,30 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
 namespace Core\Service;
 
 use Exception;
 
 /**
- * Description of AbsenceReasonService
+ * Rest API service for absencereason data.
  *
- * @author eleri
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class AbsenceReasonService extends AbstractBaseService
 {
-    
+
+    /**
+     * 
+     * @param int $id
+     * @return array
+     */
     public function Get($id)
     {
         try {
@@ -29,13 +42,13 @@ class AbsenceReasonService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
-     * @param type $params
-     * @return type
+     * @param array $params
+     * @return array
      */
-     public function GetList($params)
+    public function GetList($params)
     {
         try {
 
@@ -62,15 +75,15 @@ class AbsenceReasonService extends AbstractBaseService
         }
     }
 
-
     /**
      * 
-     * @param stdClass $params
+     * @param array $data
      * @return array
+     * @throws Exception
      */
     public function Create($data)
     {
-        
+
         try {
             return [
                 'success' => true,
@@ -87,13 +100,13 @@ class AbsenceReasonService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * Update an existing resource
      *
-     * @param  mixed $id
+     * @param  int $id
      * @param  mixed $data
-     * @return mixed
+     * @return array
      */
     public function Update($id, $data)
     {
@@ -112,11 +125,11 @@ class AbsenceReasonService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
-     * @param type $id
-     * @return type
+     * @param int $id
+     * @return array
      */
     public function Delete($id)
     {
@@ -135,6 +148,5 @@ class AbsenceReasonService extends AbstractBaseService
             ];
         }
     }
-    
 
 }
