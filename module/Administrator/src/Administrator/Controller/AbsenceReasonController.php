@@ -22,10 +22,10 @@ class AbsenceReasonController extends AbstractBaseController
 {
 
     /**
-     * ###GET<br>
-     * ####URL PARAMETERS<br>
-     * <i>limit(integer)</i><br>
-     * <i>page(integer)</i><br>
+     * <h1>GET</h1>
+     * <h3>URL PARAMETERS</h3><br>
+     * <code>limit(integer)
+     * page(integer)</code><br>
      * 
      * @return JsonModel
      */
@@ -40,9 +40,9 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * ###GET<br>
-     * ####URL PARAMETERS<br>
-     * <b>id(integer)</b><br>
+     * <h1>GET</h1><br>
+     * <h3>URL PARAMETERS</h3><br>
+     * <code>id(integer)</code><br>
      * 
      * @param int $id
      * @return JsonModel
@@ -58,11 +58,9 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * ###POST<br>
-     * ####BODY<br>
-     * <b>subject(integer)</b><br>
-     * <b>studentGroup(integer)</b><br>
-     * <b>teacher(array) [ { id(integer) } ] ]</b><br>
+     * <h1>POST</h1><br>
+     * <h3>BODY</h3><br>
+     * <code>name(string)</code><br>
      * 
      * @param array $data
      * @return JsonModel
@@ -78,13 +76,11 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * ###PUT<br>
-     * ####URL PARAMETERS<br>
-     * <b>id(integer)</b><br>
-     * ####BODY<br>
-     * <i>subject(integer)</i><br>
-     * <i>studentGroup(integer)</i><br>
-     * <i>teacher(array) [ { id(integer) } ] ]</i><br>
+     * <h1>PUT</h1><br>
+     * <h3>URL PARAMETERS</h3><br>
+     * <code>id(integer)</code><br>
+     * <h3>BODY</h3><br>
+     * <code>name(string)</code><br>
      * 
      * @param type $id
      * @param type $data
@@ -101,9 +97,9 @@ class AbsenceReasonController extends AbstractBaseController
     }
 
     /**
-     * ###DELETE<br>
-     * ####URL PARAMETERS<br>
-     * <b>id(integer)</b><br>
+     * <h1>DELETE</h1><br>
+     * <h3>URL PARAMETERS</h3><br>
+     * <code>id(integer)</code><br>
      * 
      * @param int $id
      * @return JsonModel

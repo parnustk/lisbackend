@@ -97,7 +97,7 @@
 
 
 	<div class="description">
-	<p>Description of AbsenceReasonController</p>
+	<p>Rest API access to absencereason data.</p>
 	</div>
 
 	<dl class="tree well">
@@ -128,7 +128,7 @@ Core\Controller\AbstractBaseController
 		
 
 				<b>Author:</b>
-				eleri<br>
+				Eleri Apsolon <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a><br>
 			<b>Located at</b> AbsenceReasonController.php		<br>
 	</div>
 
@@ -151,11 +151,29 @@ Core\Controller\AbstractBaseController
 			<code>getList( )</code>
 
 			<div class="description short">
-				<p>GET</p>
+				<h1>GET</h1>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>limit(integer)
+page(integer)</pre>
+
+<p><br></p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>GET</p>
+				<h1>GET</h1>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>limit(integer)
+page(integer)</pre>
+
+<p><br></p>
 
 
 
@@ -181,14 +199,34 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code>get( <span>type <var>$id</var></span> )</code>
+			<code>get( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>GET</p>
+				<h1>GET</h1>
+
+<p><br></p>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>id(integer)</pre>
+
+<p><br></p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>GET</p>
+				<h1>GET</h1>
+
+<p><br></p>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>id(integer)</pre>
+
+<p><br></p>
 
 
 					<h4>Parameters</h4>
@@ -219,14 +257,34 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code>create( <span>type <var>$data</var></span> )</code>
+			<code>create( <span>array <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<p>POST</p>
+				<h1>POST</h1>
+
+<p><br></p>
+
+<h3>BODY</h3>
+
+<p><br></p>
+
+<pre>name(string)</pre>
+
+<p><br></p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>POST</p>
+				<h1>POST</h1>
+
+<p><br></p>
+
+<h3>BODY</h3>
+
+<p><br></p>
+
+<pre>name(string)</pre>
+
+<p><br></p>
 
 
 					<h4>Parameters</h4>
@@ -260,11 +318,47 @@ Core\Controller\AbstractBaseController
 			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<p>PUT</p>
+				<h1>PUT</h1>
+
+<p><br></p>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>id(integer)</pre>
+
+<p><br></p>
+
+<h3>BODY</h3>
+
+<p><br></p>
+
+<pre>name(string)</pre>
+
+<p><br></p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>PUT</p>
+				<h1>PUT</h1>
+
+<p><br></p>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>id(integer)</pre>
+
+<p><br></p>
+
+<h3>BODY</h3>
+
+<p><br></p>
+
+<pre>name(string)</pre>
+
+<p><br></p>
 
 
 					<h4>Parameters</h4>
@@ -297,14 +391,34 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code>delete( <span>type <var>$id</var></span> )</code>
+			<code>delete( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>DELETE</p>
+				<h1>DELETE</h1>
+
+<p><br></p>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>id(integer)</pre>
+
+<p><br></p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>DELETE</p>
+				<h1>DELETE</h1>
+
+<p><br></p>
+
+<h3>URL PARAMETERS</h3>
+
+<p><br></p>
+
+<pre>id(integer)</pre>
+
+<p><br></p>
 
 
 					<h4>Parameters</h4>
