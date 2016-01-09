@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * @license   http://creativecommons.org/licenses/by-nc/4.0/legalcode Attribution-NonCommercial 4.0 International
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -12,6 +20,8 @@ use Doctrine\ORM\EntityManager;
  * @ORM\Table(
  *     indexes={@ORM\Index(name="administrator_index_trashed", columns={"trashed"})}
  * )
+ * 
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class Administrator extends EntityValidation
 {
@@ -20,6 +30,7 @@ class Administrator extends EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
@@ -47,7 +58,7 @@ class Administrator extends EntityValidation
     /**
      * 
      * @ORM\OneToOne(targetEntity="LisUser", inversedBy="administrator")
-     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", nullable=false, unique=true)
+     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", nullable=true, unique=true)
      */
     protected $lisUser;
 
@@ -60,8 +71,8 @@ class Administrator extends EntityValidation
 
 //    protected $createdBy;
 //    protected $updatedBy;
-//    protected $createdWhen;
-//    protected $updatedWhen;
+//    protected $createdAt;
+//    protected $updatedAt;
 
     /**
      * 

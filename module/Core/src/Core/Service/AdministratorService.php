@@ -10,6 +10,8 @@
 
 namespace Core\Service;
 
+use Exception;
+
 /**
  * Description of AdministratorService
  *

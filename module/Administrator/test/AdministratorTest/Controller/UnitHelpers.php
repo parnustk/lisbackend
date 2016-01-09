@@ -186,7 +186,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'name' => 'StudentGroup'.  uniqid(),
+                    'name' => 'StudentGroup' . uniqid(),
                     'vocation' => $this->CreateVocation()->getId(),
         ]);
     }
@@ -206,11 +206,11 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-            'firstName' => 'firstName'.uniqid(),
-            'lastName' => 'lastName'.uniqid(),
-            'code' => 'code'.uniqid(),
-            'email' => 'email'.uniqid(),
-            'studentGroup' => $this->CreateStudentGroup()->getId()
+                    'firstName' => 'firstName' . uniqid(),
+                    'lastName' => 'lastName' . uniqid(),
+                    'code' => 'code' . uniqid(),
+                    'email' => 'email' . uniqid(),
+                    'studentGroup' => $this->CreateStudentGroup()->getId()
         ]);
     }
 
@@ -266,6 +266,12 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
          */
     }
 
+    /**
+     * ContactLesson
+     * 
+     * @param type $data
+     * @return type
+     */
     protected function CreateContactLesson($data = null)
     {
         $repository = $this->em->getRepository('Core\Entity\ContactLesson');
@@ -291,6 +297,12 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    /**
+     * AbsenceReason
+     * 
+     * @param type $data
+     * @return type
+     */
     protected function CreateAbsenceReason($data = null)
     {
         $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
@@ -301,6 +313,21 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         return $repository->Create([
                     'name' => uniqid() . 'AbsenceReasonName',
+        ]);
+    }
+
+    protected function CreateLisUser($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\LisUser');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        return $repository->Create([
+                    'email' => uniqid() . '@test.ee',
+                    'password' => uniqid() . '123456TereMaailm',
+                    'state' => 1
         ]);
     }
 

@@ -5,7 +5,7 @@
  * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 Lis Team
- * @license   https://opensource.org/licenses/MIT MIT License
+ * @license   http://creativecommons.org/licenses/by-nc/4.0/legalcode Attribution-NonCommercial 4.0 International
  */
 
 namespace Administrator\Controller;

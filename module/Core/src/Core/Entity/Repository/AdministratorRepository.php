@@ -5,7 +5,7 @@
  * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 Lis Team
- * @license   https://opensource.org/licenses/MIT MIT License
+ * @license   http://creativecommons.org/licenses/by-nc/4.0/legalcode Attribution-NonCommercial 4.0 International
  */
 
 namespace Core\Entity\Repository;
@@ -76,11 +76,11 @@ class AdministratorRepository extends EntityRepository implements CRUD
                         partial administrator.{
                             id,
                             firstName,
-                            code,
-                            durationEKAP
+                            lastName,
+                            code
                         }
                     FROM Core\Entity\Administrator administrator
-                    WHERE vocation.id = " . $entity->getId();
+                    WHERE administrator.id = " . $entity->getId();
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
             $r = $q->getSingleResult(Query::HYDRATE_ARRAY);

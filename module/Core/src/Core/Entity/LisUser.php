@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * @license   http://creativecommons.org/licenses/by-nc/4.0/legalcode Attribution-NonCommercial 4.0 International
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -9,6 +17,11 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\LisUserRepository")
+ * @ORM\Table(
+ *     indexes={@ORM\Index(name="lisuser_index_trashed", columns={"trashed"})}
+ * )
+ * 
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class LisUser extends EntityValidation
 {
@@ -17,21 +30,28 @@ class LisUser extends EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", unique=true, length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"EmailAddress"})
      */
     protected $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/"}})
      */
     protected $password;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false, options={"default":1})
+     * @Annotation\Exclude()
      */
     protected $state;
 
@@ -49,6 +69,13 @@ class LisUser extends EntityValidation
      * @ORM\OneToOne(targetEntity="Administrator", mappedBy="lisUser")
      */
     protected $administrator;
+
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
 
     /**
      * 
@@ -94,6 +121,11 @@ class LisUser extends EntityValidation
         return $this->administrator;
     }
 
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
     public function setEmail($email)
     {
         $this->email = $email;
@@ -127,6 +159,12 @@ class LisUser extends EntityValidation
     public function setAdministrator($administrator)
     {
         $this->administrator = $administrator;
+        return $this;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
         return $this;
     }
 
