@@ -12,8 +12,6 @@ use Doctrine\ORM\EntityManager;
  * @ORM\Table(
  *     indexes={@ORM\Index(name="index_trashed", columns={"trashed"})}
  * )
- *
- * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceReasonRepository")
  */
 class AbsenceReason extends EntityValidation
 {

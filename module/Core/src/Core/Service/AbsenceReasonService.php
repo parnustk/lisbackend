@@ -29,6 +29,38 @@ class AbsenceReasonService extends AbstractBaseService
             ];
         }
     }
+    
+    /**
+     * 
+     * @param type $params
+     * @return type
+     */
+     public function GetList($params)
+    {
+        try {
+
+            $p = $this->getEntityManager()
+                    ->getRepository('Core\Entity\AbsenceReason')
+                    ->GetList($params);
+
+            $p->setItemCountPerPage($params['limit']);
+            $p->setCurrentPageNumber($params['page']);
+
+            $params['itemCount'] = $p->getTotalItemCount();
+            $params['pageCount'] = $p->count();
+
+            return [
+                'success' => true,
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
 
 
     /**
@@ -49,29 +81,6 @@ class AbsenceReasonService extends AbstractBaseService
             ];
         } catch (Exception $ex) {
 
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-    
-    /**
-     * 
-     * @param type $id
-     * @return type
-     */
-    public function Delete($id)
-    {
-        try {
-            return [
-                'success' => true,
-                'id' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\AbsenceReason')
-                        ->Delete($id)
-            ];
-        } catch (Exception $ex) {
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -103,5 +112,29 @@ class AbsenceReasonService extends AbstractBaseService
             ];
         }
     }
+    
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
+    public function Delete($id)
+    {
+        try {
+            return [
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\AbsenceReason')
+                        ->Delete($id)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    
 
 }

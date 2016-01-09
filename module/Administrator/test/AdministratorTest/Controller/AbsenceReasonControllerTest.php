@@ -30,9 +30,9 @@ class AbsenceReasonControllerTest extends UnitHelpers
     {
         $name = 'AbsenceReason name'.uniqid();
         $this->request->setMethod('post');
-
+        $absencereason = $this->CreateAbsenceReason();
         $this->request->getPost()->set('name', $name);
-
+        $this->request->getPost()->set('absencereason', $absencereason->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
@@ -41,6 +41,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
+    
     
     public function testCreateNoData()
     {
@@ -52,7 +53,25 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
+    
+    /**
+     * create one before asking list
+     */
+    public function testGetList()
+    {
+        $this->CreateAbsenceReason();
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+        $this->PrintOut($result, false);
+    }
 
+    /**
+     * create one before getting
+     */
     public function testGet()
     {
         $this->request->setMethod('get');
@@ -69,11 +88,12 @@ class AbsenceReasonControllerTest extends UnitHelpers
     {
         //create one to  update later on
         $absenceReason = $this->CreateAbsenceReason();
+        $id = $absenceReason->getId();
         $nameOld= $absenceReason->getName();
         
         //prepare request
+        $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('put');
-        $this->routeMatch->setParam('id', $absenceReason->getId());
         
         //set new data
         $nameU = uniqid() . 'new name';
@@ -88,8 +108,8 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
-        $this->PrintOut($result, true);
-        print_r($result->data['name']);
+        $this->PrintOut($result, false);
+        //print_r($result->data['name']);
         
         $this->assertNotEquals($nameOld, $result->data['name']);
         
@@ -97,14 +117,10 @@ class AbsenceReasonControllerTest extends UnitHelpers
     
     public function testDelete()
     {
-        $absenceReasonRepository = $this->em->getRepository('Core\Entity\AbsenceReason');
         
-        //create one to delete later on
         $entity = $this->CreateAbsenceReason();
         $idOld = $entity->getId();
 
-        $this->assertNull($absenceReasonRepository->find($idOld)->getTrashed());
-        
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
 
@@ -113,56 +129,16 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+        $this->em->clear();
+
+        //test if it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\AbsenceReason')
+                ->Get($idOld);
+
+        $this->assertEquals(null, $deleted);
+
         $this->PrintOut($result, false);
-        
-        
-        
-        $this->assertNotNull($absenceReasonRepository->find($idOld)->getTrashed());
     }
-
-
-//
-//    /**
-//     * create one before asking list
-//     */
-//    public function testGetList()
-//    {
-//        $this->CreateAbsenceReason();
-//        $this->request->setMethod('get');
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        $this->assertGreaterThan(0, count($result->data));
-//        $this->PrintOut($result, FALSE);
-//    }
-//
-
-//
-//    public function testDelete()
-//    {
-//        $entity = $this->CreateAbsenceReason();
-//        $idOld = $entity->getId();
-//
-//        $this->routeMatch->setParam('id', $entity->getId());
-//        $this->request->setMethod('delete');
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        $this->em->clear();
-//
-//        //test it is not in the database anymore
-//        $deleted = $this->em
-//                ->getRepository('Core\Entity\AbsenceReason')
-//                ->Get($idOld);
-//
-//        $this->assertEquals(null, $deleted);
-//
-//        $this->PrintOut($result, false);
-//    }
 
 }

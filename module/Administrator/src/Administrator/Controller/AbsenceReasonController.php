@@ -47,6 +47,7 @@ class AbsenceReasonController extends AbstractBaseController
     /**
      * POST
      * 
+     * method to create new entity
      * @param type $data
      * @return JsonModel
      */
