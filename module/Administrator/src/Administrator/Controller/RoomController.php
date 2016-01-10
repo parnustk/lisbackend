@@ -7,7 +7,21 @@ use Core\Controller\AbstractBaseController;
 
 class RoomController extends AbstractBaseController
 {
-
+    /**
+     * GET
+     * 
+     * @param type $id
+     * @return JsonModel
+     */
+    public function get($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('room_service')
+                        ->Get($id)
+        );
+    }
     /**
      * POST
      * 
@@ -15,9 +29,31 @@ class RoomController extends AbstractBaseController
      */
     public function create($data)
     {
-        $s = $this->getServiceLocator()->get('room_service');
-        $result = $s->Create($data);
-        return new JsonModel($result);
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('room_service')
+                        ->Create($data)
+        );
     }
-
+    
+    public function update($id, $data)
+    {
+         return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('room_service')
+                        ->Update($id, $data)
+        );
+    }
+    
+    public function delete($id)
+    {
+         return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('room_service')
+                        ->Delete($id)
+        );
+    }
 }

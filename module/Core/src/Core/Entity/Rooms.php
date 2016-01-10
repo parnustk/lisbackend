@@ -9,6 +9,9 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\RoomsRepository")
+ * @ORM\Table(
+ *      indexes={@ORM\Index(name="room_index_trashed", columns={"trashed"})}
+ * )
  */
 class Rooms extends EntityValidation
 {
@@ -55,6 +58,16 @@ class Rooms extends EntityValidation
     {
         return $this->contactLesson;
     }
+    
+    protected $trashed;
+    /**
+     * 
+     * @return type
+     */
+     public function getTrashed()
+    {
+        return $this->trashed;
+    }
 
     public function setName($name)
     {
@@ -67,5 +80,10 @@ class Rooms extends EntityValidation
         $this->contactLesson = $contactLesson;
         return $this;
     }
-
+    
+    public  function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
 }
