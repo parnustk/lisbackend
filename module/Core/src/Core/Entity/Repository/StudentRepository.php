@@ -60,15 +60,16 @@ class StudentRepository extends EntityRepository implements CRUD
 
         return $entity;
     }
-
-    public function Delete($id, $extra = null)
-    {
-        
-    }
-
+    /**
+     * 
+     * @param int $id
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return type
+     */
     public function Get($id, $returnPartial = false, $extra = null)
     {
-        if($returnpartial) {
+        if($returnPartial) {
             //generate dql
             $dql = "
                     SELECT 
@@ -76,7 +77,7 @@ class StudentRepository extends EntityRepository implements CRUD
                             id,
                             firstName,
                             lastName,
-                            code,
+                            code,              
                             email
                         },
                         partial studentGroup.{
@@ -95,15 +96,92 @@ class StudentRepository extends EntityRepository implements CRUD
         return $this->find($id);
     }
 
+    /**
+     * 
+     * @param array|null $params
+     * @param stdClass|null $extra
+     * @return Paginator
+     */
     public function GetList($params = null, $extra = null)
     {
-        
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT 
+                    partial student.{
+                        id,
+                        firstName,
+                        lastName,
+                        code,              
+                        email
+                    }
+                FROM Core\Entity\Student student
+                WHERE student.trashed IS NULL";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
     }
 
-
+    /**
+     * 
+     * @param int|string $id
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return type
+     * @throws Exception
+     */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        ; //TODO
+        $entity = $this->find($id);
+        $entity->setEntityManager($this->getEntityManager());
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial student.{
+                            id,
+                            firstName,
+                            lastName,
+                            code,              
+                            email
+                        }
+                    FROM Core\Entity\Student student
+                    WHERE student.id = " . $id;
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $entity;
+    }
+    /**
+     * 
+     * @param int $id
+     * @param type $extra
+     * @return int
+     */
+    public function Delete($id, $extra = null)
+    {
+        $this->getEntityManager()->remove($this->find($id));
+        $this->getEntityManager()->flush();
+        return $id;
     }
 
 }

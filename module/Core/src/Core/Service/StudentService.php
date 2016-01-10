@@ -23,18 +23,20 @@ class StudentService extends \Core\Service\AbstractBaseService
                     ->getRepository('Core\Entity\Student')
                     ->GetList($params);
 
-            $p->setItemCountPerPage($params->limit);
-            $p->setCurrentPageNumber($params->page);
+            $p->setItemCountPerPage($params['limit']);
+            $p->setCurrentPageNumber($params['page']);
+            
+            
+            $params['itemCount'] = $p->getTotalItemCount();
+            $params['pageCount'] = $p->count();
 
             return [
                 'success' => true,
-                'currentPage' => $params->page,
-                'itemCount' => $p->getTotalItemCount(),
-                'countPages' => $p->count(),
                 'params' => $params,
                 'data' => (array) $p->getCurrentItems(),
             ];
         } catch (Exception $ex) {
+
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -43,7 +45,8 @@ class StudentService extends \Core\Service\AbstractBaseService
     }
     
     /**
-     * 
+     * @param int|string $id
+     * @param stdClass|NULL $extra
      * @return type
      */
     public function Get($id)
@@ -61,9 +64,14 @@ class StudentService extends \Core\Service\AbstractBaseService
                 'success' => false,
                 'message' => $ex->getMessage()
             ];
+            echo $ex->getMessage();
         }
     }
-    
+    /**
+     * 
+     * @param array $data
+     * @return array
+     */
     public function Create($data)
     {
         try {
@@ -82,5 +90,77 @@ class StudentService extends \Core\Service\AbstractBaseService
             ];
         }
     }
-
+    /**
+     * 
+     * @param int|string $id
+     * @param array $data
+     * @param stdClass|NULL $extra
+     * @return array
+     */
+    public function Update($id, $data, $extra = null)
+    {
+        $Id = (int) $id;
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Student')
+                        ->Update($Id, $data, true, $extra)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    /**
+     * 
+     * @param int|string $id
+     * @param stdClass|NULL $extra
+     * @return array
+     */
+    public function Delete($id, $extra = null)
+    {
+        $Id = (int) $id;
+        try {
+            return [
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Student')
+                        ->Delete($Id, $extra)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    /**
+     * 
+     * @param int|string $id
+     * @param stdClass|NULL $extra
+     * @return array
+     */
+    public function Trash($id, $extra = null)
+    {
+        $Id = (int) $id;
+        try {
+            return [
+                'success' => true,
+                'id' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Student')
+                        ->Delete($Id, $extra)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
 }

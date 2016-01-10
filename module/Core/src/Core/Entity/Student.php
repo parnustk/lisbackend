@@ -73,7 +73,14 @@ class Student extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $studentGroup;
-
+    
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+    
     /**
      * 
      * @param EntityManager $em
@@ -127,6 +134,10 @@ class Student extends EntityValidation
     {
         return $this->studentGroup;
     }
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
 
     public function setFirstName($firstName)
     {
@@ -173,6 +184,12 @@ class Student extends EntityValidation
     public function setStudentGroup($studentGroup)
     {
         $this->studentGroup = $studentGroup;
+        return $this;
+    }
+    
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
         return $this;
     }
 

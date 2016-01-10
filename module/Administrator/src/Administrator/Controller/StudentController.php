@@ -48,5 +48,36 @@ class StudentController extends AbstractBaseController
         $result = $s->Create($data);
         return new JsonModel($result);
     }
+    /**
+     * PUT
+     * 
+     * @param type $id
+     * @param type $data
+     * @return JsonModel
+     */
+    public function update($id, $data)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('student_service')
+                        ->Update($id, $data)
+        );
+    }
+    /**
+     * DELETE
+     * 
+     * @param int $id
+     * @return JsonModel
+     */
+    public function delete($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('student_service')
+                        ->Delete($id)
+        );
+    }
 }
 
