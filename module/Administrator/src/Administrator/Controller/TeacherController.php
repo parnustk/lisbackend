@@ -23,6 +23,18 @@ class TeacherController extends AbstractBaseController
                         ->Get($id)
         );
     }
+    /**
+     * 
+     */
+        public function getList()
+    {
+         return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('teacher_service')
+                        ->GetList()
+        );
+    }
 
     /**
      * 

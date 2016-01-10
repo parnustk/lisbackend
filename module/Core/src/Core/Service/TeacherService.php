@@ -52,6 +52,25 @@ class TeacherService extends AbstractBaseService
         }
     }
 
+    public function GetList()
+    {
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Teacher')
+                        ->GetList(true)
+            ];
+        } catch (Exception $ex) {
+
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+
     public function Update($id, $data)
     {
         try {

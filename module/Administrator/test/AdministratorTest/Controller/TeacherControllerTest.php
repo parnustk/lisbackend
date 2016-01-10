@@ -63,6 +63,21 @@ class TeacherControllerTest extends UnitHelpers
     }
 
     /**
+     * testing GetList
+     */
+    public function testGetList()
+    {
+        $this->CreateTeacher();
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+        $this->PrintOut($result, false);
+    }
+
+    /**
      * testing PUT
      */
     public function testUpdate()
@@ -100,11 +115,11 @@ class TeacherControllerTest extends UnitHelpers
 
     public function testDelete()
     {
-        $teacherRepository=  $this->em->getRepository("Core\Entity\Teacher");
+        $teacherRepository = $this->em->getRepository("Core\Entity\Teacher");
         $entity = $this->CreateTeacher();
         $idOld = $entity->getId();
         $this->assertNull($teacherRepository->find($idOld)->getTrashed());
-        
+
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
 
@@ -113,7 +128,7 @@ class TeacherControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
 
         $this->PrintOut($result, false);
         $this->assertNotNull($teacherRepository->find($idOld)->getTrashed());

@@ -76,7 +76,18 @@ class TeacherRepository extends EntityRepository implements CRUD
 
     public function GetList($params = null, $extra = null)
     {
-        
+          $dql = "SELECT partial te.{id,firstName,lastName,code,email}
+                FROM Core\Entity\Teacher te
+                WHERE te.trashed IS NULL";
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
     }
 
     public function Update($id, $data, $returnPartial = false, $extra = null)
