@@ -58,6 +58,10 @@
 							Controller						</a>
 							</li>
 								</ul></li>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
 			</ul>
 		</div>
 
@@ -98,6 +102,9 @@
 	<h1>Class RoomController</h1>
 
 
+	<div class="description">
+	<p>Room Controller</p>
+	</div>
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
@@ -126,6 +133,8 @@ Core\Controller\AbstractBaseController
 		<b>Namespace:</b> <a href="namespace-Administrator.html">Administrator</a>\<a href="namespace-Administrator.Controller.html">Controller</a><br>
 		
 
+				<b>Author:</b>
+				Alar Aasa <a href="&#109;&#97;&#105;&#x6c;&#x74;o&#58;&#97;&#x6c;&#x61;&#x72;&#64;&#97;&#108;&#x61;&#x72;a&#97;&#115;&#x61;&#x2e;&#x65;&#101;">&#97;&#x6c;&#x61;&#x72;&#64;&#97;&#108;&#x61;&#x72;a&#97;&#115;&#x61;&#x2e;&#x65;&#101;</a><br>
 			<b>Located at</b> RoomController.php		<br>
 	</div>
 
@@ -134,6 +143,49 @@ Core\Controller\AbstractBaseController
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="getList" id="_getList">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getList">#</a>
+			<code>getList( )</code>
+
+			<div class="description short">
+				<h2>GET admin/room</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>GET admin/room</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="get" id="_get">
 
 			<td class="attributes"><code>
@@ -145,21 +197,26 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code>get( <span>type <var>$id</var></span> )</code>
+			<code>get( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>GET</p>
+				<h2>GET admin/room</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>GET</p>
+				<h2>GET admin/room</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$id</var></dt>
-						<dd></dd>
-					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
@@ -176,26 +233,41 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code>create( <span> <var>$data</var></span> )</code>
+			<code>create( <span>integer <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<p>POST</p>
+				<h2>POST admin/room</h2>
+
+<h3>Body</h3>
+
+<pre>name(string)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>POST</p>
+				<h2>POST admin/room</h2>
 
-<p>method to create new enitty</p>
+<h3>Body</h3>
+
+<pre>name(string)</pre>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd>@data</dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -207,7 +279,7 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
@@ -217,14 +289,26 @@ Core\Controller\AbstractBaseController
 			<code>update( <span> <var>$id</var></span>, <span> <var>$data</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>PUT admin/room/id</h2>
+
+<h3>Body</h3>
+
+<pre>name(string)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>PUT admin/room/id</h2>
+
+<h3>Body</h3>
+
+<pre>name(string)</pre>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -236,7 +320,7 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
@@ -246,14 +330,26 @@ Core\Controller\AbstractBaseController
 			<code>delete( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>DELETE administrator/room</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>DELETE administrator/room</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)</pre>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
