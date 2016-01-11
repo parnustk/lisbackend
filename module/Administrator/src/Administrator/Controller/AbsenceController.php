@@ -8,6 +8,11 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  */
 
+namespace Administrator\Controller;
+
+use Zend\View\Model\JsonModel;
+use Core\Controller\AbstractBaseController;
+
 /**
  * Description of AbsenceController
  *
