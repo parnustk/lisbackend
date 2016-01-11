@@ -1,0 +1,28 @@
+<?php
+return [
+    'doctrine' => [
+        'connection' => [
+            // default connection name
+            'orm_default' => [
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => [
+                    'host'     => 'localhost',
+                    'port'     => '3306',
+                    'user'     => 'root', //Your DB user
+                    'password' => '123456', //Your DB password
+                    'dbname'   => 'lis', //Your DB name
+                    'charset' => 'utf8',
+                    'driverOptions' => [
+                        1002 => 'SET NAMES utf8'
+                    ]
+                ]
+            ]
+        ],
+        'configuration' => [
+            'orm_default' => [
+                'proxy_dir' => 'data/DoctrineORMModule/Proxy',
+                'proxy_namespace' => 'DoctrineORMModule\Proxy',
+            ]    
+        ]
+    ],
+];
