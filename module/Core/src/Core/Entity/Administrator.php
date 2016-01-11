@@ -14,13 +14,14 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AdministratorRepository")
  * @ORM\Table(
  *     indexes={@ORM\Index(name="administrator_index_trashed", columns={"trashed"})}
  * )
- * 
+ * @ORM\HasLifecycleCallbacks
  * @author Sander Mets <sandermets0@gmail.com>
  */
 class Administrator extends EntityValidation
@@ -69,6 +70,67 @@ class Administrator extends EntityValidation
      */
     protected $trashed;
 
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    protected $createdBy;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+
+    /**
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude() 
+     */
+    protected $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+//ALT+INSERT
 //    protected $createdBy;
 //    protected $updatedBy;
 //    protected $createdAt;
@@ -81,6 +143,39 @@ class Administrator extends EntityValidation
     public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
+    }
+
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
     }
 
     public function getId()

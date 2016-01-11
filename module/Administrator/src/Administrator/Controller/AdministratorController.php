@@ -22,6 +22,10 @@ class AdministratorController extends AbstractBaseController
 {
 
     /**
+     * <h2>GET admin/administrator</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
      * 
      * @return JsonModel
      */
@@ -36,6 +40,9 @@ class AdministratorController extends AbstractBaseController
     }
 
     /**
+     * <h2>GET admin/administrator/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
@@ -51,7 +58,12 @@ class AdministratorController extends AbstractBaseController
     }
 
     /**
-     * 
+     * <h2>POST admin/administrator</h2>
+     * <h3>Body</h3>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * code(string)*
+     * lisUser(integer)</code>
      * @param int $data
      * @return JsonModel
      */
@@ -66,7 +78,12 @@ class AdministratorController extends AbstractBaseController
     }
 
     /**
-     * 
+     * <h2>PUT admin/administrator/:id</h2>
+     * <h3>Body</h3>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * code(string)*
+     * lisUser(integer)</code>
      * @param int $id
      * @param array $data
      * @return JsonModel
@@ -82,6 +99,9 @@ class AdministratorController extends AbstractBaseController
     }
 
     /**
+     * <h2>DELETE admin/administrator/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel

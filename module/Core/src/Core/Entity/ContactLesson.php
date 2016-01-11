@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
  * @ORM\Table(indexes={@ORM\Index(name="contactlessonlessondate", columns={"lessonDate"})})
+ * @ORM\HasLifecycleCallbacks
  */
 class ContactLesson extends EntityValidation
 {
