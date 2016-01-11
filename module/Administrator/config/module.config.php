@@ -13,6 +13,7 @@ return [
             'Administrator\Controller\Gradingtype' => 'Administrator\Controller\GradingtypeController',
             'Administrator\Controller\Subject' => 'Administrator\Controller\SubjectController',
             'Administrator\Controller\AbsenceReason' => 'Administrator\Controller\AbsenceReasonController',
+            'Administrator\Controller\Absence' => 'Administrator\Controller\AbsenceController',
         ],
     ],
     'router' => [
