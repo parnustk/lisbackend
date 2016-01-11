@@ -8,6 +8,41 @@ class RoomService extends AbstractBaseService {
 
     /**
      * 
+     * @param array $params
+     * @param stdClass|NULL $extra
+     * @return array
+     */
+    public function GetList($params)
+    {
+        try {
+
+            $p = $this->getEntityManager()
+                    ->getRepository('Core\Entity\Rooms')
+                    ->GetList($params);
+
+            $p->setItemCountPerPage($params['limit']);
+            $p->setCurrentPageNumber($params['page']);
+            
+            
+            $params['itemCount'] = $p->getTotalItemCount();
+            $params['pageCount'] = $p->count();
+
+            return [
+                'success' => true,
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
+            ];
+        } catch (Exception $ex) {
+
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+    
+    /**
+     * 
      * @param array $data
      * @return type
      */
@@ -29,18 +64,25 @@ class RoomService extends AbstractBaseService {
             ];
         }
     }
-    public function Get($id)
+    
+        /**
+     * 
+     * @param int|string $id
+     * @param stdClass|NULL $extra
+     * @return array
+     */
+    public function Get($id, $extra = null)
     {
+        $Id = (int) $id;
         try {
             return [
                 'success' => true,
                 'data' => $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\Rooms')
-                        ->Get($id, true)
+                        ->Get($Id, true, $extra)
             ];
         } catch (Exception $ex) {
-
             return [
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -48,6 +90,13 @@ class RoomService extends AbstractBaseService {
         }
     }
     
+    /**
+     * 
+     * @param int|string $id
+     * @param array $data
+     * @param stdClass|NULL $extra
+     * @return array
+     */
     public function Update($id, $data)
     {
         try {
@@ -66,6 +115,12 @@ class RoomService extends AbstractBaseService {
         }
     }
     
+      /**
+     * 
+     * @param int|string $id
+     * @param stdClass|NULL $extra
+     * @return array
+     */
     public function Delete($id)
     {
         try {

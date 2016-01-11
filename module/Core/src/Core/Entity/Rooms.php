@@ -6,15 +6,19 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\RoomsRepository")
  * @ORM\Table(
  *  indexes={
  *      @ORM\Index(name="roomname", columns={"name"}),
- *      @ORM\Index(name="room_index_trashed", columns={"trashed"})
+ *      @ORM\Index(name="room_index_trashed", columns={"trashed"}),
+ *      
  *      }
  * )
+ * @ORM\HasLifecycleCallbacks
+ * @author Alar Aasa <alar@alaraasa.ee>
  */
 class Rooms extends EntityValidation
 {
@@ -38,12 +42,43 @@ class Rooms extends EntityValidation
      */
     protected $contactLesson;
     
+    
+    
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
+    
     protected $trashed;
+    
+    
+
+    /*
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    
+    protected $createdBy;
+    
+    /*
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+    
+    /**
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude()
+     * 
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
     
     /**
      * 
@@ -52,6 +87,28 @@ class Rooms extends EntityValidation
     public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
+    }
+    function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    function getUpdatedBy() {
+        return $this->updatedBy;
+    }
+    function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+    }
+
+    function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
     }
 
     public function getId()
@@ -94,5 +151,24 @@ class Rooms extends EntityValidation
     {
         $this->trashed = $trashed;
         return $this;
+    }
+    
+    function setCreatedBy($createdBy) {
+        $this->createdBy = $createdBy;
+    }
+
+    function setUpdatedBy($updatedBy) {
+        $this->updatedBy = $updatedBy;
+    }
+    
+    /*
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps(){
+        if($this->getCreatedAt() === null){
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 }

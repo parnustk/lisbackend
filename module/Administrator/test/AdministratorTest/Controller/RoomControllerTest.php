@@ -127,4 +127,29 @@ class RoomControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
+    
+    public function testCreatedBy()
+    {
+        $name = 'Classroom name' . uniqid();
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set('lisUser', $lisUser->getId());
+        
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('name', $name);
+        
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, true);         
+    } 
+    
+    public function testCreatedWithCreatedAtAndUpdatedAt()
+    {
+        $this->assertNotNull($newRoom->getCreatedAt());
+        $this->assertNotNull($newRoom->getUpdatedAt());
+        
+        
+        
+    }
 }
