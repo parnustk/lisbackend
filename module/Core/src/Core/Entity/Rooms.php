@@ -10,7 +10,10 @@ use Doctrine\ORM\EntityManager;
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\RoomsRepository")
  * @ORM\Table(
- *      indexes={@ORM\Index(name="room_index_trashed", columns={"trashed"})}
+ *  indexes={
+ *      @ORM\Index(name="roomname", columns={"name"}),
+ *      @ORM\Index(name="room_index_trashed", columns={"trashed"})
+ *      }
  * )
  */
 class Rooms extends EntityValidation
@@ -34,7 +37,14 @@ class Rooms extends EntityValidation
      * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="rooms")
      */
     protected $contactLesson;
-
+    
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+    
     /**
      * 
      * @param EntityManager $em
@@ -59,7 +69,6 @@ class Rooms extends EntityValidation
         return $this->contactLesson;
     }
     
-    protected $trashed;
     /**
      * 
      * @return type

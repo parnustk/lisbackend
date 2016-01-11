@@ -20,14 +20,26 @@ class RoomControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
-        $name = 'Classroom name';
+        $name = 'Classroom name' . uniqid();
+        
         $this->request->setMethod('post');
         $this->request->getPost()->set('name', $name);
+        
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, true);         
+    }
+    
+    public function testCreateNoData()
+    {
+        $this->request->setMethod('post');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
     }
     
     /**
@@ -41,24 +53,38 @@ class RoomControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, false);
     }
     
     /**
-     * testing PUT
+     * TEST rows get read
+     */
+    public function testGetList()
+    {
+        $this->CreateRoom();
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+        $this->PrintOut($result, false);
+    }
+    
+    /**
+     * TEST row gets updated by id
      */
     public function testUpdate()
     {
-        $room = $this->CreateRoom();
-        
-        $nameOld = $room->getName();
-        
+        $entity = $this->CreateRoom();
+        $id = $entity->getId();
+
+        $nameOld = $entity->getName();
+
+        $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('put');
-        $this->routeMatch->setParam('id', $room->getId());
-        
-        $name = uniqid() . "name";
         $this->request->setContent(http_build_query([
-            "name" => $name,
+            'name' => uniqid() . 'room',
         ]));
         
         $result = $this->controller->dispatch($this->request);
@@ -67,7 +93,14 @@ class RoomControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         
-        $this->assertNotEquals($nameOld, $result->data["name"]);
+        $r = $this->em
+                ->getRepository('Core\Entity\Rooms')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $nameOld, $r->getName()
+                );
+        $this->PrintOut($result, FALSE);
+
     }
     
     public function testDelete()

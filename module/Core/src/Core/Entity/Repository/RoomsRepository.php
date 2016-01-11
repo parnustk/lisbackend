@@ -65,7 +65,7 @@ class RoomsRepository extends EntityRepository implements CRUD
                     SELECT 
                         partial ro.{id,name}
                     FROM Core\Entity\Rooms ro
-                    WHERE ro.id = :id";
+                    WHERE ro.id = " . $id;
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
             $q->setParameter("id", $id);
