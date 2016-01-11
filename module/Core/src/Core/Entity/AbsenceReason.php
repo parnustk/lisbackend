@@ -16,14 +16,12 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
-use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceReasonRepository")
  * @ORM\Table(
  *     indexes={@ORM\Index(name="absencereason_index_trashed", columns={"trashed"})}
  * )
- * @ORM\HasLifecycleCallbacks
  */
 class AbsenceReason extends EntityValidation
 {
@@ -53,86 +51,6 @@ class AbsenceReason extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $trashed;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
-     */
-    protected $createdBy;
-
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-        return $this;
-    }
-
-    public function setUpdatedBy($updatedBy)
-    {
-        $this->updatedBy = $updatedBy;
-        return $this;
-    }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
-     */
-    protected $updatedBy;
-
-    /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
-     * @Annotation\Exclude()
-     */
-    protected $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
-     * @Annotation\Exclude()
-     */
-    protected $updatedAt;
-    
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function refreshTimeStamp(){
-        if($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
 
     /**
      * 

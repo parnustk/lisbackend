@@ -36,7 +36,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
-        $name = 'AbsenceReason name' . uniqid();
+        $name = 'AbsenceReason name'.uniqid();
         $this->request->setMethod('post');
         $absencereason = $this->CreateAbsenceReason();
         $this->request->getPost()->set('name', $name);
@@ -49,7 +49,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
-
+    
     public function testCreateNoData()
     {
         $this->request->setMethod('post');
@@ -60,7 +60,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-
+    
     /**
      * create one before asking list
      */
@@ -90,25 +90,25 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-
+    
     public function testUpdate()
     {
         //create one to  update later on
         $absenceReason = $this->CreateAbsenceReason();
         $id = $absenceReason->getId();
-        $nameOld = $absenceReason->getName();
-
+        $nameOld= $absenceReason->getName();
+        
         //prepare request
         $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('put');
-
+        
         //set new data
         $nameU = uniqid() . 'new name';
         //set new data
         $this->request->setContent(http_build_query([
             "name" => $nameU,
         ]));
-
+  
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -117,13 +117,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
         //print_r($result->data['name']);
-
+        
         $this->assertNotEquals($nameOld, $result->data['name']);
+        
     }
-
+    
     public function testDelete()
     {
-
+        
         $entity = $this->CreateAbsenceReason();
         $idOld = $entity->getId();
 
@@ -145,76 +146,6 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->assertEquals(null, $deleted);
 
         $this->PrintOut($result, false);
-    }
-
-    public function testCreateWithCreatedBy()
-    {
-        $name = 'AbsenceReason name' . uniqid();
-        $this->request->setMethod('post');
-        $absencereason = $this->CreateAbsenceReason();
-        $this->request->getPost()->set('name', $name);
-        $this->request->getPost()->set('absencereason', $absencereason->getId());
-
-        $lisUser = $this->CreateLisUser();
-        $this->request->getPost()->set("lisUser", $lisUser->getId());
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
-        $this->PrintOut($result->data['id'], false);
-
-        $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
-        $newAbsenceReason = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newAbsenceReason->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newAbsenceReason->getCreatedBy()->getId());
-    }
-
-    public function testCreateWithCreatedAtAndUpdatedAt()
-    {
-        $name = 'AbsenceReason name' . uniqid();
-        $this->request->setMethod('post');
-        $absencereason = $this->CreateAbsenceReason();
-        $this->request->getPost()->set('name', $name);
-        $this->request->getPost()->set('absencereason', $absencereason->getId());
-
-        $lisUser = $this->CreateLisUser();
-        $this->request->getPost()->set("lisUser", $lisUser->getId());
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
-        $this->PrintOut($result->data['id'], false);
-
-        $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
-        $newAbsenceReason = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newAbsenceReason->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newAbsenceReason->getCreatedBy()->getId());
-        $this->assertNotNull($newAbsenceReason->getCreatedAt());
-        $this->assertNotNull($newAbsenceReason->getUpdatedAt());
     }
 
 }
