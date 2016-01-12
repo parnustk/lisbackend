@@ -99,8 +99,8 @@ class Teacher extends EntityValidation
 
     /**
      *
-     * @ORM\Column(type="datetime",name="created_at", nullable=false)
-     * @Annotation\Exclude()
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id",nullable=true)
      */
     protected $updatedBy;
 
