@@ -22,6 +22,7 @@ use DateTime;
  */
 class Rooms extends EntityValidation
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -41,45 +42,40 @@ class Rooms extends EntityValidation
      * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="rooms")
      */
     protected $contactLesson;
-    
-    
-    
+
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
-    
     protected $trashed;
-    
-    
 
-    /*
+    /**
+     *
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="createdBy", referencedColumnName="id",nullable=true)
      */
-    
     protected $createdBy;
-    
-    /*
+
+    /**
+     *
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id",nullable=true)
      */
     protected $updatedBy;
-    
+
     /**
      * @ORM\Column(type="datetime", name="created_at", nullable=false)
-     * @Annotation\Exclude()
-     * 
+     * @Annotation\Exclude() 
      */
     protected $createdAt;
-    
+
     /**
      * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
      */
     protected $updatedAt;
-    
+
     /**
      * 
      * @param EntityManager $em
@@ -88,27 +84,25 @@ class Rooms extends EntityValidation
     {
         parent::__construct($em);
     }
-    public function getCreatedBy() {
+
+    public function getCreatedBy()
+    {
         return $this->createdBy;
     }
 
-    public function getUpdatedBy() {
+    public function getUpdatedBy()
+    {
         return $this->updatedBy;
     }
-    public function getCreatedAt() {
+
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
-    }
-
-    public function setCreatedAt($createdAt) {
-        $this->createdAt = $createdAt;
-    }
-
-    public function setUpdatedAt($updatedAt) {
-        $this->updatedAt = $updatedAt;
     }
 
     public function getId()
@@ -125,12 +119,12 @@ class Rooms extends EntityValidation
     {
         return $this->contactLesson;
     }
-    
+
     /**
      * 
      * @return type
      */
-     public function getTrashed()
+    public function getTrashed()
     {
         return $this->trashed;
     }
@@ -146,29 +140,44 @@ class Rooms extends EntityValidation
         $this->contactLesson = $contactLesson;
         return $this;
     }
-    
-    public  function setTrashed($trashed)
+
+    public function setTrashed($trashed)
     {
         $this->trashed = $trashed;
         return $this;
     }
-    
-    public function setCreatedBy($createdBy) {
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
         $this->createdBy = $createdBy;
     }
 
-    public function setUpdatedBy($updatedBy) {
+    public function setUpdatedBy($updatedBy)
+    {
         $this->updatedBy = $updatedBy;
     }
-    
+
     /*
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function refreshTimeStamps(){
-        if($this->getCreatedAt() === null){
+
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
         }
         $this->setUpdatedAt(new DateTime);
     }
+
 }
