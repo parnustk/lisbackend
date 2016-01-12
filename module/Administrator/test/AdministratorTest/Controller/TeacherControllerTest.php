@@ -47,6 +47,39 @@ class TeacherControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
+    /**
+     * testing with createdny and updateby fields
+     */
+     public function testCreateWithCreatedByAndUpdatedBy()
+    {
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("firstName", "Firstname");
+        $this->request->getPost()->set("lastName", "Lastname");
+        $this->request->getPost()->set("email", "email");
+        
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+        
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, false);
+        $repository = $this->em->getRepository('Core\Entity\Teacher');
+        $newTeacher = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newTeacher->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newTeacher->getUpdatedBy()->getId());
+    }
 
     /**
      * testing GET

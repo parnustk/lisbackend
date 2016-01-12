@@ -8,6 +8,7 @@ use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\TeacherRepository")
@@ -19,6 +20,7 @@ use Doctrine\Common\Collections\Collection;
  *         @ORM\Index(name="teachertrashed", columns={"trashed"}),
  *     }
  * )
+ * @ORM\HasLifecycleCallbacks
  */
 class Teacher extends EntityValidation
 {
@@ -89,6 +91,20 @@ class Teacher extends EntityValidation
     protected $trashed;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="createdBy", referencedColumnName="id",nullable=true)
+     */
+    protected $createdBy;
+
+    /**
+     *
+     * @ORM\Column(type="datetime",name="created_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedBy;
+
+    /**
      * 
      * @param EntityManager $em
      */
@@ -148,12 +164,35 @@ class Teacher extends EntityValidation
     {
         return $this->contactLesson;
     }
+
     public function getTrashed()
     {
         return $this->trashed;
     }
 
-        public function setFirstName($firstName)
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
         return $this;
@@ -206,15 +245,25 @@ class Teacher extends EntityValidation
         $this->contactLesson = $contactLesson;
         return $this;
     }
-   public function setId($id)
+
+    public function setId($id)
     {
         $this->id = $id;
     }
 
-  public  function setTrashed($trashed)
+    public function setTrashed($trashed)
     {
         $this->trashed = $trashed;
     }
 
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+    }
 
 }
