@@ -330,9 +330,23 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'state' => 1
         ]);
     }
+    
     protected function CreateRoom($data = null)
     {
         $repository = $this->em->getRepository('Core\Entity\Rooms');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        return $repository->Create([
+                    'name' => uniqid() . 'RoomName',
+        ]);
+    }
+    
+    protected function CreateAdministrator($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\Administrator');
 
         if ($data) {
             return $repository->Create($data);
