@@ -105,6 +105,18 @@ class Teacher extends EntityValidation
     protected $updatedBy;
 
     /**
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude() 
+     */
+    protected $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
+
+    /**
      * 
      * @param EntityManager $em
      */
@@ -168,6 +180,16 @@ class Teacher extends EntityValidation
     public function getTrashed()
     {
         return $this->trashed;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     /**
@@ -264,6 +286,16 @@ class Teacher extends EntityValidation
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 
 }
