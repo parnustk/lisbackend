@@ -18,7 +18,7 @@ use DateTime;
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
- * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Alar Aasa <alar@alaraasa.ee>, Juhan Kõks
  */
 class Rooms extends EntityValidation
 {
@@ -88,26 +88,26 @@ class Rooms extends EntityValidation
     {
         parent::__construct($em);
     }
-    function getCreatedBy() {
+    public function getCreatedBy() {
         return $this->createdBy;
     }
 
-    function getUpdatedBy() {
+    public function getUpdatedBy() {
         return $this->updatedBy;
     }
-    function getCreatedAt() {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
-    function getUpdatedAt() {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
-    function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
     }
 
-    function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
     }
 
@@ -153,11 +153,11 @@ class Rooms extends EntityValidation
         return $this;
     }
     
-    function setCreatedBy($createdBy) {
+    public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
     }
 
-    function setUpdatedBy($updatedBy) {
+    public function setUpdatedBy($updatedBy) {
         $this->updatedBy = $updatedBy;
     }
     
