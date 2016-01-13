@@ -69,14 +69,14 @@ class IndependentWork extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
-    
+
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
     protected $trashed;
-    
+
     /**
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
@@ -113,52 +113,63 @@ class IndependentWork extends EntityValidation
     {
         parent::__construct($em);
     }
-    public function getTrashed() {
+
+    public function getTrashed()
+    {
         return $this->trashed;
     }
 
-    public function getCreatedBy() {
+    public function getCreatedBy()
+    {
         return $this->createdBy;
     }
 
-    public function getUpdatedBy() {
+    public function getUpdatedBy()
+    {
         return $this->updatedBy;
     }
 
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
-    public function setTrashed($trashed) {
+    public function setTrashed($trashed)
+    {
         $this->trashed = $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy) {
+    public function setCreatedBy($createdBy)
+    {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy) {
+    public function setUpdatedBy($updatedBy)
+    {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
-        public function getId()
+    public function getId()
     {
         return $this->id;
     }
@@ -228,13 +239,14 @@ class IndependentWork extends EntityValidation
         $this->teacher = $teacher;
         return $this;
     }
-    
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function refreshTimeStamps() {
-        if($this->getCreatedAt()=== null){
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
         }
         $this->setUpdatedAt(new DateTime);

@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * 
  * LIS development
  * 
@@ -38,7 +38,7 @@ class StudentGroupController extends AbstractBaseController
         $result = $s->Create($data);
         return new JsonModel($result);
     }
-    
+
     /**
      * <h2>GET admin/studentgroup/:id</h2>
      * <h3>URL Parameters</h3>
@@ -56,7 +56,7 @@ class StudentGroupController extends AbstractBaseController
                         ->Get($id)
         );
     }
-    
+
     /**
      * <h2>GET admin/studentgroup</h2>
      * <h3>URL Parameters</h3>
@@ -74,7 +74,7 @@ class StudentGroupController extends AbstractBaseController
                         ->GetList($this->GetParams())
         );
     }
-    
+
     /**
      * <h2>PUT admin/studentgroup/:id</h2>
      * <h3>URL Parameters</h3>
@@ -96,7 +96,7 @@ class StudentGroupController extends AbstractBaseController
                         ->Update($id, $data)
         );
     }
-    
+
     /**
      * <h2>DELETE admin/studentgroup/:id</h2>
      * <h3>URL Parameters</h3>

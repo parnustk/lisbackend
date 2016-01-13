@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * 
  * LIS development
  * 
@@ -43,7 +43,7 @@ class IndependentWorkService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
      * @return type
@@ -65,7 +65,7 @@ class IndependentWorkService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
      * @param stdClass $params
@@ -97,7 +97,7 @@ class IndependentWorkService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * Update an existing resource
      *
@@ -122,7 +122,7 @@ class IndependentWorkService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
      * @param type $id
