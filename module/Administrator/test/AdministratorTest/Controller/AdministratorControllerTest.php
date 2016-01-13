@@ -29,132 +29,155 @@ class AdministratorControllerTest extends UnitHelpers
         parent::setUp();
     }
 
-    /**
-     * TEST row gets not created, then no POST body
-     */
-    public function testCreateNoData()
-    {
-        $this->request->setMethod('post');
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
-    }
+//    /**
+//     * TEST row gets not created, then no POST body
+//     */
+//    public function testCreateNoData()
+//    {
+//        $this->request->setMethod('post');
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertNotEquals(1, $result->success);
+//        $this->PrintOut($result, false);
+//    }
+//
+//    /**
+//     * Test that row gets created no user
+//     */
+//    public function testCreateNoLisUser()
+//    {
+//        $this->request->setMethod('post');
+//
+//        $firstName = uniqid() . 'firstName';
+//        $this->request->getPost()->set("firstName", $firstName);
+//
+//        $lastName = uniqid() . 'lastName';
+//        $this->request->getPost()->set("lastName", $lastName);
+//
+//        $code = uniqid() . 'code';
+//        $this->request->getPost()->set("code", $code);
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->PrintOut($result, false);
+//    }
+//
+//    /**
+//     * Test that row gets created no user
+//     */
+//    public function testCreateWithLisUser()
+//    {
+//        $this->request->setMethod('post');
+//
+//        $firstName = uniqid() . 'firstName';
+//        $this->request->getPost()->set("firstName", $firstName);
+//
+//        $lastName = uniqid() . 'lastName';
+//        $this->request->getPost()->set("lastName", $lastName);
+//
+//        $code = uniqid() . 'code';
+//        $this->request->getPost()->set("code", $code);
+//
+//        $lisUser = $this->CreateLisUser();
+//        $this->request->getPost()->set("lisUser", $lisUser->getId());
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->PrintOut($result, false);
+//    }
+//
+//    /**
+//     * Test that row gets created no user
+//     */
+//    public function testCreateWithCreatedByAndUpdatedBy()
+//    {
+//        $this->request->setMethod('post');
+//
+//        $firstName = uniqid() . 'firstName';
+//        $this->request->getPost()->set("firstName", $firstName);
+//
+//        $lastName = uniqid() . 'lastName';
+//        $this->request->getPost()->set("lastName", $lastName);
+//
+//        $code = uniqid() . 'code';
+//        $this->request->getPost()->set("code", $code);
+//
+//        $lisUser = $this->CreateLisUser();
+//        $this->request->getPost()->set("lisUser", $lisUser->getId());
+//
+//        /////
+//        $lisUserCreates = $this->CreateLisUser();
+//        $lisUserCreatesId = $lisUserCreates->getId();
+//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+//
+//        $lisUserUpdates = $this->CreateLisUser();
+//        $lisUserUpdatesId = $lisUserUpdates->getId();
+//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+//        ///////
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->PrintOut($result, false);
+//
+//        $repository = $this->em->getRepository('Core\Entity\Administrator');
+//        $newAdministrator = $repository->find($result->data['id']);
+//        $this->assertEquals($lisUserCreatesId, $newAdministrator->getCreatedBy()->getId());
+//        $this->assertEquals($lisUserUpdatesId, $newAdministrator->getUpdatedBy()->getId());
+//    }
+//
+//    public function testCreateWithCreatedAtAndUpdatedAt()
+//    {
+//        $this->request->setMethod('post');
+//        $firstName = uniqid() . 'firstName';
+//        $this->request->getPost()->set("firstName", $firstName);
+//        $lastName = uniqid() . 'lastName';
+//        $this->request->getPost()->set("lastName", $lastName);
+//        $code = uniqid() . 'code';
+//        $this->request->getPost()->set("code", $code);
+//        $lisUser = $this->CreateLisUser();
+//        $this->request->getPost()->set("lisUser", $lisUser->getId());
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->PrintOut($result, false);
+//        $repository = $this->em->getRepository('Core\Entity\Administrator');
+//        $newAdministrator = $repository->find($result->data['id']);
+//        $this->assertNotNull($newAdministrator->getCreatedAt());
+//        $this->assertNotNull($newAdministrator->getUpdatedAt());
+//    }
 
-    /**
-     * Test that row gets created no user
-     */
-    public function testCreateNoLisUser()
+    public function testCreateWithCryptedCode()
     {
+        $this->em->getRepository('Core\Entity\Administrator')->find(1);
         $this->request->setMethod('post');
-
         $firstName = uniqid() . 'firstName';
         $this->request->getPost()->set("firstName", $firstName);
-
         $lastName = uniqid() . 'lastName';
         $this->request->getPost()->set("lastName", $lastName);
-
-        $code = uniqid() . 'code';
+        $code = '123456789' . uniqid();
         $this->request->getPost()->set("code", $code);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
-    }
-
-    /**
-     * Test that row gets created no user
-     */
-    public function testCreateWithLisUser()
-    {
-        $this->request->setMethod('post');
-
-        $firstName = uniqid() . 'firstName';
-        $this->request->getPost()->set("firstName", $firstName);
-
-        $lastName = uniqid() . 'lastName';
-        $this->request->getPost()->set("lastName", $lastName);
-
-        $code = uniqid() . 'code';
-        $this->request->getPost()->set("code", $code);
-
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
-    }
-
-    /**
-     * Test that row gets created no user
-     */
-    public function testCreateWithCreatedByAndUpdatedBy()
-    {
-        $this->request->setMethod('post');
-
-        $firstName = uniqid() . 'firstName';
-        $this->request->getPost()->set("firstName", $firstName);
-
-        $lastName = uniqid() . 'lastName';
-        $this->request->getPost()->set("lastName", $lastName);
-
-        $code = uniqid() . 'code';
-        $this->request->getPost()->set("code", $code);
-
-        $lisUser = $this->CreateLisUser();
-        $this->request->getPost()->set("lisUser", $lisUser->getId());
-
-        /////
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-        ///////
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
-
-        $repository = $this->em->getRepository('Core\Entity\Administrator');
-        $newAdministrator = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newAdministrator->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newAdministrator->getUpdatedBy()->getId());
-    }
-
-    public function testCreateWithCreatedAtAndUpdatedAt()
-    {
-        $this->request->setMethod('post');
-        $firstName = uniqid() . 'firstName';
-        $this->request->getPost()->set("firstName", $firstName);
-        $lastName = uniqid() . 'lastName';
-        $this->request->getPost()->set("lastName", $lastName);
-        $code = uniqid() . 'code';
-        $this->request->getPost()->set("code", $code);
-        $lisUser = $this->CreateLisUser();
-        $this->request->getPost()->set("lisUser", $lisUser->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
-        $repository = $this->em->getRepository('Core\Entity\Administrator');
-        $newAdministrator = $repository->find($result->data['id']);
-        $this->assertNotNull($newAdministrator->getCreatedAt());
-        $this->assertNotNull($newAdministrator->getUpdatedAt());
+        $this->PrintOut($result, true);
+//        $repository = $this->em->getRepository('Core\Entity\Administrator');
+//        $newAdministrator = $repository->find($result->data['id']);
+//        $this->assertNotNull($newAdministrator->getCreatedAt());
+//        $this->assertNotNull($newAdministrator->getUpdatedAt());
     }
 
 }

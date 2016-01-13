@@ -37,6 +37,12 @@ abstract class EntityValidation implements ArraySerializableInterface
     public $entityManager;
 
     /**
+     *
+     * @var string
+     */
+    public $algoKey = "123456";
+
+    /**
      * 
      * @return DoctrineObject
      */

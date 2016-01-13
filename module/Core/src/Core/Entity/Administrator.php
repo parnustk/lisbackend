@@ -15,6 +15,7 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
+use Zend\Crypt\BlockCipher;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AdministratorRepository")
@@ -97,15 +98,40 @@ class Administrator extends EntityValidation
     protected $updatedAt;
 
     /**
+     * 
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em = null)
+    {
+        parent::__construct($em);
+    }
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
     public function refreshTimeStamps()
     {
+        $this->code = BlockCipher::factory('mcrypt', array('algo' => 'aes'))
+                ->setKey($this->algoKey)
+                ->encrypt($this->code);
+
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
         }
         $this->setUpdatedAt(new DateTime);
+    }
+    
+    /**
+     * @ORM\PostLoad 
+     */
+    public function doStuffOnPostLoad()
+    {
+        echo '123';
+        $this->code = BlockCipher::factory('mcrypt', array('algo' => 'aes'))
+                ->setKey($this->algoKey)
+                ->decrypt($this->code);
+        print_r($this->code);
     }
 
     public function getCreatedAt()
@@ -128,21 +154,6 @@ class Administrator extends EntityValidation
     {
         $this->updatedAt = $updatedAt;
         return $this;
-    }
-
-//ALT+INSERT
-//    protected $createdBy;
-//    protected $updatedBy;
-//    protected $createdAt;
-//    protected $updatedAt;
-
-    /**
-     * 
-     * @param EntityManager $em
-     */
-    public function __construct(EntityManager $em = null)
-    {
-        parent::__construct($em);
     }
 
     public function getTrashed()
@@ -218,6 +229,7 @@ class Administrator extends EntityValidation
     public function setCode($code)
     {
         $this->code = $code;
+
         return $this;
     }
 

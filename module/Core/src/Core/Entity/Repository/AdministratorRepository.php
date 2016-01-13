@@ -60,15 +60,25 @@ class AdministratorRepository extends EntityRepository implements CRUD
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
+
         $entity = new Administrator($this->getEntityManager());
         $entity->hydrate($data);
 
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
-
+        
         $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        
+        try {
+            
+            $this->getEntityManager()->flush($entity);
+            
+        } catch (Exception $exc) {
+            //this here does not work
+            throw new Exception(Json::encode($exc->getMessage(), true));
+            
+        }
 
         if ($returnPartial) {
 
