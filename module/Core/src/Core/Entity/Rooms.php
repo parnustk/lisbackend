@@ -6,9 +6,12 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
+ * @author Alar Aasa <alar@alaraasa.ee>, Juhan Kõks
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\RoomsRepository")
  * @ORM\Table(
  *  indexes={
@@ -18,7 +21,6 @@ use DateTime;
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
- * @author Alar Aasa <alar@alaraasa.ee>, Juhan Kõks
  */
 class Rooms extends EntityValidation
 {
@@ -104,6 +106,18 @@ class Rooms extends EntityValidation
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
+    }
 
     public function getId()
     {
@@ -167,17 +181,6 @@ class Rooms extends EntityValidation
         $this->updatedBy = $updatedBy;
     }
 
-    /*
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-
-    public function refreshTimeStamps()
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
-    }
+    
 
 }

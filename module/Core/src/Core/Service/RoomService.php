@@ -12,25 +12,15 @@ class RoomService extends AbstractBaseService {
      * @param stdClass|NULL $extra
      * @return array
      */
-    public function GetList($params)
+    public function GetList()
     {
         try {
-
-            $p = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Rooms')
-                    ->GetList($params);
-
-            $p->setItemCountPerPage($params['limit']);
-            $p->setCurrentPageNumber($params['page']);
-            
-            
-            $params['itemCount'] = $p->getTotalItemCount();
-            $params['pageCount'] = $p->count();
-
             return [
                 'success' => true,
-                'params' => $params,
-                'data' => (array) $p->getCurrentItems(),
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\Rooms')
+                        ->GetList(true)
             ];
         } catch (Exception $ex) {
 
@@ -67,20 +57,18 @@ class RoomService extends AbstractBaseService {
     
         /**
      * 
-     * @param int|string $id
-     * @param stdClass|NULL $extra
+     * @param int $id
      * @return array
      */
-    public function Get($id, $extra = null)
+    public function Get($id)
     {
-        $Id = (int) $id;
         try {
             return [
                 'success' => true,
                 'data' => $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\Rooms')
-                        ->Get($Id, true, $extra)
+                        ->Get($id, true)
             ];
         } catch (Exception $ex) {
             return [

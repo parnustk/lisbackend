@@ -28,7 +28,7 @@ class RoomController extends AbstractBaseController
                 $this
                         ->getServiceLocator()
                         ->get('room_service')
-                        ->GetList($this->GetParams())
+                        ->GetList()
         );
     }
     
