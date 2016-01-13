@@ -61,7 +61,7 @@ class AbsenceController extends AbstractBaseController
      * <h2>POST admin/absence</h2>
      * <h3>Body</h3>
      * <code> description(string)*
-      absenceReason(integer)*
+      absenceReason(integer)
       student(integer)*
       contactLesson(integer)* </code>
      * 
@@ -84,7 +84,7 @@ class AbsenceController extends AbstractBaseController
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>description(string)*
-      absenceReason(integer)*
+      absenceReason(integer)
       student(integer)*
       contactLesson(integer)* </code>
      * @param type $id

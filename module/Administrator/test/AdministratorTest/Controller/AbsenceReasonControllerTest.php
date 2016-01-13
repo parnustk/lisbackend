@@ -38,9 +38,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
     {
         $name = 'AbsenceReason name'.uniqid();
         $this->request->setMethod('post');
-        $absencereason = $this->CreateAbsenceReason();
         $this->request->getPost()->set('name', $name);
-        $this->request->getPost()->set('absencereason', $absencereason->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
