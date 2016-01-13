@@ -14,7 +14,7 @@ use DateTime;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\IndependentWorkRepository")
  * @ORM\Table(
  *     indexes={
- *         @ORM\Index(name="independentwork_index_trashed", columns={"trashed"})
+ *         @ORM\Index(name="independentwork_index_trashed", columns={"trashed"}),
  *         @ORM\Index(name="homeworkdate", columns={"duedate"}),
  *         @ORM\Index(name="independentworkduedate", columns={"duedate"})
  *     }
