@@ -9,6 +9,10 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceRepository")
+ * @ORM\Table(
+ *     indexes={@ORM\Index(name="absence_index_trashed", columns={"trashed"})}
+ * )
+ * @ORM\HasLifecycleCallbacks
  */
 class Absence extends EntityValidation
 {
@@ -45,7 +49,98 @@ class Absence extends EntityValidation
      * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)
      */
     protected $contactLesson;
+    
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+    
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    protected $createdBy;
 
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+    
+    /**
+     *
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $createdAt;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
+    
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    
     /**
      * 
      * @param EntityManager $em
@@ -102,6 +197,18 @@ class Absence extends EntityValidation
     {
         $this->contactLesson = $contactLesson;
         return $this;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
 }

@@ -14,7 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * Description of AbsenceController
+ * Rest API access to absence data.
  *
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
@@ -65,7 +65,7 @@ class AbsenceController extends AbstractBaseController
       student(integer)*
       contactLesson(integer)* </code>
      * 
-     * @param array $description
+     * @param array $data
      * @return JsonModel
      */
     public function create($data)
