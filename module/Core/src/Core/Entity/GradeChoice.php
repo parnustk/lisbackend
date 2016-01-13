@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LIS development
  * Rest API Entity
@@ -8,6 +9,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @author Arnold Tserepov <tserepov@gmail.com>
  */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -18,10 +20,11 @@ use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradeChoiceRepository")
- * @ORM\Table(indexes={@ORM\Index(name="gradechoice_index_trashed", columns={"trashed"})}
+ * @ORM\Table(indexes={@ORM\Index(name="gradechoice_index_trashed", columns={"trashed"})})
  * @ORM\HasLifecycleCallbacks
  */
-class GradeChoice extends EntityValidation {
+class GradeChoice extends EntityValidation
+{
 
     /**
      * @ORM\Id
@@ -32,55 +35,29 @@ class GradeChoice extends EntityValidation {
     protected $id;
 
     /**
-     * @ORM\Column(type="string",length=255, nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      * @Annotation\Required({"required":"true"})
      */
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="gradeChoice")
-     * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false, unique=true, onDelete="RESTRICT")
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="gradeChoice")
      * @Annotation\Required({"required":"true"})
      */
-     protected $GradeChoice;
-     /**
-     * @ORM\Column(type= "integer", nullable= true)
-     * @Annotation\Exclude()
-     */
-    protected $subjectRound;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="gradeChoice")
-     * @Annotation\Exclude()
-     */
-    protected $student;
+    protected $studentGrade;
 
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
-    protected $getTrashed;
+    protected $trashed;
 
-   /**
-     * 
-     * @return type
-     */
-    public function getTrashed()
-    {
-        return $this->trashed;
-    }
     /**
      * 
-     * @param type $trashed
-     * @return \Core\Entity\AbsenceReason
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
-    public function setTrashed($trashed)
-    {
-        $this->trashed = $trashed;
-        return $this;
-    }
-
     protected $createdBy;
 
     /**
@@ -106,37 +83,98 @@ class GradeChoice extends EntityValidation {
 
     /**
      * 
-     * @return type 
-     */
-
-    /**
-     * 
      * @param EntityManager $em
      */
-     public function __construct(EntityManager $em = null)
+    public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
     }
+
     public function getId()
     {
         return $this->id;
     }
+
     public function getName()
     {
         return $this->name;
     }
-    public function getGradeChoice()
+
+    public function getStudentGrade()
     {
-        return $this->gradechoice;
+        return $this->studentGrade;
     }
+
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
-    public function setGradeChoice($gradechoice)
+
+    public function setStudentGrade($studentGrade)
     {
-        $this->gradechoice = $gradechoice;
+        $this->studentGrade = $studentGrade;
+        return $this;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 
@@ -144,7 +182,8 @@ class GradeChoice extends EntityValidation {
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function refreshTimeStamps() {
+    public function refreshTimeStamps()
+    {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
         }
