@@ -15,8 +15,8 @@ return [
             'Administrator\Controller\AbsenceReason' => 'Administrator\Controller\AbsenceReasonController',
             'Administrator\Controller\Absence' => 'Administrator\Controller\AbsenceController',
             'Administrator\Controller\StudentGroup' => 'Administrator\Controller\StudentGroupController',
-            'Administrator\Controller\Room' => 'Administrator\Controller\Room',
-            'Administrator\Controller\Teacher' => 'Administrator\Controller\Teacher',
+            'Administrator\Controller\Room' => 'Administrator\Controller\RoomController',
+            'Administrator\Controller\Teacher' => 'Administrator\Controller\TeacherController',
         ],
     ],
     'router' => [
