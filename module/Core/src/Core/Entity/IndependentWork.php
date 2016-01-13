@@ -107,11 +107,6 @@ class IndependentWork extends EntityValidation
 
     /**
      * 
-     * @return type 
-     */
-    
-    /**
-     * 
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em = null)
