@@ -13,8 +13,7 @@ use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
  *
  * @author sander
  */
-abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
-{
+abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
 
     protected $controller;
     protected $request;
@@ -26,8 +25,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     /**
      * Common setup for testing controllers
      */
-    protected function setUp()
-    {
+    protected function setUp() {
         $serviceManager = Bootstrap::getServiceManager();
         $this->request = new Request();
         $this->routeMatch = new RouteMatch(array('controller' => 'index'));
@@ -47,8 +45,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param type $v
      * @param type $print
      */
-    protected function PrintOut($v, $print = false)
-    {
+    protected function PrintOut($v, $print = false) {
         if ($print) {
             echo "\n";
             echo "\t";
@@ -63,8 +60,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\Vocation
      */
-    protected function CreateVocation($data = null)
-    {
+    protected function CreateVocation($data = null) {
         $repository = $this->em->getRepository('Core\Entity\Vocation');
 
         if ($data) {
@@ -84,8 +80,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\ModuleType
      */
-    protected function CreateModuleType($data = null)
-    {
+    protected function CreateModuleType($data = null) {
         $repository = $this->em->getRepository('Core\Entity\ModuleType');
 
         if ($data) {
@@ -103,8 +98,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\GradingType
      */
-    protected function CreateGradingType($data = null)
-    {
+    protected function CreateGradingType($data = null) {
         $repository = $this->em->getRepository('Core\Entity\GradingType');
 
         if ($data) {
@@ -122,8 +116,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\Module
      */
-    protected function CreateModule($data = null)
-    {
+    protected function CreateModule($data = null) {
         $repository = $this->em->getRepository('Core\Entity\Module');
 
         if ($data) {
@@ -149,8 +142,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\Subject
      */
-    protected function CreateSubject($data = null)
-    {
+    protected function CreateSubject($data = null) {
         $repository = $this->em->getRepository('Core\Entity\Subject');
 
         if ($data) {
@@ -177,8 +169,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\StudentGroup
      */
-    protected function CreateStudentGroup($data = null)
-    {
+    protected function CreateStudentGroup($data = null) {
         $repository = $this->em->getRepository('Core\Entity\StudentGroup');
 
         if ($data) {
@@ -197,8 +188,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param array $data | null
      * @return Core\Entity\Student
      */
-    protected function CreateStudent($data = null)
-    {
+    protected function CreateStudent($data = null) {
         $repository = $this->em->getRepository('Core\Entity\Student');
 
         if ($data) {
@@ -220,8 +210,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param type $data
      * @return Core\Entity\Teacher
      */
-    protected function CreateTeacher($data = null)
-    {
+    protected function CreateTeacher($data = null) {
         $repository = $this->em->getRepository('Core\Entity\Teacher');
 
         if ($data) {
@@ -241,8 +230,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param type $data
      * @return Core\Entity\SubjectRound
      */
-    protected function CreateSubjectRound($data = null)
-    {
+    protected function CreateSubjectRound($data = null) {
         $repository = $this->em->getRepository('Core\Entity\SubjectRound');
         if ($data) {
             return $repository->Create($data);
@@ -272,8 +260,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param type $data
      * @return type
      */
-    protected function CreateContactLesson($data = null)
-    {
+    protected function CreateContactLesson($data = null) {
         $repository = $this->em->getRepository('Core\Entity\ContactLesson');
         if ($data) {
             return $repository->Create($data);
@@ -303,8 +290,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param type $data
      * @return type
      */
-    protected function CreateAbsenceReason($data = null)
-    {
+    protected function CreateAbsenceReason($data = null) {
         $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
 
         if ($data) {
@@ -316,8 +302,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-    protected function CreateLisUser($data = null)
-    {
+    protected function CreateLisUser($data = null) {
         $repository = $this->em->getRepository('Core\Entity\LisUser');
 
         if ($data) {
@@ -330,9 +315,8 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'state' => 1
         ]);
     }
-    
-    protected function CreateRoom($data = null)
-    {
+
+    protected function CreateRoom($data = null) {
         $repository = $this->em->getRepository('Core\Entity\Rooms');
 
         if ($data) {
@@ -343,9 +327,8 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'name' => uniqid() . 'RoomName',
         ]);
     }
-    
-    protected function CreateAdministrator($data = null)
-    {
+
+    protected function CreateAdministrator($data = null) {
         $repository = $this->em->getRepository('Core\Entity\Administrator');
 
         if ($data) {
@@ -356,20 +339,44 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'name' => uniqid() . 'RoomName',
         ]);
     }
-     /**
+
+    /**
      * GradeChoice
      * 
      * @param type $data
      * @return type
      */
-    protected function CreateGradeChoice($data = null)
-    {
+    protected function CreateGradeChoice($data = null) {
         $repository = $this->em->getRepository('Core\Entity\GradeChoice');
         if ($data) {
             return $repository->Create($data);
         }
         return $repository->Create([
                     'name' => uniqid() . 'GradeChoiceName',
+        ]);
+    }
+
+    /**
+     * IndependentWork
+     * 
+     * @param type $data
+     * @return type
+     */
+    protected function CreateIndependentWork($data = null) {
+        $repository = $this->em->getRepository('Core\Entity\IndependentWork');
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        $subjectRound = $this->CreateSubjectRound();
+        $teacher = $this->CreateTeacher();
+
+        return $repository->Create([
+                    'duedate' => new \DateTime,
+                    'description' => uniqid() . ' Description for independentwork',
+                    'durationAK' => uniqid(),
+                    'subjectRound' => $subjectRound->getId(),
+                    'teacher' => $teacher->getId(),
         ]);
     }
 

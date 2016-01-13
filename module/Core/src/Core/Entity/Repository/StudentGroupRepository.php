@@ -12,7 +12,7 @@ use Zend\Json\Json;
 use Doctrine\ORM\Query;
 
 /**
- * @author kristen
+ * @author Kristen <seppkristen@gmail.com>
  */
 class StudentGroupRepository extends EntityRepository implements CRUD
 {

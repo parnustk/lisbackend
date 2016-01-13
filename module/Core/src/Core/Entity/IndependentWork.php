@@ -6,15 +6,20 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\IndependentWorkRepository")
  * @ORM\Table(
  *     indexes={
+ *         @ORM\Index(name="independentwork_index_trashed", columns={"trashed"})
  *         @ORM\Index(name="homeworkdate", columns={"duedate"}),
  *         @ORM\Index(name="independentworkduedate", columns={"duedate"})
  *     }
  * )
+ * @ORM\HasLifecycleCallbacks
  */
 class IndependentWork extends EntityValidation
 {
@@ -23,41 +28,88 @@ class IndependentWork extends EntityValidation
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $duedate;
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $description;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @Annotation\Required({"required":"true"})
      */
     protected $durationAK;
 
     /**
      * @ORM\OneToMany(targetEntity="GradeIndependentWork", mappedBy="independentWork")
+     * @Annotation\Exclude()
      */
     protected $gradeIndependent;
 
     /**
      * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="independentWork")
      * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Annotation\Required({"required":"true"})
      */
     protected $subjectRound;
 
     /**
      * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="independentWork")
-     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
+    
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+    
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    protected $createdBy;
 
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $createdAt;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
+
+    /**
+     * 
+     * @return type 
+     */
+    
     /**
      * 
      * @param EntityManager $em
@@ -66,8 +118,52 @@ class IndependentWork extends EntityValidation
     {
         parent::__construct($em);
     }
+    public function getTrashed() {
+        return $this->trashed;
+    }
 
-    public function getId()
+    public function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy() {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    public function setTrashed($trashed) {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy) {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy) {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+        public function getId()
     {
         return $this->id;
     }
@@ -136,6 +232,17 @@ class IndependentWork extends EntityValidation
     {
         $this->teacher = $teacher;
         return $this;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps() {
+        if($this->getCreatedAt()=== null){
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
 }
