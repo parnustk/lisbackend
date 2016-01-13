@@ -30,7 +30,7 @@ class StudentGroupService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
      * @return type
@@ -52,7 +52,7 @@ class StudentGroupService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
      * @param stdClass $params
@@ -84,7 +84,7 @@ class StudentGroupService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * Update an existing resource
      *
@@ -109,7 +109,7 @@ class StudentGroupService extends AbstractBaseService
             ];
         }
     }
-    
+
     /**
      * 
      * @param type $id

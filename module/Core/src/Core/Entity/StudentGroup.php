@@ -17,7 +17,8 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  */
-class StudentGroup extends EntityValidation {
+class StudentGroup extends EntityValidation
+{
 
     /**
      * @ORM\Id
@@ -91,101 +92,122 @@ class StudentGroup extends EntityValidation {
      * 
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em = null) {
+    public function __construct(EntityManager $em = null)
+    {
         parent::__construct($em);
     }
 
-    public function getTrashed() {
+    public function getTrashed()
+    {
         return $this->trashed;
     }
 
-    public function setTrashed($trashed) {
+    public function setTrashed($trashed)
+    {
         $this->trashed = $trashed;
         return $this;
     }
 
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
-    public function getCreatedBy() {
+    public function getCreatedBy()
+    {
         return $this->createdBy;
     }
 
-    public function getUpdatedBy() {
+    public function getUpdatedBy()
+    {
         return $this->updatedBy;
     }
 
-    public function setCreatedBy($createdBy) {
+    public function setCreatedBy($createdBy)
+    {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy) {
+    public function setUpdatedBy($updatedBy)
+    {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getVocation() {
+    public function getVocation()
+    {
         return $this->vocation;
     }
 
-    public function getSubjectRound() {
+    public function getSubjectRound()
+    {
         return $this->subjectRound;
     }
 
-    public function getStudent() {
+    public function getStudent()
+    {
         return $this->student;
     }
 
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
         return $this;
     }
 
-    public function setVocation($vocation) {
+    public function setVocation($vocation)
+    {
         $this->vocation = $vocation;
         return $this;
     }
 
-    public function setSubjectRound($subjectRound) {
+    public function setSubjectRound($subjectRound)
+    {
         $this->subjectRound = $subjectRound;
         return $this;
     }
 
-    public function setStudent($student) {
+    public function setStudent($student)
+    {
         $this->student = $student;
         return $this;
     }
-    
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function refreshTimeStamps() {
-        if($this->getCreatedAt()=== null){
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
         }
         $this->setUpdatedAt(new DateTime);
