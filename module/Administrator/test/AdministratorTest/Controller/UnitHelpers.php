@@ -356,4 +356,21 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'name' => uniqid() . 'RoomName',
         ]);
     }
+     /**
+     * GradeChoice
+     * 
+     * @param type $data
+     * @return type
+     */
+    protected function CreateGradeChoice($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\GradeChoice');
+        if ($data) {
+            return $repository->Create($data);
+        }
+        return $repository->Create([
+                    'name' => uniqid() . 'GradeChoiceName',
+        ]);
+    }
+
 }

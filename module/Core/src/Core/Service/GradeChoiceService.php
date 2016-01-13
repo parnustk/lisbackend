@@ -9,15 +9,57 @@ use Exception;
  *
  * @author Arnold
  */
-class GradeChoiceService extends AbstractBaseService
-{
+class GradeChoiceService extends AbstractBaseService {
+
     /**
      * 
-     * @param array $params
+     * @param array $data
+     * @return type
+     */
+    public function Create($data) {
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\GradeChoice')
+                        ->Create($data, true)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function Get($id) {
+        try {
+            return [
+                'success' => true,
+                'data' => $this
+                        ->getEntityManager()
+                        ->getRepository('Core\Entity\GradeChoice')
+                        ->Get($id, true)
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * 
+     * @param stdClass $params
      * @return array
      */
-    public function GetList($params)
-    {
+    public function GetList($params) {
         try {
             $p = $this->getEntityManager()
                     ->getRepository('Core\Entity\GradeChoice')
@@ -38,59 +80,15 @@ class GradeChoiceService extends AbstractBaseService
             ];
         }
     }
-    /**
-     * 
-     * @return type
-     */
-    public function Get($id)
-    {
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\GradeChoice')
-                        ->Get($id, true)
-            ];
-        } catch (Exception $ex) {
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-    /**
-     * 
-     * @param array $data
-     * @throws Exception
-     */
-    public function Create($data)
-    {
-        //die("here service");
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\GradeChoice')
-                        ->Create($data, true)
-            ];
-        } catch (Exception $ex) {
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
+
     /**
      * Update an existing resource
      *
      * @param  mixed $id
      * @param  mixed $data
-     * @return mixed
+     * @return array
      */
-    public function Update($id, $data)
-    {
+    public function Update($id, $data) {
         try {
             return [
                 'success' => true,
@@ -106,13 +104,13 @@ class GradeChoiceService extends AbstractBaseService
             ];
         }
     }
+
     /**
      * 
      * @param type $id
      * @return type
      */
-    public function Delete($id)
-    {
+    public function Delete($id) {
         try {
             return [
                 'success' => true,
@@ -128,4 +126,5 @@ class GradeChoiceService extends AbstractBaseService
             ];
         }
     }
+
 }

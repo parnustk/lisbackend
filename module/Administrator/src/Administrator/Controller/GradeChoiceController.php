@@ -1,35 +1,50 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://opensource.org/licenses/MIT MIT License
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * Description of GradeChoice
+ * Description of GradeChoiceController
  *
- * @author Arnold
+ * @author Arnold Tserepov <tserepov@gmail.com>
  */
 class GradeChoiceController extends AbstractBaseController {
 
     /**
-     * GET
-     *
+     * <h2>POST admin/gradechoice</h2>
+     * <h3>Body</h3>
+     * <code>name(string)*
+     * vocation(integer)</code>
+     * 
+     * @param array $data
      * @return JsonModel
      */
-    public function getList()
+    public function create($data)
     {
         return new JsonModel(
                 $this
                         ->getServiceLocator()
                         ->get('gradechoice_service')
-                        ->GetList($this->GetParams())
+                        ->Create($data)
         );
     }
+    
     /**
-     * GET
+     * <h2>GET admin/gradechoice/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
@@ -41,23 +56,32 @@ class GradeChoiceController extends AbstractBaseController {
                         ->Get($id)
         );
     }
+    
     /**
-     * <h2>POST
+     * <h2>GET admin/gradechoice</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
      * 
-     * method to create new enitty
-     * 
+     * @return JsonModel
      */
-    public function create($data)
+    public function getList()
     {
         return new JsonModel(
                 $this
                         ->getServiceLocator()
                         ->get('gradechoice_service')
-                        ->Create($data)
+                        ->GetList($this->getParams())
         );
     }
+    
     /**
-     * PUT
+     * <h2>PUT admin/gradechoice/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code>name(string)*
+     * vocation(integer)*</code>
      * 
      * @param type $id
      * @param type $data
@@ -72,8 +96,11 @@ class GradeChoiceController extends AbstractBaseController {
                         ->Update($id, $data)
         );
     }
+    
     /**
-     * DELETE
+     * <h2>DELETE admin/gradechoice/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
