@@ -5,6 +5,12 @@ namespace Administrator\Controller;
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
+/**
+ * Description of TeacherController
+ *
+ * @author Juhan Kõks
+ */
+
 class TeacherController extends AbstractBaseController
 {
 
