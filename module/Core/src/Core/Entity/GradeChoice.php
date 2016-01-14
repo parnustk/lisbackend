@@ -11,13 +11,11 @@
  */
 
 namespace Core\Entity;
-
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
-
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradeChoiceRepository")
  * @ORM\Table(indexes={@ORM\Index(name="gradechoice_index_trashed", columns={"trashed"})})
@@ -25,7 +23,10 @@ use DateTime;
  */
 class GradeChoice extends EntityValidation
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> #20 made some changes,not completely working
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -33,54 +34,58 @@ class GradeChoice extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $id;
-
     /**
      * @ORM\Column(type="string", nullable=false)
      * @Annotation\Required({"required":"true"})
      */
     protected $name;
-
     /**
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="gradeChoice")
      * @Annotation\Required({"required":"true"})
      */
     protected $studentGrade;
+<<<<<<< HEAD
 
+=======
+>>>>>>> #20 made some changes,not completely working
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
     protected $trashed;
+<<<<<<< HEAD
 
+=======
+>>>>>>> #20 made some changes,not completely working
     /**
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
     protected $createdBy;
-
     /**
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
     protected $updatedBy;
-
     /**
      *
      * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
      */
     protected $createdAt;
-
     /**
      *
      * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
      */
     protected $updatedAt;
+<<<<<<< HEAD
 
+=======
+>>>>>>> #20 made some changes,not completely working
     /**
      * 
      * @param EntityManager $em
@@ -99,6 +104,7 @@ class GradeChoice extends EntityValidation
     {
         return $this->name;
     }
+<<<<<<< HEAD
 
     public function getStudentGrade()
     {
@@ -128,6 +134,36 @@ class GradeChoice extends EntityValidation
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+=======
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+>>>>>>> #20 made some changes,not completely working
     }
 
     public function setId($id)
@@ -141,6 +177,7 @@ class GradeChoice extends EntityValidation
         $this->name = $name;
         return $this;
     }
+<<<<<<< HEAD
 
     public function setStudentGrade($studentGrade)
     {
@@ -160,24 +197,46 @@ class GradeChoice extends EntityValidation
         return $this;
     }
 
+=======
+    public function setStudentGrade($studentGrade)
+    {
+        $this->studentGrade = $studentGrade;
+        return $this;
+    }
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+>>>>>>> #20 made some changes,not completely working
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> #20 made some changes,not completely working
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> #20 made some changes,not completely working
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
-
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -189,5 +248,4 @@ class GradeChoice extends EntityValidation
         }
         $this->setUpdatedAt(new DateTime);
     }
-
 }

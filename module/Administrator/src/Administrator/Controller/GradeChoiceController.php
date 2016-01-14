@@ -24,7 +24,7 @@ class GradeChoiceController extends AbstractBaseController {
      * <h2>POST admin/gradechoice</h2>
      * <h3>Body</h3>
      * <code>name(string)*
-     * vocation(integer)</code>
+     * page(integer)</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -43,8 +43,11 @@ class GradeChoiceController extends AbstractBaseController {
      * <h2>GET admin/gradechoice/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code>description(string)
      * 
      * @param int $id
+     * @param type $description
      * @return JsonModel
      */
     public function get($id)
@@ -81,7 +84,7 @@ class GradeChoiceController extends AbstractBaseController {
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>name(string)*
-     * vocation(integer)*</code>
+     * page(integer)*</code>
      * 
      * @param type $id
      * @param type $data
