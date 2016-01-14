@@ -75,7 +75,7 @@
 				<li><a href="class-Administrator.Controller.ModuletypeController.html">ModuletypeController</a></li>
 				<li><a href="class-Administrator.Controller.RoomController.html">RoomController</a></li>
 				<li><a href="class-Administrator.Controller.StudentController.html">StudentController</a></li>
-				<li><a href="class-Administrator.Controller.StudentGroupController.html">StudentGroupController</a></li>
+				<li><a href="class-Administrator.Controller.StudentGroupController.html" class="invalid">StudentGroupController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectController.html">SubjectController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectRoundController.html">SubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.TeacherController.html">TeacherController</a></li>
@@ -99,7 +99,7 @@
 
 
 	<div class="description">
-	<p>Description of GradeChoice</p>
+	<p>Description of GradeChoiceController</p>
 	</div>
 
 	<dl class="tree well">
@@ -130,7 +130,7 @@ Core\Controller\AbstractBaseController
 		
 
 				<b>Author:</b>
-				Arnold<br>
+				Arnold Tserepov <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#116;s&#x65;&#114;&#x65;&#112;&#x6f;&#118;&#x40;&#103;m&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#116;s&#x65;&#114;&#x65;&#112;&#x6f;&#118;&#x40;&#103;m&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a><br>
 			<b>Located at</b> GradeChoiceController.php		<br>
 	</div>
 
@@ -143,24 +143,236 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code>create( <span> <var>$data</var></span> )</code>
+			<code>create( <span>array <var>$data</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>POST admin/gradechoice</h2>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)</pre>
 			</div>
 
 			<div class="description detailed hidden">
+				<h2>POST admin/gradechoice</h2>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get" id="_get">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
 				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get">#</a>
+			<code>get( <span>integer <var>$id</var></span> )</code>
+
+			<div class="description short">
+				<h2>GET admin/gradechoice/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>GET admin/gradechoice/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getList" id="_getList">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getList">#</a>
+			<code>getList( )</code>
+
+			<div class="description short">
+				<h2>GET admin/gradechoice</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>GET admin/gradechoice</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
+
+			<div class="description short">
+				<h2>PUT admin/gradechoice/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)*</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>PUT admin/gradechoice/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)*</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code>delete( <span>integer <var>$id</var></span> )</code>
+
+			<div class="description short">
+				<h2>DELETE admin/gradechoice/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>DELETE admin/gradechoice/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -188,7 +400,7 @@ Core\Controller\AbstractBaseController
 		LIS eDiary API documentation API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js"></script>
-<script src="elementlist.js"></script>
+<script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
+<script src="elementlist.js?c8dc0f7543d7ae6b672a740e1fdf13c8e19a051c"></script>
 </body>
 </html>

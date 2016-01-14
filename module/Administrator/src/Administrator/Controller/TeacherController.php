@@ -9,9 +9,11 @@ class TeacherController extends AbstractBaseController
 {
 
     /**
-     * GET
+     * <h2>GET admin/teacher/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
@@ -23,12 +25,18 @@ class TeacherController extends AbstractBaseController
                         ->Get($id)
         );
     }
+
     /**
+     * <h2>GET admin/teacher</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
      * 
+     * @return JsonModel
      */
-        public function getList()
+    public function getList()
     {
-         return new JsonModel(
+        return new JsonModel(
                 $this
                         ->getServiceLocator()
                         ->get('teacher_service')
@@ -37,9 +45,14 @@ class TeacherController extends AbstractBaseController
     }
 
     /**
-     * 
-     * POST
-     * method to create a new entity
+     * <h2>POST admin/teacher</h2>
+     * <h3>Body</h3>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * code(string)*
+     * lisUser(integer)</code>
+     * @param int $data
+     * @return JsonModel
      */
     public function create($data)
     {
@@ -50,26 +63,44 @@ class TeacherController extends AbstractBaseController
                         ->Create($data)
         );
     }
+
     /**
-     * 
+     * <h2>PUT admin/teacher/:id</h2>
+     * <h3>Body</h3>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * code(string)*
+     * lisUser(integer)</code>
+     * @param int $id
+     * @param array $data
+     * @return JsonModel
      */
     public function update($id, $data)
     {
-         return new JsonModel(
+        return new JsonModel(
                 $this
                         ->getServiceLocator()
                         ->get('teacher_service')
                         ->Update($id, $data)
         );
     }
-    
-      public function delete($id)
+
+    /**
+     * <h2>DELETE admin/teacher/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * 
+     * @param int $id
+     * @return JsonModel
+     */
+    public function delete($id)
     {
-         return new JsonModel(
+        return new JsonModel(
                 $this
                         ->getServiceLocator()
                         ->get('teacher_service')
                         ->Delete($id)
         );
     }
+
 }
