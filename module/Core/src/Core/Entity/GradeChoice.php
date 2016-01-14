@@ -1,5 +1,4 @@
 <?php
-
 /**
  * LIS development
  * Rest API Entity
@@ -9,7 +8,6 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @author Arnold Tserepov <tserepov@gmail.com>
  */
-
 namespace Core\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
@@ -23,10 +21,6 @@ use DateTime;
  */
 class GradeChoice extends EntityValidation
 {
-<<<<<<< HEAD
-
-=======
->>>>>>> #20 made some changes,not completely working
     /**
      * @ORM\Id
      * @ORM\Column(type="bigint")
@@ -44,20 +38,12 @@ class GradeChoice extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $studentGrade;
-<<<<<<< HEAD
-
-=======
->>>>>>> #20 made some changes,not completely working
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
     protected $trashed;
-<<<<<<< HEAD
-
-=======
->>>>>>> #20 made some changes,not completely working
     /**
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
@@ -82,10 +68,6 @@ class GradeChoice extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $updatedAt;
-<<<<<<< HEAD
-
-=======
->>>>>>> #20 made some changes,not completely working
     /**
      * 
      * @param EntityManager $em
@@ -94,47 +76,14 @@ class GradeChoice extends EntityValidation
     {
         parent::__construct($em);
     }
-
     public function getId()
     {
         return $this->id;
     }
-
     public function getName()
     {
         return $this->name;
     }
-<<<<<<< HEAD
-
-    public function getStudentGrade()
-    {
-        return $this->studentGrade;
-    }
-
-    public function getTrashed()
-    {
-        return $this->trashed;
-    }
-
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-=======
     public function getStudentGrade()
     {
         return $this->studentGrade;
@@ -163,41 +112,12 @@ class GradeChoice extends EntityValidation
     {
         $this->id = $id;
         return $this;
->>>>>>> #20 made some changes,not completely working
     }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
-<<<<<<< HEAD
-
-    public function setStudentGrade($studentGrade)
-    {
-        $this->studentGrade = $studentGrade;
-        return $this;
-    }
-
-    public function setTrashed($trashed)
-    {
-        $this->trashed = $trashed;
-        return $this;
-    }
-
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-        return $this;
-    }
-
-=======
     public function setStudentGrade($studentGrade)
     {
         $this->studentGrade = $studentGrade;
@@ -213,25 +133,16 @@ class GradeChoice extends EntityValidation
         $this->createdBy = $createdBy;
         return $this;
     }
->>>>>>> #20 made some changes,not completely working
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> #20 made some changes,not completely working
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> #20 made some changes,not completely working
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
