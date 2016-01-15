@@ -16,15 +16,15 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * Rest API access to studentgroup data.
+ * Rest API access to independentwork data.
  * 
  * @author Kristen Sepp <seppkristen@gmail.com>
  */
-class StudentGroupController extends AbstractBaseController
+class IndependentWorkController extends AbstractBaseController
 {
 
     /**
-     * <h2>POST admin/studentgroup</h2>
+     * <h2>POST admin/independentwork</h2>
      * <h3>Body</h3>
      * <code>name(string)*
      * vocation(integer)</code>
@@ -40,7 +40,7 @@ class StudentGroupController extends AbstractBaseController
     }
 
     /**
-     * <h2>GET admin/studentgroup/:id</h2>
+     * <h2>GET admin/independentwork/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 
@@ -58,7 +58,7 @@ class StudentGroupController extends AbstractBaseController
     }
 
     /**
-     * <h2>GET admin/studentgroup</h2>
+     * <h2>GET admin/independentwork</h2>
      * <h3>URL Parameters</h3>
      * <code>limit(integer)
      * page(integer)</code>
@@ -76,7 +76,7 @@ class StudentGroupController extends AbstractBaseController
     }
 
     /**
-     * <h2>PUT admin/studentgroup/:id</h2>
+     * <h2>PUT admin/independentwork/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
@@ -98,7 +98,7 @@ class StudentGroupController extends AbstractBaseController
     }
 
     /**
-     * <h2>DELETE admin/studentgroup/:id</h2>
+     * <h2>DELETE admin/independentwork/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 

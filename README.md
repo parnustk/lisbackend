@@ -5,7 +5,7 @@
     Eleri Apsolon - developer, eleri.apsolon@gmail.com
     Marten Kähr - developer
     Juhan Kõks - developer, juhankoks@hotmail.com
-    Kristen Sepp - developer
+    Kristen Sepp - developer, seppkristen@gmail.com
     Arnold Tserepov - developer,tserepov@gmail.com
     Alar Aasa - developer
     Sander Mets - developer, team lead sandermets0@gmail.com
