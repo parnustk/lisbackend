@@ -18,6 +18,7 @@ use Core\Service\RoomService;
 use Core\Service\ContactLessonService;
 use Core\Service\AdministratorService;
 use Core\Service\AbsenceService;
+use Core\Service\IndependentWorkService;
 
 /**
  * 
@@ -143,6 +144,12 @@ class Module
                 },
                 'absence_service' => function ($serviceManager) {
                     $t = new AbsenceService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
+                'independentwork_service' => function ($serviceManager) {
+                    $t = new IndependentWorkService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;

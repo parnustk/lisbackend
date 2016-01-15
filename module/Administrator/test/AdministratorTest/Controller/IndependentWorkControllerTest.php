@@ -14,7 +14,7 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\IndependentWorkController;
 
-class StudentGroupControllerTest extends UnitHelpers
+class IndependentWorkControllerTest extends UnitHelpers
 {
 
     /**
@@ -31,17 +31,51 @@ class StudentGroupControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
-        $this->request->setMethod('post');
-        $subjectround = $this->CreateSubjectRound();
-        $this->request->getPost()->set('subjectround', $subjectround->getId());
-        $teacher = $this->CreateTeacher();
-        $this->request->getPost()->set('teacher', $teacher->getId());
-        $duedate = new \DateTime;
-        $this->request->getPost()->set('duedate', $duedate);
-        $description = uniqid() . ' Unique description';
-        $this->request->getPost()->set('description', $description);
         $durationAK = 5;
+        $description = uniqid() . ' Unique description';
+        $duedate = new \DateTime;
+        $teacher = $this->CreateTeacher();
+        $subjectRound = $this->CreateSubjectRound();
+
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set('subjectRound', $subjectRound->getId());
+        $this->request->getPost()->set('teacher', $teacher->getId());
+        $this->request->getPost()->set('duedate', $duedate);
+        $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('durationAK', $durationAK);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, FALSE);
+    }
+
+    public function testCreateWithCreatedByAndUpdatedBy()
+    {
+        $durationAK = 5;
+        $description = uniqid() . ' Unique description';
+        $duedate = new \DateTime;
+        $teacher = $this->CreateTeacher();
+        $subjectRound = $this->CreateSubjectRound();
+
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set('subjectRound', $subjectRound->getId());
+        $this->request->getPost()->set('teacher', $teacher->getId());
+        $this->request->getPost()->set('duedate', $duedate);
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('durationAK', $durationAK);
+
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -49,168 +83,178 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, FALSE);
+
+        $repository = $this->em->getRepository('Core\Entity\IndependentWork');
+        $newStudentGroup = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
     }
 
-//
-//    public function testCreateWithCreatedByAndUpdatedBy()
-//    {
-//        $name = 'StudentGroupName' . uniqid();
-//        $this->request->setMethod('post');
-//        $vocation = $this->CreateVocation();
-//        $this->request->getPost()->set('name', $name);
-//        $this->request->getPost()->set('vocation', $vocation->getId());
-//
-//        $lisUserCreates = $this->CreateLisUser();
-//        $lisUserCreatesId = $lisUserCreates->getId();
-//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-//
-//        $lisUserUpdates = $this->CreateLisUser();
-//        $lisUserUpdatesId = $lisUserUpdates->getId();
-//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->PrintOut($result, false);
-//
-//        $repository = $this->em->getRepository('Core\Entity\StudentGroup');
-//        $newStudentGroup = $repository->find($result->data['id']);
-//        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
-//        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
-//    }
-//
-//    public function testCreateNoData()
-//    {
-//        $this->request->setMethod('post');
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertNotEquals(1, $result->success);
-//
-//        $this->PrintOut($result, FALSE);
-//    }
-//
-//    /**
-//     * create one before asking list
-//     */
-//    public function testGetList()
-//    {
-//        $this->CreateStudentGroup();
-//        $this->request->setMethod('get');
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->assertGreaterThan(0, count($result->data));
-//
-//        $this->PrintOut($result, FALSE);
-//    }
-//
-//    /**
-//     * create one before getting
-//     */
-//    public function testGet()
-//    {
-//        $this->request->setMethod('get');
-//        $this->routeMatch->setParam('id', $this->CreateStudentGroup()->getId());
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->PrintOut($result, FALSE);
-//    }
-//
-//    public function testUpdate()
-//    {
-//        //create one to update later
-//        $entity = $this->CreateStudentGroup();
-//        $id = $entity->getId();
-//        $nameOld = $entity->getName();
-//        //prepare request
-//        $this->routeMatch->setParam('id', $id);
-//        $this->request->setMethod('put');
-//        $this->request->setContent(http_build_query([
-//            'name' => 'Updated StudentGroupName' . uniqid(),
-//        ]));
-//        //fire request
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        //set new data
-//        $r = $this->em
-//                ->getRepository('Core\Entity\StudentGroup')
-//                ->find($result->data['id']);
-//        $this->assertNotEquals(
-//                $nameOld, $r->getName()
-//        );
-//        $this->PrintOut($result, FALSE);
-//    }
-//
-//    public function testDelete()
-//    {
-//        $entity = $this->CreateStudentGroup();
-//        $idOld = $entity->getId();
-//
-//        $this->routeMatch->setParam('id', $entity->getId());
-//        $this->request->setMethod('delete');
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        $this->em->clear();
-//
-//        //test it is not in the database anymore
-//        $deleted = $this->em
-//                ->getRepository('Core\Entity\StudentGroup')
-//                ->Get($idOld);
-//
-//        $this->assertEquals(null, $deleted);
-//
-//        $this->PrintOut($result, FALSE);
-//    }
-//
-//    public function testCreatedAtAndUpdatedAt()
-//    {
-//        $name = 'StudentGroupName' . uniqid();
-//        $this->request->setMethod('post');
-//        $vocation = $this->CreateVocation();
-//        $this->request->getPost()->set('name', $name);
-//        $this->request->getPost()->set('vocation', $vocation->getId());
-//
-//        $lisUserCreates = $this->CreateLisUser();
-//        $lisUserCreatesId = $lisUserCreates->getId();
-//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-//
-//        $lisUserUpdates = $this->CreateLisUser();
-//        $lisUserUpdatesId = $lisUserUpdates->getId();
-//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->PrintOut($result, false);
-//
-//        $repository = $this->em->getRepository('Core\Entity\StudentGroup');
-//        $newStudentGroup = $repository->find($result->data['id']);
-//        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
-//        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
-//    }
+    public function testCreateNoData()
+    {
+        $this->request->setMethod('post');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+
+        $this->PrintOut($result, FALSE);
+    }
+
+    /**
+     * create one before asking list
+     */
+    public function testGetList()
+    {
+        $this->CreateIndependentWork();
+        $this->request->setMethod('get');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->assertGreaterThan(0, count($result->data));
+
+        $this->PrintOut($result, FALSE);
+    }
+
+    /**
+     * create one before getting
+     */
+    public function testGet()
+    {
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $this->CreateIndependentWork()->getId());
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, FALSE);
+    }
+
+    public function testUpdate()
+    {
+        //create one to update later
+        $entity = $this->CreateIndependentWork();
+        $id = $entity->getId();
+        $descriptionOld = $entity->getDescription();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'description' => 'Updated IndependentWork description' . uniqid(),
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $r = $this->em
+                ->getRepository('Core\Entity\IndependentWork')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $descriptionOld, $r->getDescription()
+        );
+        $this->PrintOut($result, FALSE);
+    }
+
+    public function testDelete()
+    {
+        $entity = $this->CreateIndependentWork();
+        $idOld = $entity->getId();
+
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\IndependentWork')
+                ->Get($idOld);
+
+        $this->assertEquals(null, $deleted);
+
+        $this->PrintOut($result, FALSE);
+    }
+
+    public function testCreatedAtAndUpdatedAt()
+    {
+        $durationAK = 5;
+        $description = uniqid() . ' Unique description';
+        $duedate = new \DateTime;
+        $teacher = $this->CreateTeacher();
+        $subjectRound = $this->CreateSubjectRound();
+
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set('subjectRound', $subjectRound->getId());
+        $this->request->getPost()->set('teacher', $teacher->getId());
+        $this->request->getPost()->set('duedate', $duedate);
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('durationAK', $durationAK);
+
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, FALSE);
+
+        $repository = $this->em->getRepository('Core\Entity\IndependentWork');
+        $newStudentGroup = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
+    }
+
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateIndependentWork();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $r = $this->em
+                ->getRepository('Core\Entity\IndependentWork')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $r->getTrashed()
+        );
+        $this->PrintOut($result, FALSE);
+    }
+
 }

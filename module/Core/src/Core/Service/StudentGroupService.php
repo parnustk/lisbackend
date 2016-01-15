@@ -1,9 +1,22 @@
 <?php
 
+/*
+ * 
+ * LIS development
+ * 
+ * @link       https://github.com/parnustk/lisbackend
+ * @copyright  Copyright (c) 2016 Lis dev team
+ * @license    TODO
+ * 
+ */
+
 namespace Core\Service;
 
 use Exception;
 
+/**
+ * @author Kristen <seppkristen@gmail.com>
+ */
 class StudentGroupService extends AbstractBaseService
 {
 

@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * 
+ * LIS development
+ * 
+ * @link       https://github.com/parnustk/lisbackend
+ * @copyright  Copyright (c) 2016 Lis dev team
+ * @license    TODO
+ * 
+ */
+
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\StudentGroupController;
@@ -8,7 +18,7 @@ class StudentGroupControllerTest extends UnitHelpers
 {
 
     /**
-     * @author kristen
+     * @author Kristen <seppkristen@gmail.com>
      */
     protected function setUp()
     {
@@ -195,6 +205,33 @@ class StudentGroupControllerTest extends UnitHelpers
         $newStudentGroup = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
+    }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateStudentGroup();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $r = $this->em
+                ->getRepository('Core\Entity\StudentGroup')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $r->getTrashed()
+        );
+        $this->PrintOut($result, FALSE);
     }
 
 }
