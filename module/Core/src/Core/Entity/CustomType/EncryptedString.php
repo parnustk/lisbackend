@@ -25,7 +25,12 @@ class EncryptedString extends StringType
     /**
      * Constant containing name
      */
-    const ENCRYPTEDSTRING = 'encryptedstring'; // modify to match your type name
+    const TYPE_NAME = 'encryptedstring';
+
+    /**
+     * Key for crypting
+     */
+    const KEY = 'x3xuKEA5+Ec7cY:_';
 
     /**
      * 
@@ -33,12 +38,11 @@ class EncryptedString extends StringType
      * @param AbstractPlatform $platform
      * @return string
      */
-
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         $v = parent::convertToDatabaseValue($value, $platform);
         return BlockCipher::factory('mcrypt', array('algo' => 'aes'))
-                        ->setKey('123456')
+                        ->setKey(self::KEY)
                         ->encrypt($v);
     }
 
@@ -52,7 +56,7 @@ class EncryptedString extends StringType
     {
         $v = parent::convertToPHPValue($value, $platform);
         return BlockCipher::factory('mcrypt', array('algo' => 'aes'))
-                        ->setKey('123456')
+                        ->setKey(self::KEY)
                         ->decrypt($v);
     }
 
@@ -62,7 +66,7 @@ class EncryptedString extends StringType
      */
     public function getName()
     {
-        return self::ENCRYPTEDSTRING;
+        return self::TYPE_NAME;
     }
 
 }
