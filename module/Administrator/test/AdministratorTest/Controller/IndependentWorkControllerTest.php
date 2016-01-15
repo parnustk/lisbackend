@@ -47,10 +47,11 @@ class IndependentWorkControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, FALSE);
     }
 
     public function testCreateWithCreatedByAndUpdatedBy()
@@ -80,11 +81,11 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, FALSE);
-
+        
         $repository = $this->em->getRepository('Core\Entity\IndependentWork');
         $newStudentGroup = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
@@ -98,10 +99,10 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-
-        $this->PrintOut($result, FALSE);
     }
 
     /**
@@ -115,12 +116,12 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
         $this->assertGreaterThan(0, count($result->data));
-
-        $this->PrintOut($result, FALSE);
     }
 
     /**
@@ -134,10 +135,10 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, FALSE);
     }
 
     public function testUpdate()
@@ -155,6 +156,9 @@ class IndependentWorkControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         //set new data
@@ -164,7 +168,6 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->assertNotEquals(
                 $descriptionOld, $r->getDescription()
         );
-        $this->PrintOut($result, FALSE);
     }
 
     public function testDelete()
@@ -178,6 +181,8 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->em->clear();
@@ -188,8 +193,6 @@ class IndependentWorkControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        $this->PrintOut($result, FALSE);
     }
 
     public function testCreatedAtAndUpdatedAt()
@@ -219,10 +222,10 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, FALSE);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, FALSE);
 
         $repository = $this->em->getRepository('Core\Entity\IndependentWork');
         $newStudentGroup = $repository->find($result->data['id']);
@@ -245,6 +248,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, FALSE);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         //set new data
@@ -254,7 +258,6 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->assertNotEquals(
                 $trashedOld, $r->getTrashed()
         );
-        $this->PrintOut($result, FALSE);
     }
 
 }
