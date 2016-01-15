@@ -3,7 +3,7 @@
 namespace Core;
 
 /**
- * Core will not hold accessibla controllers in the future
+ * Core should not be accessible overn Internet?
  */
 return [
 
@@ -53,6 +53,13 @@ return [
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
                 ]
             ]
+        ],
+        'configuration' => [
+            'orm_default' => [
+                'types' => [
+                    'encryptedstring' => 'Core\Entity\CustomType\EncryptedString'
+                ]
+            ],
         ],
     ],
 ];

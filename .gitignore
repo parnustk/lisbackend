@@ -10,3 +10,4 @@ nbproject
 vendor
 composer.phar
 node_modules/
+.*~

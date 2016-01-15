@@ -75,3 +75,13 @@ TODO
     "PHP Data Persistence with Doctrine 2 ORM Concepts, Techniques and Practical Solutions" by Michael Romer
     http://framework.zend.com/manual/current/en/index.html
     
+### Doctrine 2 Custom types:
+
+    https://github.com/doctrine/DoctrineORMModule/blob/master/docs/EXTRAS_ORM.md
+    http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/cookbook/custom-mapping-types.html
+    http://stackoverflow.com/questions/8374908/where-to-encrypt-decrypt-my-data
+    https://github.com/doctrine/DoctrineORMModule/blob/master/docs/configuration.md
+
+### Doctrine2 Native SQL
+
+    http://www.wjgilmore.com/blog/2011/04/09/the-power-of-doctrine-2-s-custom-repositories-and-native-queries/

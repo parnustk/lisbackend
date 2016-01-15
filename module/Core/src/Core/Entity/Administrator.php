@@ -15,7 +15,6 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
-use Zend\Crypt\BlockCipher;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AdministratorRepository")
@@ -51,7 +50,7 @@ class Administrator extends EntityValidation
     protected $lastName;
 
     /**
-     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="encryptedstring", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      */
@@ -107,136 +106,205 @@ class Administrator extends EntityValidation
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
+     * 
+     * @return type
      */
-    public function refreshTimeStamps()
-    {
-        $this->code = BlockCipher::factory('mcrypt', array('algo' => 'aes'))
-                ->setKey($this->algoKey)
-                ->encrypt($this->code);
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
-    }
-    
-    /**
-     * @ORM\PostLoad 
-     */
-    public function doStuffOnPostLoad()
-    {
-        echo '123';
-        $this->code = BlockCipher::factory('mcrypt', array('algo' => 'aes'))
-                ->setKey($this->algoKey)
-                ->decrypt($this->code);
-        print_r($this->code);
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
-    public function getTrashed()
-    {
-        return $this->trashed;
-    }
-
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    public function setTrashed($trashed)
-    {
-        $this->trashed = $trashed;
-        return $this;
-    }
-
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-        return $this;
-    }
-
-    public function setUpdatedBy($updatedBy)
-    {
-        $this->updatedBy = $updatedBy;
-        return $this;
-    }
-
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function getFirstName()
     {
         return $this->firstName;
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function getLastName()
     {
         return $this->lastName;
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function getCode()
     {
         return $this->code;
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function getLisUser()
     {
         return $this->lisUser;
     }
 
+    /**
+     * 
+     * @return type
+     */
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * 
+     * @param type $firstName
+     * @return \Core\Entity\Administrator
+     */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $lastName
+     * @return \Core\Entity\Administrator
+     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $code
+     * @return \Core\Entity\Administrator
+     */
     public function setCode($code)
     {
         $this->code = $code;
-
         return $this;
     }
 
+    /**
+     * 
+     * @param type $lisUser
+     * @return \Core\Entity\Administrator
+     */
     public function setLisUser($lisUser)
     {
         $this->lisUser = $lisUser;
         return $this;
+    }
+
+    /**
+     * 
+     * @param type $trashed
+     * @return \Core\Entity\Administrator
+     */
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $createdBy
+     * @return \Core\Entity\Administrator
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $updatedBy
+     * @return \Core\Entity\Administrator
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $createdAt
+     * @return \Core\Entity\Administrator
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $updatedAt
+     * @return \Core\Entity\Administrator
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * Sets 'timestamps'
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
 }
