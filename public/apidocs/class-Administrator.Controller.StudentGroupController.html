@@ -71,11 +71,12 @@
 				<li><a href="class-Administrator.Controller.ContactLessonController.html">ContactLessonController</a></li>
 				<li><a href="class-Administrator.Controller.GradeChoiceController.html">GradeChoiceController</a></li>
 				<li><a href="class-Administrator.Controller.GradingtypeController.html">GradingtypeController</a></li>
+				<li><a href="class-Administrator.Controller.IndependentWorkController.html">IndependentWorkController</a></li>
 				<li><a href="class-Administrator.Controller.ModuleController.html">ModuleController</a></li>
 				<li><a href="class-Administrator.Controller.ModuletypeController.html">ModuletypeController</a></li>
 				<li><a href="class-Administrator.Controller.RoomController.html">RoomController</a></li>
 				<li><a href="class-Administrator.Controller.StudentController.html">StudentController</a></li>
-				<li class="active"><a href="class-Administrator.Controller.StudentGroupController.html" class="invalid">StudentGroupController</a></li>
+				<li class="active"><a href="class-Administrator.Controller.StudentGroupController.html">StudentGroupController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectController.html">SubjectController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectRoundController.html">SubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.TeacherController.html">TeacherController</a></li>
@@ -97,16 +98,302 @@
 <div id="content" class="class">
 	<h1>Class StudentGroupController</h1>
 
-		<div class="alert alert-error">
-			<p>
-				Documentation of this class could not be generated.
-			</p>
-			<p>
-				Class was originally declared in IndependentWorkController.php and is invalid because of:
-			</p>
-			<ul>
-			</ul>
+
+	<div class="description">
+	<p>Rest API access to studentgroup data.</p>
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+Core\Controller\AbstractBaseController
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Administrator\Controller\StudentGroupController</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Administrator.html">Administrator</a>\<a href="namespace-Administrator.Controller.html">Controller</a><br>
+		
+
+				<b>Author:</b>
+				Kristen Sepp <a href="&#109;a&#x69;&#108;&#x74;&#111;&#x3a;&#115;&#x65;&#112;&#x70;&#107;r&#x69;&#115;&#x74;&#101;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;">&#115;&#x65;&#112;&#x70;&#107;r&#x69;&#115;&#x74;&#101;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;</a><br>
+			<b>Located at</b> StudentGroupController.php		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="create" id="_create">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create">#</a>
+			<code>create( <span>array <var>$data</var></span> )</code>
+
+			<div class="description short">
+				<h2>POST admin/studentgroup</h2>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>POST admin/studentgroup</h2>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get" id="_get">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get">#</a>
+			<code>get( <span>integer <var>$id</var></span> )</code>
+
+			<div class="description short">
+				<h2>GET admin/studentgroup/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>GET admin/studentgroup/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getList" id="_getList">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getList">#</a>
+			<code>getList( )</code>
+
+			<div class="description short">
+				<h2>GET admin/studentgroup</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>GET admin/studentgroup</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
+
+			<div class="description short">
+				<h2>PUT admin/studentgroup/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)*</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>PUT admin/studentgroup/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>name(string)*
+vocation(integer)*</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code>delete( <span>integer <var>$id</var></span> )</code>
+
+			<div class="description short">
+				<h2>DELETE admin/studentgroup/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>DELETE admin/studentgroup/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
 		</div>
+
+
+
+
+
+
+
+
+
+
+
 </div>
 	</div>
 
@@ -114,7 +401,7 @@
 		LIS eDiary API documentation API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js?7d87f7b52eef8f8896ba092e90b66090c7e15bf7"></script>
-<script src="elementlist.js?c8dc0f7543d7ae6b672a740e1fdf13c8e19a051c"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>
