@@ -35,8 +35,16 @@ class AbsenceRepository extends EntityRepository implements CRUD
                     partial absence.{
                         id,
                         description
-                    }
-                FROM Core\Entity\Absence absence
+                    },
+                        partial student.{
+                        id
+                        },
+                        partial contactlesson.{
+                        id
+                        }
+                    FROM Core\Entity\Absence absence
+                    JOIN absence.contactLesson contactlesson
+                    JOIN absence.student student
                 WHERE absence.trashed IS NULL";
 
         return new Paginator(
@@ -64,8 +72,16 @@ class AbsenceRepository extends EntityRepository implements CRUD
                         partial absence.{
                             id,
                             description
+                        },
+                        partial student.{
+                        id
+                        },
+                        partial contactlesson.{
+                        id
                         }
                     FROM Core\Entity\Absence absence
+                    JOIN absence.contactLesson contactlesson
+                    JOIN absence.student student
                     WHERE absence.id = :id";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
@@ -102,8 +118,16 @@ class AbsenceRepository extends EntityRepository implements CRUD
                         partial absence.{
                             id,
                             description
+                        },
+                        partial student.{
+                        id
+                        },
+                        partial contactlesson.{
+                        id
                         }
                     FROM Core\Entity\Absence absence
+                    JOIN absence.contactLesson contactlesson
+                    JOIN absence.student student
                     WHERE absence.id = " . $entity->getId();
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
@@ -141,8 +165,16 @@ class AbsenceRepository extends EntityRepository implements CRUD
                         partial absence.{
                             id,
                             description
+                        },
+                        partial student.{
+                        id
+                        },
+                        partial contactlesson.{
+                        id
                         }
                     FROM Core\Entity\Absence absence
+                    JOIN absence.contactLesson contactlesson
+                    JOIN absence.student student
                     WHERE absence.id = :id";
 
             $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());

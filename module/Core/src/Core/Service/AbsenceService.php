@@ -77,10 +77,11 @@ class AbsenceService extends AbstractBaseService
     /**
      * 
      * @param array $data
+     * stdClass|NULL $extra
      * @return array
      * @throws Exception
      */
-    public function Create($data)
+    public function Create($data, $extra = null)
     {
         try {
             return [
@@ -88,7 +89,7 @@ class AbsenceService extends AbstractBaseService
                 'data' => $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\Absence')
-                        ->Create($data, true)
+                        ->Create($data, true, $extra)
             ];
         } catch (Exception $ex) {
             return [
@@ -105,7 +106,7 @@ class AbsenceService extends AbstractBaseService
      * @param  mixed $data
      * @return array
      */
-    public function Update($id, $data)
+    public function Update($id, $data, $extra = null)
     {
         try {
             return [
@@ -113,7 +114,7 @@ class AbsenceService extends AbstractBaseService
                 'data' => $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\Absence')
-                        ->Update($id, $data, true)
+                        ->Update($id, $data, true, $extra)
             ];
         } catch (Exception $ex) {
             return [

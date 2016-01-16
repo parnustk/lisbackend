@@ -6,12 +6,18 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceRepository")
  * @ORM\Table(
- *     indexes={@ORM\Index(name="absence_index_trashed", columns={"trashed"})}
+ *     indexes={
+ * @ORM\Index(name="vocationdecription", columns={"decription"}),
+ * @ORM\Index(name="absence_index_trashed", columns={"trashed"})
+ * 
+ * }
  * )
  * @ORM\HasLifecycleCallbacks
  */
