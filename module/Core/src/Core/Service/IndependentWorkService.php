@@ -145,5 +145,37 @@ class IndependentWorkService extends AbstractBaseService
             ];
         }
     }
+    
+    /**
+     * 
+     * @param stdClass $params
+     * @return array
+     */
+    public function GetTrashedList($params)
+    {
+        try {
+
+            $p = $this->getEntityManager()
+                    ->getRepository('Core\Entity\IndependentWork')
+                    ->GetTrashedList($params);
+
+            $p->setItemCountPerPage($params['limit']);
+            $p->setCurrentPageNumber($params['page']);
+
+            $params['itemCount'] = $p->getTotalItemCount();
+            $params['pageCount'] = $p->count();
+
+            return [
+                'success' => true,
+                'params' => $params,
+                'data' => (array) $p->getCurrentItems(),
+            ];
+        } catch (Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
 
 }

@@ -171,5 +171,38 @@ class IndependentWorkRepository extends EntityRepository implements CRUD
         $this->getEntityManager()->flush();
         return $id;
     }
+    
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return Paginator
+     */
+    public function GetTrashedList($params = null, $extra = null)
+    {
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT 
+                    partial independentwork.{
+                        id,
+                        duedate,
+                        description,
+                        durationAK
+                    }
+                FROM Core\Entity\IndependentWork independentwork
+                WHERE independentwork.trashed IS NOT NULL";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
+    }
 
 }

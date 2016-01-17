@@ -114,5 +114,23 @@ class IndependentWorkController extends AbstractBaseController
                         ->Delete($id)
         );
     }
+    
+    /**
+     * <h2>GET admin/independentwork</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
+     * 
+     * @return JsonModel
+     */
+    public function getTrashedList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('independentwork_service')
+                        ->GetTrashedList($this->GetParams())
+        );
+    }
 
 }
