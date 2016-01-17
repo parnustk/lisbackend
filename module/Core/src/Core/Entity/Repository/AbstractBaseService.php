@@ -35,6 +35,10 @@ abstract class AbstractBaseService extends EntityRepository
      */
     protected function dqlWhere($params, $extra = null)
     {
+        if (!!$extra) {
+            //todo if needed. probably role based approach
+            //student can only see rows created by him/herself
+        }
         $dql = '';
 
         if (!!$params['where']) {//if where is not null
@@ -118,14 +122,52 @@ abstract class AbstractBaseService extends EntityRepository
         $this->getEntityManager()->flush($entity);
     }
 
+    protected function singleResult($entity, $returnPartial = false, $extra = null)
+    {
+        $this->saveEntity($entity);
+        if ($returnPartial) {
+            return $this->singlePartialById($entity->getId(), $extra);
+        }
+        return $entity;
+    }
+
     /**
+     * 
+     * @param array $params
+     * @param stdClass|null $extra
+     * @return Paginator
+     */
+    public function GetList($params = null, $extra = null)
+    {
+        $dql = $this->dqlStart();
+        $dql .= $this->dqlWhere($params, $extra);
+        return $this->wrapPaginator($dql);
+    }
+
+    /**
+     * 
+     * @param int $id
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
+     */
+    public function Get($id, $returnPartial = false, $extra = null)
+    {
+        if ($returnPartial) {
+            return $this->singlePartialById($id, $extra);
+        }
+        return $this->find($id);
+    }
+
+    /**
+     * Delete only trashed entities
      * 
      * @param int $id
      * @param stdClass|null $extra
      * @return int
      * @throws Exception
      */
-    protected function deleteOnlyTrashed($id, $extra = null)
+    public function Delete($id, $extra = null)
     {
         if (!!$extra) {
             //todo if needed. probably role based approach

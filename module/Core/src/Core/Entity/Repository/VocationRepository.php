@@ -51,34 +51,6 @@ class VocationRepository extends AbstractBaseService implements CRUD
 
     /**
      * 
-     * @param array $params
-     * @param stdClass|null $extra
-     * @return Paginator
-     */
-    public function GetList($params = null, $extra = null)
-    {
-        $dql = $this->dqlStart();
-        $dql .= $this->dqlWhere($params, $extra);
-        return $this->wrapPaginator($dql);
-    }
-
-    /**
-     * 
-     * @param int $id
-     * @param bool|null $returnPartial
-     * @param stdClass|null $extra
-     * @return mixed
-     */
-    public function Get($id, $returnPartial = false, $extra = null)
-    {
-        if ($returnPartial) {
-            return $this->singlePartialById($id, $extra);
-        }
-        return $this->find($id);
-    }
-
-    /**
-     * 
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
@@ -90,11 +62,7 @@ class VocationRepository extends AbstractBaseService implements CRUD
                 new Vocation($this->getEntityManager()), $data
         );
         //IF required MANY TO MANY validate manually
-        $this->saveEntity($entity);
-        if ($returnPartial) {
-            return $this->singlePartialById($entity->getId(), $extra);
-        }
-        return $entity;
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
@@ -111,22 +79,7 @@ class VocationRepository extends AbstractBaseService implements CRUD
                 $this->find($id), $data
         );
         //IF required MANY TO MANY validate manually
-        $this->saveEntity($entity);
-        if ($returnPartial) {
-            return $this->singlePartialById($id, $extra);
-        }
-        return $entity;
-    }
-
-    /**
-     * 
-     * @param int $id
-     * @param type $extra
-     * @return int
-     */
-    public function Delete($id, $extra = null)
-    {
-        return $this->deleteOnlyTrashed($id, $extra);
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
 }
