@@ -13,6 +13,7 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\IndependentWorkController;
+use Zend\Json\Json;
 
 class IndependentWorkControllerTest extends UnitHelpers
 {
@@ -116,7 +117,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -262,18 +263,40 @@ class IndependentWorkControllerTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
-        $this->CreateIndependentWork();
+        //prepare one IW with trashed flag set up
+        $entity = $this->CreateIndependentWork();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);//save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+        ];
+        $whereJSON = JSON::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
         $this->request->setMethod('get');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, true);
-
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
+        
         $this->assertGreaterThan(0, count($result->data));
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
+        
     }
 
 }

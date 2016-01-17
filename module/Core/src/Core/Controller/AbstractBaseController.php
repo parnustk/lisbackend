@@ -4,6 +4,8 @@ namespace Core\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
+use Zend\Json\Json;
+use Exception;
 
 /**
  * Abstract Base controller
@@ -47,6 +49,14 @@ abstract class AbstractBaseController extends AbstractRestfulController
         $this->params = $this->params()->fromQuery();
         $this->params['page'] = $this->params()->fromQuery('page', 1);
         $this->params['limit'] = $this->params()->fromQuery('limit', 10000);
+        $where = $this->params()->fromQuery('where', null);
+
+        try {//if somebody messes with json format and Zend/Json trhows exception
+            $this->params['where'] = (!!$where) ? Json::decode($where) : null;
+        } catch (Exception $ex) {
+            $this->params['where'] = null;
+        }
+
         return $this->params;
     }
 

@@ -74,7 +74,6 @@ class IndependentWorkService extends AbstractBaseService
     public function GetList($params)
     {
         try {
-
             $p = $this->getEntityManager()
                     ->getRepository('Core\Entity\IndependentWork')
                     ->GetList($params);
