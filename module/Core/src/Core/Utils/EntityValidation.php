@@ -9,7 +9,10 @@ use Zend\Form\Form;
 use Zend\Stdlib\ArraySerializableInterface;
 
 /**
- * @author sander and Inspired by http://luci.criosweb.ro/simplify-handling-of-tables-entities-forms-and-validations-in-zf2-by-using-annotations/
+ * Contains validation methods.
+ * Inspired by http://luci.criosweb.ro/simplify-handling-of-tables-entities-forms-and-validations-in-zf2-by-using-annotations/
+ * 
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 abstract class EntityValidation implements ArraySerializableInterface
 {
@@ -35,12 +38,6 @@ abstract class EntityValidation implements ArraySerializableInterface
      * @var EntityManager 
      */
     public $entityManager;
-
-    /**
-     *
-     * @var string
-     */
-    public $algoKey = "123456";
 
     /**
      * 

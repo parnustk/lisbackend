@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * @license   TODO
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
