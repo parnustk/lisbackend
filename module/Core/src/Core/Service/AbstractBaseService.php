@@ -8,7 +8,8 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 
 /**
- * Teting Service set up. Remove later on.
+ * Abstract service holding common methods.
+ * 
  * @author sander
  */
 abstract class AbstractBaseService implements ServiceManagerAwareInterface
@@ -36,9 +37,9 @@ abstract class AbstractBaseService implements ServiceManagerAwareInterface
     }
 
     /**
-     * Set service manager instance
+     * 
      * @param ServiceManager $serviceManager
-     * @return \Core\Service\Test
+     * @return \Core\Service\AbstractBaseService
      */
     public function setServiceManager(ServiceManager $serviceManager)
     {
@@ -58,7 +59,7 @@ abstract class AbstractBaseService implements ServiceManagerAwareInterface
     /**
      * 
      * @param EntityManager $entityManager
-     * @return \Core\Service\SampleService
+     * @return \Core\Service\AbstractBaseService
      */
     public function setEntityManager(EntityManager $entityManager)
     {
