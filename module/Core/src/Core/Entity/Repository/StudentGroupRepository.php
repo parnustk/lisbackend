@@ -17,7 +17,7 @@ use Core\Entity\StudentGroup;
  * 
  * @author Kristen <seppkristen@gmail.com>
  */
-class StudentGroupRepository extends AbstractBaseService
+class StudentGroupRepository extends AbstractBaseRepository
 {
 
     /**

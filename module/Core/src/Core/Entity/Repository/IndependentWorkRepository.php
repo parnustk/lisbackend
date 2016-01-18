@@ -15,7 +15,7 @@ use Core\Entity\IndependentWork;
 /**
  * @author Kristen <seppkristen@gmail.com>
  */
-class IndependentWorkRepository extends AbstractBaseService
+class IndependentWorkRepository extends AbstractBaseRepository
 {
 
     /**
@@ -36,7 +36,7 @@ class IndependentWorkRepository extends AbstractBaseService
      * 
      * @return string
      */
-    protected function dqlSelectStart()
+    protected function dqlStart()
     {
         $dql = "SELECT 
                     partial $this->baseAlias.{

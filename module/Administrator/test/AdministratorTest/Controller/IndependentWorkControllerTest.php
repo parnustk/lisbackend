@@ -175,6 +175,9 @@ class IndependentWorkControllerTest extends UnitHelpers
     {
         $entity = $this->CreateIndependentWork();
         $idOld = $entity->getId();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity); //save to db with trashed 1
 
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
