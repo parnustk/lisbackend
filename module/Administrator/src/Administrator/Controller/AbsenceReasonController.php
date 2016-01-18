@@ -20,6 +20,11 @@ use Core\Controller\AbstractBaseController;
  */
 class AbsenceReasonController extends AbstractBaseController
 {
+    /**
+     *
+     * @var type 
+     */
+    protected $service = 'absencereason_service';
 
     /**
      * <h2>GET admin/absencereason</h2>
@@ -31,12 +36,7 @@ class AbsenceReasonController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absencereason_service')
-                        ->GetList($this->getParams())
-        );
+        return parent::getList();
     }
 
     /**
@@ -49,12 +49,7 @@ class AbsenceReasonController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absencereason_service')
-                        ->get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -67,12 +62,7 @@ class AbsenceReasonController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absencereason_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
@@ -88,12 +78,7 @@ class AbsenceReasonController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absencereason_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -106,12 +91,7 @@ class AbsenceReasonController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absencereason_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }
