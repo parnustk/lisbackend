@@ -61,5 +61,22 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
+    
+    /**
+     * TEST row gets not created
+     */
+//    public function testCreateNoDescription()
+//    {
+//        $this->request->setMethod('post');
+//
+//        $this->request->getPost()->set('student', $this->CreateStudent()->getId());
+//        $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertNotEquals(1, $result->success);
+//        $this->PrintOut($result, false);
+//    }
 
 }
