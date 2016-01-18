@@ -35,7 +35,6 @@ class GradeChoice extends EntityValidation
     protected $name;
     /**
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="gradeChoice")
-     * @Annotation\Required({"required":"true"})
      */
     protected $studentGrade;
     /**

@@ -20,71 +20,46 @@ use Core\Controller\AbstractBaseController;
  */
 class GradeChoiceController extends AbstractBaseController {
 
-    /**
-     * <h2>POST admin/gradechoice</h2>
-     * <h3>Body</h3>
-     * <code>name(string)*
-     * page(integer)</code>
-     * 
-     * @param array $data
-     * @return JsonModel
+     /**
+     *
+     * @var type 
      */
-    public function create($data)
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradechoice_service')
-                        ->Create($data)
-        );
-    }
-    
+    protected $service = 'gradechoice_service';
+
     /**
-     * <h2>GET admin/gradechoice/:id</h2>
-     * <h3>URL Parameters</h3>
-     * <code>id(integer)*</code>
-     * <h3>Body</h3>
-     * <code>description(string)
-     * 
-     * @param int $id
-     * @param type $description
-     * @return JsonModel
-     */
-    public function get($id)
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradechoice_service')
-                        ->Get($id)
-        );
-    }
-    
-    /**
-     * <h2>GET admin/gradechoice</h2>
-     * <h3>URL Parameters</h3>
-     * <code>limit(integer)
-     * page(integer)</code>
-     * 
+     * GET
+     *
      * @return JsonModel
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradechoice_service')
-                        ->GetList($this->getParams())
-        );
+        return parent::getList();
     }
-    
+
     /**
-     * <h2>PUT admin/gradechoice/:id</h2>
-     * <h3>URL Parameters</h3>
-     * <code>id(integer)*</code>
-     * <h3>Body</h3>
-     * <code>name(string)*
-     * page(integer)*</code>
+     * GET
+     * 
+     * @param type $id
+     * @return JsonModel
+     */
+    public function get($id)
+    {
+        return parent::get($id);
+    }
+
+    /**
+     * POST
+     * 
+     * @param type $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+        return parent::create($data);
+    }
+
+    /**
+     * PUT
      * 
      * @param type $id
      * @param type $data
@@ -92,29 +67,19 @@ class GradeChoiceController extends AbstractBaseController {
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradechoice_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
-    
+
     /**
-     * <h2>DELETE admin/gradechoice/:id</h2>
-     * <h3>URL Parameters</h3>
-     * <code>id(integer)*</code>
+     * DELETE
      * 
      * @param int $id
      * @return JsonModel
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradechoice_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
+
 }
+
