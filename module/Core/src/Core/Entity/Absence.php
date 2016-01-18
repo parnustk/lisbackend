@@ -14,7 +14,7 @@ use DateTime;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceRepository")
  * @ORM\Table(
  *     indexes={
- * @ORM\Index(name="vocationdecription", columns={"decription"}),
+ * @ORM\Index(name="vocationdecription", columns={"description"}),
  * @ORM\Index(name="absence_index_trashed", columns={"trashed"})
  * 
  * }
