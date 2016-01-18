@@ -13,6 +13,7 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\StudentGroupController;
+use Zend\Json\Json;
 
 class StudentGroupControllerTest extends UnitHelpers
 {
@@ -159,6 +160,9 @@ class StudentGroupControllerTest extends UnitHelpers
     {
         $entity = $this->CreateStudentGroup();
         $idOld = $entity->getId();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity); //save to db with trashed 1
 
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');

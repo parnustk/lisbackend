@@ -22,6 +22,12 @@ class StudentGroupController extends AbstractBaseController
 {
 
     /**
+     *
+     * @var type 
+     */
+    protected $service = 'studentgroup_service';
+    
+    /**
      * <h2>POST admin/studentgroup</h2>
      * <h3>Body</h3>
      * <code>name(string)*
