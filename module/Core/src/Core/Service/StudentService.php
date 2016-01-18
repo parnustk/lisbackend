@@ -15,7 +15,7 @@ class StudentService extends \Core\Service\AbstractBaseService
      * @param stdClass $params
      * @return array
      */
-    public function GetList($params)
+    public function GetList($params, $extra = null)
     {
         try {
 
@@ -49,7 +49,7 @@ class StudentService extends \Core\Service\AbstractBaseService
      * @param stdClass|NULL $extra
      * @return type
      */
-    public function Get($id)
+    public function Get($params, $extra = null)
     {
         try {
             return [
@@ -57,7 +57,7 @@ class StudentService extends \Core\Service\AbstractBaseService
                 'data' => $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\Student')
-                        ->Get($id, true)
+                        ->Get($params, true)
             ];
         } catch (Exception $ex) {
             return [
@@ -72,7 +72,7 @@ class StudentService extends \Core\Service\AbstractBaseService
      * @param array $data
      * @return array
      */
-    public function Create($data)
+    public function Create($data, $extra = null)
     {
         try {
             return [

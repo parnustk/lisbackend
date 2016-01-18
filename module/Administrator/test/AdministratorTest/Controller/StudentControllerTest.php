@@ -211,7 +211,7 @@ class StudentControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
     }
 
     /**
