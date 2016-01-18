@@ -322,4 +322,3 @@ class StudentControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 }
-
