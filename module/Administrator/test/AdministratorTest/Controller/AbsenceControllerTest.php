@@ -38,7 +38,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, (bool)$result->success);
+        $this->assertEquals(false, (bool) $result->success);
     }
 
     /**
@@ -53,7 +53,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
         $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -61,22 +61,63 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
-    
+
     /**
      * TEST row gets not created
      */
-//    public function testCreateNoDescription()
-//    {
-//        $this->request->setMethod('post');
-//
-//        $this->request->getPost()->set('student', $this->CreateStudent()->getId());
-//        $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertNotEquals(1, $result->success);
-//        $this->PrintOut($result, false);
-//    }
+    public function testCreateNoDescription()
+    {
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set('student', $this->CreateStudent()->getId());
+        $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+
+    public function testCreateNoStudent()
+    {
+        $this->request->setMethod('post');
+        $description = 'Absence description' . uniqid();
+
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+    
+    public function testCreateNoContactLesson()
+    {
+        $this->request->setMethod('post');
+        $description = 'Absence description' . uniqid();
+
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('student', $this->CreateStudent()->getId());
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
+    
+    public function testGet()
+    {
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $this->CreateAbsence()->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, false);
+    }
 
 }

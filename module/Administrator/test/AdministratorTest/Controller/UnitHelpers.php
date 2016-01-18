@@ -380,5 +380,30 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
                     'teacher' => $teacher->getId(),
         ]);
     }
+    
+    /**
+     * Absence
+     * 
+     * @param type $data
+     * @return type
+     */
+    protected function CreateAbsence($data = null) {
+        $repository = $this->em->getRepository('Core\Entity\Absence');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+        
+        $absenceReason = $this->CreateAbsenceReason();
+        $contactLesson = $this->CreateContactLesson();
+        $student = $this->CreateStudent();
+
+        return $repository->Create([
+                    'description' => uniqid() . 'AbsenceDescription',
+                    'absenceReason'=> $absenceReason->getId(),
+                    'student'=> $student->getId(),
+                    'contactLesson'=> $contactLesson-> getId(),
+        ]);
+    }
 
 }
