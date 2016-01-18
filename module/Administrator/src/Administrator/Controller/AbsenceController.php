@@ -20,7 +20,6 @@ use Core\Controller\AbstractBaseController;
  */
 class AbsenceController extends AbstractBaseController
 {
-
     /**
      * <h2>GET admin/absence</h2>
      * <h3>URL Parameters</h3>
@@ -31,12 +30,7 @@ class AbsenceController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absence_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
@@ -49,12 +43,7 @@ class AbsenceController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absence_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -70,12 +59,7 @@ class AbsenceController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absence_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
@@ -93,12 +77,7 @@ class AbsenceController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absence_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -111,12 +90,7 @@ class AbsenceController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('absence_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }
