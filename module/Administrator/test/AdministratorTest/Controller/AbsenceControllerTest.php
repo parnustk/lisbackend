@@ -12,6 +12,7 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\AbsenceController;
+use Zend\Json\Json;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
@@ -53,6 +54,23 @@ class AbsenceControllerTest extends UnitHelpers
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
         $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+    }
+    
+    public function testCreateWithAbsenceReason()
+    {
+        $description = 'Absence description' . uniqid();
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('student', $this->CreateStudent()->getId());
+        $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
+        $this->request->getPost()->set('absenceReason', $this->CreateAbsenceReason()->getId());
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -120,53 +138,201 @@ class AbsenceControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
     
-//    public function testUpdate()
+    public function testGetList()
+    {
+        $this->CreateAbsence();
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+        $this->PrintOut($result, false);
+    }
+    
+    public function testUpdate()
+    {
+        //create one to  update later on
+        $absence = $this->CreateAbsence();
+        $studentIdOld = $absence->getStudent()->getId();
+        $contactLessonIdOld = $absence->getContactLesson()->getId();
+        $absenceReasonIdOld = $absence->getAbsenceReason()->getId();
+        $this->PrintOut($studentIdOld, false);
+        $this->PrintOut($contactLessonIdOld, false);
+        $this->PrintOut($absenceReasonIdOld, false);
+
+        //prepare request
+        $this->request->setMethod('put');
+        $this->routeMatch->setParam('id', $absence->getId());
+
+        $this->request->setContent(http_build_query([
+            'contactLesson' => $this->CreateContactLesson()->getId(),
+            'student' => $this->CreateStudent()->getId(),
+            'absenceReason' => $this->CreateAbsenceReason()->getId(),
+        ]));
+
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, false);
+
+        $this->assertNotEquals($studentIdOld, $result->data['student']['id']);
+        $this->assertNotEquals($contactLessonIdOld, $result->data['contactLesson']['id']);
+        $this->assertNotEquals($absenceReasonIdOld, $result->data['absenceReason']['id']);
+    }
+    
+    public function testDeleteNotTrashed()
+    {
+        $entity = $this->CreateAbsence();
+        $idOld = $entity->getId();
+
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\Absence')
+                ->Get($idOld);
+
+        $this->assertNotEquals(null, $deleted);
+             
+    }
+    
+    public function testDelete()
+    {
+        
+        $entity = $this->CreateAbsence();
+        $idOld = $entity->getId(); 
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);
+
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->em->clear();
+
+        //test if it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\Absence')
+                ->Get($idOld);
+
+        $this->assertEquals(null, $deleted);
+
+        $this->PrintOut($result, false);
+    }
+    
+//    public function testCreatedAtAndUpdatedAt()
 //    {
-//        //create one to  update later on
+//        $description = 'AbsenceDescription' . uniqid();
+//        $this->request->setMethod('post');
 //        $absence = $this->CreateAbsence();
-//        $studentIdOld = $absence->getStudent()->getId();
-//        $contactLessonIdOld = $absence->getContactLesson()->getId();
-//        $absenceReason = $absence->getAbsenceReason()->getId();
+//        $this->request->getPost()->set('description', $description);
+//        $this->request->getPost()->set('absence', $absence->getId());
 //
-//        //prepare request
-//        $this->request->setMethod('put');
-//        $this->routeMatch->setParam('id', $absence->getId());
+//        $lisUserCreates = $this->CreateLisUser();
+//        $lisUserCreatesId = $lisUserCreates->getId();
+//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
 //
-//        //set new data
-//        $teacher1 = $this->CreateTeacher();
-//        $teacher2 = $this->CreateTeacher();
-//        
-//        $teachers = [
-//            [
-//                'id' => $teacher1->getId()
-//            ],
-//            [
-//                'id' => $teacher2->getId()
-//            ]
-//        ];
+//        $lisUserUpdates = $this->CreateLisUser();
+//        $lisUserUpdatesId = $lisUserUpdates->getId();
+//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
 //
-//        $this->request->setContent(http_build_query([
-//            'subject' => $this->CreateSubject()->getId(),
-//            'studentGroup' => $this->CreateStudentGroup()->getId(),
-//            "absenceReason" => $absenceReason,
-//        ]));
-//
-//        //fire request
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
+//
 //        $this->assertEquals(200, $response->getStatusCode());
 //        $this->assertEquals(1, $result->success);
 //
-//        $this->PrintOut($result, false);
+//        $this->PrintOut($result, true);
 //
-//        $this->assertNotEquals($studentIdOld, $result->data['studentGroup']['id']);
-//        $this->assertNotEquals($contactLessonIdOld, $result->data['subject']['id']);
-//
-//        foreach ($teachersOld as $teacherOld) {//no double check figured out, pure linear looping
-//            foreach ($result->data['teacher'] as $teacherU) {
-//                $this->assertNotEquals($teacherOld['id'], $teacherU['id']);
-//            }
-//        }
+//        $repository = $this->em->getRepository('Core\Entity\Absence');
+//        $newAbsence = $repository->find($result->data['id']);
+//        $this->assertEquals($lisUserCreatesId, $newAbsence->getCreatedBy()->getId());
+//        $this->assertEquals($lisUserUpdatesId, $newAbsence->getUpdatedBy()->getId());
 //    }
+    
+    /**
+     * TEST rows get read by limit and page params
+     */
+    public function testGetListWithPaginaton()
+    {
+        $this->request->setMethod('get');
+
+        //set record limit to 1
+        $q = 'page=1&limit=1'; //imitate real param format
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertLessThanOrEqual(1, count($result->data));
+        $this->PrintOut($result, false);
+    }
+    
+    public function testGetTrashedList()
+    {
+        
+        //prepare one AbsenceReason with trashed flag set up
+        $entity = $this->CreateAbsence();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);//save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $entity->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+        
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $this->request->setMethod('get');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        //limit is set to 1
+        $this->assertEquals(1, count($result->data));
+        
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
+        
+    }
 
 }

@@ -49,10 +49,14 @@ class AbsenceRepository extends AbstractBaseRepository
                         },
                     partial contactlesson.{
                         id
+                        },
+                    partial absenceReason.{
+                        id
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactlesson
-                JOIN $this->baseAlias.student student";
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason" ;
     }
 
     /**
