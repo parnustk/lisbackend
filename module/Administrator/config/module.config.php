@@ -17,7 +17,8 @@ return [
             'Administrator\Controller\StudentGroup' => 'Administrator\Controller\StudentGroupController',
             'Administrator\Controller\Room' => 'Administrator\Controller\RoomController',
             'Administrator\Controller\Teacher' => 'Administrator\Controller\TeacherController',
-            'Administrator\Controller\IndependentWork' => 'Administrator\Controller\IndependentWorkController'
+            'Administrator\Controller\IndependentWork' => 'Administrator\Controller\IndependentWorkController',
+            'Administrator\Controller\GradeIndependentWork' => 'Administrator\Controller\GradeIndependentWorkController',
         ],
     ],
     'router' => [
