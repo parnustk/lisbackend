@@ -24,7 +24,7 @@ use Zend\Json\Json;
  *
  * @author Sander Mets <sandermets0@gmail.com>
  */
-abstract class AbstractBaseService extends EntityRepository
+abstract class AbstractBaseRepository extends EntityRepository
 {
 
     /**

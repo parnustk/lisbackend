@@ -251,10 +251,6 @@ class VocationControllerTest extends UnitHelpers
     {
         $this->request->setMethod('get');
 
-        //create 2 entities
-        $this->CreateSubjectRound();
-        $this->CreateSubjectRound();
-
         //set record limit to 1
         $q = 'page=1&limit=1'; //imitate real param format
         $params = [];
