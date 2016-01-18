@@ -23,6 +23,8 @@ use Core\Controller\AbstractBaseController;
 class IndependentWorkController extends AbstractBaseController
 {
 
+    protected $service = 'independentwork_service';
+
     /**
      * <h2>POST admin/independentwork</h2>
      * <h3>Body</h3>
@@ -34,12 +36,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('independentwork_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
@@ -52,12 +49,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('independentwork_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -70,12 +62,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('independentwork_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
@@ -92,12 +79,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('independentwork_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -110,30 +92,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('independentwork_service')
-                        ->Delete($id)
-        );
-    }
-    
-    /**
-     * <h2>GET admin/independentwork</h2>
-     * <h3>URL Parameters</h3>
-     * <code>limit(integer)
-     * page(integer)</code>
-     * 
-     * @return JsonModel
-     */
-    public function getTrashedList()
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('independentwork_service')
-                        ->GetTrashedList($this->GetParams())
-        );
+        return parent::delete($id);
     }
 
 }

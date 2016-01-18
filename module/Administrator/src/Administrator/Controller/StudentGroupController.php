@@ -32,12 +32,7 @@ class StudentGroupController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('studentgroup_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
@@ -50,12 +45,7 @@ class StudentGroupController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('studentgroup_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -68,12 +58,7 @@ class StudentGroupController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('studentgroup_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
@@ -90,12 +75,7 @@ class StudentGroupController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('studentgroup_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -108,12 +88,7 @@ class StudentGroupController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('studentgroup_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }
