@@ -10,9 +10,14 @@ use Core\Controller\AbstractBaseController;
  *
  * @author Juhan Kõks
  */
-
 class TeacherController extends AbstractBaseController
 {
+
+    /**
+     *
+     * @var type 
+     */
+    protected $service = 'teacher_service';
 
     /**
      * <h2>GET admin/teacher/:id</h2>
@@ -24,12 +29,7 @@ class TeacherController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('teacher_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -42,12 +42,7 @@ class TeacherController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('teacher_service')
-                        ->GetList()
-        );
+        return parent::getList();
     }
 
     /**
@@ -62,12 +57,7 @@ class TeacherController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('teacher_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
@@ -83,12 +73,7 @@ class TeacherController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('teacher_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -101,12 +86,7 @@ class TeacherController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('teacher_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }
