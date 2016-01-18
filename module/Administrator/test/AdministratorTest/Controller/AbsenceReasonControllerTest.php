@@ -12,6 +12,7 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\AbsenceReasonController;
+use Zend\Json\Json;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
@@ -233,47 +234,47 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
     
-//    public function testGetTrashedList()
-//    {
-//        
-//        //prepare one AbsenceReason with trashed flag set up
-//        $entity = $this->CreateAbsenceReason();
-//        $entity->setTrashed(1);
-//        $this->em->persist($entity);
-//        $this->em->flush($entity);//save to db with trashed 1
-//        $where = [
-//            'trashed' => 1,
-//            'id' => $entity->getId()
-//        ];
-//        $whereJSON = Json::encode($where);
-//        $whereURL = urlencode($whereJSON);
-//        $whereURLPart = "where=$whereURL";
-//        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
-//        
-//        $params = [];
-//        parse_str($q, $params);
-//        foreach ($params as $key => $value) {
-//            $this->request->getQuery()->set($key, $value);
-//        }
-//
-//        $this->request->setMethod('get');
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->PrintOut($result, false);
-//        
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        
-//        //limit is set to 1
-//        $this->assertEquals(1, count($result->data));
-//        
-//        //assert all results have trashed not null
-//        foreach ($result->data as $value) {
-//            $this->assertEquals(1, $value['trashed']);
-//        }
-//        
-//    }
+    public function testGetTrashedList()
+    {
+        
+        //prepare one AbsenceReason with trashed flag set up
+        $entity = $this->CreateAbsenceReason();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);//save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $entity->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+        
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $this->request->setMethod('get');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        //limit is set to 1
+        $this->assertEquals(1, count($result->data));
+        
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
+        
+    }
 
 }
