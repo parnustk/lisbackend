@@ -59,5 +59,85 @@ abstract class AbstractBaseController extends AbstractRestfulController
 
         return $this->params;
     }
+    
+    /**
+     * GET
+     *
+     * @return JsonModel
+     */
+    public function getList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->GetList($this->GetParams())
+        );
+    }
+    
+    /**
+     * GET
+     * 
+     * @param type $id
+     * @return JsonModel
+     */
+    public function get($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Get($id)
+        );
+    }
+    
+    /**
+     * POST
+     * 
+     * @param type $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Create($data)
+        );
+    }
+    
+    /**
+     * PUT
+     * 
+     * @param type $id
+     * @param type $data
+     * @return JsonModel
+     */
+    public function update($id, $data)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Update($id, $data)
+        );
+    }
+    
+    /**
+     * DELETE
+     * 
+     * @param int $id
+     * @return JsonModel
+     */
+    public function delete($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Delete($id)
+        );
+    }
 
 }

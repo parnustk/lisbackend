@@ -20,18 +20,19 @@ class VocationController extends AbstractBaseController
 {
 
     /**
+     *
+     * @var type 
+     */
+    protected $service = 'vocation_service';
+
+    /**
      * GET
      *
      * @return JsonModel
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('vocation_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
@@ -42,12 +43,7 @@ class VocationController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('vocation_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -58,12 +54,7 @@ class VocationController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('vocation_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
@@ -75,12 +66,7 @@ class VocationController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('vocation_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -91,12 +77,7 @@ class VocationController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('vocation_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }

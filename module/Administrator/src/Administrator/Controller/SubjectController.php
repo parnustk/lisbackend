@@ -11,6 +11,7 @@ use Core\Controller\AbstractBaseController;
 class SubjectController extends AbstractBaseController
 {
 
+    protected $service = 'subject_service';
     /**
      * GET
      * 
@@ -21,7 +22,7 @@ class SubjectController extends AbstractBaseController
         return new JsonModel(
                 $this
                         ->getServiceLocator()
-                        ->get('subject_service')
+                        ->get($this->service)
                         ->GetList($this->GetParams())
         );
     }
