@@ -119,5 +119,54 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
+    
+//    public function testUpdate()
+//    {
+//        //create one to  update later on
+//        $absence = $this->CreateAbsence();
+//        $studentIdOld = $absence->getStudent()->getId();
+//        $contactLessonIdOld = $absence->getContactLesson()->getId();
+//        $absenceReason = $absence->getAbsenceReason()->getId();
+//
+//        //prepare request
+//        $this->request->setMethod('put');
+//        $this->routeMatch->setParam('id', $absence->getId());
+//
+//        //set new data
+//        $teacher1 = $this->CreateTeacher();
+//        $teacher2 = $this->CreateTeacher();
+//        
+//        $teachers = [
+//            [
+//                'id' => $teacher1->getId()
+//            ],
+//            [
+//                'id' => $teacher2->getId()
+//            ]
+//        ];
+//
+//        $this->request->setContent(http_build_query([
+//            'subject' => $this->CreateSubject()->getId(),
+//            'studentGroup' => $this->CreateStudentGroup()->getId(),
+//            "absenceReason" => $absenceReason,
+//        ]));
+//
+//        //fire request
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//
+//        $this->PrintOut($result, false);
+//
+//        $this->assertNotEquals($studentIdOld, $result->data['studentGroup']['id']);
+//        $this->assertNotEquals($contactLessonIdOld, $result->data['subject']['id']);
+//
+//        foreach ($teachersOld as $teacherOld) {//no double check figured out, pure linear looping
+//            foreach ($result->data['teacher'] as $teacherU) {
+//                $this->assertNotEquals($teacherOld['id'], $teacherU['id']);
+//            }
+//        }
+//    }
 
 }
