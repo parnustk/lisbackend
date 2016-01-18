@@ -34,9 +34,12 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function create($data)
     {
-        $s = $this->getServiceLocator()->get('independentwork_service');
-        $result = $s->Create($data);
-        return new JsonModel($result);
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('independentwork_service')
+                        ->Create($data)
+        );
     }
 
     /**

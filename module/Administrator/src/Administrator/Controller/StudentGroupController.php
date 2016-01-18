@@ -32,9 +32,12 @@ class StudentGroupController extends AbstractBaseController
      */
     public function create($data)
     {
-        $s = $this->getServiceLocator()->get('studentgroup_service');
-        $result = $s->Create($data);
-        return new JsonModel($result);
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get('studentgroup_service')
+                        ->Create($data)
+        );
     }
 
     /**
