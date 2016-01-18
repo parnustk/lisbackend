@@ -17,7 +17,7 @@ use Core\Entity\Vocation;
  * 
  * @author Sander Mets <sandermets0@gmail.com>
  */
-class VocationRepository extends AbstractBaseService
+class VocationRepository extends AbstractBaseRepository
 {
 
     /**
