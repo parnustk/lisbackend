@@ -66,6 +66,12 @@ class ContactLesson extends EntityValidation
     protected $rooms;
 
     /**
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="contactLesson")
+     * @Annotation\Exclude()
+     */
+    protected $studentGrade;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="contactLesson")
      * @ORM\JoinTable(
      *     name="TeacherToContactLesson",
@@ -186,6 +192,17 @@ class ContactLesson extends EntityValidation
     public function setTeacher($teacher)
     {
         $this->teacher = $teacher;
+        return $this;
+    }
+
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+
+    public function setStudentGrade($studentGrade)
+    {
+        $this->studentGrade = $studentGrade;
         return $this;
     }
 

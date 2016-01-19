@@ -10,7 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Zend\Stdlib\ArraySerializableInterface;
 
-
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")
  * @ORM\Table(
@@ -53,10 +52,10 @@ class Module extends EntityValidation
     protected $subject;
 
     /**
-     * @ORM\OneToMany(targetEntity="GradeModule", mappedBy="module")
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="module")
      * @Annotation\Exclude()
      */
-    protected $gradeModule;
+    protected $studentGrade;
 
     /**
      * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="module")
@@ -140,11 +139,6 @@ class Module extends EntityValidation
         return $this->subject;
     }
 
-    public function getGradeModule()
-    {
-        return $this->gradeModule;
-    }
-
     public function getVocation()
     {
         return $this->vocation;
@@ -184,12 +178,6 @@ class Module extends EntityValidation
         return $this;
     }
 
-    public function setGradeModule($gradeModule)
-    {
-        $this->gradeModule = $gradeModule;
-        return $this;
-    }
-
     public function setVocation($vocation)
     {
         $this->vocation = $vocation;
@@ -199,6 +187,17 @@ class Module extends EntityValidation
     public function setModuleType($moduleType)
     {
         $this->moduleType = $moduleType;
+        return $this;
+    }
+
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+
+    public function setStudentGrade($studentGrade)
+    {
+        $this->studentGrade = $studentGrade;
         return $this;
     }
 

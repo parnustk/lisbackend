@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentGradeRepository")
- * @ORM\InheritanceType("JOINED")
  */
 class StudentGrade extends EntityValidation
 {
@@ -20,6 +19,11 @@ class StudentGrade extends EntityValidation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $notes;
 
     /**
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="studentGrade")
@@ -38,6 +42,30 @@ class StudentGrade extends EntityValidation
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
      */
     protected $teacher;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="IndependentWork", inversedBy="studentGrade")
+     * @ORM\JoinColumn(name="independent_work_id", referencedColumnName="id", onDelete="RESTRICT")
+     */
+    protected $independentWork;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Module", inversedBy="studentGrade")
+     * @ORM\JoinColumn(name="module_id", referencedColumnName="id", onDelete="RESTRICT")
+     */
+    protected $module;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="studentGrade")
+     * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", onDelete="RESTRICT")
+     */
+    protected $subjectRound;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ContactLesson", inversedBy="studentGrade")
+     * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", onDelete="RESTRICT")
+     */
+    protected $contactLesson;
 
     /**
      * 

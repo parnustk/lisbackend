@@ -37,9 +37,10 @@ class SubjectRound extends EntityValidation
     protected $contactLesson;
 
     /**
-     * @ORM\OneToMany(targetEntity="GradeSubjectRound", mappedBy="subjectRound")
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="subjectRound")
+     * @Annotation\Exclude()
      */
-    protected $gradeSubjectRound;
+    protected $studentGrade;
 
     /**
      * @ORM\ManyToOne(targetEntity="Subject", inversedBy="subjectRound")
@@ -139,11 +140,6 @@ class SubjectRound extends EntityValidation
         return $this->contactLesson;
     }
 
-    public function getGradeSubjectRound()
-    {
-        return $this->gradeSubjectRound;
-    }
-
     public function getSubject()
     {
         return $this->subject;
@@ -171,12 +167,6 @@ class SubjectRound extends EntityValidation
         return $this;
     }
 
-    public function setGradeSubjectRound($gradeSubjectRound)
-    {
-        $this->gradeSubjectRound = $gradeSubjectRound;
-        return $this;
-    }
-
     public function setSubject($subject)
     {
         $this->subject = $subject;
@@ -192,6 +182,17 @@ class SubjectRound extends EntityValidation
     public function setTeacher($teacher)
     {
         $this->teacher = $teacher;
+        return $this;
+    }
+
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+
+    public function setStudentGrade($studentGrade)
+    {
+        $this->studentGrade = $studentGrade;
         return $this;
     }
 

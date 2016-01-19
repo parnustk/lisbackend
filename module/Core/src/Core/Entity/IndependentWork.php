@@ -50,10 +50,10 @@ class IndependentWork extends EntityValidation
     protected $durationAK;
 
     /**
-     * @ORM\OneToMany(targetEntity="GradeIndependentWork", mappedBy="independentWork")
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="independentWork")
      * @Annotation\Exclude()
      */
-    protected $gradeIndependent;
+    protected $studentGrade;
 
     /**
      * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="independentWork")
@@ -188,11 +188,6 @@ class IndependentWork extends EntityValidation
         return $this->durationAK;
     }
 
-    public function getGradeIndependent()
-    {
-        return $this->gradeIndependent;
-    }
-
     public function getSubjectRound()
     {
         return $this->subjectRound;
@@ -221,12 +216,6 @@ class IndependentWork extends EntityValidation
         return $this;
     }
 
-    public function setGradeIndependent($gradeIndependent)
-    {
-        $this->gradeIndependent = $gradeIndependent;
-        return $this;
-    }
-
     public function setSubjectRound($subjectRound)
     {
         $this->subjectRound = $subjectRound;
@@ -236,6 +225,17 @@ class IndependentWork extends EntityValidation
     public function setTeacher($teacher)
     {
         $this->teacher = $teacher;
+        return $this;
+    }
+
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+
+    public function setStudentGrade($studentGrade)
+    {
+        $this->studentGrade = $studentGrade;
         return $this;
     }
 
