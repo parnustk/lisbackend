@@ -48,10 +48,10 @@ class StudentGroup extends EntityValidation
     protected $subjectRound;
 
     /**
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="studentGroup")
+     * @ORM\OneToMany(targetEntity="StudentInGroups", mappedBy="studentGroup")
      * @Annotation\Exclude()
      */
-    protected $student;
+    protected $studentInGroups;
 
     /**
      *
@@ -172,11 +172,6 @@ class StudentGroup extends EntityValidation
         return $this->subjectRound;
     }
 
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
     public function setName($name)
     {
         $this->name = $name;
@@ -195,9 +190,14 @@ class StudentGroup extends EntityValidation
         return $this;
     }
 
-    public function setStudent($student)
+    public function getStudentInGroups()
     {
-        $this->student = $student;
+        return $this->studentInGroups;
+    }
+
+    public function setStudentInGroups($studentInGroups)
+    {
+        $this->studentInGroups = $studentInGroups;
         return $this;
     }
 

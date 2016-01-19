@@ -68,19 +68,17 @@ class Student extends EntityValidation
     protected $studentGrade;
 
     /**
-     * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="student")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     * @Annotation\Required({"required":"true"})
+     * @ORM\OneToMany(targetEntity="StudentInGroups", mappedBy="student")
      */
-    protected $studentGroup;
-    
+    protected $studentInGroups;
+
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
     protected $trashed;
-    
+
     /**
      * 
      * @param EntityManager $em
@@ -130,10 +128,6 @@ class Student extends EntityValidation
         return $this->studentGrade;
     }
 
-    public function getStudentGroup()
-    {
-        return $this->studentGroup;
-    }
     public function getTrashed()
     {
         return $this->trashed;
@@ -181,15 +175,20 @@ class Student extends EntityValidation
         return $this;
     }
 
-    public function setStudentGroup($studentGroup)
-    {
-        $this->studentGroup = $studentGroup;
-        return $this;
-    }
-    
     public function setTrashed($trashed)
     {
         $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function getStudentInGroups()
+    {
+        return $this->studentInGroups;
+    }
+
+    public function setStudentInGroups($studentInGroups)
+    {
+        $this->studentInGroups = $studentInGroups;
         return $this;
     }
 
