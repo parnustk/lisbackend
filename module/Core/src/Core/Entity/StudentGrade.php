@@ -9,6 +9,10 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentGradeRepository")
+ * @ORM\Table(
+ *     indexes={@ORM\Index(name="studentgrade_index_trashed", columns={"trashed"})}
+ * )
+ * @ORM\HasLifecycleCallbacks
  */
 class StudentGrade extends EntityValidation
 {
@@ -26,18 +30,21 @@ class StudentGrade extends EntityValidation
     protected $notes;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
     protected $student;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\ManyToOne(targetEntity="GradeChoice", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="grade_choice_id", referencedColumnName="id", nullable=false)
      */
     protected $gradeChoice;
 
     /**
+     * @Annotation\Required({"required":"true"})
      * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
      */
@@ -66,6 +73,41 @@ class StudentGrade extends EntityValidation
      * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $contactLesson;
+    
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    protected $createdBy;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $createdAt;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
 
     /**
      * 
@@ -81,6 +123,11 @@ class StudentGrade extends EntityValidation
         return $this->id;
     }
 
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
     public function getStudent()
     {
         return $this->student;
@@ -94,6 +141,63 @@ class StudentGrade extends EntityValidation
     public function getTeacher()
     {
         return $this->teacher;
+    }
+
+    public function getIndependentWork()
+    {
+        return $this->independentWork;
+    }
+
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    public function getSubjectRound()
+    {
+        return $this->subjectRound;
+    }
+
+    public function getContactLesson()
+    {
+        return $this->contactLesson;
+    }
+
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+        return $this;
     }
 
     public function setStudent($student)
@@ -112,6 +216,72 @@ class StudentGrade extends EntityValidation
     {
         $this->teacher = $teacher;
         return $this;
+    }
+
+    public function setIndependentWork($independentWork)
+    {
+        $this->independentWork = $independentWork;
+        return $this;
+    }
+
+    public function setModule($module)
+    {
+        $this->module = $module;
+        return $this;
+    }
+
+    public function setSubjectRound($subjectRound)
+    {
+        $this->subjectRound = $subjectRound;
+        return $this;
+    }
+
+    public function setContactLesson($contactLesson)
+    {
+        $this->contactLesson = $contactLesson;
+        return $this;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
 }
