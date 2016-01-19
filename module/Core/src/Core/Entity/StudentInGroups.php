@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityManager;
  * Description of StudentInGroups
  *
  * @author Sander Mets <sandermets0@gmail.com>
- * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentGroupRepository")
+ * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentInGroupsRepository")
  * @ORM\Table(
  *      indexes={
  *          @ORM\Index(name="studentingroups_index_trashed", columns={"trashed"}),
