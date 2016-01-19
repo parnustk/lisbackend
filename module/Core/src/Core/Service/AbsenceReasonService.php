@@ -10,8 +10,6 @@
 
 namespace Core\Service;
 
-use Exception;
-
 /**
  * Rest API service for absencereason data.
  *
@@ -19,5 +17,7 @@ use Exception;
  */
 class AbsenceReasonService extends AbstractBaseService
 {
-     protected $baseEntity = 'Core\Entity\AbsenceReason';
+
+    protected $baseEntity = 'Core\Entity\AbsenceReason';
+
 }

@@ -10,8 +10,6 @@
 
 namespace Core\Service;
 
-use Exception;
-
 /**
  * Description of AbsenceService
  *
@@ -19,9 +17,11 @@ use Exception;
  */
 class AbsenceService extends AbstractBaseService
 {
-        /**
-         *
-         * @var type 
-         */
-        protected $baseEntity = 'Core\Entity\Absence';
+
+    /**
+     *
+     * @var type 
+     */
+    protected $baseEntity = 'Core\Entity\Absence';
+
 }

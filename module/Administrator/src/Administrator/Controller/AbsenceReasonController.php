@@ -20,6 +20,7 @@ use Core\Controller\AbstractBaseController;
  */
 class AbsenceReasonController extends AbstractBaseController
 {
+
     /**
      *
      * @var type 

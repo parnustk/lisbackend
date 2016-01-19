@@ -62,7 +62,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
-    
+
     public function testCreateWithAbsenceReason()
     {
         $description = 'Absence description' . uniqid();
@@ -111,7 +111,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
     public function testCreateNoContactLesson()
     {
         $this->request->setMethod('post');
@@ -126,7 +126,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
     public function testGet()
     {
         $this->request->setMethod('get');
@@ -137,7 +137,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
-    
+
     public function testGetList()
     {
         $this->CreateAbsence();
@@ -149,7 +149,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertGreaterThan(0, count($result->data));
         $this->PrintOut($result, false);
     }
-    
+
     public function testUpdate()
     {
         //create one to  update later on
@@ -183,7 +183,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertNotEquals($contactLessonIdOld, $result->data['contactLesson']['id']);
         $this->assertNotEquals($absenceReasonIdOld, $result->data['absenceReason']['id']);
     }
-    
+
     public function testDeleteNotTrashed()
     {
         $entity = $this->CreateAbsence();
@@ -195,7 +195,7 @@ class AbsenceControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
@@ -207,14 +207,13 @@ class AbsenceControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertNotEquals(null, $deleted);
-             
     }
-    
+
     public function testDelete()
     {
-        
+
         $entity = $this->CreateAbsence();
-        $idOld = $entity->getId(); 
+        $idOld = $entity->getId();
         $entity->setTrashed(1);
         $this->em->persist($entity);
         $this->em->flush($entity);
@@ -238,17 +237,17 @@ class AbsenceControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
-    
+
     public function testCreatedByAndUpdatedBy()
     {
         $this->request->setMethod('post');
-        
+
         $description = 'Absence description' . uniqid();
         $absence = $this->CreateAbsence()->getId();
         $student = $this->CreateStudent()->getId();
         $contactLesson = $this->CreateContactLesson()->getId();
-        $absenceReason= $this->CreateAbsenceReason()->getId();
-        
+        $absenceReason = $this->CreateAbsenceReason()->getId();
+
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('student', $student);
         $this->request->getPost()->set('absence', $absence);
@@ -269,14 +268,14 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
 
         $repository = $this->em->getRepository('Core\Entity\Absence');
         $newAbsence = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newAbsence->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newAbsence->getUpdatedBy()->getId());
     }
-    
+
     /**
      * TEST rows get read by limit and page params
      */
@@ -299,15 +298,15 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertLessThanOrEqual(1, count($result->data));
         $this->PrintOut($result, false);
     }
-    
+
     public function testGetTrashedList()
     {
-        
+
         //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateAbsence();
         $entity->setTrashed(1);
         $this->em->persist($entity);
-        $this->em->flush($entity);//save to db with trashed 1
+        $this->em->flush($entity); //save to db with trashed 1
         $where = [
             'trashed' => 1,
             'id' => $entity->getId()
@@ -316,7 +315,7 @@ class AbsenceControllerTest extends UnitHelpers
         $whereURL = urlencode($whereJSON);
         $whereURLPart = "where=$whereURL";
         $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
-        
+
         $params = [];
         parse_str($q, $params);
         foreach ($params as $key => $value) {
@@ -329,18 +328,17 @@ class AbsenceControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
 
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         //limit is set to 1
         $this->assertEquals(1, count($result->data));
-        
+
         //assert all results have trashed not null
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
-        
     }
 
 }

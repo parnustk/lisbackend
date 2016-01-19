@@ -56,7 +56,7 @@ class AbsenceRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactlesson
                 JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.absenceReason absenceReason" ;
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
 
     /**

@@ -20,11 +20,13 @@ use Core\Controller\AbstractBaseController;
  */
 class AbsenceController extends AbstractBaseController
 {
+
     /**
      *
      * @var type 
      */
     protected $service = 'absence_service';
+
     /**
      * <h2>GET admin/absence</h2>
      * <h3>URL Parameters</h3>

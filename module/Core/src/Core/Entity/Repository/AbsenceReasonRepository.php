@@ -19,6 +19,7 @@ use Core\Entity\AbsenceReason;
  */
 class AbsenceReasonRepository extends AbstractBaseRepository
 {
+
     /**
      *
      * @var string
@@ -45,7 +46,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     /**
      * 
      * @param array $data
@@ -55,8 +56,8 @@ class AbsenceReasonRepository extends AbstractBaseRepository
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-        
-        
+
+
         $entity = $this->validateEntity(
                 new AbsenceReason($this->getEntityManager()), $data
         );
