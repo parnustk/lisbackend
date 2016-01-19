@@ -239,35 +239,43 @@ class AbsenceControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
     
-//    public function testCreatedAtAndUpdatedAt()
-//    {
-//        $description = 'AbsenceDescription' . uniqid();
-//        $this->request->setMethod('post');
-//        $absence = $this->CreateAbsence();
-//        $this->request->getPost()->set('description', $description);
-//        $this->request->getPost()->set('absence', $absence->getId());
-//
-//        $lisUserCreates = $this->CreateLisUser();
-//        $lisUserCreatesId = $lisUserCreates->getId();
-//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-//
-//        $lisUserUpdates = $this->CreateLisUser();
-//        $lisUserUpdatesId = $lisUserUpdates->getId();
-//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->PrintOut($result, true);
-//
-//        $repository = $this->em->getRepository('Core\Entity\Absence');
-//        $newAbsence = $repository->find($result->data['id']);
-//        $this->assertEquals($lisUserCreatesId, $newAbsence->getCreatedBy()->getId());
-//        $this->assertEquals($lisUserUpdatesId, $newAbsence->getUpdatedBy()->getId());
-//    }
+    public function testCreatedByAndUpdatedBy()
+    {
+        $this->request->setMethod('post');
+        
+        $description = 'Absence description' . uniqid();
+        $absence = $this->CreateAbsence()->getId();
+        $student = $this->CreateStudent()->getId();
+        $contactLesson = $this->CreateContactLesson()->getId();
+        $absenceReason= $this->CreateAbsenceReason()->getId();
+        
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('student', $student);
+        $this->request->getPost()->set('absence', $absence);
+        $this->request->getPost()->set('absenceReason', $absenceReason);
+        $this->request->getPost()->set('contactLesson', $contactLesson);
+
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, true);
+
+        $repository = $this->em->getRepository('Core\Entity\Absence');
+        $newAbsence = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newAbsence->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newAbsence->getUpdatedBy()->getId());
+    }
     
     /**
      * TEST rows get read by limit and page params
