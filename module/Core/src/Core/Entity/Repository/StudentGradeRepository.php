@@ -13,29 +13,42 @@ use Doctrine\ORM\EntityRepository;
 class StudentGradeRepository extends EntityRepository implements CRUD
 {
 
-    public function Create($data, $returnPartial = false, $extra = null)
-    {
-        
-    }
+    /**
+     *
+     * @var string
+     */
+    protected $baseAlias = 'studentgrade';
 
-    public function Delete($id, $extra = null)
-    {
-        
-    }
+    /**
+     *
+     * @var string 
+     */
+    protected $baseEntity = 'Core\Entity\StudentGrade';
 
-    public function Get($id, $returnPartial = false, $extra = null)
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStart()
     {
-        
-    }
-
-    public function GetList($params = null, $extra = null)
-    {
-        
-    }
-
-    public function Update($id, $data, $returnPartial = false, $extra = null)
-    {
-        
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                LEFT JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
 
 }

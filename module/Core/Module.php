@@ -19,6 +19,7 @@ use Core\Service\ContactLessonService;
 use Core\Service\AdministratorService;
 use Core\Service\AbsenceService;
 use Core\Service\IndependentWorkService;
+use Core\Service\StudentGradeService;
 
 /**
  * 
@@ -150,6 +151,12 @@ class Module
                 },
                 'independentwork_service' => function ($serviceManager) {
                     $t = new IndependentWorkService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
+                'studentgrade_service' => function ($serviceManager) {
+                    $t = new StudentGradeService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;
