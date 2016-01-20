@@ -152,7 +152,11 @@ class StudentGradeRepository extends AbstractBaseRepository
                 $this->find($id), $data
         );
         //validate that exactly one of four(contactLesson or module or subjectRound or independentWork) is present
-
+        $notValid = $this->validateInputRelationExists($data);
+        if ($notValid) {//if validates is still false throw exception
+            throw new Exception('Missing or incorrect input');
+        }
+        
         return $this->singleResult($entity, $returnPartial, $extra);
     }
 

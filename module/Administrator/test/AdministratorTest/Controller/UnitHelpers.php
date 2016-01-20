@@ -426,12 +426,11 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
                     'notes' => uniqid() . 'StudentGradeNotes',
                     'gradeChoice'=> $gradeChoice->getId(),
                     'student'=> $student->getId(),
+                    'teacher' => $teacher->getId(),
                     'contactLesson'=> $contactLesson-> getId(),
-                    'independentWork'=> $independentWork->getId(),
-                    'teacher' => $teacher>getId(),
-                    'independentWork' => $independentWork->getId(),
-                    'module' => $module->getId(),
-                    'subjectRound' => $subjectRound->getId(),                  
+                    //'independentWork'=> $independentWork->getId(),
+                    //'module' => $module->getId(),
+                    //'subjectRound' => $subjectRound->getId(),                  
         ]);
     }
 
