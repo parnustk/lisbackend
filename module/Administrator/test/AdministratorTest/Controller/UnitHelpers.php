@@ -353,8 +353,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
             return $repository->Create($data);
         }
         return $repository->Create([
-                    'name' => uniqid() . 'GradeChoiceName',
-                    'studentGrade' => uniqid() . 'GradeChoiceStudentGrade'
+                    'name' => uniqid() . 'GradeChoiceName'
         ]);
     }
 

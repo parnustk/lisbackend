@@ -10,14 +10,15 @@
 
 namespace Core\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Core\Entity\StudentGrade;
+use Exception;
 
 /**
  * StudentGradeRepository
  *
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class StudentGradeRepository extends EntityRepository
+class StudentGradeRepository extends AbstractBaseRepository
 {
 
     /**
@@ -68,14 +69,56 @@ class StudentGradeRepository extends EntityRepository
                 FROM $this->baseEntity $this->baseAlias
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
                 JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.absenceReason absenceReason
                 JOIN $this->baseAlias.gradeChoice gradeChoice
                 JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
-    
+
+    /**
+     * 
+     * @param array $data
+     * @return array
+     */
+    private function addMissingKeys($data)
+    {
+        if (!key_exists('contactLesson', $data)) {//validate that exactly one of four(contactLesson or module or subjectRound or independentWork) is present
+            $data['contactLesson'] = null;
+        }
+        if (!key_exists('module', $data)) {
+            $data['module'] = null;
+        }
+        if (!key_exists('subjectRound', $data)) {
+            $data['subjectRound'] = null;
+        }
+        if (!key_exists('independentWork', $data)) {
+            $data['independentWork'] = null;
+        }
+        return $data;
+    }
+
+    /**
+     * 
+     * @param array $data
+     * @return boolean
+     */
+    private function validateInputRelationExists($data)
+    {
+        $Data = $this->addMissingKeys($data);
+        $notValid = true;
+        if ($Data['contactLesson'] && !$Data['module'] && !$Data['subjectRound'] && !$Data['independentWork']) {//validates
+            $notValid = false;
+        } else if (!$Data['contactLesson'] && $Data['module'] && !$Data['subjectRound'] && !$Data['independentWork']) {
+            $notValid = false;
+        } else if (!$Data['contactLesson'] && !$Data['module'] && $Data['subjectRound'] && !$Data['independentWork']) {
+            $notValid = false;
+        } else if (!$Data['contactLesson'] && !$Data['module'] && !$Data['subjectRound'] && $Data['independentWork']) {
+            $notValid = false;
+        }
+        return $notValid;
+    }
+
     /**
      * 
      * @param array $data
@@ -88,10 +131,13 @@ class StudentGradeRepository extends EntityRepository
         $entity = $this->validateEntity(
                 new StudentGrade($this->getEntityManager()), $data
         );
-        //validate that exactly one of four(contactLesson or module or subjectRound or independentWork) is present
+        $notValid = $this->validateInputRelationExists($data);
+        if ($notValid) {//if validates is still false throw exception
+            throw new Exception('Missing or incorrect input');
+        }
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param int|string $id
