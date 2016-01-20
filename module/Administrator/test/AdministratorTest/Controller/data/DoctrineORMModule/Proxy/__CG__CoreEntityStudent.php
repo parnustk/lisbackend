@@ -64,10 +64,10 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentGroup', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentGroup', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -268,17 +268,6 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getStudentGroup()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentGroup', array());
-
-        return parent::getStudentGroup();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getTrashed()
     {
 
@@ -367,23 +356,34 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setStudentGroup($studentGroup)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGroup', array($studentGroup));
-
-        return parent::setStudentGroup($studentGroup);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setTrashed($trashed)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
 
         return parent::setTrashed($trashed);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStudentInGroups()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentInGroups', array());
+
+        return parent::getStudentInGroups();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStudentInGroups($studentInGroups)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentInGroups', array($studentInGroups));
+
+        return parent::setStudentInGroups($studentInGroups);
     }
 
     /**

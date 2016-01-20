@@ -64,10 +64,10 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'lessonDate', 'description', 'durationAK', 'absence', 'subjectRound', 'rooms', 'teacher', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'lessonDate', 'description', 'durationAK', 'absence', 'subjectRound', 'rooms', 'studentGrade', 'teacher', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'lessonDate', 'description', 'durationAK', 'absence', 'subjectRound', 'rooms', 'teacher', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'lessonDate', 'description', 'durationAK', 'absence', 'subjectRound', 'rooms', 'studentGrade', 'teacher', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -362,6 +362,28 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTeacher', array($teacher));
 
         return parent::setTeacher($teacher);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStudentGrade()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentGrade', array());
+
+        return parent::getStudentGrade();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStudentGrade($studentGrade)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
+
+        return parent::setStudentGrade($studentGrade);
     }
 
     /**
