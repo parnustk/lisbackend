@@ -286,6 +286,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
 
     /**
      * AbsenceReason
+     * @author Eleri Apsolon <eleri.apsolon@gmail.com>
      * 
      * @param type $data
      * @return type
@@ -383,6 +384,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
     
     /**
      * Absence
+     * @author Eleri Apsolon <eleri.apsolon@gmail.com>
      * 
      * @param type $data
      * @return type
@@ -403,6 +405,34 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
                     'absenceReason'=> $absenceReason->getId(),
                     'student'=> $student->getId(),
                     'contactLesson'=> $contactLesson-> getId(),
+        ]);
+    }
+    
+    protected function CreateStudentGrade($data = null) {
+        $repository = $this->em->getRepository('Core\Entity\StudentGrade');
+
+        if ($data) {
+            return $repository->Create($data);
+        }
+        
+        $gradeChoice = $this->CreateGradeChoice();
+        $contactLesson = $this->CreateContactLesson();
+        $student = $this->CreateStudent();
+        $teacher = $this->CreateTeacher();
+        $independentWork = $this->CreateIndependentWork();
+        $module = $this->CreateModule();
+        $subjectRound = $this->CreateSubjectRound();
+
+        return $repository->Create([
+                    'notes' => uniqid() . 'StudentGradeNotes',
+                    'gradeChoice'=> $gradeChoice->getId(),
+                    'student'=> $student->getId(),
+                    'contactLesson'=> $contactLesson-> getId(),
+                    'independentWork'=> $independentWork->getId(),
+                    'teacher' => $teacher>getId(),
+                    'independentWork' => $independentWork->getId(),
+                    'module' => $module->getId(),
+                    'subjectRound' => $subjectRound->getId(),                  
         ]);
     }
 
