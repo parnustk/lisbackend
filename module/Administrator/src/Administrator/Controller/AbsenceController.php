@@ -57,9 +57,9 @@ class AbsenceController extends AbstractBaseController
      * <h2>POST admin/absence</h2>
      * <h3>Body</h3>
      * <code> description(string)*
-      absenceReason(integer)
-      student(integer)*
-      contactLesson(integer)* </code>
+     * absenceReason(integer)
+     * student(integer)*
+     * contactLesson(integer)* </code>
      * 
      * @param array $data
      * @return JsonModel
@@ -75,9 +75,9 @@ class AbsenceController extends AbstractBaseController
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>description(string)*
-      absenceReason(integer)
-      student(integer)*
-      contactLesson(integer)* </code>
+     * absenceReason(integer)
+     * student(integer)*
+     * contactLesson(integer)* </code>
      * @param type $id
      * @param type $description
      * @return JsonModel

@@ -57,13 +57,13 @@ class StudentGradeController extends AbstractBaseController
      * <h2>POST admin/studentgrade</h2>
      * <h3>Body</h3>
      * <code> notes(string)
-      student(integer)*
-      gradeChoice(integer)*
-      teacher(intiger)*
-      independentWork(integer)
-      module(intiger)
-      subjectRound(intiger)
-      contactLesson(intiger)</code>
+     * student(integer)*
+     * gradeChoice(integer)*
+     * teacher(intiger)*
+     * independentWork(integer)
+     * module(intiger)
+     * subjectRound(intiger)
+     * contactLesson(intiger)</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -79,13 +79,13 @@ class StudentGradeController extends AbstractBaseController
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code> notes(string)
-      student(integer)*
-      gradeChoice(integer)*
-      teacher(intiger)*
-      independentWork(integer)
-      module(intiger)
-      subjectRound(intiger)
-      contactLesson(intiger)</code>
+     * student(integer)*
+     * gradeChoice(integer)*
+     * teacher(intiger)*
+     * independentWork(integer)
+     * module(intiger)
+     * subjectRound(intiger)
+     * contactLesson(intiger)</code>
      * @param int $id
      * @return JsonModel
      */

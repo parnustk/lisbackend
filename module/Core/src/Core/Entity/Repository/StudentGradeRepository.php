@@ -67,10 +67,10 @@ class StudentGradeRepository extends AbstractBaseRepository
                         id
                         }
                 FROM $this->baseEntity $this->baseAlias
-                LEFT JOIN $this->baseAlias.contactLesson contactlesson
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.gradeChoice gradeChoice
                 JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.contactLesson contactlesson
                 LEFT JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
