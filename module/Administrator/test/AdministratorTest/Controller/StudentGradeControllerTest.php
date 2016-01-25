@@ -253,10 +253,7 @@ class StudentGradeControllerTest extends UnitHelpers
             'gradeChoice' => $this->CreateGradeChoice()->getId(),
             'student' => $this->CreateStudent()->getId(),
             'teacher' => $this->CreateTeacher()->getId(),
-            'contactLesson' => $this->CreateContactLesson()->getId(),
-            //'independentWork' => $this->CreateIndependentWork()->getId(),
-//            'module' => $this->CreateModule(),
-            //'subjectRound' => $this->CreateSubjectRound(),
+            'contactLesson' => $this->CreateContactLesson()->getId()
         ];
         //create one to  update later on
         $studentGrade = $this->CreateStudentGrade($data);
@@ -267,7 +264,6 @@ class StudentGradeControllerTest extends UnitHelpers
 //        $contactLessonIdOld = $studentGrade->getContactLesson()->getId();
 //        //$independentWorkIdOld = $studentGrade->getIndependentWork()->getId();
 //        $moduleIdOld = $studentGrade->getModule()->getId();
-
         //prepare request
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $studentGrade->getId());
@@ -279,18 +275,18 @@ class StudentGradeControllerTest extends UnitHelpers
             'gradeChoice' => $this->CreateGradeChoice()->getId(),
             'teacher' => $this->CreateTeacher()->getId(),
             'module' => $this->CreateModule()->getId(),
-        ]));        
-        
+        ]));
+
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
     }
-    
+
     /**
      * TEST row gets deleted by id
      * can only try to delete smt what is trashed
@@ -319,7 +315,7 @@ class StudentGradeControllerTest extends UnitHelpers
 
         $this->assertNotEquals(null, $deleted);
     }
-    
+
     public function testDelete()
     {
 
@@ -348,14 +344,14 @@ class StudentGradeControllerTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
-    
+
     public function testCreatedByAndUpdatedBy()
     {
         $this->request->setMethod('post');
 
         $notes = 'StudentGrade notes' . uniqid();
         $studentGrade = $this->CreateStudentGrade()->getId();
-        
+
         $student = $this->CreateStudent()->getId();
         $contactLesson = $this->CreateContactLesson()->getId();
         $teacher = $this->CreateTeacher()->getId();
@@ -389,7 +385,7 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->assertEquals($lisUserCreatesId, $newSubjectRound->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newSubjectRound->getUpdatedBy()->getId());
     }
-    
+
     /**
      * TEST rows get read by limit and page params
      */
@@ -412,7 +408,7 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->assertLessThanOrEqual(1, count($result->data));
         $this->PrintOut($result, false);
     }
-    
+
     public function testGetTrashedList()
     {
 

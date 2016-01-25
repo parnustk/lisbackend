@@ -34,7 +34,7 @@ class StudentGrade extends EntityValidation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -84,7 +84,7 @@ class StudentGrade extends EntityValidation
      * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $contactLesson;
-    
+
     /**
      *
      * @ORM\Column(type="integer", nullable=true)

@@ -17,9 +17,11 @@ namespace Core\Service;
  */
 class StudentGradeService extends AbstractBaseService
 {
+
     /**
      *
      * @var type 
      */
     protected $baseEntity = 'Core\Entity\StudentGrade';
+
 }
