@@ -3,139 +3,75 @@
 namespace Core\Entity\Repository;
 
 use Core\Entity\ModuleType;
-use Doctrine\ORM\EntityRepository;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
-use Exception;
-use Zend\Json\Json;
-use Doctrine\ORM\Query;
+
 
 /**
- * @author sander
+ * @author sander, Alar Aasa <alar@alaraasa.ee>
  */
-class ModuleTypeRepository extends EntityRepository implements CRUD
+class ModuleTypeRepository extends AbstractBaseRepository
 {
 
-    /**
-     * 
-     * @param stdClass $params
-     * @return Paginator
+    /*
+     * @var string
      */
-    public function GetList($params = null, $extra = null)
+    protected $baseAlias = 'mt';
+    
+    /*
+     * @var string
+     */
+    protected $baseEntity = 'Core\Entity\ModuleType';
+            
+    /*
+     * @return string
+     */
+    
+    protected function dqlStart()
     {
-        if ($params) {
-            //use if neccessary
-        }
-
-        $dql = "SELECT partial mt.{id,name} 
-                    FROM Core\Entity\ModuleType mt";
-
-        return new Paginator(
-                new DoctrinePaginator(
-                new ORMPaginator(
-                $this->getEntityManager()
-                        ->createQuery($dql)
-                        ->setHydrationMode(Query::HYDRATE_ARRAY)
-                )
-                )
-        );
+        $dql =  "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                     name
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+            
     }
 
     /**
      * 
      * @param type $data
      * @param type $returnPartial
-     * @return ModuleType
-     * @throws Exception
+     * @param stdClass|null $extra
+     * @return mixed
+     * 
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-        $entity = new ModuleType($this->getEntityManager());
-
-        $entity->hydrate($data);
-
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
-        }
-
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
-
-        if ($returnPartial) {
-
-            $dql = "
-                    SELECT 
-                        partial mt.{id,name}
-                    FROM Core\Entity\ModuleType mt
-                    WHERE mt.id = " . $entity->getId() . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-
-        return $entity;
+        $entity = $this->validateEntity(
+                new ModuleType($this->getEntityManager()), $data
+                );
+                //IF required MANY TO MANY validate manually
+                return $this->singleResult($entity, $returnPartial, $extra);
     }
 
-    public function Get($id, $returnPartial = false, $extra = null)
-    {
-        if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial mt.{id,name}
-                    FROM Core\Entity\ModuleType mt
-                    WHERE mt.id = " . $id . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->find($id);
-    }
+    
 
     /**
      * 
      * @param type $id
-     * @param type $data
-     * @return Sample
-     * @throws Exception
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        $entity = $this->find($id);
-        $entity->setEntityManager($this->getEntityManager());
-        $entity->hydrate($data);
+        $entity = $this->validateEntity(
+                $this->find($id), $data
+        );
+        //IF required MANY TO MANY validate manually
+        return $this->singleResult($entity, $returnPartial, $extra);
+    } 
 
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
-        }
-
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
-
-        if ($returnPartial) {
-            $dql = "
-                    SELECT partial mt.{id,name}
-                    FROM Core\Entity\ModuleType mt
-                    WHERE mt.id = " . $id . "
-                ";
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $entity;
-    }
-
-    public function Delete($id, $extra = null)
-    {
-        $this->getEntityManager()->remove($this->find($id));
-        $this->getEntityManager()->flush();
-        return $id;
-    }
-
+    
 }

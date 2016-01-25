@@ -3,6 +3,7 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\RoomController;
+use Zend\Json\Json;
 
 /**
   * @author Alar Aasa
@@ -121,6 +122,9 @@ class RoomControllerTest extends UnitHelpers
     {
         $entity = $this->CreateRoom();
         $idOld = $entity->getId();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);
 
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
@@ -189,5 +193,27 @@ class RoomControllerTest extends UnitHelpers
         $this->assertNotNull($newRoom->getCreatedAt());
         $this->assertNotNull($newRoom->getUpdatedAt());
         
+    }
+    
+    public function testGetListWithPagination()
+    {
+        $this->request->setMethod('get');
+        
+        $this->CreateRoom();
+        $this->CreateRoom();
+        
+        $q = 'page=1&limit=1';
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertLessThanOrEqual(1, count($result->data));
+        $this->PrintOut($result, false);
     }
 }

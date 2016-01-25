@@ -14,7 +14,10 @@ use Core\Controller\AbstractBaseController;
 
 class RoomController extends AbstractBaseController
 {
-    
+    /*
+     * @var type
+     */
+    protected $service = 'room_service';
         /**
      * <h2>GET admin/room</h2>
      * <h3>URL Parameters</h3>
@@ -24,12 +27,7 @@ class RoomController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('room_service')
-                        ->GetList()
-        );
+        return parent::getList();
     }
     
     /**
@@ -41,12 +39,7 @@ class RoomController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('room_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
     
     /**
@@ -58,12 +51,7 @@ class RoomController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('room_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
     
      /**
@@ -74,12 +62,7 @@ class RoomController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-         return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('room_service')
-                        ->Update($id, $data)
-        );
+         return parent::update($id, $data);
     }
     
     /**
@@ -90,11 +73,6 @@ class RoomController extends AbstractBaseController
      */
     public function delete($id)
     {
-         return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('room_service')
-                        ->Delete($id)
-        );
+         return parent::delete($id);
     }
 }
