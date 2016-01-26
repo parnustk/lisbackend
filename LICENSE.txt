@@ -1,7 +1,7 @@
 Licence of Learning Info System (LIS)
 Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
 
-You may use LIS free, but you MAY NOT sell it without permission.
+You may use LIS for free, but you MAY NOT sell it without permission.
 
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
