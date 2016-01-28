@@ -74,6 +74,7 @@
 				<li><a href="class-Administrator.Controller.AdministratorController.html">AdministratorController</a></li>
 				<li class="active"><a href="class-Administrator.Controller.ContactLessonController.html">ContactLessonController</a></li>
 				<li><a href="class-Administrator.Controller.GradeChoiceController.html">GradeChoiceController</a></li>
+				<li><a href="class-Administrator.Controller.GradeSubjectRoundController.html">GradeSubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.GradingtypeController.html">GradingtypeController</a></li>
 				<li><a href="class-Administrator.Controller.IndependentWorkController.html">IndependentWorkController</a></li>
 				<li><a href="class-Administrator.Controller.ModuleController.html">ModuleController</a></li>
@@ -133,7 +134,7 @@ Core\Controller\AbstractBaseController
 		
 
 				<b>Author:</b>
-				sander<br>
+				Eleri Apsolon <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a><br>
 			<b>Located at</b> ContactLessonController.php		<br>
 	</div>
 
@@ -156,51 +157,23 @@ Core\Controller\AbstractBaseController
 			<code>getList( )</code>
 
 			<div class="description short">
-				<p>GET</p>
+				<h2>GET admin/contactlesson</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>GET</p>
+				<h2>GET admin/contactlesson</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 
 
-
-					<h4>Returns</h4>
-					<div class="list">
-						Zend\View\Model\JsonModel
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="create" id="_create">
-
-			<td class="attributes"><code>
-				 public 
-				Zend\View\Model\JsonModel
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_create">#</a>
-			<code>create( <span>type <var>$data</var></span> )</code>
-
-			<div class="description short">
-				<p>POST</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>POST</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$data</var></dt>
-						<dd></dd>
-					</dl></div>
 
 					<h4>Returns</h4>
 					<div class="list">
@@ -224,19 +197,87 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code>get( <span>type <var>$id</var></span> )</code>
+			<code>get( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>GET</p>
+				<h2>GET admin/contactlesson/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>GET</p>
+				<h2>GET admin/contactlesson/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create" id="_create">
+
+			<td class="attributes"><code>
+				 public 
+				Zend\View\Model\JsonModel
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create">#</a>
+			<code>create( <span>array <var>$data</var></span> )</code>
+
+			<div class="description short">
+				<h2>POST admin/contactlesson</h2>
+
+<h3>Body</h3>
+
+<pre>lessonDate(datetime)*
+description(string)*
+durationAK(integer)*
+absence(intiger)
+subjectRound(integer)*
+rooms(intiger)
+studentGrade(intiger)
+teacher(intiger)*</pre>
+			</div>
+
+			<div class="description detailed hidden">
+				<h2>POST admin/contactlesson</h2>
+
+<h3>Body</h3>
+
+<pre>lessonDate(datetime)*
+description(string)*
+durationAK(integer)*
+absence(intiger)
+subjectRound(integer)*
+rooms(intiger)
+studentGrade(intiger)
+teacher(intiger)*</pre>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
 						<dd></dd>
 					</dl></div>
 
@@ -262,14 +303,44 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_update">#</a>
-			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
+			<code>update( <span>integer <var>$id</var></span>, <span> <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<p>PUT</p>
+				<h2>PUT admin/contactlesson/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>lessonDate(datetime)*
+description(string)*
+durationAK(integer)*
+absence(intiger)
+subjectRound(integer)*
+rooms(intiger)
+studentGrade(intiger)
+teacher(intiger)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>PUT</p>
+				<h2>PUT admin/contactlesson/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>lessonDate(datetime)*
+description(string)*
+durationAK(integer)*
+absence(intiger)
+subjectRound(integer)*
+rooms(intiger)
+studentGrade(intiger)
+teacher(intiger)*</pre>
 
 
 					<h4>Parameters</h4>
@@ -302,21 +373,27 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code>delete( <span>type <var>$id</var></span>, <span>type <var>$data</var>,…</span> )</code>
+			<code>delete( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>DELETE</p>
+				<h2>DELETE admin/contactlesson/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>DELETE</p>
+				<h2>DELETE admin/contactlesson/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 
 
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$id</var></dt>
-						<dd></dd>
-						<dt><var>$data</var>,…</dt>
 						<dd></dd>
 					</dl></div>
 
@@ -338,6 +415,41 @@ Core\Controller\AbstractBaseController
 
 
 
+
+
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="service" id="$service">
+			<td class="attributes"><code>
+				protected  
+				type
+			</code></td>
+
+			<td class="name">
+<var>$service</var>
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$service" class="anchor">#</a>
+					<code><span class="php-quote">'contactlesson_service'</span></code>
+				</div>
+			</td>
+		</tr>
+			</table>
+		</div>
 
 
 
