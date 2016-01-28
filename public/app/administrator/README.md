@@ -26,7 +26,7 @@ with content:
         };
     }(window));  
  
-## Run development environment##  
+## Run development environment ##  
 
 Be sure that BE is working locally or set remote BE
 
