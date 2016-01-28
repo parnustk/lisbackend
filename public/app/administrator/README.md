@@ -1,6 +1,6 @@
-# Admin front-end app #
+# Admin front-end app
 
-## Development prerequisites ##
+## Development prerequisites
 
 You should have following software installed in your computer:  
 
@@ -10,15 +10,14 @@ You should have following software installed in your computer:
     bower
     gulp  
 
-## Install ##
+## Install
 
 > npm install  
 > bower install  
 
-## Add js config ##
+## Add js config
  
-Create lis/dist/globals.config.local.js  
-with content:
+Create lis/dist/globals.config.local.js with content:  
 
     (function (window) {
         window.LisGlobals = {
@@ -26,7 +25,7 @@ with content:
         };
     }(window));  
  
-## Run development environment ##  
+## Run development environment
 
 Be sure that BE is working locally or set remote BE
 
