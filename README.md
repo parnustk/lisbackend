@@ -89,3 +89,10 @@ TODO
 ### github token
 
 https://github.com/composer/composer/issues/3542
+
+## Random
+
+	
+In production you should not update your dependencies, you should run 
+'''composer install''' 
+which will read from the lock file and not change anything.
