@@ -50,7 +50,7 @@ class Administrator extends EntityValidation
     protected $lastName;
 
     /**
-     * @ORM\Column(type="encryptedstring", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="encryptedstring", name="personal_code", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      */
