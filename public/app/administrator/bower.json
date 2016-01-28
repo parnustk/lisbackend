@@ -1,0 +1,38 @@
+{
+  "name": "administrator",
+  "description": "Administrator client",
+  "main": "index.js",
+  "authors": [
+    "Sander Mets <sandermets0@gmail.com>"
+  ],
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "keywords": [
+    "ediary",
+    "angular"
+  ],
+  "homepage": "https://github.com/parnustk/lisbackend",
+  "moduleType": [
+    "amd"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-sites": "~6.1.0",
+    "jquery": "~2.2.0",
+    "angular": "~1.4.9",
+    "angular-route": "~1.4.9",
+    "angular-cookies": "~1.4.9",
+    "angular-resource": "^1.4.9",
+    "angular-ui-grid": "^3.1.0",
+    "angular-touch": "^1.4.9",
+    "angular-sanitize": "^1.4.9",
+    "what-input": "^1.1.4",
+    "requirejs": "^2.1.22"
+  }
+}

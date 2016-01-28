@@ -1,0 +1,51 @@
+/* 
+ * Licence of Learning Info System (LIS)
+ * Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * You may use LIS for free, but you MAY NOT sell it without permission.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+ */
+
+/**
+ * 
+ * @param {Function} require
+ * @param {Object} document
+ * @returns {undefined}
+ */
+(function (require, document) {
+    'use strict';
+
+    require([
+        'jquery',
+        'foundation',
+        'what-input',
+        'foundation-util-mediaQuery'
+    ], function ($) {
+
+        $(document).ready(function () {//DOM loaded
+
+            $(document).foundation();//Start foundation
+
+            require([
+                'angular',
+                'angular-cookies',
+                'angular-resource',
+                'angular-route',
+                'angular-sanitize',
+                'angular-touch',
+                'angular-ui-grid'
+            ], function (angular) {
+
+                require(['app/adminModule'], function (adminModule) {
+
+                    angular.bootstrap(document, ['adminModule']);
+
+                });
+
+            });
+
+        });
+
+    });
+
+}(require, document));
+

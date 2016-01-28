@@ -9,5 +9,8 @@ nbproject
 .settings
 vendor
 composer.phar
-node_modules/
+node_modules
+npm-debug.log
+bower_components
 .*~
+globals.config.local.js

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+ * LIS development
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LIS</title>
+        <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
+        <link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css">
+        <script src="lis/dist/globals.config.local.js"></script>
+    </head>
+    <body>
+        <a href="#!/" class="button">Home</a><a href="#!/vocation" class="button">Vocation</a>
+        <div data-ng-view=""></div>
+        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
+    </body>
+</html>

@@ -6,11 +6,11 @@
     Marten Kähr - developer
     Juhan Kõks - developer, juhankoks@hotmail.com
     Kristen Sepp - developer, seppkristen@gmail.com
-    Arnold Tserepov - developer,tserepov@gmail.com
+    Arnold Tserepov - developer, tserepov@gmail.com
     Alar Aasa - developer
-    Sander Mets - developer, team lead sandermets0@gmail.com
+    Sander Mets - developer, software architect, team lead sandermets0@gmail.com
 
-## Purpose
+## What
 
 Purpose of the current project is to provide web based e-diary for http://www.saksatk.ee/en/. Deadline is 1st June of 2016. 
 Project will be taken into account as internship and final practical work to graduate school for all developers involved with the project.  
@@ -21,11 +21,6 @@ Team has been provided with documentation by 2015 gradutates. Docs can be found 
 
 https://drive.google.com/file/d/0B9YsOhSay3OcdGRmN0lGOXBtcXc/view relevant pages are 12-18.
 
-## Technical requirements
-
-Server side logic(back end) has to be covered by automated acceptance and functional tests.  
-Client side has to be covered at least with E2E tests for models.
-
 ## Technologies used
 
 List of used technologies:
@@ -33,13 +28,23 @@ List of used technologies:
     Zend2, 
     Doctrine2, 
     PHPUnit, 
-    Angular JS, 
+    AngularJS, 
     RequireJS, 
     NodeJS, 
     Gulp, 
-    Foundation
-    TODO choose between CasperJS and Karma, or both?
+    Foundation6 sites
+    Karma or Casper
 
+## Technical requirements
+
+Server side logic(back end) has to be covered by automated acceptance and functional tests.  
+Client side has to be covered at least with E2E tests for models.  
+
+## Material
+
+    "PHP Data Persistence with Doctrine 2 ORM Concepts, Techniques and Practical Solutions" by Michael Romer
+    http://framework.zend.com/manual/current/en/index.html  
+    
 ## Demo link
 TODO
 
@@ -69,12 +74,6 @@ TODO
 
     apigen generate -s "module/Administrator/src/Administrator/Controller/","module/Teacher/src/Teacher/Controller/","module/Student/src/Student/Controller/" -d public/apidocs --template-theme "bootstrap" --title "LIS eDiary API documentation" --no-source-code
 
-
-## Material
-
-    "PHP Data Persistence with Doctrine 2 ORM Concepts, Techniques and Practical Solutions" by Michael Romer
-    http://framework.zend.com/manual/current/en/index.html
-    
 ### Doctrine 2 Custom types:
 
     https://github.com/doctrine/DoctrineORMModule/blob/master/docs/EXTRAS_ORM.md
@@ -86,12 +85,11 @@ TODO
 
     http://www.wjgilmore.com/blog/2011/04/09/the-power-of-doctrine-2-s-custom-repositories-and-native-queries/
 
-### github token
+### Github token
 
 https://github.com/composer/composer/issues/3542
 
 ## Random
-
 	
 In production you should not update your dependencies, you should run  
   
