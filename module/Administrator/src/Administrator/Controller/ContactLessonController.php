@@ -1,95 +1,108 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @author    Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author sander
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ContactLessonController extends AbstractBaseController
 {
-
     /**
-     * GET
+     *
+     * @var type 
+     */
+    protected $service = 'contactlesson_service';
+
+   /**
+     * <h2>GET admin/contactlesson</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
      * 
      * @return JsonModel
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('contactlesson_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
-
+    
     /**
-     * POST
+     * <h2>GET admin/contactlesson/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $data
-     * @return JsonModel
-     */
-    public function create($data)
-    {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('contactlesson_service')
-                        ->Create($data)
-        );
-    }
-
-    /**
-     * GET
-     * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('contactlesson_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
-     * PUT
+     * <h2>POST admin/contactlesson</h2>
+     * <h3>Body</h3>
+     * <code> lessonDate(datetime)*
+     * description(string)*
+     * durationAK(integer)*
+     * absence(intiger)
+     * subjectRound(integer)*
+     * rooms(intiger)
+     * studentGrade(intiger)
+     * teacher(intiger)*</code>
      * 
-     * @param type $id
-     * @param type $data
+     * @param array $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+        return parent::create($data);
+    }
+
+    /**
+     * <h2>PUT admin/contactlesson/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code> lessonDate(datetime)*
+     * description(string)*
+     * durationAK(integer)*
+     * absence(intiger)
+     * subjectRound(integer)*
+     * rooms(intiger)
+     * studentGrade(intiger)
+     * teacher(intiger)*</code>
+     * @param int $id
      * @return JsonModel
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('contactlesson_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
-     * DELETE
+     * <h2>DELETE admin/contactlesson/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $id
-     * @param type $data
+     * @param int $id
      * @return JsonModel
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('contactlesson_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }

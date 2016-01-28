@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * LIS development
+ * Rest API Entity
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;

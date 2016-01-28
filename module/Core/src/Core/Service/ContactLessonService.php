@@ -1,137 +1,28 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
+
 namespace Core\Service;
 
 use Exception;
 
 /**
- * @author sander
+ * Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ContactLessonService extends AbstractBaseService
 {
 
     /**
-     * 
-     * @param stdClass $params
-     * @return array
-     */
-    public function GetList($params)
-    {
-//        try {
-//            $p = $this->getEntityManager()
-//                    ->getRepository('Core\Entity\ModuleType')
-//                    ->GetList($params);
-//
-//            $p->setItemCountPerPage($params->limit);
-//            $p->setCurrentPageNumber($params->page);
-//
-//            return [
-//                'success' => true,
-//                'currentPage' => $params->page,
-//                'itemCount' => $p->getTotalItemCount(),
-//                'countPages' => $p->count(),
-//                'params' => $params,
-//                'data' => (array) $p->getCurrentItems(),
-//            ];
-//        } catch (Exception $ex) {
-//
-//            return [
-//                'success' => false,
-//                'message' => $ex->getMessage()
-//            ];
-//        }
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function Get($id)
-    {
-//        try {
-//            return [
-//                'success' => true,
-//                'data' => $this
-//                        ->getEntityManager()
-//                        ->getRepository('Core\Entity\ModuleType')
-//                        ->Get($id, true)
-//            ];
-//        } catch (Exception $ex) {
-//            return [
-//                'success' => false,
-//                'message' => $ex->getMessage()
-//            ];
-//        }
-    }
-
-    /**
-     * 
-     * @param array $data
-     * @throws Exception
-     */
-    public function Create(array $data)
-    {
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\ContactLesson')
-                        ->Create($data, true)
-            ];
-        } catch (Exception $ex) {
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * Update an existing resource
      *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return mixed
+     * @var type 
      */
-    public function Update($id, $data)
-    {
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\ContactLesson')
-                        ->Update($id, $data, true)
-            ];
-        } catch (Exception $ex) {
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function Delete($id)
-    {
-//        try {
-//            return [
-//                'success' => true,
-//                'id' => $this
-//                        ->getEntityManager()
-//                        ->getRepository('Core\Entity\ModuleType')
-//                        ->Delete($id)
-//            ];
-//        } catch (Exception $ex) {
-//            return [
-//                'success' => false,
-//                'message' => $ex->getMessage()
-//            ];
-//        }
-    }
+    protected $baseEntity = 'Core\Entity\ContactLesson';
 
 }

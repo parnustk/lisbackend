@@ -1,162 +1,102 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @author    Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
+
 namespace Core\Entity\Repository;
 
 use Core\Entity\ContactLesson;
-use Doctrine\ORM\EntityRepository;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
-use Exception;
-use Zend\Json\Json;
-use Doctrine\ORM\Query;
 
 /**
- * @author sander
+ * @author    Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>@author sander
  */
-class ContactLessonRepository extends EntityRepository implements CRUD
+class ContactLessonRepository extends AbstractBaseRepository
 {
-
     /**
-     * 
-     * @param stdClass $params
-     * @return Paginator
+     *
+     * @var string
      */
-    public function GetList($params = null, $extra = null)
+    protected $baseAlias = 'contactlesson';
+
+    /**
+     *
+     * @var string 
+     */
+    protected $baseEntity = 'Core\Entity\ContactLesson';
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStart()
     {
-        if ($params) {
-            //use if neccessary
-        }
-
-        $dql = "SELECT partial cl.{id,bigint} 
-                    FROM Core\Entity\ContactLesson cl";
-
-        return new Paginator(
-                new DoctrinePaginator(
-                new ORMPaginator(
-                $this->getEntityManager()
-                        ->createQuery($dql)
-                        ->setHydrationMode(Query::HYDRATE_ARRAY)
-                )
-                )
-        );
-    }
-
-    public function Get($id, $returnPartial = false, $extra = null)
-    {
-//        if ($returnPartial) {
-//            $dql = "
-//                    SELECT 
-//                        partial mt.{id,name}
-//                    FROM Core\Entity\ModuleType mt
-//                    WHERE mt.id = " . $id . "
-//                ";
-//
-//            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-//
-//            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-//            return $r;
-//        }
-//        return $this->find($id);
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        lessonDate,
+                        description,
+                        durationAK
+                    },
+                    partial subjectRound.{
+                        id
+                        },
+                    partial teacher.{
+                        id
+                        },
+                    partial absence.{
+                        id
+                        },
+                    partial rooms.{
+                        id
+                        },
+                    partial studentGrade.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.absence absence
+                LEFT JOIN $this->baseAlias.rooms rooms
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
 
     /**
      * 
-     * @param type $data
-     * @param type $returnPartial
-     * @return ModuleType
-     * @throws Exception
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-
-        $entity = new ContactLesson($this->getEntityManager());
-
-        $entity->hydrate($data);
-
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
-        }
-
-        //manytomany validate manually
-        if (!count($entity->getTeacher())) {
-            throw new Exception(Json::encode('Missing teachers', true));
-        }
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
-
-        if ($returnPartial) {
-
-            $dql = "
-                    SELECT 
-                        partial cl.{id,description}
-                    FROM Core\Entity\ContactLesson cl
-                    WHERE cl.id = " . $entity->getId() . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $entity;
+        $entity = $this->validateEntity(
+                new ContactLesson($this->getEntityManager()), $data
+        );
+        //IF required MANY TO MANY validate manually
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
-
+    
     /**
      * 
-     * @param type $id
-     * @param type $data
-     * @return Sample
-     * @throws Exception
+     * @param int|string $id
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        $entity = $this->find($id);
-        $entity->setEntityManager($this->getEntityManager());
-        $entity->hydrate($data);
-
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
-        }
-        //manytomany validate manually
-        if (!count($entity->getTeacher())) {
-            throw new Exception(Json::encode('Missing teachers for contact lesson', true));
-        }
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
-
-        if ($returnPartial) {
-            $dql = "
-                    SELECT
-                        partial cl.{
-                            id,
-                            lessonDate,
-                            description,
-                            durationAK
-                        },
-                        partial sr.{
-                            id
-                        },
-                        partial t. {
-                            id
-                        }
-                    FROM Core\Entity\ContactLesson cl
-                    JOIN cl.subjectRound sr
-                    JOIN cl.teacher t
-                    WHERE cl.id = " . $entity->getId() . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $entity;
-    }
-
-    public function Delete($id, $extra = null)
-    {
-//        $this->getEntityManager()->remove($this->find($id));
-//        $this->getEntityManager()->flush();
-//        return $id;
+        $entity = $this->validateEntity(
+                $this->find($id), $data
+        );
+        //IF required MANY TO MANY validate manually
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
 }

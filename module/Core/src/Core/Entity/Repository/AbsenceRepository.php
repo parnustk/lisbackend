@@ -5,7 +5,8 @@
  * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 Lis Team
- * @license   TODO
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @author    Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 namespace Core\Entity\Repository;
