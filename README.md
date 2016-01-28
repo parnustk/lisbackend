@@ -95,4 +95,4 @@ In production you should not update your dependencies, you should run
   
 >$ composer install   
   
-which will read from the lock file and not change anything.
+which will read from the lock file and not change anything. From StackOverlfow
