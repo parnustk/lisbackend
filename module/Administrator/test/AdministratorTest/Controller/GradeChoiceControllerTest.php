@@ -34,68 +34,66 @@ class GradeChoiceControllerTest extends UnitHelpers {
         $this->controller = new GradeChoiceController();
         parent::setUp();
     }
-//
-//    /**
-//     * imitate POST request
-//     * create new with correct data see entity
-//     */
-//    public function testCreate() {
-//        $name = 'name' . uniqid();
-//        $this->request->setMethod('post');
-//        //$gradeChoice = $this->CreateGradeChoice();
-//        $this->request->getPost()->set('name', $name);
-//        //$this->request->getPost()->set('gradeChoice', $gradeChoice->getId());
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->PrintOut($result, true);
-//    }
-//
-//    public function testCreateWithCreatedByAndUpdatedBy() {
-//        $this->request->setMethod('post');
-//        $name = uniqid() . 'name';
-//        $this->request->getPost()->set('name', $name);
-//
-//        $lisUserCreates = $this->CreateLisUser();
-//        $lisUserCreatesId = $lisUserCreates->getId();
-//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-//
-//        $lisUserUpdates = $this->CreateLisUser();
-//        $lisUserUpdatesId = $lisUserUpdates->getId();
-//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        $this->PrintOut($result, false);
-//
-//        $repository = $this->em->getRepository('Core\Entity\GradeChoice');
-//        $newGradeChoice = $repository->find($result->data['id']);
-//        $this->assertEquals($lisUserCreatesId, $newGradeChoice->getCreatedBy()->getId());
-//        $this->assertEquals($lisUserUpdatesId, $newGradeChoice->getUpdatedBy()->getId());
-//    }
-//
-//    public function testCreateNoData() {
-//        $this->request->setMethod('post');
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertNotEquals(1, $result->success);
-//        $this->PrintOut($result, FALSE);
-//    }
+
+    /**
+     * imitate POST request
+     * create new with correct data see entity
+     */
+    public function testCreate() {
+        $name = 'name' . uniqid();
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('name', $name);
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, true);
+    }
+
+    public function testCreateWithCreatedByAndUpdatedBy() {
+        $this->request->setMethod('post');
+        $name = uniqid() . 'name';
+        $this->request->getPost()->set('name', $name);
+
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, false);
+
+        $repository = $this->em->getRepository('Core\Entity\GradeChoice');
+        $newGradeChoice = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newGradeChoice->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newGradeChoice->getUpdatedBy()->getId());
+    }
+
+    public function testCreateNoData() {
+        $this->request->setMethod('post');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->PrintOut($result, FALSE);
+    }
 
     /**
      * create one before asking list
      */
     public function testGetList() {
         //die("What is wrong?");
-       //$this->CreateGradeChoice();
+        $this->CreateGradeChoice();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -126,8 +124,8 @@ class GradeChoiceControllerTest extends UnitHelpers {
         $nameOld = $gradeChoice->getName();
         //prepare request
         $this->routeMatch->setParam('id', $id);
-        $this->request->setMethod('put');
         //set new data
+        $this->request->setMethod('put');
         //$nameU = uniqid() . 'new name';
         //set new data
         $this->request->setContent(http_build_query([
@@ -150,38 +148,47 @@ class GradeChoiceControllerTest extends UnitHelpers {
     }
 
     public function testDelete() {
-        $gradeChoice = $this->CreateGradeChoice();
-        $idOld = $gradeChoice->getId();
-        $this->routeMatch->setParam('id', $gradeChoice->getId());
+       $entity = $this->CreateGradeChoice();
+        $idOld = $entity->getId();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);
+
+        $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\GradeChoice')
+                ->Get($idOld);
+
+        $this->assertEquals(null, $deleted);
+
+        $this->PrintOut($result, false); 
+    }
+
+    public function testCreatedWithCreatedAtAndUpdatedAt() {
+        $this->request->setMethod('post');
+
+        $name = uniqid() . 'name';
+        $this->request->getPost()->set('name', $name);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->em->clear();
-        //test if it is not in the database anymore
-        $deleted = $this->em
-                ->getRepository('Core\Entity\GradeChoice')
-                ->Get($idOld);
-        $this->assertEquals(null, $deleted);
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, false);
+
+        $repository = $this->em->getRepository('Core\Entity\GradeChoice');
+        $newGradeChoice = $repository->find($result->data['id']);
+        $this->assertNotNull($newGradeChoice->getCreatedAt());
+        $this->assertNotNull($newGradeChoice->getUpdatedAt());
     }
 
-//    public function testCreatedWithCreatedAtAndUpdatedAt() {
-//        $this->request->setMethod('post');
-//
-//        $name = uniqid() . 'name';
-//        $this->request->getPost()->set('name', $name);
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        $this->PrintOut($result, false);
-//
-//        $repository = $this->em->getRepository('Core\Entity\GradeChoice');
-//        $newGradeChoice = $repository->find($result->data['id']);
-//        $this->assertNotNull($newGradeChoice->getCreatedAt());
-//        $this->assertNotNull($newGradeChoice->getUpdatedAt());
-//    }
-//
 }
