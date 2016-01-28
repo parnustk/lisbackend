@@ -46,146 +46,146 @@ class StudentControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(1,$result->success);
     }
-    public function testCreateNoFirstName()
-    {
-//        $firstName = 'studentFirstName' . uniqid();
-        $lastName = 'studentLastName' . uniqid();
-        $code = 'studentCode' . uniqid();
-        $email = 'studentEmail' . uniqid();
-//        $lisUser = 'studentLisUser' . uniqid();
-//        $absence = 'studentAbsence' . uniqid();
-//        $studentGrade = 'studentStudentGrade' . uniqid();
-        $studentGroup = $this->CreateStudentGroup();
-//        
-        $this->request->setMethod('post');
-        
-        
-//        $this->request->getPost()->set('firstName', $firstName);
-        $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
-        $this->request->getPost()->set('email', $email);
-        
-        $this->request->getPost()->set('studentGroup', $studentGroup);
-        
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
-    }
-    public function testCreateNoLastName()
-    {
-        $firstName = 'studentFirstName' . uniqid();
+//    public function testCreateNoFirstName()
+//    {
+////        $firstName = 'studentFirstName' . uniqid();
 //        $lastName = 'studentLastName' . uniqid();
-        $code = 'studentCode' . uniqid();
-        $email = 'studentEmail' . uniqid();
-//        $lisUser = 'studentLisUser' . uniqid();
-//        $absence = 'studentAbsence' . uniqid();
-//        $studentGrade = 'studentStudentGrade' . uniqid();
-        $studentGroup = $this->CreateStudentGroup();
-//        
-        $this->request->setMethod('post');
-        
-        
-        $this->request->getPost()->set('firstName', $firstName);
-//        $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
-        $this->request->getPost()->set('email', $email);
-        
-        $this->request->getPost()->set('studentGroup', $studentGroup);
-        
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
-    }
-    public function testCreateNoCode()
-    {
-        $firstName = 'studentFirstName' . uniqid();
-        $lastName = 'studentLastName' . uniqid();
 //        $code = 'studentCode' . uniqid();
-        $email = 'studentEmail' . uniqid();
-//        $lisUser = 'studentLisUser' . uniqid();
-//        $absence = 'studentAbsence' . uniqid();
-//        $studentGrade = 'studentStudentGrade' . uniqid();
-        $studentGroup = $this->CreateStudentGroup();
-//        
-        $this->request->setMethod('post');
-        
-        
-        $this->request->getPost()->set('firstName', $firstName);
-        $this->request->getPost()->set('lastName', $lastName);
-//        $this->request->getPost()->set('code', $code);
-        $this->request->getPost()->set('email', $email);
-        
-        $this->request->getPost()->set('studentGroup', $studentGroup);
-        
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
-    }
-    public function testCreateNoEmail()
-    {
-        $firstName = 'studentFirstName' . uniqid();
-        $lastName = 'studentLastName' . uniqid();
-        $code = 'studentCode' . uniqid();
 //        $email = 'studentEmail' . uniqid();
-//        $lisUser = 'studentLisUser' . uniqid();
-//        $absence = 'studentAbsence' . uniqid();
-//        $studentGrade = 'studentStudentGrade' . uniqid();
-        $studentGroup = $this->CreateStudentGroup();
-//        
-        $this->request->setMethod('post');
-        
-        
-        $this->request->getPost()->set('firstName', $firstName);
-        $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
-//        $this->request->getPost()->set('email', $email);
-        
-        $this->request->getPost()->set('studentGroup', $studentGroup);
-        
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
-    }
-    public function testCreateNoStudentGroup()
-    {
-        $firstName = 'studentFirstName' . uniqid();
-        $lastName = 'studentLastName' . uniqid();
-        $code = 'studentCode' . uniqid();
-        $email = 'studentEmail' . uniqid();
-//        $lisUser = 'studentLisUser' . uniqid();
-//        $absence = 'studentAbsence' . uniqid();
-//        $studentGrade = 'studentStudentGrade' . uniqid();
+////        $lisUser = 'studentLisUser' . uniqid();
+////        $absence = 'studentAbsence' . uniqid();
+////        $studentGrade = 'studentStudentGrade' . uniqid();
 //        $studentGroup = $this->CreateStudentGroup();
+////        
+//        $this->request->setMethod('post');
 //        
-        $this->request->setMethod('post');
-        
-        
-        $this->request->getPost()->set('firstName', $firstName);
-        $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
-        $this->request->getPost()->set('email', $email);
-        
+//        
+////        $this->request->getPost()->set('firstName', $firstName);
+//        $this->request->getPost()->set('lastName', $lastName);
+//        $this->request->getPost()->set('code', $code);
+//        $this->request->getPost()->set('email', $email);
+//        
 //        $this->request->getPost()->set('studentGroup', $studentGroup);
-        
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
-    }
+//        
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->PrintOut($result, false);
+//        $this->assertNotEquals(1,$result->success);
+//    }
+//    public function testCreateNoLastName()
+//    {
+//        $firstName = 'studentFirstName' . uniqid();
+////        $lastName = 'studentLastName' . uniqid();
+//        $code = 'studentCode' . uniqid();
+//        $email = 'studentEmail' . uniqid();
+////        $lisUser = 'studentLisUser' . uniqid();
+////        $absence = 'studentAbsence' . uniqid();
+////        $studentGrade = 'studentStudentGrade' . uniqid();
+//        $studentGroup = $this->CreateStudentGroup();
+////        
+//        $this->request->setMethod('post');
+//        
+//        
+//        $this->request->getPost()->set('firstName', $firstName);
+////        $this->request->getPost()->set('lastName', $lastName);
+//        $this->request->getPost()->set('code', $code);
+//        $this->request->getPost()->set('email', $email);
+//        
+//        $this->request->getPost()->set('studentGroup', $studentGroup);
+//        
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->PrintOut($result, false);
+//        $this->assertNotEquals(1,$result->success);
+//    }
+//    public function testCreateNoCode()
+//    {
+//        $firstName = 'studentFirstName' . uniqid();
+//        $lastName = 'studentLastName' . uniqid();
+////        $code = 'studentCode' . uniqid();
+//        $email = 'studentEmail' . uniqid();
+////        $lisUser = 'studentLisUser' . uniqid();
+////        $absence = 'studentAbsence' . uniqid();
+////        $studentGrade = 'studentStudentGrade' . uniqid();
+//        $studentGroup = $this->CreateStudentGroup();
+////        
+//        $this->request->setMethod('post');
+//        
+//        
+//        $this->request->getPost()->set('firstName', $firstName);
+//        $this->request->getPost()->set('lastName', $lastName);
+////        $this->request->getPost()->set('code', $code);
+//        $this->request->getPost()->set('email', $email);
+//        
+//        $this->request->getPost()->set('studentGroup', $studentGroup);
+//        
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->PrintOut($result, false);
+//        $this->assertNotEquals(1,$result->success);
+//    }
+//    public function testCreateNoEmail()
+//    {
+//        $firstName = 'studentFirstName' . uniqid();
+//        $lastName = 'studentLastName' . uniqid();
+//        $code = 'studentCode' . uniqid();
+////        $email = 'studentEmail' . uniqid();
+////        $lisUser = 'studentLisUser' . uniqid();
+////        $absence = 'studentAbsence' . uniqid();
+////        $studentGrade = 'studentStudentGrade' . uniqid();
+//        $studentGroup = $this->CreateStudentGroup();
+////        
+//        $this->request->setMethod('post');
+//        
+//        
+//        $this->request->getPost()->set('firstName', $firstName);
+//        $this->request->getPost()->set('lastName', $lastName);
+//        $this->request->getPost()->set('code', $code);
+////        $this->request->getPost()->set('email', $email);
+//        
+//        $this->request->getPost()->set('studentGroup', $studentGroup);
+//        
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->PrintOut($result, false);
+//        $this->assertNotEquals(1,$result->success);
+//    }
+//    public function testCreateNoStudentGroup()
+//    {
+//        $firstName = 'studentFirstName' . uniqid();
+//        $lastName = 'studentLastName' . uniqid();
+//        $code = 'studentCode' . uniqid();
+//        $email = 'studentEmail' . uniqid();
+////        $lisUser = 'studentLisUser' . uniqid();
+////        $absence = 'studentAbsence' . uniqid();
+////        $studentGrade = 'studentStudentGrade' . uniqid();
+////        $studentGroup = $this->CreateStudentGroup();
+////        
+//        $this->request->setMethod('post');
+//        
+//        
+//        $this->request->getPost()->set('firstName', $firstName);
+//        $this->request->getPost()->set('lastName', $lastName);
+//        $this->request->getPost()->set('code', $code);
+//        $this->request->getPost()->set('email', $email);
+//        
+////        $this->request->getPost()->set('studentGroup', $studentGroup);
+//        
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->PrintOut($result, false);
+//        $this->assertNotEquals(1,$result->success);
+//    }
     /**
      * TEST row gets read by id
      */
@@ -202,17 +202,17 @@ class StudentControllerTest extends UnitHelpers
     /**
      * TEST rows get read
      */
-    public function testGetList()
-    {
-        $this->CreateStudent();
-        $this->request->setMethod('get');
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
-    }
+//    public function testGetList()
+//    {
+//        $this->CreateStudent();
+//        $this->request->setMethod('get');
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->assertGreaterThan(0, count($result->data));
+//        $this->PrintOut($result, false);
+//    }
 
     /**
      * TEST row gets updated by id
@@ -298,27 +298,27 @@ class StudentControllerTest extends UnitHelpers
     /**
      * TEST rows get read by limit and page params
      */
-    public function testGetListWithPaginaton()
-    {
-        $this->request->setMethod('get');
-
-        //create 2 entities
-        $this->CreateStudent();
-        $this->CreateStudent();
-
-        //set record limit to 1
-        $q = 'page=1&limit=1'; //imitate real param format
-        $params = [];
-        parse_str($q, $params);
-        foreach ($params as $key => $value) {
-            $this->request->getQuery()->set($key, $value);
-        }
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
-    }
+//    public function testGetListWithPaginaton()
+//    {
+//        $this->request->setMethod('get');
+//
+//        //create 2 entities
+//        $this->CreateStudent();
+//        $this->CreateStudent();
+//
+//        //set record limit to 1
+//        $q = 'page=1&limit=1'; //imitate real param format
+//        $params = [];
+//        parse_str($q, $params);
+//        foreach ($params as $key => $value) {
+//            $this->request->getQuery()->set($key, $value);
+//        }
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->assertLessThanOrEqual(1, count($result->data));
+//        $this->PrintOut($result, false);
+//    }
 }
