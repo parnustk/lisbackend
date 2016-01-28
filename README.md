@@ -85,3 +85,7 @@ TODO
 ### Doctrine2 Native SQL
 
     http://www.wjgilmore.com/blog/2011/04/09/the-power-of-doctrine-2-s-custom-repositories-and-native-queries/
+
+### github token
+
+https://github.com/composer/composer/issues/3542

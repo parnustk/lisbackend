@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ef6d3a92e3c6ab99d30615537c02090a",
+    "hash": "46c533fd01a8f5308f250fef57d30058",
     "content-hash": "724e5c3f3ced6cf79772a15d806ca682",
     "packages": [
         {
@@ -1672,16 +1672,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25"
+                "reference": "1289d16209491b584839022f29257ad859b8532d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
-                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
+                "reference": "1289d16209491b584839022f29257ad859b8532d",
                 "shasum": ""
             },
             "require": {
@@ -1693,7 +1693,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -1727,7 +1727,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2015-11-20 09:19:13"
+            "time": "2016-01-20 09:13:37"
         },
         {
             "name": "symfony/yaml",
@@ -4451,20 +4451,20 @@
         },
         {
             "name": "zendframework/zend-view",
-            "version": "2.5.2",
+            "version": "2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-view.git",
-                "reference": "b3d31e7ba6d0c13a76afe5c8d914a8ff08616b0d"
+                "reference": "f1b682652045b126e0eb0852a1c9fb76b21dfcdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-view/zipball/b3d31e7ba6d0c13a76afe5c8d914a8ff08616b0d",
-                "reference": "b3d31e7ba6d0c13a76afe5c8d914a8ff08616b0d",
+                "url": "https://api.github.com/repos/zendframework/zend-view/zipball/f1b682652045b126e0eb0852a1c9fb76b21dfcdd",
+                "reference": "f1b682652045b126e0eb0852a1c9fb76b21dfcdd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
+                "php": "^5.5 || ^7.0",
                 "zendframework/zend-eventmanager": "~2.5",
                 "zendframework/zend-loader": "~2.5",
                 "zendframework/zend-stdlib": "~2.5"
@@ -4530,7 +4530,7 @@
                 "view",
                 "zf2"
             ],
-            "time": "2015-06-16 15:32:26"
+            "time": "2016-01-19 20:49:13"
         },
         {
             "name": "zendframework/zend-xmlrpc",
