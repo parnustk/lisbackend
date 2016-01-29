@@ -11,8 +11,6 @@
 
 namespace Core\Service;
 
-use Exception;
-
 /**
  * Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */

@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     connect = require('gulp-connect'),
     jshint = require('gulp-jshint'),
     notify = require('gulp-notify'),
-    PORT = 11111;
+    PORT = 8888;
 
 // Sophisticated server/browser. Start a server with LiveReload to preview the site in
 gulp.task('server', ['jshint'], function () {

@@ -97,7 +97,7 @@ class ContactLessonTest extends UnitHelpers
 
         $description = ' Updated Description for contactlesson';
         $durationAK = 44;
-        $subjectRound = $this->CreateSubjectRound();
+        $subjectRound = $this->CreateSubjectRound()->getId();
         $teachers = [];
         foreach ($subjectRound->getTeacher() as $teacher) {
             $teachers[] = [
@@ -110,7 +110,7 @@ class ContactLessonTest extends UnitHelpers
             "lessonDate" => $lessonDate,
             "description" => $description,
             "durationAK" => $durationAK,
-            "subjectRound" => $subjectRound->getId(),
+            "subjectRound" => $subjectRound,
             "teacher" => $teachers
         ]));
 
@@ -121,13 +121,11 @@ class ContactLessonTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
-        
-
         //start checking for changed data
         $this->assertNotEquals($lessonDateO, $result->data['lessonDate']);
         $this->assertNotEquals($descriptionO, $result->data['description']);
         $this->assertNotEquals($durationAKO, $result->data['durationAK']);
-        $this->assertNotEquals($subjectRoundIdO, $result->data['subjectRound']['id']);
+        $this->assertNotEquals($subjectRoundIdO, $result->data['subjectRound']);
 
         //no double check figured out, pure linear looping
         foreach ($teachersO as $teacherO) {

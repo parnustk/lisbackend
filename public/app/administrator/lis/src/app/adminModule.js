@@ -14,27 +14,44 @@
 (function (define) {
     'use strict';
 
+    /**
+     * 
+     * @param {type} angular
+     * @param {type} config
+     * @param {type} vocationModel
+     * @param {type} gradingTypeModel
+     * @param {type} teacherModel
+     * @param {type} absencereasonModel
+     * @param {type} vocationContoller
+     * @param {type} gradingTypeController
+     * @param {type} teacherContoller
+     * @param {type} absencereasonContoller
+     * @returns {unresolved}
+     */
     define([
         'angular',
         'app/config',
         'app/model/vocationModel',
         'app/model/gradingTypeModel',
         'app/model/teacherModel',
+        'app/model/absencereasonModel',
         'app/controller/vocationContoller',
         'app/controller/gradingTypeController',
-        'app/controller/teacherContoller'
+        'app/controller/teacherContoller',
+        'app/controller/absencereasonContoller'
 
     ], function (
-        angular,
-        config,
-        vocationModel,
-        gradingTypeModel,
-        teacherModel,
-        
-        vocationContoller,
-        gradingTypeController,
-        teacherContoller
-        ) {
+            angular,
+            config,
+            vocationModel,
+            gradingTypeModel,
+            teacherModel,
+            absencereasonModel,
+            vocationContoller,
+            gradingTypeController,
+            teacherContoller,
+            absencereasonContoller
+            ) {
 
         var adminModule = angular.module('adminModule', [
             'ngRoute',
@@ -57,10 +74,12 @@
         adminModule.factory('vocationModel', vocationModel);
         adminModule.factory('teacherModel', teacherModel);
         adminModule.factory('gradingTypeModel', gradingTypeModel);
-
+        adminModule.factory('absencereasonModel', absencereasonModel);
+        
         adminModule.controller('vocationController', vocationContoller);
         adminModule.controller('teacherController', teacherContoller);
         adminModule.controller('gradingTypeController', gradingTypeController);
+        adminModule.controller('absencereasonController', absencereasonContoller);
 
         return adminModule;
     });

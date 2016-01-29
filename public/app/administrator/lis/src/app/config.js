@@ -1,13 +1,20 @@
+/* global define */
 
+/**
+ * 
+ * @param {Function} define
+ * @returns {undefined}
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
 (function (define) {
     'use strict';
-    
+
     /**
      * 
      * @returns {config_L12.config_L18.config}
      */
     define([], function () {
-        
+
         /**
          * 
          * @param {Object} $routeProvider
@@ -17,23 +24,29 @@
         function config($routeProvider, $locationProvider) {
 
             $routeProvider
-                .when('/vocation', {
-                    templateUrl: 'lis/dist/templates/vocation.html', 
-                    controller: 'vocationController'
-                })
-                .when('/teacher', {
-                    templateUrl: 'lis/dist/templates/teacher.html', 
-                    controller: 'teacherController'
-                })
-                .when('/gradingtype',{
-                    templateUrl: 'lis/dist/templates/gradingType.html',
-                    controller: 'gradingTypeController'
-                })
-                .otherwise({redirectTo: '/'});
+
+                    .when('/vocation', {
+                        templateUrl: 'lis/dist/templates/vocation.html',
+                        controller: 'vocationController'
+                    })
+                    .when('/teacher', {
+                        templateUrl: 'lis/dist/templates/teacher.html',
+                        controller: 'teacherController'
+                    })
+                    .when('/gradingtype', {
+                        templateUrl: 'lis/dist/templates/gradingType.html',
+                        controller: 'gradingTypeController'
+                    })
+                    .when('/absencereason', {
+                        templateUrl: 'lis/dist/templates/absencereason.html',
+                        controller: 'absencereasonController'})
+
+                    .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
                 enabled: false,
                 requireBase: false
+
             });
 
             $locationProvider.hashPrefix('!');
