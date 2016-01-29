@@ -28,8 +28,11 @@ class IndependentWorkController extends AbstractBaseController
     /**
      * <h2>POST admin/independentwork</h2>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * vocation(integer)</code>
+     * <code>duedate(datetime)*
+     * description(string)*
+     * durationAK(integer)*
+     * subjectRound(integer)*
+     * teacher(integer)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -70,8 +73,11 @@ class IndependentWorkController extends AbstractBaseController
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * vocation(integer)*</code>
+     * <code>duedate(datetime)*
+     * description(string)*
+     * durationAK(integer)*
+     * subjectRound(integer)*
+     * teacher(integer)*</code>
      * 
      * @param type $id
      * @param type $data
