@@ -24,7 +24,7 @@ use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
- * @ORM\Table(indexes={@ORM\Index(name="contactlessondate", columns={"lessonDate"})})
+ * @ORM\Table(indexes={@ORM\Index(name="contactlessonlessondate", columns={"lessonDate"})})
  * @ORM\HasLifecycleCallbacks
  */
 class ContactLesson extends EntityValidation
@@ -140,6 +140,16 @@ class ContactLesson extends EntityValidation
         parent::__construct($em);
     }
 
+    public function addSubjectRound(Collection $v)
+    {
+        $this->subjectRound = $v;
+    }
+
+    public function removeSubjectRound(Collection $v)
+    {
+        $this->subjectRound = $v;
+    }
+    
     /**
      * @param Collection $teachers
      */
