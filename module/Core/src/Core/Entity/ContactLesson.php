@@ -2,12 +2,10 @@
 
 /**
  * LIS development
- * Rest API Entity
  *
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 LIS dev team
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 namespace Core\Entity;
@@ -19,6 +17,10 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DateTime;
+
+/**
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
