@@ -1,7 +1,7 @@
-/* 
- * LIS development
+/** 
+ * Licence of Learning Info System (LIS)
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 LIS dev team
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
@@ -9,6 +9,7 @@
  * 
  * @param {Function} define
  * @returns {undefined}
+ * @author Sander Mets
  */
 (function (define) {
     'use strict';
@@ -28,7 +29,14 @@
         function config($routeProvider, $locationProvider) {
 
             $routeProvider
-                .when('/vocation', {templateUrl: 'lis/dist/templates/vocation.html', controller: 'vocationController'})
+                .when('/vocation', {
+                    templateUrl: 'lis/dist/templates/vocation.html', 
+                    controller: 'vocationController'
+                })
+                .when('/teacher', {
+                    templateUrl: 'lis/dist/templates/teacher.html', 
+                    controller: 'teacherController'
+                })
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

@@ -18,6 +18,7 @@ use Core\Entity\ContactLesson;
  */
 class ContactLessonRepository extends AbstractBaseRepository
 {
+
     /**
      *
      * @var string
@@ -29,7 +30,7 @@ class ContactLessonRepository extends AbstractBaseRepository
      * @var string 
      */
     protected $baseEntity = 'Core\Entity\ContactLesson';
-    
+
     /**
      * 
      * @return string
@@ -81,7 +82,7 @@ class ContactLessonRepository extends AbstractBaseRepository
         //IF required MANY TO MANY validate manually
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param int|string $id
@@ -92,6 +93,16 @@ class ContactLessonRepository extends AbstractBaseRepository
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
+//        print_r($data);
+//        $entity = $this->find($id);
+//        try {
+//            if (!$entity->hydrate($data)) {
+//                throw new Exception(Json::encode($entity->getMessages(), true));
+//            }
+//        } catch (\Exception $ex) {
+//            print_r($ex->getMessage());
+//        }
+//die('HERE 1231231321321');
         $entity = $this->validateEntity(
                 $this->find($id), $data
         );

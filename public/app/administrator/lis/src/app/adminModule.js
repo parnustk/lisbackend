@@ -19,19 +19,25 @@
      * @param {type} angular
      * @param {type} config
      * @param {type} vocationModel
+     * @param {type} teacherModel
      * @param {type} vocationContoller
+     * @param {type} teacherContoller
      * @returns {angular.module.angular-1_3_6_L1749.moduleInstance}
      */
     define([
         'angular',
         'app/config',
         'app/model/vocationModel',
-        'app/controller/vocationContoller'
+        'app/model/teacherModel',
+        'app/controller/vocationContoller',
+        'app/controller/teacherContoller'
     ], function (
         angular,
         config,
         vocationModel,
-        vocationContoller
+        teacherModel,
+        vocationContoller,
+        teacherContoller
         ) {
 
         var adminModule = angular.module('adminModule', [
@@ -51,8 +57,13 @@
         ]);
 
         adminModule.config(config);
+
         adminModule.factory('vocationModel', vocationModel);
+        adminModule.factory('teacherModel', teacherModel);
+
+
         adminModule.controller('vocationController', vocationContoller);
+        adminModule.controller('teacherController', teacherContoller);
 
         return adminModule;
     });
