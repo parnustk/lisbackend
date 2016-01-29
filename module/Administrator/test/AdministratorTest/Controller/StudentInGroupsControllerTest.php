@@ -14,7 +14,7 @@ namespace AdministratorTest\Controller;
 use Administrator\Controller\StudentInGroupsController;
 use Zend\Json\Json;
 
-class IndependentWorkControllerTest extends UnitHelpers
+class StudentInGroupsControllerTest extends UnitHelpers
 {
 
     /**
