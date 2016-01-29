@@ -29,28 +29,24 @@ class StudentInGroupsControllerTest extends UnitHelpers
     /**
      * Imitate POST request
      */
-//    public function testCreate()
-//    {
-//        $durationAK = 5;
-//        $description = uniqid() . ' Unique description';
-//        $duedate = new \DateTime;
-//        $teacher = $this->CreateTeacher();
-//        $subjectRound = $this->CreateSubjectRound();
-//
-//        $this->request->setMethod('post');
-//
-//        $this->request->getPost()->set('subjectRound', $subjectRound->getId());
-//        $this->request->getPost()->set('teacher', $teacher->getId());
-//        $this->request->getPost()->set('duedate', $duedate);
-//        $this->request->getPost()->set('description', $description);
-//        $this->request->getPost()->set('durationAK', $durationAK);
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->PrintOut($result, true);
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//    }
+    public function testCreate()
+    {
+        $status = uniqid(). ' Status from testCreate';
+        $student = $this->CreateStudent();
+        $studentGroup = $this->CreateStudentGroup();
+
+        $this->request->setMethod('post');
+
+        $this->request->getPost()->set('student', $student->getId());
+        $this->request->getPost()->set('studentGroup', $studentGroup->getId());
+        $this->request->getPost()->set('status', $status);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, true);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+    }
 }

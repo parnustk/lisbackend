@@ -432,5 +432,27 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase {
                     //'subjectRound' => $subjectRound->getId(),                  
         ]);
     }
+    
+    /**
+     * StudentInGroups
+     * 
+     * @param type $data
+     * @return type
+     */
+    protected function StudentInGroups($data = null) {
+        $repository = $this->em->getRepository('Core\Entity\StudentInGroups');
+        if ($data) {
+            return $repository->Create($data);
+        }
+
+        $student = $this->CreateStudent();
+        $studentGroup = $this->CreateStudentGroup();
+
+        return $repository->Create([
+                    'status' => uniqid(). ' Status for StudentInGroups',
+                    'studentGroup' => $studentGroup->getId(),
+                    'student' => $student->getId(),
+        ]);
+    }
 
 }

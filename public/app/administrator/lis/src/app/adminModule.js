@@ -14,29 +14,25 @@
 (function (define) {
     'use strict';
 
-    /**
-     * 
-     * @param {type} angular
-     * @param {type} config
-     * @param {type} vocationModel
-     * @param {type} teacherModel
-     * @param {type} vocationContoller
-     * @param {type} teacherContoller
-     * @returns {angular.module.angular-1_3_6_L1749.moduleInstance}
-     */
     define([
         'angular',
         'app/config',
         'app/model/vocationModel',
+        'app/model/gradingTypeModel',
         'app/model/teacherModel',
         'app/controller/vocationContoller',
+        'app/controller/gradingTypeController',
         'app/controller/teacherContoller'
+
     ], function (
         angular,
         config,
         vocationModel,
+        gradingTypeModel,
         teacherModel,
+        
         vocationContoller,
+        gradingTypeController,
         teacherContoller
         ) {
 
@@ -60,10 +56,11 @@
 
         adminModule.factory('vocationModel', vocationModel);
         adminModule.factory('teacherModel', teacherModel);
-
+        adminModule.factory('gradingTypeModel', gradingTypeModel);
 
         adminModule.controller('vocationController', vocationContoller);
         adminModule.controller('teacherController', teacherContoller);
+        adminModule.controller('gradingTypeController', gradingTypeController);
 
         return adminModule;
     });
