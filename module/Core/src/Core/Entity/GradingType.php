@@ -32,8 +32,6 @@ class GradingType extends EntityValidation
      * @ORM\Column(type="string", nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"StringLength", "options":{"min":1, "max":255}})
-     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[a-zA-Z ]/"}})
      */
     protected $gradingType;
 
