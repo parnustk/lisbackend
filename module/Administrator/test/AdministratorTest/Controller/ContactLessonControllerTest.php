@@ -29,7 +29,7 @@ class ContactLessonTest extends UnitHelpers
         $this->controller = new ContactLessonController();
         parent::setUp();
     }
-    
+
     public function testCreateNoData()
     {
         $this->request->setMethod('post');
@@ -63,7 +63,7 @@ class ContactLessonTest extends UnitHelpers
         }
         $this->request->getPost()->set("teacher", $teachers);
         $result = $this->controller->dispatch($this->request);
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -73,139 +73,204 @@ class ContactLessonTest extends UnitHelpers
     public function testUpdate()
     {
         //create one to  update later on
-//        $contactLesson = $this->CreateContactLesson();
-//
-//        $lessonDateO = $contactLesson->getLessonDate()->format('Y-m-d H:i:s');
-//        $descriptionO = $contactLesson->getDescription();
-//        $durationAKO = $contactLesson->getDurationAK();
-//        $subjectRoundIdO = $contactLesson->getSubjectRound()->getId();
-//
-//        $teachersO = [];
-//        foreach ($contactLesson->getTeacher() as $teacherO) {
-//            $teachersO[] = [
-//                'id' => $teacherO->getId()
-//            ];
-//        }
-//
-//        $this->request->setMethod('put');
-//        $this->routeMatch->setParam('id', $contactLesson->getId());
-//
-//        //start new data creation
-//        $lessonDate = (new \DateTime)
-//                ->add(new \DateInterval('P10D'))
-//                ->format('Y-m-d H:i:s');
-//
-//        $description = ' Updated Description for contactlesson';
-//        $durationAK = 44;
-//        $subjectRound = $this->CreateSubjectRound();
-//        $teachers = [];
-//        foreach ($subjectRound->getTeacher() as $teacher) {
-//            $teachers[] = [
-//                'id' => $teacher->getId()
-//            ];
-//        }
-//
-//        //set new data
-//        $this->request->setContent(http_build_query([
-//            "lessonDate" => $lessonDate,
-//            "description" => $description,
-//            "durationAK" => $durationAK,
-//            "subjectRound" => $subjectRound->getId(),
-//            "teacher" => $teachers
-//        ]));
-//
-//        //fire request
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->PrintOut($result, false);
-//
-//        //start checking for changed data
-//        $this->assertNotEquals($lessonDateO, $result->data['lessonDate']);
-//        $this->assertNotEquals($descriptionO, $result->data['description']);
-//        $this->assertNotEquals($durationAKO, $result->data['durationAK']);
-//        $this->assertNotEquals($subjectRoundIdO, $result->data['subjectRound']['id']);
-//
-//        //no double check figured out, pure linear looping
-//        foreach ($teachersO as $teacherO) {
-//            foreach ($result->data['teacher'] as $teacherU) {
-//                $this->assertNotEquals($teacherO['id'], $teacherU['id']);
-//            }
-//        }
+        $contactLesson = $this->CreateContactLesson();
+
+        $lessonDateO = $contactLesson->getLessonDate()->format('Y-m-d H:i:s');
+        $descriptionO = $contactLesson->getDescription();
+        $durationAKO = $contactLesson->getDurationAK();
+        $subjectRoundIdO = $contactLesson->getSubjectRound()->getId();
+
+        $teachersO = [];
+        foreach ($contactLesson->getTeacher() as $teacherO) {
+            $teachersO[] = [
+                'id' => $teacherO->getId()
+            ];
+        }
+
+        $this->request->setMethod('put');
+        $this->routeMatch->setParam('id', $contactLesson->getId());
+
+        //start new data creation
+        $lessonDate = (new \DateTime)
+                ->add(new \DateInterval('P10D'))
+                ->format('Y-m-d H:i:s');
+
+        $description = ' Updated Description for contactlesson';
+        $durationAK = 44;
+        $subjectRound = $this->CreateSubjectRound();
+        $teachers = [];
+        foreach ($subjectRound->getTeacher() as $teacher) {
+            $teachers[] = [
+                'id' => $teacher->getId()
+            ];
+        }
+
+        //set new data
+        $this->request->setContent(http_build_query([
+            "lessonDate" => $lessonDate,
+            "description" => $description,
+            "durationAK" => $durationAK,
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $teachers
+        ]));
+
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, false);
+
+        //start checking for changed data
+        $this->assertNotEquals($lessonDateO, $result->data['lessonDate']);
+        $this->assertNotEquals($descriptionO, $result->data['description']);
+        $this->assertNotEquals($durationAKO, $result->data['durationAK']);
+        $this->assertNotEquals($subjectRoundIdO, $result->data['subjectRound']['id']);
+
+        //no double check figured out, pure linear looping
+        foreach ($teachersO as $teacherO) {
+            foreach ($result->data['teacher'] as $teacherU) {
+                $this->assertNotEquals($teacherO['id'], $teacherU['id']);
+            }
+        }
     }
 
     public function testGet()
     {
-//        $this->request->setMethod('get');
-//        $this->routeMatch->setParam('id', '1');
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $s = (int) $result->success;
-//        if ($s !== 1) {
-//            echo "\n--------------------------------------------------------\n";
-//            print_r($result->msg);
-//            echo "\n--------------------------------------------------------\n";
-//        } else {
-////            print_r($result);
-//        }
-//        //print_r($s);
-//        $this->assertEquals(1, $s);
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $this->CreateContactLesson()->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->PrintOut($result, false);
     }
 
     public function testGetList()
     {
 
-//        $this->request->setMethod('get');
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $s = (int) $result->success;
-//        if ($s !== 1) {
-//            echo "\n--------------------------------------------------------\n";
-//            print_r($result->msg);
-//            echo "\n--------------------------------------------------------\n";
-//        } else {
-////            print_r($result);
-//        }
-//        //print_r($s);
-//        $this->assertEquals(1, $s);
+        $this->CreateContactLesson();
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+        $this->PrintOut($result, false);
+    }
+
+    public function testDeleteNotTrashed()
+    {
+        $entity = $this->CreateContactLesson();
+        $idOld = $entity->getId();
+
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\ContactLesson')
+                ->Get($idOld);
+
+        $this->assertNotEquals(null, $deleted);
     }
 
     public function testDelete()
     {
-//        //create one to delete first
-//        $em = $this->controller->getEntityManager();
+        $entity = $this->CreateContactLesson();
+        $idOld = $entity->getId();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);
+
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->em->clear();
+
+        //test if it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\ContactLesson')
+                ->Get($idOld);
+
+        $this->assertEquals(null, $deleted);
+
+        $this->PrintOut($result, false);
+    }
+
+    public function testCreatedByAndUpdatedBy()
+    {
+//        $this->request->setMethod('post');
 //
-//        $sample = new \Core\Entity\ModuleType($em);
-//        $sample->hydrate(['name' => 'PHPUNIT']);
+//        $description = 'ContactLesson description' . uniqid();
+//        $lessonDate = 'ContactLesson lessonDate' . uniqid();
+//        $durationAK = 'ContactLesson durationAK' . uniqid();
 //
-//        if (!$sample->validate()) {
-//            throw new Exception(Json::encode($sample->getMessages(), true));
+//        $contactLesson = $this->CreateContactLesson()->getId();
+//
+//        $absence = $this->CreateAbsence()->getId();
+//        $subjectRound = $this->CreateSubjectRound()->getId();
+//        
+//        $teacher = $this->CreateTeacher()->getId();     
+//        $rooms = $this->CreateRoom()->getId();
+//        
+//        $studentGrade = $this->CreateStudentGrade()->getId();
+//
+//        $this->request->getPost()->set('description', $description);
+//        $this->request->getPost()->set('lessonDate', $lessonDate);
+//        $this->request->getPost()->set('durationAK', $durationAK);
+//        $this->request->getPost()->set('contactLesson', $contactLesson);
+//        $this->request->getPost()->set('absence', $absence);
+//        $this->request->getPost()->set('subjectRound', $subjectRound);
+//        $teacher = [];
+//        foreach ($subjectRound->getTeacher() as $teachers) {
+//            $teacher[] = [
+//                'id' => $teachers->getId()
+//            ];
 //        }
+//        $rooms = [];
+//        foreach ($subjectRound->getRooms() as $room) {
+//            $rooms[] = [
+//                'id' => $room->getId()
+//            ];
+//        }
+//        $this->request->getPost()->set('studentGrade', $studentGrade);
 //
-//        $em->persist($sample);
-//        $em->flush($sample);
+//        $lisUserCreates = $this->CreateLisUser();
+//        $lisUserCreatesId = $lisUserCreates->getId();
+//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
 //
-//        $this->routeMatch->setParam('id', $sample->getId());
-//        $this->request->setMethod('delete');
+//        $lisUserUpdates = $this->CreateLisUser();
+//        $lisUserUpdatesId = $lisUserUpdates->getId();
+//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
 //
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
 //
 //        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
 //
-//        $s = (int) $result->success;
-//        if ($s !== 1) {
-//            echo "\n--------------------------------------------------------\n";
-//            print_r($result);
-//            echo "\n--------------------------------------------------------\n";
-//        } else {
-////            print_r($result);
-//        }
-//        $this->assertEquals(1, $s);
+//        $this->PrintOut($result, false);
+//
+//        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
+//        $newContactLesson = $repository->find($result->data['id']);
+//        $this->assertEquals($lisUserCreatesId, $newContactLesson->getCreatedBy()->getId());
+//        $this->assertEquals($lisUserUpdatesId, $newContactLesson->getUpdatedBy()->getId());
     }
 
 }
