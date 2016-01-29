@@ -26,6 +26,7 @@
 //                code: '',
 //                email: ''
 //            };
+            //DO NOT include id 
             $scope.Create = function () {
                 teacherModel
                     .Create($scope.teacher)
