@@ -58,7 +58,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id
                         }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.subjectRound subjectRound
                 JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
@@ -93,7 +92,7 @@ class ContactLessonRepository extends AbstractBaseRepository
     {
         $entity = $this->find($id);
         $entity->setEntityManager($this->getEntityManager());
-        print_r($entity->extract()); die();
+//        print_r($entity->extract()); die();
         $entity->hydrate($data);
 
         if (!$entity->validate()) {
@@ -115,14 +114,10 @@ class ContactLessonRepository extends AbstractBaseRepository
                             description,
                             durationAK
                         },
-                        partial sr.{
-                            id
-                        },
                         partial t. {
                             id
                         }
                     FROM Core\Entity\ContactLesson cl
-                    JOIN cl.subjectRound sr
                     JOIN cl.teacher t
                     WHERE cl.id = " . $entity->getId() . "
                 ";

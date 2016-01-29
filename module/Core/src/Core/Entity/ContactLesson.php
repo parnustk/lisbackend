@@ -62,13 +62,6 @@ class ContactLesson extends EntityValidation
     protected $absence;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="contactLesson")
-     * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Annotation\Required({"required":"true"})
-     */
-    protected $subjectRound;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Rooms", inversedBy="contactLesson")
      * @ORM\JoinTable(
      *     name="RoomsToContactLesson",
