@@ -19,19 +19,21 @@
 
         function gradingTypeController($scope, $routeParams, gradingTypeModel) {
 
-            $scope.gradingType={
+            $scope.gradingType = {
                 gradingType: ''
             };
-            
-            $scope.Create = function(){
+
+            $scope.Create = function () {
                 gradingTypeModel
                         .Create($scope.gradingType)
                         .then(
-                            function(result.success){
-                                alert('Good');
-                            }else{
-                                alert('BAD');
-                            }
+                                function (result) {
+                                    if (result.success) {
+                                        alert('Good');
+                                    } else {
+                                        alert('BAD');
+                                    }
+                                }
                         );
             };
             gradingTypeModel.GetList().then(
