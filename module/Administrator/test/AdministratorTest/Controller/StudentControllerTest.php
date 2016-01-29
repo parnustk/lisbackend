@@ -27,7 +27,6 @@ class StudentControllerTest extends UnitHelpers
 //        $lisUser = 'studentLisUser' . uniqid();
 //        $absence = 'studentAbsence' . uniqid();
 //        $studentGrade = 'studentStudentGrade' . uniqid();
-        $studentGroup = $this->CreateStudentGroup();
 //        
         $this->request->setMethod('post');
         
@@ -37,13 +36,11 @@ class StudentControllerTest extends UnitHelpers
         $this->request->getPost()->set('code', $code);
         $this->request->getPost()->set('email', $email);
         
-        $this->request->getPost()->set('studentGroup', $studentGroup);
-        
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->PrintOut($result, false);
+        $this->PrintOut($result, true);
         $this->assertEquals(1,$result->success);
     }
 //    public function testCreateNoFirstName()
@@ -55,17 +52,13 @@ class StudentControllerTest extends UnitHelpers
 ////        $lisUser = 'studentLisUser' . uniqid();
 ////        $absence = 'studentAbsence' . uniqid();
 ////        $studentGrade = 'studentStudentGrade' . uniqid();
-//        $studentGroup = $this->CreateStudentGroup();
 ////        
 //        $this->request->setMethod('post');
-//        
 //        
 ////        $this->request->getPost()->set('firstName', $firstName);
 //        $this->request->getPost()->set('lastName', $lastName);
 //        $this->request->getPost()->set('code', $code);
 //        $this->request->getPost()->set('email', $email);
-//        
-//        $this->request->getPost()->set('studentGroup', $studentGroup);
 //        
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
@@ -83,8 +76,7 @@ class StudentControllerTest extends UnitHelpers
 ////        $lisUser = 'studentLisUser' . uniqid();
 ////        $absence = 'studentAbsence' . uniqid();
 ////        $studentGrade = 'studentStudentGrade' . uniqid();
-//        $studentGroup = $this->CreateStudentGroup();
-////        
+//
 //        $this->request->setMethod('post');
 //        
 //        
@@ -92,8 +84,6 @@ class StudentControllerTest extends UnitHelpers
 ////        $this->request->getPost()->set('lastName', $lastName);
 //        $this->request->getPost()->set('code', $code);
 //        $this->request->getPost()->set('email', $email);
-//        
-//        $this->request->getPost()->set('studentGroup', $studentGroup);
 //        
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
@@ -111,17 +101,13 @@ class StudentControllerTest extends UnitHelpers
 ////        $lisUser = 'studentLisUser' . uniqid();
 ////        $absence = 'studentAbsence' . uniqid();
 ////        $studentGrade = 'studentStudentGrade' . uniqid();
-//        $studentGroup = $this->CreateStudentGroup();
 ////        
 //        $this->request->setMethod('post');
-//        
 //        
 //        $this->request->getPost()->set('firstName', $firstName);
 //        $this->request->getPost()->set('lastName', $lastName);
 ////        $this->request->getPost()->set('code', $code);
 //        $this->request->getPost()->set('email', $email);
-//        
-//        $this->request->getPost()->set('studentGroup', $studentGroup);
 //        
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
@@ -139,18 +125,14 @@ class StudentControllerTest extends UnitHelpers
 ////        $lisUser = 'studentLisUser' . uniqid();
 ////        $absence = 'studentAbsence' . uniqid();
 ////        $studentGrade = 'studentStudentGrade' . uniqid();
-//        $studentGroup = $this->CreateStudentGroup();
 ////        
 //        $this->request->setMethod('post');
-//        
 //        
 //        $this->request->getPost()->set('firstName', $firstName);
 //        $this->request->getPost()->set('lastName', $lastName);
 //        $this->request->getPost()->set('code', $code);
 ////        $this->request->getPost()->set('email', $email);
 //        
-//        $this->request->getPost()->set('studentGroup', $studentGroup);
-//        
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
 //
@@ -158,50 +140,24 @@ class StudentControllerTest extends UnitHelpers
 //        $this->PrintOut($result, false);
 //        $this->assertNotEquals(1,$result->success);
 //    }
-//    public function testCreateNoStudentGroup()
-//    {
-//        $firstName = 'studentFirstName' . uniqid();
-//        $lastName = 'studentLastName' . uniqid();
-//        $code = 'studentCode' . uniqid();
-//        $email = 'studentEmail' . uniqid();
-////        $lisUser = 'studentLisUser' . uniqid();
-////        $absence = 'studentAbsence' . uniqid();
-////        $studentGrade = 'studentStudentGrade' . uniqid();
-////        $studentGroup = $this->CreateStudentGroup();
-////        
-//        $this->request->setMethod('post');
+//    
+//    /**
+//     * TEST row gets read by id
+//     */
+//    public function testGet() {
 //        
-//        
-//        $this->request->getPost()->set('firstName', $firstName);
-//        $this->request->getPost()->set('lastName', $lastName);
-//        $this->request->getPost()->set('code', $code);
-//        $this->request->getPost()->set('email', $email);
-//        
-////        $this->request->getPost()->set('studentGroup', $studentGroup);
-//        
+//        $this->request->setMethod('get');
+//        $this->routeMatch->setParam('id', $this->CreateStudent()->getId());
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
-//
 //        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1,$result->success);
 //        $this->PrintOut($result, false);
-//        $this->assertNotEquals(1,$result->success);
 //    }
-    /**
-     * TEST row gets read by id
-     */
-    public function testGet() {
-        
-        $this->request->setMethod('get');
-        $this->routeMatch->setParam('id', $this->CreateStudent()->getId());
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1,$result->success);
-        $this->PrintOut($result, false);
-    }
-    /**
-     * TEST rows get read
-     */
+//    
+//    /**
+//     * TEST rows get read
+//     */
 //    public function testGetList()
 //    {
 //        $this->CreateStudent();
@@ -213,91 +169,91 @@ class StudentControllerTest extends UnitHelpers
 //        $this->assertGreaterThan(0, count($result->data));
 //        $this->PrintOut($result, false);
 //    }
-
-    /**
-     * TEST row gets updated by id
-     */
-    public function testUpdate()
-    {
-        //create student
-        $entity = $this->CreateStudent();
-        $id = $entity->getId();
-
-        $firstNameOld = $entity->getFirstName();
-        $lastNameOld = $entity->getLastName();
-        $codeOld = $entity->getCode();
-        $emailOld = $entity->getEmail();
-        $studentGroupOld = $entity->getEmail();
-
-        $this->routeMatch->setParam('id', $id);
-        $this->request->setMethod('put');
-
-        $this->request->setContent(http_build_query([
-            'firstName' => 'Updated',
-            'lastName' => 'Updated',
-            'code' => uniqid(),
-            'email' => 'Updated',
-            'studentGroup' => $this->CreateStudentGroup(),
-        ]));
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $r = $this->em
-                ->getRepository('Core\Entity\Student')
-                ->find($result->data['id']);
-        $this->assertNotEquals(
-                $firstNameOld, $r->getFirstName()
-        );
-        $this->assertNotEquals(
-                $lastNameOld, $r->getLastName()
-        );
-        $this->assertNotEquals(
-                $codeOld, $r->getCode()
-        );
-        $this->assertNotEquals(
-                $emailOld, $r->getEmail()
-        );
-        $this->assertNotEquals(
-                $studentGroupOld, $r->getStudentGroup()
-        );
-        $this->PrintOut($result, false);
-    }
-
-    /**
-     * TEST row gets deleted by id
-     */
-    public function testDelete()
-    {
-        $entity = $this->CreateStudent();
-        $idOld = $entity->getId();
-
-        $this->routeMatch->setParam('id', $entity->getId());
-        $this->request->setMethod('delete');
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->em->clear();
-
-        //test it is not in the database anymore
-        $deleted = $this->em
-                ->getRepository('Core\Entity\Student')
-                ->Get($idOld);
-
-        $this->assertEquals(null, $deleted);
-
-        $this->PrintOut($result, false);
-    }
-
-    /**
-     * TEST rows get read by limit and page params
-     */
+//
+//    /**
+//     * TEST row gets updated by id
+//     */
+//    public function testUpdate()
+//    {
+//        //create student
+//        $entity = $this->CreateStudent();
+//        $id = $entity->getId();
+//
+//        $firstNameOld = $entity->getFirstName();
+//        $lastNameOld = $entity->getLastName();
+//        $codeOld = $entity->getCode();
+//        $emailOld = $entity->getEmail();
+//        $studentGroupOld = $entity->getEmail();
+//
+//        $this->routeMatch->setParam('id', $id);
+//        $this->request->setMethod('put');
+//
+//        $this->request->setContent(http_build_query([
+//            'firstName' => 'Updated',
+//            'lastName' => 'Updated',
+//            'code' => uniqid(),
+//            'email' => 'Updated',
+//            'studentGroup' => $this->CreateStudentGroup(),
+//        ]));
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//
+//        $r = $this->em
+//                ->getRepository('Core\Entity\Student')
+//                ->find($result->data['id']);
+//        $this->assertNotEquals(
+//                $firstNameOld, $r->getFirstName()
+//        );
+//        $this->assertNotEquals(
+//                $lastNameOld, $r->getLastName()
+//        );
+//        $this->assertNotEquals(
+//                $codeOld, $r->getCode()
+//        );
+//        $this->assertNotEquals(
+//                $emailOld, $r->getEmail()
+//        );
+//        $this->assertNotEquals(
+//                $studentGroupOld, $r->getStudentGroup()
+//        );
+//        $this->PrintOut($result, false);
+//    }
+//
+//    /**
+//     * TEST row gets deleted by id
+//     */
+//    public function testDelete()
+//    {
+//        $entity = $this->CreateStudent();
+//        $idOld = $entity->getId();
+//
+//        $this->routeMatch->setParam('id', $entity->getId());
+//        $this->request->setMethod('delete');
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        $this->em->clear();
+//
+//        //test it is not in the database anymore
+//        $deleted = $this->em
+//                ->getRepository('Core\Entity\Student')
+//                ->Get($idOld);
+//
+//        $this->assertEquals(null, $deleted);
+//
+//        $this->PrintOut($result, false);
+//    }
+//
+//    /**
+//     * TEST rows get read by limit and page params
+//     */
 //    public function testGetListWithPaginaton()
 //    {
 //        $this->request->setMethod('get');
