@@ -45,11 +45,7 @@ class StudentRepository extends EntityRepository implements CRUD
                             code,
                             email
                         },
-                        partial studentGroup.{
-                            id
-                        }
                     FROM Core\Entity\Student student
-                    JOIN student.studentGroup studentGroup
                     WHERE student.id = " . $entity->getId() . "
                 ";
 
@@ -80,11 +76,7 @@ class StudentRepository extends EntityRepository implements CRUD
                             code,              
                             email
                         },
-                        partial studentGroup.{
-                            id
-                        }
                     FROM Core\Entity\Student student
-                    JOIN student.studentGroup studentGroup
                     WHERE student.id = " . $id . "
                 ";
             //return
@@ -179,9 +171,9 @@ class StudentRepository extends EntityRepository implements CRUD
      */
     public function Delete($id, $extra = null)
     {
-        $this->getEntityManager()->remove($this->find($id));
-        $this->getEntityManager()->flush();
-        return $id;
+            $this->getEntityManager()->remove($this->find($id));
+            $this->getEntityManager()->flush();
+            return $id;
     }
 
 }

@@ -40,7 +40,7 @@ class Student extends EntityValidation
     protected $lastName;
 
     /**
-     * @ORM\Column(type="encryptedstring", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="encryptedstring", name="`code`", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      */
     protected $code;
