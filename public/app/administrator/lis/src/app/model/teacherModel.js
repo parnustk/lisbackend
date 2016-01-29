@@ -42,7 +42,7 @@
                 /**
                  * 
                  * @param {type} params
-                 * @return {unresolved}
+                 * @returns {unresolved}
                  */
                 GetList: function (params) {
                     return _teacher.query(params).$promise;
@@ -50,7 +50,7 @@
                 /**
                  * 
                  * @param {type} id
-                 * @return {unresolved}
+                 * @returns {unresolved}
                  */
                 Get: function (id) {
                     return _teacher.get({id: id}).$promise;
@@ -58,8 +58,7 @@
                 /**
                  * 
                  * @param {type} data
-                 * @return {undefined}
-                 * @return {unresolved}
+                 * @returns {unresolved}
                  */
                 Create: function (data) {
                     return _teacher.save(data).$promise;
@@ -68,19 +67,18 @@
                  * 
                  * @param {type} id
                  * @param {type} data
-                 * @return {undefined}
+                 * @returns {unresolved}
                  */
                 Update: function (id, data) {
-                    //TODO
+                    return _teacher.update({id: id}, data).$promise;
                 },
                 /**
                  * 
                  * @param {type} id
-                 * @return {undefined}
-                 * @return {unresolved}
+                 * @returns {unresolved}
                  */
                 Delete: function (id) {
-                    //TODO
+                    return _teacher.delete({id: id}).$promise;
                 }
             };
         }
