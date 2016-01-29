@@ -7,7 +7,7 @@
     Juhan Kõks - developer, juhankoks@hotmail.com
     Kristen Sepp - developer, seppkristen@gmail.com
     Arnold Tserepov - developer, tserepov@gmail.com
-    Alar Aasa - developer
+    Alar Aasa - developer, alar@alaraasa.ee
     Sander Mets - developer, software architect, team lead sandermets0@gmail.com
 
 ## What
