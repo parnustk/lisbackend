@@ -37,8 +37,17 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      */
     protected function dqlStart()
     {
-        //TODO
-        return "";
+        $dql = "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        student,
+                        studentGroup,
+                        status,
+                        trashed
+                    }
+                FROM Core\Entity\StudentInGroups $this->baseAlias";
+
+        return $dql;
     }
 
     /**
