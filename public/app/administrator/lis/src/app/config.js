@@ -1,11 +1,14 @@
+
 /* global define */
 
-/**
- * 
- * @param {Function} define
- * @returns {undefined}
- * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+/* 
+ * LIS development
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @author 
  */
+
 (function (define) {
     'use strict';
 
@@ -24,7 +27,6 @@
         function config($routeProvider, $locationProvider) {
 
             $routeProvider
-
                     .when('/vocation', {
                         templateUrl: 'lis/dist/templates/vocation.html',
                         controller: 'vocationController'
@@ -40,7 +42,9 @@
                     .when('/absencereason', {
                         templateUrl: 'lis/dist/templates/absencereason.html',
                         controller: 'absencereasonController'})
-
+                    .when('/gradechoice', {
+                        templateUrl: 'lis/dist/templates/gradechoice.html', 
+                        controller: 'gradechoiceController'})
                     .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
@@ -58,5 +62,3 @@
     });
 
 }(define));
-
-

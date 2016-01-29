@@ -19,6 +19,7 @@ return [
             'Administrator\Controller\Teacher' => 'Administrator\Controller\TeacherController',
             'Administrator\Controller\IndependentWork' => 'Administrator\Controller\IndependentWorkController',
             'Administrator\Controller\GradeIndependentWork' => 'Administrator\Controller\GradeIndependentWorkController',
+            'Administrator\Controller\GradeChoice' => 'Administrator\Controller\GradeChoiceController',
         ],
     ],
     'router' => [
