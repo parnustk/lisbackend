@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
@@ -38,6 +36,7 @@ class ModuleType extends EntityValidation
 
     /**
      * @ORM\OneToMany(targetEntity="Module", mappedBy="moduleType")
+     * @Annotation\Exclude()
      */
     protected $module;
     
@@ -49,13 +48,13 @@ class ModuleType extends EntityValidation
     
     /**
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="created_by", referencedColumnName="id",nullable=true)
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
     protected $createdBy;
     
     /**
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id",nullable=true)
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
     protected $updatedBy;
     
@@ -70,8 +69,8 @@ class ModuleType extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $updatedAt;
-    
-    
+
+
     /**
      * 
      * @param EntityManager $em

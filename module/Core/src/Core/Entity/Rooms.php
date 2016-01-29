@@ -55,14 +55,14 @@ class Rooms extends EntityValidation
     /**
      *
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="createdBy", referencedColumnName="id",nullable=true)
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id",nullable=true)
      */
     protected $createdBy;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id",nullable=true)
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id",nullable=true)
      */
     protected $updatedBy;
 

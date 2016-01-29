@@ -6,90 +6,82 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author sander
+ * @author sander, Alar Aasa <alar@alaraasa.ee>
  */
 class GradingtypeController extends AbstractBaseController
 {
 
+    /*
+     * @var string
+     */
+    protected $service = 'gradingtype_service';
+    
     /**
-     * GET
-     * 
+     * <h2> GET admin/gradingtype</h2>
+     * <h3>URL Parameters</h3>
+     * <code>
+     * limit(integer)
+     * page(integer)
+     * </code>
      * @return JsonModel
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradingtype_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
-     * POST
-     * 
-     * @param type $data
+     * <h2> POST admin/gradingtype</h2>
+     * <h3>Body</h3>
+     * <code>
+     * gradingType(string)
+     * </code>
+     * @param int @data
      * @return JsonModel
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradingtype_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
-     * GET
-     * 
-     * @param type $id
+     * <h2> GET admin/gradingtype</h2>
+     * <h3>URL Parameters</h3>
+     * <code>
+     * limit(integer)
+     * page(integer)
+     * </code>
      * @return JsonModel
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradingtype_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
-     * PUT
-     * 
-     * @param type $id
-     * @param type $data
+     * <h2> PUT admin/gradingtype</h2>
+     * <h3>Body</h3>
+     * <code>
+     * gradingType(string)
+     * </code>
      * @return JsonModel
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradingtype_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
-     * DELETE
-     * 
-     * @param type $id
-     * @param type $data
+     * <h2> DELETE admin/gradingtype</h2>
+     * <h3>URL Parameters</h3>
+     * <code>
+     * id(integer)
+     * </code>
      * @return JsonModel
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('gradingtype_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }

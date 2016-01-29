@@ -3,7 +3,6 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\RoomController;
-use Zend\Json\Json;
 
 /**
   * @author Alar Aasa

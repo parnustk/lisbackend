@@ -58,7 +58,7 @@ class ModuleTypeRepository extends AbstractBaseRepository
 
     /**
      * 
-     * @param type $id
+     * @param int|string $id
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
