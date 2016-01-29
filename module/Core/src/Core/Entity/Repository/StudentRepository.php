@@ -32,7 +32,15 @@ class StudentRepository extends EntityRepository implements CRUD
         }
 
         $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        try {
+            
+            $this->getEntityManager()->flush($entity);
+            
+        } catch (Exception $exc) {
+            //this here does not work
+            throw new Exception(Json::encode($exc->getMessage(), true));
+            
+        }
 
         if ($returnPartial) {
 
@@ -44,7 +52,7 @@ class StudentRepository extends EntityRepository implements CRUD
                             lastName,
                             code,
                             email
-                        },
+                        }
                     FROM Core\Entity\Student student
                     WHERE student.id = " . $entity->getId() . "
                 ";
@@ -75,7 +83,7 @@ class StudentRepository extends EntityRepository implements CRUD
                             lastName,
                             code,              
                             email
-                        },
+                        }
                     FROM Core\Entity\Student student
                     WHERE student.id = " . $id . "
                 ";

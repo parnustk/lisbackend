@@ -28,7 +28,7 @@ class StudentService extends AbstractBaseService
      */
     public function Get($params, $extra = null)
     {
-        return parent::Get($id, $extra);
+        return parent::Get($params, $extra);
     }
     /**
      * 
