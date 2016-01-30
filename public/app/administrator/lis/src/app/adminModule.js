@@ -35,10 +35,13 @@
         'app/model/gradingTypeModel',
         'app/model/teacherModel',
         'app/model/absencereasonModel',
+        'app/model/roomModel',
         'app/controller/vocationContoller',
         'app/controller/gradingTypeController',
         'app/controller/teacherContoller',
-        'app/controller/absencereasonContoller'
+        'app/controller/absencereasonContoller',
+        'app/controller/roomController'
+
 
     ], function (
             angular,
@@ -47,10 +50,12 @@
             gradingTypeModel,
             teacherModel,
             absencereasonModel,
+            roomModel,
             vocationContoller,
             gradingTypeController,
             teacherContoller,
-            absencereasonContoller
+            absencereasonContoller,
+            roomController
             ) {
 
         var adminModule = angular.module('adminModule', [
@@ -75,11 +80,14 @@
         adminModule.factory('teacherModel', teacherModel);
         adminModule.factory('gradingTypeModel', gradingTypeModel);
         adminModule.factory('absencereasonModel', absencereasonModel);
+        adminModule.factory('roomModel', roomModel);
+
         
         adminModule.controller('vocationController', vocationContoller);
         adminModule.controller('teacherController', teacherContoller);
         adminModule.controller('gradingTypeController', gradingTypeController);
         adminModule.controller('absencereasonController', absencereasonContoller);
+        adminModule.controller('roomController', roomController);
 
         return adminModule;
     });

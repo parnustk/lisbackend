@@ -40,6 +40,10 @@
                         templateUrl: 'lis/dist/templates/gradechoice.html', 
                         controller: 'gradechoiceController'})
                     
+                    .when('/room', {
+                        templateUrl: 'lis/dist/templates/room.html', 
+                        controller: 'roomController'})
+                    
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
