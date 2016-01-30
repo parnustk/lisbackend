@@ -24,7 +24,7 @@ use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
- * @ORM\Table(indexes={@ORM\Index(name="contactlessonlessondate", columns={"lessonDate"})})
+ * @ORM\Table(indexes={@ORM\Index(name="contactlesson_index_lessondate", columns={"lessonDate"})})
  * @ORM\HasLifecycleCallbacks
  */
 class ContactLesson extends EntityValidation
@@ -76,6 +76,13 @@ class ContactLesson extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $studentGrade;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="contactLesson")
+     * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Annotation\Required({"required":"true"})
+     */
+    protected $subjectRound;
 
     /**
      * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="contactLesson")
@@ -133,16 +140,6 @@ class ContactLesson extends EntityValidation
         parent::__construct($em);
     }
 
-    public function addSubjectRound(Collection $v)
-    {
-        $this->subjectRound = $v;
-    }
-
-    public function removeSubjectRound(Collection $v)
-    {
-        $this->subjectRound = $v;
-    }
-    
     /**
      * @param Collection $teachers
      */
@@ -162,6 +159,18 @@ class ContactLesson extends EntityValidation
         foreach ($teachers as $teacher) {
             $this->teacher->removeElement($teacher);
         }
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
     public function getId()
@@ -189,19 +198,49 @@ class ContactLesson extends EntityValidation
         return $this->absence;
     }
 
-    public function getSubjectRound()
-    {
-        return $this->subjectRound;
-    }
-
     public function getRooms()
     {
         return $this->rooms;
     }
 
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+
+    public function getSubjectRound()
+    {
+        return $this->subjectRound;
+    }
+
     public function getTeacher()
     {
         return $this->teacher;
+    }
+
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     public function setLessonDate($lessonDate)
@@ -228,27 +267,10 @@ class ContactLesson extends EntityValidation
         return $this;
     }
 
-    public function setSubjectRound($subjectRound)
-    {
-        $this->subjectRound = $subjectRound;
-        return $this;
-    }
-
     public function setRooms($rooms)
     {
         $this->rooms = $rooms;
         return $this;
-    }
-
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-        return $this;
-    }
-
-    public function getStudentGrade()
-    {
-        return $this->studentGrade;
     }
 
     public function setStudentGrade($studentGrade)
@@ -257,29 +279,16 @@ class ContactLesson extends EntityValidation
         return $this;
     }
 
-    public function getTrashed()
+    public function setSubjectRound($subjectRound = null)
     {
-        return $this->trashed;
+        $this->subjectRound = $subjectRound;
+        return $this;
     }
 
-    public function getCreatedBy()
+    public function setTeacher($teacher)
     {
-        return $this->createdBy;
-    }
-
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
+        $this->teacher = $teacher;
+        return $this;
     }
 
     public function setTrashed($trashed)
@@ -310,18 +319,6 @@ class ContactLesson extends EntityValidation
     {
         $this->updatedAt = $updatedAt;
         return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function refreshTimeStamps()
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

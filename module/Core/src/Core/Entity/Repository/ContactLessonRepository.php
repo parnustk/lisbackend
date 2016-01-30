@@ -17,6 +17,7 @@ use Core\Entity\ContactLesson;
  */
 class ContactLessonRepository extends AbstractBaseRepository
 {
+
     /**
      *
      * @var string
@@ -59,6 +60,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
@@ -76,11 +78,13 @@ class ContactLessonRepository extends AbstractBaseRepository
         $entity = $this->validateEntity(
                 new ContactLesson($this->getEntityManager()), $data
         );
+//        print_r($entity->getArrayCopy());die('HERE');
         //IF required MANY TO MANY validate manually
         return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
+     * Special case for subject round
      * 
      * @param int|string $id
      * @param array $data
@@ -90,9 +94,32 @@ class ContactLessonRepository extends AbstractBaseRepository
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
+        if (!key_exists('subjectRound', $data)) {
+            throw new Exception(
+            Json::encode(
+                    'Missing subject round for contact lesson', true
+            )
+            );
+        }
+
+        if (!$data['subjectRound']) {
+            throw new Exception(
+            Json::encode(
+                    'Missing subject round for contact lesson', true
+            )
+            );
+        }
+
         $entity = $this->find($id);
-        $entity->setEntityManager($this->getEntityManager());
-//        print_r($entity->extract()); die();
+
+        $subjectRound = $this->getEntityManager()
+                ->getRepository('Core\Entity\SubjectRound')
+                ->find($data['subjectRound']);
+
+        $entity->setSubjectRound($subjectRound);
+
+        unset($data['subjectRound']);
+
         $entity->hydrate($data);
 
         if (!$entity->validate()) {
@@ -105,28 +132,7 @@ class ContactLessonRepository extends AbstractBaseRepository
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
 
-        if ($returnPartial) {
-            $dql = "
-                    SELECT
-                        partial cl.{
-                            id,
-                            lessonDate,
-                            description,
-                            durationAK
-                        },
-                        partial t. {
-                            id
-                        }
-                    FROM Core\Entity\ContactLesson cl
-                    JOIN cl.teacher t
-                    WHERE cl.id = " . $entity->getId() . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $entity;
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
 }

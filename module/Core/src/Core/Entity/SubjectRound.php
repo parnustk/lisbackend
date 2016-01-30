@@ -32,6 +32,11 @@ class SubjectRound extends EntityValidation
     protected $independentWork;
 
     /**
+     * @ORM\OneToMany(targetEntity="ContactLesson", mappedBy="subjectRound")
+     */
+    protected $contactLesson;
+
+    /**
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="subjectRound")
      * @Annotation\Exclude()
      */
