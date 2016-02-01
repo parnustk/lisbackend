@@ -39,7 +39,7 @@ class TeacherRepository extends AbstractBaseRepository
                      id,
                      firstName,
                      lastName,
-                     personalcode,
+                     code,
                      email
                 }
                 FROM $this->baseEntity $this->baseAlias";
