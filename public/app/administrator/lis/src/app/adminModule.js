@@ -56,6 +56,9 @@
             teacherContoller,
             absencereasonContoller,
             roomController
+            vocationContoller,
+            moduleTypeModel,
+            moduleTypeController
             ) {
 
         var adminModule = angular.module('adminModule', [
@@ -82,13 +85,14 @@
         adminModule.factory('absencereasonModel', absencereasonModel);
         adminModule.factory('roomModel', roomModel);
 
-        
+
         adminModule.controller('vocationController', vocationContoller);
         adminModule.controller('teacherController', teacherContoller);
         adminModule.controller('gradingTypeController', gradingTypeController);
         adminModule.controller('absencereasonController', absencereasonContoller);
         adminModule.controller('roomController', roomController);
-
+        adminModule.factory('moduleTypeModel', moduleTypeModel);
+        adminModule.controller('moduleTypeController', moduleTypeController);
         return adminModule;
     });
 
