@@ -47,10 +47,11 @@ class TeacherControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->PrintOut($result, false);
     }
+
     /**
      * testing with createdny and updateby fields
      */
-     public function testCreateWithCreatedByAndUpdatedBy()
+    public function testCreateWithCreatedByAndUpdatedBy()
     {
         $this->request->setMethod('post');
 
@@ -58,17 +59,17 @@ class TeacherControllerTest extends UnitHelpers
         $this->request->getPost()->set("firstName", "Firstname");
         $this->request->getPost()->set("lastName", "Lastname");
         $this->request->getPost()->set("email", "email");
-        
+
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());
-        
+
         $lisUserCreates = $this->CreateLisUser();
         $lisUserCreatesId = $lisUserCreates->getId();
         $this->request->getPost()->set("createdBy", $lisUserCreatesId);
         $lisUserUpdates = $this->CreateLisUser();
         $lisUserUpdatesId = $lisUserUpdates->getId();
         $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
@@ -146,25 +147,34 @@ class TeacherControllerTest extends UnitHelpers
         $this->assertNotEquals($emailOld, $result->data["email"]);
     }
 
-    public function testDelete()
+     public function testDelete()
     {
-        $teacherRepository = $this->em->getRepository("Core\Entity\Teacher");
         $entity = $this->CreateTeacher();
         $idOld = $entity->getId();
-        $this->assertNull($teacherRepository->find($idOld)->getTrashed());
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity); //save to db with trashed 1
 
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+        $this->em->clear();
 
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\Teacher')
+                ->Get($idOld);
 
-        $this->PrintOut($result, false);
-        $this->assertNotNull($teacherRepository->find($idOld)->getTrashed());
+        $this->assertEquals(null, $deleted);
+
+        
     }
 
 }
