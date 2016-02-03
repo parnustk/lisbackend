@@ -27,9 +27,8 @@ class StudentControllerTest extends UnitHelpers
 //        $lisUser = 'studentLisUser' . uniqid();
 //        $absence = 'studentAbsence' . uniqid();
 //        $studentGrade = 'studentStudentGrade' . uniqid();
-//        
+
         $this->request->setMethod('post');
-        
         
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
@@ -40,8 +39,11 @@ class StudentControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
         $this->assertEquals(1,$result->success);
+        $repository = $this->em->getRepository('Core\Entity\Student');
+        $newStudent = $repository->find($result->data['id']);
+        $this->assertNotNull($newStudent->getCreatedAt());
     }
     public function testCreateNoFirstName()
     {
@@ -52,8 +54,9 @@ class StudentControllerTest extends UnitHelpers
 //        $lisUser = 'studentLisUser' . uniqid();
 //        $absence = 'studentAbsence' . uniqid();
 //        $studentGrade = 'studentStudentGrade' . uniqid();
-//        
+
         $this->request->setMethod('post');
+        
         
 //        $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
@@ -79,7 +82,6 @@ class StudentControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
         
-        
         $this->request->getPost()->set('firstName', $firstName);
 //        $this->request->getPost()->set('lastName', $lastName);
         $this->request->getPost()->set('code', $code);
@@ -101,8 +103,9 @@ class StudentControllerTest extends UnitHelpers
 //        $lisUser = 'studentLisUser' . uniqid();
 //        $absence = 'studentAbsence' . uniqid();
 //        $studentGrade = 'studentStudentGrade' . uniqid();
-//        
+
         $this->request->setMethod('post');
+        
         
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
@@ -118,6 +121,7 @@ class StudentControllerTest extends UnitHelpers
     }
     public function testCreateNoEmail()
     {
+        
         $firstName = 'studentFirstName' . uniqid();
         $lastName = 'studentLastName' . uniqid();
         $code = 'studentCode' . uniqid();
@@ -125,8 +129,9 @@ class StudentControllerTest extends UnitHelpers
 //        $lisUser = 'studentLisUser' . uniqid();
 //        $absence = 'studentAbsence' . uniqid();
 //        $studentGrade = 'studentStudentGrade' . uniqid();
-//        
+
         $this->request->setMethod('post');
+        
         
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
@@ -183,8 +188,8 @@ class StudentControllerTest extends UnitHelpers
         $lastNameOld = $entity->getLastName();
         $codeOld = $entity->getCode();
         $emailOld = $entity->getEmail();
-        $studentGroupOld = $entity->getEmail();
-
+        
+        
         $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('put');
 
@@ -193,7 +198,6 @@ class StudentControllerTest extends UnitHelpers
             'lastName' => 'Updated',
             'code' => uniqid(),
             'email' => 'Updated',
-            'studentGroup' => $this->CreateStudentGroup(),
         ]));
 
         $result = $this->controller->dispatch($this->request);

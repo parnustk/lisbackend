@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentRepository")
@@ -16,6 +17,8 @@ use Doctrine\ORM\EntityManager;
  *         @ORM\Index(name="studentlastname", columns={"lastName"})
  *     }
  * )
+ * @ORM\HasLifecycleCallbacks
+ * @author Marten Kähr <marten@kahr.ee>
  */
 class Student extends EntityValidation
 {
@@ -79,7 +82,32 @@ class Student extends EntityValidation
      */
     protected $trashed;
     
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    protected $createdBy;
 
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+
+    /**
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude() 
+     */
+    protected $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
+    
     /**
      * 
      * @param EntityManager $em
@@ -134,6 +162,42 @@ class Student extends EntityValidation
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return type
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+    
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -193,4 +257,62 @@ class Student extends EntityValidation
         return $this;
     }
 
+    /**
+     * 
+     * @param type $createdBy
+     * @return \Core\Entity\Administrator
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $updatedBy
+     * @return \Core\Entity\Administrator
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $createdAt
+     * @return \Core\Entity\Administrator
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $updatedAt
+     * @return \Core\Entity\Administrator
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+    
+    /**
+     * Sets 'timestamps'
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        else {
+        $this->setUpdatedAt(new DateTime);
+        }
+    }
 }
