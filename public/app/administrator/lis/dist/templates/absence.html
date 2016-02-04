@@ -1,0 +1,31 @@
+<h2>Here comes absence</h2>
+<ul>
+    <li ng-repeat="absence in absence">
+        {{absence.description}}
+    </li>
+</ul>
+<form>
+    <div class="row">
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Description
+                <input type="text" ng-model="absence.description">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Student
+                <input type="text" ng-model="absence.student">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Contactlesson
+                <input type="text" ng-model="absence.contactLesson">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Absence reason
+                <input type="text" ng-model="absence.absenceReason">
+            </label>
+        </div>
+    </div>
+    <button class="button" ng-click="Create()">CREATE</button>
+</form>

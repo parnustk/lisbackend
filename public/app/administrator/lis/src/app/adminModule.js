@@ -20,13 +20,20 @@
      * @param {type} config
      * @param {type} vocationModel
      * @param {type} gradingTypeModel
+     * @param {type} gradeChoiceModel
      * @param {type} teacherModel
      * @param {type} absencereasonModel
-     * @param {type} vocationContoller
+     * @param {type} absenceModel
+     * @param {type} roomModel
+     * @param {type} moduleTypeModel
+     * @param {type} vocationController
      * @param {type} gradingTypeController
      * @param {type} gradeChoiceController
-     * @param {type} teacherContoller
-     * @param {type} absencereasonContoller
+     * @param {type} teacherController
+     * @param {type} absencereasonController
+     * @param {type} absenceController
+     * @param {type} roomController
+     * @param {type} moduleTypeController
      * @returns {unresolved}
      */
     define([
@@ -37,13 +44,17 @@
         'app/model/gradeChoiceModel',
         'app/model/teacherModel',
         'app/model/absencereasonModel',
+        'app/model/absenceModel',
         'app/model/roomModel',
-        'app/controller/vocationContoller',
+        'app/model/moduleTypeModel',
+        'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
-        'app/controller/teacherContoller',
-        'app/controller/absencereasonContoller',
-        'app/controller/roomController'
+        'app/controller/teacherController',
+        'app/controller/absencereasonController',
+        'app/controller/absenceController',
+        'app/controller/roomController',
+        'app/controller/moduleTypeController'
 
 
     ], function (
@@ -54,15 +65,16 @@
             gradeChoiceModel,
             teacherModel,
             absencereasonModel,
+            absenceModel,
             roomModel,
-            vocationContoller,
+            moduleTypeModel,
+            vocationController,
             gradingTypeController,
             gradeChoiceController,
-            teacherContoller,
-            absencereasonContoller,
-            roomController
-            vocationContoller,
-            moduleTypeModel,
+            teacherController,
+            absencereasonController,
+            absenceController,
+            roomController,
             moduleTypeController
             ) {
 
@@ -89,16 +101,17 @@
         adminModule.factory('gradingTypeModel', gradingTypeModel);
         adminModule.factory('gradeChoiceModel', gradeChoiceModel);
         adminModule.factory('absencereasonModel', absencereasonModel);
+        adminModule.factory('absenceModel', absenceModel);
         adminModule.factory('roomModel', roomModel);
+        adminModule.factory('moduleTypeModel', moduleTypeModel);
 
-
-        adminModule.controller('vocationController', vocationContoller);
-        adminModule.controller('teacherController', teacherContoller);
+        adminModule.controller('vocationController', vocationController);
+        adminModule.controller('teacherController', teacherController);
         adminModule.controller('gradingTypeController', gradingTypeController);
         adminModule.controller('gradeChoiceController', gradeChoiceController);
-        adminModule.controller('absencereasonController', absencereasonContoller);
-        adminModule.controller('roomController', roomController);
-        adminModule.factory('moduleTypeModel', moduleTypeModel);
+        adminModule.controller('absencereasonController', absencereasonController);
+        adminModule.controller('absenceController', absenceController);
+        adminModule.controller('roomController', roomController);      
         adminModule.controller('moduleTypeController', moduleTypeController);
         return adminModule;
     });

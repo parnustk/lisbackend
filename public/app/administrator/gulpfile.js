@@ -45,5 +45,5 @@ gulp.task('jshint', function () {
 
 // Validate JS syntax and run the server
 gulp.task('default', ['server'], function () {
-    gulp.watch(['./lis/src/**/*.js'], ['jshint']);
+//    gulp.watch(['./lis/src/**/*.js'], ['jshint']);
 });

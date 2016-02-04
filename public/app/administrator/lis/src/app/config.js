@@ -1,3 +1,5 @@
+/* global define */
+
 (function (define) {
     'use strict';
 
@@ -47,6 +49,11 @@
                     .when('/moduletype', {
                         templateUrl: 'lis/dist/templates/moduletype.html',
                         controller: 'moduleTypeController'})
+                    
+                    .when('/absence', {
+                        templateUrl: 'lis/dist/templates/absence.html',
+                        controller: 'absenceController'})
+                    
                     .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
