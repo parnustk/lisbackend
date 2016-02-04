@@ -42,34 +42,33 @@ class ContactLessonTest extends UnitHelpers
     public function testCreate()
     {
         $this->request->setMethod('post');
+
         $lessonDate = new \DateTime;
-        $this->request->getPost()->set("lessonDate", $lessonDate);
-        $description = uniqid() . ' Description for contactlesson';
-        $this->request->getPost()->set("description", $description);
+        $description = ' Description for contactlesson'. uniqid();
         $durationAK = 4;
+        $teacher = [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ];
+        $subjectRound = $this->CreateSubjectRound()->getId();
+
+        $this->request->getPost()->set("lessonDate", $lessonDate);
+        $this->request->getPost()->set("description", $description);
         $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set("teacher", $teacher);
+        $this->request->getPost()->set('subjectRound', $subjectRound);
 
-        $contactLesson = $this->CreateContactLesson();
 
-        $this->request->getPost()->set("contactLesson", $contactLesson->getId());
-
-        $teachers = [];
-        foreach ($contactLesson->getTeacher() as $teacher) {
-            $teachers[] = [
-                'id' => $teacher->getId()
-            ];
-        }
-        
-        $this->request->getPost()->set('subjectRound', $this->CreateSubjectRound()->getId());
-        
-        $this->request->getPost()->set("teacher", $teachers);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
+        $newContactLesson = $repository->find($result->data['id']);
+        $this->assertNotNull($newContactLesson->getCreatedAt());
     }
 
     //https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
@@ -107,7 +106,7 @@ class ContactLessonTest extends UnitHelpers
                 'id' => $teacher->getId()
             ];
         }
-        
+
         $insertData = [
             "lessonDate" => $lessonDate,
             "description" => $description,
@@ -162,7 +161,6 @@ class ContactLessonTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        
     }
 
     public function testDeleteNotTrashed()
@@ -225,16 +223,16 @@ class ContactLessonTest extends UnitHelpers
         $description = 'ContactLesson description' . uniqid();
         $lessonDate = new \DateTime;
         $durationAK = 5;
-        
+
         $contactLesson = $this->CreateContactLesson()->getId();
 
 //        $absence = $this->CreateAbsence()->getId();
         $subjectRound = $this->CreateSubjectRound()->getId();
 //        $studentGrade = $this->CreateStudentGrade()->getId();
         $teachers = [
-                        ['id' => $this->CreateTeacher()->getId()],
-                        ['id' => $this->CreateTeacher()->getId()],
-                    ];
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ];
 
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('lessonDate', $lessonDate);
@@ -264,7 +262,7 @@ class ContactLessonTest extends UnitHelpers
         $this->assertEquals($lisUserCreatesId, $newContactLesson->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newContactLesson->getUpdatedBy()->getId());
     }
-    
+
     public function testGetTrashedList()
     {
 
@@ -306,7 +304,7 @@ class ContactLessonTest extends UnitHelpers
             $this->assertEquals(1, $value['trashed']);
         }
     }
-    
+
     /**
      * TEST rows get read by limit and page params
      */

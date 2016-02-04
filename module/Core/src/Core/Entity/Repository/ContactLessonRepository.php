@@ -12,6 +12,7 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\ContactLesson;
 use Exception;
+use Zend\Json\Json;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
@@ -77,24 +78,25 @@ class ContactLessonRepository extends AbstractBaseRepository
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
+        $this->validateSubjectRound($data);
+        $entity = new ContactLesson($this->getEntityManager());
+        $subjectRound = $this->getEntityManager()
+                ->getRepository('Core\Entity\SubjectRound')
+                ->find($data['subjectRound']);
+        unset($data['subjectRound']);
+        $entity->setSubjectRound($subjectRound);
         $entity = $this->validateEntity(
-                new ContactLesson($this->getEntityManager()), $data
+                $entity, $data
         );
+        
+
+        
 //        print_r($entity->getArrayCopy());die('HERE');
         //IF required MANY TO MANY validate manually
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-
-    /**
-     * Special case for subject round
-     * 
-     * @param int|string $id
-     * @param array $data
-     * @param bool|null $returnPartial
-     * @param stdClass|null $extra
-     * @return mixed
-     */
-    public function Update($id, $data, $returnPartial = false, $extra = null)
+    
+    private function validateSubjectRound($data)
     {
         if (!key_exists('subjectRound', $data)) {
             throw new Exception(
@@ -111,7 +113,21 @@ class ContactLessonRepository extends AbstractBaseRepository
             )
             );
         }
+    }
 
+    /**
+     * Special case for subject round
+     * 
+     * @param int|string $id
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
+     */
+    public function Update($id, $data, $returnPartial = false, $extra = null)
+    {
+
+        $this->validateSubjectRound($data);
         $entity = $this->find($id);
 
         $subjectRound = $this->getEntityManager()
@@ -131,8 +147,8 @@ class ContactLessonRepository extends AbstractBaseRepository
         if (!count($entity->getTeacher())) {
             throw new Exception(Json::encode('Missing teachers for contact lesson', true));
         }
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+//        $this->getEntityManager()->persist($entity);
+//        $this->getEntityManager()->flush($entity);
 
         return $this->singleResult($entity, $returnPartial, $extra);
     }

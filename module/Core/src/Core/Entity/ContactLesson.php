@@ -207,6 +207,27 @@ class ContactLesson extends EntityValidation
             $this->rooms->removeElement($room);
         }
     }
+    
+    /**
+     * @param $subjectRound
+     */
+    public function addSubjectRound($subjectRound)
+    {
+        foreach ($subjectRound as $subjectRound) {
+            $this->subjectRound->removeElement($subjectRound);
+        }
+    }
+    
+    /**
+     * @param $subjectRound
+     */
+    public function removeSubjectRound($subjectRound)
+    {
+        foreach ($subjectRound as $subjectRound) {
+            $this->subjectRound->removeElement($subjectRound);
+        }
+    }
+    
 
     /**
      * @ORM\PrePersist
