@@ -24,7 +24,13 @@ use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
- * @ORM\Table(indexes={@ORM\Index(name="contactlesson_index_lessondate", columns={"lessonDate"})})
+ * @ORM\Table(
+ *      indexes={
+ *          @ORM\Index(name="contactlesson_index_lessondate", columns={"lessonDate"}),
+ *          @ORM\Index(name="contactlesson_trashed", columns={"trashed"}),
+ *          @ORM\Index(name="contactlesson_description", columns={"description"}),
+ *          @ORM\Index(name="contactlesson_durationAK", columns={"durationAK"}),
+ * })
  * @ORM\HasLifecycleCallbacks
  */
 class ContactLesson extends EntityValidation

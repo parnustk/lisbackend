@@ -49,16 +49,19 @@ class ContactLessonTest extends UnitHelpers
         $durationAK = 4;
         $this->request->getPost()->set("durationAK", $durationAK);
 
-        $subjectRound = $this->CreateSubjectRound();
+        $contactLesson = $this->CreateContactLesson();
 
-        $this->request->getPost()->set("subjectRound", $subjectRound->getId());
+        $this->request->getPost()->set("contactLesson", $contactLesson->getId());
 
         $teachers = [];
-        foreach ($subjectRound->getTeacher() as $teacher) {
+        foreach ($contactLesson->getTeacher() as $teacher) {
             $teachers[] = [
                 'id' => $teacher->getId()
             ];
         }
+        
+        $this->request->getPost()->set('subjectRound', $this->CreateSubjectRound()->getId());
+        
         $this->request->getPost()->set("teacher", $teachers);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -300,43 +303,66 @@ class ContactLessonTest extends UnitHelpers
 //    public function testGetTrashedList()
 //    {
 //
-//        //prepare one AbsenceReason with trashed flag set up
-////        $entity = $this->CreateContactLesson();
-////        $entity->setTrashed(1);
-////        $this->em->persist($entity);
-////        $this->em->flush($entity); //save to db with trashed 1
-////        $where = [
-////            'trashed' => 1,
-////            'id' => $entity->getId()
-////        ];
-////        $whereJSON = Json::encode($where);
-////        $whereURL = urlencode($whereJSON);
-////        $whereURLPart = "where=$whereURL";
-////        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
-////
-////        $params = [];
-////        parse_str($q, $params);
-////        foreach ($params as $key => $value) {
-////            $this->request->getQuery()->set($key, $value);
-////        }
-////
-////        $this->request->setMethod('get');
-////
-////        $result = $this->controller->dispatch($this->request);
-////        $response = $this->controller->getResponse();
-////
-////        $this->PrintOut($result, true);
-////
-////        $this->assertEquals(200, $response->getStatusCode());
-////        $this->assertEquals(1, $result->success);
-////
-////        //limit is set to 1
-////        $this->assertEquals(1, count($result->data));
-////
-////        //assert all results have trashed not null
-////        foreach ($result->data as $value) {
-////            $this->assertEquals(1, $value['trashed']);
-////        }
+////        prepare one ContactLesson with trashed flag set up
+//        $entity = $this->CreateContactLesson();
+//        $entity->setTrashed(1);
+//        $this->em->persist($entity);
+//        $this->em->flush($entity); //save to db with trashed 1
+//        $where = [
+//            'trashed' => 1,
+//            'id' => $entity->getId()
+//        ];
+//        $whereJSON = Json::encode($where);
+//        $whereURL = urlencode($whereJSON);
+//        $whereURLPart = "where=$whereURL";
+//        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+//
+//        $params = [];
+//        parse_str($q, $params);
+//        foreach ($params as $key => $value) {
+//            $this->request->getQuery()->set($key, $value);
+//        }
+//
+//        $this->request->setMethod('get');
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, true);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//
+//        //limit is set to 1
+//        $this->assertEquals(1, count($result->data));
+//
+//        //assert all results have trashed not null
+//        foreach ($result->data as $value) {
+//            $this->assertEquals(1, $value['trashed']);
+//        }
 //    }
+    
+    /**
+     * TEST rows get read by limit and page params
+     */
+    public function testGetListWithPaginaton()
+    {
+        $this->request->setMethod('get');
+
+        //set record limit to 1
+        $q = 'page=1&limit=1'; //imitate real param format
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertLessThanOrEqual(1, count($result->data));
+        $this->PrintOut($result, false);
+    }
 
 }
