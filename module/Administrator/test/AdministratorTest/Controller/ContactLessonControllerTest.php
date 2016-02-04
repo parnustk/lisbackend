@@ -217,130 +217,95 @@ class ContactLessonTest extends UnitHelpers
 
         $this->PrintOut($result, false);
     }
-//
-////    public function testCreatedByAndUpdatedBy()
-////    {
-//////        $this->request->setMethod('post');
-//////
-//////        $description = 'ContactLesson description' . uniqid();
-//////        $lessonDate = new \DateTime;
-//////        $durationAK = 5;
-//////
-//////        $contactLesson = $this->CreateContactLesson()->getId();
-//////
-//////        $absence = $this->CreateAbsence()->getId();
-//////        $subjectRound = $this->CreateSubjectRound()->getId();
-//////        $studentGrade = $this->CreateStudentGrade()->getId();
-//////        
-////////        $teacher = $this->CreateTeacher()->getId();     
-////////        $rooms = $this->CreateRoom()->getId();
-//////
-//////        $this->request->getPost()->set('description', $description);
-//////        $this->request->getPost()->set('lessonDate', $lessonDate);
-//////        $this->request->getPost()->set('durationAK', $durationAK);
-//////        $this->request->getPost()->set('contactLesson', $contactLesson);
-//////        $this->request->getPost()->set('absence', $absence);
-//////        $this->request->getPost()->set('subjectRound', $subjectRound);
-////////        $teacher = [];
-////////        foreach ($subjectRound->getTeacher() as $teachers) {
-////////            $teacher[] = [
-////////                'id' => $teachers->getId()
-////////            ];
-////////        }
-////////        $rooms = [];
-////////        foreach ($subjectRound->getRooms() as $room) {
-////////            $rooms[] = [
-////////                'id' => $room->getId()
-////////            ];
-////////        }
-//////        $this->request->getPost()->set('studentGrade', $studentGrade);
-//////
-//////        $lisUserCreates = $this->CreateLisUser();
-//////        $lisUserCreatesId = $lisUserCreates->getId();
-//////        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-//////
-//////        $lisUserUpdates = $this->CreateLisUser();
-//////        $lisUserUpdatesId = $lisUserUpdates->getId();
-//////        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-//////
-//////        $result = $this->controller->dispatch($this->request);
-//////        $response = $this->controller->getResponse();
-//////
-//////        $this->assertEquals(200, $response->getStatusCode());
-//////        $this->assertEquals(1, $result->success);
-//////
-//////        $this->PrintOut($result, false);
-//////
-//////        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
-//////        $newContactLesson = $repository->find($result->data['id']);
-//////        $this->assertEquals($lisUserCreatesId, $newContactLesson->getCreatedBy()->getId());
-//////        $this->assertEquals($lisUserUpdatesId, $newContactLesson->getUpdatedBy()->getId());
-////    }
-//    
-//    /**
-//     * TEST rows get read by limit and page params
-//     */
-////    public function testGetListWithPaginaton()
-////    {
-////        $this->request->setMethod('get');
-////
-////        //set record limit to 1
-////        $q = 'page=1&limit=1'; //imitate real param format
-////        $params = [];
-////        parse_str($q, $params);
-////        foreach ($params as $key => $value) {
-////            $this->request->getQuery()->set($key, $value);
-////        }
-////
-////        $result = $this->controller->dispatch($this->request);
-////        $response = $this->controller->getResponse();
-////        $this->assertEquals(200, $response->getStatusCode());
-////        $this->assertEquals(1, $result->success);
-////        $this->assertLessThanOrEqual(1, count($result->data));
-////        $this->PrintOut($result, false);
-////    }
-//    
-//    public function testGetTrashedList()
-//    {
-//
-////        prepare one ContactLesson with trashed flag set up
-//        $entity = $this->CreateContactLesson();
-//        $entity->setTrashed(1);
-//        $this->em->persist($entity);
-//        $this->em->flush($entity); //save to db with trashed 1
-//        $where = [
-//            'trashed' => 1,
-//            'id' => $entity->getId()
-//        ];
-//        $whereJSON = Json::encode($where);
-//        $whereURL = urlencode($whereJSON);
-//        $whereURLPart = "where=$whereURL";
-//        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
-//
-//        $params = [];
-//        parse_str($q, $params);
-//        foreach ($params as $key => $value) {
-//            $this->request->getQuery()->set($key, $value);
-//        }
-//
-//        $this->request->setMethod('get');
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->PrintOut($result, true);
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        //limit is set to 1
-//        $this->assertEquals(1, count($result->data));
-//
-//        //assert all results have trashed not null
-//        foreach ($result->data as $value) {
-//            $this->assertEquals(1, $value['trashed']);
-//        }
-//    }
+
+    public function testCreatedByAndUpdatedBy()
+    {
+        $this->request->setMethod('post');
+
+        $description = 'ContactLesson description' . uniqid();
+        $lessonDate = new \DateTime;
+        $durationAK = 5;
+        
+        $contactLesson = $this->CreateContactLesson()->getId();
+
+//        $absence = $this->CreateAbsence()->getId();
+        $subjectRound = $this->CreateSubjectRound()->getId();
+//        $studentGrade = $this->CreateStudentGrade()->getId();
+        $teachers = [
+                        ['id' => $this->CreateTeacher()->getId()],
+                        ['id' => $this->CreateTeacher()->getId()],
+                    ];
+
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('lessonDate', $lessonDate);
+        $this->request->getPost()->set('durationAK', $durationAK);
+        $this->request->getPost()->set('contactLesson', $contactLesson);
+        $this->request->getPost()->set('subjectRound', $subjectRound);
+        $this->request->getPost()->set("teacher", $teachers);
+
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, false);
+
+        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
+        $newContactLesson = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newContactLesson->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newContactLesson->getUpdatedBy()->getId());
+    }
+    
+    public function testGetTrashedList()
+    {
+
+//        prepare one ContactLesson with trashed flag set up
+        $entity = $this->CreateContactLesson();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity); //save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $entity->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $this->request->setMethod('get');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        //limit is set to 1
+        $this->assertEquals(1, count($result->data));
+
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
+    }
     
     /**
      * TEST rows get read by limit and page params

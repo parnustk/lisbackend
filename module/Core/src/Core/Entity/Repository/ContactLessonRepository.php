@@ -11,6 +11,7 @@
 namespace Core\Entity\Repository;
 
 use Core\Entity\ContactLesson;
+use Exception;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
@@ -41,7 +42,8 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id,
                         lessonDate,
                         description,
-                        durationAK
+                        durationAK,
+                        trashed
                     },
                     partial subjectRound.{
                         id

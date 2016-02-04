@@ -168,6 +168,47 @@ class ContactLesson extends EntityValidation
     }
 
     /**
+     * @param $absence
+     */
+    public function addAbsence($absence)
+    {
+        foreach ($absence as $absence) {
+            $this->absence->add($absence);
+        }
+    }
+
+    /**
+     * @param $absence
+     */
+    public function removeAbsence($absence)
+    {
+        foreach ($absence as $absence) {
+            $this->absence->removeElement($absence);
+        }
+    }
+
+    /**
+     * @param Collection $rooms
+     */
+    public function addRooms(Collection $rooms)
+    {
+        foreach ($rooms as $room) {
+            //$gradingType->setModule($this);
+            $this->rooms->add($room);
+        }
+    }
+    
+    /**
+     * @param Collection $rooms
+     */
+    public function removeRooms(Collection $rooms)
+    {
+        foreach ($rooms as $room) {
+            $this->rooms->removeElement($room);
+        }
+    }
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
