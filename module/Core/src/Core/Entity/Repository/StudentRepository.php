@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * 
+ */
+
 namespace Core\Entity\Repository;
 
 use Core\Entity\Student;
@@ -12,7 +20,9 @@ use Zend\Json\Json;
 use Doctrine\ORM\Query;
 
 /**
- * @author marten
+ * Description of StudentRepository
+ * 
+ * @author Marten Kähr <marten@kahr.ee>
  */
 class StudentRepository extends EntityRepository implements CRUD
 {

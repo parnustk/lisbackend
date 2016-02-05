@@ -5,7 +5,7 @@
  * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 Lis Team
- * @license   http://creativecommons.org/licenses/by-nc/4.0/legalcode Attribution-NonCommercial 4.0 International
+ *
  */
 
 namespace Core\Entity;
@@ -23,6 +23,7 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Marten Kähr <marten@kahr.ee>
  */
 class Administrator extends EntityValidation
 {

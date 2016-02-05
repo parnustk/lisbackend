@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * 
+ */
+
 namespace Core\Service;
 
 use Exception;
 
 /*
- * @author marten
+ * Description of StudentService
+ * @author Marten Kähr <marten@kahr.ee>
  */
 
 class StudentService extends AbstractBaseService

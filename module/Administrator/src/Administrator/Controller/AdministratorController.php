@@ -5,7 +5,7 @@
  * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 Lis Team
- * @license   https://opensource.org/licenses/MIT MIT License
+ * 
  */
 
 namespace Administrator\Controller;
@@ -17,6 +17,8 @@ use Core\Controller\AbstractBaseController;
  * Description of AdministratorController
  *
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Marten Kähr <marten@kahr.ee>
+ * 
  */
 class AdministratorController extends AbstractBaseController
 {

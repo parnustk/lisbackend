@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * 
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
@@ -7,8 +15,8 @@ use Core\Controller\AbstractBaseController;
 
 
 /**
- * @author marten
- * method to create new student
+ * Description of StudentController
+ * @author Marten Kähr <marten@kahr.ee>
  */
 class StudentController extends AbstractBaseController
 {

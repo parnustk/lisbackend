@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * 
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -18,6 +26,7 @@ use DateTime;
  *     }
  * )
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Marten Kähr <marten@kahr.ee>
  */
 class Student extends EntityValidation

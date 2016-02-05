@@ -5,7 +5,6 @@
  * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 Lis Team
- * @license   https://opensource.org/licenses/MIT MIT License
  */
 
 namespace Core\Service;
@@ -16,6 +15,7 @@ use Exception;
  * Description of AdministratorService
  *
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Marten Kähr <marten@kahr.ee>
  */
 class AdministratorService extends AbstractBaseService
 {

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 Lis Team
+ * 
+ */
+
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\StudentController;
@@ -7,7 +15,9 @@ use Administrator\Controller\StudentController;
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 /**
- * @author marten
+ * Description of StudentControllerTest
+ * 
+ * @author Marten Kähr <marten@kahr.ee>
  */
 class StudentControllerTest extends UnitHelpers
 {

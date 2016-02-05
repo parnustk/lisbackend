@@ -5,7 +5,7 @@
  * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 Lis Team
- * @license   https://opensource.org/licenses/MIT MIT License
+ * 
  */
 
 namespace AdministratorTest\Controller;
@@ -16,6 +16,7 @@ use Doctrine\ORM\Query\ResultSetMapping;
 /**
  * Description of AdministratorControllerTest
  *
+ * @author Marten Kähr <marten@kahr.ee>
  * @author Sander Mets <sandermets0@gmail.com>
  */
 class AdministratorControllerTest extends UnitHelpers
