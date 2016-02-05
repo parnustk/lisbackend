@@ -25,7 +25,7 @@
      * @param {type} absencereasonModel
      * @param {type} absenceModel
      * @param {type} roomModel
-     * @param {type} moduleTypeModel
+     * @param {type} moduletypeModel
      * @param {type} vocationController
      * @param {type} gradingTypeController
      * @param {type} gradeChoiceController
@@ -33,7 +33,7 @@
      * @param {type} absencereasonController
      * @param {type} absenceController
      * @param {type} roomController
-     * @param {type} moduleTypeController
+     * @param {type} moduletypeController
      * @returns {unresolved}
      */
     define([
@@ -46,7 +46,7 @@
         'app/model/absencereasonModel',
         'app/model/absenceModel',
         'app/model/roomModel',
-        'app/model/moduleTypeModel',
+        'app/model/moduletypeModel',
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -54,7 +54,7 @@
         'app/controller/absencereasonController',
         'app/controller/absenceController',
         'app/controller/roomController',
-        'app/controller/moduleTypeController'
+        'app/controller/moduletypeController'
 
 
     ], function (
@@ -67,7 +67,7 @@
             absencereasonModel,
             absenceModel,
             roomModel,
-            moduleTypeModel,
+            moduletypeModel,
             vocationController,
             gradingTypeController,
             gradeChoiceController,
@@ -75,7 +75,7 @@
             absencereasonController,
             absenceController,
             roomController,
-            moduleTypeController
+            moduletypeController
             ) {
 
         var adminModule = angular.module('adminModule', [
@@ -103,7 +103,7 @@
         adminModule.factory('absencereasonModel', absencereasonModel);
         adminModule.factory('absenceModel', absenceModel);
         adminModule.factory('roomModel', roomModel);
-        adminModule.factory('moduleTypeModel', moduleTypeModel);
+        adminModule.factory('moduletypeModel', moduletypeModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -112,7 +112,7 @@
         adminModule.controller('absencereasonController', absencereasonController);
         adminModule.controller('absenceController', absenceController);
         adminModule.controller('roomController', roomController);      
-        adminModule.controller('moduleTypeController', moduleTypeController);
+        adminModule.controller('moduletypeController', moduletypeController);
         return adminModule;
     });
 

@@ -48,7 +48,7 @@
 
                     .when('/moduletype', {
                         templateUrl: 'lis/dist/templates/moduletype.html',
-                        controller: 'moduleTypeController'})
+                        controller: 'moduletypeController'})
                     
                     .when('/absence', {
                         templateUrl: 'lis/dist/templates/absence.html',
