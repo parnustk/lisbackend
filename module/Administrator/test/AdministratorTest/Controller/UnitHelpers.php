@@ -355,7 +355,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'name' => uniqid() . 'RoomName',
+                    'firstName' => uniqid() . 'FirstName',
+                    'lastName'  => uniqid() . 'LastName',
+                    'code'      => uniqid() . 'Code'
         ]);
     }
 

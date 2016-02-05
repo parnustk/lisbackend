@@ -36,7 +36,29 @@ class AdministratorRepository extends EntityRepository implements CRUD
      */
     public function GetList($params = null, $extra = null)
     {
-        
+        if ($params) {
+            //todo if neccessary
+        }
+
+        $dql = "SELECT 
+                    partial administrator.{
+                        id,
+                        firstName,
+                        lastName,
+                        code
+                    }
+                FROM Core\Entity\Administrator administrator
+                WHERE administrator.trashed IS NULL";
+
+        return new Paginator(
+                new DoctrinePaginator(
+                new ORMPaginator(
+                $this->getEntityManager()
+                        ->createQuery($dql)
+                        ->setHydrationMode(Query::HYDRATE_ARRAY)
+                )
+                )
+        );
     }
 
     /**
