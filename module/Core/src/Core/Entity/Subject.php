@@ -166,6 +166,10 @@ class Subject extends EntityValidation
         }
     }
     
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
     public function refreshTimeStamps()
     {
         if ($this->getCreatedAt() === null) {
