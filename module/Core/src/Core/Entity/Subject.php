@@ -77,6 +77,7 @@ class Subject extends EntityValidation
     protected $durationIndependentAK;
 
     /**
+      protected $
      * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="subject")
      * @Annotation\Exclude()
      */
@@ -99,7 +100,7 @@ class Subject extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $gradingType;
-    
+
     /**
      *
      * @ORM\Column(type="integer", nullable=true)
@@ -165,18 +166,6 @@ class Subject extends EntityValidation
             $this->gradingType->removeElement($gradingType);
         }
     }
-    
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function refreshTimeStamps()
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
-    }
 
     public function getId()
     {
@@ -223,6 +212,31 @@ class Subject extends EntityValidation
         return $this->gradingType;
     }
 
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
     public function setCode($code)
     {
         $this->code = $code;
@@ -264,30 +278,11 @@ class Subject extends EntityValidation
         $this->module = $module;
         return $this;
     }
-    
-    public function getTrashed()
-    {
-        return $this->trashed;
-    }
 
-    public function getCreatedBy()
+    public function setGradingType($gradingType)
     {
-        return $this->createdBy;
-    }
-
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
+        $this->gradingType = $gradingType;
+        return $this;
     }
 
     public function setTrashed($trashed)
@@ -318,6 +313,19 @@ class Subject extends EntityValidation
     {
         $this->updatedAt = $updatedAt;
         return $this;
+    }
+
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
 }

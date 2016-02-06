@@ -285,16 +285,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'description' => uniqid() . ' Description for contactlesson',
                     'durationAK' => 6,
                     'subjectRound' => $subjectRound->getId(),
-//                    'absence' => $this->CreateAbsence()->getId(),
-//                    'studentGrade' => $this->CreateStudentGrade()->getId(),
                     'teacher' => [
                         ['id' => $this->CreateTeacher()->getId()],
                         ['id' => $this->CreateTeacher()->getId()],
                     ],
-//                    'room' => [
-//                        ['id' => $this->CreateRoom()->getId()],
-//                        ['id' => $this->CreateRoom()->getId()],
-//                    ],
         ]);
     }
 

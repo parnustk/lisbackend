@@ -1,96 +1,102 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author sander
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class SubjectController extends AbstractBaseController
 {
 
     protected $service = 'subject_service';
+    
     /**
-     * GET
+     * <h2>GET admin/subject</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
      * 
      * @return JsonModel
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get($this->service)
-                        ->GetList($this->GetParams())
-        );
+         return parent::getList();
     }
 
     /**
-     * POST
+     * <h2>POST admin/subject</h2>
+     * <h3>Body</h3>
+     * <code> code(string)*
+     * name(string)*
+     * durationAllAK(integer)*
+     * durationContactAK(integer)*
+     * durationIndependentAK(intiger)*
+     * module(int)*
+     * gradingType(int)*</code>
      * 
      * @param array $data
      * @return JsonModel
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subject_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
-     * GET
+     * <h2>GET admin/subject/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subject_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
-     * PUT
-     * 
+     * <h2>PUT admin/subject/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code> code(string)*
+     * name(string)*
+     * durationAllAK(integer)*
+     * durationContactAK(integer)*
+     * durationIndependentAK(intiger)*
+     * module(int)*
+     * gradingType(int)*</code>
      * @param int $id
-     * @param array $data
      * @return JsonModel
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subject_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
-     * DELETE
+     * <h2>DELETE admin/subject/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
-     * @param array $data
      * @return JsonModel
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subject_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }
