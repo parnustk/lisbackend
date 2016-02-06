@@ -34,6 +34,20 @@
                                 }
                         );
             };
+            
+            $scope.Get = function (id) {
+                absencereasonModel
+                        .Get($scope.absencereason.id)
+                        .then(
+                                function (result) {
+                                    if (result.success) {
+                                        alert('GOOD');
+                                    } else {
+                                        alert('BAD');
+                                    }
+                                }
+                        );
+            };
 
 //            $scope.reset = function () {
 //                $scope.name

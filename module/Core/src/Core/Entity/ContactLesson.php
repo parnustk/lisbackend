@@ -19,7 +19,7 @@ use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
- * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 /**

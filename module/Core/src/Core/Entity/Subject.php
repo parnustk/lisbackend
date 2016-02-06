@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -8,12 +16,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Core\Utils\EntityValidation;
+use DateTime;
+
+/**
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRepository")
  * @ORM\Table(
- *     indexes={@ORM\Index(name="subjectname", columns={"name"}),@ORM\Index(name="subjectcode", columns={"code"})}
- * )
+ *     indexes={
+ *          @ORM\Index(name="subjectname", columns={"name"}),
+ *          @ORM\Index(name="subjectcode", columns={"code"}),
+ *          @ORM\Index(name="subject_trashed", columns={"trashed"}),
+ *          @ORM\Index(name="subject_durationAllAK", columns={"durationAllAK"}),
+ *          @ORM\Index(name="subject_durationContactAK", columns={"durationContactAK"}),
+ *          @ORM\Index(name="subject_durationIndependentAK", columns={"durationIndependentAK"}),
+ * })
+ * @ORM\HasLifecycleCallbacks
  */
 class Subject extends EntityValidation
 {
@@ -79,6 +99,41 @@ class Subject extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $gradingType;
+    
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    protected $createdBy;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $createdAt;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
 
     /**
      * 
@@ -109,6 +164,14 @@ class Subject extends EntityValidation
         foreach ($gradingTypes as $gradingType) {
             $this->gradingType->removeElement($gradingType);
         }
+    }
+    
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
     public function getId()
@@ -195,6 +258,61 @@ class Subject extends EntityValidation
     public function setModule($module)
     {
         $this->module = $module;
+        return $this;
+    }
+    
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 
