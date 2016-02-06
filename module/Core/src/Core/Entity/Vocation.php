@@ -29,45 +29,56 @@ class Vocation extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"min":"3", "max":"255"}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/[a-zA-Z]/"}})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string",name="`code`", unique=true, length=255, nullable=false)
      */
     protected $code;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationEKAP;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="StudentGroup", mappedBy="vocation")
      */
     protected $studentGroup;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="Module", mappedBy="vocation")
      */
     protected $module;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 

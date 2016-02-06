@@ -33,7 +33,7 @@ List of used technologies:
     NodeJS, 
     Gulp, 
     Foundation6 sites
-    Karma or Casper
+    Karma or Casper(probably as Angular docs suggest)
 
 ## Technical requirements
 
