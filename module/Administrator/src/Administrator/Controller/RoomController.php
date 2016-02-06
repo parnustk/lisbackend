@@ -6,19 +6,19 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
-  * Room Controller
-  * 
-  * @author Alar Aasa <alar@alaraasa.ee>
-  */
-
-
+ * Room Controller
+ * 
+ * @author Alar Aasa <alar@alaraasa.ee>
+ */
 class RoomController extends AbstractBaseController
 {
     /*
      * @var type
      */
+
     protected $service = 'room_service';
-        /**
+
+    /**
      * <h2>GET admin/room</h2>
      * <h3>URL Parameters</h3>
      * <code>limit(integer)
@@ -29,7 +29,7 @@ class RoomController extends AbstractBaseController
     {
         return parent::getList();
     }
-    
+
     /**
      * <h2>GET admin/room</h2>
      * <h3>URL Parameters</h3>
@@ -41,7 +41,7 @@ class RoomController extends AbstractBaseController
     {
         return parent::get($id);
     }
-    
+
     /**
      * <h2>POST admin/room</h2>
      * <h3>Body</h3>
@@ -53,8 +53,8 @@ class RoomController extends AbstractBaseController
     {
         return parent::create($data);
     }
-    
-     /**
+
+    /**
      * <h2>PUT admin/room/id</h2>
      * <h3>Body</h3>
      * <code>name(string)</code>
@@ -62,9 +62,9 @@ class RoomController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-         return parent::update($id, $data);
+        return parent::update($id, $data);
     }
-    
+
     /**
      * <h2>DELETE administrator/room</h2>
      * <h3>URL Parameters</h3>
@@ -73,6 +73,7 @@ class RoomController extends AbstractBaseController
      */
     public function delete($id)
     {
-         return parent::delete($id);
+        return parent::delete($id);
     }
+
 }

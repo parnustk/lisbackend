@@ -178,7 +178,8 @@
 * YES get     - OWN GROUP RELATED
 
 ## Module RESOURCE
-* name
+
+* (string)*
 * code(integer)*
 * duration(integer)*
 * vocation(integer)*
@@ -202,6 +203,255 @@
 
 * YES getList
 * YES get
+
+## Moduletype RESOURCE
+
+* name(string)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update ?PERIOD
+* YES delete ?PERIOD
+
+### Teacher ROLE
+
+* YES getList
+* YES get
+
+### Student ROLE
+
+* YES getList
+* YES get
+
+## Room RESOURCE
+
+* name(string)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update ?PERIOD
+* YES delete ?PERIOD
+
+### Teacher ROLE
+
+* YES getList
+* YES get
+
+### Student ROLE
+
+* YES getList
+* YES get
+
+## Student RESOURCE
+
+* firstName(string)*
+* lastName(string)*
+* code(string)*
+* email(string)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update ?PERIOD
+* YES delete ?PERIOD
+
+### Teacher ROLE
+
+* YES getList
+* YES get
+
+### Student ROLE
+
+* YES getList - OWN RELATED
+* YES get     - OWN RELATED
+
+## StudentGrade RESOURCE
+
+* notes(string)
+* student(integer)*
+* gradeChoice(integer)*
+* teacher(intiger)*
+* independentWork(integer)
+* module(integer)
+* subjectRound(integer)
+* contactLesson(integer)
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+
+### Teacher ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update OWN GROUP REALTED
+* YES delete OWN GROUP REALTED
+
+### Student ROLE
+
+* YES getList - OWN RELATED
+* YES get     - OWN RELATED
+
+## StudentGroup RESOURCE
+
+* name(string)*
+* vocation(integer)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update
+* YES delete
+
+### Teacher ROLE
+
+* YES getList
+* YES get
+
+### Student ROLE
+
+* YES getList - OWN GROUP RELATED
+* YES get     - OWN GROUP RELATED
+
+## StudentInGroups RESOURCE
+
+* student(integer)*
+* studentGroup(integer)*
+* status(integer)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update
+* YES delete
+
+### Teacher ROLE
+
+* YES getList
+* YES get
+
+### Student ROLE
+
+* YES getList - OWN GROUP RELATED
+* YES get     - OWN GROUP RELATED
+
+## Subject RESOURCE
+
+* code(integer)*
+* name(string)*
+* durationAllAK(integer)*
+* durationContactAK(integer)*
+* durationIndependentAK(integer)*
+* module(integer)*
+* gradingType(array of integers)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update
+* YES delete
+
+### Teacher ROLE
+
+* YES getList
+* YES get
+
+### Student ROLE
+
+* YES getList - OWN GROUP RELATED
+* YES get     - OWN GROUP RELATED
+
+## SubjectRound RESOURCE
+
+* subject(integer)*
+* studentGroup(integer)*
+* teacher(array) [ { id(integer) } ] ]*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update
+* YES delete
+
+### Teacher ROLE
+
+* YES getList - OWN RELATED
+* YES get     - OWN RELATED
+
+### Student ROLE
+
+* YES getList - OWN GROUP RELATED
+* YES get     - OWN GROUP RELATED
+
+## Teacher RESOURCE
+
+* firstName(string)*
+* lastName(string)*
+* code(string)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update
+* YES delete
+
+### Teacher ROLE
+
+* YES getList - OWN RELATED
+* YES get     - OWN RELATED
+
+### Student ROLE
+
+* YES getList - OWN GROUP RELATED
+* YES get     - OWN GROUP RELATED
+
+## Vocation RESOURCE
+
+* name(string)*
+* code(string)*
+* durationEKAP(integer)*
+
+### Administrator ROLE
+
+* YES getList
+* YES get
+* YES create
+* YES update
+* YES delete
+
+### Teacher ROLE
+
+* YES getList - OWN RELATED
+* YES get     - OWN RELATED
+
+### Student ROLE
+
+* YES getList - OWN GROUP RELATED
+* YES get     - OWN GROUP RELATED
+
+
+
+
 
 
 

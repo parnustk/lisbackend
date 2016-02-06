@@ -16,7 +16,7 @@ use Core\Controller\AbstractBaseController;
 /**
  * Rest API access to studentgroup data.
  * 
- * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author @author Kristen Sepp<seppkristen@gmail.com>, Sander Mets<sandermets0@gmail.com>
  */
 class StudentGroupController extends AbstractBaseController
 {
@@ -26,7 +26,7 @@ class StudentGroupController extends AbstractBaseController
      * @var type 
      */
     protected $service = 'studentgroup_service';
-    
+
     /**
      * <h2>POST admin/studentgroup</h2>
      * <h3>Body</h3>

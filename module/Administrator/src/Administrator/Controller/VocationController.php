@@ -26,8 +26,11 @@ class VocationController extends AbstractBaseController
     protected $service = 'vocation_service';
 
     /**
-     * GET
-     *
+     * <h2>GET admin/vocation</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
+     * 
      * @return JsonModel
      */
     public function getList()
@@ -36,7 +39,9 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * GET
+     * <h2>GET admin/vocation/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param type $id
      * @return JsonModel
@@ -47,9 +52,13 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * POST
+     * <h2>POST admin/vocation</h2>
+     * <h3>Body</h3>
+     * <code>name(string)*
+     * code(string)*
+     * durationEKAP(string)*</code>
      * 
-     * @param type $data
+     * @param array $data
      * @return JsonModel
      */
     public function create($data)
@@ -58,7 +67,11 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * PUT
+     * <h2>PUT admin/vocation/:id</h2>
+     * <h3>Body</h3>
+     * <code>name(string)*
+     * code(string)*
+     * durationEKAP(string)*</code>
      * 
      * @param type $id
      * @param type $data
@@ -70,7 +83,9 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * DELETE
+     * <h2>DELETE admin/administrator/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel

@@ -15,12 +15,12 @@ namespace AdministratorTest\Controller;
 use Administrator\Controller\StudentGroupController;
 use Zend\Json\Json;
 
+/**
+ * @author Kristen Sepp<seppkristen@gmail.com>, Sander Mets<sandermets0@gmail.com>
+ */
 class StudentGroupControllerTest extends UnitHelpers
 {
 
-    /**
-     * @author Kristen <seppkristen@gmail.com>
-     */
     protected function setUp()
     {
         $this->controller = new StudentGroupController();
@@ -40,13 +40,12 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
-
 
     public function testCreateWithCreatedByAndUpdatedBy()
     {
@@ -66,12 +65,12 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $repository = $this->em->getRepository('Core\Entity\StudentGroup');
         $newStudentGroup = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
@@ -84,7 +83,7 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -101,7 +100,7 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -120,7 +119,7 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -142,9 +141,9 @@ class StudentGroupControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         //set new data
@@ -169,7 +168,7 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -202,7 +201,7 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -213,7 +212,7 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
     }
-    
+
     public function testTrashed()
     {
         //create one to update later
@@ -229,9 +228,9 @@ class StudentGroupControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         //set new data
@@ -242,4 +241,5 @@ class StudentGroupControllerTest extends UnitHelpers
                 $trashedOld, $r->getTrashed()
         );
     }
+
 }
