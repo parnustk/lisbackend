@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -9,12 +17,22 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Zend\Stdlib\ArraySerializableInterface;
+use DateTime;
+
+/**
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")
  * @ORM\Table(
- *     indexes={@ORM\Index(name="modulename", columns={"name"}),@ORM\Index(name="modulecode", columns={"code"})}
- * )
+ *     indexes={
+ *          @ORM\Index(name="modulename", columns={"name"}),
+ *          @ORM\Index(name="modulecode", columns={"code"}),
+ *          @ORM\Index(name="moduleduration", columns={"duration"}),
+ *          @ORM\Index(name="module_trashed", columns={"trashed"}),
+ * })
+ * @ORM\HasLifecycleCallbacks
  */
 class Module extends EntityValidation
 {
@@ -82,6 +100,41 @@ class Module extends EntityValidation
      * 
      */
     protected $gradingType;
+    
+    /**
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Annotation\Exclude()
+     */
+    protected $trashed;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
+     */
+    protected $createdBy;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
+     */
+    protected $updatedBy;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $createdAt;
+
+    /**
+     *
+     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
+     * @Annotation\Exclude()
+     */
+    protected $updatedAt;
 
     /**
      * 
@@ -199,6 +252,73 @@ class Module extends EntityValidation
     {
         $this->studentGrade = $studentGrade;
         return $this;
+    }
+    
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
 }

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Core\Entity\Repository;
 
 use Core\Entity\Module;
@@ -12,169 +20,138 @@ use Zend\Json\Json;
 use Doctrine\ORM\Query;
 
 /**
- * @author sander
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class ModuleRepository extends EntityRepository implements CRUD
+class ModuleRepository extends AbstractBaseRepository
 {
 
     /**
-     * 
-     * @param stdClass $params
-     * @return Paginator
+     *
+     * @var string
      */
-    public function GetList($params = null, $extra = null)
+    protected $baseAlias = 'module';
+
+    /**
+     *
+     * @var string 
+     */
+    protected $baseEntity = 'Core\Entity\Module';
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStart()
     {
-        if ($params) {
-            //use if neccessary
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        duration,
+                        code,
+                        trashed
+                    },
+                    partial vocation.{
+                    id
+                    },
+                    partial moduleType.{
+                    id
+                    },
+                    partial gradingType.{
+                    id
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.vocation vocation
+                    JOIN $this->baseAlias.moduleType moduleType 
+                    JOIN $this->baseAlias.gradingType gradingType";
+    }
+
+    private function validateVocation($data)
+    {
+        if (!key_exists('vocation', $data)) {
+            throw new Exception(
+            Json::encode(
+                    'Missing vocation for module', true
+            )
+            );
         }
 
-        $dql = "SELECT 
-                    partial m.{id,name,duration,code},
-                    partial vocation.{id,name,code,durationEKAP},
-                    partial moduleType.{id,name},
-                    partial gradingType.{id,gradingType}
-                FROM Core\Entity\Module m
-                JOIN m.vocation vocation 
-                JOIN m.moduleType moduleType
-                JOIN m.gradingType gradingType";
+        if (!$data['vocation']) {
+            throw new Exception(
+            Json::encode(
+                    'Missing vocation for module', true
+            )
+            );
+        }
+    }
 
-        return new Paginator(
-                new DoctrinePaginator(
-                new ORMPaginator(
-                $this->getEntityManager()
-                        ->createQuery($dql)
-                        ->setHydrationMode(Query::HYDRATE_ARRAY)
-                )
-                )
-        );
+    private function validateModuleType($data)
+    {
+        if (!key_exists('moduletype', $data)) {
+            throw new Exception(
+            Json::encode(
+                    'Missing moduletype for module', true
+            )
+            );
+        }
+
+        if (!$data['vocation']) {
+            throw new Exception(
+            Json::encode(
+                    'Missing moduletype for module', true
+            )
+            );
+        }
     }
 
     /**
      * 
      * @param array $data
-     * @param boolean $returnPartial
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
      * @return mixed
-     * @throws Exception
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-
-        $entity = new Module($this->getEntityManager());
-
-        $entity->hydrate($data);
-
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
-        }
-
-        //manytomany validate manually
-        if (!count($entity->getGradingType())) {
-            throw new Exception(Json::encode('Missing gradingType', true));
-        }
-
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
-
-        if ($returnPartial) {
-
-            $dql = "
-                    SELECT 
-                        partial m.{id,name,duration,code},
-                        partial vocation.{id,name,code,durationEKAP},
-                        partial moduleType.{id,name},
-                        partial gradingType.{id,gradingType}
-                    FROM Core\Entity\Module m
-                    JOIN m.vocation vocation 
-                    JOIN m.moduleType moduleType
-                    JOIN m.gradingType gradingType 
-                    WHERE m.id = " . $entity->getId() . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $entity;
-    }
-
-    public function Get($id, $returnPartial = false, $extra = null)
-    {
-        if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial m.{id,name,duration,code},
-                        partial vocation.{id,name,code,durationEKAP},
-                        partial moduleType.{id,name},
-                        partial gradingType.{id,gradingType}
-                    FROM Core\Entity\Module m
-                    JOIN m.vocation vocation 
-                    JOIN m.moduleType moduleType
-                    JOIN m.gradingType gradingType 
-                    WHERE m.id = " . $id . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->find($id);
+        $entity = $this->validateEntity(
+                new Module($this->getEntityManager()), $data
+        );
+        //IF required MANY TO MANY validate manually
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
      * 
-     * @param int $id
+     * @param int|string $id
      * @param array $data
-     * @param bool $returnPartial
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
      * @return mixed
-     * @throws Exception
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
+        $this->validateVocation($data);
+//        $this->validateModuleType($data);
         $entity = $this->find($id);
-        $entity->setEntityManager($this->getEntityManager());
+
+        $vocation = $this->getEntityManager()
+                ->getRepository('Core\Entity\Vocation')
+                ->find($data['vocation']);
+
+        $entity->setVocation($vocation);
+
+        unset($data['vocation']);
+
         $entity->hydrate($data);
 
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
-
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
-
-        if ($returnPartial) {
-
-            $dql = "
-                    SELECT 
-                        partial m.{id,name,duration,code},
-                        partial vocation.{id,name,code,durationEKAP},
-                        partial moduleType.{id,name},
-                        partial gradingType.{id,gradingType}
-                    FROM Core\Entity\Module m
-                    JOIN m.vocation vocation 
-                    JOIN m.moduleType moduleType
-                    JOIN m.gradingType gradingType 
-                    WHERE m.id = " . $id . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-
-            return $r;
+        //manytomany validate manually
+        if (!count($entity->getgradingType())) {
+            throw new Exception(Json::encode('Missing gradingType for module', true));
         }
-        return $entity;
-    }
-
-    /**
-     * 
-     * @param type $id
-     */
-    public function Delete($id, $extra = null)
-    {
-        $this->getEntityManager()->remove($this->find($id));
-        $this->getEntityManager()->flush();
-        return $id;
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
 }

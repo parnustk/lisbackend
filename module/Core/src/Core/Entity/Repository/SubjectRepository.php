@@ -85,7 +85,7 @@ class SubjectRepository extends AbstractBaseRepository
         }
     }
     
-     /**
+    /**
      * 
      * @param array $data
      * @param bool|null $returnPartial
@@ -131,11 +131,6 @@ class SubjectRepository extends AbstractBaseRepository
         if (!count($entity->getgradingType())) {
             throw new Exception(Json::encode('Missing gradingType for subject', true));
         }
-        
-        
-//        $entity = $this->validateEntity(
-//                $this->find($id), $data
-//        );
         return $this->singleResult($entity, $returnPartial, $extra);
     }
 

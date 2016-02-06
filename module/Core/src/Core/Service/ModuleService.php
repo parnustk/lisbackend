@@ -1,139 +1,37 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Core\Service;
 
-use Exception;
-
 /**
- * @author sander
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleService extends AbstractBaseService
 {
 
     /**
-     * 
-     * @param stdClass $params
-     * @return array
-     */
-    public function GetList($params)
-    {
-        try {
-            $p = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Module')
-                    ->GetList($params);
-
-            $p->setItemCountPerPage($params->limit);
-            $p->setCurrentPageNumber($params->page);
-
-            return [
-                'success' => true,
-                'currentPage' => $params->page,
-                'itemCount' => $p->getTotalItemCount(),
-                'countPages' => $p->count(),
-                'params' => $params,
-                'data' => (array) $p->getCurrentItems(),
-            ];
-        } catch (Exception $ex) {
-
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    public function Get($id)
-    {
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\Module')
-                        ->Get($id, true)
-            ];
-        } catch (Exception $ex) {
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * 
-     * @param array $data
-     * @throws Exception
-     */
-    public function Create(array $data)
-    {
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\Module')
-                        ->Create($data, true)
-            ];
-        } catch (\Exception $ex) {
-
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * Update an existing resource
      *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return mixed
+     * @var type 
      */
-    public function Update($id, $data)
-    {
-        try {
-            return [
-                'success' => true,
-                'data' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\Module')
-                        ->Update($id, $data, true)
-            ];
-        } catch (Exception $ex) {
-
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
-    }
-
+    protected $baseEntity = 'Core\Entity\Module';
+    
     /**
      * 
+     * @param type $id
+     * @param type $data
+     * @param type $extra
      * @return type
      */
-    public function Delete($id)
+    public function Update($id, $data, $extra = null)
     {
-        try {
-            return [
-                'success' => true,
-                'id' => $this
-                        ->getEntityManager()
-                        ->getRepository('Core\Entity\Module')
-                        ->Delete($id)
-            ];
-        } catch (Exception $ex) {
-            return [
-                'success' => false,
-                'message' => $ex->getMessage()
-            ];
-        }
+        return parent::Update($id, $data, $extra);
     }
 
 }

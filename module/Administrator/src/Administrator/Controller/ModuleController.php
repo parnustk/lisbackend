@@ -1,95 +1,104 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author sander
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleController extends AbstractBaseController
 {
 
     /**
-     * GET
+     *
+     * @var type 
+     */
+    protected $service = 'module_service';
+
+    /**
+     * <h2>GET admin/module</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
      * 
      * @return JsonModel
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('module_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
-     * POST
+     * <h2>POST admin/module</h2>
+     * <h3>Body</h3>
+     * <code> name(string)*
+     * duration(integer)*
+     * code(string)*
+     * vocation(integer)*
+     * moduleType(integer)*
+     * gradingType(integer)</code>
      * 
-     * @param type $data
+     * @param array $data
      * @return JsonModel
      */
     public function create($data)
     {
-        $r = $this
-                ->getServiceLocator()
-                ->get('module_service')
-                ->Create($data);
-
-        return new JsonModel($r);
+        return parent::create($data);
     }
 
     /**
-     * GET
+     * <h2>GET admin/module/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('module_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
-     * PUT
-     * 
-     * @param type $id
-     * @param type $data
+     * <h2>PUT admin/module/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code> name(string)*
+     * duration(integer)*
+     * code(string)*
+     * vocation(integer)*
+     * moduleType(integer)*
+     * gradingType(integer)</code>
+     * @param int $id
      * @return JsonModel
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('module_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
-     * DELETE
+     * <h2>DELETE admin/module/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $id
-     * @param type $data
+     * @param int $id
      * @return JsonModel
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('module_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }
