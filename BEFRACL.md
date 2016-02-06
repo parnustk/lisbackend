@@ -7,7 +7,7 @@
 * student(integer)*
 * contactLesson(integer)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -15,7 +15,7 @@
 * YES update   - OWN CREATED
 * YES delete   - OWN CREATED
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
@@ -23,7 +23,7 @@
 * YES update  - OWN CREATED ?PERIOD
 * YES delete  - OWN CREATED ?PERIOD
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN RELATED
 * YES get     - OWN RELATED
@@ -35,7 +35,7 @@
 
 * name(string)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -43,12 +43,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList
 * YES get
@@ -60,7 +60,7 @@
 * code(string)*
 * lisUser(integer)
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -68,12 +68,12 @@
 * YES update   - OWN CREATED
 * YES delete   - OWN CREATED
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList
 * YES get
@@ -86,7 +86,7 @@
 * subjectRound(integer)*
 * teacher(intiger)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -94,7 +94,7 @@
 * YES update ?PERIOD
 * YES delete ?PERIOD
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
@@ -102,7 +102,7 @@
 * ???YES update
 * ???YES delete
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
@@ -111,7 +111,7 @@
 
 * name(string)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -119,12 +119,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList
 * YES get
@@ -133,7 +133,7 @@
 
 * gradingType(string)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -141,12 +141,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList
 * YES get
@@ -159,12 +159,12 @@
 * subjectRound(integer)*
 * teacher(integer)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get     
@@ -172,7 +172,7 @@
 * YES update  - OWN CREATED ?PERIOD
 * YES delete  - OWN CREATED ?PERIOD
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
@@ -186,7 +186,7 @@
 * moduleType(integer)*
 * gradingType
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -194,12 +194,12 @@
 * YES update ?PERIOD
 * YES delete ?PERIOD
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList
 * YES get
@@ -208,7 +208,7 @@
 
 * name(string)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -216,12 +216,12 @@
 * YES update ?PERIOD
 * YES delete ?PERIOD
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList
 * YES get
@@ -230,7 +230,7 @@
 
 * name(string)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -238,12 +238,12 @@
 * YES update ?PERIOD
 * YES delete ?PERIOD
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList
 * YES get
@@ -255,7 +255,7 @@
 * code(string)*
 * email(string)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -263,12 +263,12 @@
 * YES update ?PERIOD
 * YES delete ?PERIOD
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN RELATED
 * YES get     - OWN RELATED
@@ -284,12 +284,12 @@
 * subjectRound(integer)
 * contactLesson(integer)
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
@@ -297,7 +297,7 @@
 * YES update OWN GROUP REALTED
 * YES delete OWN GROUP REALTED
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN RELATED
 * YES get     - OWN RELATED
@@ -307,7 +307,7 @@
 * name(string)*
 * vocation(integer)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -315,12 +315,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
@@ -331,7 +331,7 @@
 * studentGroup(integer)*
 * status(integer)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -339,12 +339,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
@@ -359,7 +359,7 @@
 * module(integer)*
 * gradingType(array of integers)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -367,12 +367,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList
 * YES get
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
@@ -383,7 +383,7 @@
 * studentGroup(integer)*
 * teacher(array) [ { id(integer) } ] ]*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -391,12 +391,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList - OWN RELATED
 * YES get     - OWN RELATED
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
@@ -407,7 +407,7 @@
 * lastName(string)*
 * code(string)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -415,12 +415,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList - OWN RELATED
 * YES get     - OWN RELATED
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
@@ -431,7 +431,7 @@
 * code(string)*
 * durationEKAP(integer)*
 
-### Administrator ROLE
+####  Administrator ROLE
 
 * YES getList
 * YES get
@@ -439,12 +439,12 @@
 * YES update
 * YES delete
 
-### Teacher ROLE
+####  Teacher ROLE
 
 * YES getList - OWN RELATED
 * YES get     - OWN RELATED
 
-### Student ROLE
+####  Student ROLE
 
 * YES getList - OWN GROUP RELATED
 * YES get     - OWN GROUP RELATED
