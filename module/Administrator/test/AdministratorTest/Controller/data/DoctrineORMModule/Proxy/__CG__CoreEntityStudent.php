@@ -64,10 +64,10 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -279,6 +279,50 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getCreatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedBy', array());
+
+        return parent::getCreatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedBy', array());
+
+        return parent::getUpdatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', array());
+
+        return parent::getCreatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedAt', array());
+
+        return parent::getUpdatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setFirstName($firstName)
     {
 
@@ -384,6 +428,61 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentInGroups', array($studentInGroups));
 
         return parent::setStudentInGroups($studentInGroups);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedBy($createdBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
+
+        return parent::setCreatedBy($createdBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
+
+        return parent::setUpdatedBy($updatedBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedAt($createdAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
+
+        return parent::setCreatedAt($createdAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
+
+        return parent::setUpdatedAt($updatedAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function refreshTimeStamps()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'refreshTimeStamps', array());
+
+        return parent::refreshTimeStamps();
     }
 
     /**

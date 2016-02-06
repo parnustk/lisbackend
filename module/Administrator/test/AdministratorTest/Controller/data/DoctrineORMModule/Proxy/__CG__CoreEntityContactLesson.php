@@ -198,6 +198,72 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
+    public function addAbsence($absence)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addAbsence', array($absence));
+
+        return parent::addAbsence($absence);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeAbsence($absence)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeAbsence', array($absence));
+
+        return parent::removeAbsence($absence);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addRooms(\Doctrine\Common\Collections\Collection $rooms)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addRooms', array($rooms));
+
+        return parent::addRooms($rooms);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeRooms(\Doctrine\Common\Collections\Collection $rooms)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeRooms', array($rooms));
+
+        return parent::removeRooms($rooms);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addSubjectRound($subjectRound)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addSubjectRound', array($subjectRound));
+
+        return parent::addSubjectRound($subjectRound);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeSubjectRound($subjectRound)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeSubjectRound', array($subjectRound));
+
+        return parent::removeSubjectRound($subjectRound);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function refreshTimeStamps()
     {
 

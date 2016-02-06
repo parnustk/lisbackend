@@ -5,7 +5,7 @@ namespace AdministratorTest\Controller;
 use Administrator\Controller\GradingtypeController;
 
 /**
- * @author sander, Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
  */
 class GradingtypeControllerTest extends UnitHelpers
 {

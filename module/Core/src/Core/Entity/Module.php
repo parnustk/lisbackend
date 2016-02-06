@@ -40,7 +40,7 @@ class Module extends EntityValidation
     protected $duration;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", name="`code`", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      */
     protected $code;
