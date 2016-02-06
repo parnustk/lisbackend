@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Administrator\Controller\GradeSubjectRoundController | LIS eDiary API documentation</title>
+	<title>Class Administrator\Controller\StudentInGroupsController | LIS eDiary API documentation</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -58,10 +58,6 @@
 							Controller						</a>
 							</li>
 								</ul></li>
-					<li>
-						<a href="namespace-None.html">
-							None						</a>
-							</li>
 			</ul>
 		</div>
 
@@ -74,7 +70,6 @@
 				<li><a href="class-Administrator.Controller.AdministratorController.html">AdministratorController</a></li>
 				<li><a href="class-Administrator.Controller.ContactLessonController.html">ContactLessonController</a></li>
 				<li><a href="class-Administrator.Controller.GradeChoiceController.html">GradeChoiceController</a></li>
-				<li class="active"><a href="class-Administrator.Controller.GradeSubjectRoundController.html">GradeSubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.GradingtypeController.html">GradingtypeController</a></li>
 				<li><a href="class-Administrator.Controller.IndependentWorkController.html">IndependentWorkController</a></li>
 				<li><a href="class-Administrator.Controller.ModuleController.html">ModuleController</a></li>
@@ -83,6 +78,7 @@
 				<li><a href="class-Administrator.Controller.StudentController.html">StudentController</a></li>
 				<li><a href="class-Administrator.Controller.StudentGradeController.html">StudentGradeController</a></li>
 				<li><a href="class-Administrator.Controller.StudentGroupController.html">StudentGroupController</a></li>
+				<li class="active"><a href="class-Administrator.Controller.StudentInGroupsController.html">StudentInGroupsController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectController.html">SubjectController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectRoundController.html">SubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.TeacherController.html">TeacherController</a></li>
@@ -102,11 +98,11 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Class GradeSubjectRoundController</h1>
+	<h1>Class StudentInGroupsController</h1>
 
 
 	<div class="description">
-	<p>Description of GradeSubjectRoundController</p>
+	<p>Rest API access to independentwork data.</p>
 	</div>
 
 	<dl class="tree well">
@@ -117,7 +113,7 @@ Core\Controller\AbstractBaseController
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Administrator\Controller\GradeSubjectRoundController</span></b>			
+<b><span>Administrator\Controller\StudentInGroupsController</span></b>			
 			
 			
 		</dd>
@@ -137,8 +133,8 @@ Core\Controller\AbstractBaseController
 		
 
 				<b>Author:</b>
-				Alar Aasa <a href="&#109;&#97;&#105;&#x6c;&#x74;o&#58;&#97;&#x6c;&#x61;&#x72;&#64;&#97;&#108;&#x61;&#x72;a&#97;&#115;&#x61;&#x2e;&#x65;&#101;">&#97;&#x6c;&#x61;&#x72;&#64;&#97;&#108;&#x61;&#x72;a&#97;&#115;&#x61;&#x2e;&#x65;&#101;</a><br>
-			<b>Located at</b> GradeSubjectRoundController.php		<br>
+				Kristen Sepp <a href="&#109;a&#x69;&#108;&#x74;&#111;&#x3a;&#115;&#x65;&#112;&#x70;&#107;r&#x69;&#115;&#x74;&#101;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;">&#115;&#x65;&#112;&#x70;&#107;r&#x69;&#115;&#x74;&#101;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;</a><br>
+			<b>Located at</b> StudentInGroupsController.php		<br>
 	</div>
 
 
@@ -146,28 +142,53 @@ Core\Controller\AbstractBaseController
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
-		<tr data-order="getList" id="_getList">
+		<tr data-order="create" id="_create">
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getList">#</a>
-			<code>getList( )</code>
+			<a class="anchor" href="#_create">#</a>
+			<code>create( <span>array <var>$data</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>POST admin/studentingroups</h2>
+
+<h3>Body</h3>
+
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>POST admin/studentingroups</h2>
+
+<h3>Body</h3>
+
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -179,24 +200,41 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code>get( <span> <var>$id</var></span> )</code>
+			<code>get( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>GET admin/studentingroups/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>GET admin/studentingroups/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -204,28 +242,42 @@ Core\Controller\AbstractBaseController
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="create" id="_create">
+		<tr data-order="getList" id="_getList">
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_create">#</a>
-			<code>create( <span> <var>$data</var></span> )</code>
+			<a class="anchor" href="#_getList">#</a>
+			<code>getList( )</code>
 
 			<div class="description short">
-				
+				<h2>GET admin/studentingroups</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>GET admin/studentingroups</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -237,24 +289,59 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_update">#</a>
-			<code>update( <span> <var>$id</var></span>, <span> <var>$data</var></span> )</code>
+			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>PUT admin/studentingroups/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>PUT admin/studentingroups/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
+
+<h3>Body</h3>
+
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -266,24 +353,41 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code>delete( <span> <var>$id</var></span> )</code>
+			<code>delete( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>DELETE admin/studentingroups/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>DELETE admin/studentingroups/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -327,7 +431,7 @@ Core\Controller\AbstractBaseController
 			<td class="value">
 				<div>
 					<a href="#$service" class="anchor">#</a>
-					<code><span class="php-quote">'gradesubjectround_service'</span></code>
+					<code><span class="php-quote">'studentingroups_service'</span></code>
 				</div>
 			</td>
 		</tr>

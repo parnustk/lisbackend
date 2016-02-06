@@ -58,10 +58,6 @@
 							Controller						</a>
 							</li>
 								</ul></li>
-					<li>
-						<a href="namespace-None.html">
-							None						</a>
-							</li>
 			</ul>
 		</div>
 
@@ -74,7 +70,6 @@
 				<li><a href="class-Administrator.Controller.AdministratorController.html">AdministratorController</a></li>
 				<li><a href="class-Administrator.Controller.ContactLessonController.html">ContactLessonController</a></li>
 				<li><a href="class-Administrator.Controller.GradeChoiceController.html">GradeChoiceController</a></li>
-				<li><a href="class-Administrator.Controller.GradeSubjectRoundController.html">GradeSubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.GradingtypeController.html">GradingtypeController</a></li>
 				<li class="active"><a href="class-Administrator.Controller.IndependentWorkController.html">IndependentWorkController</a></li>
 				<li><a href="class-Administrator.Controller.ModuleController.html">ModuleController</a></li>
@@ -83,6 +78,7 @@
 				<li><a href="class-Administrator.Controller.StudentController.html">StudentController</a></li>
 				<li><a href="class-Administrator.Controller.StudentGradeController.html">StudentGradeController</a></li>
 				<li><a href="class-Administrator.Controller.StudentGroupController.html">StudentGroupController</a></li>
+				<li><a href="class-Administrator.Controller.StudentInGroupsController.html">StudentInGroupsController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectController.html">SubjectController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectRoundController.html">SubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.TeacherController.html">TeacherController</a></li>
@@ -164,8 +160,11 @@ Core\Controller\AbstractBaseController
 
 <h3>Body</h3>
 
-<pre>name(string)*
-vocation(integer)</pre>
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
@@ -173,8 +172,11 @@ vocation(integer)</pre>
 
 <h3>Body</h3>
 
-<pre>name(string)*
-vocation(integer)</pre>
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 
 
 					<h4>Parameters</h4>
@@ -305,8 +307,11 @@ page(integer)</pre>
 
 <h3>Body</h3>
 
-<pre>name(string)*
-vocation(integer)*</pre>
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
@@ -318,8 +323,11 @@ vocation(integer)*</pre>
 
 <h3>Body</h3>
 
-<pre>name(string)*
-vocation(integer)*</pre>
+<pre>duedate(datetime)*
+description(string)*
+durationAK(integer)*
+subjectRound(integer)*
+teacher(integer)*</pre>
 
 
 					<h4>Parameters</h4>
