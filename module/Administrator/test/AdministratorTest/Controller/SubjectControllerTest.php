@@ -162,7 +162,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
@@ -320,61 +320,57 @@ class SubjectControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
     
-//     public function testCreatedByAndUpdatedBy()
-//    {
-//        $this->request->setMethod('post');
+     public function testCreatedByAndUpdatedBy()
+    {
+        $this->request->setMethod('post');
+
+        $code = 'ContactLesson code' . uniqid();
+        $name = 'ContactLesson name' . uniqid();
+        $durationAllAK = 100;
+        $durationContactAK = 60;
+        $durationIndependentAK = 40;
+        
+//        $this->request->getPost()->set("module", $this->CreateModule()->getId());
 //
-//        $code = 'ContactLesson code' . uniqid();
-//        $name = 'ContactLesson name' . uniqid();
-//        $durationAllAK = 100;
-//        $durationContactAK = 60;
-//        $durationIndependentAK = 40;
-//        
-////        $this->request->getPost()->set("module", $this->CreateModule()->getId());
-////
-////        $this->request->getPost()->set("gradingType", [
-////            ['id' => $this->CreateGradingType()->getId()],
-////            ['id' => $this->CreateGradingType()->getId()],
-////        ]);
-//        module;
-//        gradingType;
-//
-//        $contactLesson = $this->CreateContactLesson()->getId();
-//
-////        $absence = $this->CreateAbsence()->getId();
-//        $subjectRound = $this->CreateSubjectRound()->getId();
-////        $studentGrade = $this->CreateStudentGrade()->getId();
-//        $teachers = [
-//            ['id' => $this->CreateTeacher()->getId()],
-//            ['id' => $this->CreateTeacher()->getId()],
-//        ];
-//
-//        $this->request->getPost()->set('description', $description);
-//        $this->request->getPost()->set('lessonDate', $lessonDate);
-//        $this->request->getPost()->set('durationAK', $durationAK);
-//        $this->request->getPost()->set('contactLesson', $contactLesson);
-//        $this->request->getPost()->set('subjectRound', $subjectRound);
-//        $this->request->getPost()->set("teacher", $teachers);
-//
-//        $lisUserCreates = $this->CreateLisUser();
-//        $lisUserCreatesId = $lisUserCreates->getId();
-//        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-//
-//        $lisUserUpdates = $this->CreateLisUser();
-//        $lisUserUpdatesId = $lisUserUpdates->getId();
-//        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        $this->PrintOut($result, false);
-//
-//        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
-//        $newContactLesson = $repository->find($result->data['id']);
-//        $this->assertEquals($lisUserCreatesId, $newContactLesson->getCreatedBy()->getId());
-//        $this->assertEquals($lisUserUpdatesId, $newContactLesson->getUpdatedBy()->getId());
-//    }
+//        $this->request->getPost()->set("gradingType", [
+//            ['id' => $this->CreateGradingType()->getId()],
+//            ['id' => $this->CreateGradingType()->getId()],
+//        ]);
+        $module = $this->CreateModule()->getId();
+        $gradingType = [
+            ['id' => $this->CreateGradingType()->getId()],
+            ['id' => $this->CreateGradingType()->getId()],
+        ];
+
+        $subject = $this->CreateSubject()->getId();
+
+        $this->request->getPost()->set('code', $code);
+        $this->request->getPost()->set('name', $name);
+        $this->request->getPost()->set('durationAllAK', $durationAllAK);
+        $this->request->getPost()->set('durationContactAK', $durationContactAK);
+        $this->request->getPost()->set('durationIndependentAK', $durationIndependentAK);
+        $this->request->getPost()->set("module", $module);
+        $this->request->getPost()->set("gradingType", $gradingType);
+
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $this->PrintOut($result, false);
+
+        $repository = $this->em->getRepository('Core\Entity\Subject');
+        $newSubject = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newSubject->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newSubject->getUpdatedBy()->getId());
+    }
 }
