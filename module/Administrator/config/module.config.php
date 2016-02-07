@@ -8,29 +8,31 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
-namespace Administrator;
-
 return [
 
     'controllers' => [
 
         'invokables' => [
-            'Administrator\Controller\Vocation' => 'Administrator\Controller\VocationController',
+            'Administrator\Controller\Absence' => 'Administrator\Controller\AbsenceController',
+            'Administrator\Controller\AbsenceReason' => 'Administrator\Controller\AbsenceReasonController',
+            'Administrator\Controller\Administrator' => 'Administrator\Controller\AdministratorController',
+            'Administrator\Controller\ContactLesson' => 'Administrator\Controller\ContactLessonController',
+            'Administrator\Controller\GradeChoice' => 'Administrator\Controller\GradeChoiceController',
+            'Administrator\Controller\Gradingtype' => 'Administrator\Controller\GradingtypeController',
+            'Administrator\Controller\IndependentWork' => 'Administrator\Controller\IndependentWorkController',
             'Administrator\Controller\Module' => 'Administrator\Controller\ModuleController',
             'Administrator\Controller\Moduletype' => 'Administrator\Controller\ModuletypeController',
-            'Administrator\Controller\Gradingtype' => 'Administrator\Controller\GradingtypeController',
-            'Administrator\Controller\Subject' => 'Administrator\Controller\SubjectController',
-            'Administrator\Controller\AbsenceReason' => 'Administrator\Controller\AbsenceReasonController',
-            'Administrator\Controller\Absence' => 'Administrator\Controller\AbsenceController',
-            'Administrator\Controller\StudentGroup' => 'Administrator\Controller\StudentGroupController',
             'Administrator\Controller\Room' => 'Administrator\Controller\RoomController',
-            'Administrator\Controller\Teacher' => 'Administrator\Controller\TeacherController',
-            'Administrator\Controller\IndependentWork' => 'Administrator\Controller\IndependentWorkController',
-            'Administrator\Controller\GradeIndependentWork' => 'Administrator\Controller\GradeIndependentWorkController',
-            'Administrator\Controller\GradeChoice' => 'Administrator\Controller\GradeChoiceController',
-            'Administrator\Controller\ContactLesson' => 'Administrator\Controller\ContactLessonController',
+            'Administrator\Controller\Student' => 'Administrator\Controller\StudentController',
             'Administrator\Controller\StudentGrade' => 'Administrator\Controller\StudentGradeController',
+            'Administrator\Controller\StudentGroup' => 'Administrator\Controller\StudentGroupController',
+            'Administrator\Controller\StudentInGroups' => 'Administrator\Controller\StudentInGroupsController',
+            'Administrator\Controller\Subject' => 'Administrator\Controller\SubjectController',
+            'Administrator\Controller\SubjectRound' => 'Administrator\Controller\SubjectRoundController',
+            'Administrator\Controller\Teacher' => 'Administrator\Controller\TeacherController',
+            'Administrator\Controller\Vocation' => 'Administrator\Controller\VocationController',
         ],
+        
     ],
     'router' => [
         'routes' => [
