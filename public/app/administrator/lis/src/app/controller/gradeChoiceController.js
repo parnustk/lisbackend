@@ -12,48 +12,38 @@
     define([], function () {
 
         function gradeChoiceController($scope, $routeParams, gradeChoiceModel) {
-            /*
-             * 
-             code: "56ab3365875dc"
-             email: "56ab33658763b@asd.ee"
-             firstName: "tFirstName56ab336587531"
-             lastName: "tLirstName56ab336587590"
-             */
-//
-//            $scope.gradeChoice = {
-//                name: ''
-//            };
+
+
+            $scope.gradeChoice = {
+                name: ''
+            };
             $scope.Create = function () {
                 gradeChoiceModel
-                    .Create($scope.gradeChoice)
-                    .then(
-                        function (result) {
-                            if(result.success) {
-                                alert('GOOD');
-                            } else {
-                                alert('BAAAD');
-                            }
-                        }
-                    );
+                        .Create($scope.gradeChoice)
+                        .then(
+                                function (result) {
+                                    if (result.success) {
+                                        alert('GOOD');
+                                    } else {
+                                        alert('BAD');
+                                    }
+                                }
+                        );
             };
-
-//            $scope.emptyGradeChoice = {
-//                id: -1,
-//                name: ''
-//            };
-//
-//            
-//            $scope.reset = function () {
-//                $scope.user = angular.copy($scope.master);
-//            };
-//            $scope.reset();
-            /*
-             var params = {page: 2, limit: 3};
-             gradeChoiceModel.GetList(params).then(
-             function (result) {
-             $scope.gradeChoice = result.data;
-             }
-             );*/
+            $scope.Get = function (id) {
+                gradeChoiceModel
+                        .Get($scope.gradeChoice.id)
+                        .then(
+                                function (result) {
+                                    if (result.success) {
+                                        alert('GOOD');
+                                    } else {
+                                        alert('BAD');
+                                    }
+                                }
+                        );
+            };
+            console.log('tere');
         }
 
         gradeChoiceController.$inject = ['$scope', '$routeParams', 'gradeChoiceModel'];
