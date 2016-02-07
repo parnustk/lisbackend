@@ -139,5 +139,18 @@ abstract class AbstractBaseController extends AbstractRestfulController
                         ->Delete($id)
         );
     }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function notAllowed()
+    {
+        $this->response->setStatusCode(405);
+
+        return [
+            'content' => 'Method Not Allowed'
+        ];
+    }
 
 }

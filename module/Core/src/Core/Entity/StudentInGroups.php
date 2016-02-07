@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * @license   TODO
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity;
@@ -27,6 +27,7 @@ use Doctrine\ORM\EntityManager;
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
+ * @author Kristen Sepp <seppkristen@gmail.com>
  */
 class StudentInGroups extends EntityValidation
 {
@@ -109,6 +110,11 @@ class StudentInGroups extends EntityValidation
     public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getStudent()

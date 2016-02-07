@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -21,6 +29,7 @@ use DateTime;
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
+ * @author Alar Aasa <alar@alaraasa.ee>
  */
 class Rooms extends EntityValidation
 {
@@ -106,7 +115,7 @@ class Rooms extends EntityValidation
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -180,7 +189,5 @@ class Rooms extends EntityValidation
     {
         $this->updatedBy = $updatedBy;
     }
-
-    
 
 }

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -21,6 +29,7 @@ use DateTime;
  *     }
  * )
  * @ORM\HasLifecycleCallbacks
+ * @author Sander Mets <sandermets0@gmail.com>, Juhan Kõks <juhankoks@gmail.com>
  */
 class Teacher extends EntityValidation
 {
@@ -122,8 +131,6 @@ class Teacher extends EntityValidation
      */
     public function __construct(EntityManager $em = null)
     {
-//        $this->subjectRound = new ArrayCollection();
-//        $this->contactLesson = new ArrayCollection();
         parent::__construct($em);
     }
 
@@ -182,28 +189,6 @@ class Teacher extends EntityValidation
         return $this->trashed;
     }
 
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function refreshTimeStamps()
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
-    }
-
     public function getCreatedBy()
     {
         return $this->createdBy;
@@ -212,6 +197,16 @@ class Teacher extends EntityValidation
     public function getUpdatedBy()
     {
         return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     public function setFirstName($firstName)
@@ -268,34 +263,46 @@ class Teacher extends EntityValidation
         return $this;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
     public function setTrashed($trashed)
     {
         $this->trashed = $trashed;
+        return $this;
     }
 
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
+        return $this;
     }
 
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
+        return $this;
     }
 
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
 
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        }
+        $this->setUpdatedAt(new DateTime);
     }
 
 }

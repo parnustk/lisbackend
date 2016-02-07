@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * 
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity;
@@ -90,7 +90,7 @@ class Student extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $trashed;
-    
+
     /**
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
@@ -116,7 +116,7 @@ class Student extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $updatedAt;
-    
+
     /**
      * 
      * @param EntityManager $em
@@ -206,7 +206,7 @@ class Student extends EntityValidation
     {
         return $this->updatedAt;
     }
-    
+
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -266,52 +266,31 @@ class Student extends EntityValidation
         return $this;
     }
 
-    /**
-     * 
-     * @param type $createdBy
-     * @return \Core\Entity\Administrator
-     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    /**
-     * 
-     * @param type $updatedBy
-     * @return \Core\Entity\Administrator
-     */
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    /**
-     * 
-     * @param type $createdAt
-     * @return \Core\Entity\Administrator
-     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    /**
-     * 
-     * @param type $updatedAt
-     * @return \Core\Entity\Administrator
-     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
-    
+
     /**
-     * Sets 'timestamps'
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -319,9 +298,9 @@ class Student extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
-        }
-        else {
-        $this->setUpdatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
     }
+
 }

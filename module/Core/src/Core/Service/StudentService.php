@@ -1,25 +1,24 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * 
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Service;
 
-use Exception;
-
-/*
+/**
  * Description of StudentService
  * @author Marten Kähr <marten@kahr.ee>
  */
-
 class StudentService extends AbstractBaseService
 {
+
     protected $baseEntity = 'Core\Entity\Student';
+
     /**
      * 
      * @param stdClass $params
@@ -29,7 +28,7 @@ class StudentService extends AbstractBaseService
     {
         return parent::GetList($params, $extra);
     }
-    
+
     /**
      * @param int|string $id
      * @param stdClass|NULL $extra
@@ -39,6 +38,7 @@ class StudentService extends AbstractBaseService
     {
         return parent::Get($params, $extra);
     }
+
     /**
      * 
      * @param array $data
@@ -48,6 +48,7 @@ class StudentService extends AbstractBaseService
     {
         return parent::Create($data, $extra);
     }
+
     /**
      * 
      * @param int|string $id
@@ -59,6 +60,7 @@ class StudentService extends AbstractBaseService
     {
         return parent::Update($id, $data, $extra);
     }
+
     /**
      * 
      * @param int|string $id
@@ -69,4 +71,5 @@ class StudentService extends AbstractBaseService
     {
         return parent::Delete($id, $extra);
     }
+
 }

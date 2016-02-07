@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LIS development
- *
+ * Licence of Learning Info System (LIS)
+ * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
- * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity;
@@ -19,10 +19,6 @@ use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
- */
-
-/**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
  * @ORM\Table(
  *      indexes={
@@ -32,6 +28,7 @@ use DateTime;
  *          @ORM\Index(name="contactlesson_durationAK", columns={"durationAK"}),
  * })
  * @ORM\HasLifecycleCallbacks
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ContactLesson extends EntityValidation
 {
@@ -197,7 +194,7 @@ class ContactLesson extends EntityValidation
             $this->rooms->add($room);
         }
     }
-    
+
     /**
      * @param Collection $rooms
      */
@@ -207,7 +204,7 @@ class ContactLesson extends EntityValidation
             $this->rooms->removeElement($room);
         }
     }
-    
+
     /**
      * @param $subjectRound
      */
@@ -217,7 +214,7 @@ class ContactLesson extends EntityValidation
             $this->subjectRound->removeElement($subjectRound);
         }
     }
-    
+
     /**
      * @param $subjectRound
      */
@@ -227,7 +224,6 @@ class ContactLesson extends EntityValidation
             $this->subjectRound->removeElement($subjectRound);
         }
     }
-    
 
     /**
      * @ORM\PrePersist

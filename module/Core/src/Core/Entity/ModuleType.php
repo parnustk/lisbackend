@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -16,6 +24,7 @@ use DateTime;
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
  */
 class ModuleType extends EntityValidation
 {
@@ -39,37 +48,36 @@ class ModuleType extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $module;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
      */
     protected $trashed;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
     protected $createdBy;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
     protected $updatedBy;
-    
+
     /**
      * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
      */
     protected $createdAt;
-    
+
     /**
      * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
      */
     protected $updatedAt;
-
 
     /**
      * 
@@ -79,28 +87,28 @@ class ModuleType extends EntityValidation
     {
         parent::__construct($em);
     }
-    
-    public function getTrashed() 
+
+    public function getTrashed()
     {
         return $this->trashed;
     }
 
-    public function getCreatedBy() 
+    public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    public function getUpdatedBy() 
+    public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
-    public function getCreatedAt() 
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt() 
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -120,38 +128,36 @@ class ModuleType extends EntityValidation
         return $this->module;
     }
 
-    public function setTrashed($trashed) 
+    public function setTrashed($trashed)
     {
         $this->trashed = $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy) 
+    public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy) 
+    public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt) 
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
-        
     }
 
-    public function setUpdatedAt($updatedAt) 
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
-
     }
-    
+
     public function setName($name)
     {
         $this->name = $name;
@@ -175,4 +181,5 @@ class ModuleType extends EntityValidation
         }
         $this->setUpdatedAt(new DateTime);
     }
+
 }

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
+ */
+
 namespace Core\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -15,7 +23,8 @@ use DateTime;
  *      @ORM\Index(name="gradingtype_index_trashed", columns={"trashed"}),
  *  }
  * )
- * @ORM\HasLifecycleCallbacks 
+ * @ORM\HasLifecycleCallbacks
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
  */
 class GradingType extends EntityValidation
 {
@@ -52,36 +61,35 @@ class GradingType extends EntityValidation
      * @Annotation\Exclude()
      */
     protected $trashed;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
     protected $createdBy;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
     protected $updatedBy;
-    
+
     /**
      * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
      */
     protected $createdAt;
-    
+
     /**
      * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
      */
     protected $updatedAt;
-    
+
     /**
      * 
      * @param EntityManager $em
      */
-    
     public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
@@ -106,57 +114,57 @@ class GradingType extends EntityValidation
     {
         return $this->subject;
     }
-    
-    public function getTrashed() 
+
+    public function getTrashed()
     {
         return $this->trashed;
     }
 
-    public function getCreatedBy() 
+    public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    public function getUpdatedBy() 
+    public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
-    public function getCreatedAt() 
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt() 
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
-    public function setTrashed($trashed) 
+    public function setTrashed($trashed)
     {
         $this->trashed = $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy) 
+    public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy) 
+    public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt) 
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt) 
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -179,12 +187,13 @@ class GradingType extends EntityValidation
         $this->subject = $subject;
         return $this;
     }
-    
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function refreshTimeStamps(){
+    public function refreshTimeStamps()
+    {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
         }
