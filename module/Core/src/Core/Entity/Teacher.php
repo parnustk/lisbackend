@@ -29,99 +29,119 @@ use DateTime;
  *     }
  * )
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Sander Mets <sandermets0@gmail.com>, Juhan Kõks <juhankoks@gmail.com>
  */
 class Teacher extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $lastName;
 
     /**
-     * @ORM\Column(type="encryptedstring", name="`code`", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="encryptedstring", name="`code`", unique=true, length=255, nullable=false)
      */
     protected $code;
 
     /**
-     * @ORM\Column(type="encryptedstring", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="encryptedstring", length=255, nullable=false)
      */
     protected $email;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToOne(targetEntity="LisUser", inversedBy="teacher")
      * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id")
      */
     protected $lisUser;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="IndependentWork", mappedBy="teacher")
      */
     protected $independentWork;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="teacher")
      */
     protected $studentGrade;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToMany(targetEntity="SubjectRound", mappedBy="teacher")
      */
     protected $subjectRound;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="teacher")
      */
     protected $contactLesson;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
-     *
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="createdBy", referencedColumnName="id",nullable=true)
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
     protected $createdBy;
 
     /**
-     *
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="LisUser")
-     * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id",nullable=true)
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
     protected $updatedBy;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Column(type="datetime", name="created_at", nullable=false)
-     * @Annotation\Exclude() 
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -294,6 +314,9 @@ class Teacher extends EntityValidation
     }
 
     /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -301,8 +324,9 @@ class Teacher extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

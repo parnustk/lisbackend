@@ -17,24 +17,23 @@ use Doctrine\ORM\EntityManager;
 use DateTime;
 
 /**
- * @author Eleri Apsolon <eleri.apsolon@gmail.com>
- */
-
-/**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceRepository")
  * @ORM\Table(
  *     indexes={
- * @ORM\Index(name="absence_decription", columns={"description"}),
- * @ORM\Index(name="absence_index_trashed", columns={"trashed"})
- * 
- * }
+ *          @ORM\Index(name="absence_decription", columns={"description"}),
+ *          @ORM\Index(name="absence_index_trashed", columns={"trashed"})
+ *      }
  * )
  * @ORM\HasLifecycleCallbacks
+ * 
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Absence extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -43,11 +42,14 @@ class Absence extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $description;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="AbsenceReason", inversedBy="absence")
      * @ORM\JoinColumn(name="absence_reason_id", referencedColumnName="id")
      */
@@ -55,6 +57,7 @@ class Absence extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="absence")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
@@ -62,19 +65,21 @@ class Absence extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="ContactLesson", inversedBy="absence")
      * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)
      */
     protected $contactLesson;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -82,6 +87,7 @@ class Absence extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -89,16 +95,16 @@ class Absence extends EntityValidation
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -136,30 +142,6 @@ class Absence extends EntityValidation
         return $this->contactLesson;
     }
 
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setAbsenceReason($absenceReason)
-    {
-        $this->absenceReason = $absenceReason;
-        return $this;
-    }
-
-    public function setStudent($student)
-    {
-        $this->student = $student;
-        return $this;
-    }
-
-    public function setContactLesson($contactLesson)
-    {
-        $this->contactLesson = $contactLesson;
-        return $this;
-    }
-
     public function getTrashed()
     {
         return $this->trashed;
@@ -183,6 +165,30 @@ class Absence extends EntityValidation
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setAbsenceReason($absenceReason)
+    {
+        $this->absenceReason = $absenceReason;
+        return $this;
+    }
+
+    public function setStudent($student)
+    {
+        $this->student = $student;
+        return $this;
+    }
+
+    public function setContactLesson($contactLesson)
+    {
+        $this->contactLesson = $contactLesson;
+        return $this;
     }
 
     public function setTrashed($trashed)
@@ -223,8 +229,9 @@ class Absence extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

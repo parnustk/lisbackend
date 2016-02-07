@@ -21,16 +21,11 @@ chdir(__DIR__);
  * 
  * @author Arnold Tserepov <tserepov@gmail.com>
  */
-class GradeChoiceControllerTest extends UnitHelpers {
+class GradeChoiceControllerTest extends UnitHelpers
+{
 
-    //put your code here
-    // protected function setUp(){
-    // }
-    //public function testDummyTest(){
-    //$a=0;
-    // $this->assertEquals(1,$a);
-    //}
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->controller = new GradeChoiceController();
         parent::setUp();
     }
@@ -39,20 +34,22 @@ class GradeChoiceControllerTest extends UnitHelpers {
      * imitate POST request
      * create new with correct data see entity
      */
-    public function testCreate() {
+    public function testCreate()
+    {
         $name = 'name' . uniqid();
         $this->request->setMethod('post');
         $this->request->getPost()->set('name', $name);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, true);
     }
 
-    public function testCreateWithCreatedByAndUpdatedBy() {
+    public function testCreateWithCreatedByAndUpdatedBy()
+    {
         $this->request->setMethod('post');
         $name = uniqid() . 'name';
         $this->request->getPost()->set('name', $name);
@@ -78,46 +75,49 @@ class GradeChoiceControllerTest extends UnitHelpers {
         $this->assertEquals($lisUserUpdatesId, $newGradeChoice->getUpdatedBy()->getId());
     }
 
-    public function testCreateNoData() {
+    public function testCreateNoData()
+    {
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
+        $this->PrintOut($result, FALSE);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, FALSE);
     }
 
     /**
      * create one before asking list
      */
-    public function testGetList() {
+    public function testGetList()
+    {
         //die("What is wrong?");
         $this->CreateGradeChoice();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, FALSE);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, FALSE);
     }
 
     /**
      * create one before getting
      */
-    public function testGet() {
+    public function testGet()
+    {
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateGradeChoice()->getId());
         //$myevilhack = $this->CreateAbsenceReason()->getId().'; DROP database lis;'
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, FALSE);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, FALSE);
     }
 
-    public function testUpdate() {
+    public function testUpdate()
+    {
         //create one to update later
         $gradeChoice = $this->CreateGradeChoice();
         $id = $gradeChoice->getId();
@@ -134,6 +134,7 @@ class GradeChoiceControllerTest extends UnitHelpers {
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, FALSE);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         //print_r($result->data['name']);
@@ -144,11 +145,11 @@ class GradeChoiceControllerTest extends UnitHelpers {
         $this->assertNotEquals(
                 $nameOld, $r->getName()
         );
-        $this->PrintOut($result, FALSE);
     }
 
-    public function testDelete() {
-       $entity = $this->CreateGradeChoice();
+    public function testDelete()
+    {
+        $entity = $this->CreateGradeChoice();
         $idOld = $entity->getId();
         $entity->setTrashed(1);
         $this->em->persist($entity);
@@ -159,6 +160,7 @@ class GradeChoiceControllerTest extends UnitHelpers {
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -170,11 +172,10 @@ class GradeChoiceControllerTest extends UnitHelpers {
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        $this->PrintOut($result, false); 
     }
 
-    public function testCreatedWithCreatedAtAndUpdatedAt() {
+    public function testCreatedWithCreatedAtAndUpdatedAt()
+    {
         $this->request->setMethod('post');
 
         $name = uniqid() . 'name';
@@ -188,7 +189,7 @@ class GradeChoiceControllerTest extends UnitHelpers {
         $repository = $this->em->getRepository('Core\Entity\GradeChoice');
         $newGradeChoice = $repository->find($result->data['id']);
         $this->assertNotNull($newGradeChoice->getCreatedAt());
-        $this->assertNotNull($newGradeChoice->getUpdatedAt());
+        $this->assertNull($newGradeChoice->getUpdatedAt());
     }
 
 }

@@ -17,15 +17,13 @@ use Doctrine\ORM\EntityManager;
 use DateTime;
 
 /**
- * @author Eleri Apsolon <eleri.apsolon@gmail.com>
- */
-
-/**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceReasonRepository")
  * @ORM\Table(
  *     indexes={@ORM\Index(name="absencereason_index_trashed", columns={"trashed"})}
  * )
  * @ORM\HasLifecycleCallbacks
+ * 
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class AbsenceReason extends EntityValidation
 {
@@ -51,111 +49,41 @@ class AbsenceReason extends EntityValidation
     protected $absence;
 
     /**
-     * @ORM\Column(type= "integer", nullable= true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
     protected $createdBy;
 
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-        return $this;
-    }
-
-    public function setUpdatedBy($updatedBy)
-    {
-        $this->updatedBy = $updatedBy;
-        return $this;
-    }
-
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function refreshTimeStamp()
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function getTrashed()
-    {
-        return $this->trashed;
-    }
-
-    /**
-     * 
-     * @param type $trashed
-     * @return \Core\Entity\AbsenceReason
-     */
-    public function setTrashed($trashed)
-    {
-        $this->trashed = $trashed;
-        return $this;
-    }
 
     /**
      * 
@@ -181,6 +109,31 @@ class AbsenceReason extends EntityValidation
         return $this->absence;
     }
 
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
     public function setName($name)
     {
         $this->name = $name;
@@ -191,6 +144,52 @@ class AbsenceReason extends EntityValidation
     {
         $this->absence = $absence;
         return $this;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
+        }
     }
 
 }

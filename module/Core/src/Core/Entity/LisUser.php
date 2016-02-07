@@ -71,9 +71,9 @@ class LisUser extends EntityValidation
     protected $administrator;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 

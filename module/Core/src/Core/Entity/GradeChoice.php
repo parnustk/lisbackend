@@ -20,6 +20,7 @@ use DateTime;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradeChoiceRepository")
  * @ORM\Table(indexes={@ORM\Index(name="gradechoice_index_trashed", columns={"trashed"})})
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Arnold Tserepov <tserepov@gmail.com>
  */
 class GradeChoice extends EntityValidation
@@ -45,13 +46,14 @@ class GradeChoice extends EntityValidation
     protected $studentGrade;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -59,6 +61,7 @@ class GradeChoice extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -66,16 +69,16 @@ class GradeChoice extends EntityValidation
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -128,12 +131,6 @@ class GradeChoice extends EntityValidation
         return $this->updatedAt;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
     public function setName($name)
     {
         $this->name = $name;
@@ -177,6 +174,9 @@ class GradeChoice extends EntityValidation
     }
 
     /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -184,8 +184,9 @@ class GradeChoice extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

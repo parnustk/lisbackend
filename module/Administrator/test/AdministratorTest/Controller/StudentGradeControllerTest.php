@@ -179,9 +179,10 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateStudentGrade()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
     }
 
     /**
@@ -193,10 +194,11 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
     }
 
     public function testUpdate()
@@ -230,10 +232,12 @@ class StudentGradeControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
-        $this->PrintOut($result, false);
+
 
         $this->assertNotEquals($studentIdOld, $result->data['student']['id']);
         $this->assertNotEquals($contactLessonIdOld, $result->data['contactLesson']['id']);
@@ -329,6 +333,8 @@ class StudentGradeControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->em->clear();
@@ -339,8 +345,6 @@ class StudentGradeControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        $this->PrintOut($result, false);
     }
 
     public function testCreatedByAndUpdatedBy()
@@ -373,10 +377,10 @@ class StudentGradeControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
 
         $repository = $this->em->getRepository('Core\Entity\StudentGrade');
         $newSubjectRound = $repository->find($result->data['id']);
@@ -401,15 +405,15 @@ class StudentGradeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
     }
 
     public function testGetTrashedList()
     {
-
         //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateStudentGrade();
         $entity->setTrashed(1);

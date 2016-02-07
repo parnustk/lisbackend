@@ -27,6 +27,7 @@ use DateTime;
  *     }
  * )
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Sander Mets <sandermets0@gmail.com>, Kristen Sepp <seppkristen@gmail.com>
  */
 class IndependentWork extends EntityValidation
@@ -79,13 +80,14 @@ class IndependentWork extends EntityValidation
     protected $teacher;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -93,6 +95,7 @@ class IndependentWork extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -100,16 +103,16 @@ class IndependentWork extends EntityValidation
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -120,6 +123,41 @@ class IndependentWork extends EntityValidation
     public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getDuedate()
+    {
+        return $this->duedate;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getDurationAK()
+    {
+        return $this->durationAK;
+    }
+
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+
+    public function getSubjectRound()
+    {
+        return $this->subjectRound;
+    }
+
+    public function getTeacher()
+    {
+        return $this->teacher;
     }
 
     public function getTrashed()
@@ -145,6 +183,42 @@ class IndependentWork extends EntityValidation
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function setDuedate($duedate)
+    {
+        $this->duedate = $duedate;
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setDurationAK($durationAK)
+    {
+        $this->durationAK = $durationAK;
+        return $this;
+    }
+
+    public function setStudentGrade($studentGrade)
+    {
+        $this->studentGrade = $studentGrade;
+        return $this;
+    }
+
+    public function setSubjectRound($subjectRound)
+    {
+        $this->subjectRound = $subjectRound;
+        return $this;
+    }
+
+    public function setTeacher($teacher)
+    {
+        $this->teacher = $teacher;
+        return $this;
     }
 
     public function setTrashed($trashed)
@@ -177,78 +251,10 @@ class IndependentWork extends EntityValidation
         return $this;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getDuedate()
-    {
-        return $this->duedate;
-    }
-
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    public function getDurationAK()
-    {
-        return $this->durationAK;
-    }
-
-    public function getSubjectRound()
-    {
-        return $this->subjectRound;
-    }
-
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-
-    public function setDuedate($duedate)
-    {
-        $this->duedate = $duedate;
-        return $this;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setDurationAK($durationAK)
-    {
-        $this->durationAK = $durationAK;
-        return $this;
-    }
-
-    public function setSubjectRound($subjectRound)
-    {
-        $this->subjectRound = $subjectRound;
-        return $this;
-    }
-
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-        return $this;
-    }
-
-    public function getStudentGrade()
-    {
-        return $this->studentGrade;
-    }
-
-    public function setStudentGrade($studentGrade)
-    {
-        $this->studentGrade = $studentGrade;
-        return $this;
-    }
-
     /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -256,8 +262,9 @@ class IndependentWork extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

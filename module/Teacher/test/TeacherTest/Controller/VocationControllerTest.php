@@ -37,7 +37,9 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
         $this->PrintOut($result, false);
+        
         $this->assertEquals(405, $response->getStatusCode());
     }
 
@@ -50,7 +52,9 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('put');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
         $this->PrintOut($result, false);
+        
         $this->assertEquals(405, $response->getStatusCode());
     }
 
@@ -63,7 +67,9 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('delete');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
         $this->PrintOut($result, false);
+        
         $this->assertEquals(405, $response->getStatusCode());
     }
 
@@ -78,7 +84,9 @@ class VocationControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+        
         $this->PrintOut($result, false);
+        
         $this->assertGreaterThan(0, count($result->data));
     }
 
@@ -91,7 +99,9 @@ class VocationControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateVocation()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
         $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
@@ -113,6 +123,7 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());

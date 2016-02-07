@@ -22,12 +22,15 @@ use DateTime;
  *     indexes={@ORM\Index(name="studentgrade_index_trashed", columns={"trashed"})}
  * )
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentGrade extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -35,12 +38,15 @@ class StudentGrade extends EntityValidation
     protected $id;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $notes;
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)
      */
@@ -48,6 +54,7 @@ class StudentGrade extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="GradeChoice", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="grade_choice_id", referencedColumnName="id", nullable=false)
      */
@@ -55,43 +62,53 @@ class StudentGrade extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
      */
     protected $teacher;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="IndependentWork", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="independent_work_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $independentWork;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="Module", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="module_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $module;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $subjectRound;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="ContactLesson", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $contactLesson;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -99,6 +116,7 @@ class StudentGrade extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -106,16 +124,16 @@ class StudentGrade extends EntityValidation
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -277,6 +295,9 @@ class StudentGrade extends EntityValidation
     }
 
     /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -284,8 +305,9 @@ class StudentGrade extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

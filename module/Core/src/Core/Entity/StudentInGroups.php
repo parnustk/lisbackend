@@ -18,7 +18,6 @@ use Doctrine\ORM\EntityManager;
 /**
  * Description of StudentInGroups
  *
- * @author Sander Mets <sandermets0@gmail.com>
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentInGroupsRepository")
  * @ORM\Table(
  *      indexes={
@@ -27,55 +26,60 @@ use Doctrine\ORM\EntityManager;
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
- * @author Kristen Sepp <seppkristen@gmail.com>
+ * 
+ * @author Kristen Sepp <seppkristen@gmail.com>, Sander Mets <sandermets0@gmail.com>
  */
 class StudentInGroups extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="studentInGroups")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     * @Annotation\Required({"required":"true"})
      */
     protected $student;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="studentInGroups")
      * @ORM\JoinColumn(name="student_group_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     * @Annotation\Required({"required":"true"})
      */
     protected $studentGroup;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $status;
 
     /**
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $notes;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -83,6 +87,7 @@ class StudentInGroups extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -90,16 +95,16 @@ class StudentInGroups extends EntityValidation
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -217,6 +222,9 @@ class StudentInGroups extends EntityValidation
     }
 
     /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -224,8 +232,9 @@ class StudentInGroups extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

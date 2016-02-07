@@ -64,10 +64,10 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'teacher', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'teacher', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -176,50 +176,6 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function getTrashed()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTrashed', array());
-
-        return parent::getTrashed();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setTrashed($trashed)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
-
-        return parent::setTrashed($trashed);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function addTeacher(\Doctrine\Common\Collections\Collection $teachers)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTeacher', array($teachers));
-
-        return parent::addTeacher($teachers);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeTeacher(\Doctrine\Common\Collections\Collection $teachers)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeTeacher', array($teachers));
-
-        return parent::removeTeacher($teachers);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -252,6 +208,17 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContactLesson', array());
 
         return parent::getContactLesson();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStudentGrade()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentGrade', array());
+
+        return parent::getStudentGrade();
     }
 
     /**
@@ -290,6 +257,61 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
+    public function getTrashed()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTrashed', array());
+
+        return parent::getTrashed();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedBy', array());
+
+        return parent::getCreatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedBy', array());
+
+        return parent::getUpdatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', array());
+
+        return parent::getCreatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedAt', array());
+
+        return parent::getUpdatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setIndependentWork($independentWork)
     {
 
@@ -307,6 +329,17 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setContactLesson', array($contactLesson));
 
         return parent::setContactLesson($contactLesson);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStudentGrade($studentGrade)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
+
+        return parent::setStudentGrade($studentGrade);
     }
 
     /**
@@ -345,23 +378,89 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function getStudentGrade()
+    public function setTrashed($trashed)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentGrade', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
 
-        return parent::getStudentGrade();
+        return parent::setTrashed($trashed);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setStudentGrade($studentGrade)
+    public function setCreatedBy($createdBy)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
 
-        return parent::setStudentGrade($studentGrade);
+        return parent::setCreatedBy($createdBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
+
+        return parent::setUpdatedBy($updatedBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedAt($createdAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
+
+        return parent::setCreatedAt($createdAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
+
+        return parent::setUpdatedAt($updatedAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addTeacher(\Doctrine\Common\Collections\Collection $teachers)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTeacher', array($teachers));
+
+        return parent::addTeacher($teachers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeTeacher(\Doctrine\Common\Collections\Collection $teachers)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeTeacher', array($teachers));
+
+        return parent::removeTeacher($teachers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function refreshTimeStamps()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'refreshTimeStamps', array());
+
+        return parent::refreshTimeStamps();
     }
 
     /**

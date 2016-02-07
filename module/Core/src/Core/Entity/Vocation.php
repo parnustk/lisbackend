@@ -44,7 +44,7 @@ class Vocation extends EntityValidation
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      * @Annotation\Validator({"name":"StringLength", "options":{"min":"3", "max":"255"}})
-     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/[a-zA-Z]/"}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[0-9\p{L}\s]{2,255}$/"}})
      * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */
@@ -52,6 +52,9 @@ class Vocation extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"min":"3", "max":"255"}})
+     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[0-9\p{L}]{2,255}$/"}})
      * 
      * @ORM\Column(type="string",name="`code`", unique=true, length=255, nullable=false)
      */
@@ -59,6 +62,7 @@ class Vocation extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
      * 
      * @ORM\Column(type="integer", nullable=false)
      */

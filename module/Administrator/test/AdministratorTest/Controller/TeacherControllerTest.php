@@ -24,9 +24,11 @@ class TeacherControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
     }
 
     /**
@@ -43,9 +45,10 @@ class TeacherControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
     }
 
     /**
@@ -73,9 +76,10 @@ class TeacherControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
         $repository = $this->em->getRepository('Core\Entity\Teacher');
         $newTeacher = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newTeacher->getCreatedBy()->getId());
@@ -91,9 +95,11 @@ class TeacherControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateTeacher()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, FALSE);
     }
 
     /**
@@ -105,10 +111,12 @@ class TeacherControllerTest extends UnitHelpers
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
     }
 
     /**
@@ -139,6 +147,9 @@ class TeacherControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertNotEquals($firstNameOld, $result->data["firstName"]);
@@ -147,7 +158,7 @@ class TeacherControllerTest extends UnitHelpers
         $this->assertNotEquals($emailOld, $result->data["email"]);
     }
 
-     public function testDelete()
+    public function testDelete()
     {
         $entity = $this->CreateTeacher();
         $idOld = $entity->getId();
@@ -161,7 +172,7 @@ class TeacherControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -173,8 +184,6 @@ class TeacherControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        
     }
 
 }

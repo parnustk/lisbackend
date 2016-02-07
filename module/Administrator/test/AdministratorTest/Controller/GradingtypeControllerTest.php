@@ -21,26 +21,24 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
     }
-    
+
     public function testCreate()
     {
         $name = 'Gradingtype name' . uniqid();
-        
+
         $this->request->setMethod('post');
-        
+
         $this->request->getPost()->set('gradingType', $name);
-        
-        $result = $this->controller->dispatch($this->request);       
+
+        $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
-        $this->PrintOut($result, false);
     }
 
     public function testGet()
@@ -49,22 +47,22 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateGradingType()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
     }
 
     public function testGetList()
     {
         $this->CreateGradingType();
         $this->request->setMethod('get');
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
     }
 
     public function testUpdate()
@@ -84,6 +82,8 @@ class GradingtypeControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
@@ -94,8 +94,6 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->assertNotEquals(
                 $nameOld, $r->getGradingType()
         );
-
-        $this->PrintOut($result, false);
     }
 
     public function testDelete()
@@ -113,6 +111,8 @@ class GradingtypeControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->em->clear();
@@ -123,10 +123,10 @@ class GradingtypeControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deletedModule);
-        $this->PrintOut($result, false);
     }
 
-    public function testCreatedByAndUpdatedBy(){
+    public function testCreatedByAndUpdatedBy()
+    {
         $this->request->setMethod('post');
 
         $name = uniqid() . 'gradingType';
@@ -147,22 +147,23 @@ class GradingtypeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
 
         $repository = $this->em->getRepository('Core\Entity\GradingType');
         $newAdministrator = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newAdministrator->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newAdministrator->getUpdatedBy()->getId());
     }
-    
-    
+
     public function testCreatedAtAndUpdatedAt()
     {
         $this->request->setMethod('post');
-        
+
         $name = uniqid() . 'gradingtype';
         $this->request->getPost()->set('gradingType', $name);
 
@@ -170,24 +171,26 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->request->getPost()->set("lisUser", $lisUser->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
+        
         $this->PrintOut($result, false);
         
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+
         $repository = $this->em->getRepository('Core\Entity\GradingType');
         $newGt = $repository->find($result->data['id']);
         $this->assertNotNull($newGt->getCreatedAt());
-        $this->assertNotNull($newGt->getUpdatedAt());
-        
+        $this->assertNull($newGt->getUpdatedAt());
     }
-    
+
     public function testGetListWithPagination()
     {
         $this->request->setMethod('get');
-        
+
         $this->CreateGradingType();
         $this->CreateGradingType();
-        
+
         $q = 'page=1&limit=1';
         $params = [];
         parse_str($q, $params);
@@ -197,12 +200,14 @@ class GradingtypeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
+        
     }
-    
+
     public function testTrashed()
     {
         //create one to update later
@@ -218,9 +223,9 @@ class GradingtypeControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         //set new data
@@ -231,4 +236,5 @@ class GradingtypeControllerTest extends UnitHelpers
                 $trashedOld, $r->getTrashed()
         );
     }
+
 }

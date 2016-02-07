@@ -5,7 +5,6 @@ namespace AdministratorTest\Controller;
 use Administrator\Controller\ModuletypeController;
 use Zend\Json\Json;
 
-
 //error_reporting(E_ALL | E_STRICT);
 //chdir(__DIR__);
 
@@ -14,8 +13,6 @@ use Zend\Json\Json;
  */
 class ModuletypeControllerTest extends UnitHelpers
 {
-
-   
 
     protected function setUp()
     {
@@ -26,29 +23,32 @@ class ModuletypeControllerTest extends UnitHelpers
     public function testCreate()
     {
         $name = 'Moduletype name' . uniqid();
-        
+
         $this->request->setMethod('post');
-        
+
         $room = $this->CreateModuleType();
         $this->request->getPost()->set('name', $name);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
         
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+
         
-        $this->PrintOut($result, false);      
     }
-    
+
     public function testCreateNoData()
     {
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testGet()
@@ -57,9 +57,10 @@ class ModuletypeControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateModuleType()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testGetList()
@@ -70,37 +71,39 @@ class ModuletypeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
+        
     }
 
-    public function testUpdate(){
+    public function testUpdate()
+    {
         $entity = $this->CreateModuleType();
         $id = $entity->getId();
         $nameOld = $entity->getName();
-        
+
         $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('put');
         $this->request->setContent(http_build_query([
             'name' => 'Updated' . uniqid(),
         ]));
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $r = $this->em
-                    -> getRepository('Core\Entity\ModuleType')
-                    ->find($result->data['id']);
+                ->getRepository('Core\Entity\ModuleType')
+                ->find($result->data['id']);
         $this->assertNotEquals($nameOld, $r->getName());
-        
-     }
+    }
 
     public function testDelete()
     {
@@ -115,6 +118,8 @@ class ModuletypeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -126,40 +131,42 @@ class ModuletypeControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        $this->PrintOut($result, false);
+        
     }
 
-    public function testCreatedByAndUpdatedBy(){
+    public function testCreatedByAndUpdatedBy()
+    {
         $this->request->setMethod('post');
 
         $this->request->getPost()->set('name', uniqid() . 'ModuleType');
-        
+
         $lisUserCreates = $this->CreateLisUser();
         $lisUserCreatesId = $lisUserCreates->getId();
         $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-        
+
         $lisUserUpdates = $this->CreateLisUser();
         $lisUserUpdatesId = $lisUserUpdates->getId();
         $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
         
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
         
+
         $repository = $this->em->getRepository('Core\Entity\ModuleType');
         $newModuleType = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newModuleType->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newModuleType->getUpdatedBy()->getId());
     }
-    
+
     public function testCreatedAtAndUpdatedAt()
     {
         $this->request->setMethod('post');
-        
+
         $this->request->getPost()->set('name', uniqid());
 
         $lisUser = $this->CreateLisUser();
@@ -168,22 +175,22 @@ class ModuletypeControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
         
+        $this->PrintOut($result, false);
+
         $repository = $this->em->getRepository('Core\Entity\ModuleType');
         $newRoom = $repository->find($result->data['id']);
         $this->assertNotNull($newRoom->getCreatedAt());
-        $this->assertNotNull($newRoom->getUpdatedAt());
-        
+        $this->assertNull($newRoom->getUpdatedAt());
     }
-    
+
     public function testGetListWithPagination()
     {
         $this->request->setMethod('get');
-        
+
         $this->CreateModuleType();
         $this->CreateModuleType();
-        
+
         $q = 'page=1&limit=1';
         $params = [];
         parse_str($q, $params);
@@ -193,12 +200,15 @@ class ModuletypeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
+        
     }
-    
+
     public function testTrashed()
     {
         //create one to update later
@@ -214,9 +224,9 @@ class ModuletypeControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, FALSE);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         //set new data
@@ -227,5 +237,5 @@ class ModuletypeControllerTest extends UnitHelpers
                 $trashedOld, $r->getTrashed()
         );
     }
-        
+
 }

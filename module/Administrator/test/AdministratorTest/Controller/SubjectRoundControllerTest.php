@@ -38,9 +38,11 @@ class SubjectRoundControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testCreateNoData()
@@ -48,9 +50,10 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testCreateNoSubject()
@@ -60,9 +63,10 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->getPost()->set("studentGroup", $studentGroup->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testCreateNoStudentGroup()
@@ -72,9 +76,10 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->getPost()->set("subject", $subject->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testCreateNoTeacher()
@@ -86,9 +91,11 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->getPost()->set("studentGroup", $studentGroup->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testGet()
@@ -97,9 +104,11 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateSubjectRound()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testUpdate()
@@ -142,10 +151,10 @@ class SubjectRoundControllerTest extends UnitHelpers
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
 
         $this->assertNotEquals($studentGroupIdOld, $result->data['studentGroup']['id']);
         $this->assertNotEquals($subjectIdOld, $result->data['subject']['id']);
@@ -167,13 +176,15 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->setMethod('delete');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->em->clear();
         //test it is not in the database anymore
         $deleted = $subjectRoundRepository->Get($idOld);
         $this->assertEquals(null, $deleted);
-        $this->PrintOut($result, false);
     }
 
     public function testGetList()
@@ -182,10 +193,12 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
     }
 
     public function testGetListWithPaginaton()
@@ -207,10 +220,12 @@ class SubjectRoundControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
     }
 
 }

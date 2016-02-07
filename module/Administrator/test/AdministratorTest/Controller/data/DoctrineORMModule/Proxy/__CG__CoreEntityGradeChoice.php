@@ -268,17 +268,6 @@ class GradeChoice extends \Core\Entity\GradeChoice implements \Doctrine\ORM\Prox
     /**
      * {@inheritDoc}
      */
-    public function setId($id)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
-
-        return parent::setId($id);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setName($name)
     {
 

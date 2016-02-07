@@ -268,6 +268,17 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getStudentInGroups()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentInGroups', array());
+
+        return parent::getStudentInGroups();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getTrashed()
     {
 
@@ -400,34 +411,23 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setTrashed($trashed)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
-
-        return parent::setTrashed($trashed);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getStudentInGroups()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentInGroups', array());
-
-        return parent::getStudentInGroups();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setStudentInGroups($studentInGroups)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentInGroups', array($studentInGroups));
 
         return parent::setStudentInGroups($studentInGroups);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTrashed($trashed)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
+
+        return parent::setTrashed($trashed);
     }
 
     /**

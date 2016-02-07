@@ -16,92 +16,114 @@ use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRoundRepository")
  * @ORM\Table(
  *     indexes={@ORM\Index(name="subjectround_index_trashed", columns={"trashed"})}
  * )
+ * @ORM\HasLifecycleCallbacks
+ * 
  * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class SubjectRound extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="IndependentWork", mappedBy="subjectRound")
      */
     protected $independentWork;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="ContactLesson", mappedBy="subjectRound")
      */
     protected $contactLesson;
 
     /**
-     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="subjectRound")
      * @Annotation\Exclude()
+     * 
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="subjectRound")
      */
     protected $studentGrade;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="Subject", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     * @Annotation\Required({"required":"true"})
      */
     protected $subject;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="subjectRound")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)
-     * @Annotation\Required({"required":"true"})
      */
     protected $studentGroup;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="subjectRound")
      * @ORM\JoinTable(
      *     name="TeacherToSubjectRound",
      *     joinColumns={@ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false)},
      *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
      * )
-     * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
-     * @return type
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
-    public function getTrashed()
-    {
-        return $this->trashed;
-    }
+    protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
-     * @param type $trashed
-     * @return \Core\Entity\SubjectRound
+     * @ORM\ManyToOne(targetEntity="LisUser")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
-    public function setTrashed($trashed)
-    {
-        $this->trashed = $trashed;
-        return $this;
-    }
+    protected $updatedBy;
+
+    /**
+     * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
+     */
+    protected $createdAt;
+
+    /**
+     * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     */
+    protected $updatedAt;
 
     /**
      * 
@@ -111,6 +133,132 @@ class SubjectRound extends EntityValidation
     {
         $this->teacher = new ArrayCollection();
         parent::__construct($em);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getIndependentWork()
+    {
+        return $this->independentWork;
+    }
+
+    public function getContactLesson()
+    {
+        return $this->contactLesson;
+    }
+
+    public function getStudentGrade()
+    {
+        return $this->studentGrade;
+    }
+
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    public function getStudentGroup()
+    {
+        return $this->studentGroup;
+    }
+
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+
+    public function getTrashed()
+    {
+        return $this->trashed;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setIndependentWork($independentWork)
+    {
+        $this->independentWork = $independentWork;
+        return $this;
+    }
+
+    public function setContactLesson($contactLesson)
+    {
+        $this->contactLesson = $contactLesson;
+        return $this;
+    }
+
+    public function setStudentGrade($studentGrade)
+    {
+        $this->studentGrade = $studentGrade;
+        return $this;
+    }
+
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
+    public function setStudentGroup($studentGroup)
+    {
+        $this->studentGroup = $studentGroup;
+        return $this;
+    }
+
+    public function setTeacher($teacher)
+    {
+        $this->teacher = $teacher;
+        return $this;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
+        return $this;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+        return $this;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     /**
@@ -134,75 +282,20 @@ class SubjectRound extends EntityValidation
         }
     }
 
-    public function getId()
+    /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
     {
-        return $this->id;
-    }
-
-    public function getIndependentWork()
-    {
-        return $this->independentWork;
-    }
-
-    public function getContactLesson()
-    {
-        return $this->contactLesson;
-    }
-
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    public function getStudentGroup()
-    {
-        return $this->studentGroup;
-    }
-
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-
-    public function setIndependentWork($independentWork)
-    {
-        $this->independentWork = $independentWork;
-        return $this;
-    }
-
-    public function setContactLesson($contactLesson)
-    {
-        $this->contactLesson = $contactLesson;
-        return $this;
-    }
-
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-        return $this;
-    }
-
-    public function setStudentGroup($studentGroup)
-    {
-        $this->studentGroup = $studentGroup;
-        return $this;
-    }
-
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-        return $this;
-    }
-
-    public function getStudentGrade()
-    {
-        return $this->studentGrade;
-    }
-
-    public function setStudentGrade($studentGrade)
-    {
-        $this->studentGrade = $studentGrade;
-        return $this;
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
+        }
     }
 
 }

@@ -30,82 +30,92 @@ use DateTime;
  *          @ORM\Index(name="subject_durationIndependentAK", columns={"durationIndependentAK"}),
  * })
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Subject extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $code;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationAllAK;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationContactAK;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationIndependentAK;
 
     /**
-      protected $
-     * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="subject")
      * @Annotation\Exclude()
+     * 
+     * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="subject")
      */
     protected $subjectRound;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="Module", inversedBy="subject")
      * @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Annotation\Required({"required":"true"})
      */
     protected $module;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToMany(targetEntity="GradingType", inversedBy="subject")
      * @ORM\JoinTable(
      *     name="GradingTypeToSubject",
      *     joinColumns={@ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="grading_type_id", referencedColumnName="id", nullable=false)}
      * )
-     * @Annotation\Required({"required":"true"})
      */
     protected $gradingType;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -113,6 +123,7 @@ class Subject extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -120,16 +131,16 @@ class Subject extends EntityValidation
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -141,27 +152,6 @@ class Subject extends EntityValidation
     {
         $this->gradingType = new ArrayCollection();
         parent::__construct($em);
-    }
-
-    /**
-     * @param Collection $gradingTypes
-     */
-    public function addGradingType(Collection $gradingTypes)
-    {
-        foreach ($gradingTypes as $gradingType) {
-            //$gradingType->setModule($this);
-            $this->gradingType->add($gradingType);
-        }
-    }
-
-    /**
-     * @param Collection $gradingTypes
-     */
-    public function removeGradingType(Collection $gradingTypes)
-    {
-        foreach ($gradingTypes as $gradingType) {
-            $this->gradingType->removeElement($gradingType);
-        }
     }
 
     public function getId()
@@ -313,6 +303,30 @@ class Subject extends EntityValidation
     }
 
     /**
+     * @param Collection $gradingTypes
+     */
+    public function addGradingType(Collection $gradingTypes)
+    {
+        foreach ($gradingTypes as $gradingType) {
+            //$gradingType->setModule($this);
+            $this->gradingType->add($gradingType);
+        }
+    }
+
+    /**
+     * @param Collection $gradingTypes
+     */
+    public function removeGradingType(Collection $gradingTypes)
+    {
+        foreach ($gradingTypes as $gradingType) {
+            $this->gradingType->removeElement($gradingType);
+        }
+    }
+
+    /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -320,8 +334,9 @@ class Subject extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

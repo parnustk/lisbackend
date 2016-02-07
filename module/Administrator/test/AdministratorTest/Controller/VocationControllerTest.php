@@ -41,7 +41,9 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
@@ -58,7 +60,9 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
     }
@@ -75,7 +79,9 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
     }
@@ -92,7 +98,9 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
     }
@@ -105,7 +113,9 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
     }
@@ -119,7 +129,9 @@ class VocationControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateVocation()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
@@ -135,7 +147,9 @@ class VocationControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+
         $this->PrintOut($result, false);
+
         $this->assertGreaterThan(0, count($result->data));
     }
 
@@ -163,9 +177,9 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
@@ -197,8 +211,8 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
-        
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
@@ -210,11 +224,8 @@ class VocationControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertNotEquals(null, $deleted);
-
-        
     }
-    
-    
+
     public function testDelete()
     {
         $entity = $this->CreateVocation();
@@ -228,8 +239,8 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
-        
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -241,8 +252,6 @@ class VocationControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        
     }
 
     /**
@@ -262,21 +271,22 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
     }
-    
+
     public function testGetTrashedList()
     {
-        
+
         //prepare one Vocation with trashed flag set up
         $entity = $this->CreateVocation();
         $entity->setTrashed(1);
         $this->em->persist($entity);
-        $this->em->flush($entity);//save to db with trashed 1
+        $this->em->flush($entity); //save to db with trashed 1
         $where = [
             'trashed' => 1,
             'id' => $entity->getId()
@@ -285,7 +295,7 @@ class VocationControllerTest extends UnitHelpers
         $whereURL = urlencode($whereJSON);
         $whereURLPart = "where=$whereURL";
         $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
-        
+
         $params = [];
         parse_str($q, $params);
         foreach ($params as $key => $value) {
@@ -298,18 +308,17 @@ class VocationControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
 
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         //limit is set to 1
         $this->assertEquals(1, count($result->data));
-        
+
         //assert all results have trashed not null
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
-        
     }
 
 }

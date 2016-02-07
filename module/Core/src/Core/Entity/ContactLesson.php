@@ -28,43 +28,53 @@ use DateTime;
  *          @ORM\Index(name="contactlesson_durationAK", columns={"durationAK"}),
  * })
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ContactLesson extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
+     * 
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="datetime", nullable=false)
      */
     protected $lessonDate;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationAK;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="Absence", mappedBy="contactLesson")
      */
     protected $absence;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToMany(targetEntity="Rooms", inversedBy="contactLesson")
      * @ORM\JoinTable(
      *     name="RoomsToContactLesson",
@@ -75,8 +85,9 @@ class ContactLesson extends EntityValidation
     protected $rooms;
 
     /**
-     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="contactLesson")
      * @Annotation\Exclude()
+     * 
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="contactLesson")
      */
     protected $studentGrade;
 
@@ -88,24 +99,26 @@ class ContactLesson extends EntityValidation
     protected $subjectRound;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="contactLesson")
      * @ORM\JoinTable(
      *     name="TeacherToContactLesson",
      *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
      *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
      * )
-     * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -113,6 +126,7 @@ class ContactLesson extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -120,16 +134,16 @@ class ContactLesson extends EntityValidation
     protected $updatedBy;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     *
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -141,100 +155,6 @@ class ContactLesson extends EntityValidation
     {
         $this->teacher = new ArrayCollection();
         parent::__construct($em);
-    }
-
-    /**
-     * @param Collection $teachers
-     */
-    public function addTeacher(Collection $teachers)
-    {
-        foreach ($teachers as $teacher) {
-            //$gradingType->setModule($this);
-            $this->teacher->add($teacher);
-        }
-    }
-
-    /**
-     * @param Collection $teachers
-     */
-    public function removeTeacher(Collection $teachers)
-    {
-        foreach ($teachers as $teacher) {
-            $this->teacher->removeElement($teacher);
-        }
-    }
-
-    /**
-     * @param $absence
-     */
-    public function addAbsence($absence)
-    {
-        foreach ($absence as $absence) {
-            $this->absence->add($absence);
-        }
-    }
-
-    /**
-     * @param $absence
-     */
-    public function removeAbsence($absence)
-    {
-        foreach ($absence as $absence) {
-            $this->absence->removeElement($absence);
-        }
-    }
-
-    /**
-     * @param Collection $rooms
-     */
-    public function addRooms(Collection $rooms)
-    {
-        foreach ($rooms as $room) {
-            //$gradingType->setModule($this);
-            $this->rooms->add($room);
-        }
-    }
-
-    /**
-     * @param Collection $rooms
-     */
-    public function removeRooms(Collection $rooms)
-    {
-        foreach ($rooms as $room) {
-            $this->rooms->removeElement($room);
-        }
-    }
-
-    /**
-     * @param $subjectRound
-     */
-    public function addSubjectRound($subjectRound)
-    {
-        foreach ($subjectRound as $subjectRound) {
-            $this->subjectRound->removeElement($subjectRound);
-        }
-    }
-
-    /**
-     * @param $subjectRound
-     */
-    public function removeSubjectRound($subjectRound)
-    {
-        foreach ($subjectRound as $subjectRound) {
-            $this->subjectRound->removeElement($subjectRound);
-        }
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function refreshTimeStamps()
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new DateTime);
-        }
-        $this->setUpdatedAt(new DateTime);
     }
 
     public function getId()
@@ -343,7 +263,7 @@ class ContactLesson extends EntityValidation
         return $this;
     }
 
-    public function setSubjectRound($subjectRound = null)
+    public function setSubjectRound($subjectRound)
     {
         $this->subjectRound = $subjectRound;
         return $this;
@@ -383,6 +303,104 @@ class ContactLesson extends EntityValidation
     {
         $this->updatedAt = $updatedAt;
         return $this;
+    }
+
+    /**
+     * @param Collection $teachers
+     */
+    public function addTeacher(Collection $teachers)
+    {
+        foreach ($teachers as $teacher) {
+            //$gradingType->setModule($this);
+            $this->teacher->add($teacher);
+        }
+    }
+
+    /**
+     * @param Collection $teachers
+     */
+    public function removeTeacher(Collection $teachers)
+    {
+        foreach ($teachers as $teacher) {
+            $this->teacher->removeElement($teacher);
+        }
+    }
+
+    /**
+     * @param $absence
+     */
+    public function addAbsence($absence)
+    {
+        foreach ($absence as $absence) {
+            $this->absence->add($absence);
+        }
+    }
+
+    /**
+     * @param $absence
+     */
+    public function removeAbsence($absence)
+    {
+        foreach ($absence as $absence) {
+            $this->absence->removeElement($absence);
+        }
+    }
+
+    /**
+     * @param Collection $rooms
+     */
+    public function addRooms(Collection $rooms)
+    {
+        foreach ($rooms as $room) {
+            //$gradingType->setModule($this);
+            $this->rooms->add($room);
+        }
+    }
+
+    /**
+     * @param Collection $rooms
+     */
+    public function removeRooms(Collection $rooms)
+    {
+        foreach ($rooms as $room) {
+            $this->rooms->removeElement($room);
+        }
+    }
+
+    /**
+     * @param $subjectRound
+     */
+    public function addSubjectRound($subjectRound)
+    {
+        foreach ($subjectRound as $subjectRound) {
+            $this->subjectRound->removeElement($subjectRound);
+        }
+    }
+
+    /**
+     * @param $subjectRound
+     */
+    public function removeSubjectRound($subjectRound)
+    {
+        foreach ($subjectRound as $subjectRound) {
+            $this->subjectRound->removeElement($subjectRound);
+        }
+    }
+
+    /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function refreshTimeStamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
+        }
     }
 
 }

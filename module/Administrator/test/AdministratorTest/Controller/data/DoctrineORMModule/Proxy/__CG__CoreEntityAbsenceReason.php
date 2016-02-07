@@ -176,127 +176,6 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function getCreatedBy()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedBy', array());
-
-        return parent::getCreatedBy();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getUpdatedBy()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedBy', array());
-
-        return parent::getUpdatedBy();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCreatedBy($createdBy)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
-
-        return parent::setCreatedBy($createdBy);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setUpdatedBy($updatedBy)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
-
-        return parent::setUpdatedBy($updatedBy);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function refreshTimeStamp()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'refreshTimeStamp', array());
-
-        return parent::refreshTimeStamp();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCreatedAt()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', array());
-
-        return parent::getCreatedAt();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getUpdatedAt()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedAt', array());
-
-        return parent::getUpdatedAt();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCreatedAt($createdAt)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
-
-        return parent::setCreatedAt($createdAt);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
-
-        return parent::setUpdatedAt($updatedAt);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTrashed()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTrashed', array());
-
-        return parent::getTrashed();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setTrashed($trashed)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
-
-        return parent::setTrashed($trashed);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -334,6 +213,61 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
+    public function getTrashed()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTrashed', array());
+
+        return parent::getTrashed();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedBy', array());
+
+        return parent::getCreatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedBy', array());
+
+        return parent::getUpdatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', array());
+
+        return parent::getCreatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedAt', array());
+
+        return parent::getUpdatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
 
@@ -351,6 +285,72 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAbsence', array($absence));
 
         return parent::setAbsence($absence);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTrashed($trashed)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
+
+        return parent::setTrashed($trashed);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedBy($createdBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
+
+        return parent::setCreatedBy($createdBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
+
+        return parent::setUpdatedBy($updatedBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedAt($createdAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
+
+        return parent::setCreatedAt($createdAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
+
+        return parent::setUpdatedAt($updatedAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function refreshTimeStamps()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'refreshTimeStamps', array());
+
+        return parent::refreshTimeStamps();
     }
 
     /**

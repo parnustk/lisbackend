@@ -24,6 +24,7 @@ use DateTime;
  *  }
  * )
  * @ORM\HasLifecycleCallbacks
+ * 
  * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
  */
 class GradingType extends EntityValidation
@@ -57,32 +58,39 @@ class GradingType extends EntityValidation
     protected $subject;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
      */
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
      */
     protected $updatedBy;
 
     /**
-     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="created_at", nullable=false)
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", name="updated_at", nullable=false)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -140,6 +148,24 @@ class GradingType extends EntityValidation
         return $this->updatedAt;
     }
 
+    public function setGradingType($gradingType)
+    {
+        $this->gradingType = $gradingType;
+        return $this;
+    }
+
+    public function setModule($module)
+    {
+        $this->module = $module;
+        return $this;
+    }
+
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
     public function setTrashed($trashed)
     {
         $this->trashed = $trashed;
@@ -170,25 +196,10 @@ class GradingType extends EntityValidation
         return $this;
     }
 
-    public function setGradingType($gradingType)
-    {
-        $this->gradingType = $gradingType;
-        return $this;
-    }
-
-    public function setModule($module)
-    {
-        $this->module = $module;
-        return $this;
-    }
-
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-        return $this;
-    }
-
     /**
+     * First get inserted createdAt
+     * and updatedAt stays NULL
+     * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -196,8 +207,9 @@ class GradingType extends EntityValidation
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new DateTime);
+        } else {
+            $this->setUpdatedAt(new DateTime);
         }
-        $this->setUpdatedAt(new DateTime);
     }
 
 }

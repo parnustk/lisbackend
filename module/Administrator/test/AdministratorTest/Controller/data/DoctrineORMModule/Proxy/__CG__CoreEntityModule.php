@@ -64,10 +64,10 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'duration', 'code', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'duration', 'code', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'duration', 'code', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'duration', 'code', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -176,28 +176,6 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addGradingType(\Doctrine\Common\Collections\Collection $gradingTypes)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addGradingType', array($gradingTypes));
-
-        return parent::addGradingType($gradingTypes);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeGradingType(\Doctrine\Common\Collections\Collection $gradingTypes)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeGradingType', array($gradingTypes));
-
-        return parent::removeGradingType($gradingTypes);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -257,6 +235,17 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getStudentGrade()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentGrade', array());
+
+        return parent::getStudentGrade();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getVocation()
     {
 
@@ -285,6 +274,61 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getGradingType', array());
 
         return parent::getGradingType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTrashed()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTrashed', array());
+
+        return parent::getTrashed();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedBy', array());
+
+        return parent::getCreatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedBy', array());
+
+        return parent::getUpdatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', array());
+
+        return parent::getCreatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedAt', array());
+
+        return parent::getUpdatedAt();
     }
 
     /**
@@ -334,6 +378,17 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setStudentGrade($studentGrade)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
+
+        return parent::setStudentGrade($studentGrade);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setVocation($vocation)
     {
 
@@ -356,23 +411,100 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getStudentGrade()
+    public function setGradingType($gradingType)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentGrade', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setGradingType', array($gradingType));
 
-        return parent::getStudentGrade();
+        return parent::setGradingType($gradingType);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setStudentGrade($studentGrade)
+    public function setTrashed($trashed)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
 
-        return parent::setStudentGrade($studentGrade);
+        return parent::setTrashed($trashed);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedBy($createdBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
+
+        return parent::setCreatedBy($createdBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
+
+        return parent::setUpdatedBy($updatedBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedAt($createdAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
+
+        return parent::setCreatedAt($createdAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
+
+        return parent::setUpdatedAt($updatedAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addGradingType(\Doctrine\Common\Collections\Collection $gradingTypes)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addGradingType', array($gradingTypes));
+
+        return parent::addGradingType($gradingTypes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeGradingType(\Doctrine\Common\Collections\Collection $gradingTypes)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeGradingType', array($gradingTypes));
+
+        return parent::removeGradingType($gradingTypes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function refreshTimeStamps()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'refreshTimeStamps', array());
+
+        return parent::refreshTimeStamps();
     }
 
     /**

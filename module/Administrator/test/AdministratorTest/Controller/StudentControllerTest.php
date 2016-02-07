@@ -14,6 +14,7 @@ use Administrator\Controller\StudentController;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
+
 /**
  * Description of StudentControllerTest
  * 
@@ -21,13 +22,13 @@ chdir(__DIR__);
  */
 class StudentControllerTest extends UnitHelpers
 {
+
     protected function setUp()
     {
         $this->controller = new StudentController();
         parent::setUp();
     }
 
-    
     public function testCreate()
     {
         $firstName = 'studentFirstName' . uniqid();
@@ -39,22 +40,25 @@ class StudentControllerTest extends UnitHelpers
 //        $studentGrade = 'studentStudentGrade' . uniqid();
 
         $this->request->setMethod('post');
-        
+
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
         $this->request->getPost()->set('code', $code);
         $this->request->getPost()->set('email', $email);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
         $this->PrintOut($result, false);
-        $this->assertEquals(1,$result->success);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertEquals(1, $result->success);
         $repository = $this->em->getRepository('Core\Entity\Student');
         $newStudent = $repository->find($result->data['id']);
         $this->assertNotNull($newStudent->getCreatedAt());
     }
+
     public function testCreateNoFirstName()
     {
 //        $firstName = 'studentFirstName' . uniqid();
@@ -66,20 +70,23 @@ class StudentControllerTest extends UnitHelpers
 //        $studentGrade = 'studentStudentGrade' . uniqid();
 
         $this->request->setMethod('post');
-        
-        
+
+
 //        $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
         $this->request->getPost()->set('code', $code);
         $this->request->getPost()->set('email', $email);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
         $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertNotEquals(1, $result->success);
     }
+
     public function testCreateNoLastName()
     {
         $firstName = 'studentFirstName' . uniqid();
@@ -91,19 +98,22 @@ class StudentControllerTest extends UnitHelpers
 //        $studentGrade = 'studentStudentGrade' . uniqid();
 
         $this->request->setMethod('post');
-        
+
         $this->request->getPost()->set('firstName', $firstName);
 //        $this->request->getPost()->set('lastName', $lastName);
         $this->request->getPost()->set('code', $code);
         $this->request->getPost()->set('email', $email);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
         $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertNotEquals(1, $result->success);
     }
+
     public function testCreateNoCode()
     {
         $firstName = 'studentFirstName' . uniqid();
@@ -115,23 +125,26 @@ class StudentControllerTest extends UnitHelpers
 //        $studentGrade = 'studentStudentGrade' . uniqid();
 
         $this->request->setMethod('post');
-        
-        
+
+
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
 //        $this->request->getPost()->set('code', $code);
         $this->request->getPost()->set('email', $email);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
         $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertNotEquals(1, $result->success);
     }
+
     public function testCreateNoEmail()
     {
-        
+
         $firstName = 'studentFirstName' . uniqid();
         $lastName = 'studentLastName' . uniqid();
         $code = 'studentCode' . uniqid();
@@ -141,35 +154,40 @@ class StudentControllerTest extends UnitHelpers
 //        $studentGrade = 'studentStudentGrade' . uniqid();
 
         $this->request->setMethod('post');
-        
-        
+
+
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
         $this->request->getPost()->set('code', $code);
 //        $this->request->getPost()->set('email', $email);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
         $this->PrintOut($result, false);
-        $this->assertNotEquals(1,$result->success);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertNotEquals(1, $result->success);
     }
-    
+
     /**
      * TEST row gets read by id
      */
-    public function testGet() {
-        
+    public function testGet()
+    {
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateStudent()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1,$result->success);
+
         $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
     }
-    
+
     /**
      * TEST rows get read
      */
@@ -179,10 +197,12 @@ class StudentControllerTest extends UnitHelpers
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
     }
 
     /**
@@ -198,8 +218,8 @@ class StudentControllerTest extends UnitHelpers
         $lastNameOld = $entity->getLastName();
         $codeOld = $entity->getCode();
         $emailOld = $entity->getEmail();
-        
-        
+
+
         $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('put');
 
@@ -212,6 +232,8 @@ class StudentControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -231,7 +253,6 @@ class StudentControllerTest extends UnitHelpers
         $this->assertNotEquals(
                 $emailOld, $r->getEmail()
         );
-        $this->PrintOut($result, false);
     }
 
     /**
@@ -248,6 +269,8 @@ class StudentControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->em->clear();
@@ -258,8 +281,6 @@ class StudentControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        $this->PrintOut($result, false);
     }
 
     /**
@@ -283,9 +304,12 @@ class StudentControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
     }
+
 }

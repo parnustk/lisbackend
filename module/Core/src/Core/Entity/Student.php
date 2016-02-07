@@ -33,6 +33,8 @@ class Student extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -40,58 +42,71 @@ class Student extends EntityValidation
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $lastName;
 
     /**
-     * @ORM\Column(type="encryptedstring", name="`code`", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="encryptedstring", name="`code`", unique=true, length=255, nullable=false)
      */
     protected $code;
 
     /**
-     * @ORM\Column(type="encryptedstring", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="encryptedstring", length=255, nullable=false)
      */
     protected $email;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToOne(targetEntity="LisUser", inversedBy="student")
      * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id")
      */
     protected $lisUser;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="Absence", mappedBy="student")
      */
     protected $absence;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="student")
      */
     protected $studentGrade;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="StudentInGroups", mappedBy="student")
      */
     protected $studentInGroups;
 
     /**
-     *
-     * @ORM\Column(type="integer", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id", nullable=true)
@@ -99,6 +114,7 @@ class Student extends EntityValidation
     protected $createdBy;
 
     /**
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="LisUser")
      * @ORM\JoinColumn(name="updated_by", referencedColumnName="id", nullable=true)
@@ -106,14 +122,16 @@ class Student extends EntityValidation
     protected $updatedBy;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Column(type="datetime", name="created_at", nullable=false)
-     * @Annotation\Exclude() 
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -166,42 +184,31 @@ class Student extends EntityValidation
         return $this->studentGrade;
     }
 
+    public function getStudentInGroups()
+    {
+        return $this->studentInGroups;
+    }
+
     public function getTrashed()
     {
         return $this->trashed;
     }
 
-    /**
-     * 
-     * @return type
-     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
-    /**
-     * 
-     * @return type
-     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
-    /**
-     * 
-     * @return type
-     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    /**
-     * 
-     * @return type
-     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
@@ -249,20 +256,15 @@ class Student extends EntityValidation
         return $this;
     }
 
-    public function setTrashed($trashed)
-    {
-        $this->trashed = $trashed;
-        return $this;
-    }
-
-    public function getStudentInGroups()
-    {
-        return $this->studentInGroups;
-    }
-
     public function setStudentInGroups($studentInGroups)
     {
         $this->studentInGroups = $studentInGroups;
+        return $this;
+    }
+
+    public function setTrashed($trashed)
+    {
+        $this->trashed = $trashed;
         return $this;
     }
 

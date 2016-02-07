@@ -77,9 +77,11 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testCreateNoModule()
@@ -99,9 +101,11 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testGet()
@@ -110,9 +114,10 @@ class SubjectControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateSubject()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->PrintOut($result, false);
+        
     }
 
     public function testGetList()
@@ -122,10 +127,12 @@ class SubjectControllerTest extends UnitHelpers
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        $this->PrintOut($result, false);
+        
     }
 
     public function testUpdate()
@@ -163,6 +170,7 @@ class SubjectControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
@@ -198,7 +206,6 @@ class SubjectControllerTest extends UnitHelpers
                     false, in_array($gtU->getId(), $gradingTypesOld)
             );
         }
-        $this->PrintOut($result, false);
     }
 
     public function testDeleteNotTrashed()
@@ -240,6 +247,8 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -252,7 +261,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $this->assertEquals(null, $deleted);
 
-        $this->PrintOut($result, false);
+        
     }
     
     public function testGetTrashedList()
@@ -314,10 +323,13 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
+        
     }
     
      public function testCreatedByAndUpdatedBy()
@@ -362,12 +374,12 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
-
+        
         $repository = $this->em->getRepository('Core\Entity\Subject');
         $newSubject = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newSubject->getCreatedBy()->getId());
