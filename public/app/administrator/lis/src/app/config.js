@@ -40,7 +40,7 @@
 
                     .when('/gradechoice', {
                         templateUrl: 'lis/dist/templates/gradechoice.html',
-                        controller: 'gradechoiceController'})
+                        controller: 'gradeChoiceController'})
 
                     .when('/room', {
                         templateUrl: 'lis/dist/templates/room.html',
