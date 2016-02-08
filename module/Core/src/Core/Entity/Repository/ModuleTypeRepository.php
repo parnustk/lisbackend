@@ -14,7 +14,7 @@ class ModuleTypeRepository extends AbstractBaseRepository
     /*
      * @var string
      */
-    protected $baseAlias = 'mt';
+    protected $baseAlias = 'moduletype';
     
     /*
      * @var string

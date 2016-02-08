@@ -20,12 +20,13 @@ use DateTime;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleTypeRepository")
  * @ORM\Table(
  *  indexes={
+ *      @ORM\Index(name="moduletype_name", columns={"name"}),
  *      @ORM\Index(name="moduletype_index_trashed", columns={"trashed"})
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleType extends EntityValidation
 {

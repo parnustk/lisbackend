@@ -335,6 +335,35 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertLessThanOrEqual(1, count($result->data));
         
     }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateAbsence();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, FALSE);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $r = $this->em
+                ->getRepository('Core\Entity\Absence')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $r->getTrashed()
+        );
+    }
 
     public function testGetTrashedList()
     {

@@ -6,7 +6,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuletypeController extends AbstractBaseController
 {
@@ -31,7 +31,7 @@ class ModuletypeController extends AbstractBaseController
     /**
      * <h2>POST admin/ModuleType</h2>
      * <h3>Body</h3>
-     * <code>name(string)</code>
+     * <code>name(string)*</code>
      * @param int @data
      * @return JsonModel
      */
@@ -41,10 +41,9 @@ class ModuletypeController extends AbstractBaseController
     }
 
     /**
-     * <h2>GET admin/ModuleType</h2>
+     * <h2>GET admin/ModuleType/:id</h2>
      * <h3>URL Parameters</h3>
-     * <code>limit(integer)
-     * page(integer)</code>
+     * <code>id(integer)*</code>
      * @return JsonModel
      */
     public function get($id)
@@ -53,9 +52,11 @@ class ModuletypeController extends AbstractBaseController
     }
 
     /**
-     * <h2>PUT admin/ModuleType/id</h2>
+     * <h2>PUT admin/ModuleType/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>name(string)</code>
+     * <code>name(string)*</code>
      * @return JsonModel
      */
     public function update($id, $data)
@@ -64,9 +65,9 @@ class ModuletypeController extends AbstractBaseController
     }
 
     /**
-     * <h2>DELETE administrator/ModuleType</h2>
+     * <h2>DELETE administrator/ModuleType/:id</h2>
      * <h3>URL Parameters</h3>
-     * <code>id(integer)</code>
+     * <code>id(integer)*</code>
      * @return JsonModel
      */
     public function delete($id)
