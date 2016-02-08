@@ -34,7 +34,8 @@ class GradeChoiceRepository extends AbstractBaseRepository
         $dql =  "SELECT
                     partial $this->baseAlias.{
                      id,
-                     name
+                     name,
+                     trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
