@@ -7,7 +7,7 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
-namespace AdministratorTest;
+namespace LisAuthTest;
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
