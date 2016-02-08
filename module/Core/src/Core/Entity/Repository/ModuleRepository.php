@@ -85,25 +85,6 @@ class ModuleRepository extends AbstractBaseRepository
         }
     }
 
-    private function validateModuleType($data)
-    {
-        if (!key_exists('moduletype', $data)) {
-            throw new Exception(
-            Json::encode(
-                    'Missing moduletype for module', true
-            )
-            );
-        }
-
-        if (!$data['vocation']) {
-            throw new Exception(
-            Json::encode(
-                    'Missing moduletype for module', true
-            )
-            );
-        }
-    }
-
     /**
      * 
      * @param array $data
@@ -131,7 +112,6 @@ class ModuleRepository extends AbstractBaseRepository
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
         $this->validateVocation($data);
-//        $this->validateModuleType($data);
         $entity = $this->find($id);
 
         $vocation = $this->getEntityManager()
