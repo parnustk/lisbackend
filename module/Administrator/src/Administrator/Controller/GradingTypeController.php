@@ -1,12 +1,20 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradingtypeController extends AbstractBaseController
 {
@@ -43,10 +51,9 @@ class GradingtypeController extends AbstractBaseController
     }
 
     /**
-     * <h2> GET admin/gradingtype</h2>
+     * <h2> GET admin/gradingtype/:id</h2>
      * <h3>URL Parameters</h3>
-     * <code>limit(integer)
-     * page(integer)</code>
+     * <code>id(integer)*</code>
      * @return JsonModel
      */
     public function get($id)
@@ -55,7 +62,7 @@ class GradingtypeController extends AbstractBaseController
     }
 
     /**
-     * <h2> PUT admin/gradingtype</h2>
+     * <h2> PUT admin/gradingtype/:id</h2>
      * <h3>Body</h3>
      * <code>gradingType(string)*</code>
      * @return JsonModel
@@ -66,7 +73,7 @@ class GradingtypeController extends AbstractBaseController
     }
 
     /**
-     * <h2> DELETE admin/gradingtype</h2>
+     * <h2> DELETE admin/gradingtype/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * @return JsonModel

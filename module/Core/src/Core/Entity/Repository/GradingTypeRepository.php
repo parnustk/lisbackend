@@ -14,7 +14,7 @@ class GradingTypeRepository extends AbstractBaseRepository
     /*
      * @var string
      */
-    protected $baseAlias = 'gt';
+    protected $baseAlias = 'gradingtype';
     
     /*
      * @var string

@@ -278,6 +278,39 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals($lisUserCreatesId, $newAbsence->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newAbsence->getUpdatedBy()->getId());
     }
+    
+    public function testCreatedAtAndUpdatedAt()
+    {
+        $this->request->setMethod('post');
+
+        $description = 'Absence description' . uniqid();
+        $absence = $this->CreateAbsence()->getId();
+        $student = $this->CreateStudent()->getId();
+        $contactLesson = $this->CreateContactLesson()->getId();
+        $absenceReason = $this->CreateAbsenceReason()->getId();
+        
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('student', $student);
+        $this->request->getPost()->set('absence', $absence);
+        $this->request->getPost()->set('absenceReason', $absenceReason);
+        $this->request->getPost()->set('contactLesson', $contactLesson);
+
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+
+        $repository = $this->em->getRepository('Core\Entity\Absence');
+        $newGt = $repository->find($result->data['id']);
+        $this->assertNotNull($newGt->getCreatedAt());
+        $this->assertNull($newGt->getUpdatedAt());
+    }
 
     /**
      * TEST rows get read by limit and page params

@@ -20,12 +20,13 @@ use DateTime;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradingTypeRepository")
  * @ORM\Table(
  *  indexes={
+ *      @ORM\Index(name="gradingType", columns={"gradingType"}),
  *      @ORM\Index(name="gradingtype_index_trashed", columns={"trashed"}),
  *  }
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradingType extends EntityValidation
 {

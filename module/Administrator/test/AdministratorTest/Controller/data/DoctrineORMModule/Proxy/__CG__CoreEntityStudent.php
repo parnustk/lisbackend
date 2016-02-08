@@ -64,10 +64,10 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'personalCode', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'code', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'personalCode', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -213,12 +213,12 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getCode()
+    public function getPersonalCode()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCode', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPersonalCode', array());
 
-        return parent::getCode();
+        return parent::getPersonalCode();
     }
 
     /**
@@ -356,12 +356,12 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCode($code)
+    public function setPersonalCode($personalCode)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCode', array($code));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPersonalCode', array($personalCode));
 
-        return parent::setCode($code);
+        return parent::setPersonalCode($personalCode);
     }
 
     /**
