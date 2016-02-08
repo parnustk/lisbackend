@@ -20,14 +20,14 @@ use DateTime;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentRepository")
  * @ORM\Table(
  *     indexes={
- *         @ORM\Index(name="studentcode", columns={"code"}),
+ *         @ORM\Index(name="studentcode", columns={"personalCode"}),
  *         @ORM\Index(name="studentfirstname", columns={"firstName"}),
  *         @ORM\Index(name="studentlastname", columns={"lastName"})
  *     }
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Marten Kähr <marten@kahr.ee>
+ * @author Marten Kähr <marten@kahr.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Student extends EntityValidation
 {
@@ -58,9 +58,9 @@ class Student extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\Column(type="encryptedstring", name="`code`", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="encryptedstring", unique=true, length=255, nullable=false)
      */
-    protected $code;
+    protected $personalCode;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -159,9 +159,9 @@ class Student extends EntityValidation
         return $this->lastName;
     }
 
-    public function getCode()
+    public function getPersonalCode()
     {
-        return $this->code;
+        return $this->personalCode;
     }
 
     public function getEmail()
@@ -226,9 +226,9 @@ class Student extends EntityValidation
         return $this;
     }
 
-    public function setCode($code)
+    public function setPersonalCode($personalCode)
     {
-        $this->code = $code;
+        $this->personalCode = $personalCode;
         return $this;
     }
 

@@ -18,7 +18,7 @@ chdir(__DIR__);
 /**
  * Description of StudentControllerTest
  * 
- * @author Marten Kähr <marten@kahr.ee>
+ * @author Marten Kähr <marten@kahr.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentControllerTest extends UnitHelpers
 {
@@ -43,7 +43,7 @@ class StudentControllerTest extends UnitHelpers
 
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
+        $this->request->getPost()->set('personalCode', $code);
         $this->request->getPost()->set('email', $email);
 
         $result = $this->controller->dispatch($this->request);
@@ -74,7 +74,7 @@ class StudentControllerTest extends UnitHelpers
 
 //        $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
+        $this->request->getPost()->set('personalCode', $code);
         $this->request->getPost()->set('email', $email);
 
         $result = $this->controller->dispatch($this->request);
@@ -101,7 +101,7 @@ class StudentControllerTest extends UnitHelpers
 
         $this->request->getPost()->set('firstName', $firstName);
 //        $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
+        $this->request->getPost()->set('personalCode', $code);
         $this->request->getPost()->set('email', $email);
 
         $result = $this->controller->dispatch($this->request);
@@ -129,7 +129,7 @@ class StudentControllerTest extends UnitHelpers
 
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
-//        $this->request->getPost()->set('code', $code);
+//        $this->request->getPost()->set('personalCode', $code);
         $this->request->getPost()->set('email', $email);
 
         $result = $this->controller->dispatch($this->request);
@@ -158,7 +158,7 @@ class StudentControllerTest extends UnitHelpers
 
         $this->request->getPost()->set('firstName', $firstName);
         $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('code', $code);
+        $this->request->getPost()->set('personalCode', $code);
 //        $this->request->getPost()->set('email', $email);
 
         $result = $this->controller->dispatch($this->request);
@@ -216,7 +216,7 @@ class StudentControllerTest extends UnitHelpers
 
         $firstNameOld = $entity->getFirstName();
         $lastNameOld = $entity->getLastName();
-        $codeOld = $entity->getCode();
+        $codeOld = $entity->getPersonalCode();
         $emailOld = $entity->getEmail();
 
 
@@ -226,7 +226,7 @@ class StudentControllerTest extends UnitHelpers
         $this->request->setContent(http_build_query([
             'firstName' => 'Updated',
             'lastName' => 'Updated',
-            'code' => uniqid(),
+            'personalCode' => uniqid(),
             'email' => 'Updated',
         ]));
 
@@ -248,7 +248,7 @@ class StudentControllerTest extends UnitHelpers
                 $lastNameOld, $r->getLastName()
         );
         $this->assertNotEquals(
-                $codeOld, $r->getCode()
+                $codeOld, $r->getPersonalCode()
         );
         $this->assertNotEquals(
                 $emailOld, $r->getEmail()

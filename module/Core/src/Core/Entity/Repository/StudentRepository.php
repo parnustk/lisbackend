@@ -22,7 +22,7 @@ use Doctrine\ORM\Query;
 /**
  * Description of StudentRepository
  * 
- * @author Marten Kähr <marten@kahr.ee>
+ * @author Marten Kähr <marten@kahr.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentRepository extends EntityRepository implements CRUD
 {
@@ -60,8 +60,9 @@ class StudentRepository extends EntityRepository implements CRUD
                             id,
                             firstName,
                             lastName,
-                            code,
-                            email
+                            personalCode,
+                            email,
+                            trashed
                         }
                     FROM Core\Entity\Student student
                     WHERE student.id = " . $entity->getId() . "
@@ -91,8 +92,9 @@ class StudentRepository extends EntityRepository implements CRUD
                             id,
                             firstName,
                             lastName,
-                            code,              
-                            email
+                            personalCode,              
+                            email,
+                            trashed
                         }
                     FROM Core\Entity\Student student
                     WHERE student.id = " . $id . "
@@ -123,8 +125,9 @@ class StudentRepository extends EntityRepository implements CRUD
                         id,
                         firstName,
                         lastName,
-                        code,              
-                        email
+                        personalCode,              
+                        email,
+                        trashed
                     }
                 FROM Core\Entity\Student student
                 WHERE student.trashed IS NULL";
@@ -169,8 +172,9 @@ class StudentRepository extends EntityRepository implements CRUD
                             id,
                             firstName,
                             lastName,
-                            code,              
-                            email
+                            personalCode,              
+                            email,
+                            trashed
                         }
                     FROM Core\Entity\Student student
                     WHERE student.id = " . $id;
