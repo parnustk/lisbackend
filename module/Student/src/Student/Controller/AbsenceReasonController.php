@@ -14,21 +14,19 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * Description of VocationController
- *
- * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class VocationController extends AbstractBaseController
+class AbsenceReasonController extends AbstractBaseController
 {
-
+    
     /**
      *
      * @var type 
      */
-    protected $service = 'vocation_service';
+    protected $service = 'absencereason_service';
 
     /**
-     * <h2>GET student/vocation</h2>
+     * <h2>GET student/absencereason</h2>
      * <h3>URL Parameters</h3>
      * <code>limit(integer)
      * page(integer)</code>
@@ -41,7 +39,7 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * <h2>GET student/vocation/:id</h2>
+     * <h2>GET student/absencereason/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 
@@ -54,11 +52,9 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * <h2>POST student/vocation</h2>
+     * <h2>POST student/absencereason</h2>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * code(string)*
-     * durationEKAP(string)*</code>
+     * <code>name(string)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -69,11 +65,11 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * <h2>PUT student/vocation/:id</h2>
+     * <h2>PUT student/absencereason/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * code(string)*
-     * durationEKAP(string)*</code>
+     * <code>name(string)*</code>
      * 
      * @param type $id
      * @param type $data
@@ -85,7 +81,7 @@ class VocationController extends AbstractBaseController
     }
 
     /**
-     * <h2>DELETE student/vocation/:id</h2>
+     * <h2>DELETE student/absencereason/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 
