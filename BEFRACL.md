@@ -179,12 +179,12 @@
 
 ## Module RESOURCE
 
-* (string)*
-* code(integer)*
+* name(string)*
+* code(string)*
 * duration(integer)*
 * vocation(integer)*
 * moduleType(integer)*
-* gradingType
+* gradingType(integer)*
 
 ####  Administrator ROLE
 
