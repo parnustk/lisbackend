@@ -1,24 +1,24 @@
 <?php
 
 /**
- * LIS development
- *
+ * Licence of Learning Info System (LIS)
+ * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
-namespace Administrator\Controller;
+namespace Teacher\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleController extends AbstractBaseController
 {
-
+    
     /**
      *
      * @var type 
@@ -26,7 +26,7 @@ class ModuleController extends AbstractBaseController
     protected $service = 'module_service';
 
     /**
-     * <h2>GET admin/module</h2>
+     * <h2>GET student/module</h2>
      * <h3>URL Parameters</h3>
      * <code>limit(integer)
      * page(integer)</code>
@@ -37,13 +37,13 @@ class ModuleController extends AbstractBaseController
     {
         return parent::getList();
     }
-    
+
     /**
-     * <h2>GET admin/module/:id</h2>
+     * <h2>GET student/module/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 
-     * @param int $id
+     * @param type $id
      * @return JsonModel
      */
     public function get($id)
@@ -52,7 +52,7 @@ class ModuleController extends AbstractBaseController
     }
 
     /**
-     * <h2>POST admin/module</h2>
+     * <h2>POST student/module</h2>
      * <h3>Body</h3>
      * <code> name(string)*
      * duration(integer)*
@@ -66,11 +66,11 @@ class ModuleController extends AbstractBaseController
      */
     public function create($data)
     {
-        return parent::create($data);
+        return parent::notAllowed();
     }
 
     /**
-     * <h2>PUT admin/module/:id</h2>
+     * <h2>PUT student/module/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
@@ -85,11 +85,11 @@ class ModuleController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return parent::update($id, $data);
+        return parent::notAllowed();
     }
 
     /**
-     * <h2>DELETE admin/module/:id</h2>
+     * <h2>DELETE student/module/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 
@@ -98,7 +98,7 @@ class ModuleController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return parent::delete($id);
+        return parent::notAllowed();
     }
 
 }
