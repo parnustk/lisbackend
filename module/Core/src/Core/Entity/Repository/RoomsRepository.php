@@ -8,7 +8,7 @@ use Core\Entity\Rooms;
 /**
  * RoomsRepository
  *
- * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class RoomsRepository extends AbstractBaseRepository
 {
@@ -32,7 +32,8 @@ class RoomsRepository extends AbstractBaseRepository
         $dql =  "SELECT
                     partial $this->baseAlias.{
                      id,
-                     name
+                     name,
+                     trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
