@@ -1,11 +1,19 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\SubjectRoundController;
 
 /**
- * @author sander
+ * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class SubjectRoundControllerTest extends UnitHelpers
 {
@@ -35,11 +43,9 @@ class SubjectRoundControllerTest extends UnitHelpers
         ];
 
         $this->request->getPost()->set("teacher", $teacher);
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, false);
-        
+        $this->PrintOut($result, false);    
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         
@@ -59,8 +65,11 @@ class SubjectRoundControllerTest extends UnitHelpers
     public function testCreateNoSubject()
     {
         $this->request->setMethod('post');
-        $studentGroup = $this->CreateStudentGroup();
-        $this->request->getPost()->set("studentGroup", $studentGroup->getId());
+        $this->request->getPost()->set("studentGroup", $this->CreateStudentGroup()->getId());
+        $this->request->getPost()->set("teacher", [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ]);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -74,6 +83,10 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $subject = $this->CreateSubject();
         $this->request->getPost()->set("subject", $subject->getId());
+        $this->request->getPost()->set("teacher", [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ]);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -92,7 +105,6 @@ class SubjectRoundControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
         
@@ -104,8 +116,7 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateSubjectRound()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, false);
-        
+        $this->PrintOut($result, false);     
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         
@@ -165,25 +176,51 @@ class SubjectRoundControllerTest extends UnitHelpers
             }
         }
     }
-
-    public function testDelete()
+    
+    public function testDeleteNotTrashed()
     {
-        $subjectRoundRepository = $this->em->getRepository('Core\Entity\SubjectRound');
-        //create one to delete later on
         $entity = $this->CreateSubjectRound();
         $idOld = $entity->getId();
         $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
         $this->PrintOut($result, false);
-        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\SubjectRound')
+                ->Get($idOld);
+
+        $this->assertNotEquals(null, $deleted);
+    }
+
+    public function testDelete()
+    {
+        $entity = $this->CreateSubjectRound();
+        $idOld = $entity->getId();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->em->clear();
-        //test it is not in the database anymore
-        $deleted = $subjectRoundRepository->Get($idOld);
+
+        //test if it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\SubjectRound')
+                ->Get($idOld);
+
         $this->assertEquals(null, $deleted);
     }
 
@@ -192,10 +229,8 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->CreateSubjectRound();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        
-        $this->PrintOut($result, false);
-        
+        $response = $this->controller->getResponse();      
+        $this->PrintOut($result, false);      
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
@@ -226,6 +261,70 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
+    }
+    
+    public function testCreatedByAndUpdatedBy()
+    {
+        $this->request->setMethod('post');
+        
+        $subject = $this->CreateSubject();
+        $this->request->getPost()->set("subject", $subject->getId());
+        $this->request->getPost()->set("teacher", [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ]);
+        $studentGroup = $this->CreateStudentGroup();
+        $this->request->getPost()->set("studentGroup", $studentGroup->getId());
+
+        $lisUserCreates = $this->CreateLisUser();
+        $lisUserCreatesId = $lisUserCreates->getId();
+        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
+
+        $lisUserUpdates = $this->CreateLisUser();
+        $lisUserUpdatesId = $lisUserUpdates->getId();
+        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        $repository = $this->em->getRepository('Core\Entity\SubjectRound');
+        $newModule = $repository->find($result->data['id']);
+        $this->assertEquals($lisUserCreatesId, $newModule->getCreatedBy()->getId());
+        $this->assertEquals($lisUserUpdatesId, $newModule->getUpdatedBy()->getId());
+    }
+    public function testCreatedAtAndUpdatedAt()
+    {
+        $this->request->setMethod('post');
+
+        $subject = $this->CreateSubject();
+        $this->request->getPost()->set("subject", $subject->getId());
+        $this->request->getPost()->set("teacher", [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ]);
+        $studentGroup = $this->CreateStudentGroup();
+        $this->request->getPost()->set("studentGroup", $studentGroup->getId());
+
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+
+        $repository = $this->em->getRepository('Core\Entity\SubjectRound');
+        $newGt = $repository->find($result->data['id']);
+        $this->assertNotNull($newGt->getCreatedAt());
+        $this->assertNull($newGt->getUpdatedAt());
     }
 
 }
