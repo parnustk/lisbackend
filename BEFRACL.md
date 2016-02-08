@@ -322,8 +322,8 @@
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList
+* YES get
 
 ## StudentInGroups RESOURCE
 
@@ -374,8 +374,8 @@
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList
+* YES get
 
 ## SubjectRound RESOURCE
 
