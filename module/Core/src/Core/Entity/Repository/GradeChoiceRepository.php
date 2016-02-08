@@ -6,12 +6,14 @@
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 LIS dev team
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
- * @author    Arnold Tserepov <tserepov@gmail.com>
  */
 namespace Core\Entity\Repository;
 
 use Core\Entity\GradeChoice;
 
+/**
+ * @author Arnold Tserepov <tserepov@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
 class GradeChoiceRepository extends AbstractBaseRepository
 {
 

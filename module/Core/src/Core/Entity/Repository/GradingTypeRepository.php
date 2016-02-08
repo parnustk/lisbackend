@@ -7,7 +7,7 @@ use Exception;
 
 
 /**
- * @author sander, Alar Aasa <alar@alaraasa.ee>
+ * @author sander, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradingTypeRepository extends AbstractBaseRepository
 {
@@ -28,7 +28,8 @@ class GradingTypeRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        gradingType
+                        gradingType,
+                        trashed
                     }
                     FROM $this->baseEntity $this->baseAlias";
         return $dql;
