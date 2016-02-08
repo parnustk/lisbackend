@@ -6,7 +6,7 @@ use Core\Entity\ModuleType;
 
 
 /**
- * @author sander, Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleTypeRepository extends AbstractBaseRepository
 {
@@ -30,7 +30,8 @@ class ModuleTypeRepository extends AbstractBaseRepository
         $dql =  "SELECT
                     partial $this->baseAlias.{
                      id,
-                     name
+                     name,
+                     trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
