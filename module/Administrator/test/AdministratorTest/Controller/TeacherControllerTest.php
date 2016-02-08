@@ -5,7 +5,7 @@ namespace AdministratorTest\Controller;
 use Administrator\Controller\TeacherController;
 
 /**
- * @author juhan
+ * @author Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class TeacherControllerTest extends UnitHelpers
 {
@@ -38,7 +38,7 @@ class TeacherControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
 
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("personalCode", uniqid());
         $this->request->getPost()->set("firstName", "Firstname");
         $this->request->getPost()->set("lastName", "Lastname");
         $this->request->getPost()->set("email", "email");
@@ -58,7 +58,7 @@ class TeacherControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
 
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("personalCode", uniqid());
         $this->request->getPost()->set("firstName", "Firstname");
         $this->request->getPost()->set("lastName", "Lastname");
         $this->request->getPost()->set("email", "email");
@@ -127,7 +127,7 @@ class TeacherControllerTest extends UnitHelpers
         $teacher = $this->CreateTeacher();
         $firstNameOld = $teacher->getFirstName();
         $lastNameOld = $teacher->getLastName();
-        $codeOld = $teacher->getCode();
+        $codeOld = $teacher->getPersonalCode();
         $emailOld = $teacher->getEmail();
         //prepare
         $this->request->setMethod('put');
@@ -135,13 +135,13 @@ class TeacherControllerTest extends UnitHelpers
         //set new data
         $firstName = uniqid() . "firstname";
         $lastName = uniqid() . "lastname";
-        $code = uniqid() . "code";
+        $code = uniqid() . "personalCode";
         $email = uniqid() . "email@tere.ee";
         //set new data
         $this->request->setContent(http_build_query([
             "firstName" => $firstName,
             "lastName" => $lastName,
-            "code" => $code,
+            "personalCode" => $code,
             "email" => $email
         ]));
         //fire request
@@ -154,7 +154,7 @@ class TeacherControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->assertNotEquals($firstNameOld, $result->data["firstName"]);
         $this->assertNotEquals($lastNameOld, $result->data["lastName"]);
-        $this->assertNotEquals($codeOld, $result->data["code"]);
+        $this->assertNotEquals($codeOld, $result->data["personalCode"]);
         $this->assertNotEquals($emailOld, $result->data["email"]);
     }
 

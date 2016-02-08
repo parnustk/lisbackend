@@ -8,7 +8,7 @@ use Core\Controller\AbstractBaseController;
 /**
  * Description of TeacherController
  *
- * @author Juhan Kõks
+ * @author Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class TeacherController extends AbstractBaseController
 {
@@ -50,7 +50,7 @@ class TeacherController extends AbstractBaseController
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * code(string)*
+     * personalCode(string)*
      * lisUser(integer)</code>
      * @param int $data
      * @return JsonModel
@@ -65,7 +65,7 @@ class TeacherController extends AbstractBaseController
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * code(string)*
+     * personalCode(string)*
      * lisUser(integer)</code>
      * @param int $id
      * @param array $data
