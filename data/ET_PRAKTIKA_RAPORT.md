@@ -1,7 +1,23 @@
-Ettevõtte üldiseloomustus (nimi, aadress, kontaktandmed, ajalugu, peamine tegevusala, kõrvaltegevusalad, töötajate arv)
-2) Ülevaade tarkvaraarenduse meeskonna igapäevatööst.
-3) Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
-4) Töötamine vähemalt ühes tarkavaarenduse projekti meeskonnas tarkvaraarendajana.
-5) Koostöö kolleegide ja klientidega.
-6) Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
-7) Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
+# Praktika aruanne
+
+#### (Arnold)Ettevõtte üldiseloomustus (nimi, aadress, kontaktandmed, ajalugu, peamine tegevusala, kõrvaltegevusalad, töötajate arv)
+
+
+#### (Arnold)Ülevaade tarkvaraarenduse meeskonna igapäevatööst
+
+
+
+#### (Marten)Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
+
+
+
+#### (Juhan)Töötamine vähemalt ühes tarkavaarenduse projekti meeskonnas tarkvaraarendajana.
+
+
+#### (Eleri)Koostöö kolleegide ja klientidega.
+
+
+#### (Sander)Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
+
+
+#### (Arnold)Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
