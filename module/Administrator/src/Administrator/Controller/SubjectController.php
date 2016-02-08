@@ -43,7 +43,7 @@ class SubjectController extends AbstractBaseController
      * durationContactAK(integer)*
      * durationIndependentAK(intiger)*
      * module(int)*
-     * gradingType(int)*</code>
+     * gradingType(array) [ { id(integer) } ] ]*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -77,7 +77,7 @@ class SubjectController extends AbstractBaseController
      * durationContactAK(integer)*
      * durationIndependentAK(intiger)*
      * module(int)*
-     * gradingType(int)*</code>
+     * gradingType(array) [ { id(integer) } ] ]*</code>
      * @param int $id
      * @return JsonModel
      */

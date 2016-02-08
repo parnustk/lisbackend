@@ -56,8 +56,8 @@ class ContactLessonController extends AbstractBaseController
      * <code> lessonDate(datetime)*
      * description(string)*
      * durationAK(integer)*
-     * subjectRound(integer)*
-     * teacher(intiger)*</code>
+     * subjectRound(array) [ { id(integer) } ] ]*
+     * teacher(array) [ { id(integer) } ] ]*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -75,8 +75,8 @@ class ContactLessonController extends AbstractBaseController
      * <code> lessonDate(datetime)*
      * description(string)*
      * durationAK(integer)*
-     * subjectRound(integer)*
-     * teacher(intiger)*</code>
+     * subjectRound(array) [ { id(integer) } ] ]*
+     * teacher(array) [ { id(integer) } ] ]*</code>
      * @param int $id
      * @return JsonModel
      */

@@ -20,6 +20,11 @@ use Core\Controller\AbstractBaseController;
  */
 class SubjectRoundController extends AbstractBaseController
 {
+    /**
+     *
+     * @var type 
+     */
+    protected $service = 'subjectround_service';
 
     /**
      * <h2>GET admin/subjectround</h2>
@@ -31,12 +36,7 @@ class SubjectRoundController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subjectround_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
@@ -49,12 +49,7 @@ class SubjectRoundController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subjectround_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -69,12 +64,7 @@ class SubjectRoundController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subjectround_service')
-                        ->Create($data)
-        );
+         return parent::create($data);
     }
 
     /**
@@ -92,12 +82,7 @@ class SubjectRoundController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subjectround_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -110,12 +95,7 @@ class SubjectRoundController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('subjectround_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }

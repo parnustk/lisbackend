@@ -59,7 +59,7 @@ class ModuleController extends AbstractBaseController
      * code(string)*
      * vocation(integer)*
      * moduleType(integer)*
-     * gradingType(integer)*</code>
+     * gradingType(array) [ { id(integer) } ] ]*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -79,7 +79,7 @@ class ModuleController extends AbstractBaseController
      * code(string)*
      * vocation(integer)*
      * moduleType(integer)*
-     * gradingType(integer)*</code>
+     * gradingType(array) [ { id(integer) } ] ]*</code>
      * @param int $id
      * @return JsonModel
      */
