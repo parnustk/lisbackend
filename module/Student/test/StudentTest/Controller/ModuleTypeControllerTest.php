@@ -17,7 +17,7 @@ use StudentTest\UnitHelpers;
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class ModuletypeControllerTest extends UnitHelpers
+class ModuleTypeControllerTest extends UnitHelpers
 {
 
     /**
@@ -25,7 +25,7 @@ class ModuletypeControllerTest extends UnitHelpers
      */
     protected function setUp()
     {
-        $this->controller = new ModuletypeController();
+        $this->controller = new ModuleTypeController();
         parent::setUp();
     }
 
