@@ -294,8 +294,8 @@
 * YES getList
 * YES get
 * YES create
-* YES update OWN GROUP REALTED
-* YES delete OWN GROUP REALTED
+* YES update OWN CREATED ?PERIOD (remember Kalmer ask ELE)
+* YES delete OWN CREATED ?PERIOD (remember Kalmer ask ELE)
 
 ####  Student ROLE
 
