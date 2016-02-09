@@ -8,7 +8,7 @@ use Core\Controller\AbstractBaseController;
 /**
  * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class ModuletypeController extends AbstractBaseController
+class ModuleTypeController extends AbstractBaseController
 {
 
     /*
