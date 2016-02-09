@@ -29,24 +29,6 @@ class RegisterStudentControllerTest extends UnitHelpers
         parent::setUp();
     }
 
-//    public function testCreateWithCorrectPersonalCodeNonExistantUser()
-//    {
-//        $this->assertEquals(1, 1);
-//        $this->request->setMethod('post');
-//
-////        $this->request->getPost()->set("name", "Name vocation");
-////        $this->request->getPost()->set("code", uniqid());
-////        $this->request->getPost()->set("durationEKAP", 120);
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->PrintOut($result, false);
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//    }
-    
     public function testCreateWithNoPersonalCode()
     {
         $this->request->setMethod('post');
@@ -90,15 +72,36 @@ class RegisterStudentControllerTest extends UnitHelpers
         $this->assertEquals('NOT_FOUND', $result->message);
         
     }
+
+    public function testCreateNewStudentUser()
+    {
+        $s = $this->CreateStudent();
+        
+        $this->request->setMethod('post');
+        $this->request->getPost()->set("personalCode", $s->getPersonalCode());
+        $this->request->getPost()->set("password", 123456);
+        $this->request->getPost()->set("email", 'sandermets0@gmail.com');
+        
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, true);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(true, $result->success);
+    }
     
-//    public function testCreateAlreadyExistingStudentUser()
-//    {
-//        $this->request->setMethod('post');
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->PrintOut($result, false);
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//    }
+        public function testCreateAlreadyExistingStudentUser()
+    {
+        $this->request->setMethod('post');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('ALREADY_REGISTERED', $result->message);
+    }
 
 }

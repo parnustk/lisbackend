@@ -18,10 +18,16 @@ use Exception;
 /**
  * Description of LisRegisterService
  *
- * @author sandev
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class LisRegisterService implements ServiceManagerAwareInterface
 {
+
+    /**
+     * Key for crypting
+     * TODO get it from config
+     */
+    const KEY = 'x3xuKEA5+Ec7cY:_';
 
     /**
      * @var ServiceManager
@@ -75,17 +81,13 @@ class LisRegisterService implements ServiceManagerAwareInterface
     }
 
     /**
+     * Check if personalCode exists
      * 
-     * @param type $personalCode
+     * @param array $data
+     * @return string
+     * @throws Exception
      */
-    private function getStudentByPersonalCode($personalCode)
-    {
-        return $this->getEntityManager()
-                        ->getRepository('Core\Entity\Student')
-                        ->findBy(['personalCode' => $personalCode]);
-    }
-
-    private function _registerStudent($data)
+    private function _validatePersonalCode($data)
     {
         if (!key_exists('personalCode', $data)) {
             throw new Exception('PERSONALCODE_MISSING');
@@ -97,15 +99,69 @@ class LisRegisterService implements ServiceManagerAwareInterface
             throw new Exception('PERSONALCODE_EMPTY');
         }
 
-        $s = $this->getStudentByPersonalCode($personalCode);
+        return $personalCode;
+    }
 
-        if (!$s) {//does not exist
+    private function _validateEntityAgainstUser($entity)
+    {
+        if (!$entity) {//does not exist
             throw new Exception('NOT_FOUND');
         }
-
-        if (!!$s->getLisUser()) {//already has a user
+     
+        
+        if ($entity->getLisUser()) {//already has a user
             throw new Exception('ALREADY_REGISTERED');
         }
+    }
+
+    /**
+     * 
+     * @param string $personalCode
+     * @return Core\Entity\Student|null
+     */
+    private function _getStudentByPersonalCode($personalCode)
+    {
+        return $this->getEntityManager()
+                        ->getRepository('Core\Entity\Student')
+                        ->findOneBy(['personalCode' => $personalCode]);
+    }
+
+    /**
+     * 
+     * @param type $data
+     * @return array
+     */
+    private function _registerStudent($data)
+    {
+        
+        $student = $this->_getStudentByPersonalCode(
+                $this->_validatePersonalCode($data)
+        );
+
+        $this->_validateEntityAgainstUser($student);
+
+        //check if user exists if exists associate
+        
+        $lisUser = $this->getEntityManager()
+                ->getRepository('Core\Entity\LisUser')
+                ->findOneBy(['email' => $data['email']]);
+        
+        if (!$lisUser) {//user does not exist create one
+            $lisUser = $this
+                    ->getEntityManager()
+                    ->getRepository('Core\Entity\LisUser')
+                    ->Create($data);
+        }
+      
+        $student->setLisUser($lisUser); //associate
+        
+        $this->getEntityManager()->persist($student);
+        $this->getEntityManager()->flush($student);
+        $this->getEntityManager()->clear();
+
+        return [
+            'success' => true
+        ];
     }
 
     /**
@@ -118,7 +174,7 @@ class LisRegisterService implements ServiceManagerAwareInterface
     public function registerStudent($data)
     {
         try {
-            $this->_registerStudent($data);
+            return $this->_registerStudent($data);
         } catch (Exception $ex) {
             return [
                 'success' => false,

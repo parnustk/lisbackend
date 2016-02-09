@@ -27,45 +27,55 @@ class LisUser extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      * @Annotation\Validator({"name":"EmailAddress"})
+     * 
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
     protected $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
      * @Annotation\Required({"required":"true"})
      * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/"}})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * 
      */
     protected $password;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, options={"default":1})
      * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="integer", nullable=false, options={"default":1})
+     * 
      */
-    protected $state;
+    protected $state = 1;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToOne(targetEntity="Teacher", mappedBy="lisUser")
      */
     protected $teacher;
 
     /**
-     * @ORM\OneToOne(targetEntity="Student", mappedBy="lisUser")
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="lisUser")
      */
     protected $student;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToOne(targetEntity="Administrator", mappedBy="lisUser")
      */
     protected $administrator;

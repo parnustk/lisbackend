@@ -41,10 +41,14 @@ class EncryptedString extends StringType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        $v = parent::convertToDatabaseValue($value, $platform);
-        return BlockCipher::factory('mcrypt', array('algo' => 'aes'))
-                        ->setKey(self::KEY)
-                        ->encrypt($v);
+        try {
+            $v = parent::convertToDatabaseValue($value, $platform);
+            return BlockCipher::factory('mcrypt', array('algo' => 'aes'))
+                            ->setKey(self::KEY)
+                            ->encrypt($v);
+        } catch (\Exception $ex) {
+            return $value;
+        }
     }
 
     /**
@@ -55,10 +59,14 @@ class EncryptedString extends StringType
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        $v = parent::convertToPHPValue($value, $platform);
-        return BlockCipher::factory('mcrypt', array('algo' => 'aes'))
-                        ->setKey(self::KEY)
-                        ->decrypt($v);
+        try {
+            $v = parent::convertToPHPValue($value, $platform);
+            return BlockCipher::factory('mcrypt', array('algo' => 'aes'))
+                            ->setKey(self::KEY)
+                            ->decrypt($v);
+        } catch (\Exception $ex) {
+            return $value;
+        }
     }
 
     /**

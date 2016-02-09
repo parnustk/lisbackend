@@ -58,21 +58,21 @@ class Student extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\Column(type="encryptedstring", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
     protected $personalCode;
 
     /**
      * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\Column(type="encryptedstring", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $email;
 
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\OneToOne(targetEntity="LisUser", inversedBy="student")
+     * @ORM\ManyToOne(targetEntity="LisUser", inversedBy="student")
      * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id")
      */
     protected $lisUser;
