@@ -70,6 +70,69 @@ class ContactLessonTest extends UnitHelpers
         $newContactLesson = $repository->find($result->data['id']);
         $this->assertNotNull($newContactLesson->getCreatedAt());
     }
+    
+    public function testCreateNoSubjectRound()
+    {
+        $this->request->setMethod('post');
+        $lessonDate = new \DateTime;
+        $description = ' Description for contactlesson'. uniqid();
+        $durationAK = 4;
+        $teacher = [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ];
+        $this->request->getPost()->set("lessonDate", $lessonDate);
+        $this->request->getPost()->set("description", $description);
+        $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set("teacher", $teacher);
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        
+    }
+    
+    public function testCreateNoDescription()
+    {
+        $this->request->setMethod('post');
+        $lessonDate = new \DateTime;
+        $durationAK = 4;
+        $teacher = [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ];
+        $subjectRound = $this->CreateSubjectRound()->getId();
+        $this->request->getPost()->set("lessonDate", $lessonDate);
+        $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set("teacher", $teacher);
+        $this->request->getPost()->set('subjectRound', $subjectRound);
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        
+    }
+    
+    public function testCreateNoTeacher()
+    {
+        $this->request->setMethod('post');
+        $lessonDate = new \DateTime;
+        $description = ' Description for contactlesson'. uniqid();
+        $durationAK = 4;
+        $subjectRound = $this->CreateSubjectRound()->getId();
+        $this->request->getPost()->set("lessonDate", $lessonDate);
+        $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set('subjectRound', $subjectRound);
+        $this->request->getPost()->set("description", $description);
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        
+    }
 
     //https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
     public function testUpdate()
@@ -223,12 +286,7 @@ class ContactLessonTest extends UnitHelpers
         $description = 'ContactLesson description' . uniqid();
         $lessonDate = new \DateTime;
         $durationAK = 5;
-
-        $contactLesson = $this->CreateContactLesson()->getId();
-
-//        $absence = $this->CreateAbsence()->getId();
         $subjectRound = $this->CreateSubjectRound()->getId();
-//        $studentGrade = $this->CreateStudentGrade()->getId();
         $teachers = [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],
@@ -237,7 +295,6 @@ class ContactLessonTest extends UnitHelpers
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('lessonDate', $lessonDate);
         $this->request->getPost()->set('durationAK', $durationAK);
-        $this->request->getPost()->set('contactLesson', $contactLesson);
         $this->request->getPost()->set('subjectRound', $subjectRound);
         $this->request->getPost()->set("teacher", $teachers);
 
@@ -261,6 +318,42 @@ class ContactLessonTest extends UnitHelpers
         $newContactLesson = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newContactLesson->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newContactLesson->getUpdatedBy()->getId());
+    }
+    
+    public function testCreatedAtAndUpdatedAt()
+    {
+        $this->request->setMethod('post');
+
+        $description = 'ContactLesson description' . uniqid();
+        $lessonDate = new \DateTime;
+        $durationAK = 5;
+        $subjectRound = $this->CreateSubjectRound()->getId();
+        $teachers = [
+            ['id' => $this->CreateTeacher()->getId()],
+            ['id' => $this->CreateTeacher()->getId()],
+        ];
+
+        $this->request->getPost()->set('description', $description);
+        $this->request->getPost()->set('lessonDate', $lessonDate);
+        $this->request->getPost()->set('durationAK', $durationAK);
+        $this->request->getPost()->set('subjectRound', $subjectRound);
+        $this->request->getPost()->set("teacher", $teachers);
+
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+
+        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
+        $newContactLesson = $repository->find($result->data['id']);
+        $this->assertNotNull($newContactLesson->getCreatedAt());
+        $this->assertNull($newContactLesson->getUpdatedAt());
     }
 
     public function testGetTrashedList()
@@ -326,6 +419,37 @@ class ContactLessonTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
         $this->PrintOut($result, false);
+    }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateContactLesson();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+            'id' => $id,
+            'subjectRound' => $entity->getSubjectRound()->getId()
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $repository = $this->em
+                ->getRepository('Core\Entity\ContactLesson')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $repository->getTrashed()
+        );
     }
 
 }

@@ -11,6 +11,7 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\SubjectRoundController;
+use Zend\Json\Json;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
@@ -297,6 +298,7 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->assertEquals($lisUserCreatesId, $newModule->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newModule->getUpdatedBy()->getId());
     }
+    
     public function testCreatedAtAndUpdatedAt()
     {
         $this->request->setMethod('post');
@@ -320,11 +322,82 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         
-
         $repository = $this->em->getRepository('Core\Entity\SubjectRound');
-        $newGt = $repository->find($result->data['id']);
-        $this->assertNotNull($newGt->getCreatedAt());
-        $this->assertNull($newGt->getUpdatedAt());
+        $newSubjectRound = $repository->find($result->data['id']);
+        $this->assertNotNull($newSubjectRound->getCreatedAt());
+        $this->assertNull($newSubjectRound->getUpdatedAt());
+    }
+    
+    public function testGetTrashedList()
+    {
+
+        //prepare one Module with trashed flag set up
+        $entity = $this->CreateSubjectRound();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity); //save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $entity->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $this->request->setMethod('get');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        //limit is set to 1
+        $this->assertEquals(1, count($result->data));
+
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
+    }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateSubjectRound();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+            'id' => $id
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $repository = $this->em
+                ->getRepository('Core\Entity\SubjectRound')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $repository->getTrashed()
+        );
     }
 
 }

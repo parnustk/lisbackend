@@ -260,7 +260,6 @@ class SubjectControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
         
     }
     
@@ -305,6 +304,37 @@ class SubjectControllerTest extends UnitHelpers
             $this->assertEquals(1, $value['trashed']);
         }
     }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateSubject();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+            'id' => $id,
+            'module' => $entity->getModule()->getId()
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $repository = $this->em
+                ->getRepository('Core\Entity\Subject')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $repository->getTrashed()
+        );
+    }
 
     /**
      * TEST rows get read by limit and page params
@@ -336,26 +366,16 @@ class SubjectControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
 
-        $code = 'ContactLesson code' . uniqid();
-        $name = 'ContactLesson name' . uniqid();
+        $code = 'Subject code' . uniqid();
+        $name = 'Subject name' . uniqid();
         $durationAllAK = 100;
         $durationContactAK = 60;
         $durationIndependentAK = 40;
-        
-//        $this->request->getPost()->set("module", $this->CreateModule()->getId());
-//
-//        $this->request->getPost()->set("gradingType", [
-//            ['id' => $this->CreateGradingType()->getId()],
-//            ['id' => $this->CreateGradingType()->getId()],
-//        ]);
         $module = $this->CreateModule()->getId();
         $gradingType = [
             ['id' => $this->CreateGradingType()->getId()],
             ['id' => $this->CreateGradingType()->getId()],
         ];
-
-        $subject = $this->CreateSubject()->getId();
-
         $this->request->getPost()->set('code', $code);
         $this->request->getPost()->set('name', $name);
         $this->request->getPost()->set('durationAllAK', $durationAllAK);
@@ -384,5 +404,41 @@ class SubjectControllerTest extends UnitHelpers
         $newSubject = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newSubject->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newSubject->getUpdatedBy()->getId());
+    }
+    
+     public function testCreatedAtAndUpdatedAt()
+    {
+        $this->request->setMethod('post');
+        $code = 'Subject code' . uniqid();
+        $name = 'Subject name' . uniqid();
+        $durationAllAK = 100;
+        $durationContactAK = 60;
+        $durationIndependentAK = 40;
+        $module = $this->CreateModule()->getId();
+        $gradingType = [
+            ['id' => $this->CreateGradingType()->getId()],
+            ['id' => $this->CreateGradingType()->getId()],
+        ];
+        $this->request->getPost()->set('code', $code);
+        $this->request->getPost()->set('name', $name);
+        $this->request->getPost()->set('durationAllAK', $durationAllAK);
+        $this->request->getPost()->set('durationContactAK', $durationContactAK);
+        $this->request->getPost()->set('durationIndependentAK', $durationIndependentAK);
+        $this->request->getPost()->set("module", $module);
+        $this->request->getPost()->set("gradingType", $gradingType);
+
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        $repository = $this->em->getRepository('Core\Entity\Subject');
+        $newSubject = $repository->find($result->data['id']);
+        $this->assertNotNull($newSubject->getCreatedAt());
+        $this->assertNull($newSubject->getUpdatedAt());
     }
 }

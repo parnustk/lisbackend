@@ -287,6 +287,34 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertEquals($lisUserUpdatesId, $newModule->getUpdatedBy()->getId());
     }
     
+    public function testCreatedAtAndUpdatedAt()
+    {
+        $this->request->setMethod('post');
+        $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
+        $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
+        $this->request->getPost()->set("gradingType", [
+            ['id' => $this->CreateGradingType()->getId()],
+            ['id' => $this->CreateGradingType()->getId()],
+        ]);
+        $this->request->getPost()->set("name", "Test Tere Maailm");
+        $this->request->getPost()->set("duration", "30");
+        $this->request->getPost()->set("code", uniqid());
+
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        $repository = $this->em->getRepository('Core\Entity\Module');
+        $newModule = $repository->find($result->data['id']);
+        $this->assertNotNull($newModule->getCreatedAt());
+        $this->assertNull($newModule->getUpdatedAt());
+    }
+    
     /**
      * TEST rows get read by limit and page params
      */
@@ -351,6 +379,37 @@ class ModuleControllerTest extends UnitHelpers
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
+    }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateModule();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+            'id' => $id,
+            'vocation'=> $entity->getVocation()->getId()
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $repository = $this->em
+                ->getRepository('Core\Entity\Module')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $repository->getTrashed()
+        );
     }
 
 }

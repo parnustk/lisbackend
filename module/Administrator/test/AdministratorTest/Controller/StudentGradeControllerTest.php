@@ -259,20 +259,10 @@ class StudentGradeControllerTest extends UnitHelpers
         ];
         //create one to  update later on
         $studentGrade = $this->CreateStudentGrade($data);
-
-//        $studentIdOld = $studentGrade->getStudent()->getId();
-//        $gradeChoiceIdOld = $studentGrade->getGradeChoice()->getId();
-//        $teacherIdOld = $studentGrade->getTeacher()->getId();
-//        $contactLessonIdOld = $studentGrade->getContactLesson()->getId();
-//        //$independentWorkIdOld = $studentGrade->getIndependentWork()->getId();
-//        $moduleIdOld = $studentGrade->getModule()->getId();
-        //prepare request
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $studentGrade->getId());
-
         $this->request->setContent(http_build_query([
             'contactLesson' => $this->CreateContactLesson()->getId(),
-            //'independentWork'=> $this->CreateIndependentWork()->getId(),
             'student' => $this->CreateStudent()->getId(),
             'gradeChoice' => $this->CreateGradeChoice()->getId(),
             'teacher' => $this->CreateTeacher()->getId(),
@@ -353,7 +343,6 @@ class StudentGradeControllerTest extends UnitHelpers
 
         $notes = 'StudentGrade notes' . uniqid();
         $studentGrade = $this->CreateStudentGrade()->getId();
-
         $student = $this->CreateStudent()->getId();
         $contactLesson = $this->CreateContactLesson()->getId();
         $teacher = $this->CreateTeacher()->getId();
@@ -387,7 +376,41 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->assertEquals($lisUserCreatesId, $newSubjectRound->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newSubjectRound->getUpdatedBy()->getId());
     }
+    
+    public function testCreatedAtAndUpdatedAt()
+    {
+        $this->request->setMethod('post');
 
+        $notes = 'StudentGrade notes' . uniqid();
+        $studentGrade = $this->CreateStudentGrade()->getId();
+        $student = $this->CreateStudent()->getId();
+        $contactLesson = $this->CreateContactLesson()->getId();
+        $teacher = $this->CreateTeacher()->getId();
+        $gradeChoice = $this->CreateGradeChoice()->getId();
+
+        $this->request->getPost()->set('notes', $notes);
+        $this->request->getPost()->set('student', $student);
+        $this->request->getPost()->set('studentGrade', $studentGrade);
+        $this->request->getPost()->set('contactLesson', $contactLesson);
+        $this->request->getPost()->set('teacher', $teacher);
+        $this->request->getPost()->set('gradeChoice', $gradeChoice);
+
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        $repository = $this->em->getRepository('Core\Entity\StudentGrade');
+        $newStudentGrade = $repository->find($result->data['id']);
+        $this->assertNotNull($newStudentGrade->getCreatedAt());
+        $this->assertNull($newStudentGrade->getUpdatedAt());
+    }
+    
     /**
      * TEST rows get read by limit and page params
      */
@@ -451,6 +474,37 @@ class StudentGradeControllerTest extends UnitHelpers
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
+    }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateStudentGrade();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+            'id' => $id,
+            'contactLesson' => $entity->getContactLesson()->getId()
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $repository = $this->em
+                ->getRepository('Core\Entity\StudentGrade')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $repository->getTrashed()
+        );
     }
 
 }

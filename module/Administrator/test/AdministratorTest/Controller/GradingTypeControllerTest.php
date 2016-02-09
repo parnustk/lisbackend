@@ -269,7 +269,7 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         //set new data
         $r = $this->em
-                ->getRepository('Core\Entity\Gradingtype')
+                ->getRepository('Core\Entity\GradingType')
                 ->find($result->data['id']);
         $this->assertNotEquals(
                 $trashedOld, $r->getTrashed()

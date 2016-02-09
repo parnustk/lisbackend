@@ -202,9 +202,9 @@ class ModuletypeControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $repository = $this->em->getRepository('Core\Entity\ModuleType');
-        $newRoom = $repository->find($result->data['id']);
-        $this->assertNotNull($newRoom->getCreatedAt());
-        $this->assertNull($newRoom->getUpdatedAt());
+        $newModuleType = $repository->find($result->data['id']);
+        $this->assertNotNull($newModuleType->getCreatedAt());
+        $this->assertNull($newModuleType->getUpdatedAt());
     }
 
     public function testGetListWithPagination()
@@ -301,6 +301,30 @@ class ModuletypeControllerTest extends UnitHelpers
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
+    }
+    
+    /**
+     * TEST rows get read by limit and page params
+     */
+    public function testGetListWithPaginaton()
+    {
+        $this->request->setMethod('get');
+
+        //set record limit to 1
+        $q = 'page=1&limit=1'; //imitate real param format
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertLessThanOrEqual(1, count($result->data));
+        
     }
 
 }

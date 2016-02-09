@@ -94,11 +94,23 @@ class ModuleRepository extends AbstractBaseRepository
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
+        $this->validateVocation($data);
+        $entity = new Module($this->getEntityManager());
+        $vocation = $this->getEntityManager()
+                ->getRepository('Core\Entity\Vocation')
+                ->find($data['vocation']);
+        unset($data['vocation']);
+        $entity->setVocation($vocation);
         $entity = $this->validateEntity(
-                new Module($this->getEntityManager()), $data
+                $entity, $data
         );
-        //IF required MANY TO MANY validate manually
         return $this->singleResult($entity, $returnPartial, $extra);
+        
+//        $entity = $this->validateEntity(
+//                new Module($this->getEntityManager()), $data
+//        );
+//        //IF required MANY TO MANY validate manually
+//        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**

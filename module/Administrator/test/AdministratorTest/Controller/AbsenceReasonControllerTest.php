@@ -175,7 +175,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 
-    public function testCreatedAtAndUpdatedAt()
+    public function testCreatedAtAndUpdatedBy()
     {
         $name = 'AbsenceReasonName' . uniqid();
         $this->request->setMethod('post');
@@ -203,6 +203,32 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $newAbsenceReason = $repository->find($result->data['id']);
         $this->assertEquals($lisUserCreatesId, $newAbsenceReason->getCreatedBy()->getId());
         $this->assertEquals($lisUserUpdatesId, $newAbsenceReason->getUpdatedBy()->getId());
+    }
+    
+    public function testCreatedByAndUpdatedAt()
+    {
+        $this->request->setMethod('post');
+        
+        $name = 'AbsenceReasonName' . uniqid();
+        $this->request->setMethod('post');
+        $absencereason = $this->CreateAbsenceReason();
+        $this->request->getPost()->set('name', $name);
+        $this->request->getPost()->set('absencereason', $absencereason->getId());
+
+        $lisUser = $this->CreateLisUser();
+        $this->request->getPost()->set("lisUser", $lisUser->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
+        $newAbsenceReason = $repository->find($result->data['id']);
+        $this->assertNotNull($newAbsenceReason->getCreatedAt());
+        $this->assertNull($newAbsenceReason->getUpdatedAt());
     }
 
     /**
@@ -268,6 +294,36 @@ class AbsenceReasonControllerTest extends UnitHelpers
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
+    }
+    
+    public function testTrashed()
+    {
+        //create one to update later
+        $entity = $this->CreateAbsenceReason();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+            'id' => $id
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $repository = $this->em
+                ->getRepository('Core\Entity\AbsenceReason')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $repository->getTrashed()
+        );
     }
 
 }
