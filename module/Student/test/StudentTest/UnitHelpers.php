@@ -208,7 +208,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         return $repository->Create([
                     'firstName' => 'firstName' . uniqid(),
                     'lastName' => 'lastName' . uniqid(),
-                    'code' => 'code' . uniqid(),
+                    'personalCode' => 'code' . uniqid(),
                     'email' => 'email' . uniqid()
         ]);
     }
@@ -230,7 +230,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         return $repository->Create([
                     'firstName' => 'tFirstName' . uniqid(),
                     'lastName' => 'tLirstName' . uniqid(),
-                    'code' => uniqid(),
+                    'personalCode' => uniqid(),
                     'email' => uniqid() . '@asd.ee',
         ]);
     }
@@ -350,8 +350,8 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         return $repository->Create([
                     'firstName' => uniqid() . 'FirstName',
-                    'lastName'  => uniqid() . 'LastName',
-                    'code'      => uniqid() . 'Code'
+                    'lastName' => uniqid() . 'LastName',
+                    'code' => uniqid() . 'Code'
         ]);
     }
 

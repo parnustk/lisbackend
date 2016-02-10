@@ -10,6 +10,11 @@
 
 namespace Core\Controller;
 
+use Zend\View\Model\JsonModel;
+use Core\Entity\Student;
+use Core\Entity\LisUser;
+use stdClass;
+
 /**
  * Application ACL resolves by this layer
  *
@@ -22,12 +27,173 @@ abstract class AbstractStudentBaseController extends AbstractBaseController
      *
      * @var string
      */
-    protected $role = 'student';
+    protected $lisRole = 'student';
 
     /**
      *
-     * @var Core\Entity\LisUser|null
+     * @var LisUser|null
      */
     protected $lisUser = null;
+
+    /**
+     *
+     * @var Student|null
+     */
+    protected $lisPerson = null;
+
+    /**
+     * 
+     * @return string
+     */
+    public function getLisRole()
+    {
+        return $this->lisRole;
+    }
+
+    /**
+     * 
+     * @return LisUser|null
+     */
+    public function getLisUser()
+    {
+        return $this->lisUser;
+    }
+
+    /**
+     * 
+     * @return Student
+     */
+    public function getlisPerson()
+    {
+        return $this->lisPerson;
+    }
+
+    /**
+     * 
+     * @param string $lisRole
+     * @return \Core\Controller\AbstractStudentBaseController
+     */
+    public function setLisRole($lisRole)
+    {
+        $this->lisRole = $lisRole;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param LisUser $lisUser
+     * @return \Core\Controller\AbstractStudentBaseController
+     */
+    public function setLisUser(LisUser $lisUser)
+    {
+        $this->lisUser = $lisUser;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param Student $lisPerson
+     * @return \Core\Controller\AbstractStudentBaseController
+     */
+    public function setlisPerson(Student $lisPerson)
+    {
+        $this->lisPerson = $lisPerson;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return stdClass
+     */
+    protected function GetExtra()
+    {
+        return (object) [
+                    'lisRole' => $this->getLisRole(),
+                    'lisUser' => $this->getLisUser(),
+                    'lisPerson' => $this->getLisPerson(),
+        ];
+    }
+
+    /**
+     * GET
+     *
+     * @return JsonModel
+     */
+    public function getList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->GetList($this->GetParams(), $this->GetExtra())
+        );
+    }
+
+    /**
+     * GET
+     * 
+     * @param type $id
+     * @return JsonModel
+     */
+    public function get($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Get($id, $this->GetExtra())
+        );
+    }
+
+    /**
+     * POST
+     * 
+     * @param type $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+
+
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Create($data, $this->GetExtra())
+        );
+    }
+
+    /**
+     * PUT
+     * 
+     * @param type $id
+     * @param type $data
+     * @return JsonModel
+     */
+    public function update($id, $data)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Update($id, $data, $this->GetExtra())
+        );
+    }
+
+    /**
+     * DELETE
+     * 
+     * @param int $id
+     * @return JsonModel
+     */
+    public function delete($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Delete($id, $this->GetExtra())
+        );
+    }
 
 }

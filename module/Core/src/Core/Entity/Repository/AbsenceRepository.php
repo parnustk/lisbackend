@@ -11,6 +11,7 @@
 namespace Core\Entity\Repository;
 
 use Core\Entity\Absence;
+use Exception;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
@@ -59,6 +60,39 @@ class AbsenceRepository extends AbstractBaseRepository
 
     /**
      * 
+     * @param type $data
+     * @param type $returnPartial
+     * @return type
+     */
+    private function defaultCreate($data, $returnPartial = false, $extra = null)
+    {
+        $entity = $this->validateEntity(
+                new Absence($this->getEntityManager()), $data
+        );
+        //IF required MANY TO MANY validate manually
+        return $this->singleResult($entity, $returnPartial, $extra);
+    }
+
+    /**
+     * Restriction only self created
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     */
+    private function studentCreate($data, $returnPartial = false, $extra = null)
+    {
+        if (!key_exists('student', $data)) {
+            $data['student'] = $extra->lisPerson->getId();
+        }
+        if ($data['student'] !== $extra->lisPerson->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
+        return $this->defaultCreate($data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
@@ -66,11 +100,11 @@ class AbsenceRepository extends AbstractBaseRepository
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-        $entity = $this->validateEntity(
-                new Absence($this->getEntityManager()), $data
-        );
-        //IF required MANY TO MANY validate manually
-        return $this->singleResult($entity, $returnPartial, $extra);
+        if (!$extra) {
+            return $this->defaultCreate($data, $returnPartial);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentCreate($data, $returnPartial, $extra);
+        }
     }
 
     /**

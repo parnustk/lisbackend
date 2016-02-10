@@ -22,12 +22,58 @@ abstract class AbstractAdministratorBaseController extends AbstractBaseControlle
      *
      * @var string 
      */
-    protected $role = 'administrator';
-    
+    protected $lisRole = 'administrator';
+
     /**
      *
      * @var Core\Entity\LisUser|null
      */
     protected $lisUser = null;
+
+    /**
+     *
+     * @var Core\Entity\LisUser|null
+     */
+    protected $lisUser = null;
+
+    /**
+     * 
+     * @return string
+     */
+    public function getLisRole()
+    {
+        return $this->lisRole;
+    }
+
+    /**
+     * 
+     * @return Core\Entity\LisUser|null
+     */
+    public function getLisUser()
+    {
+        return $this->lisUser;
+    }
+
+    /**
+     * 
+     * @param string $lisRole
+     * @return \Core\Controller\AbstractStudentBaseController
+     */
+    public function setLisRole($lisRole)
+    {
+        $this->lisRole = $lisRole;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param \Core\Controller\Core\Entity\LisUser $lisUser
+     * @return \Core\Controller\AbstractStudentBaseController
+     */
+    public function setLisUser(Core\Entity\LisUser $lisUser)
+    {
+        $this->lisUser = $lisUser;
+        return $this;
+    }
 
 }
