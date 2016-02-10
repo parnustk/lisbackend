@@ -88,6 +88,7 @@ class AbsenceRepository extends AbstractBaseRepository
         if ($data['student'] !== $extra->lisPerson->getId()) {
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
+        $data['createdBy'] = $extra->lisUser->getId();
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
