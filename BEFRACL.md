@@ -66,7 +66,7 @@
 * YES get
 * YES create
 * YES update   - OWN CREATED
-* YES delete   - OWN CREATED
+* YES delete   - OWN RELATED
 
 ####  Teacher ROLE
 
@@ -104,8 +104,8 @@
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList
+* YES get
 
 ## GradeChoice RESOURCE
 
@@ -174,8 +174,8 @@
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList - OWN RELATED
+* YES get     - OWN RELATED
 
 ## Module RESOURCE
 
@@ -346,8 +346,8 @@
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList
+* YES get
 
 ## Subject RESOURCE
 
@@ -398,8 +398,8 @@
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList
+* YES get
 
 ## Teacher RESOURCE
 
@@ -422,8 +422,8 @@
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList
+* YES get
 
 ## Vocation RESOURCE
 
@@ -441,13 +441,13 @@
 
 ####  Teacher ROLE
 
-* YES getList - OWN RELATED
-* YES get     - OWN RELATED
+* YES getList
+* YES get
 
 ####  Student ROLE
 
-* YES getList - OWN GROUP RELATED
-* YES get     - OWN GROUP RELATED
+* YES getList
+* YES get
 
 
 
