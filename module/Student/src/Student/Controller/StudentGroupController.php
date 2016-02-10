@@ -11,12 +11,12 @@
 namespace Student\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractStudentBaseController as Base;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class StudentGroupController extends AbstractBaseController
+class StudentGroupController extends Base
 {
     
     /**

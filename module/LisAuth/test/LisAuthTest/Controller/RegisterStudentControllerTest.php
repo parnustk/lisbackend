@@ -11,7 +11,6 @@
 namespace LisAuthTest\Controller;
 
 use LisAuth\Controller\RegisterStudentController;
-use Zend\Json\Json;
 use LisAuthTest\UnitHelpers;
 
 /**
@@ -29,79 +28,146 @@ class RegisterStudentControllerTest extends UnitHelpers
         parent::setUp();
     }
 
+    /**
+     * 
+     */
     public function testCreateWithNoPersonalCode()
     {
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, $result->success);
         $this->assertEquals('PERSONALCODE_MISSING', $result->message);
-        
     }
-    
+
+    /**
+     * 
+     */
     public function testCreateWithEmptyPersonalCode()
     {
         $this->request->setMethod('post');
         $this->request->getPost()->set("personalCode", null);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, $result->success);
         $this->assertEquals('PERSONALCODE_EMPTY', $result->message);
-        
     }
-    
+
     public function testCreateWithInCorrectPersonalCode()
     {
         $this->request->setMethod('post');
         $this->request->getPost()->set("personalCode", -1);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, $result->success);
         $this->assertEquals('NOT_FOUND', $result->message);
-        
     }
 
     public function testCreateNewStudentUser()
     {
-        $s = $this->CreateStudent();
+        $student = $this->CreateStudent();
+        
+        $email = uniqid().'@asd.com';
+        
+        $data = [
+            'personalCode' => $student->getPersonalCode(),
+            'password' => 123456,
+            'email' => $email,
+        ];
         
         $this->request->setMethod('post');
-        $this->request->getPost()->set("personalCode", $s->getPersonalCode());
-        $this->request->getPost()->set("password", 123456);
-        $this->request->getPost()->set("email", 'sandermets0@gmail.com');
         
+        $this->request->getPost()->set("personalCode", $data['personalCode']);
+        $this->request->getPost()->set("password", $data['password']);
+        $this->request->getPost()->set("email", $data['email']);
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(true, $result->success);
+        $this->assertEquals($email, $result->email);
     }
-    
-        public function testCreateAlreadyExistingStudentUser()
+
+    public function testCreateAlreadyExistingStudentUser()
     {
+        //start create existing studentuser
+       
+        $student = $this->CreateStudent();
+        
+        $data = [
+            'personalCode' => $student->getPersonalCode(),
+            'password' => 123456,
+            'email' => uniqid().'@asd.ee',
+        ];
+        
+        $lisUser = $this
+                    ->em
+                    ->getRepository('Core\Entity\LisUser')
+                    ->Create($data);
+        
+        $student->setLisUser($lisUser); //associate
+        $this->em->persist($student);
+        $this->em->flush($student);
+        
+        //now we have created studentuser, let's try to register
+        
         $this->request->setMethod('post');
+        
+        $this->request->getPost()->set("personalCode", $data['personalCode']);
+        $this->request->getPost()->set("password", $data['password']);
+        $this->request->getPost()->set("email", $data['email']);
+        
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, $result->success);
         $this->assertEquals('ALREADY_REGISTERED', $result->message);
+    }
+    
+    public function testCreateIncorrectStudentUserIncorrectEmail()
+    {
+        $student = $this->CreateStudent();
+        
+        $email = uniqid();
+        
+        $data = [
+            'personalCode' => $student->getPersonalCode(),
+            'password' => 123456,
+            'email' => $email,
+        ];
+        
+        $this->request->setMethod('post');
+        
+        $this->request->getPost()->set("personalCode", $data['personalCode']);
+        $this->request->getPost()->set("password", $data['password']);
+        $this->request->getPost()->set("email", $data['email']);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertNotEquals($email, $result->email);
     }
 
 }

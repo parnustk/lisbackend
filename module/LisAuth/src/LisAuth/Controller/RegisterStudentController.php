@@ -69,7 +69,7 @@ class RegisterStudentController extends AbstractRestfulController
         return new JsonModel(
                 $this
                         ->getLisAuthService()
-                        ->registerStudent($data)
+                        ->registerLisUser($data, 'student')
         );
     }
 
