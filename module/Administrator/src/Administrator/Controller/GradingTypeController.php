@@ -63,8 +63,11 @@ class GradingTypeController extends AbstractBaseController
 
     /**
      * <h2> PUT admin/gradingtype/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>gradingType(string)*</code>
+     * @param int $id
      * @return JsonModel
      */
     public function update($id, $data)
