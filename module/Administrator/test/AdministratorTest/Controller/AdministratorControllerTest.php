@@ -227,7 +227,7 @@ class AdministratorControllerTest extends UnitHelpers
     public function testUpdate()
     {
         //create student
-        $entity = $this->CreateAdministrator();
+        $entity = $this->CreateAdministrator(null);
         $id = $entity->getId();
 
         $firstNameOld = $entity->getFirstName();
@@ -241,7 +241,7 @@ class AdministratorControllerTest extends UnitHelpers
         $this->request->setContent(http_build_query([
             'firstName' => 'Updated',
             'lastName' => 'Updated',
-            'code' => uniqid(),
+            'personalCode' => uniqid(),
         ]));
 
         $result = $this->controller->dispatch($this->request);
@@ -270,7 +270,7 @@ class AdministratorControllerTest extends UnitHelpers
      */
     public function testDelete()
     {
-        $entity = $this->CreateStudent();
+        $entity = $this->CreateAdministrator();
         $idOld = $entity->getId();
 
         $this->routeMatch->setParam('id', $entity->getId());
@@ -285,7 +285,7 @@ class AdministratorControllerTest extends UnitHelpers
 
         //test it is not in the database anymore
         $deleted = $this->em
-                ->getRepository('Core\Entity\Student')
+                ->getRepository('Core\Entity\Administrator')
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);

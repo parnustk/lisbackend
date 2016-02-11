@@ -55,11 +55,18 @@ class Administrator extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $email;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      * 
-     * @ORM\Column(type="encryptedstring", name="`code`", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="string", name="personalCode", unique=true, length=255, nullable=false)
      */
-    protected $code;
+    protected $personalCode;
 
     /**
      * @Annotation\Exclude()
@@ -132,7 +139,7 @@ class Administrator extends EntityValidation
 
     public function getCode()
     {
-        return $this->code;
+        return $this->personalCode;
     }
 
     public function getLisUser()
@@ -179,7 +186,7 @@ class Administrator extends EntityValidation
 
     public function setCode($code)
     {
-        $this->code = $code;
+        $this->personalCode = $code;
         return $this;
     }
 

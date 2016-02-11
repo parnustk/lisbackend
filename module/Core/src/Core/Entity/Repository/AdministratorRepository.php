@@ -22,8 +22,7 @@ use Doctrine\ORM\Query;
 /**
  * AdministratorRepository
  *
- * @author Sander Mets <sandermets0@gmail.com>
- * @author Marten Kähr <marten@kahr.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Marten Kähr <marten@kahr.ee>
  */
 class AdministratorRepository extends EntityRepository implements CRUD
 {
@@ -45,7 +44,7 @@ class AdministratorRepository extends EntityRepository implements CRUD
                         id,
                         firstName,
                         lastName,
-                        code
+                        personalCode
                     }
                 FROM Core\Entity\Administrator administrator
                 WHERE administrator.trashed IS NULL";
@@ -70,7 +69,28 @@ class AdministratorRepository extends EntityRepository implements CRUD
      */
     public function Get($id, $returnPartial = false, $extra = null)
     {
-        
+        if($returnPartial) {
+            //generate dql
+            $dql = "
+                    SELECT 
+                        partial administrator.{
+                            id,
+                            firstName,
+                            lastName,
+                            email,
+                            personalCode,
+                            trashed
+                        }
+                    FROM Core\Entity\Administrator administrator
+                    WHERE administrator.id = " . $id . "
+                ";
+            //return
+            $q = $this->getEntityManager()->createQuery($dql);
+//            print_r($q->getSQL());
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $this->find($id);
     }
 
     /**
@@ -78,7 +98,7 @@ class AdministratorRepository extends EntityRepository implements CRUD
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
-     * @return Vocation|array
+     * @return Administrator|array
      * @throws Exception
      */
     public function Create($data, $returnPartial = false, $extra = null)
@@ -86,7 +106,7 @@ class AdministratorRepository extends EntityRepository implements CRUD
 
         $entity = new Administrator($this->getEntityManager());
         $entity->hydrate($data);
-
+        
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
@@ -110,7 +130,7 @@ class AdministratorRepository extends EntityRepository implements CRUD
                             id,
                             firstName,
                             lastName,
-                            code
+                            personalCode
                         }
                     FROM Core\Entity\Administrator administrator
                     WHERE administrator.id = " . $entity->getId();
@@ -134,7 +154,36 @@ class AdministratorRepository extends EntityRepository implements CRUD
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        
+        $entity = $this->find($id);
+        $entity->setEntityManager($this->getEntityManager());
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+
+        if ($returnPartial) {
+            $dql = "
+                    SELECT 
+                        partial administrator.{
+                            id,
+                            firstName,
+                            lastName,
+                            personalCode,              
+                            email,
+                            trashed
+                        }
+                    FROM Core\Entity\Administrator administrator
+                    WHERE administrator.id = " . $id;
+            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+
+            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+            return $r;
+        }
+        return $entity;
     }
 
     /**
@@ -145,7 +194,9 @@ class AdministratorRepository extends EntityRepository implements CRUD
      */
     public function Delete($id, $extra = null)
     {
-        
+        $this->getEntityManager()->remove($this->find($id));
+        $this->getEntityManager()->flush();
+        return $id;
     }
 
 }

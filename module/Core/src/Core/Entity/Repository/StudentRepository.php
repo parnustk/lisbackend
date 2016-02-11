@@ -193,9 +193,9 @@ class StudentRepository extends EntityRepository implements CRUD
      */
     public function Delete($id, $extra = null)
     {
-            $this->getEntityManager()->remove($this->find($id));
-            $this->getEntityManager()->flush();
-            return $id;
+        $this->getEntityManager()->remove($this->find($id));
+        $this->getEntityManager()->flush();
+        return $id;
     }
 
 }
