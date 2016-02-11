@@ -9,7 +9,7 @@ return [
                     'host'     => 'localhost',
                     'port'     => '3306',
                     'user'     => 'root', //Your DB user
-                    'password' => '', //Your DB password
+                    'password' => 'qwertyuiop', //Your DB password
                     'dbname'   => 'lis', //Your DB name
                     'charset' => 'utf8',
                     'driverOptions' => [
