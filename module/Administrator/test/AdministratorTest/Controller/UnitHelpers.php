@@ -344,7 +344,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     {
         $repository = $this->em->getRepository('Core\Entity\Administrator');
 
-        if ($data) {
+        if ($data !== null) {
             return $repository->Create($data);
         }
 
