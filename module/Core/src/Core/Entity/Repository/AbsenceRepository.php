@@ -88,7 +88,11 @@ class AbsenceRepository extends AbstractBaseRepository
         if ($data['student'] !== $extra->lisPerson->getId()) {
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
+
+        //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
@@ -105,7 +109,45 @@ class AbsenceRepository extends AbstractBaseRepository
             return $this->defaultCreate($data, $returnPartial);
         } else if ($extra->lisRole === 'student') {
             return $this->studentCreate($data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            //TODO
+        } else if ($extra->lisRole === 'administrator') {
+            //TODO
         }
+    }
+
+    private function defaultUpdate($id, $data, $returnPartial = false, $extra = null)
+    {
+        $entity = $this->validateEntity(
+                $this->find($id), $data
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
+    }
+
+    private function studentUpdate($id, $data, $returnPartial = false, $extra = null)
+    {
+        $absence = $this->find($id);
+
+        //check that createdBy equals to current user
+        if ($absence->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
+
+        //check that incoming student id equals to lisPerson
+        if ($data['student'] !== $extra->lisPerson->getId()) {
+            throw new Exception('SELF_RELATED_RESTRICTION');
+        }
+
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+
+        //all good update
+        $entity = $this->validateEntity(
+                $absence, $data
+        );
+
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
@@ -118,11 +160,15 @@ class AbsenceRepository extends AbstractBaseRepository
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
-        $entity = $this->validateEntity(
-                $this->find($id), $data
-        );
-        //IF required MANY TO MANY validate manually
-        return $this->singleResult($entity, $returnPartial, $extra);
+        if (!$extra) {
+            return $this->defaultUpdate($id, $data, $returnPartial);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentUpdate($id, $data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            //TODO
+        } else if ($extra->lisRole === 'administrator') {
+            //TODO
+        }
     }
 
 }
