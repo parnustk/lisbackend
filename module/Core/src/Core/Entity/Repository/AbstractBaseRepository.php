@@ -178,7 +178,7 @@ abstract class AbstractBaseRepository extends EntityRepository
             $this->getEntityManager()->remove($entity);
             $this->getEntityManager()->flush();
         } else {
-            throw new Exception("Not trashed. Can not delete.");
+            throw new Exception("NOT_TRASHED");
         }
         return $id;
     }

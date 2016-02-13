@@ -224,6 +224,8 @@ class AbsenceControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -235,8 +237,6 @@ class AbsenceControllerTest extends UnitHelpers
                 ->Get($idOld);
 
         $this->assertEquals(null, $deleted);
-
-        $this->PrintOut($result, false);
     }
 
     public function testCreatedByAndUpdatedBy()

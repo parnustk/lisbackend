@@ -14,7 +14,9 @@ use Core\Entity\Absence;
 use Exception;
 
 /**
+ * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class AbsenceRepository extends AbstractBaseRepository
 {
@@ -69,7 +71,6 @@ class AbsenceRepository extends AbstractBaseRepository
         $entity = $this->validateEntity(
                 new Absence($this->getEntityManager()), $data
         );
-        //IF required MANY TO MANY validate manually
         return $this->singleResult($entity, $returnPartial, $extra);
     }
 
@@ -116,20 +117,28 @@ class AbsenceRepository extends AbstractBaseRepository
         }
     }
 
-    private function defaultUpdate($id, $data, $returnPartial = false, $extra = null)
+    private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        $entity = $this->validateEntity(
-                $this->find($id), $data
+        $entityValidated = $this->validateEntity(
+                $entity, $data
         );
-        return $this->singleResult($entity, $returnPartial, $extra);
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
-    private function studentUpdate($id, $data, $returnPartial = false, $extra = null)
+    /**
+     * Self created and self related restriction
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
+    private function studentUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        $absence = $this->find($id);
-
         //check that createdBy equals to current user
-        if ($absence->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
 
@@ -143,11 +152,11 @@ class AbsenceRepository extends AbstractBaseRepository
         $data['updatedBy'] = $extra->lisUser->getId();
 
         //all good update
-        $entity = $this->validateEntity(
-                $absence, $data
+        $entityValidated = $this->validateEntity(
+                $entity, $data
         );
 
-        return $this->singleResult($entity, $returnPartial, $extra);
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
     /**
@@ -160,10 +169,66 @@ class AbsenceRepository extends AbstractBaseRepository
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
+        $entity = $this->find($id);
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        }
+
         if (!$extra) {
-            return $this->defaultUpdate($id, $data, $returnPartial);
+            return $this->defaultUpdate($entity, $data, $returnPartial);
         } else if ($extra->lisRole === 'student') {
-            return $this->studentUpdate($id, $data, $returnPartial, $extra);
+            return $this->studentUpdate($entity, $data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            //TODO
+        } else if ($extra->lisRole === 'administrator') {
+            //TODO
+        }
+    }
+
+    private function defaultDelete($entity, $extra = null)
+    {
+        $id = $entity->getId();
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+        return $id;
+    }
+
+    /**
+     * Self created restriction
+     * 
+     * @param type $entity
+     * @param type $extra
+     */
+    private function studentDelete($entity, $extra = null)
+    {
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
+        return $this->defaultDelete($entity, $extra);
+    }
+
+    /**
+     * Delete only trashed entities
+     * 
+     * @param int $id
+     * @param stdClass|null $extra
+     * @return int
+     * @throws Exception
+     */
+    public function Delete($id, $extra = null)
+    {
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        } else if (!$entity->getTrashed()) {
+            throw new Exception("NOT_TRASHED");
+        }
+
+        if (!$extra) {
+            return $this->defaultDelete($entity, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentDelete($entity, $extra);
         } else if ($extra->lisRole === 'teacher') {
             //TODO
         } else if ($extra->lisRole === 'administrator') {
