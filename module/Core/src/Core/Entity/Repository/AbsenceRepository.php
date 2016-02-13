@@ -14,6 +14,36 @@ use Core\Entity\Absence;
 use Exception;
 
 /**
+ * ## Absence RESOURCE
+ * 
+ * description(string)*
+ * absenceReason(integer)
+ * student(integer)*
+ * contactLesson(integer)*
+ * 
+ * ####  Administrator ROLE
+ * 
+ * YES getList
+ * YES get
+ * YES create
+ * YES update   - OWN CREATED
+ * YES delete   - OWN CREATED
+ * 
+ * ####  Teacher ROLE
+ * 
+ * YES getList
+ * YES get
+ * YES create
+ * YES update  - OWN CREATED ?PERIOD
+ * YES delete  - OWN CREATED ?PERIOD
+ * 
+ * ####  Student ROLE
+ * 
+ * YES getList - OWN RELATED
+ * YES get     - OWN RELATED
+ * YES create  - OWN RELATED
+ * YES update  - OWN CREATED RELATED ?PERIOD
+ * YES delete  - OWN CREATED RELATED ?PERIOD
  * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * @author Sander Mets <sandermets0@gmail.com>
@@ -75,7 +105,7 @@ class AbsenceRepository extends AbstractBaseRepository
     }
 
     /**
-     * Restriction only self created
+     * SELF CREATED RESTRICTION
      * 
      * @param type $data
      * @param type $returnPartial
@@ -117,6 +147,14 @@ class AbsenceRepository extends AbstractBaseRepository
         }
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
         $entityValidated = $this->validateEntity(
@@ -126,7 +164,8 @@ class AbsenceRepository extends AbstractBaseRepository
     }
 
     /**
-     * Self created and self related restriction
+     * SELF CREATED RESTRICTION
+     * SELF RELATED RESTRICTION
      * 
      * @param type $entity
      * @param type $data
@@ -151,12 +190,7 @@ class AbsenceRepository extends AbstractBaseRepository
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
 
-        //all good update
-        $entityValidated = $this->validateEntity(
-                $entity, $data
-        );
-
-        return $this->singleResult($entityValidated, $returnPartial, $extra);
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
 
     /**
@@ -185,7 +219,12 @@ class AbsenceRepository extends AbstractBaseRepository
         }
     }
 
-    private function defaultDelete($entity, $extra = null)
+    /**
+     * 
+     * @param type $entity
+     * @return type
+     */
+    private function defaultDelete($entity)
     {
         $id = $entity->getId();
         $this->getEntityManager()->remove($entity);
@@ -194,7 +233,7 @@ class AbsenceRepository extends AbstractBaseRepository
     }
 
     /**
-     * Self created restriction
+     * SELF CREATED RESTRICTION
      * 
      * @param type $entity
      * @param type $extra
@@ -226,7 +265,7 @@ class AbsenceRepository extends AbstractBaseRepository
         }
 
         if (!$extra) {
-            return $this->defaultDelete($entity, $extra);
+            return $this->defaultDelete($entity);
         } else if ($extra->lisRole === 'student') {
             return $this->studentDelete($entity, $extra);
         } else if ($extra->lisRole === 'teacher') {
