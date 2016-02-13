@@ -335,6 +335,7 @@ class AbsenceRepository extends AbstractBaseRepository
     }
 
     /**
+     * SELF RELATED RESTRICTION
      * 
      * @param type $entity
      * @param type $returnPartial
@@ -381,6 +382,53 @@ class AbsenceRepository extends AbstractBaseRepository
             return $this->defaultGet($id, $returnPartial, $extra);
         } else if ($extra->lisRole === 'student') {
             return $this->studentGet($entity, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            //TODO
+        } else if ($extra->lisRole === 'administrator') {
+            //TODO
+        }
+    }
+
+    private function defaultGetList($params = null, $extra = null, $dqlRestriction = null)
+    {
+        $dql = $this->dqlStart();
+        $dql .= $this->dqlWhere($params, $extra);
+        
+        if($dqlRestriction) {
+            $dql .= $dqlRestriction; 
+        }
+        return $this->wrapPaginator($dql);
+    }
+    
+    private function studentGetList($params = null, $extra = null)
+    {
+        $id = $extra->lisPerson->getId();
+        $dqlRestriction = " AND $this->baseAlias.student=$id";
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
+    }
+    
+    private function teacherGetList($params = null, $extra = null)
+    {
+        //TODO
+    }
+    
+    private function administratorGetList($params = null, $extra = null)
+    {
+        //TODO
+    }
+    
+    /**
+     * 
+     * @param array $params
+     * @param stdClass|null $extra
+     * @return Paginator
+     */
+    public function GetList($params = null, $extra = null)
+    {
+        if (!$extra) {
+            return $this->defaultGetList($params, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentGetList($params, $extra);
         } else if ($extra->lisRole === 'teacher') {
             //TODO
         } else if ($extra->lisRole === 'administrator') {
