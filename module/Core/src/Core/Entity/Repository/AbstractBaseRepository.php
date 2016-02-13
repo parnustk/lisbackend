@@ -35,10 +35,6 @@ abstract class AbstractBaseRepository extends EntityRepository
      */
     protected function dqlWhere($params, $extra = null)
     {
-        if (!!$extra) {
-            //todo if needed. probably role based approach
-            //student can only see rows created by him/herself
-        }
         $dql = '';
 
         if (!!$params['where']) {//if where is not null
@@ -54,6 +50,9 @@ abstract class AbstractBaseRepository extends EntityRepository
             }
         } else {//default WHERE has trashed IS NULL for now nothing else
             $dql .= " WHERE $this->baseAlias.trashed IS NULL";
+        }
+        if (!!$extra) {
+            //TODO
         }
         return $dql;
     }

@@ -126,22 +126,20 @@ class AbsenceRepository extends AbstractBaseRepository
 
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
-    
+
     private function teacherCreate($data, $returnPartial = false, $extra = null)
     {
         //TODO
-
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
 
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
-    
+
     private function administratorCreate($data, $returnPartial = false, $extra = null)
     {
         //TODO
-
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -198,12 +196,11 @@ class AbsenceRepository extends AbstractBaseRepository
      */
     private function studentUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //check that createdBy equals to current user
+
         if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
 
-        //check that incoming student id equals to lisPerson
         if ($data['student'] !== $extra->lisPerson->getId()) {
             throw new Exception('SELF_RELATED_RESTRICTION');
         }
@@ -214,29 +211,26 @@ class AbsenceRepository extends AbstractBaseRepository
 
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
-    
+
     private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
         //TODO
-
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
 
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
-    
+
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
         //TODO
-
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
 
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
-    
 
     /**
      * 
@@ -290,13 +284,13 @@ class AbsenceRepository extends AbstractBaseRepository
         }
         return $this->defaultDelete($entity, $extra);
     }
-    
+
     private function teacherDelete($entity, $extra = null)
     {
         //TODO
         return $this->defaultDelete($entity, $extra);
     }
-    
+
     private function administratorDelete($entity, $extra = null)
     {
         //TODO
@@ -325,6 +319,68 @@ class AbsenceRepository extends AbstractBaseRepository
             return $this->defaultDelete($entity);
         } else if ($extra->lisRole === 'student') {
             return $this->studentDelete($entity, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            //TODO
+        } else if ($extra->lisRole === 'administrator') {
+            //TODO
+        }
+    }
+
+    private function defaultGet($id, $returnPartial = false, $extra = null)
+    {
+        if ($returnPartial) {
+            return $this->singlePartialById($id, $extra);
+        }
+        return $this->find($id);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * 
+     * @return array
+     */
+    private function studentGet($entity, $returnPartial = false, $extra = null)
+    {
+        if ($entity->getStudent()->getId() !== $extra->lisPerson->getId()) {
+            throw new Exception('SELF_RELATED_RESTRICTION');
+        }
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    private function teacherGet($entity, $returnPartial = false, $extra = null)
+    {
+        //TODO
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    private function administratorGet($entity, $returnPartial = false, $extra = null)
+    {
+        //TODO
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param int $id
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
+     */
+    public function Get($id, $returnPartial = false, $extra = null)
+    {
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        }
+
+        if (!$extra) {
+            return $this->defaultGet($id, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
             //TODO
         } else if ($extra->lisRole === 'administrator') {

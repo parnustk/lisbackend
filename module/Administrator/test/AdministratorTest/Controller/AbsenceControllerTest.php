@@ -367,7 +367,6 @@ class AbsenceControllerTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
-
         //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateAbsence();
         $entity->setTrashed(1);
