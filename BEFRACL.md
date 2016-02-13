@@ -28,8 +28,8 @@
 * YES getList - OWN RELATED
 * YES get     - OWN RELATED
 * YES create  - OWN RELATED
-* YES update  - OWN CREATED ?PERIOD
-* YES delete  - OWN CREATED ?PERIOD
+* YES update  - OWN CREATED RELATED ?PERIOD
+* YES delete  - OWN CREATED RELATED ?PERIOD
 
 ## AbsenceReason RESOURCE
 
@@ -66,7 +66,7 @@
 * YES get
 * YES create
 * YES update   - OWN CREATED
-* YES delete   - OWN RELATED
+* YES delete   - OWN CREATED
 
 ####  Teacher ROLE
 
@@ -98,9 +98,9 @@
 
 * YES getList
 * YES get
-* ???YES create
-* ???YES update
-* ???YES delete
+* ???YES create ask Ele
+* ???YES update ask Ele
+* ???YES delete ask Ele
 
 ####  Student ROLE
 
@@ -191,8 +191,8 @@
 * YES getList
 * YES get
 * YES create
-* YES update ?PERIOD
-* YES delete ?PERIOD
+* YES update
+* YES delete
 
 ####  Teacher ROLE
 
@@ -204,7 +204,7 @@
 * YES getList
 * YES get
 
-## Moduletype RESOURCE
+## ModuleType RESOURCE
 
 * name(string)*
 
@@ -235,8 +235,8 @@
 * YES getList
 * YES get
 * YES create
-* YES update ?PERIOD
-* YES delete ?PERIOD
+* YES update
+* YES delete
 
 ####  Teacher ROLE
 
@@ -260,8 +260,8 @@
 * YES getList
 * YES get
 * YES create
-* YES update ?PERIOD
-* YES delete ?PERIOD
+* YES update
+* YES delete
 
 ####  Teacher ROLE
 

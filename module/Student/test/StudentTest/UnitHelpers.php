@@ -349,9 +349,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'firstName' => uniqid() . 'FirstName',
-                    'lastName' => uniqid() . 'LastName',
-                    'code' => uniqid() . 'Code'
+                    'firstName' => 'firstName' . uniqid(),
+                    'lastName' => 'lastName' . uniqid(),
+                    'personalCode' => 'code' . uniqid(),
+                    'email' => 'email' . uniqid()
         ]);
     }
 
@@ -473,6 +474,38 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'studentGroup' => $studentGroup->getId(),
                     'student' => $student->getId(),
         ]);
+    }
+
+    /**
+     * Creates lisUser and associates to given Student
+     * 
+     * @param \Core\Entity\Student $student
+     * @param array|null $data
+     * 
+     * @return \Core\Entity\LisUser
+     */
+    protected function CreateStudentUser(\Core\Entity\Student $student, $data = null)
+    {
+        $d = $data;
+        
+        if (!$d) {//if $data was not given
+            $d = [
+                'personalCode' => $student->getPersonalCode(),
+                'password' => uniqid(),
+                'email' => uniqid() . '@asd.ee',
+            ];
+        }
+        
+        $lisUser = $this
+                ->em
+                ->getRepository('Core\Entity\LisUser')
+                ->Create($d);
+
+        $student->setLisUser($lisUser); //associate
+        $this->em->persist($student);
+        $this->em->flush($student);
+        
+        return $lisUser;
     }
 
 }

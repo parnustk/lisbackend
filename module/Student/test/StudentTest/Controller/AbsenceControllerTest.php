@@ -20,8 +20,8 @@ use StudentTest\UnitHelpers;
  * YES getList - OWN RELATED
  * YES get - OWN RELATED
  * YES create - OWN RELATED
- * YES update - OWN CREATED ?PERIOD
- * YES delete - OWN CREATED ?PERIOD
+ * YES update - OWN CREATED RELATED ?PERIOD
+ * YES delete - OWN CREATED RELATED ?PERIOD
  * 
  * @author Sander Mets <sandermets0@gmail.com>
  */
@@ -38,36 +38,20 @@ class AbsenceControllerTest extends UnitHelpers
     }
 
     /**
-     * imitate POST request
-     * create new with correct data see entity
-     * creates new row to databaase
+     * should be successful
      */
     public function testCreate()
     {
-        //start create existing studentuser
-
+        //start create studentuser
         $student = $this->CreateStudent();
-        $data = [
-            'personalCode' => $student->getPersonalCode(),
-            'password' => uniqid(),
-            'email' => uniqid() . '@asd.ee',
-        ];
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($data);
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
+        $lisUser = $this->CreateStudentUser($student);
 
-        //now we have created studentuser
+        //now we have created studentuser set to current controller
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
 
         $description = 'Absence description' . uniqid();
-
         $this->request->setMethod('post');
-
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('student', $student->getId());
         $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
@@ -81,22 +65,14 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
 
+    /**
+     * should be NOT successful
+     */
     public function testCreateForAnotherStudent()
     {
         //start create existing studentuser
         $student = $this->CreateStudent();
-        $data = [
-            'personalCode' => $student->getPersonalCode(),
-            'password' => uniqid(),
-            'email' => uniqid() . '@asd.ee',
-        ];
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($data);
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
+        $lisUser = $this->CreateStudentUser($student);
 
         //now we have created studentuser
         $this->controller->setLisUser($lisUser);
@@ -108,8 +84,9 @@ class AbsenceControllerTest extends UnitHelpers
 
         $this->request->getPost()->set('description', $description);
 
-        //different student
-        $this->request->getPost()->set('student', $this->CreateStudent()->getId());
+        //NB! different student
+        $anotherStudent = $this->CreateStudent();
+        $this->request->getPost()->set('student', $anotherStudent->getId());
 
         $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
 
@@ -123,29 +100,20 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals('SELF_CREATED_RESTRICTION', $result->message);
     }
 
+    /**
+     * should be successful
+     */
     public function testUpdate()
     {
         //create student user
         $student = $this->CreateStudent();
-        $data = [
-            'personalCode' => $student->getPersonalCode(),
-            'password' => uniqid(),
-            'email' => uniqid() . '@asd.ee',
-        ];
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($data);
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
+        $lisUser = $this->CreateStudentUser($student);
 
-        //now we have created studentuser
+        //now we have created studentuser set to current controller
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
 
         //create absence with this user
-
         $absenceReason = $this->CreateAbsenceReason();
         $contactLesson = $this->CreateContactLesson();
 
@@ -160,9 +128,6 @@ class AbsenceControllerTest extends UnitHelpers
         $studentIdOld = $student->getId();
         $contactLessonIdOld = $absence->getContactLesson()->getId();
         $absenceReasonIdOld = $absence->getAbsenceReason()->getId();
-        $this->PrintOut($studentIdOld, false);
-        $this->PrintOut($contactLessonIdOld, false);
-        $this->PrintOut($absenceReasonIdOld, false);
 
         //prepare request
         $this->request->setMethod('put');
@@ -183,35 +148,26 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
+        //for student should be the same - self related restriction
         $this->assertEquals($studentIdOld, $result->data['student']['id']);
+        
         $this->assertNotEquals($contactLessonIdOld, $result->data['contactLesson']['id']);
         $this->assertNotEquals($absenceReasonIdOld, $result->data['absenceReason']['id']);
     }
 
+    /**
+     * should be NOT successful
+     */
     public function testUpdateNotSelfRelated()
     {
         //create student user
         $student = $this->CreateStudent();
-        $data = [
-            'personalCode' => $student->getPersonalCode(),
-            'password' => uniqid(),
-            'email' => uniqid() . '@asd.ee',
-        ];
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($data);
-
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
-
+        $lisUser = $this->CreateStudentUser($student);
         //now we have created studentuser
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
 
         //create absence with this user
-
         $absenceReason = $this->CreateAbsenceReason();
         $contactLesson = $this->CreateContactLesson();
 
@@ -242,9 +198,116 @@ class AbsenceControllerTest extends UnitHelpers
         $this->assertEquals('SELF_RELATED_RESTRICTION', $result->message);
     }
 
+    /**
+     * should be NOT successful
+     */
     public function testUpdateNotSelfCreated()
     {
-        $this->assertEquals(1, 2);
+        //Create absence with one user
+        //
+        //create student user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+        
+        
+        //create absence with this user
+        $absenceReason = $this->CreateAbsenceReason();
+        $contactLesson = $this->CreateContactLesson();
+
+        $absence = $this->CreateAbsence([
+            'description' => uniqid() . 'AbsenceDescription',
+            'absenceReason' => $absenceReason->getId(),
+            'student' => $student->getId(),
+            'contactLesson' => $contactLesson->getId(),
+            'createdBy' => $lisUser->getId()
+        ]);
+        
+        //try to update absence with another user
+        $anotherStudent = $this->CreateStudent();
+        $anotherLisUser = $this->CreateStudentUser($anotherStudent);
+        
+        //now we have created another studentuser
+        $this->controller->setLisUser($anotherLisUser);
+        $this->controller->setLisPerson($anotherStudent);
+        
+        //prepare request
+        $this->request->setMethod('put');
+        $this->routeMatch->setParam('id', $absence->getId());
+
+        $this->request->setContent(http_build_query([
+            'contactLesson' => $this->CreateContactLesson()->getId(),
+            //leave student correct
+            'student' => $student->getId(),
+            'absenceReason' => $this->CreateAbsenceReason()->getId(),
+        ]));
+
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('SELF_CREATED_RESTRICTION', $result->message);
+        
+        
+    }
+    
+    /**
+     * should be successful
+     */
+    public function testDeleteTrashedAndSelfCreated()
+    {
+        //TODO
+    }
+    
+    /**
+     * should be NOT successful
+     */
+    public function testDeleteNotSelfRelated()
+    {
+        //TODO
+    }
+    
+    /**
+     * should be NOT successful
+     */
+    public function testDeleteNotSelfCreated()
+    {
+        //TODO
+    }
+    
+    /**
+     * should be successful
+     */
+    public function testGetListSelfRelated()
+    {
+        //TODO
+    }
+    
+    /**
+     * should be NOT successful
+     */
+    public function testGetListNotSelfRelated()
+    {
+        //TODO
+    }
+    
+    /**
+     * should be NOT successful
+     */
+    public function testGetSelfRelated()
+    {
+        //TODO
+    }
+    
+    /**
+     * should be NOT successful
+     */
+    public function testGetNotSelfRelated()
+    {
+        //TODO
     }
 
 }
