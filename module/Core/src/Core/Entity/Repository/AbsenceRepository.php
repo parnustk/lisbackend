@@ -126,6 +126,28 @@ class AbsenceRepository extends AbstractBaseRepository
 
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
+    
+    private function teacherCreate($data, $returnPartial = false, $extra = null)
+    {
+        //TODO
+
+        //set user related data
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
+    }
+    
+    private function administratorCreate($data, $returnPartial = false, $extra = null)
+    {
+        //TODO
+
+        //set user related data
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
+    }
 
     /**
      * 
@@ -192,6 +214,29 @@ class AbsenceRepository extends AbstractBaseRepository
 
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
+    
+    private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //TODO
+
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
+    
+    private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //TODO
+
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
+    
 
     /**
      * 
@@ -243,6 +288,18 @@ class AbsenceRepository extends AbstractBaseRepository
         if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
+        return $this->defaultDelete($entity, $extra);
+    }
+    
+    private function teacherDelete($entity, $extra = null)
+    {
+        //TODO
+        return $this->defaultDelete($entity, $extra);
+    }
+    
+    private function administratorDelete($entity, $extra = null)
+    {
+        //TODO
         return $this->defaultDelete($entity, $extra);
     }
 
