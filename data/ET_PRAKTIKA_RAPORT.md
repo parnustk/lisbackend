@@ -1,14 +1,14 @@
 # Praktika aruanne
 
 #### (Arnold)Ettevõtte üldiseloomustus (nimi, aadress, kontaktandmed, ajalugu, peamine tegevusala, kõrvaltegevusalad, töötajate arv)
-Nimi:Pärnu Saksa Tehnoloogiakool.
+Nimi:Pärnu Saksa Tehnikahariduskeskus OÜ.
 Aadress:Jalaka 8, 80010 Pärnu.
 Kontaktandmed:
 Tel: +372 442 0480, +372 510 5845
 E-mail: dts@saksatk.ee 
 Ajalugu:
 Pärnu Saksa Tehnoloogiakool on sakslastele kuuluv erakutseõppeasutus.  
-Pärnu Saksa Tehnoloogiakooli loomisele pani aluse 2. juulil 1999 asetleidnud kooperatsioonilepingu allkirjastamine Königs Wusterhauseni Tehnoloogia- ja Kutsehariduskeskuse ning Pärnu Linnavalitsuse haridusosakonna vahel.
+Pärnu Saksa Tehnoloogiakooli loomisele pani aluse 2. juulil 1999 aset leidnud kooperatsioonilepingu allkirjastamine Königs Wusterhauseni Tehnoloogia- ja Kutsehariduskeskuse ning Pärnu Linnavalitsuse haridusosakonna vahel.
 Partnerite eesmärgiks oli  koostöö Eestimaa ja Saksamaa vahel kutsehariduse valdkonnas. Leping sätestas võimaluse luua saksa õppeasutus Eestis. Järgnev kontseptuaalne töö kestis kuni novembrini 2000. Sellel perioodil loodi põhimõttelised kokkulepped Eesti Vabariigi haridusministeeriumi ja Pärnu linnavalitsusega, mis võimaldasid kooli avada 1. septembril 2001.
 Ehitus ja kooli sisustus finantseeriti saksa partnerite Königs Wusterhauseni Tehnoloogia- ja Kutsehariduskeskuse ning sihtasutuse Bildung und Handwerk vahenditest. Selleks loodi jaanuaris 2001 äriühing Pärnu Tehnikahariduskeskus OÜ. Ühing organiseeris kooli projekteerimise ja ettevalmistuse avamiseks.
 Pärnu Linnavalitsus sõlmis  hoonestus- ja asjaõiguslepingu. Täna toetab ta  kooli vastavalt erakooliseadusele.
@@ -19,9 +19,10 @@ Pärnu Saksa Tehnoloogiakooli on lõpetanud 1462  õpilast, kellest 700 on lõpe
 Pikaajalisemad väljaõppevaldkonnad on infotehnoloogia (tarkvara arendus), majandusarvestus (äriteenused ja raamatupidamine)  energeetika/automaatika (sisetööde elektrik). 2011 alustati multimeedia disainerite (nüüd disaini ja käsitöö õppekavarühm kujundaja õppekavaga) ettevalmistamist. Õpe toimub keskhariduse järgselt.
  
 Peamine tegevusala:
-Peamine eesmärk on uuendada,täiendada kooli veebilehekülje nii,et ta oleks mugav ja vastas kooli vajadustele.
+Kutseõppeasutuste tegevus
 
 Kõrvaltegevusalad:
+ Täiskasvanute koolitus
 
 Töötajate arv:7
 
@@ -46,3 +47,5 @@ liikmetega,samuti ka kasutada sidesüsteeme sellisel viisil,et oleks kergem kõi
 
 
 #### (Arnold)Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
+Süsteemianalüüs - infosüsteemi nõuete kogumine.
+Andmebaasi tabelite prototüüpimine.
