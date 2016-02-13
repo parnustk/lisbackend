@@ -105,7 +105,7 @@ class AbsenceRepository extends AbstractBaseRepository
     }
 
     /**
-     * SELF CREATED RESTRICTION
+     * SELF CREATED RELATED RESTRICTION
      * 
      * @param type $data
      * @param type $returnPartial
