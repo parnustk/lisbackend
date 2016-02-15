@@ -136,6 +136,7 @@ class ModuleControllerTest extends UnitHelpers
     public function testUpdate()
     {
         $createdModule = $this->CreateModule();
+        
 
         $nameOld = $createdModule->getName();
         $codeOld = $createdModule->getCode();
@@ -149,6 +150,7 @@ class ModuleControllerTest extends UnitHelpers
             $gradingTypesOld[] = $gType->getId();
         }
 
+    
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $createdModule->getId());
 
@@ -392,7 +394,6 @@ class ModuleControllerTest extends UnitHelpers
         $this->request->setMethod('put');
         $this->request->setContent(http_build_query([
             'trashed' => 1,
-            'id' => $id,
             'vocation'=> $entity->getVocation()->getId()
         ]));
         //fire request

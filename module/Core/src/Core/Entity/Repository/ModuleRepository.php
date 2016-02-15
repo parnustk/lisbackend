@@ -84,7 +84,7 @@ class ModuleRepository extends AbstractBaseRepository
             );
         }
     }
-    
+
     /**
      * 
      * @param type $data
@@ -95,10 +95,17 @@ class ModuleRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        $this->validateVocation($data);
+        $entity = new Module($this->getEntityManager());
+        $vocation = $this->getEntityManager()
+                ->getRepository('Core\Entity\Vocation')
+                ->find($data['vocation']);
+        unset($data['vocation']);
+        $entity->setVocation($vocation);
         $entity = $this->validateEntity(
-                new Module($this->getEntityManager()), $data
-                );
-                return $this->singleResult($entity, $returnPartial, $extra);
+                $entity, $data
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
@@ -140,26 +147,13 @@ class ModuleRepository extends AbstractBaseRepository
      */
     public function administratorCreate($data, $returnPartial = false, $extra = null)
     {
-        $this->validateVocation($data);
-        $entity = new Module($this->getEntityManager());
-        $vocation = $this->getEntityManager()
-                ->getRepository('Core\Entity\Vocation')
-                ->find($data['vocation']);
-        unset($data['vocation']);
-        $entity->setVocation($vocation);
-        $entity = $this->validateEntity(
-                $entity, $data
-        );
-        return $this->singleResult($entity, $returnPartial, $extra);
-        
-//        $entity = $this->validateEntity(
-//                new Module($this->getEntityManager()), $data
-//        );
-//        //IF required MANY TO MANY validate manually
-//        return $this->singleResult($entity, $returnPartial, $extra);
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
     }
-    
-     /**
+
+    /**
      * 
      * @param array $data
      * @param bool|null $returnPartial
@@ -178,7 +172,7 @@ class ModuleRepository extends AbstractBaseRepository
             return $this->administratorCreate($data, $returnPartial, $extra);
         }
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -189,10 +183,26 @@ class ModuleRepository extends AbstractBaseRepository
      */
     private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        $entityValidated = $this->validateEntity(
-                $entity, $data
-        );
-        return $this->singleResult($entityValidated, $returnPartial, $extra);
+        $this->validateVocation($data);
+
+        $vocation = $this->getEntityManager()
+                ->getRepository('Core\Entity\Vocation')
+                ->find($data['vocation']);
+
+        $entity->setVocation($vocation);
+
+        unset($data['vocation']);
+
+        $entity->hydrate($data);
+
+        if (!$entity->validate()) {
+            throw new Exception(Json::encode($entity->getMessages(), true));
+        }
+        //manytomany validate manually
+        if (!count($entity->getGradingType())) {
+            throw new Exception(Json::encode('Missing vocation for module', true));
+        }
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
@@ -238,31 +248,15 @@ class ModuleRepository extends AbstractBaseRepository
      * @param stdClass|null $extra
      * @return mixed
      */
-    public function administratorUpdate($id, $data, $returnPartial = false, $extra = null)
+    public function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        $this->validateVocation($data);
-        $entity = $this->find($id);
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
 
-        $vocation = $this->getEntityManager()
-                ->getRepository('Core\Entity\Vocation')
-                ->find($data['vocation']);
-
-        $entity->setVocation($vocation);
-
-        unset($data['vocation']);
-
-        $entity->hydrate($data);
-
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
-        }
-        //manytomany validate manually
-        if (!count($entity->getgradingType())) {
-            throw new Exception(Json::encode('Missing gradingType for module', true));
-        }
-        return $this->singleResult($entity, $returnPartial, $extra);
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param int|string $id
@@ -452,13 +446,13 @@ class ModuleRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -469,7 +463,7 @@ class ModuleRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -480,7 +474,7 @@ class ModuleRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -491,7 +485,7 @@ class ModuleRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
