@@ -168,7 +168,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
         //test if it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\AbsenceReason')
-                ->Get($idOld);
+                ->find($idOld);//NB! now has to be changed
 
         $this->assertEquals(null, $deleted);
 
