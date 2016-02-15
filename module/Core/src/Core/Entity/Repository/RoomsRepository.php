@@ -55,7 +55,7 @@ class RoomsRepository extends AbstractBaseRepository
                 return $this->singleResult($entity, $returnPartial, $extra);
     }
 
-/**
+    /**
      * 
      * @param array $data
      * @param bool|null $returnPartial
