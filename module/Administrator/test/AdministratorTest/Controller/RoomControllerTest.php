@@ -144,7 +144,7 @@ class RoomControllerTest extends UnitHelpers
         //test it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\Rooms')
-                ->Get($idOld);
+                ->find($idOld);
 
         $this->assertEquals(null, $deleted);
     }
