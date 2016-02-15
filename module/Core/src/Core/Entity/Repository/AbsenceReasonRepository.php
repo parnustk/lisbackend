@@ -243,11 +243,23 @@ class AbsenceReasonRepository extends AbstractBaseRepository
         return $this->defaultDelete($entity, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     */
     private function teacherDelete($entity, $extra = null)
     {
         return $this->defaultDelete($entity, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     */
     private function administratorDelete($entity, $extra = null)
     {
         return $this->defaultDelete($entity, $extra);
@@ -282,6 +294,13 @@ class AbsenceReasonRepository extends AbstractBaseRepository
         }
     }
 
+    /**
+     * 
+     * @param type $id
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function defaultGet($id, $returnPartial = false, $extra = null)
     {
         if ($returnPartial) {
@@ -303,11 +322,25 @@ class AbsenceReasonRepository extends AbstractBaseRepository
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function administratorGet($entity, $returnPartial = false, $extra = null)
     {
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
@@ -339,6 +372,13 @@ class AbsenceReasonRepository extends AbstractBaseRepository
         }
     }
 
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @param type $dqlRestriction
+     * @return type
+     */
     private function defaultGetList($params = null, $extra = null, $dqlRestriction = null)
     {
         $dql = $this->dqlStart();
