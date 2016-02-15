@@ -138,12 +138,12 @@ class StudentGroupRepository extends AbstractBaseRepository
      * @param stdClass|null $extra
      * @return mixed
      */
-    public function defaultUpdate($id, $data, $returnPartial = false, $extra = null)
+    public function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        $entity = $this->validateEntity(
-                $this->find($id), $data
+        $entityValidated = $this->validateEntity(
+                $entity, $data
         );
-        return $this->singleResult($entity, $returnPartial, $extra);
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
     } 
     
     /**
