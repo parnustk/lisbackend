@@ -159,7 +159,7 @@ class GradingtypeControllerTest extends UnitHelpers
         //test it is not in the database anymore
         $deletedModule = $this->em
                 ->getRepository('Core\Entity\GradingType')
-                ->Get($idOld);
+                ->find($idOld);
 
         $this->assertEquals(null, $deletedModule);
     }
