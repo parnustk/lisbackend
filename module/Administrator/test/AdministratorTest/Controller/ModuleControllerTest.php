@@ -246,7 +246,7 @@ class ModuleControllerTest extends UnitHelpers
         //test if it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\Module')
-                ->Get($idOld);
+                ->find($idOld);
 
         $this->assertEquals(null, $deleted);
     }
