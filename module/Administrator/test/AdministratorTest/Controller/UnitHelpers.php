@@ -459,7 +459,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param type $data
      * @return type
      */
-    protected function StudentInGroups($data = null)
+    protected function CreateStudentInGroups($data = null)
     {
         $repository = $this->em->getRepository('Core\Entity\StudentInGroups');
         if ($data) {
