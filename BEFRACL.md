@@ -98,9 +98,6 @@
 
 * YES getList
 * YES get
-* ???YES create ask Ele
-* ???YES update ask Ele
-* ???YES delete ask Ele
 
 ####  Student ROLE
 
@@ -294,8 +291,8 @@
 * YES getList
 * YES get
 * YES create
-* YES update OWN CREATED ?PERIOD (remember Kalmer ask ELE)
-* YES delete OWN CREATED ?PERIOD (remember Kalmer ask ELE)
+* YES update OWN CREATED
+* YES delete OWN CREATED
 
 ####  Student ROLE
 
