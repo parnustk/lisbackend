@@ -94,7 +94,7 @@ class StudentGradeController extends Base
      */
     public function update($id, $data)
     {
-        return parent::notAllowed();;
+        return parent::notAllowed();
     }
 
     /**
