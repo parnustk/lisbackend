@@ -4,7 +4,7 @@
 
     Eleri Apsolon - developer, eleri.apsolon@gmail.com
     Marten Kähr - developer
-    Juhan Kõks - developer, juhankoks@gmail.com
+    Juhan Kõks - developer, release manager(Jenkins), juhankoks@gmail.com
     Kristen Sepp - developer, seppkristen@gmail.com
     Arnold Tserepov - developer, tserepov@gmail.com
     Alar Aasa - developer, alar@alaraasa.ee
