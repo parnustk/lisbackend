@@ -332,7 +332,7 @@ class StudentGradeControllerTest extends UnitHelpers
         //test if it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\StudentGrade')
-                ->Get($idOld);
+                ->find($idOld);
 
         $this->assertEquals(null, $deleted);
     }
