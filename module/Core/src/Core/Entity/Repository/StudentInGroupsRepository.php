@@ -14,7 +14,29 @@ use Core\Entity\StudentInGroups;
 use Exception;
 
 /**
- * Description of StudentInGroupsRepository
+ * ## StudentInGroups RESOURCE
+ * 
+ * student(integer)*
+ * studentGroup(integer)*
+ * status(integer)*
+ * 
+ * #### Administrator ROLE
+ *
+ * YES getList
+ * YES get
+ * YES create
+ * YES update
+ * YES delete
+ * 
+ * #### Teacher ROLE
+ * 
+ * YES getList
+ * YES get
+ * 
+ * #### Student ROLE
+ * 
+ * YES getList
+ * YES get
  *
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Kristen Sepp <seppkristen@gmail.com>
@@ -72,7 +94,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
     }
 
     /**
-     * SELF CREATED RELATED RESTRICTION
      * 
      * @param type $data
      * @param type $returnPartial
@@ -151,8 +172,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
     }
 
     /**
-     * SELF CREATED RESTRICTION
-     * SELF RELATED RESTRICTION
      * 
      * @param type $entity
      * @param type $data
@@ -239,7 +258,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
     }
 
     /**
-     * SELF CREATED RESTRICTION
      * 
      * @param type $entity
      * @param type $extra
@@ -302,7 +320,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
     }
 
     /**
-     * SELF RELATED RESTRICTION
      * 
      * @param type $entity
      * @param type $returnPartial

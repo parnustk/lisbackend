@@ -1,13 +1,11 @@
 <?php
 
-/* 
+/**
+ * Licence of Learning Info System (LIS)
  * 
- * LIS development
- * 
- * @link       https://github.com/parnustk/lisbackend
- * @copyright  Copyright (c) 2016 Lis dev team
- * @license    TODO
- * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Administrator\Controller;
@@ -16,23 +14,25 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractBaseController;
 
 /**
- * Rest API access to independentwork data.
+ * Rest API access to studentingroups data.
  * 
  * @author Kristen Sepp <seppkristen@gmail.com>
  */
 class StudentInGroupsController extends AbstractBaseController
 {
-
+    /**
+     *
+     * @var type 
+     */
     protected $service = 'studentingroups_service';
 
     /**
      * <h2>POST admin/studentingroups</h2>
      * <h3>Body</h3>
-     * <code>duedate(datetime)*
-     * description(string)*
-     * durationAK(integer)*
-     * subjectRound(integer)*
-     * teacher(integer)*</code>
+     * <code>student(integer)*
+     * studentgoup(integer)*
+     * status(integer)*
+     * notes(string)</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -73,11 +73,10 @@ class StudentInGroupsController extends AbstractBaseController
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>duedate(datetime)*
-     * description(string)*
-     * durationAK(integer)*
-     * subjectRound(integer)*
-     * teacher(integer)*</code>
+     * <code>student(integer)*
+     * studentgoup(integer)*
+     * status(integer)*
+     * notes(string)</code>
      * 
      * @param type $id
      * @param type $data
