@@ -272,7 +272,7 @@ class ContactLessonTest extends UnitHelpers
         //test if it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\ContactLesson')
-                ->Get($idOld);
+                ->find($idOld);
 
         $this->assertEquals(null, $deleted);
 
