@@ -1,96 +1,115 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * 
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity\Repository;
 
 use Core\Entity\Administrator;
-use Doctrine\ORM\EntityRepository;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
+//use Zend\Paginator\Paginator;
 use Exception;
-use Zend\Json\Json;
-use Doctrine\ORM\Query;
 
 /**
  * AdministratorRepository
  *
- * @author Sander Mets <sandermets0@gmail.com>, Marten Kähr <marten@kahr.ee>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Marten Kähr <marten@kahr.ee>
  */
-class AdministratorRepository extends EntityRepository implements CRUD
+class AdministratorRepository extends AbstractBaseRepository
 {
 
     /**
-     * 
-     * @param array|null $params
-     * @param stdClass|null $extra
-     * @return Paginator
+     *
+     * @var string
      */
-    public function GetList($params = null, $extra = null)
-    {
-        if ($params) {
-            //todo if neccessary
-        }
+    protected $baseAlias = 'administrator';
 
-        $dql = "SELECT 
-                    partial administrator.{
+    /**
+     *
+     * @var string 
+     */
+    protected $baseEntity = 'Core\Entity\Administrator';
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
                         id,
                         firstName,
                         lastName,
-                        personalCode
+                        personalCode,
+                        email,
+                        trashed
                     }
-                FROM Core\Entity\Administrator administrator
-                WHERE administrator.trashed IS NULL";
-
-        return new Paginator(
-                new DoctrinePaginator(
-                new ORMPaginator(
-                $this->getEntityManager()
-                        ->createQuery($dql)
-                        ->setHydrationMode(Query::HYDRATE_ARRAY)
-                )
-                )
-        );
+                FROM $this->baseEntity $this->baseAlias";
     }
 
     /**
      * 
-     * @param int $id
-     * @param bool|null $returnPartial
-     * @param stdClass|null $extra
+     * @param type $data
+     * @param type $returnPartial
      * @return type
      */
-    public function Get($id, $returnPartial = false, $extra = null)
+    private function defaultCreate($data, $returnPartial = false, $extra = null)
     {
-        if($returnPartial) {
-            //generate dql
-            $dql = "
-                    SELECT 
-                        partial administrator.{
-                            id,
-                            firstName,
-                            lastName,
-                            email,
-                            personalCode,
-                            trashed
-                        }
-                    FROM Core\Entity\Administrator administrator
-                    WHERE administrator.id = " . $id . "
-                ";
-            //return
-            $q = $this->getEntityManager()->createQuery($dql);
-//            print_r($q->getSQL());
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->find($id);
+        $entity = $this->validateEntity(
+                new Administrator($this->getEntityManager()), $data
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     */
+    private function studentCreate($data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function teacherCreate($data, $returnPartial = false, $extra = null)
+    {
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function administratorCreate($data, $returnPartial = false, $extra = null)
+    {
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
     /**
@@ -98,49 +117,88 @@ class AdministratorRepository extends EntityRepository implements CRUD
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
-     * @return Administrator|array
-     * @throws Exception
+     * @return mixed
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
-
-        $entity = new Administrator($this->getEntityManager());
-        $entity->hydrate($data);
-        
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
+        if (!$extra) {
+            return $this->defaultCreate($data, $returnPartial);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentCreate($data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherCreate($data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorCreate($data, $returnPartial, $extra);
         }
-        
-        $this->getEntityManager()->persist($entity);
-        
-        try {
-            
-            $this->getEntityManager()->flush($entity);
-            
-        } catch (Exception $exc) {
-            //this here does not work
-            throw new Exception(Json::encode($exc->getMessage(), true));
-            
-        }
+    }
 
-        if ($returnPartial) {
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        $entityValidated = $this->validateEntity(
+                $entity, $data
+        );
+        //IF required MANY TO MANY validate manually
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
+    }
 
-            $dql = "SELECT 
-                        partial administrator.{
-                            id,
-                            firstName,
-                            lastName,
-                            personalCode
-                        }
-                    FROM Core\Entity\Administrator administrator
-                    WHERE administrator.id = " . $entity->getId();
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
+    private function studentUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
 
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
-        }
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
 
-        return $entity;
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
 
     /**
@@ -149,54 +207,246 @@ class AdministratorRepository extends EntityRepository implements CRUD
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
-     * @return type
-     * @throws Exception
+     * @return mixed
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
         $entity = $this->find($id);
-        $entity->setEntityManager($this->getEntityManager());
-        $entity->hydrate($data);
-
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
         }
 
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        if (!$extra) {
+            return $this->defaultUpdate($entity, $data, $returnPartial);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentUpdate($entity, $data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherUpdate($entity, $data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
+        }
+    }
 
+    /**
+     * 
+     * @param type $entity
+     * @return type
+     */
+    private function defaultDelete($entity)
+    {
+        $id = $entity->getId();
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+        return $id;
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     */
+    private function studentDelete($entity, $extra = null)
+    {
+        return $this->defaultDelete($entity, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     */
+    private function teacherDelete($entity, $extra = null)
+    {
+        return $this->defaultDelete($entity, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     */
+    private function administratorDelete($entity, $extra = null)
+    {
+        return $this->defaultDelete($entity, $extra);
+    }
+
+    /**
+     * Delete only trashed entities
+     * 
+     * @param int $id
+     * @param stdClass|null $extra
+     * @return int
+     * @throws Exception
+     */
+    public function Delete($id, $extra = null)
+    {
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        } else if (!$entity->getTrashed()) {
+            throw new Exception("NOT_TRASHED");
+        }
+
+        if (!$extra) {
+            return $this->defaultDelete($entity);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentDelete($entity, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherDelete($entity, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorDelete($entity, $extra);
+        }
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function defaultGet($id, $returnPartial = false, $extra = null)
+    {
         if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial administrator.{
-                            id,
-                            firstName,
-                            lastName,
-                            personalCode,              
-                            email,
-                            trashed
-                        }
-                    FROM Core\Entity\Administrator administrator
-                    WHERE administrator.id = " . $id;
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
+            return $this->singlePartialById($id, $extra);
         }
-        return $entity;
+        return $this->find($id);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * 
+     * @return array
+     */
+    private function studentGet($entity, $returnPartial = false, $extra = null)
+    {
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function teacherGet($entity, $returnPartial = false, $extra = null)
+    {
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function administratorGet($entity, $returnPartial = false, $extra = null)
+    {
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
     /**
      * 
      * @param int $id
-     * @param type $extra
-     * @return int
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
      */
-    public function Delete($id, $extra = null)
+    public function Get($id, $returnPartial = false, $extra = null)
     {
-        $this->getEntityManager()->remove($this->find($id));
-        $this->getEntityManager()->flush();
-        return $id;
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        }
+
+        if (!$extra) {
+            return $this->defaultGet($id, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentGet($entity, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherGet($entity, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorGet($entity, $returnPartial, $extra);
+        }
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @param type $dqlRestriction
+     * @return type
+     */
+    private function defaultGetList($params = null, $extra = null, $dqlRestriction = null)
+    {
+        $dql = $this->dqlStart();
+        $dql .= $this->dqlWhere($params, $extra);
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
+        }
+        return $this->wrapPaginator($dql);
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return type
+     */
+    private function studentGetList($params = null, $extra = null)
+    {
+        return $this->defaultGetList($params, $extra);
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return type
+     */
+    private function teacherGetList($params = null, $extra = null)
+    {
+        return $this->defaultGetList($params, $extra);
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return type
+     */
+    private function administratorGetList($params = null, $extra = null)
+    {
+        return $this->defaultGetList($params, $extra);
+    }
+
+    /**
+     * 
+     * @param array $params
+     * @param stdClass|null $extra
+     * @return Paginator
+     */
+    public function GetList($params = null, $extra = null)
+    {
+        if (!$extra) {
+            return $this->defaultGetList($params, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentGetList($params, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherGetList($params, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorGetList($params, $extra);
+        }
     }
 
 }

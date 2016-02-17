@@ -23,7 +23,8 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Marten Kähr <marten@kahr.ee>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Marten Kähr <marten@kahr.ee>
  */
 class Administrator extends EntityValidation
 {
@@ -59,12 +60,12 @@ class Administrator extends EntityValidation
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $email;
-    
+
     /**
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      * 
-     * @ORM\Column(type="string", name="personalCode", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
     protected $personalCode;
 
@@ -137,7 +138,12 @@ class Administrator extends EntityValidation
         return $this->lastName;
     }
 
-    public function getCode()
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getPersonalCode()
     {
         return $this->personalCode;
     }
@@ -184,9 +190,15 @@ class Administrator extends EntityValidation
         return $this;
     }
 
-    public function setCode($code)
+    public function setEmail($email)
     {
-        $this->personalCode = $code;
+        $this->email = $email;
+        return $this;
+    }
+
+    public function setPersonalCode($personalCode)
+    {
+        $this->personalCode = $personalCode;
         return $this;
     }
 
