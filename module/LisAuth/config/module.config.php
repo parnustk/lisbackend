@@ -12,6 +12,8 @@ return [
     'controllers' => [
         'invokables' => [
             'LisAuth\Controller\RegisterStudent' => 'LisAuth\Controller\RegisterStudentController',
+            'LisAuth\Controller\RegisterTeacher' => 'LisAuth\Controller\RegisterTeacherController',
+            'LisAuth\Controller\RegisterAdministrator' => 'LisAuth\Controller\RegisterAdministratorController',
         ],
     ],
     'router' => [

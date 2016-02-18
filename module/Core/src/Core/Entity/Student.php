@@ -57,6 +57,7 @@ class Student extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
      * 
      * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
@@ -64,6 +65,8 @@ class Student extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"EmailAddress"})
      * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */

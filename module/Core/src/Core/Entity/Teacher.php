@@ -60,15 +60,18 @@ class Teacher extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
      * 
-     * @ORM\Column(type="encryptedstring", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
     protected $personalCode;
 
     /**
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"EmailAddress"})
      * 
-     * @ORM\Column(type="encryptedstring", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $email;
 

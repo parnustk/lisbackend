@@ -10,13 +10,13 @@
 
 namespace LisAuthTest\Controller;
 
-use LisAuth\Controller\RegisterStudentController;
+use LisAuth\Controller\RegisterAdministratorController;
 use LisAuthTest\UnitHelpers;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  */
-class RegisterStudentControllerTest extends UnitHelpers
+class RegisterAdministratorControllerTest extends UnitHelpers
 {
 
     /**
@@ -24,7 +24,7 @@ class RegisterStudentControllerTest extends UnitHelpers
      */
     protected function setUp()
     {
-        $this->controller = new RegisterStudentController();
+        $this->controller = new RegisterAdministratorController();
         parent::setUp();
     }
 
@@ -75,20 +75,20 @@ class RegisterStudentControllerTest extends UnitHelpers
         $this->assertEquals('NOT_FOUND', $result->message);
     }
 
-    public function testCreateNewStudentUser()
+    public function testCreateNewTeacherUser()
     {
-        $student = $this->CreateStudent();
-        
-        $email = uniqid().'@asd.com';
-        
+        $administrator = $this->CreateAdministrator();
+
+        $email = uniqid() . '@asd.com';
+
         $data = [
-            'personalCode' => $student->getPersonalCode(),
+            'personalCode' => $administrator->getPersonalCode(),
             'password' => 123456,
             'email' => $email,
         ];
-        
+
         $this->request->setMethod('post');
-        
+
         $this->request->getPost()->set("personalCode", $data['personalCode']);
         $this->request->getPost()->set("password", $data['password']);
         $this->request->getPost()->set("email", $data['email']);
@@ -103,35 +103,33 @@ class RegisterStudentControllerTest extends UnitHelpers
         $this->assertEquals($email, $result->email);
     }
 
-    public function testCreateAlreadyExistingStudentUser()
+    public function testCreateAlreadyExistingAdministratorUser()
     {
-        //start create existing studentuser
-       
-        $student = $this->CreateStudent();
-        
+        $administrator = $this->CreateAdministrator();
+
         $data = [
-            'personalCode' => $student->getPersonalCode(),
+            'personalCode' => $administrator->getPersonalCode(),
             'password' => 123456,
-            'email' => uniqid().'@asd.ee',
+            'email' => uniqid() . '@asd.ee',
         ];
-        
+
         $lisUser = $this
-                    ->em
-                    ->getRepository('Core\Entity\LisUser')
-                    ->Create($data);
-        
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
-        
+                ->em
+                ->getRepository('Core\Entity\LisUser')
+                ->Create($data);
+
+        $administrator->setLisUser($lisUser); //associate
+        $this->em->persist($administrator);
+        $this->em->flush($administrator);
+
         //now we have created studentuser, let's try to register
-        
+
         $this->request->setMethod('post');
-        
+
         $this->request->getPost()->set("personalCode", $data['personalCode']);
         $this->request->getPost()->set("password", $data['password']);
         $this->request->getPost()->set("email", $data['email']);
-        
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
@@ -141,21 +139,21 @@ class RegisterStudentControllerTest extends UnitHelpers
         $this->assertEquals(false, $result->success);
         $this->assertEquals('ALREADY_REGISTERED', $result->message);
     }
-    
-    public function testCreateIncorrectStudentUserIncorrectEmail()
+
+    public function testCreateIncorrectAdministratorUserIncorrectEmail()
     {
-        $student = $this->CreateStudent();
-        
-        $email = uniqid();//incorrect email
-        
+        $administrator = $this->CreateAdministrator();
+
+        $email = uniqid();
+
         $data = [
-            'personalCode' => $student->getPersonalCode(),
+            'personalCode' => $administrator->getPersonalCode(),
             'password' => 123456,
             'email' => $email,
         ];
-        
+
         $this->request->setMethod('post');
-        
+
         $this->request->getPost()->set("personalCode", $data['personalCode']);
         $this->request->getPost()->set("password", $data['password']);
         $this->request->getPost()->set("email", $data['email']);

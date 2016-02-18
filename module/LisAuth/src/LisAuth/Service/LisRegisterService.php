@@ -136,18 +136,22 @@ class LisRegisterService implements ServiceManagerAwareInterface
                             $this->_validatePersonalCode($data), $e
                     )
             );
+            
             $lisUser = $this->getEntityManager()
                     ->getRepository('Core\Entity\LisUser')
                     ->findOneBy(['email' => $data['email']]);
+            
             if (!$lisUser) {//user does not exist create one
                 $lisUser = $this
                         ->getEntityManager()
                         ->getRepository('Core\Entity\LisUser')
                         ->Create($data);
             }
+            
             $entity->setLisUser($lisUser)->setEmail($data['email']); //associate
             $this->getEntityManager()->persist($entity);
             $this->getEntityManager()->flush($entity);
+            
             return [
                 'success' => true,
                 'email' => $entity->getEmail(),

@@ -10,13 +10,13 @@
 
 namespace LisAuthTest\Controller;
 
-use LisAuth\Controller\RegisterStudentController;
+use LisAuth\Controller\RegisterTeacherController;
 use LisAuthTest\UnitHelpers;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  */
-class RegisterStudentControllerTest extends UnitHelpers
+class RegisterTeacherControllerTest extends UnitHelpers
 {
 
     /**
@@ -24,7 +24,7 @@ class RegisterStudentControllerTest extends UnitHelpers
      */
     protected function setUp()
     {
-        $this->controller = new RegisterStudentController();
+        $this->controller = new RegisterTeacherController();
         parent::setUp();
     }
 
@@ -75,14 +75,14 @@ class RegisterStudentControllerTest extends UnitHelpers
         $this->assertEquals('NOT_FOUND', $result->message);
     }
 
-    public function testCreateNewStudentUser()
+    public function testCreateNewTeacherUser()
     {
-        $student = $this->CreateStudent();
+        $teacher = $this->CreateTeacher();
         
         $email = uniqid().'@asd.com';
         
         $data = [
-            'personalCode' => $student->getPersonalCode(),
+            'personalCode' => $teacher->getPersonalCode(),
             'password' => 123456,
             'email' => $email,
         ];
@@ -103,14 +103,14 @@ class RegisterStudentControllerTest extends UnitHelpers
         $this->assertEquals($email, $result->email);
     }
 
-    public function testCreateAlreadyExistingStudentUser()
+    public function testCreateAlreadyExistingTeacherUser()
     {
-        //start create existing studentuser
+        //start create existing teacheruser
        
-        $student = $this->CreateStudent();
+        $teacher = $this->CreateTeacher();
         
         $data = [
-            'personalCode' => $student->getPersonalCode(),
+            'personalCode' => $teacher->getPersonalCode(),
             'password' => 123456,
             'email' => uniqid().'@asd.ee',
         ];
@@ -120,11 +120,11 @@ class RegisterStudentControllerTest extends UnitHelpers
                     ->getRepository('Core\Entity\LisUser')
                     ->Create($data);
         
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
+        $teacher->setLisUser($lisUser); //associate
+        $this->em->persist($teacher);
+        $this->em->flush($teacher);
         
-        //now we have created studentuser, let's try to register
+        //now we have created teacheruser, let's try to register
         
         $this->request->setMethod('post');
         
@@ -142,14 +142,14 @@ class RegisterStudentControllerTest extends UnitHelpers
         $this->assertEquals('ALREADY_REGISTERED', $result->message);
     }
     
-    public function testCreateIncorrectStudentUserIncorrectEmail()
+    public function testCreateIncorrectTeacherUserIncorrectEmail()
     {
-        $student = $this->CreateStudent();
+        $teacher = $this->CreateTeacher();
         
-        $email = uniqid();//incorrect email
+        $email = uniqid();
         
         $data = [
-            'personalCode' => $student->getPersonalCode(),
+            'personalCode' => $teacher->getPersonalCode(),
             'password' => 123456,
             'email' => $email,
         ];
