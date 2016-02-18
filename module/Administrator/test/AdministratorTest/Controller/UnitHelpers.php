@@ -470,7 +470,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $studentGroup = $this->CreateStudentGroup();
 
         return $repository->Create([
-                    'status' => uniqid() . ' Status for StudentInGroups',
+                    'status' => rand(0, 1),
                     'studentGroup' => $studentGroup->getId(),
                     'student' => $student->getId(),
         ]);

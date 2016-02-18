@@ -39,7 +39,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
-        $status = uniqid();
+        $status = rand(0, 1);
         $this->request->setMethod('post');
 
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
@@ -91,7 +91,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
      */
     public function testCreateNoStudent()
     {
-        $status = uniqid();
+        $status = rand(0, 1);
         $this->request->setMethod('post');
 
         $this->request->getPost()->set('studentGroup', $this->CreateStudentGroup()->getId());
@@ -111,7 +111,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
      */
     public function testCreateNoStudentGroup()
     {
-        $status = uniqid();
+        $status = rand(0, 1);
         $this->request->setMethod('post');
 
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
@@ -244,7 +244,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
 
-        $status = uniqid();
+        $status = rand(0, 1);
         $studentGroup = $this->CreateStudentGroup()->getId();
         $student = $this->CreateStudent()->getId();
 
@@ -278,7 +278,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
     {
         $this->request->setMethod('post');
 
-        $status = uniqid();
+        $status = rand(0, 1);
         $studentInGroups = $this->CreateStudentInGroups()->getId();
         $studentGroup = $this->CreateStudentGroup()->getId();
         $student = $this->CreateStudent()->getId();

@@ -61,9 +61,9 @@ class StudentInGroups extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false, options={"default":1})
      */
-    protected $status;
+    protected $status = 1;
 
     /**
      * @Annotation\Exclude()
