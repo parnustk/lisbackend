@@ -34,7 +34,7 @@ class StudentControllerTest extends UnitHelpers
         $firstName = 'studentFirstName' . uniqid();
         $lastName = 'studentLastName' . uniqid();
         $code = 'studentCode' . uniqid();
-        $email = 'studentEmail' . uniqid();
+        $email = 'studentEmail' . uniqid() . '@create.ee';
 //        $lisUser = 'studentLisUser' . uniqid();
 //        $absence = 'studentAbsence' . uniqid();
 //        $studentGrade = 'studentStudentGrade' . uniqid();
@@ -227,7 +227,7 @@ class StudentControllerTest extends UnitHelpers
             'firstName' => 'Updated',
             'lastName' => 'Updated',
             'personalCode' => uniqid(),
-            'email' => 'Updated',
+            'email' => 'Updated'.  uniqid() . '@mail.ee',
         ]));
 
         $result = $this->controller->dispatch($this->request);

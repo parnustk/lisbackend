@@ -41,7 +41,7 @@ class TeacherControllerTest extends UnitHelpers
         $this->request->getPost()->set("personalCode", uniqid());
         $this->request->getPost()->set("firstName", "Firstname");
         $this->request->getPost()->set("lastName", "Lastname");
-        $this->request->getPost()->set("email", "email");
+        $this->request->getPost()->set("email", uniqid() . '@create.ee');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
@@ -61,7 +61,7 @@ class TeacherControllerTest extends UnitHelpers
         $this->request->getPost()->set("personalCode", uniqid());
         $this->request->getPost()->set("firstName", "Firstname");
         $this->request->getPost()->set("lastName", "Lastname");
-        $this->request->getPost()->set("email", "email");
+        $this->request->getPost()->set("email", uniqid() . '@create.ee');
 
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());
