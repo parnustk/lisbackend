@@ -181,7 +181,7 @@ class TeacherControllerTest extends UnitHelpers
         //test it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\Teacher')
-                ->Get($idOld);
+                ->find($idOld);
 
         $this->assertEquals(null, $deleted);
     }
