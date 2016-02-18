@@ -83,7 +83,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->PrintOut($result, FALSE);
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, $result->success);
+        $this->assertEquals(true, $result->success);
     }
 
     /**
