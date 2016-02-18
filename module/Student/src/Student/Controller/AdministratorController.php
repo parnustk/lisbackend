@@ -46,7 +46,7 @@ class AdministratorController extends Base
      /**
      * <h2>GET student/administrator</h2>
      * <h3>URL Parameters</h3>
-     * <code>id(integer)</code>
+     * <code>id(integer)*</code>
      * 
      * @param int $id 
      * @return JsonModel
@@ -57,13 +57,16 @@ class AdministratorController extends Base
     }
     
      /**
-     * <h2>POST student/administrator</h2>
-     * <h3>Body</h3>
-     * <code>TODO</code>
-     * 
-     * @param array $data
-     * @return JsonModel
-     */
+      * <h2>POST student/administrator</h2>
+      * <h3>Body</h3>
+      * <code>firstName(string)*
+      * lastName(string)*
+      * code(string)*
+      * lisUser(integer)</code>
+      * 
+      * @param int $data
+      * @return JsonModel
+      */
     public function create($data)
     {
         return parent::notAllowed();
@@ -74,7 +77,10 @@ class AdministratorController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)</code>
      * <h3>Body</h3>
-     * <code>TODO</code>
+     * <code>firstName(string)*
+      * lastName(string)*
+      * code(string)*
+      * lisUser(integer)</code>
      * 
      * @param int $id
      * @return JsonModel
