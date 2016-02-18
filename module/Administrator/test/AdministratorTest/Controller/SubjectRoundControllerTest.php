@@ -191,8 +191,9 @@ class SubjectRoundControllerTest extends UnitHelpers
         //test if it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\SubjectRound')
-                ->Get($idOld);
+                ->find($idOld);
         $this->assertEquals(null, $deleted);
+        $this->PrintOut($result, false);
     }
     public function testGetList()
     {
