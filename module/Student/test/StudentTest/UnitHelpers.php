@@ -209,7 +209,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'firstName' => 'firstName' . uniqid(),
                     'lastName' => 'lastName' . uniqid(),
                     'personalCode' => 'code' . uniqid(),
-                    'email' => 'email' . uniqid()
+                    'email' => uniqid() . '@test.ee'
         ]);
     }
 
@@ -231,7 +231,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'firstName' => 'tFirstName' . uniqid(),
                     'lastName' => 'tLirstName' . uniqid(),
                     'personalCode' => uniqid(),
-                    'email' => uniqid() . '@asd.ee',
+                    'email' => uniqid() . '@asd.ee'
         ]);
     }
 
@@ -352,7 +352,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'firstName' => 'firstName' . uniqid(),
                     'lastName' => 'lastName' . uniqid(),
                     'personalCode' => 'code' . uniqid(),
-                    'email' => 'email' . uniqid()
+                    'email' => uniqid() . '@test.ee'
         ]);
     }
 
