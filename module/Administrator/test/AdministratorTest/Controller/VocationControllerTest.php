@@ -2,10 +2,10 @@
 
 /**
  * LIS development
- * 
+ *
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * @license   TODO
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
 namespace AdministratorTest\Controller;
@@ -14,7 +14,7 @@ use Administrator\Controller\VocationController;
 use Zend\Json\Json;
 
 /**
- * @author Juhan, Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com> , Sander Mets <sandermets0@gmail.com>
  */
 class VocationControllerTest extends UnitHelpers
 {
@@ -249,7 +249,7 @@ class VocationControllerTest extends UnitHelpers
         //test it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\Vocation')
-                ->Get($idOld);
+                ->find($idOld);
 
         $this->assertEquals(null, $deleted);
     }
