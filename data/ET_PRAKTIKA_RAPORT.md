@@ -1,6 +1,6 @@
 # Praktika aruanne
 
-#### (Arnold)Ettevõtte üldiseloomustus (nimi, aadress, kontaktandmed, ajalugu, peamine tegevusala, kõrvaltegevusalad, töötajate arv)
+####Ettevõtte üldiseloomustus (nimi, aadress, kontaktandmed, ajalugu, peamine tegevusala, kõrvaltegevusalad, töötajate arv)
 Nimi:Pärnu Saksa Tehnikahariduskeskus OÜ.
 Aadress:Jalaka 8, 80010 Pärnu.
 Kontaktandmed:
@@ -26,26 +26,28 @@ Kõrvaltegevusalad:
 
 Töötajate arv:7
 
-#### (Arnold)Ülevaade tarkvaraarenduse meeskonna igapäevatööst
+####Ülevaade tarkvaraarenduse meeskonna igapäevatööst
 Suhtlemise aluseks on rühma kaasaegse tarkvara arendamine.Töö on lihtne ja kõige produktiivsem,kui meeskond töötab koos,samas hoones või isegi samas kontoris.
 Isegi geograafiliselt eraldatud rühmade koostöö kulgeb väga hästi,headel kommunikatsiooni tingimustel,suhtlemisel teiste rühmaliikmetega.Koosolekud toimuvad videokonverentside kaudu,andmehoidla on saadaval
 internetis, grupi liikmed peavad rangelt järgima ajakava igapäevaseid ja iganädalasi kohtumisi.See sunnib isikuid kohanema vastavalt ajavoondite ja efektiivselt suhtlema teiste grupi
 liikmetega,samuti ka kasutada sidesüsteeme sellisel viisil,et oleks kergem kõigil rühma liikmetel.
 
 
-#### (Marten)Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
+####Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
 
 
 
-#### (Juhan)Töötamine vähemalt ühes tarkavaarenduse projekti meeskonnas tarkvaraarendajana.
+####Töötamine vähemalt ühes tarkavaarenduse projekti meeskonnas tarkvaraarendajana.
+Töötamine esimeses tarkvaraarenduse projektis on huvitav ja samal ajal keeruline asi,aga ta annab uusi teadmisi ja oskusi.Meeskonnas töötamine õpetab sind töötama korrektselt,leidma vigu ning lahendama neid.
 
 
-#### (Eleri)Koostöö kolleegide ja klientidega.
+####Koostöö kolleegide ja klientidega.
+Koostöö on oluline etapp tarkvaraarenduse protsessis,nii kui kolleegidega,kui ka klientidega.Koostöö teeb targemaks ja annab ideid,mis aitavad kogu rakenduse protsessi.
 
 
-#### (Sander)Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
+####Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
 
 
-#### (Arnold)Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
+####Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
 Süsteemianalüüs - infosüsteemi nõuete kogumine.
 Andmebaasi tabelite prototüüpimine.
