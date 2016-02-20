@@ -48,6 +48,51 @@ class AbsenceReasonRepository extends AbstractBaseRepository
     
     /**
      * 
+     * @return type
+     */
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    /**
+     * 
      * @param type $data
      * @param type $returnPartial
      * @return type
@@ -84,6 +129,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
      */
     private function teacherCreate($data, $returnPartial = false, $extra = null)
     {
+        //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
 
@@ -138,7 +184,6 @@ class AbsenceReasonRepository extends AbstractBaseRepository
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
-        //IF required MANY TO MANY validate manually
         return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
