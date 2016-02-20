@@ -10,6 +10,11 @@
 
 namespace Core\Controller;
 
+use Core\Entity\LisUser;
+use Zend\View\Model\JsonModel;
+use Zend\Json\Json;
+use Exception;
+
 /**
  * Application ACL resolves by this layer
  *
@@ -20,15 +25,21 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
 
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $lisRole = 'teacher';
-    
+
     /**
      *
-     * @var Core\Entity\LisUser|null
+     * @var LisUser|null
      */
     protected $lisUser = null;
+
+    /**
+     *
+     * @var Teacher|null
+     */
+    protected $lisPerson = null;
 
     /**
      * 
@@ -41,7 +52,7 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
 
     /**
      * 
-     * @return Core\Entity\LisUser|null
+     * @return LisUser|null
      */
     public function getLisUser()
     {
@@ -50,8 +61,17 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
 
     /**
      * 
+     * @return Teacher
+     */
+    public function getLisPerson()
+    {
+        return $this->lisPerson;
+    }
+
+    /**
+     * 
      * @param string $lisRole
-     * @return \Core\Controller\AbstractStudentBaseController
+     * @return \Core\Controller\AbstractTeacherBaseController
      */
     public function setLisRole($lisRole)
     {
@@ -61,13 +81,119 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
 
     /**
      * 
-     * @param \Core\Controller\Core\Entity\LisUser $lisUser
-     * @return \Core\Controller\AbstractStudentBaseController
+     * @param LisUser $lisUser
+     * @return \Core\Controller\AbstractTeacherBaseController
      */
-    public function setLisUser(Core\Entity\LisUser $lisUser)
+    public function setLisUser(\Core\Entity\LisUser $lisUser)
     {
         $this->lisUser = $lisUser;
         return $this;
+    }
+
+    /**
+     * 
+     * @param \Core\Entity\Student $lisPerson
+     * @return \Core\Controller\AbstractTeacherBaseController
+     */
+    public function setLisPerson(\Core\Entity\Teacher $lisPerson)
+    {
+        $this->lisPerson = $lisPerson;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return stdClass
+     */
+    protected function GetExtra()
+    {
+        return (object) [
+                    'lisRole' => $this->getLisRole(),
+                    'lisUser' => $this->getLisUser(),
+                    'lisPerson' => $this->getLisPerson(),
+        ];
+    }
+
+    /**
+     * GET
+     *
+     * @return JsonModel
+     */
+    public function getList()
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->GetList($this->GetParams(), $this->GetExtra())
+        );
+    }
+
+    /**
+     * GET
+     * 
+     * @param type $id
+     * @return JsonModel
+     */
+    public function get($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Get($id, $this->GetExtra())
+        );
+    }
+
+    /**
+     * POST
+     * 
+     * @param type $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+
+
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Create($data, $this->GetExtra())
+        );
+    }
+
+    /**
+     * PUT
+     * 
+     * @param type $id
+     * @param type $data
+     * @return JsonModel
+     */
+    public function update($id, $data)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Update($id, $data, $this->GetExtra())
+        );
+    }
+
+    /**
+     * DELETE
+     * 
+     * @param int $id
+     * @return JsonModel
+     */
+    public function delete($id)
+    {
+        return new JsonModel(
+                $this
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->Delete($id, $this->GetExtra())
+        );
     }
 
 }

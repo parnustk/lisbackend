@@ -63,7 +63,7 @@ abstract class AbstractStudentBaseController extends AbstractBaseController
      * 
      * @return Student
      */
-    public function getlisPerson()
+    public function getLisPerson()
     {
         return $this->lisPerson;
     }

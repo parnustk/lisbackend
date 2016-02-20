@@ -89,6 +89,75 @@ class AbsenceRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.student student
                 LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
+    
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
+    }
+    
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
+    }
 
     /**
      * 
@@ -129,7 +198,6 @@ class AbsenceRepository extends AbstractBaseRepository
 
     private function teacherCreate($data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -161,9 +229,9 @@ class AbsenceRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentCreate($data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherCreate($data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorCreate($data, $returnPartial, $extra);
         }
     }
 
@@ -212,9 +280,22 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
 
+    /**
+     * HAS SELF CREATED RESTRICTION
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
     private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //TODO
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
+        
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
@@ -252,9 +333,9 @@ class AbsenceRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentUpdate($entity, $data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherUpdate($entity, $data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
     }
 
@@ -285,9 +366,19 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultDelete($entity, $extra);
     }
 
+    /**
+     * HAS SELF CREATED RESTRICTION
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
     private function teacherDelete($entity, $extra = null)
     {
-        //TODO
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
+        
         return $this->defaultDelete($entity, $extra);
     }
 
@@ -320,9 +411,9 @@ class AbsenceRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentDelete($entity, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherDelete($entity, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorDelete($entity, $extra);
         }
     }
 
@@ -351,9 +442,15 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
-        //TODO
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
@@ -383,9 +480,9 @@ class AbsenceRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorGet($entity, $returnPartial, $extra);
         }
     }
 
@@ -409,7 +506,8 @@ class AbsenceRepository extends AbstractBaseRepository
     
     private function teacherGetList($params = null, $extra = null)
     {
-        //TODO
+        $dqlRestriction = null;
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
     
     private function administratorGetList($params = null, $extra = null)
@@ -430,9 +528,9 @@ class AbsenceRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentGetList($params, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherGetList($params, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorGetList($params, $extra);
         }
     }
 
