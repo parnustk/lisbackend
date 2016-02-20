@@ -84,11 +84,18 @@ abstract class AbstractBaseRepository extends EntityRepository
      */
     protected function singlePartialById($id, $extra = null, $hydrateMethod = Query::HYDRATE_ARRAY)
     {
-        if (!!$extra) {
-            //todo if needed. probably role based approach
-            //student can only update rows created by him/herself
-        }
         $dql = $this->dqlStart();
+
+        if (!!$extra) {
+            if ($extra->lisRole === 'student') {
+                $dql = $this->dqlStudentStart();
+            } else if ($extra->lisRole === 'teacher') {
+                $dql = $this->dqlTeacherStart();
+            } else if ($extra->lisRole === 'administrator') {
+                $dql = $this->dqlAdministratorStart();
+            }
+        }
+
         $dql .= " WHERE $this->baseAlias.id = :id";
         $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
         $q->setParameter('id', $id, Type::INTEGER);
