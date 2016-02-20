@@ -487,7 +487,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     protected function CreateStudentUser(\Core\Entity\Student $student, $data = null)
     {
         $d = $data;
-        
+
         if (!$d) {//if $data was not given
             $d = [
                 'personalCode' => $student->getPersonalCode(),
@@ -495,7 +495,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                 'email' => uniqid() . '@asd.ee',
             ];
         }
-        
+
         $lisUser = $this
                 ->em
                 ->getRepository('Core\Entity\LisUser')
@@ -504,7 +504,71 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $student->setLisUser($lisUser); //associate
         $this->em->persist($student);
         $this->em->flush($student);
-        
+
+        return $lisUser;
+    }
+
+    /**
+     * Creates lisUser and associates to given Teacher
+     * 
+     * @param \Core\Entity\Teacher $teacher
+     * @param array|null $data
+     * 
+     * @return \Core\Entity\LisUser
+     */
+    protected function CreateTeacherUser(\Core\Entity\Teacher $teacher, $data = null)
+    {
+        $d = $data;
+
+        if (!$d) {//if $data was not given
+            $d = [
+                'personalCode' => $teacher->getPersonalCode(),
+                'password' => uniqid(),
+                'email' => uniqid() . '@asd.ee',
+            ];
+        }
+
+        $lisUser = $this
+                ->em
+                ->getRepository('Core\Entity\LisUser')
+                ->Create($d);
+
+        $teacher->setLisUser($lisUser); //associate
+        $this->em->persist($teacher);
+        $this->em->flush($teacher);
+
+        return $lisUser;
+    }
+
+    /**
+     * Creates lisUser and associates to given Administrator
+     * 
+     * @param \Core\Entity\Administrator $administrator
+     * @param array|null $data
+     * 
+     * @return \Core\Entity\LisUser
+     */
+    protected function CreateAdministratorUser(\Core\Entity\Administrator $administrator, $data = null)
+    {
+        $d = $data;
+
+        if (!$d) {//if $data was not given
+            $d = [
+                'personalCode' => $administrator->getPersonalCode(),
+                'password' => uniqid(),
+                'email' => uniqid() . '@asd.ee',
+            ];
+        }
+
+        $lisUser = $this
+                ->em
+                ->getRepository('Core\Entity\LisUser')
+                ->Create($d);
+
+        $administrator->setLisUser($lisUser); //associate
+        $this->em->persist($administrator);
+        $this->em->flush($administrator);
+
         return $lisUser;
     }
 
