@@ -26,13 +26,89 @@ use Doctrine\ORM\Query;
  */
 class StudentRepository extends EntityRepository implements CRUD
 {
+    /**
+     *
+     * @var string
+     */
+    protected $baseAlias = 'student';
+
+    /**
+     *
+     * @var string 
+     */
+    protected $baseEntity = 'Core\Entity\Student';
 
     /**
      * 
-     * @param array $data
+     * @return string
+     */
+    protected function dqlStart()
+    {
+        return "SELECT 
+                        partial $this->baseAlias.{
+                            id,
+                            firstName,
+                            lastName,
+                            personalCode,
+                            email,
+                            trashed
+                        }
+                    FROM $this->baseEntity $this->baseAlias
+                    WHERE student.id = " . $entity->getId() . "" ;
+    }
+    
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                        partial $this->baseAlias.{
+                            id,
+                            firstName,
+                            lastName,
+                            personalCode,
+                            email,
+                            trashed
+                        }
+                    FROM $this->baseEntity $this->baseAlias
+                    WHERE student.id = " . $entity->getId() . "" ;
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                        partial $this->baseAlias.{
+                            id,
+                            firstName,
+                            lastName,
+                            personalCode,
+                            email,
+                            trashed
+                        }
+                    FROM $this->baseEntity $this->baseAlias
+                    WHERE student.id = " . $entity->getId() . "" ;
+    }
+    
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                        partial $this->baseAlias.{
+                            id,
+                            firstName,
+                            lastName,
+                            personalCode,
+                            email,
+                            trashed
+                        }
+                    FROM $this->baseEntity $this->baseAlias
+                    WHERE student.id = " . $entity->getId() . "" ;
+    }
+    
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
      * @throws Exception
      */
-    public function Create($data, $returnPartial = false, $extra = null)
+    public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
         $entity = new Student($this->getEntityManager());
         $entity->hydrate($data);
@@ -54,8 +130,7 @@ class StudentRepository extends EntityRepository implements CRUD
 
         if ($returnPartial) {
 
-            $dql = "
-                    SELECT 
+            $dql = "SELECT 
                         partial student.{
                             id,
                             firstName,
@@ -82,7 +157,7 @@ class StudentRepository extends EntityRepository implements CRUD
      * @param stdClass|null $extra
      * @return type
      */
-    public function Get($id, $returnPartial = false, $extra = null)
+    public function defaultGet($id, $returnPartial = false, $extra = null)
     {
         if($returnPartial) {
             //generate dql
