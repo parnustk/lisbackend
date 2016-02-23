@@ -1,13 +1,13 @@
 <?php
 
-/**Licence of Learning Info System (LIS)
- * Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+/**
+ * Licence of Learning Info System (LIS)
  * 
- * You may use LIS for free, but you MAY NOT sell it without permission.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
- * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
+
 namespace Student\Controller;
 
 use Zend\View\Model\JsonModel;
@@ -19,12 +19,20 @@ use Core\Controller\AbstractStudentBaseController as Base;
  * YES getList - OWN RELATED
  * YES get - OWN RELATED
  *
- * @author Marten Kähr
+ * @author Marten Kähr <marten@kahr.ee>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class StudentController extends Base
 {
+
     /**
-     * <h2>GET student</h2>
+     *
+     * @var type 
+     */
+    protected $service = 'student_service';
+
+    /**
+     * <h2>GET student/student</h2>
      * <h3>URL Parameters</h3>
      * <code>limit(integer)
      * page(integer)</code>
@@ -33,39 +41,62 @@ class StudentController extends Base
      */
     public function getList()
     {
-        
-        
-        if (true)
-        {
-            return parent::getList();
-        }
-        else 
-        {
-            return parent::notAllowed();
-        }
+        return parent::getList();
     }
+
     /**
-     * GET
+     * <h2>GET student/student/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
     {
-        
-        
-        if (true)
-        {
-            return parent::get($id);
-        }
-        else 
-        {
-            return parent::notAllowed();
-        }
+        return parent::get($id);
     }
-    
-    
-    public function create($id) { return parent::notAllowed(); }
-    public function update($id, $data) { return parent::notAllowed(); }
-    public function delete($id) { return parent::notAllowed(); }
+
+    /**
+     * <h2>POST student/student</h2>
+     * <h3>Body</h3>
+     * <code>name(string)*</code>
+     * 
+     * @param array $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+        return parent::notAllowed();
+    }
+
+    /**
+     * <h2>PUT student/student/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * <h3>Body</h3>
+     * <code>name(string)*</code>
+     * 
+     * @param type $id
+     * @param type $data
+     * @return JsonModel
+     */
+    public function update($id, $data)
+    {
+        return parent::notAllowed();
+    }
+
+    /**
+     * <h2>DELETE student/student/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
+     * 
+     * @param int $id
+     * @return JsonModel
+     */
+    public function delete($id)
+    {
+        return parent::notAllowed();
+    }
+
 }

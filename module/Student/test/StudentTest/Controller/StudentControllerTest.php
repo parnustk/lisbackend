@@ -20,6 +20,7 @@ chdir(__DIR__);
  * Description of StudentControllerTest
  * 
  * @author Marten Kähr <marten@kahr.ee>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class StudentControllerTest extends UnitHelpers
 {
@@ -34,108 +35,163 @@ class StudentControllerTest extends UnitHelpers
     }
 
     /**
-     * should be fail with error code 405
+     * NOT ALLOWED
      */
     public function testCreate()
-    {   
-        //start create studentuser
-        $student = $this->CreateStudent();
-        $lisUser = $this->CreateStudentUser($student);
-        
-        //now we have created studentuser set to current controller
-        $this->controller->setLisUser($lisUser);
-        $this->controller->setLisPerson($student);
-        
-        //test data
-        $firstName = 'studentFirstName' . uniqid();
-        $lastName = 'studentLastName' . uniqid();
-        $code = 'studentCode' . uniqid();
-        $email = 'studentEmail' . uniqid();
-
-        $this->request->getPost()->set('firstName', $firstName);
-        $this->request->getPost()->set('lastName', $lastName);
-        $this->request->getPost()->set('personalCode', $code);
-        $this->request->getPost()->set('email', $email);
-
+    {
+        $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
         $this->PrintOut($result, false);
 
         $this->assertEquals(405, $response->getStatusCode());
-        $this->assertNotEquals(1, $result->success);
     }
 
-//    /**
-//     * should fail with error code 405
-//     */
-//    public function testUpdate()
-//    {
-//     
-//    }
-//
-//    /**
-//     * should be NOT successful
-//     */
-//    public function testUpdateNotSelfRelated()
-//    {
-//     
-//    }
-//
-//    /**
-//     * should be NOT successful
-//     */
-//    public function testUpdateNotSelfCreated()
-//    {
-//
-//    }
-//
-//    /**
-//     * should be successful
-//     */
-//    public function testDeleteTrashedAndSelfCreated()
-//    {
-//     
-//    }
-//
-//    /**
-//     * should be NOT successful
-//     */
-//    public function testDeleteTrashedNotSelfCreated()
-//    {
-//     
-//    }
-//
-//    /**
-//     * should be successful
-//     */
-//    public function testGetSelfRelated()
-//    {
-//     
-//    }
-//
-//    /**
-//     * should be NOT successful
-//     */
-//    public function testGetNotSelfRelated()
-//    {
-//     
-//    }
-//
-//    /**
-//     * should be NOT successful
-//     */
-//    public function testGetListSelfRelated()
-//    {
-//     
-//    }
-//
-//    /**
-//     * should be NOT successful
-//     */
-//    public function testGetListNotSelfRelated()
-//    {
-//     
-//    }
+    /**
+     * NOT ALLOWED
+     */
+    public function testUpdate()
+    {
+        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        $this->request->setMethod('put');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(405, $response->getStatusCode());
+    }
+
+    /**
+     * NOT ALLOWED
+     */
+    public function testDelete()
+    {
+        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        $this->request->setMethod('delete');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(405, $response->getStatusCode());
+    }
+
+    /**
+     * should be successful
+     */
+    public function testGetSelfRelated()
+    {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $student->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //do assertions
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertEquals($student->getId(), $result->data['id']);
+    }
+
+    /**
+     * should be NOT successful
+     */
+    public function testGetNotSelfRelated()
+    {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
+        $this->request->setMethod('get');
+        
+        $anotherStudent = $this->CreateStudent();
+        $this->routeMatch->setParam('id', $anotherStudent->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //do assertions
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('SELF_RELATED_RESTRICTION', $result->message);
+    }
+
+    /**
+     * should be NOT successful
+     */
+    public function testGetListSelfRelated()
+    {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //do assertions
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        //where can be only one student with this id, we just created only one above
+        $this->assertEquals(1, count($result->data));
+        $this->assertEquals($student->getId(), $result->data[0]['id']);
+    }
+
+    /**
+     * should be NOT successful
+     */
+    public function testGetListNotSelfRelatedSelfBeenTrashed()
+    {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
+        $student->setTrashed(1);
+        $this->em->persist($student);
+        $this->em->flush($student);
+
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //do assertions
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        //where can be only one student with this id, we just created one above and trashed it
+        $this->assertEquals(0, count($result->data));
+    }
 
 }

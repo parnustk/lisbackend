@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * 
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity\Repository;
@@ -18,6 +18,7 @@ use Exception;
  * 
  * @author Marten Kähr <marten@kahr.ee>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class StudentRepository extends AbstractBaseRepository
 {
@@ -52,6 +53,10 @@ class StudentRepository extends AbstractBaseRepository
                     FROM $this->baseEntity $this->baseAlias";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -80,6 +85,10 @@ class StudentRepository extends AbstractBaseRepository
                     FROM $this->baseEntity $this->baseAlias";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -94,7 +103,7 @@ class StudentRepository extends AbstractBaseRepository
                     FROM $this->baseEntity $this->baseAlias";
     }
 
-     /**
+    /**
      * 
      * @param type $data
      * @param type $returnPartial
@@ -116,7 +125,6 @@ class StudentRepository extends AbstractBaseRepository
      */
     private function studentCreate($data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -165,70 +173,74 @@ class StudentRepository extends AbstractBaseRepository
 
     /**
      * 
-     * @param int $id
-     * @param bool|null $returnPartial
-     * @param stdClass|null $extra
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
      * @return type
      */
-    public function defaultGet($id, $returnPartial = false, $extra = null)
+    private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        if ($returnPartial) {
-            //generate dql
-            $dql = "
-                    SELECT 
-                        partial student.{
-                            id,
-                            firstName,
-                            lastName,
-                            personalCode,              
-                            email,
-                            trashed
-                        }
-                    FROM Core\Entity\Student student
-                    WHERE student.id = " . $id . "
-                ";
-            //return
-            $q = $this->getEntityManager()->createQuery($dql);
-//            print_r($q->getSQL());
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
-        }
-        return $this->find($id);
+        $entityValidated = $this->validateEntity(
+                $entity, $data
+        );
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
     /**
      * 
-     * @param array|null $params
-     * @param stdClass|null $extra
-     * @return Paginator
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     * @throws Exception
      */
-    public function GetList($params = null, $extra = null)
+    private function studentUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        if ($params) {
-            //todo if neccessary
-        }
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
 
-        $dql = "SELECT 
-                    partial student.{
-                        id,
-                        firstName,
-                        lastName,
-                        personalCode,              
-                        email,
-                        trashed
-                    }
-                FROM Core\Entity\Student student
-                WHERE student.trashed IS NULL";
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
 
-        return new Paginator(
-                new DoctrinePaginator(
-                new ORMPaginator(
-                $this->getEntityManager()
-                        ->createQuery($dql)
-                        ->setHydrationMode(Query::HYDRATE_ARRAY)
-                )
-                )
-        );
+    /**
+     * HAS SELF CREATED RESTRICTION
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
+    private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //TODO
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //TODO
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
 
     /**
@@ -237,54 +249,259 @@ class StudentRepository extends AbstractBaseRepository
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
-     * @return type
-     * @throws Exception
+     * @return mixed
      */
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
         $entity = $this->find($id);
-        $entity->setEntityManager($this->getEntityManager());
-        $entity->hydrate($data);
 
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
         }
 
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        if (!$extra) {
+            return $this->defaultUpdate($entity, $data, $returnPartial);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentUpdate($entity, $data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherUpdate($entity, $data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
+        }
+    }
 
+    /**
+     * 
+     * @param type $entity
+     * @return type
+     */
+    private function defaultDelete($entity)
+    {
+        $id = $entity->getId();
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+        return $id;
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     */
+    private function studentDelete($entity, $extra = null)
+    {
+        return $this->defaultDelete($entity, $extra);
+    }
+
+    /**
+     * HAS SELF CREATED RESTRICTION
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
+    private function teacherDelete($entity, $extra = null)
+    {
+        return $this->defaultDelete($entity, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     */
+    private function administratorDelete($entity, $extra = null)
+    {
+        //TODO
+        return $this->defaultDelete($entity, $extra);
+    }
+
+    /**
+     * Delete only trashed entities
+     * 
+     * @param int $id
+     * @param stdClass|null $extra
+     * @return int
+     * @throws Exception
+     */
+    public function Delete($id, $extra = null)
+    {
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        } else if (!$entity->getTrashed()) {
+            throw new Exception("NOT_TRASHED");
+        }
+
+        if (!$extra) {
+            return $this->defaultDelete($entity);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentDelete($entity, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherDelete($entity, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorDelete($entity, $extra);
+        }
+    }
+
+    /**
+     * 
+     * @param int|string $id
+     * @param bool $returnPartial
+     * @param stdClass $extra
+     * @return mixed
+     */
+    private function defaultGet($id, $returnPartial = false, $extra = null)
+    {
         if ($returnPartial) {
-            $dql = "
-                    SELECT 
-                        partial student.{
-                            id,
-                            firstName,
-                            lastName,
-                            personalCode,              
-                            email,
-                            trashed
-                        }
-                    FROM Core\Entity\Student student
-                    WHERE student.id = " . $id;
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
+            return $this->singlePartialById($id, $extra);
         }
-        return $entity;
+        return $this->find($id);
+    }
+
+    /**
+     * SELF RELATED RESTRICTION
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * 
+     * @return array
+     */
+    private function studentGet($entity, $returnPartial = false, $extra = null)
+    {
+        if ($entity->getId() !== $extra->lisPerson->getId()) {
+            throw new Exception('SELF_RELATED_RESTRICTION');
+        }
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function teacherGet($entity, $returnPartial = false, $extra = null)
+    {
+        //TODO
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function administratorGet($entity, $returnPartial = false, $extra = null)
+    {
+        //TODO
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
     /**
      * 
      * @param int $id
-     * @param type $extra
-     * @return int
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
      */
-    public function Delete($id, $extra = null)
+    public function Get($id, $returnPartial = false, $extra = null)
     {
-        $this->getEntityManager()->remove($this->find($id));
-        $this->getEntityManager()->flush();
-        return $id;
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        }
+
+        if (!$extra) {
+            return $this->defaultGet($id, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentGet($entity, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherGet($entity, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorGet($entity, $returnPartial, $extra);
+        }
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @param type $dqlRestriction
+     * @return type
+     */
+    private function defaultGetList($params = null, $extra = null, $dqlRestriction = null)
+    {
+        $dql = $this->dqlStart();
+        $dql .= $this->dqlWhere($params, $extra);
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
+        }
+        return $this->wrapPaginator($dql);
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return type
+     */
+    private function studentGetList($params = null, $extra = null)
+    {
+        $id = $extra->lisPerson->getId();
+        $dqlRestriction = " AND $this->baseAlias.id=$id";
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return type
+     */
+    private function teacherGetList($params = null, $extra = null)
+    {
+        $dqlRestriction = null;
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     */
+    private function administratorGetList($params = null, $extra = null)
+    {
+        //TODO
+        $dqlRestriction = null;
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
+    }
+
+    /**
+     * 
+     * @param array $params
+     * @param stdClass|null $extra
+     * @return Paginator
+     */
+    public function GetList($params = null, $extra = null)
+    {
+        if (!$extra) {
+            return $this->defaultGetList($params, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentGetList($params, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherGetList($params, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorGetList($params, $extra);
+        }
     }
 
 }

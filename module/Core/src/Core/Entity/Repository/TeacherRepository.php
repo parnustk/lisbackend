@@ -1,26 +1,22 @@
 <?php
 
 /**
- * LIS development
- *
+ * Licence of Learning Info System (LIS)
+ * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
- * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Core\Entity\Teacher;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
 use Exception;
-use Zend\Json\Json;
-use Doctrine\ORM\Query;
 
 /**
- * @author Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * 
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author  Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class TeacherRepository extends AbstractBaseRepository
 {
@@ -37,6 +33,10 @@ class TeacherRepository extends AbstractBaseRepository
      */
     protected $baseEntity = 'Core\Entity\Teacher';
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlStart()
     {
         $dql = "SELECT
@@ -49,6 +49,66 @@ class TeacherRepository extends AbstractBaseRepository
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStudentStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                     firstName,
+                     lastName,
+                     personalCode,
+                     email,
+                     trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        
+        return $dql;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlTeacherStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                     firstName,
+                     lastName,
+                     personalCode,
+                     email,
+                     trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        
+        return $dql;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlAdministratorStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                     firstName,
+                     lastName,
+                     personalCode,
+                     email,
+                     trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        
         return $dql;
     }
 

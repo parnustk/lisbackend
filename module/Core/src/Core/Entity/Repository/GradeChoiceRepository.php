@@ -1,12 +1,13 @@
 <?php
 
 /**
- * LIS development
- *
+ * Licence of Learning Info System (LIS)
+ * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 LIS dev team
- * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
+
 namespace Core\Entity\Repository;
 
 use Core\Entity\GradeChoice;
@@ -17,24 +18,24 @@ use Exception;
  */
 class GradeChoiceRepository extends AbstractBaseRepository
 {
+    /*
+     * @var string
+     */
+
+    protected $baseAlias = 'gradechoice';
 
     /*
      * @var string
      */
-    protected $baseAlias = 'gradechoice';
-    
-    /*
-     * @var string
-     */
     protected $baseEntity = 'Core\Entity\GradeChoice';
-    
+
     /*
      * @return string
      */
-    
+
     protected function dqlStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -42,9 +43,8 @@ class GradeChoiceRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     /**
      * 
      * @param array $data
@@ -56,10 +56,10 @@ class GradeChoiceRepository extends AbstractBaseRepository
     {
         $entity = $this->validateEntity(
                 new GradeChoice($this->getEntityManager()), $data
-                );
-                return $this->singleResult($entity, $returnPartial, $extra);
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param type $data
@@ -125,7 +125,6 @@ class GradeChoiceRepository extends AbstractBaseRepository
         }
     }
 
-
     /**
      * 
      * @param int|string $id
@@ -140,8 +139,8 @@ class GradeChoiceRepository extends AbstractBaseRepository
                 $entity, $data
         );
         return $this->singleResult($entityValidated, $returnPartial, $extra);
-    } 
-    
+    }
+
     /**
      * 
      * @param type $entity
@@ -219,7 +218,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
             return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -383,13 +382,13 @@ class GradeChoiceRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -400,7 +399,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -411,7 +410,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -422,7 +421,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params

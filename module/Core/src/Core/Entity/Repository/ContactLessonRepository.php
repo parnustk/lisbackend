@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LIS development
- *
+ * Licence of Learning Info System (LIS)
+ * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
- * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity\Repository;
@@ -88,15 +88,15 @@ class ContactLessonRepository extends AbstractBaseRepository
         $entity = $this->validateEntity(
                 $entity, $data
         );
-        
 
-        
+
+
 //        print_r($entity->getArrayCopy());die('HERE');
         //IF required MANY TO MANY validate manually
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
-     /**
+
+    /**
      * 
      * @param type $data
      * @param type $returnPartial
@@ -160,7 +160,7 @@ class ContactLessonRepository extends AbstractBaseRepository
             return $this->administratorCreate($data, $returnPartial, $extra);
         }
     }
-    
+
     private function validateSubjectRound($data)
     {
         if (!key_exists('subjectRound', $data)) {
@@ -216,7 +216,7 @@ class ContactLessonRepository extends AbstractBaseRepository
 
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -458,13 +458,13 @@ class ContactLessonRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -475,7 +475,7 @@ class ContactLessonRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -486,7 +486,7 @@ class ContactLessonRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -497,7 +497,7 @@ class ContactLessonRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params

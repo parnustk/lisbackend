@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LIS development
- *
+ * Licence of Learning Info System (LIS)
+ * 
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
- * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity\Repository;
@@ -14,36 +14,6 @@ use Core\Entity\Absence;
 use Exception;
 
 /**
- * ## Absence RESOURCE
- * 
- * description(string)*
- * absenceReason(integer)
- * student(integer)*
- * contactLesson(integer)*
- * 
- * ####  Administrator ROLE
- * 
- * YES getList
- * YES get
- * YES create
- * YES update   - OWN CREATED
- * YES delete   - OWN CREATED
- * 
- * ####  Teacher ROLE
- * 
- * YES getList
- * YES get
- * YES create
- * YES update  - OWN CREATED ?PERIOD
- * YES delete  - OWN CREATED ?PERIOD
- * 
- * ####  Student ROLE
- * 
- * YES getList - OWN RELATED
- * YES get     - OWN RELATED
- * YES create  - OWN RELATED
- * YES update  - OWN CREATED RELATED ?PERIOD
- * YES delete  - OWN CREATED RELATED ?PERIOD
  * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * @author Sander Mets <sandermets0@gmail.com>
@@ -90,6 +60,10 @@ class AbsenceRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
+    /**
+     * 
+     * @return string
+     */
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -113,6 +87,10 @@ class AbsenceRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
+    /**
+     * 
+     * @return string
+     */
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -136,6 +114,10 @@ class AbsenceRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
+    /**
+     * 
+     * @return string
+     */
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -196,6 +178,13 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function teacherCreate($data, $returnPartial = false, $extra = null)
     {
         //set user related data
@@ -205,6 +194,13 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function administratorCreate($data, $returnPartial = false, $extra = null)
     {
         //TODO
@@ -303,6 +299,14 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
         //TODO
@@ -382,6 +386,12 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultDelete($entity, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $extra
+     * @return type
+     */
     private function administratorDelete($entity, $extra = null)
     {
         //TODO
@@ -417,6 +427,13 @@ class AbsenceRepository extends AbstractBaseRepository
         }
     }
 
+    /**
+     * 
+     * @param int|string $id
+     * @param bool $returnPartial
+     * @param stdClass $extra
+     * @return mixed
+     */
     private function defaultGet($id, $returnPartial = false, $extra = null)
     {
         if ($returnPartial) {
@@ -454,6 +471,13 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function administratorGet($entity, $returnPartial = false, $extra = null)
     {
         //TODO
@@ -486,6 +510,13 @@ class AbsenceRepository extends AbstractBaseRepository
         }
     }
 
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @param type $dqlRestriction
+     * @return type
+     */
     private function defaultGetList($params = null, $extra = null, $dqlRestriction = null)
     {
         $dql = $this->dqlStart();
@@ -497,6 +528,12 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->wrapPaginator($dql);
     }
     
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return type
+     */
     private function studentGetList($params = null, $extra = null)
     {
         $id = $extra->lisPerson->getId();
@@ -504,15 +541,28 @@ class AbsenceRepository extends AbstractBaseRepository
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
     
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return type
+     */
     private function teacherGetList($params = null, $extra = null)
     {
         $dqlRestriction = null;
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
     
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     */
     private function administratorGetList($params = null, $extra = null)
     {
         //TODO
+        $dqlRestriction = null;
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
     
     /**
