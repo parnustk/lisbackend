@@ -78,31 +78,135 @@ class StudentInGroupsControllerTest extends UnitHelpers
     /**
      * TEST rows get read
      */
-//    public function testGetList()
-//    {
-//        $this->CreateS;
-//        $this->request->setMethod('get');
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->PrintOut($result, true);
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        $this->assertGreaterThan(0, count($result->data));
-//    }
-//
-//    /**
-//     * TEST row gets read by id
-//     */
-//    public function testGet()
-//    {
-//        $this->request->setMethod('get');
-//        $this->routeMatch->setParam('id', $this->CreateStudentGroup()->getId());
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->PrintOut($result, FALSE);
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//    }
+    public function testGetListSelfRelated()
+    {
+        //create studentuser
+        $studentGroup = $this->CreateStudentGroup();
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+        
+        
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
+        //create student in groups with this specific student
+        $this->CreateStudentInGroups([
+                    'status' => rand(0, 1),
+                    'studentGroup' => $studentGroup->getId(),
+                    'student' => $student->getId(),
+        ]);
+        
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, FALSE);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
+    }
+    
+    public function testGetListNotSelfRelated()
+    {
+        $studentGroup = $this->CreateStudentGroup();
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+        
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
+        $studentInGroups = $this->CreateStudentInGroups([
+                    'status' => rand(0, 1),
+                    'studentGroup' => $studentGroup->getId(),
+                    'student' => $student->getId(),
+        ]);
+        $this->em->persist($studentInGroups);
+        $this->em->flush($studentInGroups);
+        
+        $anotherStudent = $this->CreateStudent();
+        $anotherLisUser = $this->CreateStudentUser($anotherStudent);
+
+        $this->controller->setLisUser($anotherLisUser);
+        $this->controller->setLisPerson($anotherStudent);
+        
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, FALSE);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        $this->assertEquals(0, count($result->data));
+    }
+
+    /**
+     * TEST row gets read by id
+     */
+    public function testGetSelfRelated()
+    {
+        //create studentuser
+        $studentGroup = $this->CreateStudentGroup();
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+        
+        
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
+        //create student in groups with this specific student
+        $studentInGroups = $this->CreateStudentInGroups([
+                    'status' => rand(0, 1),
+                    'studentGroup' => $studentGroup->getId(),
+                    'student' => $student->getId(),
+        ]);
+        
+        $this->em->persist($studentInGroups);
+        $this->em->flush($studentInGroups);
+        
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $studentInGroups->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, FALSE);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+    }
+    
+    public function testGetNotSelfRelated()
+    {
+        //create studentuser
+        $studentGroup = $this->CreateStudentGroup();
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+        
+        
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
+        //create student in groups with this specific student
+        $anotherStudent = $this->CreateStudent();
+        $studentInGroups = $this->CreateStudentInGroups([
+                    'status' => rand(0, 1),
+                    'studentGroup' => $studentGroup->getId(),
+                    'student' => $anotherStudent->getId(),
+                    'createdBy'=> $lisUser->getId()
+        ]);
+        $this->em->persist($studentInGroups);
+        $this->em->flush($studentInGroups);
+        
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $studentInGroups->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, FALSE);
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('SELF_RELATED_RESTRICTION', $result->message);
+    }
 //
 //    /**
 //     * TEST rows get read by limit and page params
@@ -129,43 +233,14 @@ class StudentInGroupsControllerTest extends UnitHelpers
 //
 //    public function testGetTrashedList()
 //   {
-////prepare one StudentGroup with trashed flag set up
-//        $entity = $this->CreateStudentGroup();
-//        $entity->setTrashed(1);
-//        $this->em->persist($entity);
-//        $this->em->flush($entity); //save to db with trashed 1
-//        $where = [
-//            'trashed' => 1,
-//            'id' => $entity->getId()
-//        ];
-//        $whereJSON = Json::encode($where);
-//        $whereURL = urlencode($whereJSON);
-//        $whereURLPart = "where=$whereURL";
-//        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
-//
-//        $params = [];
-//        parse_str($q, $params);
-//        foreach ($params as $key => $value) {
-//            $this->request->getQuery()->set($key, $value);
-//        }
-//
-//        $this->request->setMethod('get');
-//
+//        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+//        $this->request->setMethod('delete');
 //        $result = $this->controller->dispatch($this->request);
 //        $response = $this->controller->getResponse();
 //
-//        $this->PrintOut($result, false);
+//        $this->PrintOut($result, FALSE);
 //
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//
-//        //limit is set to 1
-//        $this->assertEquals(1, count($result->data));
-//
-//        //assert all results have trashed not null
-//        foreach ($result->data as $value) {
-//            $this->assertEquals(1, $value['trashed']);
-//        }
+//        $this->assertEquals(405, $response->getStatusCode());
 //    }
 
 }
