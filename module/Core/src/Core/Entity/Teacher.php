@@ -14,8 +14,6 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
@@ -30,7 +28,9 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Teacher extends EntityValidation
 {
@@ -61,19 +61,19 @@ class Teacher extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * 
-     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
-     */
-    protected $personalCode;
-
-    /**
-     * @Annotation\Required({"required":"true"})
-     * @Annotation\Filter({"name":"StringTrim"})
      * @Annotation\Validator({"name":"EmailAddress"})
      * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $email;
+
+    /**
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * 
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
+     */
+    protected $personalCode;
 
     /**
      * @Annotation\Exclude()

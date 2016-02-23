@@ -53,9 +53,11 @@ class Administrator extends EntityValidation
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $lastName;
-    
+
     /**
      * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"EmailAddress"})
      * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */

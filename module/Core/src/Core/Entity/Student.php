@@ -58,19 +58,19 @@ class Student extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * 
-     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
-     */
-    protected $personalCode;
-
-    /**
-     * @Annotation\Required({"required":"true"})
-     * @Annotation\Filter({"name":"StringTrim"})
      * @Annotation\Validator({"name":"EmailAddress"})
      * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $email;
+
+    /**
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"StringTrim"})
+     * 
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
+     */
+    protected $personalCode;
 
     /**
      * @Annotation\Exclude()
