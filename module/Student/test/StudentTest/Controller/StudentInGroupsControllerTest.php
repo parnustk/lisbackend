@@ -1,17 +1,16 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis dev team
- * @license   https://opensource.org/licenses/MIT MIT License
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace StudentTest\Controller;
 
 use Student\Controller\StudentInGroupsController;
-use Zend\Json\Json;
 use StudentTest\UnitHelpers;
 
 /**
@@ -102,7 +101,9 @@ class StudentInGroupsControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->assertGreaterThan(0, count($result->data));
+        //can be exactly one
+        $this->assertEquals(1, count($result->data));
+        $this->assertEquals($student->getId(), $result->data[0]['student']['id']);
     }
     
     public function testGetListNotSelfRelated()
@@ -135,7 +136,6 @@ class StudentInGroupsControllerTest extends UnitHelpers
         
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
         $this->assertEquals(0, count($result->data));
     }
 
@@ -172,6 +172,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
         
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+        $this->assertEquals($student->getId(), $result->data['student']['id']);
     }
     
     public function testGetNotSelfRelated()
@@ -207,40 +208,5 @@ class StudentInGroupsControllerTest extends UnitHelpers
         $this->assertEquals(false, $result->success);
         $this->assertEquals('SELF_RELATED_RESTRICTION', $result->message);
     }
-//
-//    /**
-//     * TEST rows get read by limit and page params
-//     */
-//    public function testGetListWithPaginaton()
-//    {
-//       $this->request->setMethod('get');
-//
-//        //set record limit to 1
-//        $q = 'page=1&limit=1'; //imitate real param format
-//        $params = [];
-//        parse_str($q, $params);
-//        foreach ($params as $key => $value) {
-//            $this->request->getQuery()->set($key, $value);
-//        }
-//
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-//        $this->assertLessThanOrEqual(1, count($result->data));
-//        $this->PrintOut($result, false);
-//    }
-//
-//    public function testGetTrashedList()
-//   {
-//        $this->routeMatch->setParam('id', 1); //fake id no need for real id
-//        $this->request->setMethod('delete');
-//        $result = $this->controller->dispatch($this->request);
-//        $response = $this->controller->getResponse();
-//
-//        $this->PrintOut($result, FALSE);
-//
-//        $this->assertEquals(405, $response->getStatusCode());
-//    }
 
 }

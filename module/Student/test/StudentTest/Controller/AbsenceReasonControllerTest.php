@@ -107,7 +107,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
-       $this->request->setMethod('get');
+        $this->request->setMethod('get');
 
         //set record limit to 1
         $q = 'page=1&limit=1'; //imitate real param format
@@ -126,7 +126,7 @@ class AbsenceReasonControllerTest extends UnitHelpers
     }
 
     public function testGetTrashedList()
-   {
+    {
 //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateAbsenceReason();
         $entity->setTrashed(1);

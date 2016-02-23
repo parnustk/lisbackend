@@ -343,8 +343,8 @@
 
 ####  Student ROLE
 
-* YES getList
-* YES get
+* YES getList SELF RELATED
+* YES get SELF RELATED
 
 ## Subject RESOURCE
 
