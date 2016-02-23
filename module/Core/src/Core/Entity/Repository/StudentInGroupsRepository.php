@@ -2,10 +2,10 @@
 
 /**
  * LIS development
- * 
+ *
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * @license   TODO
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
 namespace Core\Entity\Repository;
@@ -78,6 +78,63 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
+    
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        status,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial studentGroup.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.student student
+                JOIN $this->baseAlias.studentGroup studentGroup";
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        status,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial studentGroup.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.student student
+                JOIN $this->baseAlias.studentGroup studentGroup";
+    }
+    
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        status,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial studentGroup.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.student student
+                JOIN $this->baseAlias.studentGroup studentGroup";        
+    }
 
     /**
      * 
@@ -101,13 +158,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      */
     private function studentCreate($data, $returnPartial = false, $extra = null)
     {
-        if (!key_exists('student', $data)) {
-            $data['student'] = $extra->lisPerson->getId();
-        }
-        if ($data['student'] !== $extra->lisPerson->getId()) {
-            throw new Exception('SELF_CREATED_RESTRICTION');
-        }
-
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -149,9 +199,9 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentCreate($data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherCreate($data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorCreate($data, $returnPartial, $extra);
         }
     }
 
@@ -182,15 +232,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      */
     private function studentUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-
-        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
-            throw new Exception('SELF_CREATED_RESTRICTION');
-        }
-
-        if ($data['student'] !== $extra->lisPerson->getId()) {
-            throw new Exception('SELF_RELATED_RESTRICTION');
-        }
-
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
@@ -200,7 +241,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
 
     private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
@@ -238,9 +278,9 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentUpdate($entity, $data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherUpdate($entity, $data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
     }
 
@@ -264,15 +304,11 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      */
     private function studentDelete($entity, $extra = null)
     {
-        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
-            throw new Exception('SELF_CREATED_RESTRICTION');
-        }
         return $this->defaultDelete($entity, $extra);
     }
 
     private function teacherDelete($entity, $extra = null)
     {
-        //TODO
         return $this->defaultDelete($entity, $extra);
     }
 
@@ -305,9 +341,9 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentDelete($entity, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherDelete($entity, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorDelete($entity, $extra);
         }
     }
 
@@ -320,6 +356,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
     }
 
     /**
+     * SELF RELATED RESTRICTION
      * 
      * @param type $entity
      * @param type $returnPartial
@@ -334,10 +371,16 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         }
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
-
+    
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
-        //TODO
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
@@ -367,9 +410,9 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorGet($entity, $returnPartial, $extra);
         }
     }
 
@@ -393,7 +436,8 @@ class StudentInGroupsRepository extends AbstractBaseRepository
 
     private function teacherGetList($params = null, $extra = null)
     {
-        //TODO
+        $dqlRestriction = null;
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
     private function administratorGetList($params = null, $extra = null)
@@ -414,9 +458,9 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentGetList($params, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherGetList($params, $extra);
         } else if ($extra->lisRole === 'administrator') {
-            //TODO
+            return $this->administratorGetList($params, $extra);
         }
     }
 

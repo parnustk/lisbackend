@@ -11,21 +11,17 @@
 namespace Core\Entity\Repository;
 
 use Core\Entity\Student;
-use Doctrine\ORM\EntityRepository;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
 use Exception;
-use Zend\Json\Json;
-use Doctrine\ORM\Query;
 
 /**
  * Description of StudentRepository
  * 
- * @author Marten Kähr <marten@kahr.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Marten Kähr <marten@kahr.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class StudentRepository extends EntityRepository implements CRUD
+class StudentRepository extends AbstractBaseRepository
 {
+
     /**
      *
      * @var string
@@ -53,10 +49,9 @@ class StudentRepository extends EntityRepository implements CRUD
                             email,
                             trashed
                         }
-                    FROM $this->baseEntity $this->baseAlias
-                    WHERE student.id = " . $entity->getId() . "" ;
+                    FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -68,10 +63,9 @@ class StudentRepository extends EntityRepository implements CRUD
                             email,
                             trashed
                         }
-                    FROM $this->baseEntity $this->baseAlias
-                    WHERE student.id = " . $entity->getId() . "" ;
+                    FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -83,10 +77,9 @@ class StudentRepository extends EntityRepository implements CRUD
                             email,
                             trashed
                         }
-                    FROM $this->baseEntity $this->baseAlias
-                    WHERE student.id = " . $entity->getId() . "" ;
+                    FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -98,58 +91,78 @@ class StudentRepository extends EntityRepository implements CRUD
                             email,
                             trashed
                         }
-                    FROM $this->baseEntity $this->baseAlias
-                    WHERE student.id = " . $entity->getId() . "" ;
+                    FROM $this->baseEntity $this->baseAlias";
     }
-    
+
+     /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @return type
+     */
+    private function defaultCreate($data, $returnPartial = false, $extra = null)
+    {
+        $entity = $this->validateEntity(
+                new Student($this->getEntityManager()), $data
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
+    }
+
     /**
      * 
      * @param type $data
      * @param type $returnPartial
-     * @throws Exception
+     * @param type $extra
      */
-    public function defaultCreate($data, $returnPartial = false, $extra = null)
+    private function studentCreate($data, $returnPartial = false, $extra = null)
     {
-        $entity = new Student($this->getEntityManager());
-        $entity->hydrate($data);
+        //TODO
+        //set user related data
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
 
-        if (!$entity->validate()) {
-            throw new Exception(Json::encode($entity->getMessages(), true));
-        }
-
-        $this->getEntityManager()->persist($entity);
-        try {
-            
-            $this->getEntityManager()->flush($entity);
-            
-        } catch (Exception $exc) {
-            //this here does not work
-            throw new Exception(Json::encode($exc->getMessage(), true));
-            
-        }
-
-        if ($returnPartial) {
-
-            $dql = "SELECT 
-                        partial student.{
-                            id,
-                            firstName,
-                            lastName,
-                            personalCode,
-                            email,
-                            trashed
-                        }
-                    FROM Core\Entity\Student student
-                    WHERE student.id = " . $entity->getId() . "
-                ";
-
-            $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-            $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
-            return $r;
-        }
-
-        return $entity;
+        return $this->defaultCreate($data, $returnPartial, $extra);
     }
+
+    private function teacherCreate($data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
+    }
+
+    private function administratorCreate($data, $returnPartial = false, $extra = null)
+    {
+        //TODO
+        //set user related data
+        $data['createdBy'] = $extra->lisUser->getId();
+        $data['updatedBy'] = null;
+
+        return $this->defaultCreate($data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
+     */
+    public function Create($data, $returnPartial = false, $extra = null)
+    {
+        if (!$extra) {
+            return $this->defaultCreate($data, $returnPartial);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentCreate($data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherCreate($data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorCreate($data, $returnPartial, $extra);
+        }
+    }
+
     /**
      * 
      * @param int $id
@@ -159,7 +172,7 @@ class StudentRepository extends EntityRepository implements CRUD
      */
     public function defaultGet($id, $returnPartial = false, $extra = null)
     {
-        if($returnPartial) {
+        if ($returnPartial) {
             //generate dql
             $dql = "
                     SELECT 
@@ -260,6 +273,7 @@ class StudentRepository extends EntityRepository implements CRUD
         }
         return $entity;
     }
+
     /**
      * 
      * @param int $id

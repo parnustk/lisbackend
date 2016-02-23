@@ -53,15 +53,6 @@ class Administrator extends EntityValidation
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $lastName;
-
-    /**
-     * @Annotation\Required({"required":"true"})
-     * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"EmailAddress"})
-     * 
-     * @ORM\Column(type="string", name="personalCode", unique=true, length=255, nullable=false)
-     */
-    protected $personalCode;
     
     /**
      * @Annotation\Required({"required":"true"})
@@ -155,11 +146,6 @@ class Administrator extends EntityValidation
     public function getPersonalCode()
     {
         return $this->personalCode;
-    }
-    
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     public function getLisUser()
