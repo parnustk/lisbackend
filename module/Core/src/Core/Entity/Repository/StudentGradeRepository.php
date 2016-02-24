@@ -88,6 +88,135 @@ class StudentGradeRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.module module
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        notes,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial gradeChoice.{
+                        id
+                        },
+                    partial teacher.{
+                        id
+                        },
+                    partial independentWork.{
+                        id
+                        },
+                    partial module.{
+                        id
+                        },
+                    partial subjectRound.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.student student
+                JOIN $this->baseAlias.gradeChoice gradeChoice
+                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.contactLesson contactlesson
+                LEFT JOIN $this->baseAlias.independentWork independentWork
+                LEFT JOIN $this->baseAlias.module module
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        notes,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial gradeChoice.{
+                        id
+                        },
+                    partial teacher.{
+                        id
+                        },
+                    partial independentWork.{
+                        id
+                        },
+                    partial module.{
+                        id
+                        },
+                    partial subjectRound.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.student student
+                JOIN $this->baseAlias.gradeChoice gradeChoice
+                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.contactLesson contactlesson
+                LEFT JOIN $this->baseAlias.independentWork independentWork
+                LEFT JOIN $this->baseAlias.module module
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        notes,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial gradeChoice.{
+                        id
+                        },
+                    partial teacher.{
+                        id
+                        },
+                    partial independentWork.{
+                        id
+                        },
+                    partial module.{
+                        id
+                        },
+                    partial subjectRound.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.student student
+                JOIN $this->baseAlias.gradeChoice gradeChoice
+                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.contactLesson contactlesson
+                LEFT JOIN $this->baseAlias.independentWork independentWork
+                LEFT JOIN $this->baseAlias.module module
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
 
     /**
      * 
