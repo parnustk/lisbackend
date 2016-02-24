@@ -56,8 +56,77 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
-                JOIN $this->baseAlias.studentGroup studentGroup";
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
+      protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
+    
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
+
 
     /**
      * 
@@ -335,6 +404,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
+        if ($entity->getTeacher()->getId() !== $extra->lisPerson->getId()) {
+            throw new Exception('SELF_RELATED_RESTRICTION');
+        }
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
@@ -411,7 +483,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function teacherGetList($params = null, $extra = null)
     {
-        return $this->defaultGetList($params, $extra);
+        $id = $extra->lisPerson->getId();
+        $dqlRestriction = " AND $this->baseAlias.teacher=$id";
+       return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
     /**

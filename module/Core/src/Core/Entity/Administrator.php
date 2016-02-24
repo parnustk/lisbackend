@@ -69,14 +69,7 @@ class Administrator extends EntityValidation
      * 
      * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
-    protected $personalCode;
-
-    /**
-     * @Annotation\Exclude()
-     * 
-     * @ORM\OneToOne(targetEntity="LisUser", inversedBy="administrator")
-     * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id", nullable=true, unique=true)
-     */
+    
     protected $lisUser;
 
     /**
@@ -138,11 +131,6 @@ class Administrator extends EntityValidation
     public function getLastName()
     {
         return $this->lastName;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     public function getPersonalCode()
