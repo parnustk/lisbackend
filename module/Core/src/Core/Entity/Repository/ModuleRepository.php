@@ -66,6 +66,10 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.gradingType gradingType";
     }
     
+    /**
+     * 
+     * @return string
+     */
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -91,6 +95,10 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.gradingType gradingType";
     }
     
+    /**
+     * 
+     * @return string
+     */
      protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -116,6 +124,10 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.gradingType gradingType";
     }
     
+    /**
+     * 
+     * @return string
+     */
      protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -141,6 +153,11 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.gradingType gradingType";
     }
 
+    /**
+     * 
+     * @param type $data
+     * @throws Exception
+     */
     private function validateVocation($data)
     {
         if (!key_exists('vocation', $data)) {
