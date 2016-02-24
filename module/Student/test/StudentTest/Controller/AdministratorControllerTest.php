@@ -77,13 +77,25 @@ class AdministratorTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
         $this->request->setMethod('get');
-        $this->routeMatch->setParam('id', $this->CreateAdministrator()->getId());
+        $id = $this->CreateAdministrator()->getId();
+        $this->routeMatch->setParam('id', $id);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
         $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+        $this->assertEquals($id, $result->data['id']);
                 
     }
     
@@ -92,6 +104,14 @@ class AdministratorTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
         $this->CreateAdministrator();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -109,6 +129,14 @@ class AdministratorTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -121,14 +149,24 @@ class AdministratorTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        
+        $this->PrintOut($result, false);
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        $this->PrintOut($result, false);
     }
 
     public function testGetTrashedList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
 //prepare one Administrator with trashed flag set up
         $entity = $this->CreateAdministrator();
         $entity->setTrashed(1);
@@ -157,15 +195,6 @@ class AdministratorTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-
-        //limit is set to 1
-//        $this->assertEquals(1, count($result->data));
-
-        //assert all results have trashed not null
-//        foreach ($result->data as $value) {
-//            $this->assertEquals(1, $value['trashed']);
-//        }
     }
 
 }

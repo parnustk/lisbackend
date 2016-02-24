@@ -37,9 +37,9 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(405, $response->getStatusCode());
     }
 
@@ -52,9 +52,9 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('put');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(405, $response->getStatusCode());
     }
 
@@ -67,9 +67,9 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('delete');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(405, $response->getStatusCode());
     }
 
@@ -78,15 +78,23 @@ class VocationControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->CreateVocation();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertGreaterThan(0, count($result->data));
     }
 
@@ -95,13 +103,21 @@ class VocationControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateVocation()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
@@ -111,6 +127,14 @@ class VocationControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -123,7 +147,7 @@ class VocationControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -133,6 +157,13 @@ class VocationControllerTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
 
         //prepare one Vocation with trashed flag set up
         $entity = $this->CreateVocation();

@@ -15,7 +15,9 @@ use Exception;
 use Zend\Json\Json;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * 
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ContactLessonRepository extends AbstractBaseRepository
 {
@@ -194,17 +196,14 @@ class ContactLessonRepository extends AbstractBaseRepository
         $subjectRound = $this->getEntityManager()
                 ->getRepository('Core\Entity\SubjectRound')
                 ->find($data['subjectRound']);
+        
         unset($data['subjectRound']);
         $entity->setSubjectRound($subjectRound);
-        $entity = $this->validateEntity(
+        $entityValidated = $this->validateEntity(
                 $entity, $data
         );
-
-
-
-//        print_r($entity->getArrayCopy());die('HERE');
-        //IF required MANY TO MANY validate manually
-        return $this->singleResult($entity, $returnPartial, $extra);
+        
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
     /**

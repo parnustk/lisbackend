@@ -58,53 +58,12 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.subject subject
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
-      protected function dqlStudentStart()
-    {
-        return "SELECT 
-                    partial $this->baseAlias.{
-                        id,
-                        description,
-                        trashed
-                    },
-                    partial student.{
-                        id
-                        },
-                    partial contactlesson.{
-                        id
-                        },
-                    partial absenceReason.{
-                        id
-                        }
-                FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
-                JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
-    }
-    
-    protected function dqlTeacherStart()
-    {
-        return "SELECT 
-                    partial $this->baseAlias.{
-                        id,
-                        description,
-                        trashed
-                    },
-                    partial student.{
-                        id
-                        },
-                    partial contactlesson.{
-                        id
-                        },
-                    partial absenceReason.{
-                        id
-                        }
-                FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
-                JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
-    }
-    
-    protected function dqlAdministratorStart()
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStudentStart()
     {
         return "SELECT 
                     partial $this->baseAlias.{
@@ -127,6 +86,55 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
 
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        description,
+                        trashed
+                    },
+                    partial student.{
+                        id
+                        },
+                    partial contactlesson.{
+                        id
+                        },
+                    partial absenceReason.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+    }
 
     /**
      * 
@@ -485,7 +493,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
     {
         $id = $extra->lisPerson->getId();
         $dqlRestriction = " AND $this->baseAlias.teacher=$id";
-       return $this->defaultGetList($params, $extra, $dqlRestriction);
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
     /**

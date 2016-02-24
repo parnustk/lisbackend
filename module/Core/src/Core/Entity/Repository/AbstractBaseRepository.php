@@ -27,6 +27,13 @@ use Zend\Json\Json;
 abstract class AbstractBaseRepository extends EntityRepository
 {
 
+    protected function roleCheck($extra = null)
+    {
+//        if (!(isset($extra) && property_exists($extra, 'lisRole') )) {
+//            throw new Exception("NO_USER");
+//        }
+    }
+
     /**
      * 
      * @param array $params
@@ -35,6 +42,7 @@ abstract class AbstractBaseRepository extends EntityRepository
      */
     protected function dqlWhere($params, $extra = null)
     {
+        $this->roleCheck($extra);
         $dql = '';
 
         if (!!$params['where']) {//if where is not null
@@ -84,6 +92,7 @@ abstract class AbstractBaseRepository extends EntityRepository
      */
     protected function singlePartialById($id, $extra = null, $hydrateMethod = Query::HYDRATE_ARRAY)
     {
+        $this->roleCheck($extra);
         $dql = $this->dqlStart();
 
         if (!!$extra) {
@@ -128,6 +137,13 @@ abstract class AbstractBaseRepository extends EntityRepository
         $this->getEntityManager()->flush($entity);
     }
 
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     protected function singleResult($entity, $returnPartial = false, $extra = null)
     {
         $this->saveEntity($entity);

@@ -7,32 +7,33 @@
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
+
 namespace StudentTest\Controller;
 
 use Student\Controller\IndependentWorkController;
 use Zend\Json\Json;
 use StudentTest\UnitHelpers;
+
 /**
- *Restrictions for student role:
+ * Restrictions for student role:
  * 
  * YES getList
  * YES get
  * 
  * @author Alar Aasa <alar@alaraasa.ee>
  */
-
 class IndependentWorkControllerTest extends UnitHelpers
 {
+
     /**
      * REST access setup
      */
-    
     protected function setUp()
     {
         $this->controller = new IndependentWorkController();
         parent::setUp();
     }
-    
+
     /**
      * NOT ALLOWED
      */
@@ -41,11 +42,11 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
         $this->assertEquals(405, $response->getStatusCode());
     }
-    
+
     /**
      * NOT ALLOWED
      */
@@ -55,13 +56,13 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->request->setMethod('put');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(405, $response->getStatusCode());
     }
-    
-     /**
+
+    /**
      * NOT ALLOWED
      */
     public function testDelete()
@@ -70,16 +71,24 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->request->setMethod('delete');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
         $this->assertEquals(405, $response->getStatusCode());
     }
-    
+
     /**
      * TEST row gets read by id
      */
     public function testGet()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateIndependentWork()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -87,15 +96,21 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-                
     }
-    
-   
-        /*
-     * TEST rows get read
+
+    /**
+     * 
      */
     public function testGetList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->CreateIndependentWork();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -105,12 +120,20 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
     }
-    
+
     /**
      * TEST rows get read by limit and page params
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -128,9 +151,17 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->assertLessThanOrEqual(1, count($result->data));
         $this->PrintOut($result, false);
     }
-    
- public function testGetTrashedList()
+
+    public function testGetTrashedList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
 //prepare one Administrator with trashed flag set up
         $entity = $this->CreateIndependentWork();
         $entity->setTrashed(1);
@@ -159,15 +190,6 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertEquals(1, $result->success);
-
-        //limit is set to 1
-//        $this->assertEquals(1, count($result->data));
-
-        //assert all results have trashed not null
-//        foreach ($result->data as $value) {
-//            $this->assertEquals(1, $value['trashed']);
-//        }
     }
-   
+
 }

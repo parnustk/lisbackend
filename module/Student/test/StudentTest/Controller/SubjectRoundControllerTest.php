@@ -78,6 +78,14 @@ class SubjectRoundControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->CreateSubjectRound();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -93,6 +101,14 @@ class SubjectRoundControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateSubjectRound()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -107,7 +123,15 @@ class SubjectRoundControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
-       $this->request->setMethod('get');
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
+        $this->request->setMethod('get');
 
         //set record limit to 1
         $q = 'page=1&limit=1'; //imitate real param format
@@ -126,8 +150,16 @@ class SubjectRoundControllerTest extends UnitHelpers
     }
 
     public function testGetTrashedList()
-   {
-//prepare one SubjectRound with trashed flag set up
+    {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
+        //prepare one SubjectRound with trashed flag set up
         $entity = $this->CreateSubjectRound();
         $entity->setTrashed(1);
         $this->em->persist($entity);
@@ -167,5 +199,3 @@ class SubjectRoundControllerTest extends UnitHelpers
     }
 
 }
-
-

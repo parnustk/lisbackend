@@ -11,7 +11,6 @@
 namespace Core\Entity\Repository;
 
 use Core\Entity\Administrator;
-//use Zend\Paginator\Paginator;
 use Exception;
 
 /**
@@ -40,6 +39,60 @@ class AdministratorRepository extends AbstractBaseRepository
      * @return string
      */
     protected function dqlStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        firstName,
+                        lastName,
+                        personalCode,
+                        email,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+
+    /**
+     * No personalCode for student
+     * 
+     * @return string
+     */
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        firstName,
+                        lastName,
+                        email,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+
+    /**
+     * No personalCode for teacher
+     * 
+     * @return string
+     */
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        firstName,
+                        lastName,
+                        email,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlAdministratorStart()
     {
         return "SELECT 
                     partial $this->baseAlias.{
