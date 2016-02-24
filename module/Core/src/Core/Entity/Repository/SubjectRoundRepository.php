@@ -56,7 +56,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
-                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+                JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**
@@ -68,22 +68,21 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        description,
                         trashed
                     },
-                    partial student.{
-                        id
-                        },
-                    partial contactlesson.{
-                        id
-                        },
-                    partial absenceReason.{
-                        id
-                        }
+                    partial subject.{
+                            id
+                    },
+                    partial studentGroup.{
+                            id
+                    },
+                    partial teacher.{
+                            id
+                    }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
-                JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subject subject
+                JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     protected function dqlTeacherStart()
@@ -91,22 +90,21 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        description,
                         trashed
                     },
-                    partial student.{
-                        id
-                        },
-                    partial contactlesson.{
-                        id
-                        },
-                    partial absenceReason.{
-                        id
-                        }
+                    partial subject.{
+                            id
+                    },
+                    partial studentGroup.{
+                            id
+                    },
+                    partial teacher.{
+                            id
+                    }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
-                JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subject subject
+                JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**
@@ -118,22 +116,21 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        description,
                         trashed
                     },
-                    partial student.{
-                        id
-                        },
-                    partial contactlesson.{
-                        id
-                        },
-                    partial absenceReason.{
-                        id
-                        }
+                    partial subject.{
+                            id
+                    },
+                    partial studentGroup.{
+                            id
+                    },
+                    partial teacher.{
+                            id
+                    }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
-                JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subject subject
+                JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**

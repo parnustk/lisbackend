@@ -78,7 +78,6 @@ class TeacherControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
-        /*
         //create user
         $student = $this->CreateStudent();
         $lisUser = $this->CreateStudentUser($student);
@@ -86,8 +85,6 @@ class TeacherControllerTest extends UnitHelpers
         //now we have created studentuser set to current controller
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
-         * 
-         */
 
         $this->CreateAbsenceReason();
         $this->request->setMethod('get');

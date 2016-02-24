@@ -27,11 +27,19 @@ use Zend\Json\Json;
 abstract class AbstractBaseRepository extends EntityRepository
 {
 
+    /**
+     * Can be used later for demand 
+     * @param type $extra
+     * @throws Exception
+     */
     protected function roleCheck($extra = null)
     {
-//        if (!(isset($extra) && property_exists($extra, 'lisRole') )) {
-//            throw new Exception("NO_USER");
-//        }
+        if (!(isset($extra) && property_exists($extra, 'lisRole') && property_exists($extra, 'lisUser'))) {
+            throw new Exception("NO_ROLE");
+        }
+        if (!$extra->lisUser instanceof \Core\Entity\LisUser) {
+            throw new Exception("NO_USER");
+        }
     }
 
     /**

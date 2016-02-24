@@ -64,6 +64,14 @@ class ContactLessonTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
         $this->CreateContactLesson();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);

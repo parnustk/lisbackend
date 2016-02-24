@@ -86,8 +86,10 @@ class AdministratorTest extends UnitHelpers
         $this->controller->setLisPerson($student);
         
         $this->request->setMethod('get');
+        
         $id = $this->CreateAdministrator()->getId();
         $this->routeMatch->setParam('id', $id);
+        
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         
@@ -167,7 +169,7 @@ class AdministratorTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
         
-//prepare one Administrator with trashed flag set up
+        //prepare one Administrator with trashed flag set up
         $entity = $this->CreateAdministrator();
         $entity->setTrashed(1);
         $this->em->persist($entity);
