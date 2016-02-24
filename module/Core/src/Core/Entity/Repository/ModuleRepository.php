@@ -65,7 +65,7 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.moduleType moduleType 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
-    
+
     /**
      * 
      * @return string
@@ -94,12 +94,12 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.moduleType moduleType 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
-    
+
     /**
      * 
      * @return string
      */
-     protected function dqlTeacherStart()
+    protected function dqlTeacherStart()
     {
         return "SELECT 
                     partial $this->baseAlias.{
@@ -123,12 +123,12 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.moduleType moduleType 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
-    
+
     /**
      * 
      * @return string
      */
-     protected function dqlAdministratorStart()
+    protected function dqlAdministratorStart()
     {
         return "SELECT 
                     partial $this->baseAlias.{

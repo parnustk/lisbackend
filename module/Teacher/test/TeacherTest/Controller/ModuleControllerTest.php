@@ -78,6 +78,14 @@ class ModuleControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         //create one to get first
         $this->CreateModule();
         $this->request->setMethod('get');
@@ -89,11 +97,19 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertGreaterThan(0, count($result->data));
     }
 
-    /**
-     * TEST row gets read by id
-     */
+//    /**
+//     * TEST row gets read by id
+//     */
     public function testGet()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateModule()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -108,6 +124,14 @@ class ModuleControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -128,6 +152,13 @@ class ModuleControllerTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
 
         //prepare one Module with trashed flag set up
         $entity = $this->CreateModule();
