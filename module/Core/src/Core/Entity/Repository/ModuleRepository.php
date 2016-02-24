@@ -65,6 +65,81 @@ class ModuleRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.moduleType moduleType 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
+    
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        duration,
+                        code,
+                        trashed
+                    },
+                    partial vocation.{
+                    id
+                    },
+                    partial moduleType.{
+                    id
+                    },
+                    partial gradingType.{
+                    id
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.vocation vocation
+                    JOIN $this->baseAlias.moduleType moduleType 
+                    JOIN $this->baseAlias.gradingType gradingType";
+    }
+    
+     protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        duration,
+                        code,
+                        trashed
+                    },
+                    partial vocation.{
+                    id
+                    },
+                    partial moduleType.{
+                    id
+                    },
+                    partial gradingType.{
+                    id
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.vocation vocation
+                    JOIN $this->baseAlias.moduleType moduleType 
+                    JOIN $this->baseAlias.gradingType gradingType";
+    }
+    
+     protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        duration,
+                        code,
+                        trashed
+                    },
+                    partial vocation.{
+                    id
+                    },
+                    partial moduleType.{
+                    id
+                    },
+                    partial gradingType.{
+                    id
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.vocation vocation
+                    JOIN $this->baseAlias.moduleType moduleType 
+                    JOIN $this->baseAlias.gradingType gradingType";
+    }
 
     private function validateVocation($data)
     {

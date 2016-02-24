@@ -68,6 +68,117 @@ class ContactLessonRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        lessonDate,
+                        description,
+                        durationAK,
+                        trashed
+                    },
+                    partial subjectRound.{
+                        id
+                        },
+                    partial teacher.{
+                        id
+                        },
+                    partial absence.{
+                        id
+                        },
+                    partial rooms.{
+                        id
+                        },
+                    partial studentGrade.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                LEFT JOIN $this->baseAlias.absence absence
+                LEFT JOIN $this->baseAlias.rooms rooms
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade";
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        lessonDate,
+                        description,
+                        durationAK,
+                        trashed
+                    },
+                    partial subjectRound.{
+                        id
+                        },
+                    partial teacher.{
+                        id
+                        },
+                    partial absence.{
+                        id
+                        },
+                    partial rooms.{
+                        id
+                        },
+                    partial studentGrade.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                LEFT JOIN $this->baseAlias.absence absence
+                LEFT JOIN $this->baseAlias.rooms rooms
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade";
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        lessonDate,
+                        description,
+                        durationAK,
+                        trashed
+                    },
+                    partial subjectRound.{
+                        id
+                        },
+                    partial teacher.{
+                        id
+                        },
+                    partial absence.{
+                        id
+                        },
+                    partial rooms.{
+                        id
+                        },
+                    partial studentGrade.{
+                        id
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                LEFT JOIN $this->baseAlias.absence absence
+                LEFT JOIN $this->baseAlias.rooms rooms
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade";
+    }
 
     /**
      * 

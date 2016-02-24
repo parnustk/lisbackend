@@ -46,6 +46,39 @@ class StudentGroupRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
+    
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
 
     /**
      * 

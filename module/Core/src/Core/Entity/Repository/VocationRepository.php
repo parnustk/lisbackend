@@ -16,7 +16,7 @@ use Exception;
 /**
  * VocationRepository
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Juhan Kõks <juhankoks@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>, Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class VocationRepository extends AbstractBaseRepository
 {
@@ -38,6 +38,45 @@ class VocationRepository extends AbstractBaseRepository
      * @return string
      */
     protected function dqlStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        code,
+                        durationEKAP,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        code,
+                        durationEKAP,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        code,
+                        durationEKAP,
+                        trashed
+                    }
+                FROM $this->baseEntity $this->baseAlias";
+    }
+    
+    protected function dqlAdministratorStart()
     {
         return "SELECT 
                     partial $this->baseAlias.{

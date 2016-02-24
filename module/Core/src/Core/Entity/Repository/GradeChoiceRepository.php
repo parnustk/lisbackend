@@ -44,6 +44,42 @@ class GradeChoiceRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
     }
+    
+    protected function dqlStudentStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                     name,
+                     trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                     name,
+                     trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+    }
+    
+    protected function dqlAdministratorStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                     name,
+                     trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+    }
 
     /**
      * 

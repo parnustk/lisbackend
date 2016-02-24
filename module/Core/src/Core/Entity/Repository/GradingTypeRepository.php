@@ -36,6 +36,51 @@ class GradingTypeRepository extends AbstractBaseRepository
             
     }
     
+    /*
+     * @return string
+     */
+    protected function dqlStudentStart(){
+        $dql = "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        gradingType,
+                        trashed
+                    }
+                    FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+            
+    }
+    
+    /*
+     * @return string
+     */
+    protected function dqlTeacherStart(){
+        $dql = "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        gradingType,
+                        trashed
+                    }
+                    FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+            
+    }
+    
+    /*
+     * @return string
+     */
+    protected function dqlAdministratorStart(){
+        $dql = "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        gradingType,
+                        trashed
+                    }
+                    FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+            
+    }
+    
     /**
      * 
      * @param type $data

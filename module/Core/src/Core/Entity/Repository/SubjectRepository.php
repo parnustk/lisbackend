@@ -66,6 +66,81 @@ class SubjectRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.gradingType gradingType";
     }
     
+    protected function dqlStudentStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        code,
+                        name,
+                        durationAllAK,
+                        durationContactAK,
+                        durationIndependentAK,
+                        trashed
+                    },
+                    partial module.{
+                    id,
+                    name
+                    },
+                    partial gradingType.{
+                    id,
+                    gradingType
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.module module 
+                    JOIN $this->baseAlias.gradingType gradingType";
+    }
+    
+    protected function dqlTeacherStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        code,
+                        name,
+                        durationAllAK,
+                        durationContactAK,
+                        durationIndependentAK,
+                        trashed
+                    },
+                    partial module.{
+                    id,
+                    name
+                    },
+                    partial gradingType.{
+                    id,
+                    gradingType
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.module module 
+                    JOIN $this->baseAlias.gradingType gradingType";
+    }
+    
+    protected function dqlAdministratorStart()
+    {
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        code,
+                        name,
+                        durationAllAK,
+                        durationContactAK,
+                        durationIndependentAK,
+                        trashed
+                    },
+                    partial module.{
+                    id,
+                    name
+                    },
+                    partial gradingType.{
+                    id,
+                    gradingType
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.module module 
+                    JOIN $this->baseAlias.gradingType gradingType";
+    }
+    
      private function validateModule($data)
     {
         if (!key_exists('module', $data)) {
