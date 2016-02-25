@@ -489,7 +489,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
     private function teacherGetList($params = null, $extra = null)
     {
         $id = $extra->lisPerson->getId();
-        $dqlRestriction = " AND $this->baseAlias.teacher=$id";
+        $dqlRestriction = " AND teacher=$id";
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
