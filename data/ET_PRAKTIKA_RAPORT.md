@@ -1,8 +1,8 @@
 # Praktika aruanne
 
 ####Ettevõtte üldiseloomustus (nimi, aadress, kontaktandmed, ajalugu, peamine tegevusala, kõrvaltegevusalad, töötajate arv)
-Nimi:Pärnu Saksa Tehnikahariduskeskus OÜ.
-Aadress:Jalaka 8, 80010 Pärnu.
+Nimi: Pärnu Saksa Tehnikahariduskeskus OÜ.
+Aadress: Jalaka 8, 80010 Pärnu.
 Kontaktandmed:
 Tel: +372 442 0480, +372 510 5845
 E-mail: dts@saksatk.ee 
@@ -19,18 +19,16 @@ Pärnu Saksa Tehnoloogiakooli on lõpetanud 1462  õpilast, kellest 700 on lõpe
 Pikaajalisemad väljaõppevaldkonnad on infotehnoloogia (tarkvara arendus), majandusarvestus (äriteenused ja raamatupidamine)  energeetika/automaatika (sisetööde elektrik). 2011 alustati multimeedia disainerite (nüüd disaini ja käsitöö õppekavarühm kujundaja õppekavaga) ettevalmistamist. Õpe toimub keskhariduse järgselt.
  
 Peamine tegevusala:
-Kutseõppeasutuste tegevus
+Kutseõppe pakkumine
 
 Kõrvaltegevusalad:
  Täiskasvanute koolitus
 
-Töötajate arv:7
+Töötajate arv: 7
 
 ####Ülevaade tarkvaraarenduse meeskonna igapäevatööst
-Suhtlemise aluseks on rühma kaasaegse tarkvara arendamine.Töö on lihtne ja kõige produktiivsem,kui meeskond töötab koos,samas hoones või isegi samas kontoris.
-Isegi geograafiliselt eraldatud rühmade koostöö kulgeb väga hästi,headel kommunikatsiooni tingimustel,suhtlemisel teiste rühmaliikmetega.Koosolekud toimuvad videokonverentside kaudu,andmehoidla on saadaval
-internetis, grupi liikmed peavad rangelt järgima ajakava igapäevaseid ja iganädalasi kohtumisi.See sunnib isikuid kohanema vastavalt ajavoondite ja efektiivselt suhtlema teiste grupi
-liikmetega,samuti ka kasutada sidesüsteeme sellisel viisil,et oleks kergem kõigil rühma liikmetel.
+Suhtlemise aluseks on rühma kaasaegse tarkvara arendamine. Töö on lihtne ja kõige produktiivsem, kui meeskond töötab koos,samas hoones või isegi samas kontoris.
+Isegi geograafiliselt eraldatud rühmade koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
 
 
 ####Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
