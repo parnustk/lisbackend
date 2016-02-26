@@ -23,9 +23,9 @@ class GradingtypeControllerTest extends UnitHelpers
     /**
      * REST access setup
      */
-   protected function setUp()
+    protected function setUp()
     {
-         $this->controller = new GradingTypeController();
+        $this->controller = new GradingTypeController();
         parent::setUp();
     }
 
@@ -78,6 +78,14 @@ class GradingtypeControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->CreateGradingType();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -93,6 +101,14 @@ class GradingtypeControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateGradingType()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -107,7 +123,15 @@ class GradingtypeControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
-       $this->request->setMethod('get');
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $this->request->setMethod('get');
 
         //set record limit to 1
         $q = 'page=1&limit=1'; //imitate real param format
@@ -126,8 +150,16 @@ class GradingtypeControllerTest extends UnitHelpers
     }
 
     public function testGetTrashedList()
-   {
-//prepare one GradingType with trashed flag set up
+    {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //prepare one GradingType with trashed flag set up
         $entity = $this->CreateGradingType();
         $entity->setTrashed(1);
         $this->em->persist($entity);

@@ -5,7 +5,6 @@ namespace Core\Entity\Repository;
 use Core\Entity\GradingType;
 use Exception;
 
-
 /**
  * @author sander, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
@@ -14,17 +13,20 @@ class GradingTypeRepository extends AbstractBaseRepository
     /*
      * @var string
      */
+
     protected $baseAlias = 'gradingtype';
-    
+
     /*
      * @var string
      */
     protected $baseEntity = 'Core\Entity\GradingType';
-    
+
     /*
      * @return string
      */
-    protected function dqlStart(){
+
+    protected function dqlStart()
+    {
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
@@ -33,13 +35,14 @@ class GradingTypeRepository extends AbstractBaseRepository
                     }
                     FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     /*
      * @return string
      */
-    protected function dqlStudentStart(){
+
+    protected function dqlStudentStart()
+    {
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
@@ -48,13 +51,14 @@ class GradingTypeRepository extends AbstractBaseRepository
                     }
                     FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     /*
      * @return string
      */
-    protected function dqlTeacherStart(){
+
+    protected function dqlTeacherStart()
+    {
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
@@ -63,13 +67,14 @@ class GradingTypeRepository extends AbstractBaseRepository
                     }
                     FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     /*
      * @return string
      */
-    protected function dqlAdministratorStart(){
+
+    protected function dqlAdministratorStart()
+    {
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
@@ -78,9 +83,8 @@ class GradingTypeRepository extends AbstractBaseRepository
                     }
                     FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     /**
      * 
      * @param type $data
@@ -93,8 +97,8 @@ class GradingTypeRepository extends AbstractBaseRepository
     {
         $entity = $this->validateEntity(
                 new GradingType($this->getEntityManager()), $data
-                );
-                return $this->singleResult($entity, $returnPartial, $extra);
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
@@ -419,13 +423,13 @@ class GradingTypeRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -436,7 +440,7 @@ class GradingTypeRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -447,7 +451,7 @@ class GradingTypeRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -458,7 +462,7 @@ class GradingTypeRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -477,4 +481,5 @@ class GradingTypeRepository extends AbstractBaseRepository
             return $this->administratorGetList($params, $extra);
         }
     }
+
 }

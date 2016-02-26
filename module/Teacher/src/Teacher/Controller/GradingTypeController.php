@@ -11,12 +11,12 @@
 namespace Teacher\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractTeacherBaseController as Base;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class GradingtypeController extends AbstractBaseController
+class GradingtypeController extends Base
 {
     
     /**
