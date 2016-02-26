@@ -403,15 +403,32 @@ class SubjectRoundRepository extends AbstractBaseRepository
     /**
      * 
      * @param type $entity
+     * @param type $extra
+     * @return boolean
+     */
+    private function findingTeacher($entity, $extra)
+    {
+        $teacherNotExists = true;
+        foreach ($entity->getTeacher() as $teacher) {
+            if ($teacher->getId() === $extra->lisPerson->getId()) {
+                $teacherNotExists = false;
+            }
+        }
+        if ($teacherNotExists) {
+            throw new Exception('SELF_RELATED_RESTRICTION');
+        }
+    }
+
+    /**
+     * 
+     * @param type $entity
      * @param type $returnPartial
      * @param type $extra
      * @return type
      */
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
-        if ($entity->getTeacher()->getId() !== $extra->lisPerson->getId()) {
-            throw new Exception('SELF_RELATED_RESTRICTION');
-        }
+        $this->findingTeacher($entity, $extra);
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
@@ -488,6 +505,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function teacherGetList($params = null, $extra = null)
     {
+//        $this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
         $dqlRestriction = " AND teacher=$id";
         return $this->defaultGetList($params, $extra, $dqlRestriction);
