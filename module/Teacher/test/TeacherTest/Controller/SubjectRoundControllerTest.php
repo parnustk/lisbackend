@@ -94,6 +94,7 @@ class SubjectRoundControllerTest extends UnitHelpers
             'teacher' => [
                 ['id' => $teacher->getId()],
             ],
+            'createdBy' => $lisUser->getId()
         ]);
 
         $this->request->setMethod('get');
@@ -126,6 +127,7 @@ class SubjectRoundControllerTest extends UnitHelpers
             'teacher' => [
                 ['id' => $teacher->getId()],
             ],
+            'createdBy' => $lisUser->getId()
         ]);
 
         $this->em->persist($subjectRound);
@@ -174,7 +176,7 @@ class SubjectRoundControllerTest extends UnitHelpers
             'teacher' => [
                 ['id' => $teacher->getId()],
             ],
-              'createdBy' => $lisUser->getId()
+            'createdBy' => $lisUser->getId()
         ]);
 
         $this->em->persist($subjectRound);
@@ -200,37 +202,29 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
-        //create subjectround related to this user
-        //create subjectround with this user
+        $anotherTeacher = $this->CreateTeacher();
+
         $subjectRound = $this->CreateSubjectRound([
             'subject' => $this->CreateSubject()->getId(),
             'studentGroup' => $this->CreateStudentGroup()->getId(),
             'teacher' => [
-                ['id' => $teacher->getId()],
+                ['id' => $anotherTeacher->getId()],
             ],
-            'createdBy' => $lisUser->getId()
+            'createdBy' => $lisUser->getId()//manualy set
         ]);
+
         $this->em->persist($subjectRound);
         $this->em->flush($subjectRound);
 
-        //create another user set it to controller
-
-        $anotherTeacher = $this->CreateTeacher();
-        $anotherLisUser = $this->CreateTeacherUser($anotherTeacher);
-        
-        $this->controller->setLisUser($anotherLisUser);
-        $this->controller->setLisPerson($anotherTeacher);
-        
         $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $subjectRound->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->PrintOut($result, false);
 
-        //do assertions
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->assertEquals(0, $result->message);
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('SELF_RELATED_RESTRICTION', $result->message);
     }
 
     public function testGetTrashedListSelfRelated()
@@ -249,10 +243,9 @@ class SubjectRoundControllerTest extends UnitHelpers
             'teacher' => [
                 ['id' => $teacher->getId()],
             ],
+            'createdBy' => $lisUser->getId()
         ]);
 
-        //$this->em->persist($subjectRound);
-        //$this->em->flush($subjectRound);
         $subjectRound->setTrashed(1);
         $this->em->persist($subjectRound);
         $this->em->flush($subjectRound); //save to db with trashed 1
@@ -270,9 +263,8 @@ class SubjectRoundControllerTest extends UnitHelpers
         foreach ($params as $key => $value) {
             $this->request->getQuery()->set($key, $value);
         }
-        
+
         $this->request->setMethod('get');
-        //$this->routeMatch->setParam('id', $subjectRound->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -304,6 +296,7 @@ class SubjectRoundControllerTest extends UnitHelpers
             'teacher' => [
                 ['id' => $teacher->getId()],
             ],
+            'createdBy' => $lisUser->getId()
         ]);
 
         $subjectRound->setTrashed(1);
@@ -323,8 +316,8 @@ class SubjectRoundControllerTest extends UnitHelpers
         foreach ($params as $key => $value) {
             $this->request->getQuery()->set($key, $value);
         }
-        
-         //create another user set it to controller
+
+        //create another user set it to controller
 
         $anotherTeacher = $this->CreateTeacher();
         $anotherLisUser = $this->CreateTeacherUser($anotherTeacher);
@@ -332,9 +325,8 @@ class SubjectRoundControllerTest extends UnitHelpers
         //now we have created another studentuser set to current controller
         $this->controller->setLisUser($anotherLisUser);
         $this->controller->setLisPerson($anotherTeacher);
-        
+
         $this->request->setMethod('get');
-        //$this->routeMatch->setParam('id', $subjectRound->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -347,7 +339,7 @@ class SubjectRoundControllerTest extends UnitHelpers
         //assert all results have trashed not null
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
-        } 
+        }
     }
 
 }
