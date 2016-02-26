@@ -65,7 +65,7 @@ class SubjectRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.module module 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
-    
+
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -90,7 +90,7 @@ class SubjectRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.module module 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
-    
+
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -115,7 +115,7 @@ class SubjectRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.module module 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
-    
+
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -140,8 +140,8 @@ class SubjectRepository extends AbstractBaseRepository
                     JOIN $this->baseAlias.module module 
                     JOIN $this->baseAlias.gradingType gradingType";
     }
-    
-     private function validateModule($data)
+
+    private function validateModule($data)
     {
         if (!key_exists('module', $data)) {
             throw new Exception(
@@ -159,7 +159,7 @@ class SubjectRepository extends AbstractBaseRepository
             );
         }
     }
-    
+
     /**
      * 
      * @param array $data
@@ -175,7 +175,7 @@ class SubjectRepository extends AbstractBaseRepository
         //IF required MANY TO MANY validate manually
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param array $data
@@ -253,7 +253,7 @@ class SubjectRepository extends AbstractBaseRepository
     public function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
         $this->validateModule($data);
-        
+
         $module = $this->getEntityManager()
                 ->getRepository('Core\Entity\Module')
                 ->find($data['module']);
@@ -263,7 +263,7 @@ class SubjectRepository extends AbstractBaseRepository
         unset($data['module']);
 
         $entity->hydrate($data);
-        
+
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
@@ -273,7 +273,7 @@ class SubjectRepository extends AbstractBaseRepository
         }
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -351,7 +351,7 @@ class SubjectRepository extends AbstractBaseRepository
             return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -516,13 +516,13 @@ class SubjectRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -533,7 +533,7 @@ class SubjectRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -544,7 +544,7 @@ class SubjectRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -555,7 +555,7 @@ class SubjectRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -574,4 +574,5 @@ class SubjectRepository extends AbstractBaseRepository
             return $this->administratorGetList($params, $extra);
         }
     }
+
 }

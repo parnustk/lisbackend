@@ -78,12 +78,20 @@ class SubjectControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         //create one to get first
         $this->CreateSubject();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, false);       
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
@@ -94,6 +102,14 @@ class SubjectControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateSubject()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -108,6 +124,14 @@ class SubjectControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -128,6 +152,13 @@ class SubjectControllerTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
 
         //prepare one Module with trashed flag set up
         $entity = $this->CreateSubject();
