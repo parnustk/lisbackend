@@ -10,24 +10,24 @@ Use Exception;
  */
 class ModuleTypeRepository extends AbstractBaseRepository
 {
+    /*
+     * @var string
+     */
+
+    protected $baseAlias = 'moduletype';
 
     /*
      * @var string
      */
-    protected $baseAlias = 'moduletype';
-    
-    /*
-     * @var string
-     */
     protected $baseEntity = 'Core\Entity\ModuleType';
-            
+
     /*
      * @return string
      */
-    
+
     protected function dqlStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -35,12 +35,11 @@ class ModuleTypeRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     protected function dqlStudentStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -48,12 +47,11 @@ class ModuleTypeRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     protected function dqlTeacherStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -61,12 +59,11 @@ class ModuleTypeRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     protected function dqlAdministratorStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -74,7 +71,6 @@ class ModuleTypeRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
 
     /**
@@ -89,8 +85,8 @@ class ModuleTypeRepository extends AbstractBaseRepository
     {
         $entity = $this->validateEntity(
                 new ModuleType($this->getEntityManager()), $data
-                );
-                return $this->singleResult($entity, $returnPartial, $extra);
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
@@ -158,7 +154,6 @@ class ModuleTypeRepository extends AbstractBaseRepository
         }
     }
 
-
     /**
      * 
      * @param int|string $id
@@ -173,8 +168,8 @@ class ModuleTypeRepository extends AbstractBaseRepository
                 $entity, $data
         );
         return $this->singleResult($entityValidated, $returnPartial, $extra);
-    } 
-    
+    }
+
     /**
      * 
      * @param type $entity
@@ -252,7 +247,7 @@ class ModuleTypeRepository extends AbstractBaseRepository
             return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -416,13 +411,13 @@ class ModuleTypeRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -433,7 +428,7 @@ class ModuleTypeRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -444,7 +439,7 @@ class ModuleTypeRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -455,7 +450,7 @@ class ModuleTypeRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -474,4 +469,5 @@ class ModuleTypeRepository extends AbstractBaseRepository
             return $this->administratorGetList($params, $extra);
         }
     }
+
 }

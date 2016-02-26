@@ -78,6 +78,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->CreateAbsenceReason();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -93,6 +101,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateAbsenceReason()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -107,7 +123,15 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
-       $this->request->setMethod('get');
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $this->request->setMethod('get');
 
         //set record limit to 1
         $q = 'page=1&limit=1'; //imitate real param format
@@ -126,7 +150,15 @@ class AbsenceReasonControllerTest extends UnitHelpers
     }
 
     public function testGetTrashedList()
-   {
+    {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
 //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateAbsenceReason();
         $entity->setTrashed(1);
