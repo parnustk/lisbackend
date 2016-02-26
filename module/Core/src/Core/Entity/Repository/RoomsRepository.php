@@ -4,7 +4,6 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\Rooms;
 
-
 /**
  * RoomsRepository
  *
@@ -12,24 +11,24 @@ use Core\Entity\Rooms;
  */
 class RoomsRepository extends AbstractBaseRepository
 {
+    /*
+     * @var string
+     */
+
+    protected $baseAlias = 'room';
 
     /*
      * @var string
      */
-    protected $baseAlias = 'room';
-    
-    /*
-     * @var string
-     */
     protected $baseEntity = 'Core\Entity\Rooms';
-    
+
     /*
      * @return string
      */
-    
+
     protected function dqlStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -37,12 +36,11 @@ class RoomsRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     protected function dqlStudentStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -50,12 +48,11 @@ class RoomsRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     protected function dqlTeacherStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -63,12 +60,11 @@ class RoomsRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     protected function dqlAdministratorStart()
     {
-        $dql =  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
@@ -76,9 +72,8 @@ class RoomsRepository extends AbstractBaseRepository
                 }
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
-            
     }
-    
+
     /**
      * 
      * @param array $data
@@ -90,8 +85,8 @@ class RoomsRepository extends AbstractBaseRepository
     {
         $entity = $this->validateEntity(
                 new Rooms($this->getEntityManager()), $data
-                );
-                return $this->singleResult($entity, $returnPartial, $extra);
+        );
+        return $this->singleResult($entity, $returnPartial, $extra);
     }
 
     /**
@@ -160,7 +155,6 @@ class RoomsRepository extends AbstractBaseRepository
         }
     }
 
-
     /**
      * 
      * @param int|string $id
@@ -176,8 +170,8 @@ class RoomsRepository extends AbstractBaseRepository
         );
         //IF required MANY TO MANY validate manually
         return $this->singleResult($entityValidated, $returnPartial, $extra);
-    } 
-    
+    }
+
     /**
      * 
      * @param type $entity
@@ -255,7 +249,7 @@ class RoomsRepository extends AbstractBaseRepository
             return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -420,13 +414,13 @@ class RoomsRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -437,7 +431,7 @@ class RoomsRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -448,7 +442,7 @@ class RoomsRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -459,7 +453,7 @@ class RoomsRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
