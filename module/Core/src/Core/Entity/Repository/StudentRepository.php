@@ -217,7 +217,6 @@ class StudentRepository extends AbstractBaseRepository
      */
     private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
@@ -387,7 +386,6 @@ class StudentRepository extends AbstractBaseRepository
      */
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
-        //TODO
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
