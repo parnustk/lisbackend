@@ -78,6 +78,14 @@ class GradeChoiceControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->CreateGradeChoice();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -93,6 +101,14 @@ class GradeChoiceControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateGradeChoice()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -107,7 +123,15 @@ class GradeChoiceControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
-       $this->request->setMethod('get');
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $this->request->setMethod('get');
 
         //set record limit to 1
         $q = 'page=1&limit=1'; //imitate real param format
@@ -126,8 +150,16 @@ class GradeChoiceControllerTest extends UnitHelpers
     }
 
     public function testGetTrashedList()
-   {
-//prepare one GradeChoice with trashed flag set up
+    {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //prepare one GradeChoice with trashed flag set up
         $entity = $this->CreateGradeChoice();
         $entity->setTrashed(1);
         $this->em->persist($entity);
