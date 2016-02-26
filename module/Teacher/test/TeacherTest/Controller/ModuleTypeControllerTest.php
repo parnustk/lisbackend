@@ -85,13 +85,13 @@ class ModuleTypeControllerTest extends UnitHelpers
         //now we have created studentuser set to current controller
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
-        
+
         //create one to get first
         $this->CreateModuleType();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, false);      
+        $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
@@ -109,7 +109,7 @@ class ModuleTypeControllerTest extends UnitHelpers
         //now we have created studentuser set to current controller
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
-        
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateModuleType()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -131,7 +131,7 @@ class ModuleTypeControllerTest extends UnitHelpers
         //now we have created studentuser set to current controller
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
-        
+
         $this->request->setMethod('get');
 
         //set record limit to 1

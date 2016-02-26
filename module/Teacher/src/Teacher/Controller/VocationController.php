@@ -11,14 +11,14 @@
 namespace Teacher\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractTeacherBaseController as Base;
 
 /**
  * Description of VocationController
  *
  * @author Sander Mets <sandermets0@gmail.com>
  */
-class VocationController extends AbstractBaseController
+class VocationController extends Base
 {
 
     /**

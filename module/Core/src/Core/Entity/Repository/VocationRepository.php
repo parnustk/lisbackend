@@ -49,7 +49,7 @@ class VocationRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -62,7 +62,7 @@ class VocationRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -75,7 +75,7 @@ class VocationRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlAdministratorStart()
     {
         return "SELECT 
