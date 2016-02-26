@@ -63,7 +63,7 @@ class IndependentWorkControllerTest extends UnitHelpers
     }
 
     /**
-     * NOT ALLOWED
+     * Should be NOT successful
      */
     public function testDelete()
     {
