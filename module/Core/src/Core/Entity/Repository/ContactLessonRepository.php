@@ -70,7 +70,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
-    
+
     /**
      * 
      * @return string
@@ -107,7 +107,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
-    
+
     /**
      * 
      * @return string
@@ -144,7 +144,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
-    
+
     /**
      * 
      * @return string
@@ -196,13 +196,13 @@ class ContactLessonRepository extends AbstractBaseRepository
         $subjectRound = $this->getEntityManager()
                 ->getRepository('Core\Entity\SubjectRound')
                 ->find($data['subjectRound']);
-        
+
         unset($data['subjectRound']);
         $entity->setSubjectRound($subjectRound);
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
-        
+
         return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 

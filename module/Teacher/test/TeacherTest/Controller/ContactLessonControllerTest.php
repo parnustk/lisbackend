@@ -59,10 +59,33 @@ class ContactLessonTest extends UnitHelpers
     }
 
     /**
+     * NOT ALLOWED
+     */
+    public function testUpdate()
+    {
+        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        $this->request->setMethod('put');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(405, $response->getStatusCode());
+    }
+
+    /**
      * TEST rows get read
      */
     public function testGetList()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->CreateContactLesson();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -78,6 +101,14 @@ class ContactLessonTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateContactLesson()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -92,6 +123,14 @@ class ContactLessonTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -112,7 +151,15 @@ class ContactLessonTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
-//prepare one AbsenceReason with trashed flag set up
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateContactLesson();
         $entity->setTrashed(1);
         $this->em->persist($entity);
