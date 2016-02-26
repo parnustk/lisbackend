@@ -93,15 +93,17 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateIndependentWork()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
 
     /**
-     * 
+     * Should be NOT successful
      */
-    public function testGetList()
+    public function testGetNotSelfRelated()
     {
         //create user
         $student = $this->CreateStudent();
@@ -111,14 +113,73 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
 
-        $this->CreateIndependentWork();
+        $subjectRound = $this->CreateSubjectRound();
+        $teacher = $this->CreateTeacher();
+        $anotherStudent = $this->CreateStudent();
+
+        $repository = $this->em->getRepository('Core\Entity\IndependentWork');
+        $independentWork = $repository->Create([
+            'duedate' => new \DateTime,
+            'description' => uniqid() . ' Description for independentwork',
+            'durationAK' => (int) uniqid(),
+            'subjectRound' => $subjectRound->getId(),
+            'teacher' => $teacher->getId(),
+            'student' => $anotherStudent->getId()
+        ]);
+
+        $this->request->setMethod('get');
+        $this->routeMatch->setParam('id', $independentWork->getId());
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('SELF_RELATED_RESTRICTION', $result->message);
+    }
+
+    /**
+     * should be successful
+     */
+    public function testGetListNoAnotherStudentRelated()
+    {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+
+        $subjectRound = $this->CreateSubjectRound();
+        $teacher = $this->CreateTeacher();
+        $anotherStudentId = $this->CreateStudent()->getId();
+
+        $repository = $this->em->getRepository('Core\Entity\IndependentWork');
+        $repository->Create([
+            'duedate' => new \DateTime,
+            'description' => uniqid() . ' Description for independentwork',
+            'durationAK' => (int) uniqid(),
+            'subjectRound' => $subjectRound->getId(),
+            'teacher' => $teacher->getId(),
+            'student' => $anotherStudentId
+        ]);
+
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+
         $this->PrintOut($result, false);
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
+
+        foreach ($result->data as $iw) {
+            $this->assertNotEquals($anotherStudentId, $iw['id']);
+        }
     }
 
     /**
@@ -162,7 +223,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
 
-//prepare one Administrator with trashed flag set up
+        //prepare one Administrator with trashed flag set up
         $entity = $this->CreateIndependentWork();
         $entity->setTrashed(1);
         $this->em->persist($entity);

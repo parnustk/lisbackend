@@ -14,36 +14,9 @@ use Core\Entity\IndependentWork;
 use Exception;
 
 /**
- * IndependentWork RESOURCE
-
-    duedate(datetime)*
-    description(string)*
-    durationAK(integer)*
-    subjectRound(integer)*
-    teacher(integer)*
-
- * Administrator ROLE
-
-    YES getList
-    YES get
-
- * Teacher ROLE
-
-    YES getList
-    YES get
-    YES create
-    YES update - OWN CREATED ?PERIOD
-    YES delete - OWN CREATED ?PERIOD
-
- * Student ROLE
-
-    YES getList
-    YES get
- */
-
-/**
- * @author Kristen <seppkristen@gmail.com>, Alar Aasa <alar@alaraasa.ee>
  * 
+ * @author Kristen <seppkristen@gmail.com>
+ * @author Alar Aasa <alar@alaraasa.ee>
  */
 class IndependentWorkRepository extends AbstractBaseRepository
 {
@@ -99,7 +72,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
 
         return $dql;
     }
-    
+
     /**
      * 
      * @return string
@@ -118,10 +91,11 @@ class IndependentWorkRepository extends AbstractBaseRepository
 
         return $dql;
     }
+
     /**
      * 
      * @return string
-     */  
+     */
     protected function dqlAdministratorStart()
     {
         $dql = "SELECT 
@@ -136,6 +110,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
 
         return $dql;
     }
+
     /**
      * 
      * @param array $data
@@ -150,7 +125,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
         );
         return $this->singleResult($entity, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param array $data
@@ -162,10 +137,10 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
-        
+
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param array $data
@@ -177,7 +152,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
-        
+
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
@@ -192,9 +167,10 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
-        
+
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
+
     /**
      * 
      * @param array $data
@@ -202,9 +178,9 @@ class IndependentWorkRepository extends AbstractBaseRepository
      * @param stdClass|null $extra
      * @return type
      */
-    public function Create($data, $returnPartial = false, $extra=null)
+    public function Create($data, $returnPartial = false, $extra = null)
     {
-        if (!$extra){
+        if (!$extra) {
             return $this->defaultCreate($data, $returnPartial);
         } else if ($extra->lisRole === 'student') {
             return $this->studentCreate($data, $returnPartial, $extra);
@@ -214,9 +190,10 @@ class IndependentWorkRepository extends AbstractBaseRepository
             return $this->administratorCreate($data, $returnPartial, $extra);
         }
     }
+
     /**
      * 
-     * @param int|string $id
+     * @param type $entity
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
@@ -230,10 +207,10 @@ class IndependentWorkRepository extends AbstractBaseRepository
         //IF required MANY TO MANY validate manually
         return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
-    
+
     /**
      * 
-     * @param int|string $id
+     * @param type $entity
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
@@ -243,13 +220,13 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
-        
+
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
-    
+
     /**
      * 
-     * @param int|string $id
+     * @param type $entity
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
@@ -259,13 +236,13 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
-        
+
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
-    
+
     /**
      * 
-     * @param int|string $id
+     * @param type $entity
      * @param array $data
      * @param bool|null $returnPartial
      * @param stdClass|null $extra
@@ -275,10 +252,10 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
-        
+
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param int|string $id
@@ -293,8 +270,8 @@ class IndependentWorkRepository extends AbstractBaseRepository
         if (!$entity) {
             throw new Exception('NOT_FOUND_ENTITY');
         }
-        
-        if (!$extra){
+
+        if (!$extra) {
             return $this->defaultUpdate($entity, $data, $returnPartial);
         } else if ($extra->lisRole === 'student') {
             return $this->studentUpdate($entity, $data, $returnPartial, $extra);
@@ -303,9 +280,8 @@ class IndependentWorkRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'administrator') {
             return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
-        
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -318,24 +294,22 @@ class IndependentWorkRepository extends AbstractBaseRepository
         $this->getEntityManager()->flush();
         return $id;
     }
-    
-    
+
     private function studentDelete($entity, $extra = null)
     {
         return $this->defaultDelete($entity, $extra);
     }
-    
+
     private function teacherDelete($entity, $extra = null)
     {
         return $this->defaultDelete($entity, $extra);
-
     }
-    
+
     private function administratorDelete($entity, $extra = null)
     {
         return $this->defaultDelete($entity, $extra);
     }
-    
+
     /**
      * Delete only trashed entities
      * 
@@ -347,14 +321,14 @@ class IndependentWorkRepository extends AbstractBaseRepository
     public function Delete($id, $extra = null)
     {
         $entity = $this->find($id);
-        
+
         if (!$entity) {
             throw new Exception('NOT_FOUND_ENTITY');
         } else if (!$entity->getTrashed()) {
             throw new Exception('NOT_TRASHED');
         }
-        
-        if (!$extra){
+
+        if (!$extra) {
             return $this->defaultDelete($entity);
         } else if ($extra->lisRole === 'student') {
             return $this->studentDelete($entity, $extra);
@@ -364,7 +338,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
             return $this->administratorDelete($entity, $extra);
         }
     }
-    
+
     /**
      * 
      * @param int|string $id
@@ -379,24 +353,28 @@ class IndependentWorkRepository extends AbstractBaseRepository
         }
         return $this->find($id);
     }
-    
+
     /**
      * SELF RELATED RESTRICTION
      * 
-     * @param int|string $id
+     * @param type $entity
      * @param bool $returnPartial
      * @param stdClass $extra
      * @return array
      */
     private function studentGet($entity, $returnPartial = false, $extra = null)
     {
-
+        if ($entity->getStudent() !== null) {
+            if ($entity->getStudent()->getId() !== $extra->lisPerson->getId()) {
+                throw new Exception('SELF_RELATED_RESTRICTION');
+            }
+        }
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
-    
+
     /**
      * 
-     * @param int|string $id
+     * @param type $entity
      * @param bool $returnPartial
      * @param stdClass $extra
      * @return mixed
@@ -404,12 +382,11 @@ class IndependentWorkRepository extends AbstractBaseRepository
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
-        
     }
-        
+
     /**
      * 
-     * @param int|string $id
+     * @param type $entity
      * @param bool $returnPartial
      * @param stdClass $extra
      * @return mixed
@@ -418,7 +395,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param int|string $id
@@ -429,12 +406,12 @@ class IndependentWorkRepository extends AbstractBaseRepository
     public function Get($id, $returnPartial = false, $extra = null)
     {
         $entity = $this->find($id);
-        
+
         if (!$entity) {
             throw new Exception('NOT_FOUND_ENTITY');
         }
-        
-        if (!$extra){
+
+        if (!$extra) {
             return $this->defaultGet($id, $returnPartial, $extra);
         } else if ($extra->lisRole === 'student') {
             return $this->studentGet($entity, $returnPartial, $extra);
@@ -442,11 +419,9 @@ class IndependentWorkRepository extends AbstractBaseRepository
             return $this->teacherGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
             return $this->administratorGet($entity, $returnPartial, $extra);
-
         }
-            
     }
-    
+
     /**
      * 
      * @param array $params
@@ -456,54 +431,56 @@ class IndependentWorkRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
+
         if ($dqlRestriction) {
             $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
+     * SELF RELATED RESTRICTION
      * 
      * @param array $params
      * @param stdClass|null $extra
      */
     private function studentGetList($params = null, $extra = null)
     {
-        return $this->defaultGetList($params, $extra);
+        $id = $extra->lisPerson->getId();
+        $dqlRestriction = " AND ($this->baseAlias.student=$id OR $this->baseAlias.student IS NULL) ";
+
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
-    
+
     /**
      * 
      * @param array $params
      * @param stdClass|null $extra
      */
-     private function teacherGetList($params = null, $extra = null)
+    private function teacherGetList($params = null, $extra = null)
     {
         return $this->defaultGetList($params, $extra);
-
     }
-    
+
     /**
      * 
      * @param array $params
      * @param stdClass|null $extra
      */
-     private function administratorGetList($params = null, $extra = null)
+    private function administratorGetList($params = null, $extra = null)
     {
         return $this->defaultGetList($params, $extra);
-
     }
-    
+
     /**
      * 
      * @param array $params
      * @param stdClass|null $extra
      * @return Paginator
      */
-     public function GetList($params = null, $extra = null)
+    public function GetList($params = null, $extra = null)
     {
-        if (!$extra){
+        if (!$extra) {
             return $this->defaultGetList($params, $extra);
         } else if ($extra->lisRole === 'student') {
             return $this->studentGetList($params, $extra);
@@ -513,5 +490,5 @@ class IndependentWorkRepository extends AbstractBaseRepository
             return $this->administratorGetList($params, $extra);
         }
     }
-    
+
 }

@@ -173,6 +173,11 @@ class IndependentWork extends EntityValidation
         return $this->teacher;
     }
 
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
     public function getTrashed()
     {
         return $this->trashed;
@@ -231,6 +236,12 @@ class IndependentWork extends EntityValidation
     public function setTeacher($teacher)
     {
         $this->teacher = $teacher;
+        return $this;
+    }
+
+    public function setStudent($student)
+    {
+        $this->student = $student;
         return $this;
     }
 
