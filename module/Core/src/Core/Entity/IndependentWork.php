@@ -14,8 +14,6 @@ use Doctrine\ORM\Mapping AS ORM;
 use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
@@ -28,47 +26,54 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Kristen Sepp <seppkristen@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Kristen Sepp <seppkristen@gmail.com>
  */
 class IndependentWork extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="datetime", nullable=false)
      */
     protected $duedate;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
      */
     protected $durationAK;
 
     /**
-     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="independentWork")
      * @Annotation\Exclude()
+
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="independentWork")
      */
     protected $studentGrade;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="independentWork")
-     * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="independentWork")
+     * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $subjectRound;
 
@@ -78,6 +83,14 @@ class IndependentWork extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $teacher;
+
+    /**
+     * @Annotation\Exclude()
+     * 
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="independentWork")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=true)
+     */
+    protected $student;
 
     /**
      * @Annotation\Exclude()

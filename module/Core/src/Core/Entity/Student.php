@@ -27,7 +27,9 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Marten Kähr <marten@kahr.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Marten Kähr <marten@kahr.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class Student extends EntityValidation
 {
@@ -104,6 +106,13 @@ class Student extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
+     * @ORM\OneToMany(targetEntity="IndependentWork", mappedBy="student")
+     */
+    protected $independentWork;
+
+    /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
@@ -162,14 +171,14 @@ class Student extends EntityValidation
         return $this->lastName;
     }
 
-    public function getPersonalCode()
-    {
-        return $this->personalCode;
-    }
-
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function getPersonalCode()
+    {
+        return $this->personalCode;
     }
 
     public function getLisUser()
@@ -190,6 +199,11 @@ class Student extends EntityValidation
     public function getStudentInGroups()
     {
         return $this->studentInGroups;
+    }
+
+    public function getIndependentWork()
+    {
+        return $this->independentWork;
     }
 
     public function getTrashed()
@@ -229,15 +243,15 @@ class Student extends EntityValidation
         return $this;
     }
 
-    public function setPersonalCode($personalCode)
-    {
-        $this->personalCode = $personalCode;
-        return $this;
-    }
-
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
+    }
+
+    public function setPersonalCode($personalCode)
+    {
+        $this->personalCode = $personalCode;
         return $this;
     }
 
@@ -262,6 +276,12 @@ class Student extends EntityValidation
     public function setStudentInGroups($studentInGroups)
     {
         $this->studentInGroups = $studentInGroups;
+        return $this;
+    }
+
+    public function setIndependentWork($independentWork)
+    {
+        $this->independentWork = $independentWork;
         return $this;
     }
 

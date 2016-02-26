@@ -3,34 +3,33 @@
 <project name="lisbackend" default="build">
     <target name="build" depends="phpunit_admin,phpunit_student,apigen"> 
     
-</target>
+    </target>
  
-<target name="phpunit_admin" description="Run unit tests with PHPUnit">
-     <exec executable="phpunit">
-     <arg value="--configuration=${basedir}/module/Administrator/test/phpunit.xml.dist"/>
-     <arg value="--log-junit=${basedir}/build/logs/junit.xml"/>
-    </exec>
+    <target name="phpunit_admin" description="Run unit tests with PHPUnit">
+        <exec executable="phpunit">
+            <arg value="--configuration=${basedir}/module/Administrator/test/phpunit.xml.dist"/>
+            <arg value="--log-junit=${basedir}/build/logs/junit.xml"/>
+        </exec>
     </target>
 
-<target name="phpunit_student" description="Run unit tests with PHPUnit">
-     <exec executable="phpunit">
-     <arg value="--configuration=${basedir}/module/Student/test/phpunit.xml.dist"/>
-     <arg value="--log-junit=${basedir}/build/logs/junit2.xml"/>
-    </exec>
+    <target name="phpunit_student" description="Run unit tests with PHPUnit">
+        <exec executable="phpunit">
+            <arg value="--configuration=${basedir}/module/Student/test/phpunit.xml.dist"/>
+            <arg value="--log-junit=${basedir}/build/logs/junit2.xml"/>
+        </exec>
     </target>
 
-
-<target name="apigen" description="Create API docs with apigen">
-     <exec executable="apigen">
-     <arg value="generate"/>
-     <arg value="-s"/>
-     <arg value="module/Administrator/src/Administrator/Controller/,module/Teacher/src/Teacher/Controller/,module/Student/src/Student/Controller"/>
-     <arg value="-d public/apidocs"/>
-     <arg value="--template-theme"/>
-     <arg value="bootstrap"/>
-     <arg value="--title"/>
-     <arg value="LIS eDiary API documentation"/>
-     <arg value="--no-source-code"/>
-    </exec>
+    <target name="apigen" description="Create API docs with apigen">
+        <exec executable="apigen">
+            <arg value="generate"/>
+            <arg value="-s"/>
+            <arg value="module/Administrator/src/Administrator/Controller/,module/Teacher/src/Teacher/Controller/,module/Student/src/Student/Controller"/>
+            <arg value="-d public/apidocs"/>
+            <arg value="--template-theme"/>
+            <arg value="bootstrap"/>
+            <arg value="--title"/>
+            <arg value="LIS eDiary API documentation"/>
+            <arg value="--no-source-code"/>
+        </exec>
     </target>
 </project>

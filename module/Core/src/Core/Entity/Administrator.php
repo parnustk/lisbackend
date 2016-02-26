@@ -82,6 +82,13 @@ class Administrator extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $superAdministrator = 0;
+
+    /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
@@ -155,6 +162,11 @@ class Administrator extends EntityValidation
         return $this->lisUser;
     }
 
+    public function getSuperAdministrator()
+    {
+        return $this->superAdministrator;
+    }
+
     public function getTrashed()
     {
         return $this->trashed;
@@ -207,6 +219,12 @@ class Administrator extends EntityValidation
     public function setLisUser($lisUser)
     {
         $this->lisUser = $lisUser;
+        return $this;
+    }
+
+    public function setSuperAdministrator($superAdministrator)
+    {
+        $this->superAdministrator = $superAdministrator;
         return $this;
     }
 
