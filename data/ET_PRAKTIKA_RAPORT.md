@@ -5,7 +5,8 @@ Nimi: Pärnu Saksa Tehnikahariduskeskus OÜ.
 Aadress: Jalaka 8, 80010 Pärnu.
 Kontaktandmed:
 Tel: +372 442 0480, +372 510 5845
-E-mail: dts@saksatk.ee 
+E-mail: dts@saksatk.ee
+ 
 Ajalugu:
 Pärnu Saksa Tehnoloogiakool on sakslastele kuuluv erakutseõppeasutus.  
 Pärnu Saksa Tehnoloogiakooli loomisele pani aluse 2. juulil 1999 aset leidnud kooperatsioonilepingu allkirjastamine Königs Wusterhauseni Tehnoloogia- ja Kutsehariduskeskuse ning Pärnu Linnavalitsuse haridusosakonna vahel.
@@ -18,11 +19,9 @@ Kool orienteerub euroopalikele kvaliteedikriteeriumitele ja -kogemustele. Õppek
 Pärnu Saksa Tehnoloogiakooli on lõpetanud 1462  õpilast, kellest 700 on lõpetanud tasemekoolituse (2 -aastane õpe) ja 762  tööalase täiendkoolituse.
 Pikaajalisemad väljaõppevaldkonnad on infotehnoloogia (tarkvara arendus), majandusarvestus (äriteenused ja raamatupidamine)  energeetika/automaatika (sisetööde elektrik). 2011 alustati multimeedia disainerite (nüüd disaini ja käsitöö õppekavarühm kujundaja õppekavaga) ettevalmistamist. Õpe toimub keskhariduse järgselt.
  
-Peamine tegevusala:
-Kutseõppe pakkumine
+Peamine tegevusala: kutseõppe pakkumine
 
-Kõrvaltegevusalad:
- Täiskasvanute koolitus
+Kõrvaltegevusalad: täiskasvanute koolitus
 
 Töötajate arv: 7
 
@@ -35,12 +34,12 @@ Isegi geograafiliselt eraldatud rühmade koostöö kulgeb hästi: koosolekud toi
 
 
 
-####Töötamine vähemalt ühes tarkavaarenduse projekti meeskonnas tarkvaraarendajana.
-Töötamine esimeses tarkvaraarenduse projektis on huvitav ja samal ajal keeruline asi,aga ta annab uusi teadmisi ja oskusi.Meeskonnas töötamine õpetab sind töötama korrektselt,leidma vigu ning lahendama neid.
+####Töötamine vähemalt ühes tarkvaraarenduse projekti meeskonnas tarkvaraarendajana.
+Töötamine esimeses tarkvaraarenduse projektis on huvitav ja samal ajal keeruline asi,aga ta annab uusi teadmisi ja oskusi.Meeskonnas töötamine õpetab töötama korrektselt, leidma vigu ning lahendama neid.
 
 
 ####Koostöö kolleegide ja klientidega.
-Koostöö on oluline etapp tarkvaraarenduse protsessis,nii kui kolleegidega,kui ka klientidega.Koostöö teeb targemaks ja annab ideid,mis aitavad kogu rakenduse protsessi.
+Koostöö kolleegidega ja klientidega on oluline tarkvaraarenduse protsessis. Koostöö teeb targemaks ja annab ideid, mis aitavad kogu rakenduse protsessi.
 
 
 ####Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
