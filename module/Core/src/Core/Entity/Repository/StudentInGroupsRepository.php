@@ -40,6 +40,7 @@ use Exception;
  *
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentInGroupsRepository extends AbstractBaseRepository
 {
@@ -78,7 +79,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
-    
+
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -97,7 +98,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
-    
+
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -116,7 +117,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
-    
+
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -133,7 +134,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
-                JOIN $this->baseAlias.studentGroup studentGroup";        
+                JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**
@@ -165,9 +166,15 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function teacherCreate($data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -175,6 +182,13 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
 
+    /**
+     * 
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
     private function administratorCreate($data, $returnPartial = false, $extra = null)
     {
         //TODO
@@ -371,7 +385,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         }
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
-    
+
     /**
      * 
      * @param type $entity
