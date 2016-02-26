@@ -15,7 +15,7 @@ use Core\Entity\StudentGroup;
 /**
  * StudentGroupRepository
  * 
- * @author Kristen <seppkristen@gmail.com>
+ * @author Kristen <seppkristen@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentGroupRepository extends AbstractBaseRepository
 {
@@ -46,7 +46,7 @@ class StudentGroupRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -57,7 +57,7 @@ class StudentGroupRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -68,7 +68,7 @@ class StudentGroupRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -162,7 +162,6 @@ class StudentGroupRepository extends AbstractBaseRepository
         }
     }
 
-
     /**
      * 
      * @param int|string $id
@@ -177,8 +176,8 @@ class StudentGroupRepository extends AbstractBaseRepository
                 $entity, $data
         );
         return $this->singleResult($entityValidated, $returnPartial, $extra);
-    } 
-    
+    }
+
     /**
      * 
      * @param type $entity
@@ -256,7 +255,7 @@ class StudentGroupRepository extends AbstractBaseRepository
             return $this->administratorUpdate($entity, $data, $returnPartial, $extra);
         }
     }
-    
+
     /**
      * 
      * @param type $entity
@@ -421,13 +420,13 @@ class StudentGroupRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -438,7 +437,7 @@ class StudentGroupRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -449,7 +448,7 @@ class StudentGroupRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
@@ -460,7 +459,7 @@ class StudentGroupRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
