@@ -174,6 +174,7 @@ class SubjectRoundControllerTest extends UnitHelpers
             'teacher' => [
                 ['id' => $teacher->getId()],
             ],
+              'createdBy' => $lisUser->getId()
         ]);
 
         $this->em->persist($subjectRound);
@@ -191,17 +192,162 @@ class SubjectRoundControllerTest extends UnitHelpers
 
     public function testGetNotSelfRelated()
     {
+        //create and set correct teacheruser
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //create subjectround related to this user
+        //create subjectround with this user
+        $subjectRound = $this->CreateSubjectRound([
+            'subject' => $this->CreateSubject()->getId(),
+            'studentGroup' => $this->CreateStudentGroup()->getId(),
+            'teacher' => [
+                ['id' => $teacher->getId()],
+            ],
+            'createdBy' => $lisUser->getId()
+        ]);
+        $this->em->persist($subjectRound);
+        $this->em->flush($subjectRound);
+
+        //create another user set it to controller
+
+        $anotherTeacher = $this->CreateTeacher();
+        $anotherLisUser = $this->CreateTeacherUser($anotherTeacher);
         
+        $this->controller->setLisUser($anotherLisUser);
+        $this->controller->setLisPerson($anotherTeacher);
+        
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //do assertions
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertEquals(0, $result->message);
     }
 
     public function testGetTrashedListSelfRelated()
     {
+        //create and set correct teacheruser
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $subjectRound = $this->CreateSubjectRound([
+            'subject' => $this->CreateSubject()->getId(),
+            'studentGroup' => $this->CreateStudentGroup()->getId(),
+            'teacher' => [
+                ['id' => $teacher->getId()],
+            ],
+        ]);
+
+        //$this->em->persist($subjectRound);
+        //$this->em->flush($subjectRound);
+        $subjectRound->setTrashed(1);
+        $this->em->persist($subjectRound);
+        $this->em->flush($subjectRound); //save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $subjectRound->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
         
+        $this->request->setMethod('get');
+        //$this->routeMatch->setParam('id', $subjectRound->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //limit is set to 1
+        $this->assertEquals(1, count($result->data));
+
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
     }
 
     public function testGetTrashedListNotSelfRelated()
     {
+        //create and set correct teacheruser
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $subjectRound = $this->CreateSubjectRound([
+            'subject' => $this->CreateSubject()->getId(),
+            'studentGroup' => $this->CreateStudentGroup()->getId(),
+            'teacher' => [
+                ['id' => $teacher->getId()],
+            ],
+        ]);
+
+        $subjectRound->setTrashed(1);
+        $this->em->persist($subjectRound);
+        $this->em->flush($subjectRound); //save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $subjectRound->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
         
+         //create another user set it to controller
+
+        $anotherTeacher = $this->CreateTeacher();
+        $anotherLisUser = $this->CreateTeacherUser($anotherTeacher);
+
+        //now we have created another studentuser set to current controller
+        $this->controller->setLisUser($anotherLisUser);
+        $this->controller->setLisPerson($anotherTeacher);
+        
+        $this->request->setMethod('get');
+        //$this->routeMatch->setParam('id', $subjectRound->getId());
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //limit is set to 1
+        $this->assertEquals(0, count($result->data));
+
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        } 
     }
 
 }
