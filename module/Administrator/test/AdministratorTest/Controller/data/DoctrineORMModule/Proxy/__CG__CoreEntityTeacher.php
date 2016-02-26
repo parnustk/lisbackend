@@ -64,10 +64,10 @@ class Teacher extends \Core\Entity\Teacher implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'personalCode', 'email', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'personalCode', 'email', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**

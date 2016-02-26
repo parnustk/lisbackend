@@ -64,10 +64,10 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'personalCode', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'personalCode', 'email', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**

@@ -10,10 +10,10 @@
 
 namespace Core\Controller;
 
-use Core\Entity\LisUser;
 use Zend\View\Model\JsonModel;
-use Zend\Json\Json;
-use Exception;
+use Core\Entity\Teacher;
+use Core\Entity\LisUser;
+use stdClass;
 
 /**
  * Application ACL resolves by this layer
@@ -71,7 +71,7 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
     /**
      * 
      * @param string $lisRole
-     * @return \Core\Controller\AbstractTeacherBaseController
+     * @return \Core\Controller\AbstractStudentBaseController
      */
     public function setLisRole($lisRole)
     {
@@ -82,9 +82,9 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
     /**
      * 
      * @param LisUser $lisUser
-     * @return \Core\Controller\AbstractTeacherBaseController
+     * @return \Core\Controller\AbstractStudentBaseController
      */
-    public function setLisUser(\Core\Entity\LisUser $lisUser)
+    public function setLisUser(LisUser $lisUser)
     {
         $this->lisUser = $lisUser;
         return $this;
@@ -92,10 +92,10 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
 
     /**
      * 
-     * @param \Core\Entity\Student $lisPerson
-     * @return \Core\Controller\AbstractTeacherBaseController
+     * @param Teacher $lisPerson
+     * @return \Core\Controller\AbstractStudentBaseController
      */
-    public function setLisPerson(\Core\Entity\Teacher $lisPerson)
+    public function setlisPerson(Teacher $lisPerson)
     {
         $this->lisPerson = $lisPerson;
         return $this;
