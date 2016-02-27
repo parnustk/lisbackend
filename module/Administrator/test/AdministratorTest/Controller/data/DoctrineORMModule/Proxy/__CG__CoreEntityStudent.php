@@ -64,10 +64,10 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'independentWork', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'independentWork', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -213,23 +213,23 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getPersonalCode()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPersonalCode', array());
-
-        return parent::getPersonalCode();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getEmail()
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', array());
 
         return parent::getEmail();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPersonalCode()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPersonalCode', array());
+
+        return parent::getPersonalCode();
     }
 
     /**
@@ -274,6 +274,17 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentInGroups', array());
 
         return parent::getStudentInGroups();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIndependentWork()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIndependentWork', array());
+
+        return parent::getIndependentWork();
     }
 
     /**
@@ -356,23 +367,23 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setPersonalCode($personalCode)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPersonalCode', array($personalCode));
-
-        return parent::setPersonalCode($personalCode);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setEmail($email)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', array($email));
 
         return parent::setEmail($email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPersonalCode($personalCode)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPersonalCode', array($personalCode));
+
+        return parent::setPersonalCode($personalCode);
     }
 
     /**
@@ -417,6 +428,17 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentInGroups', array($studentInGroups));
 
         return parent::setStudentInGroups($studentInGroups);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIndependentWork($independentWork)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIndependentWork', array($independentWork));
+
+        return parent::setIndependentWork($independentWork);
     }
 
     /**

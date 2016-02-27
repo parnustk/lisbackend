@@ -15,6 +15,7 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class AbsenceController extends Base
 {

@@ -203,7 +203,6 @@ class AbsenceRepository extends AbstractBaseRepository
      */
     private function administratorCreate($data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -300,6 +299,7 @@ class AbsenceRepository extends AbstractBaseRepository
     }
 
     /**
+     * SELF CREATED RESTRICTION
      * 
      * @param type $entity
      * @param type $data
@@ -309,7 +309,10 @@ class AbsenceRepository extends AbstractBaseRepository
      */
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //TODO
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
+        
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
@@ -387,6 +390,7 @@ class AbsenceRepository extends AbstractBaseRepository
     }
 
     /**
+     * HAS SELF CREATED RESTRICTION
      * 
      * @param type $entity
      * @param type $extra
@@ -394,7 +398,9 @@ class AbsenceRepository extends AbstractBaseRepository
      */
     private function administratorDelete($entity, $extra = null)
     {
-        //TODO
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
         return $this->defaultDelete($entity, $extra);
     }
 

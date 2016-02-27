@@ -32,7 +32,7 @@ abstract class AbstractBaseRepository extends EntityRepository
      * @param type $extra
      * @throws Exception
      */
-    protected function roleCheck($extra = null)
+    protected function roleUserCheck($extra = null)
     {
         if (!(isset($extra) && property_exists($extra, 'lisRole') && property_exists($extra, 'lisUser'))) {
             throw new Exception("NO_ROLE");
@@ -50,7 +50,7 @@ abstract class AbstractBaseRepository extends EntityRepository
      */
     protected function dqlWhere($params, $extra = null)
     {
-        $this->roleCheck($extra);
+        $this->roleUserCheck($extra);
         $dql = '';
 
         if (!!$params['where']) {//if where is not null
@@ -100,7 +100,7 @@ abstract class AbstractBaseRepository extends EntityRepository
      */
     protected function singlePartialById($id, $extra = null, $hydrateMethod = Query::HYDRATE_ARRAY)
     {
-        $this->roleCheck($extra);
+        $this->roleUserCheck($extra);
         $dql = $this->dqlStart();
 
         if (!!$extra) {
