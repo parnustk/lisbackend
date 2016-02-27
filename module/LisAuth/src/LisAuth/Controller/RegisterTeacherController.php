@@ -23,9 +23,9 @@ class RegisterTeacherController extends AbstractRestfulController
      * 
      * @return LisAuth\Service\LisRegisterService
      */
-    public function getLisAuthService()
+    public function getLisRegisterService()
     {
-        return $this->getServiceLocator()->get('lisauth_service');
+        return $this->getServiceLocator()->get('lisregister_service');
     }
 
     /**
@@ -66,7 +66,7 @@ class RegisterTeacherController extends AbstractRestfulController
     {
         return new JsonModel(
                 $this
-                        ->getLisAuthService()
+                        ->getLisRegisterService()
                         ->registerLisUser($data, 'teacher')
         );
     }

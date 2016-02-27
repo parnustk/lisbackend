@@ -75,7 +75,7 @@ class RegisterAdministratorControllerTest extends UnitHelpers
         $this->assertEquals('NOT_FOUND', $result->message);
     }
 
-    public function testCreateNewTeacherUser()
+    public function testCreateNewAdministratorUser()
     {
         $administrator = $this->CreateAdministrator();
 

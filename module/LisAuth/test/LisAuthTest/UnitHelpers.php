@@ -209,7 +209,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'firstName' => 'firstName' . uniqid(),
                     'lastName' => 'lastName' . uniqid(),
                     'personalCode' => 'code' . uniqid(),
-                    'email' => uniqid() . '@asd.com',
+                    'email' => 'stdntemail' . uniqid() . '@gmail.com'
         ]);
     }
 
@@ -344,15 +344,15 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     {
         $repository = $this->em->getRepository('Core\Entity\Administrator');
 
-        if ($data) {
+        if ($data !== null) {
             return $repository->Create($data);
         }
 
         return $repository->Create([
-                    'firstName' => uniqid() . 'FirstName',
-                    'lastName' => uniqid() . 'LastName',
-                    'personalCode' => uniqid() . 'Code',
-                    'email' => uniqid() . '@asd.com',
+                    'firstName' => 'firstName' . uniqid(),
+                    'lastName' => 'lastName' . uniqid(),
+                    'personalCode' => 'code' . uniqid(),
+                    'email' => 'adminemail' . uniqid() . '@mail.ee'
         ]);
     }
 
@@ -392,7 +392,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         return $repository->Create([
                     'duedate' => new \DateTime,
                     'description' => uniqid() . ' Description for independentwork',
-                    'durationAK' => uniqid(),
+                    'durationAK' => (int) uniqid(),
                     'subjectRound' => $subjectRound->getId(),
                     'teacher' => $teacher->getId(),
         ]);
@@ -459,7 +459,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
      * @param type $data
      * @return type
      */
-    protected function StudentInGroups($data = null)
+    protected function CreateStudentInGroups($data = null)
     {
         $repository = $this->em->getRepository('Core\Entity\StudentInGroups');
         if ($data) {
@@ -470,10 +470,106 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $studentGroup = $this->CreateStudentGroup();
 
         return $repository->Create([
-                    'status' => uniqid() . ' Status for StudentInGroups',
+                    'status' => rand(0, 1),
                     'studentGroup' => $studentGroup->getId(),
                     'student' => $student->getId(),
         ]);
+    }
+
+    /**
+     * Creates lisUser and associates to given Student
+     * 
+     * @param \Core\Entity\Student $student
+     * @param array|null $data
+     * 
+     * @return \Core\Entity\LisUser
+     */
+    protected function CreateStudentUser(\Core\Entity\Student $student, $data = null)
+    {
+        $d = $data;
+
+        if (!$d) {//if $data was not given
+            $d = [
+                'personalCode' => $student->getPersonalCode(),
+                'password' => uniqid(),
+                'email' => uniqid() . '@asd.ee',
+            ];
+        }
+
+        $lisUser = $this
+                ->em
+                ->getRepository('Core\Entity\LisUser')
+                ->Create($d);
+
+        $student->setLisUser($lisUser); //associate
+        $this->em->persist($student);
+        $this->em->flush($student);
+
+        return $lisUser;
+    }
+
+    /**
+     * Creates lisUser and associates to given Teacher
+     * 
+     * @param \Core\Entity\Teacher $teacher
+     * @param array|null $data
+     * 
+     * @return \Core\Entity\LisUser
+     */
+    protected function CreateTeacherUser(\Core\Entity\Teacher $teacher, $data = null)
+    {
+        $d = $data;
+
+        if (!$d) {//if $data was not given
+            $d = [
+                'personalCode' => $teacher->getPersonalCode(),
+                'password' => uniqid(),
+                'email' => uniqid() . '@asd.ee',
+            ];
+        }
+
+        $lisUser = $this
+                ->em
+                ->getRepository('Core\Entity\LisUser')
+                ->Create($d);
+
+        $teacher->setLisUser($lisUser); //associate
+        $this->em->persist($teacher);
+        $this->em->flush($teacher);
+
+        return $lisUser;
+    }
+
+    /**
+     * Creates lisUser and associates to given Administrator
+     * 
+     * @param \Core\Entity\Administrator $administrator
+     * @param array|null $data
+     * 
+     * @return \Core\Entity\LisUser
+     */
+    protected function CreateAdministratorUser(\Core\Entity\Administrator $administrator, $data = null)
+    {
+        $d = $data;
+
+        if (!$d) {//if $data was not given
+            $d = [
+                'personalCode' => $administrator->getPersonalCode(),
+                'password' => uniqid(),
+                'email' => uniqid() . '@asd.ee',
+            ];
+        }
+
+        $lisUser = $this
+                ->em
+                ->getRepository('Core\Entity\LisUser')
+                ->Create($d);
+
+        $administrator->setLisUser($lisUser); //associate
+        $this->em->persist($administrator);
+        $this->em->flush($administrator);
+
+        return $lisUser;
     }
 
 }

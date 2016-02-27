@@ -23,9 +23,9 @@ class RegisterStudentController extends AbstractRestfulController
      * 
      * @return LisAuth\Service\LisRegisterService
      */
-    public function getLisAuthService()
+    public function getLisRegisterService()
     {
-        return $this->getServiceLocator()->get('lisauth_service');
+        return $this->getServiceLocator()->get('lisregister_service');
     }
 
     /**
@@ -53,9 +53,7 @@ class RegisterStudentController extends AbstractRestfulController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this->getLisAuthService()->registerStudent([777])
-        );
+        return new JsonModel([]);
     }
 
     /**
@@ -68,7 +66,7 @@ class RegisterStudentController extends AbstractRestfulController
     {
         return new JsonModel(
                 $this
-                        ->getLisAuthService()
+                        ->getLisRegisterService()
                         ->registerLisUser($data, 'student')
         );
     }

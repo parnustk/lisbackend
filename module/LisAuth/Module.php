@@ -15,6 +15,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use LisAuth\Service\LisRegisterService;
+use LisAuth\Service\LisAuthService;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
@@ -94,8 +95,13 @@ class Module
     {
         return [
             'factories' => [
-                'lisauth_service' => function ($sm) {
+                'lisregister_service' => function ($sm) {
                     return (new LisRegisterService)->setEntityManager(
+                        $sm->get('doctrine.entitymanager.orm_default')
+                    );
+                },
+                'lisauth_service' => function ($sm) {
+                    return (new LisAuthService)->setEntityManager(
                         $sm->get('doctrine.entitymanager.orm_default')
                     );
                 },
