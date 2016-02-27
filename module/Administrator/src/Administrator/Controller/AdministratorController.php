@@ -1,17 +1,16 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * 
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Administrator\Controller;
 
-use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * Description of AdministratorController
@@ -20,9 +19,15 @@ use Core\Controller\AbstractBaseController;
  * @author Marten Kähr <marten@kahr.ee>
  * 
  */
-class AdministratorController extends AbstractBaseController
+class AdministratorController extends Base
 {
 
+    /**
+     *
+     * @var type 
+     */
+    protected $service = 'administrator_service';
+    
     /**
      * <h2>GET admin/administrator</h2>
      * <h3>URL Parameters</h3>
@@ -33,12 +38,7 @@ class AdministratorController extends AbstractBaseController
      */
     public function getList()
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('administrator_service')
-                        ->GetList($this->GetParams())
-        );
+        return parent::getList();
     }
 
     /**
@@ -51,12 +51,7 @@ class AdministratorController extends AbstractBaseController
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('administrator_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
 
     /**
@@ -71,12 +66,7 @@ class AdministratorController extends AbstractBaseController
      */
     public function create($data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('administrator_service')
-                        ->Create($data)
-        );
+        return parent::create($data);
     }
 
     /**
@@ -92,12 +82,7 @@ class AdministratorController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('administrator_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
 
     /**
@@ -110,12 +95,7 @@ class AdministratorController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('administrator_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
 
 }
