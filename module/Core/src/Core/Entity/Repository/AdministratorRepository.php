@@ -247,7 +247,10 @@ class AdministratorRepository extends AbstractBaseRepository
      */
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //set user related data
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
+        
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
 
@@ -311,6 +314,9 @@ class AdministratorRepository extends AbstractBaseRepository
      */
     private function teacherDelete($entity, $extra = null)
     {
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
         return $this->defaultDelete($entity, $extra);
     }
 

@@ -15,12 +15,14 @@ namespace AdministratorTest\Controller;
 use Administrator\Controller\IndependentWorkController;
 use Zend\Json\Json;
 
+/**
+ * 
+ * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ */
 class IndependentWorkControllerTest extends UnitHelpers
 {
 
-    /**
-     * @author Kristen <seppkristen@gmail.com>
-     */
     protected function setUp()
     {
         $this->controller = new IndependentWorkController();
@@ -28,89 +30,62 @@ class IndependentWorkControllerTest extends UnitHelpers
     }
 
     /**
-     * Imitate POST request
+     * NOT ALLOWED
      */
     public function testCreate()
     {
-        $durationAK = 5;
-        $description = uniqid() . ' Unique description';
-        $duedate = new \DateTime;
-        $teacher = $this->CreateTeacher();
-        $subjectRound = $this->CreateSubjectRound();
-
         $this->request->setMethod('post');
-
-        $this->request->getPost()->set('subjectRound', $subjectRound->getId());
-        $this->request->getPost()->set('teacher', $teacher->getId());
-        $this->request->getPost()->set('duedate', $duedate);
-        $this->request->getPost()->set('description', $description);
-        $this->request->getPost()->set('durationAK', $durationAK);
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, FALSE);
+        $this->PrintOut($result, false);
 
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-    }
-
-    public function testCreateWithCreatedByAndUpdatedBy()
-    {
-        $durationAK = 5;
-        $description = uniqid() . ' Unique description';
-        $duedate = new \DateTime;
-        $teacher = $this->CreateTeacher();
-        $subjectRound = $this->CreateSubjectRound();
-
-        $this->request->setMethod('post');
-
-        $this->request->getPost()->set('subjectRound', $subjectRound->getId());
-        $this->request->getPost()->set('teacher', $teacher->getId());
-        $this->request->getPost()->set('duedate', $duedate);
-        $this->request->getPost()->set('description', $description);
-        $this->request->getPost()->set('durationAK', $durationAK);
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, FALSE);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $repository = $this->em->getRepository('Core\Entity\IndependentWork');
-        $newStudentGroup = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
-    }
-
-    public function testCreateNoData()
-    {
-        $this->request->setMethod('post');
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, FALSE);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertNotEquals(1, $result->success);
+        $this->assertEquals(405, $response->getStatusCode());
     }
 
     /**
-     * create one before asking list
+     * NOT ALLOWED
+     */
+    public function testUpdate()
+    {
+        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        $this->request->setMethod('put');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(405, $response->getStatusCode());
+    }
+
+    /**
+     * NOT ALLOWED
+     */
+    public function testDelete()
+    {
+        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        $this->request->setMethod('delete');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(405, $response->getStatusCode());
+    }
+
+    /**
+     * should be successful
      */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->CreateIndependentWork();
         $this->request->setMethod('get');
 
@@ -120,16 +95,24 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
+        $this->assertEquals(true, $result->success);
 
         $this->assertGreaterThan(0, count($result->data));
     }
 
     /**
-     * create one before getting
+     * should be successful
      */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateIndependentWork()->getId());
 
@@ -139,138 +122,27 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
+        $this->assertEquals(true, $result->success);
     }
 
-    public function testUpdate()
-    {
-        //create one to update later
-        $entity = $this->CreateIndependentWork();
-        $id = $entity->getId();
-        $descriptionOld = $entity->getDescription();
-        //prepare request
-        $this->routeMatch->setParam('id', $id);
-        $this->request->setMethod('put');
-        $this->request->setContent(http_build_query([
-            'description' => 'Updated IndependentWork description' . uniqid(),
-        ]));
-        //fire request
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, FALSE);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        //set new data
-        $r = $this->em
-                ->getRepository('Core\Entity\IndependentWork')
-                ->find($result->data['id']);
-        $this->assertNotEquals(
-                $descriptionOld, $r->getDescription()
-        );
-    }
-
-    public function testDelete()
-    {
-        $entity = $this->CreateIndependentWork();
-        $idOld = $entity->getId();
-        $entity->setTrashed(1);
-        $this->em->persist($entity);
-        $this->em->flush($entity); //save to db with trashed 1
-
-        $this->routeMatch->setParam('id', $entity->getId());
-        $this->request->setMethod('delete');
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, FALSE);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->em->clear();
-
-        //test it is not in the database anymore
-        $deleted = $this->em
-                ->getRepository('Core\Entity\IndependentWork')
-                ->Get($idOld);
-
-        $this->assertEquals(null, $deleted);
-    }
-
-    public function testCreatedAtAndUpdatedAt()
-    {
-        $durationAK = 5;
-        $description = uniqid() . ' Unique description';
-        $duedate = new \DateTime;
-        $teacher = $this->CreateTeacher();
-        $subjectRound = $this->CreateSubjectRound();
-
-        $this->request->setMethod('post');
-
-        $this->request->getPost()->set('subjectRound', $subjectRound->getId());
-        $this->request->getPost()->set('teacher', $teacher->getId());
-        $this->request->getPost()->set('duedate', $duedate);
-        $this->request->getPost()->set('description', $description);
-        $this->request->getPost()->set('durationAK', $durationAK);
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, FALSE);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $repository = $this->em->getRepository('Core\Entity\IndependentWork');
-        $newStudentGroup = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
-    }
-
-    public function testTrashed()
-    {
-        //create one to update later
-        $entity = $this->CreateIndependentWork();
-        $id = $entity->getId();
-        $trashedOld = $entity->getTrashed();
-        //prepare request
-        $this->routeMatch->setParam('id', $id);
-        $this->request->setMethod('put');
-        $this->request->setContent(http_build_query([
-            'trashed' => 1,
-        ]));
-        //fire request
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        $this->PrintOut($result, FALSE);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        //set new data
-        $r = $this->em
-                ->getRepository('Core\Entity\IndependentWork')
-                ->find($result->data['id']);
-        $this->assertNotEquals(
-                $trashedOld, $r->getTrashed()
-        );
-    }
-
+    /**
+     * should be successful
+     */
     public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //prepare one IW with trashed flag set up
         $entity = $this->CreateIndependentWork();
         $entity->setTrashed(1);
         $this->em->persist($entity);
-        $this->em->flush($entity);//save to db with trashed 1
+        $this->em->flush($entity); //save to db with trashed 1
         $where = [
             'trashed' => 1,
         ];
@@ -290,16 +162,15 @@ class IndependentWorkControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
 
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        
+        $this->assertEquals(true, $result->success);
+
         $this->assertGreaterThan(0, count($result->data));
         //assert all results have trashed not null
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
-        
     }
 
 }

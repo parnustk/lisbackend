@@ -22,7 +22,7 @@ class AbsenceController extends Base
 
     /**
      *
-     * @var type 
+     * @var string 
      */
     protected $service = 'absence_service';
 

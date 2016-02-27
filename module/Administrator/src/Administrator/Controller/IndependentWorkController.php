@@ -12,17 +12,21 @@
 
 namespace Administrator\Controller;
 
-use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * Rest API access to independentwork data.
  * 
  * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
-class IndependentWorkController extends AbstractBaseController
+class IndependentWorkController extends Base
 {
 
+    /**
+     *
+     * @var string
+     */
     protected $service = 'independentwork_service';
 
     /**
@@ -39,7 +43,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function create($data)
     {
-        return parent::create($data);
+        return parent::notAllowed();
     }
 
     /**
@@ -85,7 +89,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return parent::update($id, $data);
+        return parent::notAllowed();
     }
 
     /**
@@ -98,7 +102,7 @@ class IndependentWorkController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return parent::delete($id);
+        return parent::notAllowed();
     }
 
 }
