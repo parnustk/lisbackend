@@ -13,8 +13,8 @@ namespace LisAuth\Service;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Doctrine\ORM\EntityManager;
-use LisAuth\Utilites\Validator;
-use LisAuth\Utilites\Hash;
+use LisAuth\Utility\Validator;
+use LisAuth\Utility\Hash;
 use Exception;
 
 /**
@@ -86,28 +86,34 @@ class LisAuthService implements ServiceManagerAwareInterface
     {
         $r = [];
         try {
-            $email = \LisAuth\Utilites\Validator::validateEmail($data['email']);
+            $email = Validator::validateEmail($data['email']);
             $password = Validator::validatePassword($data['password']);
-            $passwordHash = Hash::passwordToHash($password);
-
-            print_r($email);
-            print_r($passwordHash);
-            die;
-        } catch (Exception $ex) {
             
+            $adminUser = $this->getEntityManager()
+                    ->getRepository('Core\Entity\Administrator')
+                    ->FetchAdministratorUser($email);
+
+            /*
+              [id] => 403
+              [lisUser] => Array
+              (
+              [id] => 552
+              [password] => $2y$04$h9d2ZaHEI9GeYou3rN5pXesNNBIH2hW6csfquPSrJ557YIgqBKAFm
+              )
+             */
+            $hash = $adminUser['lisUser']['password'];
+            Hash::verifyHash($password, $hash);
+            
+            
+            die('so far so good'."\n");
+        } catch (Exception $ex) {
+            $r = [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+            print_r($r);
+            die;
         }
-
-
-        //check if exists
-
-        /*
-
-          [email] => 56d2d1556234e@test.ee
-          [password] => 56d2d1556235b
-         */
-
-        //check if already logged in
-        //set to session if needed
 
         return $r;
     }

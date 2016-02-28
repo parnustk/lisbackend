@@ -12,6 +12,8 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\Administrator;
 use Exception;
+use Doctrine\ORM\Query;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * AdministratorRepository
@@ -250,7 +252,7 @@ class AdministratorRepository extends AbstractBaseRepository
         if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
-        
+
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
 
@@ -506,6 +508,26 @@ class AdministratorRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'administrator') {
             return $this->administratorGetList($params, $extra);
         }
+    }
+
+    public function FetchAdministratorUser($email)
+    {
+        $dql = "SELECT 
+                    partial $this->baseAlias.{
+                        id
+                    },
+                    partial lisUser.{
+                        id,
+                        password
+                    }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.lisUser lisUser
+                WHERE lisUser.email=:email AND lisUser.state=1";
+        
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('email', $email, Type::STRING);
+        $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+        return $r;
     }
 
 }

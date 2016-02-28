@@ -8,7 +8,7 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
-namespace LisAuth\Utilites;
+namespace LisAuth\Utility;
 
 use Zend\Validator\EmailAddress;
 use Zend\Validator\Regex;

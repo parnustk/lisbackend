@@ -8,9 +8,10 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
-namespace LisAuth\Utilites;
+namespace LisAuth\Utility;
 
 use Zend\Crypt\Password\Bcrypt;
+use Exception;
 
 /**
  * Contains static function(s)
@@ -43,6 +44,13 @@ class Hash
         return (new Bcrypt)
                         ->setCost(self::$passwordCost)
                         ->create($password);
+    }
+
+    public static function verifyHash($password, $hash)
+    {
+        if (!(new Bcrypt)->verify($password, $hash)) {
+            throw new Exception('NO_MATCH');
+        }
     }
 
 }

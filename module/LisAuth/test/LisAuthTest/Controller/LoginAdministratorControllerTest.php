@@ -13,6 +13,7 @@ namespace LisAuthTest\Controller;
 use LisAuth\Controller\LoginAdministratorController;
 use LisAuthTest\UnitHelpers;
 use LisAuthTest\Bootstrap;
+use LisAuth\Utility\Hash;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
@@ -57,7 +58,9 @@ class LoginAdministratorControllerTest extends UnitHelpers
                 ->em
                 ->getRepository('Core\Entity\LisUser')
                 ->Create($d);
-
+        echo "\n";
+        print_r($lisUser->getPassword());
+        echo "\n";
         $administrator->setLisUser($lisUser); //associate
         $this->em->persist($administrator);
         $this->em->flush($administrator);
