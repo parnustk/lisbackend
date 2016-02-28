@@ -13,7 +13,7 @@ namespace LisAuthTest\Controller;
 use LisAuth\Controller\LoginAdministratorController;
 use LisAuthTest\UnitHelpers;
 
-ob_start(); //clears session_regenerate_id(): Cannot regenerate session id - headers already sent
+ob_start(); //clears error - session_regenerate_id(): Cannot regenerate session id - headers already sent
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  */
