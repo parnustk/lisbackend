@@ -19,8 +19,12 @@ use LisAuthTest\Bootstrap;
  */
 class LoginAdministratorControllerTest extends UnitHelpers
 {
-
-    protected $lisRegisterService;
+    
+//    /**
+//     *
+//     * @var type 
+//     */
+//    protected $lisRegisterService;
 
     /**
      * REST access setup
@@ -29,8 +33,8 @@ class LoginAdministratorControllerTest extends UnitHelpers
     {
         $this->controller = new LoginAdministratorController();
         parent::setUp();
-        $sm = Bootstrap::getServiceManager();
-        $this->lisRegisterService = $sm->get('lisregister_service');
+//        $sm = Bootstrap::getServiceManager();
+//        $this->lisRegisterService = $sm->get('lisregister_service');
     }
 
     /**
@@ -57,7 +61,6 @@ class LoginAdministratorControllerTest extends UnitHelpers
         $administrator->setLisUser($lisUser); //associate
         $this->em->persist($administrator);
         $this->em->flush($administrator);
-
 
         $this->request->setMethod('post');
 

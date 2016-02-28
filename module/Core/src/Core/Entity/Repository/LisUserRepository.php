@@ -33,6 +33,34 @@ class LisUserRepository extends EntityRepository
      * @var type 
      */
     private $passwordCost = 4;
+    
+    
+
+    /**
+     * To hash function
+     * 
+     * @param string $password plain password
+     * @return string hash
+     */
+    public function passwordToHash($password)
+    {
+        return (new Bcrypt)
+                        ->setCost($this->passwordCost)
+                        ->create($password);
+    }
+
+    public function checkAdministratorUserExists($email, $password)
+    {
+        $validator = new Zend\Validator\EmailAddress();
+        if ($validator->isValid($email)) {
+            // email appears to be valid
+        } else {
+            // email is invalid; print the reasons
+            foreach ($validator->getMessages() as $message) {
+                echo "$message\n";
+            }
+        }
+    }
 
     /**
      * 
@@ -45,17 +73,15 @@ class LisUserRepository extends EntityRepository
     public function Create($data, $returnPartial = false, $extra = null)
     {
         $entity = new LisUser($this->getEntityManager());
-    
-        $data['password'] = (new Bcrypt)
-                ->setCost($this->passwordCost)
-                ->create($data['password']);
+
+        $data['password'] = $this->passwordToHash($data['password']);
 
         $entity->hydrate($data);
 
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
-        
+
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
 

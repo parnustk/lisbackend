@@ -64,11 +64,10 @@ class LoginAdministratorController extends AbstractRestfulController
      */
     public function create($data)
     {
-        print_r($data); die;
         return new JsonModel(
                 $this
                         ->getLisAuthService()
-                        ->registerLisUser($data, 'administrator')
+                        ->logIn($data, 'administrator')
         );
     }
 
