@@ -510,7 +510,12 @@ class AdministratorRepository extends AbstractBaseRepository
         }
     }
 
-    public function FetchAdministratorUser($email)
+    /**
+     * 
+     * @param string $email
+     * @return array
+     */
+    public function FetchUser($email)
     {
         $dql = "SELECT 
                     partial $this->baseAlias.{

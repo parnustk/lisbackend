@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /**
  * Licence of Learning Info System (LIS)
@@ -67,7 +67,7 @@ class LoginAdministratorController extends AbstractRestfulController
         return new JsonModel(
                 $this
                         ->getLisAuthService()
-                        ->logIn($data, 'administrator')
+                        ->authenticate($data, 'administrator')
         );
     }
 

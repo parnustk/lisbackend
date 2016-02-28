@@ -16,13 +16,15 @@ use Doctrine\ORM\EntityManager;
 use LisAuth\Utility\Validator;
 use LisAuth\Utility\Hash;
 use Exception;
+use Zend\Authentication\Storage;
+use Zend\Session\Container as SessionContainer;
 
 /**
  * LisAuthService. Checks for identity
  *
  * @author Sander Mets <sandermets0@gmail.com>
  */
-class LisAuthService implements ServiceManagerAwareInterface
+class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInterface
 {
 
     /**
@@ -35,6 +37,11 @@ class LisAuthService implements ServiceManagerAwareInterface
      * @var EntityManager
      */
     protected $entityManager = null;
+
+    /**
+     * @var Storage\StorageInterface
+     */
+    protected $storage;
 
     /**
      * 
@@ -52,6 +59,22 @@ class LisAuthService implements ServiceManagerAwareInterface
     public function getEntityManager()
     {
         return $this->entityManager;
+    }
+
+    /**
+     * Returns the persistent storage handler
+     *
+     * Session storage is used by default unless a different storage adapter has been set.
+     *
+     * @return Storage\StorageInterface
+     */
+    public function getStorage()
+    {
+        if (null === $this->storage) {
+            $this->setStorage(new Storage\Session('LisAuthService'));
+        }
+
+        return $this->storage;
     }
 
     /**
@@ -77,45 +100,137 @@ class LisAuthService implements ServiceManagerAwareInterface
     }
 
     /**
+     * Sets the persistent storage handler
+     *
+     * @param  Storage\StorageInterface $storage
+     * @return AbstractAdapter Provides a fluent interface
+     */
+    public function setStorage(Storage\StorageInterface $storage)
+    {
+        $this->storage = $storage;
+        return $this;
+    }
+
+    /**
+     * Returns true if and only if storage is empty
+     *
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If it is impossible to determine whether
+     * storage is empty or not
+     * @return boolean
+     */
+    public function isEmpty()
+    {
+        if ($this->getStorage()->isEmpty()) {
+            return true;
+        }
+        $identity = $this->getStorage()->read();
+        if ($identity === null) {
+            $this->clear();
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the contents of storage
+     *
+     * Behavior is undefined when storage is empty.
+     *
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If reading contents from storage is impossible
+     * @return mixed
+     */
+    public function read()
+    {
+        return $this->getStorage()->read();
+    }
+
+    /**
+     * Writes $contents to storage
+     *
+     * @param  mixed $contents
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If writing $contents to storage is impossible
+     * @return void
+     */
+    public function write($contents)
+    {
+        $this->getStorage()->write($contents);
+    }
+
+    /**
+     * Clears contents from storage
+     *
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If clearing contents from storage is impossible
+     * @return void
+     */
+    public function clear()
+    {
+        $this->getStorage()->clear();
+    }
+
+    /**
+     * 
+     */
+    public function logout()
+    {
+        $this->getStorage()->clear();
+    }
+
+    /**
+     * 
+     * @param string $email
+     * @param string $password
+     * @param string $entityName
+     */
+    private function auth($email, $password, $entityName)
+    {
+        $user = $this->getEntityManager()
+                ->getRepository($entityName)
+                ->FetchUser($email);//all good if no exceptions
+
+        Hash::verifyHash($password, $user['lisUser']['password']);//all good if no exceptions
+
+        $session = new SessionContainer($this->getStorage()->getNameSpace()); //regen the id
+        $session->getManager()->regenerateId();
+
+        $storage = $this->getStorage()->read(); //fill session with relevant data
+        $storage['role'] = 'administrator';
+        $storage['lisPerson'] = $user['id'];
+        $storage['lisUser'] = $user['lisUser']['id'];
+        $this->getStorage()->write($storage);
+    }
+
+    /**
+     * NB user can have many results
+     * NB thin some way to deal brute force
      * 
      * @param array $data
      * @param string $role
      * @return array
      */
-    public function logIn($data, $role)
+    public function authenticate($data, $role)
     {
-        $r = [];
         try {
+            $this->logout(); //logout first 
+
             $email = Validator::validateEmail($data['email']);
             $password = Validator::validatePassword($data['password']);
-            
-            $adminUser = $this->getEntityManager()
-                    ->getRepository('Core\Entity\Administrator')
-                    ->FetchAdministratorUser($email);
 
-            /*
-              [id] => 403
-              [lisUser] => Array
-              (
-              [id] => 552
-              [password] => $2y$04$h9d2ZaHEI9GeYou3rN5pXesNNBIH2hW6csfquPSrJ557YIgqBKAFm
-              )
-             */
-            $hash = $adminUser['lisUser']['password'];
-            Hash::verifyHash($password, $hash);
-            
-            
-            die('so far so good'."\n");
-        } catch (Exception $ex) {
-            $r = [
-                'success' => false,
-                'message' => $ex->getMessage()
+            if ($role === 'administrator') {
+                $this->auth($email, $password, 'Core\Entity\Administrator');
+            }
+
+            return [
+                'success' => true,
+                'message' => 'NOW_LOGGED_IN'
             ];
-            print_r($r);
-            die;
-        }
+        } catch (Exception $ex) {
 
-        return $r;
+            return [
+                'success' => false,
+                'message' => 'FALSE_ATTEMPT'
+            ];
+        }
     }
 
 }
