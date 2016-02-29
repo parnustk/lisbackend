@@ -11,17 +11,17 @@
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class StudentGradeController extends AbstractBaseController
+class StudentGradeController extends Base
 {
 
     /**
      *
-     * @var type 
+     * @var string 
      */
     protected $service = 'studentgrade_service';
 
@@ -68,7 +68,7 @@ class StudentGradeController extends AbstractBaseController
      */
     public function create($data)
     {
-        return parent::create($data);
+        return parent::notAllowed();
     }
 
     /**
@@ -89,7 +89,7 @@ class StudentGradeController extends AbstractBaseController
      */
     public function update($id, $data)
     {
-        return parent::update($id, $data);
+        return parent::notAllowed();
     }
 
     /**
@@ -102,7 +102,7 @@ class StudentGradeController extends AbstractBaseController
      */
     public function delete($id)
     {
-        return parent::delete($id);
+        return parent::notAllowed();
     }
 
 }
