@@ -14,8 +14,12 @@ use Administrator\Controller\TeacherController;
 use Zend\Json\Json;
 use Zend\Validator\Regex;
 
+error_reporting(E_ALL | E_STRICT);
+chdir(__DIR__);
+
 /**
- * @author Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class TeacherControllerTest extends UnitHelpers
 {
