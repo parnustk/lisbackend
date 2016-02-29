@@ -1,28 +1,28 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis dev team
- * @license   https://opensource.org/licenses/MIT MIT License
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * Rest API access to subjectround data.
- * 
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class SubjectRoundController extends AbstractBaseController
+class SubjectRoundController extends Base
 {
+
     /**
      *
-     * @var type 
+     * @var string 
      */
     protected $service = 'subjectround_service';
 
@@ -64,7 +64,7 @@ class SubjectRoundController extends AbstractBaseController
      */
     public function create($data)
     {
-         return parent::create($data);
+        return parent::create($data);
     }
 
     /**

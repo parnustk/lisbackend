@@ -85,6 +85,10 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlTeacherStart()
     {
         return "SELECT 
