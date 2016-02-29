@@ -14,9 +14,9 @@ use Core\Entity\Vocation;
 use Exception;
 
 /**
- * VocationRepository
- * 
- * @author Sander Mets <sandermets0@gmail.com>, Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class VocationRepository extends AbstractBaseRepository
 {
@@ -50,6 +50,10 @@ class VocationRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -63,6 +67,10 @@ class VocationRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -76,6 +84,10 @@ class VocationRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -181,7 +193,6 @@ class VocationRepository extends AbstractBaseRepository
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
-        //IF required MANY TO MANY validate manually
         return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 

@@ -12,9 +12,15 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\VocationController;
 use Zend\Json\Json;
+use Zend\Validator\Regex;
+
+error_reporting(E_ALL | E_STRICT);
+chdir(__DIR__);
 
 /**
- * @author Juhan Kõks <juhankoks@gmail.com> , Sander Mets <sandermets0@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class VocationControllerTest extends UnitHelpers
 {
@@ -30,9 +36,18 @@ class VocationControllerTest extends UnitHelpers
 
     /**
      * TEST row gets created
+     * Should be successful
      */
     public function testCreate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("name", "Name vocation");
@@ -50,9 +65,18 @@ class VocationControllerTest extends UnitHelpers
 
     /**
      * TEST row gets not created
+     * Should be NOT successful
      */
     public function testCreateNoName()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("code", uniqid());
@@ -65,13 +89,26 @@ class VocationControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
+
+        //test that message contains description":{"isEmpty
+        $validator = new Regex(['pattern' => '/name.{4}isEmpty/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     /**
      * TEST row gets not created
+     * Should be NOT successful
      */
     public function testCreateNoCode()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("name", "Name vocation");
@@ -84,13 +121,26 @@ class VocationControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
+
+        //test that message contains description":{"isEmpty
+        $validator = new Regex(['pattern' => '/code.{4}isEmpty/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     /**
      * TEST row gets not created
+     * Should be NOT successful
      */
     public function testCreateNodurationEKAP()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("name", "Name vocation");
@@ -103,13 +153,26 @@ class VocationControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
+
+        //test that message contains description":{"isEmpty
+        $validator = new Regex(['pattern' => '/durationEKAP.{4}isEmpty/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     /**
      * TEST row gets not created
+     * Should be NOT successful
      */
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -118,13 +181,26 @@ class VocationControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
+
+        //test that message contains isEmpty
+        $validator = new Regex(['pattern' => '/isEmpty/U']); //U - non greedy
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     /**
      * TEST row gets read by id
+     * should be successful
      */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateVocation()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -138,9 +214,18 @@ class VocationControllerTest extends UnitHelpers
 
     /**
      * TEST rows get read
+     * should be successful
      */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->CreateVocation();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -155,9 +240,18 @@ class VocationControllerTest extends UnitHelpers
 
     /**
      * TEST row gets updated by id
+     * should be successful
      */
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create vocation
         $entity = $this->CreateVocation();
         $id = $entity->getId();
@@ -200,9 +294,18 @@ class VocationControllerTest extends UnitHelpers
     /**
      * TEST row gets deleted by id
      * can only try to delete smt what is trashed
+     * should NOT be successful
      */
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateVocation();
         $idOld = $entity->getId();
 
@@ -226,8 +329,19 @@ class VocationControllerTest extends UnitHelpers
         $this->assertNotEquals(null, $deleted);
     }
 
+    /**
+     * should be successful
+     */
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateVocation();
         $idOld = $entity->getId();
         $entity->setTrashed(1);
@@ -259,6 +373,14 @@ class VocationControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -281,6 +403,13 @@ class VocationControllerTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         //prepare one Vocation with trashed flag set up
         $entity = $this->CreateVocation();
