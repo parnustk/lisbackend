@@ -20,21 +20,22 @@ use Exception;
  */
 class GradingTypeRepository extends AbstractBaseRepository
 {
-    /*
+    /**
+     * 
      * @var string
      */
-
     protected $baseAlias = 'gradingtype';
 
-    /*
+    /**
+     * 
      * @var string
      */
     protected $baseEntity = 'Core\Entity\GradingType';
 
-    /*
+    /**
+     * 
      * @return string
      */
-
     protected function dqlStart()
     {
         $dql = "SELECT 
@@ -47,10 +48,10 @@ class GradingTypeRepository extends AbstractBaseRepository
         return $dql;
     }
 
-    /*
+    /**
+     * 
      * @return string
      */
-
     protected function dqlStudentStart()
     {
         $dql = "SELECT 
@@ -63,10 +64,10 @@ class GradingTypeRepository extends AbstractBaseRepository
         return $dql;
     }
 
-    /*
+    /**
+     * 
      * @return string
      */
-
     protected function dqlTeacherStart()
     {
         $dql = "SELECT 
@@ -79,10 +80,10 @@ class GradingTypeRepository extends AbstractBaseRepository
         return $dql;
     }
 
-    /*
+    /**
+     * 
      * @return string
      */
-
     protected function dqlAdministratorStart()
     {
         $dql = "SELECT 

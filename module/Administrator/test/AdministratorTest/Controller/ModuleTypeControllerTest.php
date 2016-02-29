@@ -1,29 +1,46 @@
 <?php
 
+/**
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
+ */
+
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\ModuleTypeController;
 use Zend\Json\Json;
 
-//error_reporting(E_ALL | E_STRICT);
-//chdir(__DIR__);
+error_reporting(E_ALL | E_STRICT);
+chdir(__DIR__);
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmailcom>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class ModuletypeControllerTest extends UnitHelpers
+class ModuleTypeControllerTest extends UnitHelpers
 {
 
     protected function setUp()
     {
-        $this->controller = new ModuletypeController();
+        $this->controller = new ModuleTypeController();
         parent::setUp();
     }
 
     public function testCreate()
     {
-        $name = 'Moduletype name' . uniqid();
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
 
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        $name = 'Moduletype name' . uniqid();
         $this->request->setMethod('post');
 
         $room = $this->CreateModuleType();
@@ -33,26 +50,39 @@ class ModuletypeControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
 
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        
     }
 
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        
     }
 
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateModuleType()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -60,11 +90,17 @@ class ModuletypeControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
     }
 
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         $this->CreateModuleType();
         $this->request->setMethod('get');
@@ -72,15 +108,22 @@ class ModuletypeControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        
     }
 
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateModuleType();
         $id = $entity->getId();
         $nameOld = $entity->getName();
@@ -104,9 +147,17 @@ class ModuletypeControllerTest extends UnitHelpers
                 ->find($result->data['id']);
         $this->assertNotEquals($nameOld, $r->getName());
     }
-    
+
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateModuleType();
         $idOld = $entity->getId();
 
@@ -130,6 +181,14 @@ class ModuletypeControllerTest extends UnitHelpers
 
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateModuleType();
         $idOld = $entity->getId();
         $entity->setTrashed(1);
@@ -141,7 +200,7 @@ class ModuletypeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -154,42 +213,19 @@ class ModuletypeControllerTest extends UnitHelpers
                 ->find($idOld);
 
         $this->assertEquals(null, $deleted);
-        
-    }
-
-    public function testCreatedByAndUpdatedBy()
-    {
-        $this->request->setMethod('post');
-
-        $this->request->getPost()->set('name', uniqid() . 'ModuleType');
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, false);
-        
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        
-
-        $repository = $this->em->getRepository('Core\Entity\ModuleType');
-        $newModuleType = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newModuleType->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newModuleType->getUpdatedBy()->getId());
     }
 
     public function testCreatedAtAndUpdatedAt()
     {
-        $this->request->setMethod('post');
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
 
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        $this->request->setMethod('post');
         $this->request->getPost()->set('name', uniqid());
 
         $lisUser = $this->CreateLisUser();
@@ -198,7 +234,7 @@ class ModuletypeControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $this->PrintOut($result, false);
 
         $repository = $this->em->getRepository('Core\Entity\ModuleType');
@@ -209,6 +245,14 @@ class ModuletypeControllerTest extends UnitHelpers
 
     public function testGetListWithPagination()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
 
         $this->CreateModuleType();
@@ -223,17 +267,24 @@ class ModuletypeControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        
     }
 
     public function testTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to update later
         $entity = $this->CreateModuleType();
         $id = $entity->getId();
@@ -260,9 +311,16 @@ class ModuletypeControllerTest extends UnitHelpers
                 $trashedOld, $r->getTrashed()
         );
     }
-    
-     public function testGetTrashedList()
+
+    public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         //prepare one ModuleType with trashed flag set up
         $entity = $this->CreateModuleType();
@@ -301,30 +359,6 @@ class ModuletypeControllerTest extends UnitHelpers
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
         }
-    }
-    
-    /**
-     * TEST rows get read by limit and page params
-     */
-    public function testGetListWithPaginaton()
-    {
-        $this->request->setMethod('get');
-
-        //set record limit to 1
-        $q = 'page=1&limit=1'; //imitate real param format
-        $params = [];
-        parse_str($q, $params);
-        foreach ($params as $key => $value) {
-            $this->request->getQuery()->set($key, $value);
-        }
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        $this->PrintOut($result, false);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        $this->assertLessThanOrEqual(1, count($result->data));
-        
     }
 
 }
