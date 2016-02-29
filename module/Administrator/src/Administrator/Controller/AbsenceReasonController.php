@@ -11,12 +11,12 @@
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class AbsenceReasonController extends AbstractBaseController
+class AbsenceReasonController extends Base
 {
 
     /**
