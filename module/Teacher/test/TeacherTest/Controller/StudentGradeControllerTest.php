@@ -48,12 +48,12 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $this->request->getPost()->set('notes', $notes);
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
-        $this->request->getPost()->set('gradechoice', $this->CreateContactLesson()->getId());
+        $this->request->getPost()->set('gradeChoice', $this->CreateGradeChoice()->getId());
         $this->request->getPost()->set('teacher', $teacher->getId());
-        $this->request->getPost()->set('independentwork', $this->CreateIndependentWork()->getId());
-        $this->request->getPost()->set('module', $this->CreateModule()->getId());
-        $this->request->getPost()->set('subjectround', $this->CreateSubjectRound()->getId());
-        $this->request->getPost()->set('contactlesson', $this->CreateContactLesson()->getId());
+        $this->request->getPost()->set('independentWork', $this->CreateIndependentWork()->getId());
+//        $this->request->getPost()->set('module', $this->CreateModule()->getId());
+//        $this->request->getPost()->set('subjectRound', $this->CreateSubjectRound()->getId());
+//        $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
 
         //fire request
         $result = $this->controller->dispatch($this->request);
@@ -63,7 +63,7 @@ class StudentGradeControllerTest extends UnitHelpers
 
         //make assertions
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(true, (bool) $result->success);
+        $this->assertEquals(1, $result->success);
     }
     
     /**
@@ -84,9 +84,9 @@ class StudentGradeControllerTest extends UnitHelpers
         $student = $this->CreateStudent();
         $gradeChoice = $this->CreateGradeChoice();
         $independentWork = $this->CreateIndependentWork();
-        $module = $this->CreateModule();
-        $subjectRound = $this->CreateSubjectRound();
-        $contactLesson = $this->CreateContactLesson();
+//        $module = $this->CreateModule();
+//        $subjectRound = $this->CreateSubjectRound();
+//        $contactLesson = $this->CreateContactLesson();
         
         $studentGrade = $this->CreateStudentGrade([
             'notes' => $notes,
@@ -127,7 +127,7 @@ class StudentGradeControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -268,7 +268,7 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $studentGrade->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
 
         //do assertions
 
@@ -294,7 +294,7 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
 
         //do assertions
 
@@ -304,6 +304,178 @@ class StudentGradeControllerTest extends UnitHelpers
         //where even unrelated results are printed
         $this->assertGreaterThan(0,count($result->data));
     }
-}
-
     
+    /**
+     * should be successful
+     */
+    public function testDeleteTrashedAndOwnCreated()
+    {
+        //create teacher user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+        
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //create original data
+        $notes = 'Notes' . uniqid();
+        $student = $this->CreateStudent();
+        $gradeChoice = $this->CreateGradeChoice();
+        $independentWork = $this->CreateIndependentWork();
+//        $module = $this->CreateModule();
+//        $subjectRound = $this->CreateSubjectRound();
+//        $contactLesson = $this->CreateContactLesson();
+        
+        $studentGrade = $this->CreateStudentGrade([
+            'notes' => $notes,
+            'student' => $student->getId(),
+            'gradeChoice' => $gradeChoice->getId(),
+            'teacher' => $teacher->getId(),
+            'independentWork' => $independentWork->getId(),
+            'createdBy' => $lisUser->getId(),
+//            'module' => $module->getId(),
+//            'subjectRound' => $subjectRound->getId(),
+//            'contactLesson' => $contactLesson->getId()
+            
+        ]);        
+        
+        $studentGrade->setTrashed(1);
+        $this->em->persist($studentGrade);
+        $this->em->flush($studentGrade);
+        
+        //store id for asserts
+        $id = $studentGrade->getId();
+
+        //fire request
+        $this->routeMatch->setParam('id', $id);
+
+        $this->request->setMethod('delete');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        
+        //test if it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\StudentGrade')
+                ->find($id);
+        $this->assertEquals(null, $deleted);
+    }
+    
+    /**
+     * should not be successful
+     */
+    public function testDeleteTrashedAndNotOwnCreated()
+    {
+        //create teacher user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+        
+        //now we have created teacheruser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+        
+        //create other teacher user
+        $otherTeacher = $this->CreateTeacher();
+        $otherLisUser = $this->CreateTeacherUser($otherTeacher);
+        
+        //create original data
+        $notes = 'Notes' . uniqid();
+        $student = $this->CreateStudent();
+        $gradeChoice = $this->CreateGradeChoice();
+        $independentWork = $this->CreateIndependentWork();
+//        $module = $this->CreateModule();
+//        $subjectRound = $this->CreateSubjectRound();
+//        $contactLesson = $this->CreateContactLesson();
+        
+        $studentGrade = $this->CreateStudentGrade([
+            'notes' => $notes,
+            'student' => $student->getId(),
+            'gradeChoice' => $gradeChoice->getId(),
+            'teacher' => $otherTeacher->getId(),
+            'independentWork' => $independentWork->getId(),
+            'createdBy' => $otherLisUser->getId()
+//            'module' => $module->getId(),
+//            'subjectRound' => $subjectRound->getId(),
+//            'contactLesson' => $contactLesson->getId()
+        ]);        
+        $studentGrade->setTrashed(1);
+        $this->em->persist($studentGrade);
+        $this->em->flush($studentGrade);
+        
+        $id = $studentGrade->getId();
+        
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+
+        $this->request->setMethod('delete');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //assertions
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('SELF_CREATED_RESTRICTION', $result->message);
+    }
+    
+    /**
+     * should not be successful
+     */
+    public function testDeleteNotTrashedAndOwnCreated()
+    {
+        //create teacher user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+        
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //create original data
+        $notes = 'Notes' . uniqid();
+        $student = $this->CreateStudent();
+        $gradeChoice = $this->CreateGradeChoice();
+        $independentWork = $this->CreateIndependentWork();
+//        $module = $this->CreateModule();
+//        $subjectRound = $this->CreateSubjectRound();
+//        $contactLesson = $this->CreateContactLesson();
+        
+        $studentGrade = $this->CreateStudentGrade([
+            'notes' => $notes,
+            'student' => $student->getId(),
+            'gradeChoice' => $gradeChoice->getId(),
+            'teacher' => $teacher->getId(),
+            'independentWork' => $independentWork->getId(),
+            'createdBy' => $lisUser->getId(),
+//            'module' => $module->getId(),
+//            'subjectRound' => $subjectRound->getId(),
+//            'contactLesson' => $contactLesson->getId()
+            
+        ]);        
+        
+        $this->em->persist($studentGrade);
+        $this->em->flush($studentGrade);
+        
+        $id = $studentGrade->getId();
+        
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+
+        $this->request->setMethod('delete');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //assertions
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('NOT_TRASHED', $result->message);
+    }
+}

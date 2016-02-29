@@ -457,7 +457,9 @@ class StudentGradeRepository extends AbstractBaseRepository
 
     private function teacherDelete($entity, $extra = null)
     {
-        //TODO
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
         return $this->defaultDelete($entity, $extra);
     }
 
@@ -490,7 +492,7 @@ class StudentGradeRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentDelete($entity, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherDelete($entity, $extra);
         } else if ($extra->lisRole === 'administrator') {
             //TODO
         }
