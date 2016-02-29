@@ -31,6 +31,9 @@ class GradingtypeControllerTest extends UnitHelpers
         parent::setUp();
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoData()
     {
         //create user
@@ -47,6 +50,10 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
+
+        //test that message contains isEmpty
+        $validator = new Regex(['pattern' => '/isEmpty/U']); //U - non greedy
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     public function testCreate()

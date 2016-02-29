@@ -12,6 +12,7 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\AbsenceReasonController;
 use Zend\Json\Json;
+use Zend\Validator\Regex;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
@@ -54,6 +55,9 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoData()
     {
         //create user
@@ -71,6 +75,10 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
         $this->PrintOut($result, false);
+        
+         //test that message contains isEmpty
+        $validator = new Regex(['pattern' => '/isEmpty/U']);//U - non greedy
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     /**
