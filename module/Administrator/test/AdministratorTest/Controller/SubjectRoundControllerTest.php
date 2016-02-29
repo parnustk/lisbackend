@@ -174,7 +174,7 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, $result->success);
 
-        //test that message contains teacher":{"isEmpty
+        //test that message contains No result was found
         $validator = new Regex(['pattern' => '/No result was found/U']);
         $this->assertTrue($validator->isValid($result->message));
     }

@@ -12,12 +12,14 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\SubjectController;
 use Zend\Json\Json;
+use Zend\Validator\Regex;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class SubjectControllerTest extends UnitHelpers
 {
@@ -28,8 +30,19 @@ class SubjectControllerTest extends UnitHelpers
         parent::setUp();
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -37,10 +50,26 @@ class SubjectControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, (bool) $result->success);
+
+        //test that message contains isEmpty
+        $validator = new Regex(['pattern' => '/isEmpty/U']); //U - non greedy
+        $this->assertTrue($validator->isValid($result->message));
     }
 
+    /**
+     * Imitate POST request
+     * Should be successful
+     */
     public function testCreate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("code", uniqid());
@@ -63,8 +92,19 @@ class SubjectControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoGradingType()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("code", uniqid());
@@ -78,14 +118,25 @@ class SubjectControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
-        
+
+        //test that message contains No result was found
+        $validator = new Regex(['pattern' => '/No result was found/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     public function testCreateNoModule()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("code", uniqid());
@@ -102,14 +153,28 @@ class SubjectControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        
+
+        //test that message contains module":{"isEmpty
+        $validator = new Regex(['pattern' => '/module.{4}isEmpty/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
+    /**
+     * Should be successful
+     */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateSubject()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -117,26 +182,46 @@ class SubjectControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
     }
 
+    /**
+     * Should be successful
+     */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to get first
         $this->CreateSubject();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThan(0, count($result->data));
-        
     }
 
+    /**
+     * Should be successful
+     */
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $created = $this->CreateSubject();
 
         $codeOld = $created->getCode();
@@ -153,7 +238,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $created->getId());
-        
+
         $this->request->setContent(http_build_query([
             'code' => 'code',
             'name' => 'Updated',
@@ -170,7 +255,7 @@ class SubjectControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
@@ -208,8 +293,19 @@ class SubjectControllerTest extends UnitHelpers
         }
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateSubject();
         $idOld = $entity->getId();
 
@@ -233,8 +329,18 @@ class SubjectControllerTest extends UnitHelpers
         $this->assertNotEquals(null, $deleted);
     }
 
+    /**
+     * Should be successful
+     */
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         $entity = $this->CreateSubject();
         $idOld = $entity->getId();
@@ -247,7 +353,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -260,11 +366,20 @@ class SubjectControllerTest extends UnitHelpers
                 ->find($idOld);
 
         $this->assertEquals(null, $deleted);
-        
     }
-    
+
+    /**
+     * Should be successful
+     */
     public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
 //        prepare one Subject with trashed flag set up
         $entity = $this->CreateSubject();
@@ -304,9 +419,20 @@ class SubjectControllerTest extends UnitHelpers
             $this->assertEquals(1, $value['trashed']);
         }
     }
-    
+
+    /**
+     * Should be successful
+     */
     public function testTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to update later
         $entity = $this->CreateSubject();
         $id = $entity->getId();
@@ -338,9 +464,18 @@ class SubjectControllerTest extends UnitHelpers
 
     /**
      * TEST rows get read by limit and page params
+     * Should be successful
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -353,61 +488,27 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        
     }
-    
-     public function testCreatedByAndUpdatedBy()
+
+    /**
+     * Should be successful
+     */
+    public function testCreatedAtAndUpdatedAt()
     {
-        $this->request->setMethod('post');
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
 
-        $code = 'Subject code' . uniqid();
-        $name = 'Subject name' . uniqid();
-        $durationAllAK = 100;
-        $durationContactAK = 60;
-        $durationIndependentAK = 40;
-        $module = $this->CreateModule()->getId();
-        $gradingType = [
-            ['id' => $this->CreateGradingType()->getId()],
-            ['id' => $this->CreateGradingType()->getId()],
-        ];
-        $this->request->getPost()->set('code', $code);
-        $this->request->getPost()->set('name', $name);
-        $this->request->getPost()->set('durationAllAK', $durationAllAK);
-        $this->request->getPost()->set('durationContactAK', $durationContactAK);
-        $this->request->getPost()->set('durationIndependentAK', $durationIndependentAK);
-        $this->request->getPost()->set("module", $module);
-        $this->request->getPost()->set("gradingType", $gradingType);
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        
-        $repository = $this->em->getRepository('Core\Entity\Subject');
-        $newSubject = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newSubject->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newSubject->getUpdatedBy()->getId());
-    }
-    
-     public function testCreatedAtAndUpdatedAt()
-    {
         $this->request->setMethod('post');
         $code = 'Subject code' . uniqid();
         $name = 'Subject name' . uniqid();
@@ -432,13 +533,14 @@ class SubjectControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $repository = $this->em->getRepository('Core\Entity\Subject');
         $newSubject = $repository->find($result->data['id']);
         $this->assertNotNull($newSubject->getCreatedAt());
         $this->assertNull($newSubject->getUpdatedAt());
     }
+
 }
