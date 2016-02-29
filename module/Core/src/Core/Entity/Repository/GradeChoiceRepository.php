@@ -14,7 +14,8 @@ use Core\Entity\GradeChoice;
 use Exception;
 
 /**
- * @author Arnold Tserepov <tserepov@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Arnold Tserepov <tserepov@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradeChoiceRepository extends AbstractBaseRepository
 {

@@ -14,6 +14,7 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\StudentGroupController;
 use Zend\Json\Json;
+use Zend\Validator\Regex;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);

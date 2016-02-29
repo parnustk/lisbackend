@@ -12,6 +12,9 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\GradeChoiceController;
+use Zend\Json\Json;
+use Zend\Validator\Regex;
+
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
@@ -36,6 +39,14 @@ class GradeChoiceControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $name = 'name' . uniqid();
         $this->request->setMethod('post');
         $this->request->getPost()->set('name', $name);
@@ -48,8 +59,16 @@ class GradeChoiceControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
 
-    public function testCreateWithCreatedByAndUpdatedBy()
+    public function testCreateWithCreatedAtAndUpdatedAt()
     {
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $this->request->setMethod('post');
         $name = uniqid() . 'name';
         $this->request->getPost()->set('name', $name);
@@ -71,12 +90,20 @@ class GradeChoiceControllerTest extends UnitHelpers
 
         $repository = $this->em->getRepository('Core\Entity\GradeChoice');
         $newGradeChoice = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newGradeChoice->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newGradeChoice->getUpdatedBy()->getId());
+        $this->assertNotNull($newGradeChoice->getCreatedAt());
+        $this->assertNull($newGradeChoice->getUpdatedAt());
     }
 
     public function testCreateNoData()
     {
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -90,7 +117,14 @@ class GradeChoiceControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
-        //die("What is wrong?");
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $this->CreateGradeChoice();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -106,6 +140,14 @@ class GradeChoiceControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateGradeChoice()->getId());
         //$myevilhack = $this->CreateAbsenceReason()->getId().'; DROP database lis;'
@@ -118,6 +160,14 @@ class GradeChoiceControllerTest extends UnitHelpers
 
     public function testUpdate()
     {
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         //create one to update later
         $gradeChoice = $this->CreateGradeChoice();
         $id = $gradeChoice->getId();
@@ -149,6 +199,14 @@ class GradeChoiceControllerTest extends UnitHelpers
 
     public function testDelete()
     {
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $entity = $this->CreateGradeChoice();
         $idOld = $entity->getId();
         $entity->setTrashed(1);
@@ -176,9 +234,16 @@ class GradeChoiceControllerTest extends UnitHelpers
 
     public function testCreatedWithCreatedAtAndUpdatedAt()
     {
-        $this->request->setMethod('post');
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
 
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $name = uniqid() . 'name';
+        $this->request->setMethod('post');
         $this->request->getPost()->set('name', $name);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();

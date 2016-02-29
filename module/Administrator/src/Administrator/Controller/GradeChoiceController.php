@@ -11,14 +11,14 @@
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * Description of GradeChoiceController
  *
  * @author Arnold Tserepov <tserepov@gmail.com>
  */
-class GradeChoiceController extends AbstractBaseController {
+class GradeChoiceController extends Base {
 
     /**
      *
