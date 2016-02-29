@@ -1,90 +1,100 @@
 <?php
 
 /**
- * LIS development
+ * Licence of Learning Info System (LIS)
  * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 Lis Team
- * 
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
-
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * Description of StudentController
  * @author Marten Kähr <marten@kahr.ee>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
-class StudentController extends AbstractBaseController
+class StudentController extends Base
 {
+
     /**
-     * GET
      *
+     * @var string
+     */
+    protected $service = 'student_service';
+
+    /**
+     * <h2>GET admin/student</h2>
+     * <h3>URL Parameters</h3>
+     * <code>limit(integer)
+     * page(integer)</code>
+     * 
      * @return JsonModel
      */
     public function getList()
     {
-        return new JsonModel(
-        $this
-                ->getServiceLocator()
-                ->get('student_service')
-                ->GetList($this->GetParams())
-                );
+        return parent::getList();
     }
+
     /**
-     * GET
+     * <h2>GET admin/student/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function get($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('student_service')
-                        ->Get($id)
-        );
+        return parent::get($id);
     }
-    
-    public function create($data) 
-    {
-        $s = $this->getServiceLocator()->get('student_service');
-        $result = $s->Create($data);
-        return new JsonModel($result);
-    }
+
     /**
-     * PUT
-     * 
-     * @param type $id
-     * @param type $data
+     * <h2>POST admin/student</h2>
+     * <h3>Body</h3>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * personalCode(string)*
+     * email(string)*
+     * </code>
+     * @param int $data
+     * @return JsonModel
+     */
+    public function create($data)
+    {
+        return parent::create($data);
+    }
+
+    /**
+     * <h2>PUT admin/student/:id</h2>
+     * <h3>Body</h3>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * personalCode(string)*</code>
+     * @param int $id
+     * @param array $data
      * @return JsonModel
      */
     public function update($id, $data)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('student_service')
-                        ->Update($id, $data)
-        );
+        return parent::update($id, $data);
     }
+
     /**
-     * DELETE
+     * <h2>DELETE admin/student/:id</h2>
+     * <h3>URL Parameters</h3>
+     * <code>id(integer)*</code>
      * 
      * @param int $id
      * @return JsonModel
      */
     public function delete($id)
     {
-        return new JsonModel(
-                $this
-                        ->getServiceLocator()
-                        ->get('student_service')
-                        ->Delete($id)
-        );
+        return parent::delete($id);
     }
+
 }
