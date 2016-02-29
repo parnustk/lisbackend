@@ -14,7 +14,9 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradingTypeController extends Base
 {
