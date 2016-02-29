@@ -11,20 +11,22 @@
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class ContactLessonController extends AbstractBaseController
+class ContactLessonController extends Base
 {
+
     /**
      *
-     * @var type 
+     * @var string 
      */
     protected $service = 'contactlesson_service';
 
-   /**
+    /**
      * <h2>GET admin/contactlesson</h2>
      * <h3>URL Parameters</h3>
      * <code>limit(integer)
@@ -36,7 +38,7 @@ class ContactLessonController extends AbstractBaseController
     {
         return parent::getList();
     }
-    
+
     /**
      * <h2>GET admin/contactlesson/:id</h2>
      * <h3>URL Parameters</h3>

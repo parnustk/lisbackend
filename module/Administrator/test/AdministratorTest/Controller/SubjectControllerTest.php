@@ -496,9 +496,6 @@ class SubjectControllerTest extends UnitHelpers
         $this->assertLessThanOrEqual(1, count($result->data));
     }
 
-    /**
-     * Should be successful
-     */
     public function testCreatedAtAndUpdatedAt()
     {
         //create user

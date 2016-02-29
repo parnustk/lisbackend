@@ -12,12 +12,14 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\ContactLessonController;
 use Zend\Json\Json;
+use Zend\Validator\Regex;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ContactLessonTest extends UnitHelpers
 {
@@ -28,8 +30,19 @@ class ContactLessonTest extends UnitHelpers
         parent::setUp();
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -39,12 +52,24 @@ class ContactLessonTest extends UnitHelpers
         $this->assertEquals(false, (bool) $result->success);
     }
 
+    /**
+     * Imitate POST request
+     * Should be successful
+     */
     public function testCreate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $lessonDate = new \DateTime;
-        $description = ' Description for contactlesson'. uniqid();
+        $description = ' Description for contactlesson' . uniqid();
         $durationAK = 4;
         $teacher = [
             ['id' => $this->CreateTeacher()->getId()],
@@ -70,12 +95,23 @@ class ContactLessonTest extends UnitHelpers
         $newContactLesson = $repository->find($result->data['id']);
         $this->assertNotNull($newContactLesson->getCreatedAt());
     }
-    
+
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoSubjectRound()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $lessonDate = new \DateTime;
-        $description = ' Description for contactlesson'. uniqid();
+        $description = ' Description for contactlesson' . uniqid();
         $durationAK = 4;
         $teacher = [
             ['id' => $this->CreateTeacher()->getId()],
@@ -90,11 +126,25 @@ class ContactLessonTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        
+
+        //test that message contains Missing subject round for contact lesson
+        $validator = new Regex(['pattern' => '/Missing subject round/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
-    
+
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoDescription()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $lessonDate = new \DateTime;
         $durationAK = 4;
@@ -112,14 +162,28 @@ class ContactLessonTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        
+
+        //test that message contains description":{"isEmpty
+        $validator = new Regex(['pattern' => '/description.{4}isEmpty/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
-    
+
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoTeacher()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $lessonDate = new \DateTime;
-        $description = ' Description for contactlesson'. uniqid();
+        $description = ' Description for contactlesson' . uniqid();
         $durationAK = 4;
         $subjectRound = $this->CreateSubjectRound()->getId();
         $this->request->getPost()->set("lessonDate", $lessonDate);
@@ -131,12 +195,26 @@ class ContactLessonTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
-        
+
+        //test that message is: No result was found for query although at least one row was expected.
+        $validator = new Regex(['pattern' => '/No result was found/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     //https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
+    /**
+     * Should be successful
+     */
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to  update later on
         $contactLesson = $this->CreateContactLesson();
 
@@ -202,8 +280,19 @@ class ContactLessonTest extends UnitHelpers
         }
     }
 
+    /**
+     * Should be successful
+     */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateContactLesson()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -213,8 +302,18 @@ class ContactLessonTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
 
+    /**
+     * Should be successful
+     */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         $this->CreateContactLesson();
         $this->request->setMethod('get');
@@ -226,8 +325,19 @@ class ContactLessonTest extends UnitHelpers
         $this->assertGreaterThan(0, count($result->data));
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateContactLesson();
         $idOld = $entity->getId();
 
@@ -251,8 +361,19 @@ class ContactLessonTest extends UnitHelpers
         $this->assertNotEquals(null, $deleted);
     }
 
+    /**
+     * Should be successful
+     */
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateContactLesson();
         $idOld = $entity->getId();
         $entity->setTrashed(1);
@@ -279,49 +400,19 @@ class ContactLessonTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 
-    public function testCreatedByAndUpdatedBy()
-    {
-        $this->request->setMethod('post');
-
-        $description = 'ContactLesson description' . uniqid();
-        $lessonDate = new \DateTime;
-        $durationAK = 5;
-        $subjectRound = $this->CreateSubjectRound()->getId();
-        $teachers = [
-            ['id' => $this->CreateTeacher()->getId()],
-            ['id' => $this->CreateTeacher()->getId()],
-        ];
-
-        $this->request->getPost()->set('description', $description);
-        $this->request->getPost()->set('lessonDate', $lessonDate);
-        $this->request->getPost()->set('durationAK', $durationAK);
-        $this->request->getPost()->set('subjectRound', $subjectRound);
-        $this->request->getPost()->set("teacher", $teachers);
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
-
-        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
-        $newContactLesson = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newContactLesson->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newContactLesson->getUpdatedBy()->getId());
-    }
-    
+    /**
+     * Should be successful
+     */
     public function testCreatedAtAndUpdatedAt()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $description = 'ContactLesson description' . uniqid();
@@ -343,12 +434,12 @@ class ContactLessonTest extends UnitHelpers
         $this->request->getPost()->set("lisUser", $lisUser->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
 
         $repository = $this->em->getRepository('Core\Entity\ContactLesson');
         $newContactLesson = $repository->find($result->data['id']);
@@ -356,8 +447,18 @@ class ContactLessonTest extends UnitHelpers
         $this->assertNull($newContactLesson->getUpdatedAt());
     }
 
+    /**
+     * Should be successful
+     */
     public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
 //        prepare one ContactLesson with trashed flag set up
         $entity = $this->CreateContactLesson();
@@ -400,9 +501,18 @@ class ContactLessonTest extends UnitHelpers
 
     /**
      * TEST rows get read by limit and page params
+     * Should be successful
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -420,9 +530,20 @@ class ContactLessonTest extends UnitHelpers
         $this->assertLessThanOrEqual(1, count($result->data));
         $this->PrintOut($result, false);
     }
-    
+
+    /**
+     * Should be successful
+     */
     public function testTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to update later
         $entity = $this->CreateContactLesson();
         $id = $entity->getId();
