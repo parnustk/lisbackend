@@ -11,6 +11,8 @@
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\TeacherController;
+use Zend\Json\Json;
+use Zend\Validator\Regex;
 
 /**
  * @author Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
@@ -29,6 +31,14 @@ class TeacherControllerTest extends UnitHelpers
      */
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -37,6 +47,9 @@ class TeacherControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertNotEquals(1, $result->success);
+        //test that message contains isEmpty
+        $validator = new Regex(['pattern' => '/isEmpty/U']); //U - non greedy
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     /**
@@ -44,6 +57,14 @@ class TeacherControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("personalCode", uniqid());
@@ -62,8 +83,16 @@ class TeacherControllerTest extends UnitHelpers
     /**
      * testing with createdny and updateby fields
      */
-    public function testCreateWithCreatedByAndUpdatedBy()
+    public function testCreatedByAndUpdatedBy()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("personalCode", uniqid());
@@ -73,14 +102,6 @@ class TeacherControllerTest extends UnitHelpers
 
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
@@ -88,10 +109,11 @@ class TeacherControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+
         $repository = $this->em->getRepository('Core\Entity\Teacher');
-        $newTeacher = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newTeacher->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newTeacher->getUpdatedBy()->getId());
+        $newAbsenceReason = $repository->find($result->data['id']);
+        $this->assertNotNull($newAbsenceReason->getCreatedAt());
+        $this->assertNull($newAbsenceReason->getUpdatedAt());
     }
 
     /**
@@ -99,6 +121,13 @@ class TeacherControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateTeacher()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -115,6 +144,13 @@ class TeacherControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
         $this->CreateTeacher();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -128,10 +164,98 @@ class TeacherControllerTest extends UnitHelpers
     }
 
     /**
+     * TEST rows get read by limit and page params
+     */
+    public function testGetListWithPaginaton()
+    {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        $this->request->setMethod('get');
+
+        //set record limit to 1
+        $q = 'page=1&limit=1'; //imitate real param format
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertLessThanOrEqual(1, count($result->data));
+        $this->PrintOut($result, false);
+    }
+
+    public function testGetTrashedList()
+    {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        //prepare one Teacher with trashed flag set up
+        $entity = $this->CreateTeacher();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity); //save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $entity->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $this->request->setMethod('get');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        //limit is set to 1
+        $this->assertEquals(1, count($result->data));
+
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
+    }
+
+    /**
      * testing PUT
      */
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $teacher = $this->CreateTeacher();
         $firstNameOld = $teacher->getFirstName();
         $lastNameOld = $teacher->getLastName();
@@ -166,8 +290,53 @@ class TeacherControllerTest extends UnitHelpers
         $this->assertNotEquals($emailOld, $result->data["email"]);
     }
 
+    public function testTrashed()
+    {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        //create one to update later
+        $entity = $this->CreateTeacher();
+        $id = $entity->getId();
+        $trashedOld = $entity->getTrashed();
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+        $this->request->setMethod('put');
+        $this->request->setContent(http_build_query([
+            'trashed' => 1,
+            'id' => $id
+        ]));
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //set new data
+        $repository = $this->em
+                ->getRepository('Core\Entity\Teacher')
+                ->find($result->data['id']);
+        $this->assertNotEquals(
+                $trashedOld, $repository->getTrashed()
+        );
+    }
+
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateTeacher();
         $idOld = $entity->getId();
         $entity->setTrashed(1);
@@ -192,6 +361,43 @@ class TeacherControllerTest extends UnitHelpers
                 ->find($idOld);
 
         $this->assertEquals(null, $deleted);
+    }
+
+    /**
+     * TEST row gets deleted by id
+     * can only try to delete smt what is trashed
+     */
+    public function testDeleteNotTrashed()
+    {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        $entity = $this->CreateTeacher();
+        $idOld = $entity->getId();
+
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\Teacher')
+                ->Get($idOld);
+
+        $this->assertNotEquals(null, $deleted);
     }
 
 }

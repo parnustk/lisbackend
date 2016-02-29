@@ -1,21 +1,30 @@
 <?php
 
+/**
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * Description of TeacherController
  *
- * @author Juhan Kõks <juhankoks@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>,
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class TeacherController extends AbstractBaseController
+class TeacherController extends Base
 {
 
     /**
      *
-     * @var type 
+     * @var string 
      */
     protected $service = 'teacher_service';
 
