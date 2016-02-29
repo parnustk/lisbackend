@@ -80,6 +80,10 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlStudentStart()
     {
         return "SELECT 
@@ -99,6 +103,10 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlTeacherStart()
     {
         return "SELECT 
@@ -118,6 +126,10 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function dqlAdministratorStart()
     {
         return "SELECT 
@@ -191,7 +203,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      */
     private function administratorCreate($data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -264,7 +275,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
 
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
@@ -328,7 +338,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
 
     private function administratorDelete($entity, $extra = null)
     {
-        //TODO
         return $this->defaultDelete($entity, $extra);
     }
 
@@ -400,7 +409,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
 
     private function administratorGet($entity, $returnPartial = false, $extra = null)
     {
-        //TODO
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
@@ -456,7 +464,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
 
     private function administratorGetList($params = null, $extra = null)
     {
-        //TODO
+        return $this->defaultGetList($params, $extra);
     }
 
     /**
