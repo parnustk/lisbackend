@@ -34,6 +34,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $name = 'AbsenceReason name' . uniqid();
         $this->request->setMethod('post');
         $this->request->getPost()->set('name', $name);
@@ -48,6 +56,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -62,6 +78,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->CreateAbsenceReason();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
@@ -77,6 +101,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateAbsenceReason()->getId());
         //$myevilhack = $this->CreateAbsenceReason()->getId().'; DROP database lis;'
@@ -89,6 +121,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to  update later on
         $absenceReason = $this->CreateAbsenceReason();
         $id = $absenceReason->getId();
@@ -123,6 +163,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateAbsenceReason();
         $idOld = $entity->getId();
 
@@ -148,6 +196,13 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         $entity = $this->CreateAbsenceReason();
         $idOld = $entity->getId();
@@ -168,47 +223,25 @@ class AbsenceReasonControllerTest extends UnitHelpers
         //test if it is not in the database anymore
         $deleted = $this->em
                 ->getRepository('Core\Entity\AbsenceReason')
-                ->find($idOld);//NB! now has to be changed
+                ->find($idOld); //NB! now has to be changed
 
         $this->assertEquals(null, $deleted);
 
         $this->PrintOut($result, false);
     }
 
-    public function testCreatedAtAndUpdatedBy()
-    {
-        $name = 'AbsenceReasonName' . uniqid();
-        $this->request->setMethod('post');
-        $absencereason = $this->CreateAbsenceReason();
-        $this->request->getPost()->set('name', $name);
-        $this->request->getPost()->set('absencereason', $absencereason->getId());
-
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $this->PrintOut($result, false);
-
-        $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
-        $newAbsenceReason = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newAbsenceReason->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newAbsenceReason->getUpdatedBy()->getId());
-    }
-    
     public function testCreatedByAndUpdatedAt()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
-        
+
         $name = 'AbsenceReasonName' . uniqid();
         $this->request->setMethod('post');
         $absencereason = $this->CreateAbsenceReason();
@@ -219,12 +252,12 @@ class AbsenceReasonControllerTest extends UnitHelpers
         $this->request->getPost()->set("lisUser", $lisUser->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $repository = $this->em->getRepository('Core\Entity\AbsenceReason');
         $newAbsenceReason = $repository->find($result->data['id']);
         $this->assertNotNull($newAbsenceReason->getCreatedAt());
@@ -236,6 +269,14 @@ class AbsenceReasonControllerTest extends UnitHelpers
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -256,6 +297,13 @@ class AbsenceReasonControllerTest extends UnitHelpers
 
     public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateAbsenceReason();
@@ -295,9 +343,17 @@ class AbsenceReasonControllerTest extends UnitHelpers
             $this->assertEquals(1, $value['trashed']);
         }
     }
-    
+
     public function testTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to update later
         $entity = $this->CreateAbsenceReason();
         $id = $entity->getId();

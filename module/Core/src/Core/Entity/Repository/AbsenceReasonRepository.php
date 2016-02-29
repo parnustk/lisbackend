@@ -45,7 +45,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     /**
      * 
      * @return type
@@ -60,7 +60,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     /**
      * 
      * @return type
@@ -75,7 +75,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     /**
      * 
      * @return type
@@ -90,7 +90,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias";
     }
-    
+
     /**
      * 
      * @param type $data
@@ -428,13 +428,13 @@ class AbsenceReasonRepository extends AbstractBaseRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
-        
-        if($dqlRestriction) {
-            $dql .= $dqlRestriction; 
+
+        if ($dqlRestriction) {
+            $dql .= $dqlRestriction;
         }
         return $this->wrapPaginator($dql);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -445,7 +445,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -456,7 +456,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param type $params
@@ -467,7 +467,7 @@ class AbsenceReasonRepository extends AbstractBaseRepository
     {
         return $this->defaultGetList($params, $extra);
     }
-    
+
     /**
      * 
      * @param array $params
