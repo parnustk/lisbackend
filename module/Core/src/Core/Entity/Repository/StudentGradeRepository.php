@@ -298,7 +298,6 @@ class StudentGradeRepository extends AbstractBaseRepository
 
     private function teacherCreate($data, $returnPartial = false, $extra = null)
     {
-        //TODO
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
@@ -330,7 +329,7 @@ class StudentGradeRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentCreate($data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherCreate($data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
             //TODO
         }

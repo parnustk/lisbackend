@@ -66,5 +66,81 @@ class StudentGradeControllerTest extends UnitHelpers
 //        $this->assertEquals(true, (bool) $result->success);
 //    }
     
+    /**
+     * should be successful
+     */
+    public function testUpdateOwnRelated()
+    {
+        //create student user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+        
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //create original data
+        $notes = 'Notes' . uniqid();
+        $student = $this->CreateStudent();
+        $gradeChoice = $this->CreateGradeChoice();
+        $independentWork = $this->CreateIndependentWork();
+        $module = $this->CreateModule();
+        $subjectRound = $this->CreateSubjectRound();
+        $contactLesson = $this->CreateContactLesson();
+        
+        $studentGrade = $this->CreateStudentGrade([
+            'notes' => $notes,
+            'student' => $student->getId(),
+            'gradeChoice' => $gradeChoice->getId(),
+            'teacher' => $teacher->getId(),
+            'independentWork' => $independentWork->getId(),
+            'module' => $module->getId(),
+            'subjectRound' => $subjectRound->getId(),
+            'contactLesson' => $contactLesson->getId()
+        ]);
+
+        $studentIdOld = $studentGrade->getStudent()->getId();
+        $gradeChoiceIdOld = $studentGrade->getGradeChoice()->getId();
+        $teacherIdOld = $studentGrade->getTeacher()->getId();
+        $independentWorkIdOld = $studentGrade->getIndependentWork()->getId();
+        $moduleIdOld = $studentGrade->getModule()->getId();
+        $subjectRoundIdOld = $studentGrade->getSubjectRound()->getId();
+        $contactLessonIdOld = $studentGrade->getContactLesson()->getId();
+        
+
+        //prepare request
+        $this->request->setMethod('put');
+        $this->routeMatch->setParam('id', $studentGrade->getId());
+
+        $this->request->setContent(http_build_query([
+            'student' => $this->CreateStudent()->getId(),
+            'gradeChoice' => $this->CreateGradeChoice()->getId(),
+            'teacher' => $teacher->getId(),
+            'independentWork' => $this->CreateIndependentWork(),
+            'module' => $this->CreateModule()->getId(),
+            'subjectRound' => $this->CreateSubjectRound(),
+            'contactLesson' => $this->CreateContactLesson()->getId(),
+        ]));
+
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+
+        //for student should be the same - self related restriction
+        $this->assertEquals($teacherIdOld, $result->data['teacher']['id']);
+        
+        $this->assertNotEquals($studentIdOld, $result->data['student']['id']);
+        $this->assertNotEquals($independentWorkIdOld, $result->data['independentWork']['id']);
+        $this->assertNotEquals($gradeChoiceIdOld, $result->data['gradeChoice']['id']);
+        $this->assertNotEquals($moduleIdOld, $result->data['module']['id']);
+        $this->assertNotEquals($subjectRoundIdOld, $result->data['subjectRound']['id']);
+        $this->assertNotEquals($contactLessonIdOld, $result->data['contactLesson']['id']);
+    }
+    
     
 }

@@ -447,9 +447,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'student' => $student->getId(),
                     'teacher' => $teacher->getId(),
                     'contactLesson' => $contactLesson->getId(),
-                        //'independentWork'=> $independentWork->getId(),
-                        //'module' => $module->getId(),
-                        //'subjectRound' => $subjectRound->getId(),                  
+                    'independentWork'=> $independentWork->getId(),
+                    'module' => $module->getId(),
+                    'subjectRound' => $subjectRound->getId(),                  
         ]);
     }
 
