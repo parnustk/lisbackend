@@ -11,19 +11,19 @@
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class GradingTypeController extends AbstractBaseController
+class GradingTypeController extends Base
 {
-
     /*
      * @var string
      */
+
     protected $service = 'gradingtype_service';
-    
+
     /**
      * <h2> GET admin/gradingtype</h2>
      * <h3>URL Parameters</h3>

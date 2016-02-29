@@ -1,12 +1,26 @@
 <?php
 
+/**
+ * LIS development
+ *
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
 namespace AdministratorTest\Controller;
 
 use Administrator\Controller\GradingTypeController;
 use Zend\Json\Json;
+use Zend\Validator\Regex;
+
+error_reporting(E_ALL | E_STRICT);
+chdir(__DIR__);
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradingtypeControllerTest extends UnitHelpers
 {
@@ -19,6 +33,14 @@ class GradingtypeControllerTest extends UnitHelpers
 
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -29,10 +51,16 @@ class GradingtypeControllerTest extends UnitHelpers
 
     public function testCreate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $name = 'Gradingtype name' . uniqid();
-
         $this->request->setMethod('post');
-
         $this->request->getPost()->set('gradingType', $name);
 
         $result = $this->controller->dispatch($this->request);
@@ -41,11 +69,18 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
-    
-     public function testCreateWithoutGradingType()
-    {
-        $name = 'Gradingtype name' . uniqid();
 
+    public function testCreateWithoutGradingType()
+    {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        $name = 'Gradingtype name' . uniqid();
         $this->request->setMethod('post');
 
         $result = $this->controller->dispatch($this->request);
@@ -53,10 +88,22 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
+
+        //test that message contains gradingType":{"isEmpty
+        $validator = new Regex(['pattern' => '/gradingType.{4}isEmpty/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateGradingType()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -68,6 +115,14 @@ class GradingtypeControllerTest extends UnitHelpers
 
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->CreateGradingType();
         $this->request->setMethod('get');
 
@@ -81,6 +136,14 @@ class GradingtypeControllerTest extends UnitHelpers
 
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateGradingType();
         $id = $entity->getId();
 
@@ -109,9 +172,17 @@ class GradingtypeControllerTest extends UnitHelpers
                 $nameOld, $r->getGradingType()
         );
     }
-    
+
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateGradingType();
         $idOld = $entity->getId();
 
@@ -137,6 +208,14 @@ class GradingtypeControllerTest extends UnitHelpers
 
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateGradingType();
 
         $idOld = $entity->getId();
@@ -164,43 +243,16 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->assertEquals(null, $deletedModule);
     }
 
-    public function testCreatedByAndUpdatedBy()
-    {
-        $this->request->setMethod('post');
-
-        $name = uniqid() . 'gradingType';
-        $this->request->getPost()->set("gradingType", $name);
-
-        $lisUser = $this->CreateLisUser();
-        $this->request->getPost()->set("lisUser", $lisUser->getId());
-
-        /////
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-        ///////
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-        
-
-        $repository = $this->em->getRepository('Core\Entity\GradingType');
-        $newAdministrator = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newAdministrator->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newAdministrator->getUpdatedBy()->getId());
-    }
-
     public function testCreatedAtAndUpdatedAt()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
 
         $name = uniqid() . 'gradingtype';
@@ -210,12 +262,12 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->request->getPost()->set("lisUser", $lisUser->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
 
         $repository = $this->em->getRepository('Core\Entity\GradingType');
         $newGt = $repository->find($result->data['id']);
@@ -225,6 +277,14 @@ class GradingtypeControllerTest extends UnitHelpers
 
     public function testGetListWithPagination()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
 
         $this->CreateGradingType();
@@ -240,15 +300,22 @@ class GradingtypeControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        
     }
 
     public function testTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to update later
         $entity = $this->CreateGradingType();
         $id = $entity->getId();
@@ -275,9 +342,16 @@ class GradingtypeControllerTest extends UnitHelpers
                 $trashedOld, $r->getTrashed()
         );
     }
-    
+
     public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         //prepare one GradingType with trashed flag set up
         $entity = $this->CreateGradingType();
