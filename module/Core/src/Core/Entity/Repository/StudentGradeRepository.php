@@ -348,6 +348,7 @@ class StudentGradeRepository extends AbstractBaseRepository
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
+     
         //validate that exactly one of four(contactLesson or module or subjectRound or independentWork) is present
         $notValid = $this->validateInputRelationExists($data);
         if ($notValid) {//if validates is still false throw exception
@@ -385,7 +386,9 @@ class StudentGradeRepository extends AbstractBaseRepository
      */
     private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //TODO
+        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+            throw new Exception('SELF_CREATED_RESTRICTION');
+        }
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
@@ -423,7 +426,7 @@ class StudentGradeRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentUpdate($entity, $data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherUpdate($entity, $data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
             //TODO
         }
@@ -520,7 +523,6 @@ class StudentGradeRepository extends AbstractBaseRepository
 
     private function teacherGet($entity, $returnPartial = false, $extra = null)
     {
-        //TODO
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 
@@ -550,7 +552,7 @@ class StudentGradeRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherGet($entity, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
             //TODO
         }
@@ -576,7 +578,6 @@ class StudentGradeRepository extends AbstractBaseRepository
 
     private function teacherGetList($params = null, $extra = null)
     {
-        //TODO
         return $this->defaultGetList($params, $extra);
     }
 
@@ -599,7 +600,7 @@ class StudentGradeRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'student') {
             return $this->studentGetList($params, $extra);
         } else if ($extra->lisRole === 'teacher') {
-            //TODO
+            return $this->teacherGetList($params, $extra);
         } else if ($extra->lisRole === 'administrator') {
             //TODO
         }

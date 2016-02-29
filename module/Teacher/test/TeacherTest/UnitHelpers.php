@@ -434,12 +434,12 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         $gradeChoice = $this->CreateGradeChoice();
-        $contactLesson = $this->CreateContactLesson();
         $student = $this->CreateStudent();
         $teacher = $this->CreateTeacher();
-        $independentWork = $this->CreateIndependentWork();
-        $module = $this->CreateModule();
-        $subjectRound = $this->CreateSubjectRound();
+        $contactLesson = $this->CreateContactLesson();
+        //$independentWork = $this->CreateIndependentWork();
+        //$module = $this->CreateModule();
+        //$subjectRound = $this->CreateSubjectRound();
 
         return $repository->Create([
                     'notes' => uniqid() . 'StudentGradeNotes',
@@ -447,9 +447,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'student' => $student->getId(),
                     'teacher' => $teacher->getId(),
                     'contactLesson' => $contactLesson->getId(),
-                    'independentWork'=> $independentWork->getId(),
-                    'module' => $module->getId(),
-                    'subjectRound' => $subjectRound->getId(),                  
+                    //'independentWork'=> $independentWork->getId(),
+                    //'module' => $module->getId(),
+                    //'subjectRound' => $subjectRound->getId(),                  
         ]);
     }
 
