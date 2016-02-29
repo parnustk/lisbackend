@@ -15,8 +15,13 @@ namespace AdministratorTest\Controller;
 use Administrator\Controller\StudentGroupController;
 use Zend\Json\Json;
 
+error_reporting(E_ALL | E_STRICT);
+chdir(__DIR__);
+
 /**
- * @author Kristen Sepp<seppkristen@gmail.com>, Sander Mets<sandermets0@gmail.com>
+ * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Arnold Tserepov <tserepov@gmail.com>
  */
 class StudentGroupControllerTest extends UnitHelpers
 {
@@ -32,7 +37,15 @@ class StudentGroupControllerTest extends UnitHelpers
      */
     public function testCreate()
     {
-        $name = 'StudentGroupName' . uniqid();
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
+        $name = 'StudentGroup name' . uniqid();
         $this->request->setMethod('post');
         $vocation = $this->CreateVocation();
         $this->request->getPost()->set('name', $name);
@@ -47,8 +60,16 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
 
-    public function testCreateWithCreatedByAndUpdatedBy()
+    public function testCreateWithCreatedAtAndUpdatedAt()
     {
+         //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $name = 'StudentGroupName' . uniqid();
         $this->request->setMethod('post');
         $vocation = $this->CreateVocation();
@@ -73,12 +94,20 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $repository = $this->em->getRepository('Core\Entity\StudentGroup');
         $newStudentGroup = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
+        $this->assertNotNull($newStudentGroup->getCreatedAt());
+        $this->assertNull($newStudentGroup->getUpdatedAt());
     }
 
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $this->request->setMethod('post');
 
         $result = $this->controller->dispatch($this->request);
@@ -95,6 +124,14 @@ class StudentGroupControllerTest extends UnitHelpers
      */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $this->CreateStudentGroup();
         $this->request->setMethod('get');
 
@@ -114,6 +151,14 @@ class StudentGroupControllerTest extends UnitHelpers
      */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateStudentGroup()->getId());
 
@@ -128,6 +173,14 @@ class StudentGroupControllerTest extends UnitHelpers
 
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         //create one to update later
         $entity = $this->CreateStudentGroup();
         $id = $entity->getId();
@@ -157,6 +210,14 @@ class StudentGroupControllerTest extends UnitHelpers
 
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $entity = $this->CreateStudentGroup();
         $idOld = $entity->getId();
         $entity->setTrashed(1);
@@ -185,6 +246,14 @@ class StudentGroupControllerTest extends UnitHelpers
 
     public function testCreatedAtAndUpdatedAt()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $name = 'StudentGroupName' . uniqid();
         $this->request->setMethod('post');
         $vocation = $this->CreateVocation();
@@ -198,7 +267,6 @@ class StudentGroupControllerTest extends UnitHelpers
         $lisUserUpdates = $this->CreateLisUser();
         $lisUserUpdatesId = $lisUserUpdates->getId();
         $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
@@ -209,12 +277,47 @@ class StudentGroupControllerTest extends UnitHelpers
 
         $repository = $this->em->getRepository('Core\Entity\StudentGroup');
         $newStudentGroup = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newStudentGroup->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newStudentGroup->getUpdatedBy()->getId());
+        $this->assertNotNull($newStudentGroup->getCreatedAt());
+        $this->assertNull($newStudentGroup->getUpdatedAt());
     }
+    public function testGetListWithPaginaton()
+    {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
 
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
+        $this->request->setMethod('get');
+
+        //set record limit to 1
+        $q = 'page=1&limit=1'; //imitate real param format
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertLessThanOrEqual(1, count($result->data));
+        $this->PrintOut($result, false);
+    }
+ 
     public function testTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         //create one to update later
         $entity = $this->CreateStudentGroup();
         $id = $entity->getId();

@@ -9,8 +9,8 @@
  */
 
 namespace Core\Entity\Repository;
-
 use Core\Entity\StudentGroup;
+use Exception;
 
 /**
  * StudentGroupRepository

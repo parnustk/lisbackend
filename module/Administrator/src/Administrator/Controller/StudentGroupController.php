@@ -11,14 +11,16 @@
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
  * Rest API access to studentgroup data.
  * 
- * @author @author Kristen Sepp<seppkristen@gmail.com>, Sander Mets<sandermets0@gmail.com>
+ * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Arnold Tserepov <tserepov@gmail.com>
  */
-class StudentGroupController extends AbstractBaseController
+class StudentGroupController extends Base
 {
 
     /**
