@@ -11,8 +11,6 @@
 namespace Core\Entity\Repository;
 
 use Core\Entity\Module;
-use Doctrine\ORM\EntityRepository;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
 use Exception;
@@ -20,7 +18,8 @@ use Zend\Json\Json;
 use Doctrine\ORM\Query;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleRepository extends AbstractBaseRepository
 {

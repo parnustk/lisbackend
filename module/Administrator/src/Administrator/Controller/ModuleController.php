@@ -11,17 +11,18 @@
 namespace Administrator\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController;
+use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
-class ModuleController extends AbstractBaseController
+class ModuleController extends Base
 {
 
     /**
      *
-     * @var type 
+     * @var string 
      */
     protected $service = 'module_service';
 
@@ -37,7 +38,7 @@ class ModuleController extends AbstractBaseController
     {
         return parent::getList();
     }
-    
+
     /**
      * <h2>GET admin/module/:id</h2>
      * <h3>URL Parameters</h3>

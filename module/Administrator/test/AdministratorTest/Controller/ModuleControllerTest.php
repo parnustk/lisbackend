@@ -12,12 +12,14 @@ namespace AdministratorTest\Controller;
 
 use Administrator\Controller\ModuleController;
 use Zend\Json\Json;
+use Zend\Validator\Regex;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 
 /**
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleControllerTest extends UnitHelpers
 {
@@ -28,8 +30,19 @@ class ModuleControllerTest extends UnitHelpers
         parent::setUp();
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoData()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -37,10 +50,26 @@ class ModuleControllerTest extends UnitHelpers
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, (bool) $result->success);
+
+        //test that message contains Missing vocation for module
+        $validator = new Regex(['pattern' => '/Missing vocation/U']); //U - non greedy
+        $this->assertTrue($validator->isValid($result->message));
     }
 
+    /**
+     * Imitate POST request
+     * Should be successful
+     */
     public function testCreate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
         $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
@@ -58,8 +87,19 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoGradingType()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
         $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
@@ -71,10 +111,25 @@ class ModuleControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
+
+        //test that message contains No result was found
+        $validator = new Regex(['pattern' => '/No result was found/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoVocation()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $this->request->getPost()->set("gradingType", [
             ['id' => $this->CreateGradingType()->getId()],
@@ -89,10 +144,25 @@ class ModuleControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
+
+        //test that message contains Missing vocation for module
+        $validator = new Regex(['pattern' => '/Missing vocation/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testCreateNoModuleType()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $this->request->getPost()->set("gradingType", [
             ['id' => $this->CreateGradingType()->getId()],
@@ -107,10 +177,25 @@ class ModuleControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(null, $result->success);
+
+        //test that message contains moduleType":{"isEmpty
+        $validator = new Regex(['pattern' => '/moduleType.{4}isEmpty/U']);
+        $this->assertTrue($validator->isValid($result->message));
     }
 
+    /**
+     * Should be successful
+     */
     public function testGet()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateModule()->getId());
         $result = $this->controller->dispatch($this->request);
@@ -120,8 +205,19 @@ class ModuleControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 
+    /**
+     * Should be successful
+     */
     public function testGetList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to get first
         $this->CreateModule();
         $this->request->setMethod('get');
@@ -133,10 +229,20 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertGreaterThan(0, count($result->data));
     }
 
+    /**
+     * Should be successful
+     */
     public function testUpdate()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $createdModule = $this->CreateModule();
-        
 
         $nameOld = $createdModule->getName();
         $codeOld = $createdModule->getCode();
@@ -150,7 +256,7 @@ class ModuleControllerTest extends UnitHelpers
             $gradingTypesOld[] = $gType->getId();
         }
 
-    
+
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $createdModule->getId());
 
@@ -203,8 +309,19 @@ class ModuleControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 
+    /**
+     * Should be NOT successful
+     */
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $entity = $this->CreateModule();
         $idOld = $entity->getId();
 
@@ -225,9 +342,19 @@ class ModuleControllerTest extends UnitHelpers
 
         $this->assertNotEquals(null, $deleted);
     }
-    
+
+    /**
+     * Should be successful
+     */
     public function testDelete()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         $entity = $this->CreateModule();
         $idOld = $entity->getId();
@@ -252,45 +379,20 @@ class ModuleControllerTest extends UnitHelpers
 
         $this->assertEquals(null, $deleted);
     }
-    
-    public function testCreatedByAndUpdatedBy()
-    {
-        $this->request->setMethod('post');
-        
-        $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
-        $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
-        $this->request->getPost()->set("gradingType", [
-            ['id' => $this->CreateGradingType()->getId()],
-            ['id' => $this->CreateGradingType()->getId()],
-        ]);
-        $this->request->getPost()->set("name", "Test Tere Maailm");
-        $this->request->getPost()->set("duration", "30");
-        $this->request->getPost()->set("code", uniqid());
 
-        $lisUserCreates = $this->CreateLisUser();
-        $lisUserCreatesId = $lisUserCreates->getId();
-        $this->request->getPost()->set("createdBy", $lisUserCreatesId);
-
-        $lisUserUpdates = $this->CreateLisUser();
-        $lisUserUpdatesId = $lisUserUpdates->getId();
-        $this->request->getPost()->set("updatedBy", $lisUserUpdatesId);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-        
-        $this->PrintOut($result, false);
-        
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
-
-        $repository = $this->em->getRepository('Core\Entity\Module');
-        $newModule = $repository->find($result->data['id']);
-        $this->assertEquals($lisUserCreatesId, $newModule->getCreatedBy()->getId());
-        $this->assertEquals($lisUserUpdatesId, $newModule->getUpdatedBy()->getId());
-    }
-    
+    /**
+     * Should be successful
+     */
     public function testCreatedAtAndUpdatedAt()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('post');
         $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
         $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
@@ -307,21 +409,30 @@ class ModuleControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
-        
+
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        
+
         $repository = $this->em->getRepository('Core\Entity\Module');
         $newModule = $repository->find($result->data['id']);
         $this->assertNotNull($newModule->getCreatedAt());
         $this->assertNull($newModule->getUpdatedAt());
     }
-    
+
     /**
      * TEST rows get read by limit and page params
+     * Should be successful
      */
     public function testGetListWithPaginaton()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         $this->request->setMethod('get');
 
         //set record limit to 1
@@ -338,11 +449,20 @@ class ModuleControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertLessThanOrEqual(1, count($result->data));
-        
     }
-    
+
+    /**
+     * Should be successful
+     */
     public function testGetTrashedList()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
 
         //prepare one Module with trashed flag set up
         $entity = $this->CreateModule();
@@ -382,9 +502,20 @@ class ModuleControllerTest extends UnitHelpers
             $this->assertEquals(1, $value['trashed']);
         }
     }
-    
+
+    /**
+     * Should be successful
+     */
     public function testTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+
         //create one to update later
         $entity = $this->CreateModule();
         $id = $entity->getId();
@@ -394,7 +525,7 @@ class ModuleControllerTest extends UnitHelpers
         $this->request->setMethod('put');
         $this->request->setContent(http_build_query([
             'trashed' => 1,
-            'vocation'=> $entity->getVocation()->getId()
+            'vocation' => $entity->getVocation()->getId()
         ]));
         //fire request
         $result = $this->controller->dispatch($this->request);
