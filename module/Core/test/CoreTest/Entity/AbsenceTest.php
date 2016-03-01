@@ -8,7 +8,7 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
-namespace CoreTest\Controller;
+namespace CoreTest\Entity;
 
 use Core\Entity\Absence;
 use DateTime;
