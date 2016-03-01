@@ -31,6 +31,7 @@ use Core\Entity\LisUser;
  * @ORM\HasLifecycleCallbacks
  * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 class Absence extends EntityValidation
 {
