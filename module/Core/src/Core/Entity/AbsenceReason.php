@@ -15,6 +15,8 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
+use Core\Entity\Absence;
+use Core\Entity\LisUser;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceReasonRepository")
@@ -94,83 +96,162 @@ class AbsenceReason extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * 
+     * @return Absence
+     */
     public function getAbsence()
     {
         return $this->absence;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\AbsenceReason
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $name
+     * @return \Core\Entity\AbsenceReason
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setAbsence($absence)
+    /**
+     * 
+     * @param Absence $absence
+     * @return \Core\Entity\AbsenceReason
+     */
+    public function setAbsence(Absence $absence)
     {
         $this->absence = $absence;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\AbsenceReason
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+    
+    /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\AbsenceReason
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+    /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\AbsenceReason
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\AbsenceReason
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\AbsenceReason
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
