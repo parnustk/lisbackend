@@ -77,7 +77,7 @@ class Student extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToOne(targetEntity="LisUser", inversedBy="student")
+     * @ORM\OneToOne(targetEntity="LisUser", inversedBy="student")
      * @ORM\JoinColumn(name="lis_user_id", referencedColumnName="id")
      */
     protected $lisUser;

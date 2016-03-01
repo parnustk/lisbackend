@@ -69,7 +69,7 @@ class LisUser extends EntityValidation
     protected $teacher;
 
     /**
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="lisUser")
+     * @ORM\OneToOne(targetEntity="Student", mappedBy="lisUser")
      */
     protected $student;
 
