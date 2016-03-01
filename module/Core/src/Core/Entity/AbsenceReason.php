@@ -212,7 +212,6 @@ class AbsenceReason extends EntityValidation
         return $this;
     }
 
-    
     /**
      * 
      * @param LisUser $createdBy
