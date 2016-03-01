@@ -73,7 +73,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         return $repository->Create([
                     'name' => 'VocationName',
-                    'code' => uniqid(),
+                    'vocationCode' => uniqid(),
                     'durationEKAP' => '12',
         ]);
     }

@@ -18,7 +18,7 @@ class AbsenceService extends AbstractBaseService
 
     /**
      *
-     * @var type 
+     * @var string 
      */
     protected $baseEntity = 'Core\Entity\Absence';
 

@@ -17,6 +17,7 @@ use Core\Controller\AbstractTeacherBaseController as Base;
  * Description of VocationController
  *
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class VocationController extends Base
 {
@@ -57,7 +58,7 @@ class VocationController extends Base
      * <h2>POST admin/vocation</h2>
      * <h3>Body</h3>
      * <code>name(string)*
-     * code(string)*
+     * vocationCode(string)*
      * durationEKAP(string)*</code>
      * 
      * @param array $data
@@ -72,7 +73,7 @@ class VocationController extends Base
      * <h2>PUT admin/vocation/:id</h2>
      * <h3>Body</h3>
      * <code>name(string)*
-     * code(string)*
+     * vocationCode(string)*
      * durationEKAP(string)*</code>
      * 
      * @param type $id

@@ -21,12 +21,14 @@ use DateTime;
  * @ORM\Table(
  *     indexes={
  *          @ORM\Index(name="vocationname", columns={"name"}),
- *          @ORM\Index(name="vocationcode", columns={"code"}),
+ *          @ORM\Index(name="vocationcode", columns={"vocationCode"}),
  *          @ORM\Index(name="vocation_index_trashed", columns={"trashed"})
  *     }
  * )
  * @ORM\HasLifecycleCallbacks
- * @author Sander Mets <sandermets0@gmail.com>, Juhan Kõks <juhankoks@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Vocation extends EntityValidation
 {
@@ -56,9 +58,9 @@ class Vocation extends EntityValidation
      * @Annotation\Validator({"name":"StringLength", "options":{"min":"3", "max":"255"}})
      * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[0-9\p{L}]{2,255}$/"}})
      * 
-     * @ORM\Column(type="string",name="`code`", unique=true, length=255, nullable=false)
+     * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */
-    protected $code;
+    protected $vocationCode;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -138,9 +140,9 @@ class Vocation extends EntityValidation
         return $this->name;
     }
 
-    public function getCode()
+    public function getVocationCode()
     {
-        return $this->code;
+        return $this->vocationCode;
     }
 
     public function getDurationEKAP()
@@ -189,9 +191,9 @@ class Vocation extends EntityValidation
         return $this;
     }
 
-    public function setCode($code)
+    public function setVocationCode($vocationCode)
     {
-        $this->code = $code;
+        $this->vocationCode = $vocationCode;
         return $this;
     }
 

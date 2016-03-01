@@ -11,7 +11,9 @@
 namespace Core\Service;
 
 /**
- * @author Juhan Kõks <juhankoks@gmail.com>, Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class VocationService extends AbstractBaseService
 {

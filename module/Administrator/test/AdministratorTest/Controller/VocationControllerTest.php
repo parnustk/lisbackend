@@ -51,7 +51,7 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("name", "Name vocation");
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("vocationCode", uniqid());
         $this->request->getPost()->set("durationEKAP", 120);
 
         $result = $this->controller->dispatch($this->request);
@@ -79,7 +79,7 @@ class VocationControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
 
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("vocationCode", uniqid());
         $this->request->getPost()->set("durationEKAP", 120);
 
         $result = $this->controller->dispatch($this->request);
@@ -99,7 +99,7 @@ class VocationControllerTest extends UnitHelpers
      * TEST row gets not created
      * Should be NOT successful
      */
-    public function testCreateNoCode()
+    public function testCreateNoVocationCode()
     {
         //create user
         $administrator = $this->CreateAdministrator();
@@ -123,7 +123,7 @@ class VocationControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
 
         //test that message contains description":{"isEmpty
-        $validator = new Regex(['pattern' => '/code.{4}isEmpty/U']);
+        $validator = new Regex(['pattern' => '/vocationCode.{4}isEmpty/U']);
         $this->assertTrue($validator->isValid($result->message));
     }
 
@@ -144,7 +144,7 @@ class VocationControllerTest extends UnitHelpers
         $this->request->setMethod('post');
 
         $this->request->getPost()->set("name", "Name vocation");
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("vocationCode", uniqid());
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -257,7 +257,7 @@ class VocationControllerTest extends UnitHelpers
         $id = $entity->getId();
 
         $nameOld = $entity->getName();
-        $codeOld = $entity->getCode();
+        $codeOld = $entity->getVocationCode();
         $durationEKAPOld = $entity->getDurationEKAP();
 
         $this->routeMatch->setParam('id', $id);
@@ -265,7 +265,7 @@ class VocationControllerTest extends UnitHelpers
 
         $this->request->setContent(http_build_query([
             'name' => 'Updated',
-            'code' => uniqid(),
+            'vocationCode' => uniqid(),
             'durationEKAP' => '456',
         ]));
 
@@ -284,7 +284,7 @@ class VocationControllerTest extends UnitHelpers
                 $nameOld, $r->getName()
         );
         $this->assertNotEquals(
-                $codeOld, $r->getCode()
+                $codeOld, $r->getVocationCode()
         );
         $this->assertNotEquals(
                 $durationEKAPOld, $r->getDurationEKAP()

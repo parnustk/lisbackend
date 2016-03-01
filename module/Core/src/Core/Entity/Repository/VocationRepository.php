@@ -43,7 +43,7 @@ class VocationRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
-                        code,
+                        vocationCode,
                         durationEKAP,
                         trashed
                     }
@@ -60,7 +60,7 @@ class VocationRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
-                        code,
+                        vocationCode,
                         durationEKAP,
                         trashed
                     }
@@ -77,7 +77,7 @@ class VocationRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
-                        code,
+                        vocationCode,
                         durationEKAP,
                         trashed
                     }
@@ -94,7 +94,7 @@ class VocationRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
-                        code,
+                        vocationCode,
                         durationEKAP,
                         trashed
                     }
