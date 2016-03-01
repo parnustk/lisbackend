@@ -225,7 +225,7 @@ class Absence extends EntityValidation
 
     /**
      * 
-     * @param type $description
+     * @param string $description
      * @return \Core\Entity\Absence
      */
     public function setDescription($description)
