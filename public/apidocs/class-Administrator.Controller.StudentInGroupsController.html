@@ -122,12 +122,12 @@
 
 
 	<div class="description">
-	<p>Rest API access to independentwork data.</p>
+	<p>Rest API access to studentingroups data.</p>
 	</div>
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
-Core\Controller\AbstractBaseController
+Core\Controller\AbstractAdministratorBaseController
 			
 			
 		</dd>
@@ -154,6 +154,8 @@ Core\Controller\AbstractBaseController
 
 				<b>Author:</b>
 				Kristen Sepp <a href="&#109;a&#x69;&#108;&#x74;&#111;&#x3a;&#115;&#x65;&#112;&#x70;&#107;r&#x69;&#115;&#x74;&#101;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;">&#115;&#x65;&#112;&#x70;&#107;r&#x69;&#115;&#x74;&#101;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;</a><br>
+				<b>Author:</b>
+				Eleri Apsolon <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x65;&#108;&#x65;r&#105;&#x2e;&#97;&#x70;&#115;&#x6f;&#108;&#x6f;&#110;&#x40;&#103;&#x6d;a&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a><br>
 			<b>Located at</b> StudentInGroupsController.php		<br>
 	</div>
 
@@ -180,11 +182,10 @@ Core\Controller\AbstractBaseController
 
 <h3>Body</h3>
 
-<pre>duedate(datetime)*
-description(string)*
-durationAK(integer)*
-subjectRound(integer)*
-teacher(integer)*</pre>
+<pre>student(integer)*
+studentgoup(integer)*
+status(integer)*
+notes(string)</pre>
 			</div>
 
 			<div class="description detailed hidden">
@@ -192,11 +193,10 @@ teacher(integer)*</pre>
 
 <h3>Body</h3>
 
-<pre>duedate(datetime)*
-description(string)*
-durationAK(integer)*
-subjectRound(integer)*
-teacher(integer)*</pre>
+<pre>student(integer)*
+studentgoup(integer)*
+status(integer)*
+notes(string)</pre>
 
 
 					<h4>Parameters</h4>
@@ -327,11 +327,10 @@ page(integer)</pre>
 
 <h3>Body</h3>
 
-<pre>duedate(datetime)*
-description(string)*
-durationAK(integer)*
-subjectRound(integer)*
-teacher(integer)*</pre>
+<pre>student(integer)*
+studentgoup(integer)*
+status(integer)*
+notes(string)</pre>
 			</div>
 
 			<div class="description detailed hidden">
@@ -343,11 +342,10 @@ teacher(integer)*</pre>
 
 <h3>Body</h3>
 
-<pre>duedate(datetime)*
-description(string)*
-durationAK(integer)*
-subjectRound(integer)*
-teacher(integer)*</pre>
+<pre>student(integer)*
+studentgoup(integer)*
+status(integer)*
+notes(string)</pre>
 
 
 					<h4>Parameters</h4>
@@ -434,7 +432,7 @@ teacher(integer)*</pre>
 		<tr data-order="service" id="$service">
 			<td class="attributes"><code>
 				protected  
-				string
+				type
 			</code></td>
 
 			<td class="name">

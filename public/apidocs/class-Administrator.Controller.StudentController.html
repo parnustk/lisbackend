@@ -127,7 +127,7 @@
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
-Core\Controller\AbstractBaseController
+Core\Controller\AbstractAdministratorBaseController
 			
 			
 		</dd>
@@ -154,6 +154,8 @@ Core\Controller\AbstractBaseController
 
 				<b>Author:</b>
 				Marten Kähr <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#109;&#97;&#114;&#116;&#x65;&#x6e;&#x40;&#107;&#97;&#104;&#114;&#x2e;&#x65;&#x65;">&#109;&#97;&#114;&#116;&#x65;&#x6e;&#x40;&#107;&#97;&#104;&#114;&#x2e;&#x65;&#x65;</a><br>
+				<b>Author:</b>
+				Juhan Kõks <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x6a;&#117;&#104;a&#x6e;&#x6b;&#111;&#107;&#115;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x6a;&#117;&#104;a&#x6e;&#x6b;&#111;&#107;&#115;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
 			<b>Located at</b> StudentController.php		<br>
 	</div>
 
@@ -176,11 +178,21 @@ Core\Controller\AbstractBaseController
 			<code>getList( )</code>
 
 			<div class="description short">
-				<p>GET</p>
+				<h2>GET admin/student</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>GET</p>
+				<h2>GET admin/student</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>limit(integer)
+page(integer)</pre>
 
 
 
@@ -206,14 +218,22 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code>get( <span>type <var>$id</var></span> )</code>
+			<code>get( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>GET</p>
+				<h2>GET admin/student/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>GET</p>
+				<h2>GET admin/student/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 
 
 					<h4>Parameters</h4>
@@ -237,24 +257,47 @@ Core\Controller\AbstractBaseController
 
 			<td class="attributes"><code>
 				 public 
-				
+				Zend\View\Model\JsonModel
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code>create( <span> <var>$data</var></span> )</code>
+			<code>create( <span>integer <var>$data</var></span> )</code>
 
 			<div class="description short">
-				
+				<h2>POST admin/student</h2>
+
+<h3>Body</h3>
+
+<pre>firstName(string)*
+lastName(string)*
+personalCode(string)*
+email(string)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<h2>POST admin/student</h2>
+
+<h3>Body</h3>
+
+<pre>firstName(string)*
+lastName(string)*
+personalCode(string)*
+email(string)*</pre>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd></dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						Zend\View\Model\JsonModel
+					</div>
 
 
 
@@ -273,14 +316,26 @@ Core\Controller\AbstractBaseController
 
 			<td class="name"><div>
 			<a class="anchor" href="#_update">#</a>
-			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
+			<code>update( <span>integer <var>$id</var></span>, <span>array <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<p>PUT</p>
+				<h2>PUT admin/student/:id</h2>
+
+<h3>Body</h3>
+
+<pre>firstName(string)*
+lastName(string)*
+personalCode(string)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>PUT</p>
+				<h2>PUT admin/student/:id</h2>
+
+<h3>Body</h3>
+
+<pre>firstName(string)*
+lastName(string)*
+personalCode(string)*</pre>
 
 
 					<h4>Parameters</h4>
@@ -316,11 +371,19 @@ Core\Controller\AbstractBaseController
 			<code>delete( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>DELETE</p>
+				<h2>DELETE admin/student/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>DELETE</p>
+				<h2>DELETE admin/student/:id</h2>
+
+<h3>URL Parameters</h3>
+
+<pre>id(integer)*</pre>
 
 
 					<h4>Parameters</h4>
@@ -347,6 +410,41 @@ Core\Controller\AbstractBaseController
 
 
 
+
+
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="service" id="$service">
+			<td class="attributes"><code>
+				protected  
+				string
+			</code></td>
+
+			<td class="name">
+<var>$service</var>
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$service" class="anchor">#</a>
+					<code><span class="php-quote">'student_service'</span></code>
+				</div>
+			</td>
+		</tr>
+			</table>
+		</div>
 
 
 

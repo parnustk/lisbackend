@@ -17,6 +17,7 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
  * Description of GradeChoiceController
  *
  * @author Arnold Tserepov <tserepov@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradeChoiceController extends Base {
 
@@ -54,7 +55,7 @@ class GradeChoiceController extends Base {
      * POST
      * <h2>POST admin/absencereason</h2>
      * <h3>Body</h3>
-     * <code>name(string)*</code
+     * <code>name(string)*</code>
      * 
      * @param type $data
      * @return JsonModel
