@@ -175,14 +175,15 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         $this->getStorage()->clear();
     }
-
+    
     /**
      * 
      * @param string $email
      * @param string $password
      * @param string $entityName
+     * @param string $role
      */
-    private function auth($email, $password, $entityName)
+    private function auth($email, $password, $entityName, $role)
     {
         $user = $this->getEntityManager()
                 ->getRepository($entityName)
@@ -194,7 +195,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $session->getManager()->regenerateId();
 
         $storage = $this->getStorage()->read(); //fill session with relevant data
-        $storage['role'] = 'administrator';
+        $storage['role'] = $role;
         $storage['lisPerson'] = $user['id'];
         $storage['lisUser'] = $user['lisUser']['id'];
         $this->getStorage()->write($storage);
@@ -217,7 +218,13 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
             $password = Validator::validatePassword($data['password']);
 
             if ($role === 'administrator') {
-                $this->auth($email, $password, 'Core\Entity\Administrator');
+                $this->auth($email, $password, 'Core\Entity\Administrator', $role);
+            } else if ($role === 'teacher') {
+                $this->auth($email, $password, 'Core\Entity\Teacher', $role);
+            }  else if ($role === 'student') {
+                $this->auth($email, $password, 'Core\Entity\Student', $role);
+            } else {
+                throw new Exception('NO_ROLE_SPECIFIED');
             }
 
             return [

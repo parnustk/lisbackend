@@ -64,10 +64,10 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'code', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'vocationCode', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'code', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'vocationCode', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -202,12 +202,12 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
-    public function getCode()
+    public function getVocationCode()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCode', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getVocationCode', array());
 
-        return parent::getCode();
+        return parent::getVocationCode();
     }
 
     /**
@@ -312,12 +312,12 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
-    public function setCode($code)
+    public function setVocationCode($vocationCode)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCode', array($code));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVocationCode', array($vocationCode));
 
-        return parent::setCode($code);
+        return parent::setVocationCode($vocationCode);
     }
 
     /**

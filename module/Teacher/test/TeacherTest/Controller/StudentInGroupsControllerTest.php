@@ -87,7 +87,7 @@ class StudentInGroupsControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
-        $this->CreateAbsenceReason();
+        $this->CreateStudentInGroups();
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
