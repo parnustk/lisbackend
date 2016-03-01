@@ -35,11 +35,12 @@ Isegi geograafiliselt eraldatud rühmade koostöö kulgeb hästi: koosolekud toi
 
 
 ####Töötamine vähemalt ühes tarkvaraarenduse projekti meeskonnas tarkvaraarendajana.
-Töötamine esimeses tarkvaraarenduse projektis on huvitav ja samal ajal keeruline asi,aga ta annab uusi teadmisi ja oskusi.Meeskonnas töötamine õpetab töötama korrektselt, leidma vigu ning lahendama neid.
+Töötamine esimeses tarkvaraarenduse projektis on huvitav ja samal ajal keeruline asi,aga ta annab uusi teadmisi ja oskusi. Meeskonnas töötamine õpetab töötama korrektselt, leidma vigu ning lahendama neid.
 
 
 ####Koostöö kolleegide ja klientidega.
 Koostöö kolleegidega ja klientidega on oluline tarkvaraarenduse protsessis. Koostöö teeb targemaks ja annab ideid, mis aitavad kogu rakenduse protsessi.
+Kollegidega suhtelmiseks kasutame Skype´i ja Teamvieweri võimalusi. Esmaspäevast neljapäevani toimuvad igapäevased Skype´i kõned.
 
 
 ####Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
