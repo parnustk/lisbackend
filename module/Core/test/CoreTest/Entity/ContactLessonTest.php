@@ -243,27 +243,28 @@ class ContactLessonTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers Core\Entity\ContactLesson::addTeacher
+     * @covers Core\Entity\ContactLesson::removeTeacher
      */
-    public function testAddTeacher()
+    public function testAddRemoveTeacher()
     {
-        $contactLesson = new ContactLesson($this->mockEntityManager);
-        $teacher = $contactLesson->getTeacher();
-        $this->assertNotNull($teacher);
+        $cl = new ContactLesson;
+        $this->assertEquals(0, $cl->getTeacher()->count());
 
-        $this->contactLesson->addTeacher($teacher);
-        $this->assertEquals($teacher, $this->contactLesson->getTeacher());
-    }
+        $mockTeacher = $this
+                ->getMockBuilder('Core\Entity\Teacher')
+                ->getMock();
 
-    /**
-     * @covers Core\Entity\ContactLesson::addTeacher
-     */
-    public function testRemoveTeacher()
-    {
-        $teacher = $this->contactLesson->getTeacher();
-        $this->assertNotNull($teacher);
+        $teachers = new \Doctrine\Common\Collections\ArrayCollection();
 
-        $this->contactLesson->removeTeacher($teacher);
-        $this->assertEquals($teacher, $this->contactLesson->getTeacher());
+        $teachers->add($mockTeacher);
+
+        $cl->addTeacher($teachers);
+
+        $this->assertEquals(1, $cl->getTeacher()->count());
+        $this->assertEquals($mockTeacher, $cl->getTeacher()->first());
+
+        $cl->removeTeacher($teachers);
+        $this->assertEquals(0, $cl->getTeacher()->count());
     }
 
 }
