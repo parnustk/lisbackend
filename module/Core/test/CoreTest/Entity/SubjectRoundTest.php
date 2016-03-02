@@ -221,5 +221,29 @@ class SubjectRoundTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($updatedAt);
         $this->assertEquals($createdAt, $subjectRound->getCreatedAt());
     }
+    
+    /**
+     * @covers Core\Entity\SubjectRound::addTeacher
+     */
+    public function testAddTeacher()
+    {
+        $subjectRound = new SubjectRound($this->mockEntityManager);
+        $teacher = $subjectRound->getTeacher();
+        $this->assertNotNull($teacher);
 
+        $this->subjectRound->addTeacher($teacher);
+        $this->assertEquals($teacher, $this->subjectRound->getTeacher());
+    }
+
+    /**
+     * @covers Core\Entity\SubjectRound::addTeacher
+     */
+    public function testRemoveTeacher()
+    {
+        $teacher = $this->subjectRound->getTeacher();
+        $this->assertNotNull($teacher);
+
+        $this->subjectRound->removeTeacher($teacher);
+        $this->assertEquals($teacher, $this->subjectRound->getTeacher());
+    }
 }

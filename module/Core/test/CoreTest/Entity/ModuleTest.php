@@ -259,8 +259,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveGradingType()
     {
-        $module = new Module($this->mockEntityManager);
-        $gradingType = $module->getGradingType();
+        $gradingType = $this->module->getGradingType();
         $this->assertNotNull($gradingType);
 
         $this->module->removeGradingType($gradingType);
