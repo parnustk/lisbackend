@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DateTime;
+use Exception;
 use Core\Entity\IndependentWork;
 use Core\Entity\ContactLesson;
 use Core\Entity\StudentGrade;
@@ -250,7 +251,7 @@ class SubjectRound extends EntityValidation
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * 
      * @param int $id
@@ -389,8 +390,11 @@ class SubjectRound extends EntityValidation
     public function addTeacher(Collection $teachers)
     {
         foreach ($teachers as $teacher) {
-            //$gradingType->setModule($this);
-            $this->teacher->add($teacher);
+            if ($teacher instanceof \Core\Entity\Teacher) {
+                $this->teacher->add($teacher);
+            } else {
+                throw new Exception('WRONG_TYPE');
+            }
         }
     }
 

@@ -54,7 +54,7 @@ class SubjectRoundTest extends \PHPUnit_Framework_TestCase
         $this->subjectRound->setId(1);
         $this->assertEquals(1, $this->subjectRound->getId());
     }
-    
+
     /**
      * @covers Core\Entity\SubjectRound::setIndependentWork
      * @covers Core\Entity\SubjectRound::getIndependentWork
@@ -68,7 +68,7 @@ class SubjectRoundTest extends \PHPUnit_Framework_TestCase
         $this->subjectRound->setIndependentWork($mockIndependentWork);
         $this->assertEquals($mockIndependentWork, $this->subjectRound->getIndependentWork());
     }
-    
+
     /**
      * @covers Core\Entity\SubjectRound::setContactLesson
      * @covers Core\Entity\SubjectRound::getContactLesson
@@ -110,7 +110,7 @@ class SubjectRoundTest extends \PHPUnit_Framework_TestCase
         $this->subjectRound->setSubject($mockSubject);
         $this->assertEquals($mockSubject, $this->subjectRound->getSubject());
     }
-    
+
     /**
      * @covers Core\Entity\SubjectRound::setStudentGroup
      * @covers Core\Entity\SubjectRound::getStudentGroup
@@ -221,29 +221,31 @@ class SubjectRoundTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($updatedAt);
         $this->assertEquals($createdAt, $subjectRound->getCreatedAt());
     }
-    
-    /**
-     * @covers Core\Entity\SubjectRound::addTeacher
-     */
-    public function testAddTeacher()
-    {
-        $subjectRound = new SubjectRound($this->mockEntityManager);
-        $teacher = $subjectRound->getTeacher();
-        $this->assertNotNull($teacher);
-
-        $this->subjectRound->addTeacher($teacher);
-        $this->assertEquals($teacher, $this->subjectRound->getTeacher());
-    }
 
     /**
      * @covers Core\Entity\SubjectRound::addTeacher
+     * @covers Core\Entity\SubjectRound::removeTeacher
      */
-    public function testRemoveTeacher()
+    public function testAddRemoveTeacher()
     {
-        $teacher = $this->subjectRound->getTeacher();
-        $this->assertNotNull($teacher);
+        $sr = new SubjectRound;
+        $this->assertEquals(0, $sr->getTeacher()->count());
 
-        $this->subjectRound->removeTeacher($teacher);
-        $this->assertEquals($teacher, $this->subjectRound->getTeacher());
+        $mockTeacher = $this
+                ->getMockBuilder('Core\Entity\Teacher')
+                ->getMock();
+
+        $teachers = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $teachers->add($mockTeacher);
+
+        $sr->addTeacher($teachers);
+
+        $this->assertEquals(1, $sr->getTeacher()->count());
+        $this->assertEquals($mockTeacher, $sr->getTeacher()->first());
+
+        $sr->removeTeacher($teachers);
+        $this->assertEquals(0, $sr->getTeacher()->count());
     }
+
 }
