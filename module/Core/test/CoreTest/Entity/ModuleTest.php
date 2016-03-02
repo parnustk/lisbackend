@@ -241,4 +241,30 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($createdAt, $module->getCreatedAt());
     }
 
+    /**
+     * @covers Core\Entity\Module::addGradingType
+     */
+    public function testAddGradingType()
+    {
+        $module = new Module($this->mockEntityManager);
+        $gradingType = $module->getGradingType();
+        $this->assertNotNull($gradingType);
+
+        $this->module->addGradingType($gradingType);
+        $this->assertEquals($gradingType, $this->module->getGradingType());
+    }
+
+    /**
+     * @covers Core\Entity\Module::removeGradingType
+     */
+    public function testRemoveGradingType()
+    {
+        $module = new Module($this->mockEntityManager);
+        $gradingType = $module->getGradingType();
+        $this->assertNotNull($gradingType);
+
+        $this->module->removeGradingType($gradingType);
+        $this->assertEquals($gradingType, $this->module->getGradingType());
+    }
+
 }
