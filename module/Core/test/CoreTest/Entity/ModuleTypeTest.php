@@ -16,7 +16,7 @@ use DateTime;
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class AbsenceReasonTest extends \PHPUnit_Framework_TestCase
+class ModuleTypeTest extends \PHPUnit_Framework_TestCase
 {
 
     /**

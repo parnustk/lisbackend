@@ -18,6 +18,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Zend\Stdlib\ArraySerializableInterface;
 use DateTime;
+use Core\Entity\GradingType;
+use Core\Entity\ModuleType;
+use Core\Entity\Vocation;
+use Core\Entity\StudentGrade;
+use Core\Entity\Subject;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")
@@ -30,7 +35,8 @@ use DateTime;
  * })
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Module extends EntityValidation
 {
@@ -155,149 +161,281 @@ class Module extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * 
+     * @return integer
+     */
     public function getDuration()
     {
         return $this->duration;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getCode()
     {
         return $this->code;
     }
 
+    /**
+     * 
+     * @return Subject
+     */
     public function getSubject()
     {
         return $this->subject;
     }
 
+    /**
+     * 
+     * @return StudentGrade
+     */
     public function getStudentGrade()
     {
         return $this->studentGrade;
     }
 
+    /**
+     * 
+     * @return Vocation
+     */
     public function getVocation()
     {
         return $this->vocation;
     }
 
+    /**
+     * 
+     * @return ModuleType
+     */
     public function getModuleType()
     {
         return $this->moduleType;
     }
 
+    /**
+     * 
+     * @return GradingType
+     */
     public function getGradingType()
     {
         return $this->gradingType;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\Module
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
+    /**
+     * 
+     * @param string $name
+     * @return \Core\Entity\Module
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * 
+     * @param integer $duration
+     * @return \Core\Entity\Module
+     */
     public function setDuration($duration)
     {
         $this->duration = $duration;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $code
+     * @return \Core\Entity\Module
+     */
     public function setCode($code)
     {
         $this->code = $code;
         return $this;
     }
 
-    public function setSubject($subject)
+    /**
+     * 
+     * @param Subject $subject
+     * @return \Core\Entity\Module
+     */
+    public function setSubject(Subject $subject)
     {
         $this->subject = $subject;
         return $this;
     }
 
-    public function setStudentGrade($studentGrade)
+    /**
+     * 
+     * @param StudentGrade $studentGrade
+     * @return \Core\Entity\Module
+     */
+    public function setStudentGrade(StudentGrade $studentGrade)
     {
         $this->studentGrade = $studentGrade;
         return $this;
     }
 
-    public function setVocation($vocation)
+    /**
+     * 
+     * @param Vocation $vocation
+     * @return \Core\Entity\Module
+     */
+    public function setVocation(Vocation $vocation)
     {
         $this->vocation = $vocation;
         return $this;
     }
 
-    public function setModuleType($moduleType)
+    /**
+     * 
+     * @param ModuleType $moduleType
+     * @return \Core\Entity\Module
+     */
+    public function setModuleType(ModuleType $moduleType)
     {
         $this->moduleType = $moduleType;
         return $this;
     }
 
-    public function setGradingType($gradingType)
+    /**
+     * 
+     * @param GradingType $gradingType
+     * @return \Core\Entity\Module
+     */
+    public function setGradingType(GradingType $gradingType)
     {
         $this->gradingType = $gradingType;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\Module
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+    /**
+     * 
+     * @param \Core\Entity\LisUser $createdBy
+     * @return \Core\Entity\Module
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+    /**
+     * 
+     * @param \Core\Entity\LisUser $updatedBy
+     * @return \Core\Entity\Module
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\Module
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\Module
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;

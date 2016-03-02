@@ -268,6 +268,17 @@ class ModuleType extends \Core\Entity\ModuleType implements \Doctrine\ORM\Proxy\
     /**
      * {@inheritDoc}
      */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
 
@@ -279,7 +290,7 @@ class ModuleType extends \Core\Entity\ModuleType implements \Doctrine\ORM\Proxy\
     /**
      * {@inheritDoc}
      */
-    public function setModule($module)
+    public function setModule(\Core\Entity\Module $module)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModule', array($module));
@@ -301,7 +312,7 @@ class ModuleType extends \Core\Entity\ModuleType implements \Doctrine\ORM\Proxy\
     /**
      * {@inheritDoc}
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Core\Entity\LisUser $createdBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
@@ -312,7 +323,7 @@ class ModuleType extends \Core\Entity\ModuleType implements \Doctrine\ORM\Proxy\
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(\Core\Entity\LisUser $updatedBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
@@ -323,7 +334,7 @@ class ModuleType extends \Core\Entity\ModuleType implements \Doctrine\ORM\Proxy\
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
@@ -334,7 +345,7 @@ class ModuleType extends \Core\Entity\ModuleType implements \Doctrine\ORM\Proxy\
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
