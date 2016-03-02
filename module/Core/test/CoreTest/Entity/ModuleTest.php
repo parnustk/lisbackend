@@ -243,27 +243,28 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Core\Entity\Module::addGradingType
-     */
-    public function testAddGradingType()
-    {
-        $module = new Module($this->mockEntityManager);
-        $gradingType = $module->getGradingType();
-        $this->assertNotNull($gradingType);
-
-        $this->module->addGradingType($gradingType);
-        $this->assertEquals($gradingType, $this->module->getGradingType());
-    }
-
-    /**
      * @covers Core\Entity\Module::removeGradingType
      */
-    public function testRemoveGradingType()
+    public function testAddRemoveGradingType()
     {
-        $gradingType = $this->module->getGradingType();
-        $this->assertNotNull($gradingType);
+        $ml = new Module;
+        $this->assertEquals(0, $ml->getGradingType()->count());
 
-        $this->module->removeGradingType($gradingType);
-        $this->assertEquals($gradingType, $this->module->getGradingType());
+        $mockGradingType = $this
+                ->getMockBuilder('Core\Entity\GradingType')
+                ->getMock();
+
+        $gradingtypes = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $gradingtypes->add($mockGradingType);
+
+        $ml->addGradingType($gradingtypes);
+
+        $this->assertEquals(1, $ml->getGradingType()->count());
+        $this->assertEquals($mockGradingType, $ml->getGradingType()->first());
+
+        $ml->removeGradingType($gradingtypes);
+        $this->assertEquals(0, $ml->getGradingType()->count());
     }
 
 }
