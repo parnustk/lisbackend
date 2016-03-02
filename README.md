@@ -98,3 +98,7 @@ In production you should not update your dependencies, you should run
 which will read from the lock file and not change anything. From StackOverlfow
 
 >  CREATE SCHEMA `lis` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+use built in php server for server. execut following task in lis root folder
+
+ > php -S 0.0.0.0:8080 -t public/ public/index.php
