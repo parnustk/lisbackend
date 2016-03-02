@@ -17,6 +17,13 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DateTime;
+use Core\Entity\IndependentWork;
+use Core\Entity\ContactLesson;
+use Core\Entity\StudentGrade;
+use Core\Entity\Subject;
+use Core\Entity\StudentGroup;
+use Core\Entity\Teacher;
+use Core\Entity\LisUser;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRoundRepository")
@@ -25,7 +32,8 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class SubjectRound extends EntityValidation
 {
@@ -135,127 +143,241 @@ class SubjectRound extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return IndependentWork
+     */
     public function getIndependentWork()
     {
         return $this->independentWork;
     }
 
+    /**
+     * 
+     * @return ContactLesson
+     */
     public function getContactLesson()
     {
         return $this->contactLesson;
     }
 
+    /**
+     * 
+     * @return StudentGrade
+     */
     public function getStudentGrade()
     {
         return $this->studentGrade;
     }
 
+    /**
+     * 
+     * @return Subject
+     */
     public function getSubject()
     {
         return $this->subject;
     }
 
+    /**
+     * 
+     * @return StudentGroup
+     */
     public function getStudentGroup()
     {
         return $this->studentGroup;
     }
 
+    /**
+     * 
+     * @return Teacher
+     */
     public function getTeacher()
     {
         return $this->teacher;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
-    public function setIndependentWork($independentWork)
+    /**
+     * 
+     * @param IndependentWork $independentWork
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setIndependentWork(IndependentWork $independentWork)
     {
         $this->independentWork = $independentWork;
         return $this;
     }
 
-    public function setContactLesson($contactLesson)
+    /**
+     * 
+     * @param ContactLesson $contactLesson
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setContactLesson(ContactLesson $contactLesson)
     {
         $this->contactLesson = $contactLesson;
         return $this;
     }
 
-    public function setStudentGrade($studentGrade)
+    /**
+     * 
+     * @param StudentGrade $studentGrade
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setStudentGrade(StudentGrade $studentGrade)
     {
         $this->studentGrade = $studentGrade;
         return $this;
     }
 
-    public function setSubject($subject)
+    /**
+     * 
+     * @param Subject $subject
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setSubject(Subject $subject)
     {
         $this->subject = $subject;
         return $this;
     }
 
-    public function setStudentGroup($studentGroup)
+    /**
+     * 
+     * @param StudentGroup $studentGroup
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setStudentGroup(StudentGroup $studentGroup)
     {
         $this->studentGroup = $studentGroup;
         return $this;
     }
 
-    public function setTeacher($teacher)
+    /**
+     * 
+     * @param Teacher $teacher
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setTeacher(Teacher $teacher)
     {
         $this->teacher = $teacher;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\SubjectRound
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+    /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+    /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
