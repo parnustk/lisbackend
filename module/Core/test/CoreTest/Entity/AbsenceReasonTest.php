@@ -138,7 +138,7 @@ class AbsenceReasonTest extends \PHPUnit_Framework_TestCase
      * @covers Core\Entity\AbsenceReason::setUpdatedAt
      * @covers Core\Entity\AbsenceReason::getUpdatedAt
      */
-    public function testSetGetUpdatedAtAbsence()
+    public function testSetGetUpdatedAt()
     {
         $dt = new DateTime;
         $this->absenceReason->setUpdatedAt($dt);
