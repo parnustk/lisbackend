@@ -312,7 +312,18 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setIndependentWork($independentWork)
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIndependentWork(\Core\Entity\IndependentWork $independentWork)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIndependentWork', array($independentWork));
@@ -323,7 +334,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setContactLesson($contactLesson)
+    public function setContactLesson(\Core\Entity\ContactLesson $contactLesson)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setContactLesson', array($contactLesson));
@@ -334,7 +345,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setStudentGrade($studentGrade)
+    public function setStudentGrade(\Core\Entity\StudentGrade $studentGrade)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
@@ -345,7 +356,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setSubject($subject)
+    public function setSubject(\Core\Entity\Subject $subject)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubject', array($subject));
@@ -356,7 +367,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setStudentGroup($studentGroup)
+    public function setStudentGroup(\Core\Entity\StudentGroup $studentGroup)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGroup', array($studentGroup));
@@ -367,7 +378,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setTeacher($teacher)
+    public function setTeacher(\Core\Entity\Teacher $teacher)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTeacher', array($teacher));
@@ -389,7 +400,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Core\Entity\LisUser $createdBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
@@ -400,7 +411,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(\Core\Entity\LisUser $updatedBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
@@ -411,7 +422,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
@@ -422,7 +433,7 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));

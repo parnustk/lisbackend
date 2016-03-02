@@ -240,5 +240,30 @@ class ContactLessonTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($updatedAt);
         $this->assertEquals($createdAt, $contactLesson->getCreatedAt());
     }
+    
+    /**
+     * @covers Core\Entity\ContactLesson::addTeacher
+     */
+    public function testAddTeacher()
+    {
+        $contactLesson = new ContactLesson($this->mockEntityManager);
+        $teacher = $contactLesson->getTeacher();
+        $this->assertNotNull($teacher);
+
+        $this->contactLesson->addTeacher($teacher);
+        $this->assertEquals($teacher, $this->contactLesson->getTeacher());
+    }
+
+    /**
+     * @covers Core\Entity\ContactLesson::addTeacher
+     */
+    public function testRemoveTeacher()
+    {
+        $teacher = $this->contactLesson->getTeacher();
+        $this->assertNotNull($teacher);
+
+        $this->contactLesson->removeTeacher($teacher);
+        $this->assertEquals($teacher, $this->contactLesson->getTeacher());
+    }
 
 }

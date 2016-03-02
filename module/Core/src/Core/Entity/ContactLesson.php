@@ -289,7 +289,7 @@ class ContactLesson extends EntityValidation
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * 
      * @param int $id
@@ -462,67 +462,6 @@ class ContactLesson extends EntityValidation
     {
         foreach ($teachers as $teacher) {
             $this->teacher->removeElement($teacher);
-        }
-    }
-
-    /**
-     * @param $absence
-     */
-    public function addAbsence($absence)
-    {
-        foreach ($absence as $absence) {
-            $this->absence->add($absence);
-        }
-    }
-
-    /**
-     * @param $absence
-     */
-    public function removeAbsence($absence)
-    {
-        foreach ($absence as $absence) {
-            $this->absence->removeElement($absence);
-        }
-    }
-
-    /**
-     * @param Collection $rooms
-     */
-    public function addRooms(Collection $rooms)
-    {
-        foreach ($rooms as $room) {
-            //$gradingType->setModule($this);
-            $this->rooms->add($room);
-        }
-    }
-
-    /**
-     * @param Collection $rooms
-     */
-    public function removeRooms(Collection $rooms)
-    {
-        foreach ($rooms as $room) {
-            $this->rooms->removeElement($room);
-        }
-    }
-
-    /**
-     * @param $subjectRound
-     */
-    public function addSubjectRound($subjectRound)
-    {
-        foreach ($subjectRound as $subjectRound) {
-            $this->subjectRound->removeElement($subjectRound);
-        }
-    }
-
-    /**
-     * @param $subjectRound
-     */
-    public function removeSubjectRound($subjectRound)
-    {
-        foreach ($subjectRound as $subjectRound) {
-            $this->subjectRound->removeElement($subjectRound);
         }
     }
 
