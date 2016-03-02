@@ -17,6 +17,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use DateTime;
+use Core\Entity\Absence;
+use Core\Entity\Rooms;
+use Core\Entity\StudentGrade;
+use Core\Entity\SubjectRound;
+use Core\Entity\Teacher;
+use Core\Entity\LisUser;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
@@ -29,7 +35,8 @@ use DateTime;
  * })
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ContactLesson extends EntityValidation
 {
@@ -157,149 +164,281 @@ class ContactLesson extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return datetime
+     */
     public function getLessonDate()
     {
         return $this->lessonDate;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getDurationAK()
     {
         return $this->durationAK;
     }
 
+    /**
+     * 
+     * @return Absence
+     */
     public function getAbsence()
     {
         return $this->absence;
     }
 
+    /**
+     * 
+     * @return Rooms
+     */
     public function getRooms()
     {
         return $this->rooms;
     }
 
+    /**
+     * 
+     * @return StudentGrade
+     */
     public function getStudentGrade()
     {
         return $this->studentGrade;
     }
 
+    /**
+     * 
+     * @return SubjectRound
+     */
     public function getSubjectRound()
     {
         return $this->subjectRound;
     }
 
+    /**
+     * 
+     * @return Teacher
+     */
     public function getTeacher()
     {
         return $this->teacher;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
+    /**
+     * 
+     * @param datetime $lessonDate
+     * @return \Core\Entity\ContactLesson
+     */
     public function setLessonDate($lessonDate)
     {
         $this->lessonDate = $lessonDate;
         return $this;
     }
 
+    /**
+     * 
+     * @param sting $description
+     * @return \Core\Entity\ContactLesson
+     */
     public function setDescription($description)
     {
         $this->description = $description;
         return $this;
     }
 
+    /**
+     * 
+     * @param integer $durationAK
+     * @return \Core\Entity\ContactLesson
+     */
     public function setDurationAK($durationAK)
     {
-        $this->durationAK = $durationAK;
+        $this->durationAK = (int) $durationAK;
         return $this;
     }
 
-    public function setAbsence($absence)
+    /**
+     * 
+     * @param Absence $absence
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setAbsence(Absence $absence)
     {
         $this->absence = $absence;
         return $this;
     }
 
-    public function setRooms($rooms)
+    /**
+     * 
+     * @param Rooms $rooms
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setRooms(Rooms $rooms)
     {
         $this->rooms = $rooms;
         return $this;
     }
 
-    public function setStudentGrade($studentGrade)
+    /**
+     * 
+     * @param StudentGrade $studentGrade
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setStudentGrade(StudentGrade $studentGrade)
     {
         $this->studentGrade = $studentGrade;
         return $this;
     }
 
-    public function setSubjectRound($subjectRound)
+    /**
+     * 
+     * @param SubjectRound $subjectRound
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setSubjectRound(SubjectRound $subjectRound)
     {
         $this->subjectRound = $subjectRound;
         return $this;
     }
 
-    public function setTeacher($teacher)
+    /**
+     * 
+     * @param Teacher $teacher
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setTeacher(Teacher $teacher)
     {
         $this->teacher = $teacher;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\ContactLesson
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+    /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+    /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;

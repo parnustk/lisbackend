@@ -23,6 +23,7 @@ use Core\Entity\ModuleType;
 use Core\Entity\Vocation;
 use Core\Entity\StudentGrade;
 use Core\Entity\Subject;
+use Core\Entity\LisUser;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ModuleRepository")
@@ -316,7 +317,7 @@ class Module extends EntityValidation
      */
     public function setDuration($duration)
     {
-        $this->duration = $duration;
+        $this->duration = (int) $duration;
         return $this;
     }
 
