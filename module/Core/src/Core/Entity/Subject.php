@@ -17,6 +17,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Core\Utils\EntityValidation;
 use DateTime;
+use Core\Entity\SubjectRound;
+use Core\Entity\Module;
+use Core\Entity\GradingType;
+use Core\Entity\LisUser;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRepository")
@@ -31,7 +35,8 @@ use DateTime;
  * })
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Subject extends EntityValidation
 {
@@ -154,149 +159,281 @@ class Subject extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getCode()
     {
         return $this->code;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getDurationAllAK()
     {
         return $this->durationAllAK;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getDurationContactAK()
     {
         return $this->durationContactAK;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getDurationIndependentAK()
     {
         return $this->durationIndependentAK;
     }
 
+    /**
+     * 
+     * @return Subject
+     */
     public function getSubjectRound()
     {
         return $this->subjectRound;
     }
 
+    /**
+     * 
+     * @return Module
+     */
     public function getModule()
     {
         return $this->module;
     }
 
+    /**
+     * 
+     * @return GradingType
+     */
     public function getGradingType()
     {
         return $this->gradingType;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\Subject
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
+    /**
+     * 
+     * @param string $code
+     * @return \Core\Entity\Subject
+     */
     public function setCode($code)
     {
         $this->code = $code;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $name
+     * @return \Core\Entity\Subject
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $durationAllAK
+     * @return \Core\Entity\Subject
+     */
     public function setDurationAllAK($durationAllAK)
     {
-        $this->durationAllAK = $durationAllAK;
+        $this->durationAllAK = (int) $durationAllAK;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $durationContactAK
+     * @return \Core\Entity\Subject
+     */
     public function setDurationContactAK($durationContactAK)
     {
-        $this->durationContactAK = $durationContactAK;
+        $this->durationContactAK = (int) $durationContactAK;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $durationIndependentAK
+     * @return \Core\Entity\Subject
+     */
     public function setDurationIndependentAK($durationIndependentAK)
     {
-        $this->durationIndependentAK = $durationIndependentAK;
+        $this->durationIndependentAK = (int) $durationIndependentAK;
         return $this;
     }
 
-    public function setSubjectRound($subjectRound)
+    /**
+     * 
+     * @param SubjectRound $subjectRound
+     * @return \Core\Entity\Subject
+     */
+    public function setSubjectRound(SubjectRound $subjectRound)
     {
         $this->subjectRound = $subjectRound;
         return $this;
     }
 
-    public function setModule($module)
+    /**
+     * 
+     * @param Module $module
+     * @return \Core\Entity\Subject
+     */
+    public function setModule(Module $module)
     {
         $this->module = $module;
         return $this;
     }
 
-    public function setGradingType($gradingType)
+    /**
+     * 
+     * @param GradingType $gradingType
+     * @return \Core\Entity\Subject
+     */
+    public function setGradingType(GradingType $gradingType)
     {
         $this->gradingType = $gradingType;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\Subject
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+    /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\Subject
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+    /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\Subject
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\Subject
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\Subject
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
