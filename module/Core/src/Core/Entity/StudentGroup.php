@@ -16,6 +16,8 @@ use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
 
+
+
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentGroupRepository")
  * @ORM\Table(
@@ -25,7 +27,9 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Sander Mets <sandermets0@gmail.com>, Kristen Sepp <seppkristen@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Arnold Tserepov <tserepov@gmail.com>
  */
 class StudentGroup extends EntityValidation
 {
