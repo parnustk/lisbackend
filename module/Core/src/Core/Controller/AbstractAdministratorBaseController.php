@@ -102,16 +102,28 @@ abstract class AbstractAdministratorBaseController extends AbstractBaseControlle
     }
 
     /**
+     * Case for non Apache environment
+     */
+    public function headerAccessControlAllowOrigin()
+    {
+        if (strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') === false) {
+            header("Access-Control-Allow-Origin: *");
+        }
+    }
+
+    /**
      * 
      * @return stdClass
      */
     protected function GetExtra()
     {
-        return (object) [
+        $e = (object) [
                     'lisRole' => $this->getLisRole(),
                     'lisUser' => $this->getLisUser(),
                     'lisPerson' => $this->getLisPerson(),
         ];
+        $this->headerAccessControlAllowOrigin();
+        return $e;
     }
 
     /**
