@@ -17,13 +17,14 @@ You should have following software installed in your computer:
 
 ## Add js config
  
-Create lis/dist/globals.config.local.js with content:  
+Create lis/dist/globals.config.local.js with content:
 
     (function (window) {
         window.LisGlobals = {
-            RestUrl: 'http://lis.local/admin/'//local BE address   
+            RestUrl: 'http://lis.local/admin/',
+            RegisterUrl: 'http://lis.local/lisauth/'
         };
-    }(window));  
+    }(window));
  
 ## Run development environment
 
