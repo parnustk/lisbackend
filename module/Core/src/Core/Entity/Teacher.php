@@ -157,76 +157,136 @@ class Teacher extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getFirstName()
     {
         return $this->firstName;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getLastName()
     {
         return $this->lastName;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getPersonalCode()
     {
         return $this->personalCode;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getLisUser()
     {
         return $this->lisUser;
     }
 
+    /**
+     * 
+     * @return IndependentWork
+     */
     public function getIndependentWork()
     {
         return $this->independentWork;
     }
 
+    /**
+     * 
+     * @return StudentGrade
+     */
     public function getStudentGrade()
     {
         return $this->studentGrade;
     }
 
+    /**
+     * 
+     * @return SubjectRound
+     */
     public function getSubjectRound()
     {
         return $this->subjectRound;
     }
 
+    /**
+     * 
+     * @return ContactLesson
+     */
     public function getContactLesson()
     {
         return $this->contactLesson;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
@@ -238,78 +298,153 @@ class Teacher extends EntityValidation
         return $this;
     }
 
+    /**
+     * 
+     * @param type $lastName
+     * @return \Core\Entity\Teacher
+     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $personalCode
+     * @return \Core\Entity\Teacher
+     */
     public function setPersonalCode($personalCode)
     {
         $this->personalCode = $personalCode;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $email
+     * @return \Core\Entity\Teacher
+     */
     public function setEmail($email)
     {
         $this->email = $email;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $lisUser
+     * @return \Core\Entity\Teacher
+     */
     public function setLisUser($lisUser)
     {
         $this->lisUser = $lisUser;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $independentWork
+     * @return \Core\Entity\Teacher
+     */
     public function setIndependentWork($independentWork)
     {
         $this->independentWork = $independentWork;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $studentGrade
+     * @return \Core\Entity\Teacher
+     */
     public function setStudentGrade($studentGrade)
     {
         $this->studentGrade = $studentGrade;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $subjectRound
+     * @return \Core\Entity\Teacher
+     */
     public function setSubjectRound($subjectRound)
     {
         $this->subjectRound = $subjectRound;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $id
+     * @return \Core\Entity\Teacher
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * 
+     * @param type $contactLesson
+     * @return \Core\Entity\Teacher
+     */
     public function setContactLesson($contactLesson)
     {
         $this->contactLesson = $contactLesson;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $trashed
+     * @return \Core\Entity\Teacher
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $createdBy
+     * @return \Core\Entity\Teacher
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $updatedBy
+     * @return \Core\Entity\Teacher
+     */
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $createdAt
+     * @return \Core\Entity\Teacher
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $updatedAt
+     * @return \Core\Entity\Teacher
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
