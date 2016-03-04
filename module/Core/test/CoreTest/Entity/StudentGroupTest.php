@@ -49,11 +49,11 @@ class StudentGroupTest extends \PHPUnit_Framework_TestCase
      * @covers Core\Entity\StudentGroup::setId
      * @covers Core\Entity\StudentGroup::getId
      */
-//    public function testSetGetId()
-//    {
-//        $this->studentGroup->setId(1);
-//        $this->assertEquals(1, $this->studentGroup->getId());
-//    }
+    public function testSetGetId()
+    {
+        $this->studentGroup->setId(1);
+        $this->assertEquals(1, $this->studentGroup->getId());
+    }
 
     /**
      * @covers Core\Entity\StudentGroup::setName
@@ -112,16 +112,16 @@ class StudentGroupTest extends \PHPUnit_Framework_TestCase
      * @covers Core\Entity\StudentGroup::setTrashed
      * @covers Core\Entity\StudentGroup::getTrashed
      */
-//    public function testSetGetTrashed()
-//    {
-//        $trashedInt = 1;
-//        $this->studentGroup->setTrashed($trashedInt);
-//        $this->assertEquals($trashedInt, $this->studentGroup->getTrashed());
-//
-//        $trashedString = "A";
-//        $this->studentGroup->setTrashed($trashedString);
-//        $this->assertNotEquals($trashedString, $this->studentGroup->getTrashed());
-//    }
+    public function testSetGetTrashed()
+    {
+        $trashedInt = 1;
+        $this->studentGroup->setTrashed($trashedInt);
+        $this->assertEquals($trashedInt, $this->studentGroup->getTrashed());
+
+        $trashedString = "A";
+        $this->studentGroup->setTrashed($trashedString);
+        $this->assertNotEquals($trashedString, $this->studentGroup->getTrashed());
+    }
 
     /**
      * @covers Core\Entity\StudentGroup::setCreatedBy

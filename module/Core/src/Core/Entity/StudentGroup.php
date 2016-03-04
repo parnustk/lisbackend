@@ -118,110 +118,206 @@ class StudentGroup extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return Name
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * 
+     * @return Vocation
+     */
     public function getVocation()
     {
         return $this->vocation;
     }
 
+    /**
+     * 
+     * @return SubjectRound
+     */
     public function getSubjectRound()
     {
         return $this->subjectRound;
     }
 
+    /**
+     * 
+     * @return StudentInGroups
+     */
     public function getStudentInGroups()
     {
         return $this->studentInGroups;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
+    /**
+     * 
+     * @param string $name
+     * @return \Core\Entity\StudentGroup
+     */ 
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setVocation($vocation)
+     /**
+     * 
+     * @param Vocation $vocation
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setVocation(Vocation $vocation)
     {
         $this->vocation = $vocation;
         return $this;
     }
 
-    public function setSubjectRound($subjectRound)
+     /**
+     * 
+     * @param SubjectRound $subjectRound
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setSubjectRound(SubjectRound $subjectRound)
     {
         $this->subjectRound = $subjectRound;
         return $this;
     }
 
-    public function setStudentInGroups($studentInGroups)
+     /**
+     * 
+     * @param StudentInGroups $studentInGroups
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setStudentInGroups(StudentInGroups $studentInGroups)
     {
         $this->studentInGroups = $studentInGroups;
         return $this;
     }
-
+    
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\StudentGroup
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+     /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+     /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
+    
     /**
      * First get inserted createdAt
      * and updatedAt stays NULL
