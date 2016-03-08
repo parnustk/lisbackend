@@ -235,6 +235,11 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
 
             return [
                 'success' => false,
+                'message' => $ex->getTraceAsString()
+            ];
+            
+            return [
+                'success' => false,
                 'message' => 'FALSE_ATTEMPT'
             ];
         }

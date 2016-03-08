@@ -15,12 +15,12 @@ return [
         'ZfcBase',
         'ZfcUser',
         'ZfcUserDoctrineORM',
+        'LisAuth',
         'Application',
         'Core',
         'Administrator',
         'Student',
         'Teacher',
-        'LisAuth',
     ],
     'module_listener_options' => [
         'module_paths' => [

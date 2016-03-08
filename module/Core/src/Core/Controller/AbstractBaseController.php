@@ -46,6 +46,15 @@ abstract class AbstractBaseController extends AbstractRestfulController
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
+    
+    /**
+     * 
+     * @return \LisAuth\Service\LisAuthService
+     */
+    public function getLisAuthService()
+    {
+        return $this->getServiceLocator()->get('lisauth_service');
+    }
 
     /**
      * 

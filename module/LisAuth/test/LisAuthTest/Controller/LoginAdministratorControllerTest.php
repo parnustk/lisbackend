@@ -21,7 +21,6 @@ ob_start(); //clears error - session_regenerate_id(): Cannot regenerate session 
 class LoginAdministratorControllerTest extends UnitHelpers
 {
 
-
     /**
      * REST access setup
      */
@@ -111,7 +110,7 @@ class LoginAdministratorControllerTest extends UnitHelpers
         $this->assertEquals(false, $result->success);
         $this->assertEquals('FALSE_ATTEMPT', $result->message);
     }
-    
+
     /**
      * Log in administrator false password
      */
@@ -151,6 +150,46 @@ class LoginAdministratorControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, $result->success);
         $this->assertEquals('FALSE_ATTEMPT', $result->message);
+    }
+
+    /**
+     * Create static user 
+     * later on move this code 
+     * to cron job or similar
+     */
+    public function testCreateStaticAdminUser()
+    {
+        try {
+
+            $email = 'admin@test.ee';
+            $password = 'Tere1234';
+
+            $administratorRepository = $this->em->getRepository('Core\Entity\Administrator');
+
+            $administrator = $administratorRepository->Create([
+                'firstName' => 'firstName' . uniqid(),
+                'lastName' => 'lastName' . uniqid(),
+                'personalCode' => 'code' . uniqid(),
+                'email' => $email
+            ]);
+
+            $d = [
+                'personalCode' => $administrator->getPersonalCode(),
+                'email' => $email,
+                'password' => $password,
+            ];
+
+            $lisUser = $this
+                    ->em
+                    ->getRepository('Core\Entity\LisUser')
+                    ->Create($d);
+
+            $administrator->setLisUser($lisUser); //associate
+            $this->em->persist($administrator);
+            $this->em->flush($administrator);
+        } catch (\Exception $exc) {
+            $this->PrintOut($exc->getMessage(), false);
+        }
     }
 
 }
