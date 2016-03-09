@@ -15,6 +15,8 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
+use Core\Entity\Module;
+use Core\Entity\Subject;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradingTypeRepository")
@@ -104,94 +106,181 @@ class GradingType extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getGradingType()
     {
         return $this->gradingType;
     }
 
+    /**
+     * 
+     * @return Module
+     */
     public function getModule()
     {
         return $this->module;
     }
 
+    /**
+     * 
+     * @return Subject
+     */
     public function getSubject()
     {
         return $this->subject;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\GradingType
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
+    /**
+     * 
+     * @param type $gradingType
+     * @return \Core\Entity\GradingType
+     */
     public function setGradingType($gradingType)
     {
         $this->gradingType = $gradingType;
         return $this;
     }
 
-    public function setModule($module)
+    /**
+     * 
+     * @param Module $module
+     * @return \Core\Entity\GradingType
+     */
+    public function setModule(Module $module)
     {
         $this->module = $module;
         return $this;
     }
 
-    public function setSubject($subject)
+    /**
+     * 
+     * @param Subject $subject
+     * @return \Core\Entity\GradingType
+     */
+    public function setSubject(Subject $subject)
     {
         $this->subject = $subject;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\GradingType
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+    /**
+     * 
+     * @param \Core\Entity\LisUser $createdBy
+     * @return \Core\Entity\GradingType
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+    /**
+     * 
+     * @param \Core\Entity\LisUser $updatedBy
+     * @return \Core\Entity\GradingType
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\GradingType
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\GradingType
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
