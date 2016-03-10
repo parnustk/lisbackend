@@ -18,6 +18,7 @@
                 .then(
                     function (result) {
                         $scope.vocations = result.data;
+                        console.log(result.data);
                     }
                 );
 

@@ -26,9 +26,9 @@
          */
         function vocationModel($http, $resource) {
 
-            var _vocation;
+            var _model;
 
-            _vocation = $resource(
+            _model = $resource(
                 window.LisGlobals.RestUrl + 'vocation/:id',
                 {id: '@id'},
                 {
@@ -44,7 +44,7 @@
                  * @return {unresolved}
                  */
                 GetList: function (params) {
-                    return _vocation.query(params).$promise;
+                    return _model.query(params).$promise;
                 },
                 /**
                  * 
@@ -52,7 +52,7 @@
                  * @return {unresolved}
                  */
                 Get: function (id) {
-                    return _vocation.get({id: id}).$promise;
+                    return _model.get({id: id}).$promise;
                 },
                 /**
                  * 
@@ -61,7 +61,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    //TODO
+                    return _model.save(data).$promise;
                 },
                 /**
                  * 
@@ -83,7 +83,9 @@
                 }
             };
         }
+        
         vocationModel.$inject = ['$http', '$resource'];
+        
         return vocationModel;
     });
 
