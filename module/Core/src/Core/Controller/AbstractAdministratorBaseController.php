@@ -103,18 +103,6 @@ abstract class AbstractAdministratorBaseController extends AbstractBaseControlle
     }
 
     /**
-     * Case for non Apache environment
-     */
-    public function headerAccessControlAllowOrigin()
-    {
-        if (key_exists('SERVER_SOFTWARE', $_SERVER)) {//check for phpunit env
-            if (strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') === false) {
-                header("Access-Control-Allow-Origin: *");
-            }
-        }
-    }
-
-    /**
      * 
      */
     protected function checkUserSession()

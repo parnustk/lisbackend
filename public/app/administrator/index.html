@@ -14,10 +14,29 @@
         <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
         <link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css">
         <script src="lis/dist/globals.config.local.js"></script>
+        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
     </head>
     <body>
         <a href="#!/" class="button">Home</a><a href="#!/vocation" class="button">Vocation</a>
         <div data-ng-view=""></div>
-        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
+        <hr>
+        <p class="panel">Tmp login form.</p>
+        
+        <form ng-controller="loginController">
+            <div class="row">
+                <div class="large-3 medium-6 small-12 columns">
+                    <label>email
+                        <input type="text" ng-model="credentials.email" value="admin@test.ee">
+                    </label>
+                </div>
+                <div class="large-3 medium-6 small-12 columns">
+                    <label>password
+                        <input type="password" ng-model="credentials.password" value="Tere1234">
+                    </label>
+                </div>
+            </div>
+            <button class="button" ng-click="Login()">login</button>
+        </form>
+        
     </body>
 </html>

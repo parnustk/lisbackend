@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Licence of Learning Info System (LIS)
  * 
@@ -29,12 +30,28 @@ abstract class AbstractBaseController extends AbstractRestfulController
     protected $params;
 
     /**
+     * http://stackoverflow.com/questions/25727306/request-header-field-access-control-allow-headers-is-not-allowed-by-access-contr
+     * https://developer.tizen.org/dev-guide/web/2.3.0/org.tizen.mobile.web.appprogramming/html/tutorials/w3c_tutorial/sec_tutorial/using_preflight_request.htm
+     * Case for non Apache environment
+     */
+    public function headerAccessControlAllowOrigin()
+    {
+        if (key_exists('SERVER_SOFTWARE', $_SERVER)) {//check for phpunit env
+            if (strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') === false) {
+                header("Access-Control-Allow-Origin: *");
+                header("Access-Control-Allow-Headers: Content-Type");
+            }
+        }
+    }
+
+    /**
      * Allow CORS
      * 
      * @return JsonModel
      */
     public function options()
     {
+        $this->headerAccessControlAllowOrigin();
         return new JsonModel([]);
     }
 
@@ -46,7 +63,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
-    
+
     /**
      * 
      * @return \LisAuth\Service\LisAuthService
@@ -75,7 +92,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
 
         return $this->params;
     }
-    
+
     /**
      * GET
      *
@@ -90,7 +107,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
                         ->GetList($this->GetParams())
         );
     }
-    
+
     /**
      * GET
      * 
@@ -106,7 +123,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
                         ->Get($id)
         );
     }
-    
+
     /**
      * POST
      * 
@@ -122,7 +139,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
                         ->Create($data)
         );
     }
-    
+
     /**
      * PUT
      * 
@@ -139,7 +156,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
                         ->Update($id, $data)
         );
     }
-    
+
     /**
      * DELETE
      * 
@@ -155,7 +172,7 @@ abstract class AbstractBaseController extends AbstractRestfulController
                         ->Delete($id)
         );
     }
-    
+
     /**
      * 
      * @return type

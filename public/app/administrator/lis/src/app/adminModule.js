@@ -47,6 +47,7 @@
         'app/model/absenceModel',
         'app/model/roomModel',
         'app/model/moduletypeModel',
+        'app/model/loginModel',
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -54,9 +55,8 @@
         'app/controller/absencereasonController',
         'app/controller/absenceController',
         'app/controller/roomController',
-        'app/controller/moduletypeController'
-
-
+        'app/controller/moduletypeController',
+        'app/controller/loginController'
     ], function (
             angular,
             config,
@@ -68,6 +68,7 @@
             absenceModel,
             roomModel,
             moduletypeModel,
+            loginModel,
             vocationController,
             gradingTypeController,
             gradeChoiceController,
@@ -75,7 +76,8 @@
             absencereasonController,
             absenceController,
             roomController,
-            moduletypeController
+            moduletypeController,
+            loginController
             ) {
 
         var adminModule = angular.module('adminModule', [
@@ -104,6 +106,7 @@
         adminModule.factory('absenceModel', absenceModel);
         adminModule.factory('roomModel', roomModel);
         adminModule.factory('moduletypeModel', moduletypeModel);
+        adminModule.factory('loginModel', loginModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -113,6 +116,8 @@
         adminModule.controller('absenceController', absenceController);
         adminModule.controller('roomController', roomController);      
         adminModule.controller('moduletypeController', moduletypeController);
+        adminModule.controller('loginController', loginController);
+        
         return adminModule;
     });
 
