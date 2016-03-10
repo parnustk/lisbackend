@@ -12,6 +12,14 @@
     define([], function () {
 
         function vocationController($scope, $routeParams, vocationModel) {
+            
+            $scope.data = {
+                id: null,
+                name: null,
+                vocationCode: null,
+                durationEKAP: null,
+                trashed: null
+            };
 
             vocationModel
                 .Get($routeParams.id)
@@ -23,7 +31,7 @@
                 );
 
         }
-        
+
         vocationController.$inject = ['$scope', '$routeParams', 'vocationModel'];
 
         return vocationController;
