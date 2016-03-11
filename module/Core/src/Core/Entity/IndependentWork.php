@@ -28,6 +28,7 @@ use DateTime;
  * 
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class IndependentWork extends EntityValidation
 {
@@ -138,137 +139,259 @@ class IndependentWork extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getDuedate()
     {
         return $this->duedate;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getDurationAK()
     {
         return $this->durationAK;
     }
 
+    /**
+     * 
+     * @return StudentGrade
+     */
     public function getStudentGrade()
     {
         return $this->studentGrade;
     }
 
+    /**
+     * 
+     * @return SubjectRound
+     */
     public function getSubjectRound()
     {
         return $this->subjectRound;
     }
 
+    /**
+     * 
+     * @return Teacher
+     */
     public function getTeacher()
     {
         return $this->teacher;
     }
 
+    /**
+     * 
+     * @return Student
+     */
     public function getStudent()
     {
         return $this->student;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * 
+     * @param DateTime $duedate
+     * @return \Core\Entity\IndependentWork
+     */
     public function setDuedate($duedate)
     {
         $this->duedate = $duedate;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $description
+     * @return \Core\Entity\IndependentWork
+     */
     public function setDescription($description)
     {
         $this->description = $description;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $durationAK
+     * @return \Core\Entity\IndependentWork
+     */
     public function setDurationAK($durationAK)
     {
         $this->durationAK = $durationAK;
         return $this;
     }
 
+    /**
+     * 
+     * @param StudentGrade $studentGrade
+     * @return \Core\Entity\IndependentWork
+     */
     public function setStudentGrade($studentGrade)
     {
         $this->studentGrade = $studentGrade;
         return $this;
     }
 
+    /**
+     * 
+     * @param SubjectRound $subjectRound
+     * @return \Core\Entity\IndependentWork
+     */
     public function setSubjectRound($subjectRound)
     {
         $this->subjectRound = $subjectRound;
         return $this;
     }
 
+    /**
+     * 
+     * @param Teacher $teacher
+     * @return \Core\Entity\IndependentWork
+     */
     public function setTeacher($teacher)
     {
         $this->teacher = $teacher;
         return $this;
     }
 
+    /**
+     * 
+     * @param Student $student
+     * @return \Core\Entity\IndependentWork
+     */
     public function setStudent($student)
     {
         $this->student = $student;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\IndependentWork
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\IndependentWork 
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\IndependentWork
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\IndependentWork
+     */
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\IndependentWork
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\IndependentWork
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
