@@ -292,6 +292,11 @@ class Teacher extends EntityValidation
         return $this->updatedAt;
     }
 
+    /**
+     * 
+     * @param string $firstName
+     * @return \Core\Entity\Teacher
+     */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -300,7 +305,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $lastName
+     * @param string $lastName
      * @return \Core\Entity\Teacher
      */
     public function setLastName($lastName)
@@ -311,7 +316,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $personalCode
+     * @param string $personalCode
      * @return \Core\Entity\Teacher
      */
     public function setPersonalCode($personalCode)
@@ -322,7 +327,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $email
+     * @param string $email
      * @return \Core\Entity\Teacher
      */
     public function setEmail($email)
@@ -333,7 +338,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $lisUser
+     * @param LisUser $lisUser
      * @return \Core\Entity\Teacher
      */
     public function setLisUser($lisUser)
@@ -344,7 +349,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $independentWork
+     * @param IndependentWork $independentWork
      * @return \Core\Entity\Teacher
      */
     public function setIndependentWork($independentWork)
@@ -355,7 +360,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $studentGrade
+     * @param StudentGrade $studentGrade
      * @return \Core\Entity\Teacher
      */
     public function setStudentGrade($studentGrade)
@@ -366,7 +371,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $subjectRound
+     * @param SubjectRound $subjectRound
      * @return \Core\Entity\Teacher
      */
     public function setSubjectRound($subjectRound)
@@ -377,7 +382,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $id
+     * @param int $id
      * @return \Core\Entity\Teacher
      */
     public function setId($id)
@@ -387,7 +392,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $contactLesson
+     * @param ContactLesson $contactLesson
      * @return \Core\Entity\Teacher
      */
     public function setContactLesson($contactLesson)
@@ -398,7 +403,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $trashed
+     * @param int $trashed
      * @return \Core\Entity\Teacher
      */
     public function setTrashed($trashed)
@@ -409,7 +414,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $createdBy
+     * @param LisUser $createdBy
      * @return \Core\Entity\Teacher
      */
     public function setCreatedBy($createdBy)
@@ -420,7 +425,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $updatedBy
+     * @param LisUser $updatedBy
      * @return \Core\Entity\Teacher
      */
     public function setUpdatedBy($updatedBy)
@@ -431,7 +436,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $createdAt
+     * @param DateTime $createdAt
      * @return \Core\Entity\Teacher
      */
     public function setCreatedAt($createdAt)
@@ -442,7 +447,7 @@ class Teacher extends EntityValidation
 
     /**
      * 
-     * @param type $updatedAt
+     * @param DateTime $updatedAt
      * @return \Core\Entity\Teacher
      */
     public function setUpdatedAt($updatedAt)
