@@ -130,115 +130,218 @@ class Vocation extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getVocationCode()
     {
         return $this->vocationCode;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getDurationEKAP()
     {
         return $this->durationEKAP;
     }
 
+    /**
+     * 
+     * @return StudentGroup
+     */
     public function getStudentGroup()
     {
         return $this->studentGroup;
     }
 
+    /**
+     * 
+     * @return Module
+     */
     public function getModule()
     {
         return $this->module;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * 
+     * @param type $name
+     * @return \Core\Entity\Vocation
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * @param type $id
+     * @return \Core\Entity\Vocation
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * 
+     * @param type $vocationCode
+     * @return \Core\Entity\Vocation
+     */
     public function setVocationCode($vocationCode)
     {
         $this->vocationCode = $vocationCode;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $durationEKAP
+     * @return \Core\Entity\Vocation
+     */
     public function setDurationEKAP($durationEKAP)
     {
         $this->durationEKAP = $durationEKAP;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $studentGroup
+     * @return \Core\Entity\Vocation
+     */
     public function setStudentGroup($studentGroup)
     {
         $this->studentGroup = $studentGroup;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $module
+     * @return \Core\Entity\Vocation
+     */
     public function setModule($module)
     {
         $this->module = $module;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $trashed
+     * @return \Core\Entity\Vocation
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $createdBy
+     * @return \Core\Entity\Vocation
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $updatedBy
+     * @return \Core\Entity\Vocation
+     */
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $createdAt
+     * @return \Core\Entity\Vocation
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $updatedAt
+     * @return \Core\Entity\Vocation
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
