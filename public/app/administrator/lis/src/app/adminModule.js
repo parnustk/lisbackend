@@ -26,6 +26,7 @@
      * @param {type} absenceModel
      * @param {type} roomModel
      * @param {type} moduletypeModel
+     * @param {type} loginModel
      * @param {type} vocationController
      * @param {type} gradingTypeController
      * @param {type} gradeChoiceController
@@ -34,7 +35,8 @@
      * @param {type} absenceController
      * @param {type} roomController
      * @param {type} moduletypeController
-     * @returns {unresolved}
+     * @param {type} loginController
+     * @returns {angular.module.angular-1_3_6_L1749.moduleInstance}
      */
     define([
         'angular',
@@ -58,27 +60,27 @@
         'app/controller/moduletypeController',
         'app/controller/loginController'
     ], function (
-            angular,
-            config,
-            vocationModel,
-            gradingTypeModel,
-            gradeChoiceModel,
-            teacherModel,
-            absencereasonModel,
-            absenceModel,
-            roomModel,
-            moduletypeModel,
-            loginModel,
-            vocationController,
-            gradingTypeController,
-            gradeChoiceController,
-            teacherController,
-            absencereasonController,
-            absenceController,
-            roomController,
-            moduletypeController,
-            loginController
-            ) {
+        angular,
+        config,
+        vocationModel,
+        gradingTypeModel,
+        gradeChoiceModel,
+        teacherModel,
+        absencereasonModel,
+        absenceModel,
+        roomModel,
+        moduletypeModel,
+        loginModel,
+        vocationController,
+        gradingTypeController,
+        gradeChoiceController,
+        teacherController,
+        absencereasonController,
+        absenceController,
+        roomController,
+        moduletypeController,
+        loginController
+        ) {
 
         var adminModule = angular.module('adminModule', [
             'ngRoute',
@@ -93,7 +95,8 @@
             'ui.grid.resizeColumns',
             'ui.grid.moveColumns',
             'ui.grid.pinning',
-            'ui.grid.grouping'
+            'ui.grid.grouping', 
+            'ui.grid.exporter'
         ]);
 
         adminModule.config(config);
@@ -114,10 +117,10 @@
         adminModule.controller('gradeChoiceController', gradeChoiceController);
         adminModule.controller('absencereasonController', absencereasonController);
         adminModule.controller('absenceController', absenceController);
-        adminModule.controller('roomController', roomController);      
+        adminModule.controller('roomController', roomController);
         adminModule.controller('moduletypeController', moduletypeController);
         adminModule.controller('loginController', loginController);
-        
+
         return adminModule;
     });
 

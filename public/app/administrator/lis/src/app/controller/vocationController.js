@@ -6,14 +6,36 @@
 
 /* global define */
 
-(function (define) {
+/**
+ * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
+ * http://brianhann.com/ui-grid-and-multi-select/#more-732
+ * 
+ * @param {type} define
+ * @param {type} document
+ * @returns {undefined}
+ */
+(function (define, document) {
     'use strict';
 
-    define([], function () {
+    define(['angular'], function (angular) {
+
+        /**
+         * 
+         * @param {Object} result
+         * @returns {Boolean}
+         */
+        var _resultHandler = function (result) {
+            var s = true;
+            if (!result.success && result.message === "NO_USER") {
+                alert('Login!');
+                s = false;
+            }
+            return s;
+        };
 
         function vocationController($scope, $routeParams, vocationModel) {
-            
-            $scope.data = {
+
+            $scope.model = {
                 id: null,
                 name: null,
                 vocationCode: null,
@@ -21,14 +43,64 @@
                 trashed: null
             };
 
-            vocationModel
-                .Get($routeParams.id)
-                .then(
+            $scope.store = [];
+
+            $scope.params = {};
+
+            $scope.gridOptions = {
+                columnDefs: [
+                    {field: 'id', visible: false},
+                    {field: 'name'},
+                    {field: 'vocationCode'},
+                    {field: 'durationEKAP'},
+                    {field: 'trashed'}
+                ],
+                enableGridMenu: true,
+                enableSelectAll: true,
+                exporterCsvFilename: 'vocations.csv',
+                exporterPdfDefaultStyle: {fontSize: 9},
+                exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+                exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+                exporterPdfFooter: function (currentPage, pageCount) {
+                    return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+                },
+                exporterPdfCustomFormatter: function (docDefinition) {
+                    docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+                    docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+                    return docDefinition;
+                },
+                exporterPdfOrientation: 'portrait',
+                exporterPdfPageSize: 'LETTER',
+                exporterPdfMaxGridWidth: 500,
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                    gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
+                        // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
+                        // var msg = 'New RowCol is ' + angular.toJson(rowCol);
+                        // if(oldRowCol){
+                        //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
+                        //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
+                        // }
+                        console.log('navigation event', newRowCol, oldRowCol);
+                    });
+                }
+            };
+
+            $scope.init = function () {
+                vocationModel.GetList($scope.params).then(
                     function (result) {
-                        $scope.vocations = result.data;
-                        console.log(result.data);
+                        if (_resultHandler(result)) {
+                            $scope.store = $scope.gridOptions.data = result.data;
+                            console.log($scope.gridApi);
+                        }
+                        console.log($scope.store);
                     }
                 );
+            };
+
+            $scope.init();
 
         }
 
@@ -37,6 +109,6 @@
         return vocationController;
     });
 
-}(define));
+}(define, document));
 
 
