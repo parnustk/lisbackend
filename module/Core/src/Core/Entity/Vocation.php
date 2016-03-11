@@ -231,7 +231,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $name
+     * @param string $name
      * @return \Core\Entity\Vocation
      */
     public function setName($name)
@@ -241,7 +241,7 @@ class Vocation extends EntityValidation
     }
 
     /**
-     * @param type $id
+     * @param int $id
      * @return \Core\Entity\Vocation
      */
     public function setId($id)
@@ -251,7 +251,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $vocationCode
+     * @param string $vocationCode
      * @return \Core\Entity\Vocation
      */
     public function setVocationCode($vocationCode)
@@ -262,7 +262,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $durationEKAP
+     * @param int $durationEKAP
      * @return \Core\Entity\Vocation
      */
     public function setDurationEKAP($durationEKAP)
@@ -273,7 +273,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $studentGroup
+     * @param StudentGroup $studentGroup
      * @return \Core\Entity\Vocation
      */
     public function setStudentGroup($studentGroup)
@@ -284,7 +284,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $module
+     * @param Module $module
      * @return \Core\Entity\Vocation
      */
     public function setModule($module)
@@ -295,7 +295,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $trashed
+     * @param int $trashed
      * @return \Core\Entity\Vocation
      */
     public function setTrashed($trashed)
@@ -306,7 +306,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $createdBy
+     * @param DateTime $createdBy
      * @return \Core\Entity\Vocation
      */
     public function setCreatedBy($createdBy)
@@ -317,7 +317,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $updatedBy
+     * @param LisUser $updatedBy
      * @return \Core\Entity\Vocation
      */
     public function setUpdatedBy($updatedBy)
@@ -328,7 +328,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $createdAt
+     * @param DateTime $createdAt
      * @return \Core\Entity\Vocation
      */
     public function setCreatedAt($createdAt)
@@ -339,7 +339,7 @@ class Vocation extends EntityValidation
 
     /**
      * 
-     * @param type $updatedAt
+     * @param DateTime $updatedAt
      * @return \Core\Entity\Vocation
      */
     public function setUpdatedAt($updatedAt)
