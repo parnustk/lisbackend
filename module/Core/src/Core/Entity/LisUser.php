@@ -22,6 +22,7 @@ use Doctrine\ORM\EntityManager;
  * )
  * 
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class LisUser extends EntityValidation
 {
@@ -96,85 +97,162 @@ class LisUser extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getState()
     {
         return $this->state;
     }
 
+    /**
+     * 
+     * @return Teacher
+     */
     public function getTeacher()
     {
         return $this->teacher;
     }
 
+    /**
+     * 
+     * @return Student
+     */
     public function getStudent()
     {
         return $this->student;
     }
 
+    /**
+     * 
+     * @return Administrator
+     */
     public function getAdministrator()
     {
         return $this->administrator;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @param string $email
+     * @return \Core\Entity\LisUser
+     */
     public function setEmail($email)
     {
         $this->email = $email;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $password
+     * @return \Core\Entity\LisUser
+     */
     public function setPassword($password)
     {
         $this->password = $password;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $state
+     * @return \Core\Entity\LisUser
+     */
     public function setState($state)
     {
         $this->state = $state;
         return $this;
     }
 
+    /**
+     * 
+     * @param Teacher $teacher
+     * @return \Core\Entity\LisUser
+     */
     public function setTeacher($teacher)
     {
         $this->teacher = $teacher;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\LisUser
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * 
+     * @param Student $student
+     * @return \Core\Entity\LisUser
+     */
     public function setStudent($student)
     {
         $this->student = $student;
         return $this;
     }
 
+    /**
+     * 
+     * @param Administrator $administrator
+     * @return \Core\Entity\LisUser
+     */
     public function setAdministrator($administrator)
     {
         $this->administrator = $administrator;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\LisUser
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
