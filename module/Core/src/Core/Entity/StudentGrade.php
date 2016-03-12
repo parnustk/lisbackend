@@ -215,7 +215,13 @@ class StudentGrade extends EntityValidation
     {
         return $this->updatedAt;
     }
-
+    
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    
     public function setNotes($notes)
     {
         $this->notes = $notes;
@@ -266,7 +272,7 @@ class StudentGrade extends EntityValidation
 
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
