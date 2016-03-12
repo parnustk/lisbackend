@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManager;
 use DateTime;
 use Core\Entity\Module;
 use Core\Entity\Subject;
+use Core\Entity\LisUser;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradingTypeRepository")

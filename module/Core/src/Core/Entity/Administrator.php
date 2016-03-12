@@ -15,6 +15,7 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
+use Core\Entity\LisUser;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AdministratorRepository")
@@ -25,6 +26,7 @@ use DateTime;
  * 
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Marten Kähr <marten@kahr.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class Administrator extends EntityValidation
 {
@@ -132,127 +134,241 @@ class Administrator extends EntityValidation
         parent::__construct($em);
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return StringTrim
+     */
     public function getFirstName()
     {
         return $this->firstName;
     }
 
+    /**
+     * 
+     * @return StringTrim
+     */
     public function getLastName()
     {
         return $this->lastName;
     }
 
+    /**
+     * 
+     * @return StringTrim
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * 
+     * @return StringTrim
+     */
     public function getPersonalCode()
     {
         return $this->personalCode;
     }
 
+    /**
+     * 
+     * @return StringTrim
+     */
     public function getLisUser()
     {
         return $this->lisUser;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getSuperAdministrator()
     {
         return $this->superAdministrator;
     }
 
+    /**
+     * 
+     * @return iny
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\Administrator
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
+    /**
+     * 
+     * @param StringTrim $firstName
+     * @return \Core\Entity\Administrator
+     */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
         return $this;
     }
 
+    /**
+     * 
+     * @param StringTrim $lastName
+     * @return \Core\Entity\Administrator
+     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
         return $this;
     }
 
+    /**
+     * 
+     * @param StringTrim $email
+     * @return \Core\Entity\Administrator
+     */
     public function setEmail($email)
     {
         $this->email = $email;
         return $this;
     }
 
+    /**
+     * 
+     * @param StringTrim $personalCode
+     * @return \Core\Entity\Administrator
+     */
     public function setPersonalCode($personalCode)
     {
         $this->personalCode = $personalCode;
         return $this;
     }
 
-    public function setLisUser($lisUser)
+    /**
+     * 
+     * @param LisUser $lisUser
+     * @return \Core\Entity\Administrator
+     */
+    public function setLisUser(LisUser $lisUser)
     {
         $this->lisUser = $lisUser;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $superAdministrator
+     * @return \Core\Entity\Administrator
+     */
     public function setSuperAdministrator($superAdministrator)
     {
-        $this->superAdministrator = $superAdministrator;
+        $this->superAdministrator = (int) $superAdministrator;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\Administrator
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
-    public function setCreatedBy($createdBy)
+    /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\Administrator
+     */
+    public function setCreatedBy(LisUser $createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
-    public function setUpdatedBy($updatedBy)
+    /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\Administrator
+     */
+    public function setUpdatedBy(LisUser $updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\Administrator
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function setUpdatedAt($updatedAt)
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\Administrator
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
