@@ -334,6 +334,17 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setCode($code)
     {
 
@@ -389,7 +400,7 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setSubjectRound($subjectRound)
+    public function setSubjectRound(\Core\Entity\SubjectRound $subjectRound)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubjectRound', array($subjectRound));
@@ -400,7 +411,7 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setModule($module)
+    public function setModule(\Core\Entity\Module $module)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModule', array($module));
@@ -411,7 +422,7 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setGradingType($gradingType)
+    public function setGradingType(\Core\Entity\GradingType $gradingType)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setGradingType', array($gradingType));
@@ -433,7 +444,7 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Core\Entity\LisUser $createdBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
@@ -444,7 +455,7 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(\Core\Entity\LisUser $updatedBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
@@ -455,7 +466,7 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
@@ -466,7 +477,7 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));

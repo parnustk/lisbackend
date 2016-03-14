@@ -79,7 +79,7 @@ class ModuleControllerTest extends UnitHelpers
         ]);
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("moduleCode", uniqid());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -105,7 +105,7 @@ class ModuleControllerTest extends UnitHelpers
         $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("moduleCode", uniqid());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -138,7 +138,7 @@ class ModuleControllerTest extends UnitHelpers
         $this->request->getPost()->set("moduleType", $this->CreateModuleType()->getId());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("moduleCode", uniqid());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -171,7 +171,7 @@ class ModuleControllerTest extends UnitHelpers
         $this->request->getPost()->set("vocation", $this->CreateVocation()->getId());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("moduleCode", uniqid());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -245,7 +245,7 @@ class ModuleControllerTest extends UnitHelpers
         $createdModule = $this->CreateModule();
 
         $nameOld = $createdModule->getName();
-        $codeOld = $createdModule->getCode();
+        $codeOld = $createdModule->getModuleCode();
         $durationOld = $createdModule->getDuration();
 
         $vocationIdOld = $createdModule->getVocation()->getId();
@@ -262,7 +262,7 @@ class ModuleControllerTest extends UnitHelpers
 
         $this->request->setContent(http_build_query([
             "name" => "Updated",
-            'code' => uniqid(),
+            'moduleCode' => uniqid(),
             'duration' => 888,
             'vocation' => $this->CreateVocation()->getId(),
             'moduleType' => $this->CreateModuleType()->getId(),
@@ -287,7 +287,7 @@ class ModuleControllerTest extends UnitHelpers
         );
 
         $this->assertNotEquals(
-                $codeOld, $resultModule->getCode()
+                $codeOld, $resultModule->getModuleCode()
         );
 
         $this->assertNotEquals(
@@ -402,7 +402,7 @@ class ModuleControllerTest extends UnitHelpers
         ]);
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("duration", "30");
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("moduleCode", uniqid());
 
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());

@@ -64,10 +64,10 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'duration', 'code', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'duration', 'moduleCode', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'duration', 'code', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'duration', 'moduleCode', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -213,12 +213,12 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getCode()
+    public function getModuleCode()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCode', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModuleCode', array());
 
-        return parent::getCode();
+        return parent::getModuleCode();
     }
 
     /**
@@ -334,6 +334,17 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
 
@@ -356,18 +367,18 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCode($code)
+    public function setModuleCode($moduleCode)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCode', array($code));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModuleCode', array($moduleCode));
 
-        return parent::setCode($code);
+        return parent::setModuleCode($moduleCode);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setSubject($subject)
+    public function setSubject(\Core\Entity\Subject $subject)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubject', array($subject));
@@ -378,7 +389,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setStudentGrade($studentGrade)
+    public function setStudentGrade(\Core\Entity\StudentGrade $studentGrade)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
@@ -389,7 +400,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setVocation($vocation)
+    public function setVocation(\Core\Entity\Vocation $vocation)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVocation', array($vocation));
@@ -400,7 +411,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setModuleType($moduleType)
+    public function setModuleType(\Core\Entity\ModuleType $moduleType)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModuleType', array($moduleType));
@@ -411,7 +422,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setGradingType($gradingType)
+    public function setGradingType(\Core\Entity\GradingType $gradingType)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setGradingType', array($gradingType));
@@ -433,7 +444,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Core\Entity\LisUser $createdBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
@@ -444,7 +455,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(\Core\Entity\LisUser $updatedBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
@@ -455,7 +466,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
@@ -466,7 +477,7 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));

@@ -290,6 +290,17 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
 
@@ -301,7 +312,7 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setVocation($vocation)
+    public function setVocation(\Core\Entity\Vocation $vocation)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVocation', array($vocation));
@@ -312,7 +323,7 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setSubjectRound($subjectRound)
+    public function setSubjectRound(\Core\Entity\SubjectRound $subjectRound)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubjectRound', array($subjectRound));
@@ -323,7 +334,7 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setStudentInGroups($studentInGroups)
+    public function setStudentInGroups(\Core\Entity\StudentInGroups $studentInGroups)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentInGroups', array($studentInGroups));
@@ -345,7 +356,7 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Core\Entity\LisUser $createdBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
@@ -356,7 +367,7 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(\Core\Entity\LisUser $updatedBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
@@ -367,7 +378,7 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
@@ -378,7 +389,7 @@ class StudentGroup extends \Core\Entity\StudentGroup implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));

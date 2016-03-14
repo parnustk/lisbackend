@@ -78,14 +78,14 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Entity\Module::setCode
-     * @covers Core\Entity\Module::getCode
+     * @covers Core\Entity\Module::setModuleCode
+     * @covers Core\Entity\Module::getModuleCode
      */
     public function testSetGetCode()
     {
         $code = '123456abscef';
-        $this->module->setCode($code);
-        $this->assertEquals($code, $this->module->getCode());
+        $this->module->setModuleCode($code);
+        $this->assertEquals($code, $this->module->getModuleCode());
     }
 
     /**

@@ -57,7 +57,7 @@ class ModuleController extends Base
      * <h3>Body</h3>
      * <code> name(string)*
      * duration(integer)*
-     * code(string)*
+     * moduleCode(string)*
      * vocation(integer)*
      * moduleType(integer)*
      * gradingType(array) [ { id(integer) } ] ]*</code>
@@ -77,7 +77,7 @@ class ModuleController extends Base
      * <h3>Body</h3>
      * <code> name(string)*
      * duration(integer)*
-     * code(string)*
+     * moduleCode(string)*
      * vocation(integer)*
      * moduleType(integer)*
      * gradingType(array) [ { id(integer) } ] ]*</code>

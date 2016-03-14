@@ -30,7 +30,7 @@ use Core\Entity\LisUser;
  * @ORM\Table(
  *     indexes={
  *          @ORM\Index(name="modulename", columns={"name"}),
- *          @ORM\Index(name="modulecode", columns={"code"}),
+ *          @ORM\Index(name="modulecode", columns={"moduleCode"}),
  *          @ORM\Index(name="moduleduration", columns={"duration"}),
  *          @ORM\Index(name="module_trashed", columns={"trashed"}),
  * })
@@ -68,9 +68,9 @@ class Module extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\Column(type="string", name="`code`", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
-    protected $code;
+    protected $moduleCode;
 
     /**
      * @Annotation\Exclude()
@@ -193,9 +193,9 @@ class Module extends EntityValidation
      * 
      * @return string
      */
-    public function getCode()
+    public function getModuleCode()
     {
-        return $this->code;
+        return $this->moduleCode;
     }
 
     /**
@@ -323,12 +323,12 @@ class Module extends EntityValidation
 
     /**
      * 
-     * @param string $code
+     * @param string $moduleCode
      * @return \Core\Entity\Module
      */
-    public function setCode($code)
+    public function setModuleCode($moduleCode)
     {
-        $this->code = $code;
+        $this->moduleCode = $moduleCode;
         return $this;
     }
 

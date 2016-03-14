@@ -383,6 +383,14 @@ class AbsenceControllerTest extends UnitHelpers
      */
     public function testDeleteNotTrashed()
     {
+        //create user
+        $administrator = $this->CreateAdministrator();
+        $lisUser = $this->CreateAdministratorUser($administrator);
+
+        //now we have created adminuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($administrator);
+        
         $entity = $this->CreateAbsence();
         $idOld = $entity->getId();
 

@@ -47,7 +47,7 @@ class ModuleRepository extends AbstractBaseRepository
                         id,
                         name,
                         duration,
-                        code,
+                        moduleCode,
                         trashed
                     },
                     partial vocation.{
@@ -76,7 +76,7 @@ class ModuleRepository extends AbstractBaseRepository
                         id,
                         name,
                         duration,
-                        code,
+                        moduleCode,
                         trashed
                     },
                     partial vocation.{
@@ -105,7 +105,7 @@ class ModuleRepository extends AbstractBaseRepository
                         id,
                         name,
                         duration,
-                        code,
+                        moduleCode,
                         trashed
                     },
                     partial vocation.{
@@ -134,7 +134,7 @@ class ModuleRepository extends AbstractBaseRepository
                         id,
                         name,
                         duration,
-                        code,
+                        moduleCode,
                         trashed
                     },
                     partial vocation.{
