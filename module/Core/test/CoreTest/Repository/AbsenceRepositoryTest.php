@@ -68,6 +68,7 @@ class AbsenceRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGet() {
         //Currently throws NOT_FOUND_ENTITY exception.
+        //Working As Intended because of mock? Needs different Assert?
         $id = 1;
         $this->assertNotNull($this->absenceRepository->Get($id));
     }
