@@ -33,7 +33,7 @@ Töötava personali arv: 23
 
 Meeskonnas on 7 liiget, kelle ühine eesmärk on ehitada praktika ja lõputöö käigus Pärnu Saksa Tehnoloogiakoolile õppeinfosüsteem.
 Suhtlemise aluseks on rühma kaasaegne tarkvara arendamine. Tarkvara arendamine toimus esialgu Pärnu Saksa Tehnoloogiakoolis, et kõik eesmärgid saaksid ühiselt püstitatud ning probleemid lahendatud. Kooli poolt võimaldati kasutada kokkulepitud aegadel klassiruumi ning projektorit. Arendamine oli produktiivne.
-Edasi toimub suhtus üle interneti. Meeskonna liikmed peavad oma tööjaotuse ise organiseerima, looma vajaliku töökeskkonna ja infrastruktuuri. Projekti tegemise ajal toimuvad tööpäeviti regulaarsed igapäevased koosolekud. Geograafiliselt eraldatud meeskonnaliikmete koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
+Edasi toimub suhtus üle interneti. Meeskonna liikmed peavad oma tööjaotuse ise organiseerima, looma vajaliku töökeskkonna ja infrastruktuuri. Projekti tegemise ajal toimuvad tööpäeviti regulaarsed igapäevased koosolekud läbi Skype'i. Geograafiliselt eraldatud meeskonnaliikmete koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
 
 
 ####Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
@@ -41,7 +41,7 @@ Edasi toimub suhtus üle interneti. Meeskonna liikmed peavad oma tööjaotuse is
 
 
 ####Töötamine vähemalt ühes tarkvaraarenduse projekti meeskonnas tarkvaraarendajana.
-Töötamine esimeses tarkvaraarenduse projektis on huvitav ja samal ajal keeruline asi,aga ta annab uusi teadmisi ja oskusi. Meeskonnas töötamine õpetab töötama korrektselt, leidma vigu ning lahendama neid.
+Töötamine esimeses tarkvaraarenduse projektis on huvitav ning samal ajal keeruline ja peadmurdev ülesanne. Ühtlasi on see suurepärane võimalus omandada uusi teadmisi ja oskusi nii tarkvara arenduse kui ka meeskonnatöö valdkonnast. Meeskonnas töötamine õpetab korrektselt ja tähtajaliselt töötama, kuna kuna kõik sõltuvad üksteisest. Erinevatel meeskonna liikmetel on erinevad ja erineval tasemel teadmised ning kogemused. Tänu sellele suudame genereerida rohkem ja mitmekesisemaid ideid kui üksinda.
 
 
 ####Koostöö kolleegide ja klientidega.
