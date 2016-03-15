@@ -28,11 +28,12 @@ Töötava personali arv: 23
 
 Õpilasi hetkelise seisuga koolis: 150
 
-Töötajate arv: 7
 
 ####Ülevaade tarkvaraarenduse meeskonna igapäevatööst
-Suhtlemise aluseks on rühma kaasaegse tarkvara arendamine. Töö on lihtne ja kõige produktiivsem, kui meeskond töötab koos,samas hoones või isegi samas kontoris.
-Isegi geograafiliselt eraldatud rühmade koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
+
+Meeskonnas on 7 liiget, kelle ühine eesmärk on ehitada praktika ja lõputöö käigus Pärnu Saksa Tehnoloogiakoolile õppeinfosüsteem.
+Suhtlemise aluseks on rühma kaasaegne tarkvara arendamine. Tarkvara arendamine toimus esialgu Pärnu Saksa Tehnoloogiakoolis, et kõik eesmärgid saaksid ühiselt püstitatud ning probleemid lahendatud. Kooli poolt võimaldati kasutada kokkulepitud aegadel klassiruumi ning projektorit. Arendamine oli produktiivne.
+Edasi toimub suhtus üle interneti. Meeskonna liikmed peavad oma tööjaotuse ise organiseerima, looma vajaliku töökeskkonna ja infrastruktuuri. Projekti tegemise ajal toimuvad tööpäeviti regulaarsed igapäevased koosolekud. Geograafiliselt eraldatud meeskonnaliikmete koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
 
 
 ####Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
