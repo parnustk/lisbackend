@@ -37,7 +37,12 @@ Edasi toimub suhtus üle interneti. Meeskonna liikmed peavad oma tööjaotuse is
 
 
 ####Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
-
+Tegemist on agiilse tarkvaraarendusega. Valisime agiilse arenduse, kuna nii kliendi kui tarkvaraarendajate jaoks on oluline jõuda tähtajaliselt ja tulemuslikult lõpp- punkti. Mahukad tarkvaraarendusprotsessid nõuavad väga palju aega ja ressurssi, kuid kõigile osapooltele on oluline, et soovitud tulemus saaks saavutatud.
+Meeskonna liikmetel on nii tellijaga kui ka omavahel tihe koostöö. See ühtlasi aitab luua kõige sobilikuma tarkvara, mis vastab kliendi soovile ja vajadustele. Eeliseks on ka lühikesed iteratsioonid, mille tulemusena on tellijal juba võimalik funktsionaalsust kasutada ja testida. Pidevalt omavahel suheldes saame tulemused kätte kiiremini ja ühtlasi saame oma
+eesmärke pidevalt täpsustada.
+Üritatame projekti erinevates etappides keskenduda eelkõige funktsioonide loomisele. Traditsioonilistes metoodikaid rakendavates projektides on põhiline rõhk ülesannete järjestikusel täitmisel, mistõttu traditsioonilised metoodikad on väga bürokraatlikud ning mehaanilised. 
+Oleme teadlikud, et projektis toimuvad muutused ja muudatused ning lahendame neid parimal viisil. Projektimeeskonna liikmete vahel toimub avatud suhtlemine. Anname üksteisele pidevalt tagasisidet, pakume tuge ning abikätt. Tänu regulaarsetele Skype'i koosolekutele saame teada kui keegi abi või nõu vajab ning lahendame probleemi ühiselt.
+Back-end arenduse puhul on tegemist Test Driven Development-ga. Kogu meeskond tegeleb tarkvara testimisega igal ajahetkel projekti esimestest päevadest alates. Meie esmaseks ülesandeks ongi vastavalt kasutajalugudele kirjutada testid ning alles seejärel hakata looma koodi, mis vastaks testides toodud nõuetele. Funktsionaalsed testid loome koostöös tellijaga.
 
 
 ####Töötamine vähemalt ühes tarkvaraarenduse projekti meeskonnas tarkvaraarendajana.
