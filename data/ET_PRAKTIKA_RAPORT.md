@@ -55,7 +55,7 @@ Meeskonna liikmed suhtlevad kliendiga otse, ilma igasuguste vahendajateta. Kuna 
 
 
 ####Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
-
+Meie projekti näol on tegemist spiraalse tarkvaraarendusega. Esimeses põhietapis määratleme eesmärgid ning planeerime. Teises etapis toimub valikute hindamine ja riskianalüüs. Kolmandas etapis toimub tootearendus, mis sisaldab endas disaini, kodeerimist, testimist ja integreerimist. Neljas etapp kujutab endast kliendi poolse tagasiside ja hinnangu saamist. Edasi minnakse tagasi esimesse etappi, kus vaatame üle eesmärgid ning vajadusel korrigeerime neid vastavalt kliendi soovile. Tsükkel kestab seni, kuni toode on valmis.
 
 ####Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
 Süsteemianalüüs - infosüsteemi nõuete kogumine.
