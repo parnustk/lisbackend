@@ -60,3 +60,6 @@ Meie projekti näol on tegemist spiraalse tarkvaraarendusega. Esimeses põhietap
 ####Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
 Süsteemianalüüs - infosüsteemi nõuete kogumine.
 Andmebaasi tabelite prototüüpimine.
+Analüüsi etapil, konsulteerides kliendiga, selgitasime välja tarkvarale esitatavad nõuded, mis andsid ettekujutuse sellest, mida kasutaja tarkvara abil teha tahab, milliseid eesmärke tal vaja saavutada. Teisisõnu, tegime selgeks nii funktsionaalsed kui ka mittefunktsionaalsed nõuded. Projekteerimise etapis analüüsisime nõudeid, et luua tarkvara sisemine struktuur.Realisatsiooni faasis toimub teostus, reaalne koodi kirjutamine ning testimine.
+Ülesanded/issued lisame https://github.com keskkonda, kus toimub ülesannete jagamine. Iga meeskonna liige võtab nii palju ülesandeid kui ta suudab ära teha. Eraldi versioonides on erinevad issued, mille arendame teatud tähtajaks valmis. Kui üks versioon on valmis, liigume järgmise juurde. Iga issue täitmiseks läheb erinevatel meeskonna liikmetel erinev aeg. Selle jaoks kasutame http://lis.kahr.ee/ keskkonnas aja trackimise funktsiooni.
+
