@@ -45,8 +45,8 @@ Töötamine esimeses tarkvaraarenduse projektis on huvitav ning samal ajal keeru
 
 
 ####Koostöö kolleegide ja klientidega.
-Koostöö kolleegidega ja klientidega on oluline tarkvaraarenduse protsessis. Koostöö teeb targemaks ja annab ideid, mis aitavad kogu rakenduse protsessi.
-Kollegidega suhtelmiseks kasutame Skype´i ja Teamvieweri võimalusi. Esmaspäevast neljapäevani toimuvad igapäevased Skype´i kõned.
+Koostöö kolleegidega ja klientidega on tarkvaraarenduse protsessis väga oluline. Kogu projekti vältel oleme meeskonna liikmetega pidevas kontaktis, olgu selleks igapäevased koosolekud, vestlus Skype’s või Teamviewer. Esmaspäevast neljapäevani toimuvad igapäevased Skype´i kõned. Vajadusel toimuvad kõnded ka reedeti või laupäeviti. 
+Meeskonna liikmed suhtlevad kliendiga otse, ilma igasuguste vahendajateta. Kuna silmast silma kohtumisi ja isiklikku kontakti ei asenda mitte kuidagi, siis probleemide või küsimuste tekkimise korral pöördume otse kliendi poole.
 
 
 ####Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
