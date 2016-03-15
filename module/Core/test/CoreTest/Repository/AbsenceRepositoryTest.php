@@ -37,7 +37,7 @@ class AbsenceRepositoryTest extends \PHPUnit_Framework_TestCase
      *
      * @var Doctrine\Entity\Absence
      */
-    protected $mockAbsence;
+    protected $mockAbsence;    
     
     /**
      * 
@@ -54,14 +54,29 @@ class AbsenceRepositoryTest extends \PHPUnit_Framework_TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
         
-        $absenceRepository = new AbsenceRepository($this->mockEntityManager);
+        $mockMetadata = $this
+                ->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+                ->disableOriginalConstructor()
+                ->getMock();
+        
+        $absenceRepository = new AbsenceRepository($this->mockEntityManager,$mockMetadata);
         $this->absenceRepository = $absenceRepository;
     }
     
     /**
-     * @covers Core\Entity\Repository
+     * @covers Core\Entity\Repository::Get
      */
-    public function testDqlStart() {
-        $this->assertNotNull($this->absenceRepository->dqlStart());
+    public function testGet() {
+        //Currently throws NOT_FOUND_ENTITY exception.
+        $id = 1;
+        $this->assertNotNull($this->absenceRepository->Get($id));
+    }
+    
+    /**
+     * @covers Core\Entity\Repository::GetList
+     */
+    public function testGetList() {
+        //Currently throws NO_ROLE exception. Needs definition of mock role?
+        $this->assertNotNull($this->absenceRepository->GetList());
     }
 }
