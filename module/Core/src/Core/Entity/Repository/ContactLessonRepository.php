@@ -26,13 +26,13 @@ class ContactLessonRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'contactlesson';
+    public $baseAlias = 'contactlesson';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\ContactLesson';
+    public $baseEntity = 'Core\Entity\ContactLesson';
 
     /**
      * 
