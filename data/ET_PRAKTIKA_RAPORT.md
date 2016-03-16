@@ -33,20 +33,21 @@ Töötava personali arv: 23
 
 Meeskonnas on 7 liiget, kelle ühine eesmärk on ehitada praktika ja lõputöö käigus Pärnu Saksa Tehnoloogiakoolile õppeinfosüsteem.
 Suhtlemise aluseks on rühma kaasaegne tarkvara arendamine. Tarkvara arendamine toimus esialgu Pärnu Saksa Tehnoloogiakoolis, et kõik eesmärgid saaksid ühiselt püstitatud ning probleemid lahendatud. Kooli poolt võimaldati kasutada kokkulepitud aegadel klassiruumi ning projektorit. Arendamine oli produktiivne.
-Edasi toimub suhtus üle interneti. Meeskonna liikmed peavad oma tööjaotuse ise organiseerima, looma vajaliku töökeskkonna ja infrastruktuuri. Projekti tegemise ajal toimuvad tööpäeviti regulaarsed igapäevased koosolekud läbi Skype'i. Geograafiliselt eraldatud meeskonnaliikmete koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
+Edasi toimub suhtlus üle interneti. Meeskonna liikmed peavad oma tööjaotuse ise organiseerima, looma vajaliku töökeskkonna ja infrastruktuuri. Projekti tegemise ajal toimuvad tööpäeviti regulaarsed igapäevased koosolekud läbi Skype'i. Geograafiliselt eraldatud meeskonnaliikmete koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
+Tööaega jälgitakse läbi serverile püstitatud süsteemi FengOffice.
 
 
 ####Ülevaade tarkvaraarenduse protsessist tarkvaraprojekti rakendamisel projektimeeskonnas.
 Tegemist on agiilse tarkvaraarendusega. Valisime agiilse arenduse, kuna nii kliendi kui tarkvaraarendajate jaoks on oluline jõuda tähtajaliselt ja tulemuslikult lõpp- punkti. Mahukad tarkvaraarendusprotsessid nõuavad väga palju aega ja ressurssi, kuid kõigile osapooltele on oluline, et soovitud tulemus saaks saavutatud.
 Meeskonna liikmetel on nii tellijaga kui ka omavahel tihe koostöö. See ühtlasi aitab luua kõige sobilikuma tarkvara, mis vastab kliendi soovile ja vajadustele. Eeliseks on ka lühikesed iteratsioonid, mille tulemusena on tellijal juba võimalik funktsionaalsust kasutada ja testida. Pidevalt omavahel suheldes saame tulemused kätte kiiremini ja ühtlasi saame oma
 eesmärke pidevalt täpsustada.
-Üritatame projekti erinevates etappides keskenduda eelkõige funktsioonide loomisele. Traditsioonilistes metoodikaid rakendavates projektides on põhiline rõhk ülesannete järjestikusel täitmisel, mistõttu traditsioonilised metoodikad on väga bürokraatlikud ning mehaanilised. 
+Üritame projekti erinevates etappides keskenduda eelkõige funktsioonide loomisele. Traditsioonilistes metoodikaid rakendavates projektides on põhiline rõhk ülesannete järjestikusel täitmisel, mistõttu traditsioonilised metoodikad on väga bürokraatlikud ning mehaanilised. 
 Oleme teadlikud, et projektis toimuvad muutused ja muudatused ning lahendame neid parimal viisil. Projektimeeskonna liikmete vahel toimub avatud suhtlemine. Anname üksteisele pidevalt tagasisidet, pakume tuge ning abikätt. Tänu regulaarsetele Skype'i koosolekutele saame teada kui keegi abi või nõu vajab ning lahendame probleemi ühiselt.
 Back-end arenduse puhul on tegemist Test Driven Development-ga. Kogu meeskond tegeleb tarkvara testimisega igal ajahetkel projekti esimestest päevadest alates. Meie esmaseks ülesandeks ongi vastavalt kasutajalugudele kirjutada testid ning alles seejärel hakata looma koodi, mis vastaks testides toodud nõuetele. Funktsionaalsed testid loome koostöös tellijaga.
 
 
 ####Töötamine vähemalt ühes tarkvaraarenduse projekti meeskonnas tarkvaraarendajana.
-Töötamine esimeses tarkvaraarenduse projektis on huvitav ning samal ajal keeruline ja peadmurdev ülesanne. Ühtlasi on see suurepärane võimalus omandada uusi teadmisi ja oskusi nii tarkvara arenduse kui ka meeskonnatöö valdkonnast. Meeskonnas töötamine õpetab korrektselt ja tähtajaliselt töötama, kuna kuna kõik sõltuvad üksteisest. Erinevatel meeskonna liikmetel on erinevad ja erineval tasemel teadmised ning kogemused. Tänu sellele suudame genereerida rohkem ja mitmekesisemaid ideid kui üksinda.
+Töötamine esimeses tarkvaraarenduse projektis on huvitav ning samal ajal keeruline ja peadmurdev ülesanne. Ühtlasi on see suurepärane võimalus omandada uusi teadmisi ja oskusi nii tarkvara arenduse kui ka meeskonnatöö valdkonnast. Meeskonnas töötamine õpetab korrektselt ja tähtajaliselt töötama, kuna kõik sõltuvad üksteisest. Erinevatel meeskonna liikmetel on erinevad ja erineval tasemel teadmised ning kogemused. Tänu sellele suudame genereerida rohkem ja mitmekesisemaid ideid kui üksinda.
 
 
 ####Koostöö kolleegide ja klientidega.
