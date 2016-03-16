@@ -30,7 +30,6 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
- * @author Alar Aasa <alar@alaraasa.ee>
  */
 class Rooms extends EntityValidation
 {
@@ -143,6 +142,12 @@ class Rooms extends EntityValidation
     {
         return $this->updatedAt;
     }
+    
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
     public function setName($name)
     {
@@ -158,7 +163,7 @@ class Rooms extends EntityValidation
 
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
