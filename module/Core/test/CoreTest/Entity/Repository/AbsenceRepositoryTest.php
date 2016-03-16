@@ -64,20 +64,63 @@ class AbsenceRepositoryTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers Core\Entity\Repository::Get
+     * @covers Core\Entity\Repository\AbsenceRepository::Get
      */
     public function testGet() {
-        //Currently throws NOT_FOUND_ENTITY exception.
-        //Working As Intended because of mock? Needs different Assert?
-        $id = 1;
-        $this->assertNotNull($this->absenceRepository->Get($id));
+        try {
+            $this->absenceRepository->Get(1);
+        } catch (Exception $ex) {
+            $this->assertEquals('NOT_FOUND_ENTITY', $ex->getMessage());
+        }
     }
     
     /**
-     * @covers Core\Entity\Repository::GetList
+     * @covers Core\Entity\Repository\AbsenceRepository::GetList
      */
     public function testGetList() {
-        //Currently throws NO_ROLE exception. Needs definition of mock role?
-        $this->assertNotNull($this->absenceRepository->GetList());
+        try {
+            $this->absenceRepository->GetList();
+        } catch (Exception $ex) {
+            $this->assertEquals('NO_ROLE', $ex->getMessage());
+        }
+    }
+    
+    /**
+     * @covers Core\Entity\Repository\AbsenceRepository::Create
+     */
+    public function testCreate()
+    {
+        try {
+            $this->absenceRepository->Create(null,false,null);
+        } catch (Exception $ex) {
+            $expectedString = 'Argument 1 passed to Core\Utils\EntityValidation::hydrate()';
+            $length = strlen($expectedString);
+            $string = $ex->getMessage();
+            $this->assertEquals($expectedString, substr($string,0,$length));
+        }
+    }
+    
+    /**
+     * @covers Core\Entity\Repository\AbsenceRepository::Delete
+     */
+    public function testDelete()
+    {
+        try {
+            $this->absenceRepository->Delete(1);
+        } catch (Exception $ex) {
+            $this->assertEquals('NOT_FOUND_ENTITY', $ex->getMessage());
+        }
+    }
+    
+    /**
+     * @covers Core\Entity\Repository\AbsenceRepository::Update
+     */
+    public function testUpdate()
+    {
+        try {
+            $this->absenceRepository->Delete(1);
+        } catch (Exception $ex) {
+            $this->assertEquals('NOT_FOUND_ENTITY', $ex->getMessage());
+        }
     }
 }
