@@ -20,6 +20,7 @@ use Doctrine\DBAL\Types\Type;
  *
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Marten Kähr <marten@kahr.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class AdministratorRepository extends AbstractBaseRepository
 {
@@ -28,13 +29,13 @@ class AdministratorRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'administrator';
+    public $baseAlias = 'administrator';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\Administrator';
+   public $baseEntity = 'Core\Entity\Administrator';
 
     /**
      * 
