@@ -26,13 +26,13 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    private $baseAlias = 'studentingroups';
+    public $baseAlias = 'studentingroups';
 
     /**
      *
      * @var string 
      */
-    private $baseEntity = 'Core\Entity\StudentInGroups';
+    public $baseEntity = 'Core\Entity\StudentInGroups';
 
     /**
      * 
