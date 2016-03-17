@@ -15,7 +15,9 @@ use Exception;
 /**
  * StudentGroupRepository
  * 
- * @author Kristen <seppkristen@gmail.com>, Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Kristen <seppkristen@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Arnold Tserepov <tserepov@gmail.com> 
  */
 class StudentGroupRepository extends AbstractBaseRepository
 {
