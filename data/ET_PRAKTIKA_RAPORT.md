@@ -2,8 +2,7 @@
 
 ####Ettevõtte üldiseloomustus (nimi, aadress, kontaktandmed, ajalugu, peamine tegevusala, kõrvaltegevusalad, töötajate arv)
 Nimi: Pärnu Saksa Tehnikahariduskeskus OÜ.
-Aadress: 
-Jalaka 8, 80010 Pärnu
+Aadress: Jalaka 8, 80010 Pärnu
 Kontaktandmed:
 Tel: +372 442 0480, +372 510 5845
 E-mail: dts@saksatk.ee
@@ -17,7 +16,7 @@ Pärnu Linnavalitsus sõlmis  hoonestus- ja asjaõiguslepingu. Täna toetab ta  
 Kooli loojate seisukohalt peab selline täiendav hariduse omandamise tee Pärnu piirkonnas avardama kutsehariduse  ja edaspidise tööalase toimetuleku võimalusi. 
 Pärnu Saksa Tehnoloogiakooli tegevuse eesmärk on kaasaegse moodulitepõhise kutsealase tasemeväljaõppe ja täiendkoolituse pakkumine. Lõpetamisel antakse riiklikud lõputunnistused keskhariduse järgse kutseõppe omandamise kohta. Õppetöö on tasuline või riikliku tellimuse puhul tasuta. Õppijatel on mitmesugused riiklikud soodustused, kaasa arvatud õppelaen ja -toetus.
 Kool orienteerub euroopalikele kvaliteedikriteeriumitele ja -kogemustele. Õppekavad tuginevad riiklikele õppekavadele ja kutsestandarditele. Euroopalik innovatsioon kutsealases väljaõppes on seotud rahvusvahelise koostöö võrgustike ja programmidega.
-Pärnu Saksa Tehnoloogiakooli on lõpetanud 1462  õpilast, kellest 700 on lõpetanud tasemekoolituse (2 -aastane õpe) ja 762  tööalase täiendkoolituse.
+Pärnu Saksa Tehnoloogiakooli on lõpetanud 1462  õpilast, kellest 700 on lõpetanud tasemekoolituse (2-aastane õpe) ja 762  tööalase täiendkoolituse.
 Pikaajalisemad väljaõppevaldkonnad on infotehnoloogia (tarkvara arendus), majandusarvestus (äriteenused ja raamatupidamine) energeetika/automaatika (sisetööde elektrik). 2011 alustati multimeedia disainerite (nüüd disaini ja käsitöö õppekavarühm kujundaja õppekavaga) ettevalmistamist. Õpe toimub keskhariduse järgselt. Õppetöö toimub modernse interjööriga kaasaegses asutuses ning on eestikeelne.
  
 Peamine tegevusala: kutseõppe pakkumine
@@ -31,7 +30,7 @@ Töötava personali arv: 23
 
 ####Ülevaade tarkvaraarenduse meeskonna igapäevatööst
 
-Meeskonnas on 7 liiget, kelle ühine eesmärk on ehitada praktika ja lõputöö käigus Pärnu Saksa Tehnoloogiakoolile õppeinfosüsteem.
+Meeskonnas on seitse liiget, kelle ühine eesmärk on ehitada praktika ja lõputöö käigus Pärnu Saksa Tehnoloogiakoolile õppeinfosüsteem.
 Suhtlemise aluseks on rühma kaasaegne tarkvara arendamine. Tarkvara arendamine toimus esialgu Pärnu Saksa Tehnoloogiakoolis, et kõik eesmärgid saaksid ühiselt püstitatud ning probleemid lahendatud. Kooli poolt võimaldati kasutada kokkulepitud aegadel klassiruumi ning projektorit. Arendamine oli produktiivne.
 Edasi toimub suhtlus üle interneti. Meeskonna liikmed peavad oma tööjaotuse ise organiseerima, looma vajaliku töökeskkonna ja infrastruktuuri. Projekti tegemise ajal toimuvad tööpäeviti regulaarsed igapäevased koosolekud läbi Skype'i. Geograafiliselt eraldatud meeskonnaliikmete koostöö kulgeb hästi: koosolekud toimuvad videokonverentside kaudu, andmehoidla on saadaval internetis, grupi liikmed peavad järgima ajakava igapäevaseid ja iganädalasi kohtumisi.
 Tööaega jälgitakse läbi serverile püstitatud süsteemi FengOffice.
@@ -51,8 +50,8 @@ Töötamine esimeses tarkvaraarenduse projektis on huvitav ning samal ajal keeru
 
 
 ####Koostöö kolleegide ja klientidega.
-Koostöö kolleegidega ja klientidega on tarkvaraarenduse protsessis väga oluline. Kogu projekti vältel oleme meeskonna liikmetega pidevas kontaktis, olgu selleks igapäevased koosolekud, vestlus Skype’s või Teamviewer. Esmaspäevast neljapäevani toimuvad igapäevased Skype´i kõned. Vajadusel toimuvad kõnded ka reedeti või laupäeviti. 
-Meeskonna liikmed suhtlevad kliendiga otse, ilma igasuguste vahendajateta. Kuna silmast silma kohtumisi ja isiklikku kontakti ei asenda mitte kuidagi, siis probleemide või küsimuste tekkimise korral pöördume otse kliendi poole.
+Koostöö kolleegidega ja klientidega on tarkvaraarenduse protsessis väga oluline. Kogu projekti vältel oleme meeskonna liikmetega pidevas kontaktis, olgu selleks igapäevased koosolekud, vestlus Skype'is või Teamvieweris. Esmaspäevast neljapäevani toimuvad igapäevased Skype´i kõned. Vajadusel toimuvad kõned ka reedeti või laupäeviti. 
+Meeskonna liikmed suhtlevad kliendiga otse, ilma igasuguste vahendajateta. Kuna silmast silma kohtumisi ja isiklikku kontakti ei asenda mitte midagi, siis probleemide või küsimuste tekkimise korral pöördume otse kliendi poole.
 
 
 ####Meeskonna poolt kasutatava arendusmetoodika analüüsimine.
@@ -61,6 +60,6 @@ Meie projekti näol on tegemist spiraalse tarkvaraarendusega. Esimeses põhietap
 ####Ülevaade ettevõttepoolse ülesande täitmisest, töö teostamise etappidest.
 Süsteemianalüüs - infosüsteemi nõuete kogumine.
 Andmebaasi tabelite prototüüpimine.
-Analüüsi etapil, konsulteerides kliendiga, selgitasime välja tarkvarale esitatavad nõuded, mis andsid ettekujutuse sellest, mida kasutaja tarkvara abil teha tahab, milliseid eesmärke tal vaja saavutada. Teisisõnu, tegime selgeks nii funktsionaalsed kui ka mittefunktsionaalsed nõuded. Projekteerimise etapis analüüsisime nõudeid, et luua tarkvara sisemine struktuur.Realisatsiooni faasis toimub teostus, reaalne koodi kirjutamine ning testimine.
-Ülesanded/issued lisame https://github.com keskkonda, kus toimub ülesannete jagamine. Iga meeskonna liige võtab nii palju ülesandeid kui ta suudab ära teha. Eraldi versioonides on erinevad issued, mille arendame teatud tähtajaks valmis. Kui üks versioon on valmis, liigume järgmise juurde. Iga issue täitmiseks läheb erinevatel meeskonna liikmetel erinev aeg. Selle jaoks kasutame http://lis.kahr.ee/ keskkonnas aja trackimise funktsiooni.
+Analüüsi etapil, konsulteerides kliendiga, selgitasime välja tarkvarale esitatavad nõuded, mis andsid ettekujutuse sellest, mida kasutaja tarkvara abil teha tahab, milliseid eesmärke tal vaja saavutada. Teisisõnu, tegime selgeks nii funktsionaalsed kui ka mittefunktsionaalsed nõuded. Projekteerimise etapis analüüsisime nõudeid, et luua tarkvara sisemine struktuur. Realisatsiooni faasis toimub teostus, reaalne koodi kirjutamine ning testimine.
+Ülesanded/issued lisame https://github.com keskkonda, kus toimub ülesannete jagamine. Iga meeskonna liige võtab nii palju ülesandeid kui ta suudab ära teha. Eraldi versioonides on erinevad issued, mille arendame teatud tähtajaks valmis. Kui üks versioon on valmis, liigume järgmise juurde. Iga issue täitmiseks läheb erinevatel meeskonna liikmetel erinev aeg. Selle jaoks kasutame http://lis.kahr.ee/ keskkonnas tööajaarvestuse funktsiooni.
 
