@@ -28,13 +28,13 @@ class ModuleRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'module';
+    public $baseAlias = 'module';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\Module';
+    public $baseEntity = 'Core\Entity\Module';
 
     /**
      * 
