@@ -17,6 +17,7 @@ use Exception;
  * 
  * @author Kristen <seppkristen@gmail.com>
  * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class IndependentWorkRepository extends AbstractBaseRepository
 {
@@ -27,13 +28,13 @@ class IndependentWorkRepository extends AbstractBaseRepository
      * seeing in parent class also
      * @var string 
      */
-    protected $baseAlias = 'independentwork';
+    public $baseAlias = 'independentwork';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\IndependentWork';
+    public $baseEntity = 'Core\Entity\IndependentWork';
 
     /**
      * 
@@ -120,6 +121,10 @@ class IndependentWorkRepository extends AbstractBaseRepository
      */
     private function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+
         $entity = $this->validateEntity(
                 new IndependentWork($this->getEntityManager()), $data
         );
