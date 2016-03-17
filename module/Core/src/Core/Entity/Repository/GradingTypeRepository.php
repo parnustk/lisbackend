@@ -20,17 +20,18 @@ use Exception;
  */
 class GradingTypeRepository extends AbstractBaseRepository
 {
-    /**
-     * 
-     * @var string
-     */
-    protected $baseAlias = 'gradingtype';
 
     /**
      * 
      * @var string
      */
-    protected $baseEntity = 'Core\Entity\GradingType';
+    public $baseAlias = 'gradingtype';
+
+    /**
+     * 
+     * @var string
+     */
+    public $baseEntity = 'Core\Entity\GradingType';
 
     /**
      * 
@@ -106,6 +107,10 @@ class GradingTypeRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+
         $entity = $this->validateEntity(
                 new GradingType($this->getEntityManager()), $data
         );

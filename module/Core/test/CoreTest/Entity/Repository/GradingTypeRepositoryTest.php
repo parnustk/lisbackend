@@ -10,13 +10,13 @@
 
 namespace CoreTest\Repository;
 
-use Core\Entity\Repository\GradeChoiceRepository;
+use Core\Entity\Repository\GradingTypeRepository;
 use Exception;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-class GradeChoiceRepositoryTest extends \PHPUnit_Framework_TestCase
+class GradingTypeRepositoryTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -34,65 +34,65 @@ class GradeChoiceRepositoryTest extends \PHPUnit_Framework_TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $repository = new GradeChoiceRepository($mockEntityManager, $mockClassMetadata);
-        $this->gradeChoiceRepository = $repository;
+        $repository = new GradingTypeRepository($mockEntityManager, $mockClassMetadata);
+        $this->gradingTypeRepository = $repository;
     }
 
     /**
-     * @covers Core\Entity\Repository\GradeChoiceRepository::Create()
+     * @covers Core\Entity\Repository\GradingTypeRepository::Create()
      */
     public function testCreate()
     {
         try {
-            $this->gradeChoiceRepository->Create([]);
+            $this->gradingTypeRepository->Create([]);
         } catch (Exception $ex) {
             $this->assertEquals('NO_DATA', $ex->getMessage());
         }
     }
 
     /**
-     * @covers Core\Entity\Repository\GradeChoiceRepository::Update()
+     * @covers Core\Entity\Repository\GradingTypeRepository::Update()
      */
     public function testUpdate()
     {
         try {
-            $this->gradeChoiceRepository->Update(1, []);
+            $this->gradingTypeRepository->Update(1, []);
         } catch (Exception $ex) {
             $this->assertEquals('NOT_FOUND_ENTITY', $ex->getMessage());
         }
     }
 
     /**
-     * @covers Core\Entity\Repository\GradeChoiceRepository::Delete()
+     * @covers Core\Entity\Repository\GradingTypeRepository::Delete()
      */
     public function testDelete()
     {
         try {
-            $this->gradeChoiceRepository->Delete(1);
+            $this->gradingTypeRepository->Delete(1);
         } catch (Exception $ex) {
             $this->assertEquals('NOT_FOUND_ENTITY', $ex->getMessage());
         }
     }
 
     /**
-     * @covers Core\Entity\Repository\GradeChoiceRepository::Get()
+     * @covers Core\Entity\Repository\GradingTypeRepository::Get()
      */
     public function testGet()
     {
         try {
-            $this->gradeChoiceRepository->Get(1);
+            $this->gradingTypeRepository->Get(1);
         } catch (Exception $ex) {
             $this->assertEquals('NOT_FOUND_ENTITY', $ex->getMessage());
         }
     }
 
     /**
-     * @covers Core\Entity\Repository\GradeChoiceRepository::GetList()
+     * @covers Core\Entity\Repository\GradingTypeRepository::GetList()
      */
     public function testGetList()
     {
         try {
-            $this->gradeChoiceRepository->GetList(1);
+            $this->gradingTypeRepository->GetList(1);
         } catch (Exception $ex) {
             $this->assertEquals('NO_ROLE', $ex->getMessage());
         }
