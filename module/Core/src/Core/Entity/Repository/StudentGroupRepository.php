@@ -24,13 +24,13 @@ class StudentGroupRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'studentgroup';
+    public $baseAlias = 'studentgroup';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\StudentGroup';
+    public $baseEntity = 'Core\Entity\StudentGroup';
 
     /**
      * 
@@ -89,6 +89,9 @@ class StudentGroupRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
         $entity = $this->validateEntity(
                 new StudentGroup($this->getEntityManager()), $data
         );
