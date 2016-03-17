@@ -14,29 +14,6 @@ use Core\Entity\StudentInGroups;
 use Exception;
 
 /**
- * ## StudentInGroups RESOURCE
- * 
- * student(integer)*
- * studentGroup(integer)*
- * status(integer)*
- * 
- * #### Administrator ROLE
- *
- * YES getList
- * YES get
- * YES create
- * YES update
- * YES delete
- * 
- * #### Teacher ROLE
- * 
- * YES getList
- * YES get
- * 
- * #### Student ROLE
- * 
- * YES getList
- * YES get
  *
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Kristen Sepp <seppkristen@gmail.com>
@@ -49,13 +26,13 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'studentingroups';
+    private $baseAlias = 'studentingroups';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\StudentInGroups';
+    private $baseEntity = 'Core\Entity\StudentInGroups';
 
     /**
      * 
@@ -157,6 +134,10 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+
         $entity = $this->validateEntity(
                 new StudentInGroups($this->getEntityManager()), $data
         );
