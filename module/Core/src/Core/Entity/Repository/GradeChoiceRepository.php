@@ -23,12 +23,12 @@ class GradeChoiceRepository extends AbstractBaseRepository
      * @var string
      */
 
-    protected $baseAlias = 'gradechoice';
+    public $baseAlias = 'gradechoice';
 
     /*
      * @var string
      */
-    protected $baseEntity = 'Core\Entity\GradeChoice';
+    public $baseEntity = 'Core\Entity\GradeChoice';
 
     /*
      * @return string
@@ -91,6 +91,10 @@ class GradeChoiceRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+
         $entity = $this->validateEntity(
                 new GradeChoice($this->getEntityManager()), $data
         );
