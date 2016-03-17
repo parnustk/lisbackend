@@ -14,21 +14,6 @@ use Core\Entity\StudentGrade;
 use Exception;
 
 /**
- * Administrator ROLE
- * YES getList
- * YES get
- * 
- * Teacher ROLE
- * YES getList
- * YES get
- * YES create
- * YES update OWN CREATED
- * YES delete OWN CREATED
- * 
- * Student ROLE
- * YES getList - OWN RELATED
- * YES get - OWN RELATED
- * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentGradeRepository extends AbstractBaseRepository
@@ -38,13 +23,13 @@ class StudentGradeRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'studentgrade';
+    public $baseAlias = 'studentgrade';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\StudentGrade';
+    public $baseEntity = 'Core\Entity\StudentGrade';
 
     /**
      * 
@@ -270,6 +255,10 @@ class StudentGradeRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+        
         $entity = $this->validateEntity(
                 new StudentGrade($this->getEntityManager()), $data
         );
