@@ -25,13 +25,13 @@ class ModuleTypeRepository extends AbstractBaseRepository
      * 
      * @var string
      */
-    protected $baseAlias = 'moduletype';
+    public $baseAlias = 'moduletype';
 
     /**
      * 
      * @var string
      */
-    protected $baseEntity = 'Core\Entity\ModuleType';
+    public $baseEntity = 'Core\Entity\ModuleType';
 
     /**
      * 
@@ -107,6 +107,10 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+
         $entity = $this->validateEntity(
                 new ModuleType($this->getEntityManager()), $data
         );
