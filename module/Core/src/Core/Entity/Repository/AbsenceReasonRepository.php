@@ -15,6 +15,7 @@ use Exception;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class AbsenceReasonRepository extends AbstractBaseRepository
 {
@@ -23,13 +24,13 @@ class AbsenceReasonRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'absencereason';
+    public $baseAlias = 'absencereason';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\AbsenceReason';
+    public $baseEntity = 'Core\Entity\AbsenceReason';
 
     /**
      * 
@@ -99,6 +100,10 @@ class AbsenceReasonRepository extends AbstractBaseRepository
      */
     private function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+
         $entity = $this->validateEntity(
                 new AbsenceReason($this->getEntityManager()), $data
         );
