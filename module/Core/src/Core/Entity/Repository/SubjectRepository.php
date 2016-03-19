@@ -28,13 +28,13 @@ class SubjectRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'subject';
+    public $baseAlias = 'subject';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\Subject';
+    public $baseEntity = 'Core\Entity\Subject';
 
     /**
      * 
@@ -180,6 +180,10 @@ class SubjectRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+         if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+        
         $entity = $this->validateEntity(
                 new Subject($this->getEntityManager()), $data
         );
