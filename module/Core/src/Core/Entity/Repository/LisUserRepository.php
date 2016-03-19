@@ -19,6 +19,7 @@ use Zend\Crypt\Password\Bcrypt;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class LisUserRepository extends EntityRepository
 {
@@ -33,8 +34,6 @@ class LisUserRepository extends EntityRepository
      * @var type 
      */
     private $passwordCost = 4;
-    
-    
 
     /**
      * To hash function
@@ -44,6 +43,9 @@ class LisUserRepository extends EntityRepository
      */
     public function passwordToHash($password)
     {
+        if (empty($password)) {
+            throw new Exception('NO_PASSWORD');
+        }
         return (new Bcrypt)
                         ->setCost($this->passwordCost)
                         ->create($password);
@@ -51,7 +53,21 @@ class LisUserRepository extends EntityRepository
 
     public function checkAdministratorUserExists($email, $password)
     {
-        $validator = new Zend\Validator\EmailAddress();
+        try {
+            if (empty($email)) {
+                throw new Exception('NO_EMAIL');
+            }
+        } catch (Exception $e) {
+            return $e;
+        }
+        try {
+            if (empty($password)) {
+                throw new Exception('NO_PASSWORD');
+            }
+        } catch (Exception $e) {
+            return $e;
+        }
+        $validator = new \Zend\Validator\EmailAddress();
         if ($validator->isValid($email)) {
             // email appears to be valid
         } else {
@@ -64,14 +80,17 @@ class LisUserRepository extends EntityRepository
 
     /**
      * 
-     * @param type $data
-     * @param type $returnPartial
-     * @param type $extra
+     * @param array $data
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
      * @return LisUser
      * @throws Exception
      */
     public function Create($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
         $entity = new LisUser($this->getEntityManager());
 
         $data['password'] = $this->passwordToHash($data['password']);
