@@ -20,6 +20,7 @@ use Doctrine\ORM\Query;
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class SubjectRepository extends AbstractBaseRepository
 {
