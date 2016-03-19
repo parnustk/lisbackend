@@ -181,10 +181,10 @@ class SubjectRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
-         if (count($data) < 1) {
+        if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        
+
         $entity = $this->validateEntity(
                 new Subject($this->getEntityManager()), $data
         );
