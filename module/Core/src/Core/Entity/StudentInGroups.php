@@ -117,105 +117,201 @@ class StudentInGroups extends EntityValidation
     {
         parent::__construct($em);
     }
-
-    public function getId()
+    
+    /**
+     * 
+     * @return int
+     */
+        public function getId()
     {
         return $this->id;
     }
-
+    
+    /**
+     * 
+     * @return Student
+     */
     public function getStudent()
     {
         return $this->student;
     }
 
+    /**
+     * 
+     * @return StudentGroup
+     */
     public function getStudentGroup()
     {
         return $this->studentGroup;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getNotes()
     {
         return $this->notes;
     }
 
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return \Core\Entity\StudentInGroups
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+        return $this;
+    }
 
+    /**
+     * 
+     * @param Student $student
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setStudent($student)
     {
         $this->student = $student;
         return $this;
     }
 
+    /**
+     * 
+     * @param StudentGroup $studentGroup
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setStudentGroup($studentGroup)
     {
         $this->studentGroup = $studentGroup;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $status
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setStatus($status)
     {
-        $this->status = $status;
+        $this->status = (int) $status;
         return $this;
     }
 
+    /**
+     * 
+     * @param string $notes
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setNotes($notes)
     {
         $this->notes = $notes;
         return $this;
     }
 
+    /**
+     * 
+     * @param int $trashed
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setTrashed($trashed)
     {
-        $this->trashed = $trashed;
+        $this->trashed = (int) $trashed;
         return $this;
     }
 
+    /**
+     * 
+     * @param LisUser $createdBy
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param LisUser $updatedBy
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
 
+    /**
+     * 
+     * @param DateTime $createdAt
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
+    /**
+     * 
+     * @param DateTime $updatedAt
+     * @return \Core\Entity\StudentInGroups
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
