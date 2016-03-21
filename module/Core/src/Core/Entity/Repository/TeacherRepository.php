@@ -27,13 +27,13 @@ class TeacherRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'teacher';
+    public $baseAlias = 'teacher';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\Teacher';
+    public $baseEntity = 'Core\Entity\Teacher';
 
     /**
      * 
@@ -53,7 +53,7 @@ class TeacherRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias";
         return $dql;
     }
-    
+
     /**
      * 
      * @return string
@@ -70,10 +70,10 @@ class TeacherRepository extends AbstractBaseRepository
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
-        
+
         return $dql;
     }
-    
+
     /**
      * 
      * @return string
@@ -90,10 +90,10 @@ class TeacherRepository extends AbstractBaseRepository
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
-        
+
         return $dql;
     }
-    
+
     /**
      * 
      * @return string
@@ -110,7 +110,7 @@ class TeacherRepository extends AbstractBaseRepository
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
-        
+
         return $dql;
     }
 
@@ -143,6 +143,10 @@ class TeacherRepository extends AbstractBaseRepository
      */
     private function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+
         $entity = $this->validateEntity(
                 new Teacher($this->getEntityManager()), $data
         );
@@ -499,7 +503,7 @@ class TeacherRepository extends AbstractBaseRepository
             return $this->administratorDelete($entity, $extra);
         }
     }
-    
+
     /**
      * 
      * @param string $email
@@ -518,7 +522,7 @@ class TeacherRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.lisUser lisUser
                 WHERE lisUser.email=:email AND lisUser.state=1";
-        
+
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('email', $email, Type::STRING);
         $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
