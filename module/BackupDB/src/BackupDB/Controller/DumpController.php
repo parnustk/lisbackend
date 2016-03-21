@@ -17,9 +17,36 @@ class DumpController extends AbstractActionController
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
 
-    public function indexAction()
+
+    /**
+     * Create new dump and return to client
+     * 
+     * @return ViewModel
+     */
+    public function createManualDump()
     {
         return new ViewModel();
+    }
+
+    /**
+     * List filenames of dumps on server for front-end display
+     * 
+     * @param type $filter
+     */
+    public function getDumpList($filter = null) 
+    {
+        //TODO
+    }
+    
+    /**
+     * Push server dump named $dumpName to DB, or push raw $dumpData to DB
+     * 
+     * @param type $dumpName
+     * @param type $dumpData
+     */
+    public function pushDump($dumpName, $dumpData = null)
+    {
+        //TODO
     }
 
 }
