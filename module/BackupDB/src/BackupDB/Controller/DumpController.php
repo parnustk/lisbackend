@@ -16,16 +16,6 @@ class DumpController extends AbstractActionController
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
-    
-    /**
-     * 
-     * @return \Doctrine\ORM\EntityManager
-     */
-    public function getEntityManager()
-    {
-        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    }
-
 
     /**
      * Create new dump and return to client
@@ -33,6 +23,16 @@ class DumpController extends AbstractActionController
      * @return ViewModel
      */
     public function createManualDump()
+    {
+        return new ViewModel();
+    }
+    
+    /**
+     * Create new dump and save to server
+     * 
+     * @return ViewModel
+     */
+    public function createServerDump()
     {
         return new ViewModel();
     }
