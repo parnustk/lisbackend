@@ -38,14 +38,14 @@ class DumpService
     {
         setFilename($type);
         
-        //Create Dump TODO
+        //TODO: Create SQL Dump
         
         if($type == 'manual')
         {
-            //return dump file to controller
+            //TODO: return dump file to controller
         } else 
         {
-            //save file to server HD
+            //TODO: save file to server HD
         }
         
     }
