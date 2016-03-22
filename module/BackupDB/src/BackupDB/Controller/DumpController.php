@@ -20,10 +20,11 @@ class DumpController extends AbstractActionController
     /**
      * Create new dump and return to client
      * 
-     * @return ViewModel
+     * @return VieModel
      */
     public function createManualDump()
     {
+        
         return new ViewModel();
     }
     
