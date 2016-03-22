@@ -70,7 +70,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _model.update({ id:id }, data).$promise;
+                    return _model.update({id: id}, data).$promise;
                 },
                 /**
                  * 

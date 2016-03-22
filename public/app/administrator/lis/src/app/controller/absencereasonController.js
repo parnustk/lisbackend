@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 
+/* global define */
+
 /**
  * 
  * @param {type} define
  * @returns {undefined}
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
-(function (define) {
+(function (define, document) {
     'use strict';
     
     define(['angular'], function (angular) {
@@ -66,7 +68,7 @@
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),/*
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
                     gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
@@ -79,7 +81,13 @@
                         console.log('navigation event', newRowCol, oldRowCol);
                     });
                     gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-                }
+                }*/
+            };
+            
+            $scope.gridOptions.onRegisterApi = function (gridApi) {
+                //set gridApi on scope
+                $scope.gridApi = gridApi;
+                gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
 
             $scope.init = function () {
@@ -115,7 +123,7 @@
 
         }
 
-        absencereasonController.$inject = ['$scope', '$routeParams', 'absenceraeasonModel'];
+        absencereasonController.$inject = ['$scope', '$routeParams', 'absencereasonModel'];
 
         return absencereasonController;
     });
