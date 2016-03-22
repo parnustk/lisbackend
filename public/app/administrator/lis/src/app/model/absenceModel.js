@@ -26,9 +26,9 @@
          */
         function absenceModel($http, $resource) {
 
-            var _absence;
+            var _model;
 
-            _absence = $resource(
+            _model = $resource(
                 window.LisGlobals.RestUrl + 'absence/:id',
                 {id: '@id'},
                 {
@@ -44,7 +44,7 @@
                  * @return {unresolved}
                  */
                 GetList: function (params) {
-                    return _absence.query(params).$promise;
+                    return _model.query(params).$promise;
                 },
                 /**
                  * 
@@ -52,7 +52,7 @@
                  * @return {unresolved}
                  */
                 Get: function (id) {
-                    return _absence.get({id: id}).$promise;
+                    return _model.get({id: id}).$promise;
                 },
                 /**
                  * 
@@ -61,7 +61,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _absence.save(data).$promise;
+                    return _model.save(data).$promise;
                 },
                 /**
                  * 
@@ -70,7 +70,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    //TODO
+                    return _model.update({ id:id }, data).$promise;
                 },
                 /**
                  * 
@@ -79,7 +79,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    //TODO
+//                    return _model.delete({ id:id }, data).$promise;
                 }
             };
         }
