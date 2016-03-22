@@ -26,15 +26,15 @@
          */
         function absencereasonModel($http, $resource) {
 
-            var _absencereason;
+            var _model;
 
-            _absencereason = $resource(
-                window.LisGlobals.RestUrl + 'absencereason/:id',
-                {id: '@id'},
-                {
-                    update: {method: "PUT"},
-                    query: {method: 'GET', isArray: false}
-                }
+            _model = $resource(
+                    window.LisGlobals.RestUrl + 'absencereason/:id',
+                    {id: '@id'},
+            {
+                update: {method: "PUT"},
+                query: {method: 'GET', isArray: false}
+            }
             );
 
             return {
@@ -44,7 +44,7 @@
                  * @return {unresolved}
                  */
                 GetList: function (params) {
-                    return _absencereason.query(params).$promise;
+                    return _model.query(params).$promise;
                 },
                 /**
                  * 
@@ -52,7 +52,7 @@
                  * @return {unresolved}
                  */
                 Get: function (id) {
-                    return _absencereason.get({id: id}).$promise;
+                    return _model.get({id: id}).$promise;
                 },
                 /**
                  * 
@@ -61,7 +61,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _absencereason.save(data).$promise;
+                    return _model.save(data).$promise;
                 },
                 /**
                  * 
@@ -70,7 +70,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    //TODO
+                    return _model.update({ id:id }, data).$promise;
                 },
                 /**
                  * 
@@ -79,7 +79,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    //TODO
+//                    return _model.delete({ id:id }, data).$promise;
                 }
             };
         }
