@@ -9,6 +9,11 @@ class DumpController extends AbstractActionController
 {
     
     /**
+     * @var string
+     */
+    protected $service = 'dump_service';
+    
+    /**
      * 
      * @return \Doctrine\ORM\EntityManager
      */
@@ -25,7 +30,10 @@ class DumpController extends AbstractActionController
     public function createManualDump()
     {
         
-        return new ViewModel();
+        return $this
+                    ->getServiceLocator()
+                    ->get($this->service)
+                    ->createDump('manual');
     }
     
     /**
