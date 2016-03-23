@@ -14,6 +14,9 @@
         <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
         <link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css">
         <script src="lis/dist/globals.config.local.js"></script>
+
+        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
+        <script src="js/vendor/modernizr.js"></script>
     </head>
     <body>
 
@@ -39,5 +42,76 @@
         </form>
 
         <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
+        
+        <h1>Versioon 1</h1>
+        <div class="fixed">
+             <nav class="top-bar" data-topbar role="navigation">
+                 <ul class="title-area">
+                     <li class="name">
+                     <h1><a href="#">Saksa Tehnoloogiakool</a></h1>
+                     </li>
+                     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span>
+                         </a></li>
+                 </ul>
+                 <section class="top-bar-section">
+                     <ul class="right">
+                         <li class="active"><a href="#">Absence</a></li>
+                         <li><a href="#">AbsenceReason</a></li>
+                         <li class="has-dropdown">
+                             <a href="#">Põhjused</a>
+                             <ul class="dropdown">
+                                 <li><a href="#">blaa</a></li>
+                                 <li><a href="#">graa</a></li>
+                                 <li class="has-dropdown not-click">
+                                     <a href="#">Again</a>
+                                     <ul class="dropdown">
+                                         <li><a href="#">Haige</a></li>
+                                         <li><a href="#">Koomas</a></li>
+                                         <li><a href="#">Surnud</a></li>
+                                     </ul>
+                                 </li>
+                                 <li><a href="#">Contact</a></li>
+                             </ul>
+                         </li>
+                         <li class="has-form">
+                             <a href="#" class="button">Contact</a>
+                         </li>
+                     </ul>
+                 </section>
+            </nav>
+        </div>
+        
+        <script src="is/>vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
+        
+        <h1>Nr 2 versioon</h1>
+        
+        <div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">Site Title</li>
+      <li>
+        <a href="#">One</a>
+        <ul class="menu vertical">
+          <li><a href="#">One</a></li>
+          <li><a href="#">Two</a></li>
+          <li><a href="#">Three</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Two</a></li>
+      <li><a href="#">Three</a></li>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><input type="search" placeholder="Search"></li>
+      <li><button type="button" class="button">Search</button></li>
+    </ul>
+  </div>
+</div>
+        
     </body>
 </html>
