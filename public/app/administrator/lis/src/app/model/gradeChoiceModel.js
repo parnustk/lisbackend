@@ -26,9 +26,9 @@
          */
         function gradeChoiceModel($http, $resource) {
 
-            var _gradeChoice;
+            var _model;
 
-            _gradeChoice = $resource(
+            _model = $resource(
                 window.LisGlobals.RestUrl + 'gradeChoice/:id',
                 {id: '@id'},
                 {
@@ -44,7 +44,7 @@
                  * @return {unresolved}
                  */
                 GetList: function (params) {
-                    return _gradeChoice.query(params).$promise;
+                    return _model.query(params).$promise;
                 },
                 /**
                  * 
@@ -52,7 +52,7 @@
                  * @return {unresolved}
                  */
                 Get: function (id) {
-                    return _gradeChoice.get({id: id}).$promise;
+                    return _model.get({id: id}).$promise;
                 },
                 /**
                  * 
@@ -61,7 +61,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _gradeChoice.save(data).$promise;
+                    return _model.save(data).$promise;
                 },
                 /**
                  * 
@@ -70,7 +70,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    //TODO
+                    return _model.update({id: id}, data).$promise;
                 },
                 /**
                  * 
@@ -79,7 +79,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    //TODO
+                    //return _model.delete({ id:id }, data).$promise;
                 }
             };
         }
