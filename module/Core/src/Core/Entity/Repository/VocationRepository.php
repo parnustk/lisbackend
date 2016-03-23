@@ -262,7 +262,6 @@ class VocationRepository extends AbstractBaseRepository
         if (!$entity) {
             throw new Exception('NOT_FOUND_ENTITY');
         }
-
         if (!$extra) {
             return $this->defaultUpdate($entity, $data, $returnPartial);
         } else if ($extra->lisRole === 'student') {

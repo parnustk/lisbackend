@@ -52,6 +52,7 @@ abstract class EntityValidation implements ArraySerializableInterface
      */
     public function getDoctrineHydrator()
     {
+        
         if ($this->doctrineHydrator === null) {
             $this->doctrineHydrator = new DoctrineHydrator(
                     $this->getEntityManager(), $this
@@ -131,10 +132,15 @@ abstract class EntityValidation implements ArraySerializableInterface
     /**
      * 
      * @param array $data
+     * @param EntityManager $em
      * @return type
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data, EntityManager $em = null)
     {
+        //for some reason in CORS environment $em is null
+        if ($this->getEntityManager() === null) {
+            $this->setEntityManager($em);
+        }
         return $this->getDoctrineHydrator()->hydrate($data, $this);
     }
 

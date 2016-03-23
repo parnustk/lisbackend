@@ -128,7 +128,7 @@ abstract class AbstractBaseRepository extends EntityRepository
      */
     protected function validateEntity($entity, $data)
     {
-        if (!$entity->hydrate($data)->validate()) {
+        if (!$entity->hydrate($data, $this->_em)->validate()) {//here it breaks
             throw new Exception(Json::encode($entity->getMessages(), true));
         }
         return $entity;
