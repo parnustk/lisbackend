@@ -14,14 +14,14 @@
         <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
         <link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css">
         <script src="lis/dist/globals.config.local.js"></script>
-        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
     </head>
     <body>
+
         <a href="#!/" class="button">Home</a><a href="#!/vocation" class="button">Vocation</a><a href="#!/absencereason" class="button">AbsenceReason</a><a href="#!/absence" class="button">Absence</a><a href="#!/gradeChoice" class="button">GradeChoice</a><a href="#!/teacher" class="button">Teacher</a>
         <div data-ng-view=""></div>
         <hr>
         <p class="panel">Before using login feature run tests in LisAuth, static user will be created.</p>
-        
+
         <form ng-controller="loginController">
             <div class="row">
                 <div class="large-3 medium-6 small-12 columns">
@@ -37,6 +37,7 @@
             </div>
             <button class="button" ng-click="Login()">login</button>
         </form>
-        
+
+        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
     </body>
 </html>

@@ -4,7 +4,7 @@
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2016 LIS dev team
  * @license   https://opensource.org/licenses/MIT MIT License
-* 
+ * 
  * Licence of Learning Info System (LIS)
  * Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * You may use LIS for free, but you MAY NOT sell it without permission.
@@ -24,13 +24,17 @@
         'jquery',
         'foundation',
         'what-input',
-        'foundation-util-mediaQuery'
-    ], function ($) {
+        'foundation-util-mediaQuery',
+        'foundation-util-keyboard',
+        'foundation-util-box',
+        'foundation-util-nest',
+        'foundation-dropdown'
+    ], function ($, Foundation) {
 
         $(document).ready(function () {//DOM loaded
 
             $(document).foundation();//Start foundation
-
+            
             require([
                 'angular',
                 'angular-cookies',

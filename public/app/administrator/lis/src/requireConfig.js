@@ -31,6 +31,20 @@
             'foundation-util-mediaQuery': [
                 'foundation'
             ],
+            'foundation-util-keyboard': [
+                'foundation'
+            ],
+            'foundation-util-box': [
+                'foundation'
+            ],
+            'foundation-util-nest': [
+                'foundation'
+            ],
+            'foundation-dropdown': [
+                'foundation-util-keyboard',
+                'foundation-util-box',
+                'foundation-util-nest'
+            ],
             angular: {
                 exports: 'angular'
             },
@@ -66,6 +80,10 @@
             'motion-ui': '../../bower_components/motion-ui/dist/motion-ui',
             'foundation': '../../bower_components/foundation-sites/js/foundation.core',
             'foundation-util-mediaQuery': '../../bower_components/foundation-sites/js/foundation.util.mediaQuery',
+            'foundation-util-keyboard': '../../bower_components/foundation-sites/js/foundation.util.keyboard',
+            'foundation-util-box': '../../bower_components/foundation-sites/js/foundation.util.box',
+            'foundation-util-nest': '../../bower_components/foundation-sites/js/foundation.util.nest',
+            'foundation-dropdown': '../../bower_components/foundation-sites/js/foundation.dropdown',
             /* TODO
              'bower_components/foundation-sites/js/foundation.util.*.js',
              // Paths to individual JS components defined below
@@ -73,7 +91,7 @@
              'bower_components/foundation-sites/js/foundation.accordion.js',
              'bower_components/foundation-sites/js/foundation.accordionMenu.js',
              'bower_components/foundation-sites/js/foundation.drilldown.js',
-             'bower_components/foundation-sites/js/foundation.dropdown.js',
+             
              'bower_components/foundation-sites/js/foundation.dropdownMenu.js',
              'bower_components/foundation-sites/js/foundation.equalizer.js',
              'bower_components/foundation-sites/js/foundation.interchange.js',
