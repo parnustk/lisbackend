@@ -1,10 +1,10 @@
 RewriteEngine On
 
-<IfModule mod_headers.c>
-    Header add Access-Control-Allow-Origin "*"
-    Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
-    Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
-</IfModule>
+#<IfModule mod_headers.c>
+#    Header add Access-Control-Allow-Origin "http://localhost:8888"
+#    Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+#    Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+#</IfModule>
 
 # The following rule tells Apache that if the requested filename
 # exists, simply serve it.

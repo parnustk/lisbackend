@@ -37,14 +37,14 @@ abstract class AbstractBaseController extends AbstractRestfulController
     public function headerAccessControlAllowOrigin()
     {
         if (key_exists('SERVER_SOFTWARE', $_SERVER)) {//check for phpunit env
-            if (strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') === false) {
+            //if (strpos($_SERVER['SERVER_SOFTWARE'], 'Apache') === false) {
                 header("Access-Control-Allow-Origin: http://localhost:8888");
                 header("Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT, DELETE");
                 header('Access-Control-Max-Age: 1728000');
                 header("Access-Control-Allow-Headers: Content-Type, *");
                 header('Access-Control-Allow-Credentials: true');
                 header("Content-Type: application/json; charset=utf-8");
-            }
+            //}
         }
     }
 

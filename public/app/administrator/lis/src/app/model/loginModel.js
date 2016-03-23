@@ -27,7 +27,7 @@
 
             var _login;
             _login = $resource(
-                window.LisGlobals.LisAuth + 'loginadministrator/:id',
+                window.LisGlobals.RegisterUrl + 'loginadministrator/:id',
                 {id: '@id'},
                 {
                     save: {
