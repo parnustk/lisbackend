@@ -1,29 +1,29 @@
 <h2>Absence view</h2>
 
 <form>
- -    <div class="row">
- -        <div class="large-3 medium-6 small-12 columns">
- -            <label>Description
- -                <input type="text" placeholder="Enter absence description" ng-model="absence.description">
- -            </label>
- -        </div>
- -        <div class="large-3 medium-6 small-12 columns">
- -            <label>Student
- -                <input type="text" placeholder="Enter missing student id" ng-model="absence.student">
- -            </label>
- -        </div>
- -        <div class="large-3 medium-6 small-12 columns">
- -            <label>Contact Lesson
- -                <input type="text" placeholder="Enter contact lesson id" ng-model="absence.contactLesson">
- -            </label>
- -        </div>
- -        <div class="large-3 medium-6 small-12 columns">
- -            <label>Absence reason
- -                <input type="text" placeholder="Enter absence reason id" ng-model="absence.absenceReason">
- -            </label>
- -        </div>
- -    </div>
- -    <button class="button" ng-click="Create()">CREATE</button>
- -</form>
+     <div class="row">
+         <div class="large-3 medium-6 small-12 columns">
+             <label>Description
+                 <input type="text" placeholder="Enter absence description" ng-model="absence.description">
+             </label>
+         </div>
+         <div class="large-3 medium-6 small-12 columns">
+             <label>Student
+                 <input type="text" placeholder="Enter missing student id" ng-model="absence.student">
+             </label>
+         </div>
+         <div class="large-3 medium-6 small-12 columns">
+             <label>Contact Lesson
+                 <input type="text" placeholder="Enter contact lesson id" ng-model="absence.contactLesson">
+             </label>
+         </div>
+         <div class="large-3 medium-6 small-12 columns">
+             <label>Absence reason
+                 <input type="text" placeholder="Enter absence reason id" ng-model="absence.absenceReason">
+             </label>
+         </div>
+     </div>
+     <button class="button" ng-click="Create()">CREATE</button>
+ </form>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
