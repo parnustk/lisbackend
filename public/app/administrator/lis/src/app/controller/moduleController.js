@@ -51,7 +51,7 @@
          * @param {type} vocationModel
          * @returns {undefined}
          */
-        function vocationController($scope, $q, $routeParams, uiGridConstants, vocationModel) {
+        function moduleController($scope, $q, $routeParams, uiGridConstants, moduleModel) {
 
             /**
              * records sceleton
@@ -200,9 +200,9 @@
 
         }
 
-        vocationController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'vocationModel'];
+        moduleController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'moduleModel'];
 
-        return vocationController;
+        return moduleController;
     });
 
 }(define, document));

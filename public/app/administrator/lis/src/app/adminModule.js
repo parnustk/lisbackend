@@ -14,30 +14,6 @@
 (function (define) {
     'use strict';
 
-    /**
-     * 
-     * @param {type} angular
-     * @param {type} config
-     * @param {type} vocationModel
-     * @param {type} gradingTypeModel
-     * @param {type} gradeChoiceModel
-     * @param {type} teacherModel
-     * @param {type} absencereasonModel
-     * @param {type} absenceModel
-     * @param {type} roomModel
-     * @param {type} moduletypeModel
-     * @param {type} loginModel
-     * @param {type} vocationController
-     * @param {type} gradingTypeController
-     * @param {type} gradeChoiceController
-     * @param {type} teacherController
-     * @param {type} absencereasonController
-     * @param {type} absenceController
-     * @param {type} roomController
-     * @param {type} moduletypeController
-     * @param {type} loginController
-     * @returns {angular.module.angular-1_3_6_L1749.moduleInstance}
-     */
     define([
         'angular',
         'app/config',
@@ -50,6 +26,8 @@
         'app/model/roomModel',
         'app/model/moduletypeModel',
         'app/model/loginModel',
+        'app/model/moduleModel',
+        
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -58,7 +36,8 @@
         'app/controller/absenceController',
         'app/controller/roomController',
         'app/controller/moduletypeController',
-        'app/controller/loginController'
+        'app/controller/loginController',
+        'app/controller/moduleController'
     ], function (
         angular,
         config,
@@ -71,6 +50,7 @@
         roomModel,
         moduletypeModel,
         loginModel,
+        moduleModel,
         vocationController,
         gradingTypeController,
         gradeChoiceController,
@@ -79,7 +59,8 @@
         absenceController,
         roomController,
         moduletypeController,
-        loginController
+        loginController,
+        moduleController
         ) {
 
         var adminModule = angular.module('adminModule', [
@@ -111,6 +92,7 @@
         adminModule.factory('roomModel', roomModel);
         adminModule.factory('moduletypeModel', moduletypeModel);
         adminModule.factory('loginModel', loginModel);
+        adminModule.factory('moduleModel', moduleModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -121,6 +103,7 @@
         adminModule.controller('roomController', roomController);
         adminModule.controller('moduletypeController', moduletypeController);
         adminModule.controller('loginController', loginController);
+        adminModule.controller('moduleController', moduleController);
 
         return adminModule;
     });

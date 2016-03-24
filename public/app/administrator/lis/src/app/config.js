@@ -54,6 +54,10 @@
                 .when('/absence', {
                     templateUrl: 'lis/dist/templates/absence.html',
                     controller: 'absenceController'})
+                
+                .when('/module', {
+                    templateUrl: 'lis/dist/templates/module.html',
+                    controller: 'moduleController'})
 
                 .otherwise({redirectTo: '/'});
 
