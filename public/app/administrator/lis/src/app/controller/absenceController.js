@@ -2,19 +2,29 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 /* global define */
 
 /**
+ * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
+ * http://brianhann.com/ui-grid-and-multi-select/#more-732
+ * http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
+ * http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
  * 
  * @param {type} define
+ * @param {type} document
  * @returns {undefined}
- * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 (function (define, document) {
     'use strict';
 
+    /**
+     * 
+     * @param {type} angular
+     * @returns {absenceController_L19.absenceController_L25.absenceController}
+     */
     define(['angular'], function (angular) {
 
         /**
@@ -31,10 +41,9 @@
             return s;
         };
 
-        function absenceController($scope, $routeParams, absenceModel) {
+        function absenceController($scope, $q, $routeParams, uiGridConstants, absenceModel) {
 
             $scope.model = {
-                id: null,
                 description: null,
                 student: null,
                 contactLesson: null,
@@ -42,14 +51,20 @@
                 trashed: null
             };
 
-            $scope.store = [];
-
-            $scope.params = {};
-
+            /**
+             * Grid set up
+             */
             $scope.gridOptions = {
                 enableCellEditOnFocus: true,
                 columnDefs: [
-                    {field: 'id', visible: false},
+                    {field: 'id',
+                        visible: false,
+                        type: 'number',
+                        sort: {
+                            direction: uiGridConstants.DESC,
+                            priority: 1
+                        }
+                    },
                     {field: 'description'},
                     {field: 'student'},
                     {field: 'contactLesson'},
@@ -90,50 +105,86 @@
                  }*/
             };
 
+            /**
+             * Adding event handlers
+             * 
+             * @param {type} gridApi
+             * @returns {undefined}
+             */
             $scope.gridOptions.onRegisterApi = function (gridApi) {
                 //set gridApi on scope
                 $scope.gridApi = gridApi;
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
 
+            /**
+             * GetList
+             * @returns {undefined}
+             */
             $scope.init = function () {
                 absenceModel.GetList($scope.params).then(
                         function (result) {
                             if (_resultHandler(result)) {
-                                $scope.store = $scope.gridOptions.data = result.data;
-                                console.log($scope.gridApi);
+                                $scope.gridOptions.data = result.data;
+                                //console.log($scope.gridApi);
                             }
-                            console.log($scope.store);
+//                            console.log($scope.store);
                         }
                 );
             };
 
             $scope.saveRow = function (rowEntity) {
-//                console.log(rowEntity);
-                var promise = absenceModel.Update(rowEntity.id, rowEntity);
-//                // create a fake promise - normally you'd use the promise returned by $http or $resource
-//                var promise = $q.defer();
+                var promise = $q.defer();
                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
-//
-//                // fake a delay of 3 seconds whilst the save occurs, return error if gender is "male"
-//                $interval(function () {
-//                    if (rowEntity.gender === 'male') {
-//                        promise.reject();
-//                    } else {
-//                        promise.resolve();
-//                    }
-//                }, 3000, 1);
+                absenceModel.Update(rowEntity.id, rowEntity).then(
+                        function (result) {
+                            if (result.success) {
+                                promise.resolve();
+                            } else {
+                                promise.reject();
+                            }
+                            //console.log(result);
+                        });
             };
 
-            $scope.init();
+            /**
+             * Form reset the angular way
+             * 
+             * @returns {undefined}
+             */
+            $scope.reset = function () {
+                $scope.absence = angular.copy($scope.model);
+            };
+
+            /**
+             * Create
+             * 
+             * @returns {undefined}
+             */
+            $scope.Create = function () {
+
+                absenceModel
+                        .Create(angular.copy($scope.absence))
+                        .then(
+                                function (result) {
+                                    if (result.success) {
+                                        console.log(result);
+                                        $scope.gridOptions.data.push(result.data);
+                                        $scope.reset();
+                                    } else {
+                                        alert('BAD');
+                                    }
+                                }
+                        );
+            };
+
+            $scope.init();//Start loading data from server to grid
 
         }
 
-        absenceController.$inject = ['$scope', '$routeParams', 'absenceModel'];
+        absenceController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'absenceModel'];
 
         return absenceController;
     });
 
 }(define, document));
-
-

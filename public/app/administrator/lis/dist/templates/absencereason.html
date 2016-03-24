@@ -6,11 +6,10 @@
         <label>Name
             <input type="text" placeholder="Enter new absence reason" ng-model="absencereason.name">
             <button class="button" ng-click="Create()">CREATE</button>
+            <button class="button" ng-model="absencereason.name" ng-click="Delete()">DELETE</button>
         </label>
     </div>
     </div>
-    
-    <button class="button" ng-model="absencereason.name" ng-click="Delete()" style="float: right; margin-right: 20px;">DELETE</button>
 </form>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
