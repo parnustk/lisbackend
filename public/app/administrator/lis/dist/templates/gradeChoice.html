@@ -1,3 +1,13 @@
 <h2>GradeChoice view</h2>
+<form>
+    <div class="row">
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Name
+                <input type="text" ng-model="gradeChoice.name">
+            </label>
+        </div>
+    </div>
+    <button class="button" ng-click="Create()">CREATE</button>
+</form>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

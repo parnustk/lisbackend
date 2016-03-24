@@ -2,22 +2,35 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ * @author Arnold Tserepov <tserepov@gmail.com>
  */
 
 /* global define */
 
 /**
+ * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
+ * http://brianhann.com/ui-grid-and-multi-select/#more-732
+ * http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
+ * http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
+ /**
  * 
  * @param {type} define
+ * @param {type} document
  * @returns {undefined}
- * @author Arnold Tserepov <tserepov@gmail.com>
+ * 
  */
 (function (define, document) {
     'use strict';
-    
+
+    /**
+     * 
+     * @param {type} angular
+     * @returns {gradeChoiceController_L19.gradeChoiceController_L25.gradeChoiceController}
+     */
     define(['angular'], function (angular) {
 
         /**
+         * Should move to Base controller
          * 
          * @param {Object} result
          * @returns {Boolean}
@@ -31,23 +44,42 @@
             return s;
         };
 
+        /**
+         * 
+         * @param {type} $scope
+         * @param {type} $q
+         * @param {type} $routeParams
+         * @param {type} gradeChoiceModel
+         * @returns {undefined}
+         */
         function gradeChoiceController($scope, $routeParams, gradeChoiceModel) {
 
+            /**
+             * records sceleton
+             */
             $scope.model = {
                 id: null,
                 name: null,
                 studentGrade: null,
                 trashed: null
             };
-            
-            $scope.store = [];
 
-            $scope.params = {};
-
+            /**
+             * Grid set up
+             */
             $scope.gridOptions = {
                 enableCellEditOnFocus: true,
                 columnDefs: [
-                    {field: 'id', visible: false},
+                    {
+                        field: 'id',
+                        visible: false,
+                        type: 'number',
+                        sort: {
+                            direction: uiGridConstants.DESC,
+                            priority: 1
+                        }
+                    },
+                    {field: 'id'},
                     {field: 'name'},
                     {field: 'studentGrade'},
                     {field: 'trashed'}
@@ -70,62 +102,107 @@
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),/*
-                onRegisterApi: function (gridApi) {
-                    $scope.gridApi = gridApi;
-                    gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-                        // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
-                        // var msg = 'New RowCol is ' + angular.toJson(rowCol);
-                        // if(oldRowCol){
-                        //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
-                        //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
-                        // }
-                        console.log('navigation event', newRowCol, oldRowCol);
-                    });
-                    gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-                }*/
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")), /*
+                 onRegisterApi: function (gridApi) {
+                 $scope.gridApi = gridApi;
+                 gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
+                 // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
+                 // var msg = 'New RowCol is ' + angular.toJson(rowCol);
+                 // if(oldRowCol){
+                 //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
+                 //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
+                 // }
+                 console.log('navigation event', newRowCol, oldRowCol);
+                 });
+                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+                 }*/
             };
-            
+
+            /**
+             * Adding event handlers
+             * 
+             * @param {type} gridApi
+             * @returns {undefined}
+             */
             $scope.gridOptions.onRegisterApi = function (gridApi) {
                 //set gridApi on scope
                 $scope.gridApi = gridApi;
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
 
+            /**
+             * GetList
+             * @returns {undefined}
+             */
             $scope.init = function () {
                 gradeChoiceModel.GetList($scope.params).then(
-                    function (result) {
-                        if (_resultHandler(result)) {
-                            $scope.store = $scope.gridOptions.data = result.data;
-                            console.log($scope.gridApi);
+                        function (result) {
+                            if (_resultHandler(result)) {
+                                $scope.store = $scope.gridOptions.data = result.data;
+                                //console.log($scope.gridApi);
+                            }
+                            //console.log($scope.store);
                         }
-                        console.log($scope.store);
-                    }
                 );
             };
+
+            /**
+             * Update logic
+             * 
+             * @param {type} rowEntity
+             * @returns {undefined}
+             */
             
             $scope.saveRow = function (rowEntity) {
- //                console.log(rowEntity);
-                 var promise = gradeChoiceModel.Update(rowEntity.id, rowEntity);
- //                // create a fake promise - normally you'd use the promise returned by $http or $resource
- //                var promise = $q.defer();
-                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
- //
- //                // fake a delay of 3 seconds whilst the save occurs, return error if gender is "male"
- //                $interval(function () {
- //                    if (rowEntity.gender === 'male') {
- //                        promise.reject();
- //                    } else {
- //                        promise.resolve();
- //                    }
- //                }, 3000, 1);
-             };
+                var promise = $q.defer();
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                gradeChoiceModel.Update(rowEntity.id, rowEntity).then(
+                    function (result) {
+                        if (result.success) {
+                            promise.resolve();
+                        } else {
+                            promise.reject();
+                        }
+                        //console.log(result);
+                    });
+            };
+            
+            /**
+             * Form reset the angular way
+             * 
+             * @returns {undefined}
+             */
+            $scope.reset = function () {
+                $scope.gradeChoice = angular.copy($scope.model);
+            };
+            
+             /**
+             * Create
+             * 
+             * @returns {undefined}
+             */
+            $scope.Create = function () {
 
-            $scope.init();
+                gradeChoiceModel
+                    .Create(angular.copy($scope.gradeChoice))
+                    .then(
+                        function (result) {
+                            if (result.success) {
+                                console.log(result);
+                                $scope.gridOptions.data.push(result.data);
+                                $scope.reset();
+                            } else {
+                                alert('BAD');
+                            }
+                        }
+                    );
+            };
+
+            $scope.init();//Start loading data from server to grid
 
         }
 
-        gradeChoiceController.$inject = ['$scope', '$routeParams', 'gradeChoiceModel'];
+        gradeChoiceController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'gradeChoiceModel'];
 
         return gradeChoiceController;
     });
