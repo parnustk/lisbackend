@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css">
         <script src="lis/dist/globals.config.local.js"></script>
 
+        <!--<script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>-->
         <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
     </head>
     <body>
@@ -24,6 +25,7 @@
         <hr>
         <p class="panel">Before using login feature run tests in LisAuth, static user will be created.</p>
 
+        
         <form ng-controller="loginController">
             <div class="row">
                 <div class="large-3 medium-6 small-12 columns">
@@ -40,8 +42,7 @@
             <button class="button" ng-click="Login()">login</button>
         </form>
 
-        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
-        
+
         <h1>Versioon 1</h1>
         <div class="fixed">
             <nav class="top-bar" data-topbar role="navigation">
@@ -80,6 +81,7 @@
             </nav>
         </div>
 
+
         <h1>Nr 2</h1>
         <div class="top-bar">
             <div class="top-bar-title">
@@ -97,16 +99,17 @@
                         <li><a href="#">One</a></li>
                         <li><a href="#">Two</a>
                             <ul class="dropdown-toggle>
-                                        <li><a href="#">Haige</a></li>
-                                        <li><a href="#">Koomas</a></li>
-                                        <li><a href="#">Surnud</a></li>
-                                    </ul>
-                        </li>
-                        <li><a href="#">Three</a></li>
+                                <li><a href="#">Haige</a></li>
+                                <li><a href="#">Koomas</a></li>
+                                <li><a href="#">Surnud</a></li>
+                            </ul>
+                    </li>
+                    <li><a href="#">Three</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+
 
     </body>
 </html>

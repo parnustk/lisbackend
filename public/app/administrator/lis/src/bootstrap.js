@@ -23,18 +23,10 @@
     require([
         'jquery',
         'foundation',
-        'what-input',
-        'foundation-util-mediaQuery',
-        'foundation-util-keyboard',
-        'foundation-util-box',
-        'foundation-util-nest',
-        'foundation-dropdown'
+        'what-input'
     ], function ($, Foundation) {
-
         $(document).ready(function () {//DOM loaded
-
             $(document).foundation();//Start foundation
-            
             require([
                 'angular',
                 'angular-cookies',
@@ -44,17 +36,11 @@
                 'angular-touch',
                 'angular-ui-grid'
             ], function (angular) {
-
                 require(['app/adminModule'], function (adminModule) {
-
                     angular.bootstrap(document, ['adminModule']);
-
                 });
-
             });
-
         });
-
     });
 
 }(require, document));

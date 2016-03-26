@@ -24,27 +24,10 @@
             'what-input': [
                 'jquery'
             ],
-            foundation: [
-                'jquery',
-                'what-input'
-            ],
-            'foundation-util-mediaQuery': [
-                'foundation'
-            ],
-            'foundation-util-keyboard': [
-                'foundation'
-            ],
-            'foundation-util-box': [
-                'foundation'
-            ],
-            'foundation-util-nest': [
-                'foundation'
-            ],
-            'foundation-dropdown': [
-                'foundation-util-keyboard',
-                'foundation-util-box',
-                'foundation-util-nest'
-            ],
+            'foundation': {
+                deps: ['jquery'],
+                exports: "Foundation"
+            },
             angular: {
                 exports: 'angular'
             },
@@ -78,12 +61,13 @@
             jquery: '../../bower_components/jquery/dist/jquery',
             'what-input': '../../bower_components/what-input/what-input',
             'motion-ui': '../../bower_components/motion-ui/dist/motion-ui',
-            'foundation': '../../bower_components/foundation-sites/js/foundation.core',
-            'foundation-util-mediaQuery': '../../bower_components/foundation-sites/js/foundation.util.mediaQuery',
-            'foundation-util-keyboard': '../../bower_components/foundation-sites/js/foundation.util.keyboard',
-            'foundation-util-box': '../../bower_components/foundation-sites/js/foundation.util.box',
-            'foundation-util-nest': '../../bower_components/foundation-sites/js/foundation.util.nest',
-            'foundation-dropdown': '../../bower_components/foundation-sites/js/foundation.dropdown',
+            'foundation': '../../bower_components/foundation-sites/dist/foundation',
+//            'foundation': '../../bower_components/foundation-sites/dist/foundation.core',
+//            'foundation-util-mediaQuery': '../../bower_components/foundation-sites/js/foundation.util.mediaQuery',
+//            'foundation-util-keyboard': '../../bower_components/foundation-sites/js/foundation.util.keyboard',
+//            'foundation-util-box': '../../bower_components/foundation-sites/js/foundation.util.box',
+//            'foundation-util-nest': '../../bower_components/foundation-sites/js/foundation.util.nest',
+//            'foundation-dropdown': '../../bower_components/foundation-sites/js/foundation.dropdown',
             /* TODO
              'bower_components/foundation-sites/js/foundation.util.*.js',
              // Paths to individual JS components defined below
@@ -115,4 +99,3 @@
         ]
     });
 }(require));
-
