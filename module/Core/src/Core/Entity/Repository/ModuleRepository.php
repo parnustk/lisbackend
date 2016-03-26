@@ -51,7 +51,9 @@ class ModuleRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial vocation.{
-                    id
+                        id,
+                        name,
+                        vocationCode
                     },
                     partial moduleType.{
                     id
@@ -138,13 +140,15 @@ class ModuleRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial vocation.{
-                    id
+                        id,
+                        name,
+                        vocationCode
                     },
                     partial moduleType.{
-                    id
+                        id
                     },
                     partial gradingType.{
-                    id
+                        id
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.vocation vocation

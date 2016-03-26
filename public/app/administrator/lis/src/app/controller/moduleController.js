@@ -51,7 +51,7 @@
          * @param {type} vocationModel
          * @returns {undefined}
          */
-        function moduleController($scope, $q, $routeParams, uiGridConstants, moduleModel) {
+        function moduleController($scope, $q, $routeParams, uiGridConstants, moduleModel, vocationModel) {
 
             /*
              * id:"1"
@@ -75,6 +75,12 @@
             };
 
             /**
+             * will hold vocations
+             * for grid select
+             */
+            $scope.vocations = [];
+
+            /**
              * Grid set up
              */
             $scope.gridOptions = {
@@ -84,11 +90,41 @@
                         field: 'id',
                         visible: false,
                         type: 'number',
+                        enableCellEdit: false,
                         sort: {
                             direction: uiGridConstants.DESC,
                             priority: 1
                         }
                     },
+                    {
+                        field: "vocation['name']",
+                        displayName: "Vocation",
+                        editableCellTemplate: 'ui-grid/dropdownEditor',
+                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+                            console.log(rowEntity.vocation);
+                            return $scope.vocations;
+                            return [{id: 'bar1', name: 'BAR 1'},
+                                {id: 'bar2', name: 'BAR 2'},
+                                {id: 'bar3', name: 'BAR 3'}];
+
+                        },
+                        editDropdownIdLabel: 'id',
+                        editDropdownValueLabel: 'name'
+                    },
+//                    {
+//                        name: 'gender',
+//                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
+//                        editDropdownOptionsArray: [
+//                            'male',
+//                            'female',
+//                            'other'
+//                        ]
+//                    },
+//                    {name: 'gender', displayName: 'Gender', editableCellTemplate: 'ui-grid/dropdownEditor', width: '20%',
+//                        cellFilter: 'mapGender', editDropdownValueLabel: 'gender', editDropdownOptionsArray: [
+//                            {id: 1, gender: 'male'},
+//                            {id: 2, gender: 'female'}
+//                        ]},
                     {field: 'name'},
                     {field: 'moduleCode'},
                     {field: 'vocation'},
@@ -129,19 +165,38 @@
                 $scope.gridApi = gridApi;
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
+//                .filter('mapGender', function () {
+//                var genderHash = {
+//                    1: 'male',
+//                    2: 'female'
+//                };
+//                return function (input) {
+//                    if (!input) {
+//                        return '';
+//                    } else {
+//                        return genderHash[input];
+//                    }
+//                };
+//            });
 
             /**
              * GetList
              * @returns {undefined}
              */
             $scope.init = function () {
+                vocationModel.GetList({}).then(
+                    function (result) {
+                        if (_resultHandler(result)) {
+                            console.log(result.data);
+                            $scope.vocations = result.data;
+                        }
+                    }
+                );
                 moduleModel.GetList($scope.params).then(
                     function (result) {
                         if (_resultHandler(result)) {
                             $scope.gridOptions.data = result.data;
-                            //console.log($scope.gridApi);
                         }
-                        //console.log($scope.store);
                     }
                 );
             };
@@ -201,7 +256,7 @@
 
         }
 
-        moduleController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'moduleModel'];
+        moduleController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'moduleModel', 'vocationModel'];
 
         return moduleController;
     });

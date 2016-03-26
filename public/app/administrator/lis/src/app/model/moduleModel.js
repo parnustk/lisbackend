@@ -28,6 +28,43 @@
 
             var _model;
 
+            var cleanedData = {};
+
+            
+            /**
+             * 
+             * @param {type} o
+             * @returns {unresolved}
+             */
+            function _removePropertyExceptId(data) {
+                cleanedData = {};
+                function innerLogic(o) {
+                    for (var p in o) {
+
+                        if (Array.isArray(o.p)) {
+                            for (var i = 0; i < o.p.length; i++) {
+                                innerLogic(o.p[i]);
+                            }
+                        }
+
+                        if (o.p === Object(o.p)) {
+                            innerLogic(o.p);
+                        }
+
+                        if (p === 'id') {
+                            continue;
+                        }
+
+                        console.log('delete', o.p);
+                        delete o.p;
+                    }
+                }
+                innerLogic(data);
+                console.log(data);
+                cleanedData = data;
+                debugger;
+            }
+
             _model = $resource(
                 window.LisGlobals.RestUrl + 'module/:id',
                 {id: '@id'},
@@ -70,7 +107,8 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _model.update({ id:id }, data).$promise;
+                    _removePropertyExceptId(data);
+                    return _model.update({id: id}, cleanedData).$promise;
                 },
                 /**
                  * 
@@ -83,9 +121,9 @@
                 }
             };
         }
-        
+
         moduleModel.$inject = ['$http', '$resource'];
-        
+
         return moduleModel;
     });
 
