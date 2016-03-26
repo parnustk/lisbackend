@@ -53,6 +53,17 @@
          */
         function moduleController($scope, $q, $routeParams, uiGridConstants, moduleModel) {
 
+            /*
+             * id:"1"
+             * name: "asd"
+             * moduleCode: "56f6ca69d5aff"
+             * vocation: {id: "1"}
+             * moduleType: {id: "1"}
+             * gradingType:[{id: 1}, {id: 2}]
+             * duration:12
+             * trashed: null
+             */
+
             /**
              * records sceleton
              */
@@ -79,8 +90,11 @@
                         }
                     },
                     {field: 'name'},
-                    {field: 'vocationCode'},
-                    {field: 'durationEKAP'},
+                    {field: 'moduleCode'},
+                    {field: 'vocation'},
+                    {field: 'moduleType'},
+                    {field: 'gradingType'},
+                    {field: 'duration'},
                     {field: 'trashed'}
                 ],
                 enableGridMenu: true,
@@ -101,20 +115,7 @@
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))/*,
-                 onRegisterApi: function (gridApi) {
-                 $scope.gridApi = gridApi;
-                 //                    gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-                 //                        // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
-                 //                        // var msg = 'New RowCol is ' + angular.toJson(rowCol);
-                 //                        // if(oldRowCol){
-                 //                        //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
-                 //                        //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
-                 //                        // }
-                 //                        console.log('navigation event', newRowCol, oldRowCol);
-                 //                    });
-                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-                 }*/
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
             };
 
             /**
@@ -171,7 +172,7 @@
              * @returns {undefined}
              */
             $scope.reset = function () {
-                $scope.vocation = angular.copy($scope.model);
+                $scope.module = angular.copy($scope.model);
             };
 
             /**

@@ -4,21 +4,38 @@
     <div class="row">
         <div class="large-3 medium-6 small-12 columns">
             <label>Name
-                <input type="text" ng-model="vocation.name">
+                <input type="text" ng-model="module.name">
             </label>
         </div>
         <div class="large-3 medium-6 small-12 columns">
-            <label>vocationCode
-                <input type="text" ng-model="vocation.vocationCode">
+            <label>ModuleCode
+                <input type="text" ng-model="module.moduleCode">
             </label>
         </div>
         <div class="large-3 medium-6 small-12 columns">
-            <label>durationEKAP
-                <input type="text" ng-model="vocation.durationEKAP">
+            <label>Vocation
+                <input type="text" ng-model="module.vocation">
             </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>ModuleType
+                <input type="text" ng-model="module.moduleType">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>GradingType
+                <input type="text" ng-model="module.gradingType">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Duration
+                <input type="text" ng-model="module.duration">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <button class="button" ng-click="Create()">CREATE</button>
         </div>
     </div>
-    <button class="button" ng-click="Create()">CREATE</button>
 </form>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

@@ -23,7 +23,8 @@
     require([
         'jquery',
         'foundation',
-        'what-input'
+        'what-input',
+        'pdfmake'
     ], function ($, Foundation) {
         $(document).ready(function () {//DOM loaded
             $(document).foundation();//Start foundation

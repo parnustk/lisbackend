@@ -499,12 +499,12 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data, \Doctrine\ORM\EntityManager $em = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data, $em));
 
-        return parent::hydrate($data);
+        return parent::hydrate($data, $em);
     }
 
     /**

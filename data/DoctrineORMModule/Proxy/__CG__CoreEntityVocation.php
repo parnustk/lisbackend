@@ -64,10 +64,10 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'code', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'vocationCode', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'code', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'vocationCode', 'durationEKAP', 'studentGroup', 'module', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -202,12 +202,12 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
-    public function getCode()
+    public function getVocationCode()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCode', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getVocationCode', array());
 
-        return parent::getCode();
+        return parent::getVocationCode();
     }
 
     /**
@@ -257,6 +257,50 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
+    public function getCreatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedBy', array());
+
+        return parent::getCreatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedBy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedBy', array());
+
+        return parent::getUpdatedBy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', array());
+
+        return parent::getCreatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdatedAt()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdatedAt', array());
+
+        return parent::getUpdatedAt();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
 
@@ -268,12 +312,23 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
-    public function setCode($code)
+    public function setId($id)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCode', array($code));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
 
-        return parent::setCode($code);
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setVocationCode($vocationCode)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVocationCode', array($vocationCode));
+
+        return parent::setVocationCode($vocationCode);
     }
 
     /**
@@ -318,6 +373,61 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTrashed', array($trashed));
 
         return parent::setTrashed($trashed);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedBy($createdBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
+
+        return parent::setCreatedBy($createdBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
+
+        return parent::setUpdatedBy($updatedBy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedAt($createdAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
+
+        return parent::setCreatedAt($createdAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
+
+        return parent::setUpdatedAt($updatedAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function refreshTimeStamps()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'refreshTimeStamps', array());
+
+        return parent::refreshTimeStamps();
     }
 
     /**
@@ -389,12 +499,12 @@ class Vocation extends \Core\Entity\Vocation implements \Doctrine\ORM\Proxy\Prox
     /**
      * {@inheritDoc}
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data, \Doctrine\ORM\EntityManager $em = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data, $em));
 
-        return parent::hydrate($data);
+        return parent::hydrate($data, $em);
     }
 
     /**
