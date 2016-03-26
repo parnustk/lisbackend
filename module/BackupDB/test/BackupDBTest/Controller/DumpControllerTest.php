@@ -39,6 +39,8 @@ class DumpControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         
+        $this->PrintOut($result, true);
+        
         $this->assertEquals(200,$response->getStatusCode());
         $this->assertEquals('successM', $result->success);
     }

@@ -89,25 +89,30 @@ class DumpService
             "Teacher",
             "Vocation"
         ];
-        for($t = 0;$t<count($tables);$t++){ //Loop through all tables
+        for($t = 0;$t<count($tables);$t++){ //Loop through all tables, create temporary dumpfiles with mysql
             //TODO: pull data and structure from table into $queryData
-            $stmt = $this->db->prepare("SELECT * FROM table=?");
-            $stmt->bindValue(1, $tables[$t], PDO::PARAM_STR);
+            $stmt = $this->db->prepare("SELECT * INTO OUTFILE filename=? FROM table=?");
+            $stmt->bindValue(1, "temp".$tables[$t].".sql", PDO::PARAM_STR);
+            $stmt->bindValue(2, $tables[$t], PDO::PARAM_STR);
             try 
             { 
                 $stmt->execute();
-                $queryData = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $ex) 
             {
                 print_r($ex); 
                 die();
             }
-            
-            $dumpData .= $queryData;
         }
         
-        
-        
+        for($t = 0;$t<count($tables);$t++) 
+        {
+            $fileData = null;
+            $fileData = readfile("temp".$tables[t].".sql");
+            $dumpData .= $fileData;
+            unlink("temp".$tables[t].".sql");
+            unset($fileData);
+        }  
+            
         if($type == 'manual')
         {
             file_put_contents($this->fileName, $dumpData);
