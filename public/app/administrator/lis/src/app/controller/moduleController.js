@@ -134,7 +134,7 @@
              * @returns {undefined}
              */
             $scope.init = function () {
-                vocationModel.GetList($scope.params).then(
+                moduleModel.GetList($scope.params).then(
                     function (result) {
                         if (_resultHandler(result)) {
                             $scope.gridOptions.data = result.data;
@@ -154,7 +154,7 @@
             $scope.saveRow = function (rowEntity) {
                 var promise = $q.defer();
                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
-                vocationModel.Update(rowEntity.id, rowEntity).then(
+                moduleModel.Update(rowEntity.id, rowEntity).then(
                     function (result) {
                         if (result.success) {
                             promise.resolve();
@@ -181,7 +181,7 @@
              */
             $scope.Create = function () {
 
-                vocationModel
+                moduleModel
                     .Create(angular.copy($scope.vocation))
                     .then(
                         function (result) {
