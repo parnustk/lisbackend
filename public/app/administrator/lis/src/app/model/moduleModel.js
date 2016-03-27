@@ -30,39 +30,31 @@
 
             var cleanedData = {};
 
-            
-            /**
-             * 
-             * @param {type} o
-             * @returns {unresolved}
-             */
-            function _removePropertyExceptId(data) {
-                cleanedData = {};
-                function innerLogic(o) {
-                    for (var p in o) {
 
-                        if (Array.isArray(o.p)) {
-                            for (var i = 0; i < o.p.length; i++) {
-                                innerLogic(o.p[i]);
+            function cleanData(data) {
+                var level = 0;
+                function copy(o) {
+                    var _out, v, _key;
+                    _out = Array.isArray(o) ? [] : {};
+                    for (_key in o) {
+                        v = o[_key];
+                        if (typeof v === "object") {
+                            level++;
+                            _out[_key] = copy(v);
+                            level--;
+                        } else {
+                            if (!level) {
+                                _out[_key] = v;
+                            } else {
+                                if (_key === 'id') {
+                                    _out[_key] = v;
+                                }
                             }
                         }
-
-                        if (o.p === Object(o.p)) {
-                            innerLogic(o.p);
-                        }
-
-                        if (p === 'id') {
-                            continue;
-                        }
-
-                        console.log('delete', o.p);
-                        delete o.p;
                     }
+                    return _out;
                 }
-                innerLogic(data);
-                console.log(data);
-                cleanedData = data;
-                debugger;
+                return copy(data);
             }
 
             _model = $resource(
@@ -107,8 +99,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    _removePropertyExceptId(data);
-                    return _model.update({id: id}, cleanedData).$promise;
+                    return _model.update({id: id}, cleanData(data)).$promise;
                 },
                 /**
                  * 

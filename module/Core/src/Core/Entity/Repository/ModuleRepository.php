@@ -288,7 +288,7 @@ class ModuleRepository extends AbstractBaseRepository
 
         unset($data['vocation']);
 
-        $entity->hydrate($data);
+        $entity->hydrate($data, $this->getEntityManager());
 
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
