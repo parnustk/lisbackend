@@ -48,10 +48,12 @@
          * @param {type} $scope
          * @param {type} $q
          * @param {type} $routeParams
+         * @param {type} uiGridConstants
+         * @param {type} moduleModel
          * @param {type} vocationModel
          * @returns {undefined}
          */
-        function moduleController($scope, $q, $routeParams, uiGridConstants, moduleModel, vocationModel) {
+        function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel) {
 
             /*
              * id:"1"
@@ -79,7 +81,7 @@
              * for grid select
              */
             $scope.vocations = [];
-
+            
             /**
              * Grid set up
              */
@@ -106,8 +108,8 @@
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
                             return $scope.vocations;
                         },
-                        cellFilter: 'griddropdown:this'/*,
-                         TODO sortCellFiltered: $scope.sortFiltered,*/
+                        cellFilter: 'griddropdown:this',
+                        sortCellFiltered: $scope.sortFiltered
                     },
                     {field: 'name'},
                     {field: 'moduleCode'},
@@ -154,22 +156,18 @@
              * @returns {undefined}
              */
             $scope.init = function () {
-                vocationModel.GetList({}).then(
-                    function (result) {
-                        if (_resultHandler(result)) {
-                            //console.log(result.data);
-                            $scope.vocations = result.data;
+                vocationModel.GetList({}).then(function (result) {
+                    if (_resultHandler(result)) {
+                        //console.log(result.data);
+                        $scope.vocations = result.data;
 
-                            moduleModel.GetList($scope.params).then(
-                                function (result) {
-                                    if (_resultHandler(result)) {
-                                        $scope.gridOptions.data = result.data;
-                                    }
-                                }
-                            );
-                        }
+                        moduleModel.GetList($scope.params).then(function (result) {
+                            if (_resultHandler(result)) {
+                                $scope.gridOptions.data = result.data;
+                            }
+                        });
                     }
-                );
+                });
             };
 
             /**
@@ -188,7 +186,6 @@
                         } else {
                             promise.reject();
                         }
-                        //console.log(result);
                     });
             };
 
@@ -207,13 +204,11 @@
              * @returns {undefined}
              */
             $scope.Create = function () {
-
                 moduleModel
                     .Create(angular.copy($scope.vocation))
                     .then(
                         function (result) {
                             if (result.success) {
-                                //console.log(result);
                                 $scope.gridOptions.data.push(result.data);
                                 $scope.reset();
                             } else {
@@ -222,13 +217,10 @@
                         }
                     );
             };
-
             $scope.init();//Start loading data from server to grid
-
         }
 
-        moduleController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'moduleModel', 'vocationModel'];
-
+        moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel'];
         return moduleController;
     });
 
