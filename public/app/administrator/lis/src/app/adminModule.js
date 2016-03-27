@@ -122,7 +122,8 @@
             'ui.grid.pinning',
             'ui.grid.grouping',
             'ui.grid.exporter',
-            'gridFilters'
+            'gridFilters',
+            'ui.select'
         ]);
 
         adminModule.config(config);
@@ -148,6 +149,23 @@
         adminModule.controller('moduletypeController', moduletypeController);
         adminModule.controller('loginController', loginController);
         adminModule.controller('moduleController', moduleController);
+
+
+        adminModule.directive('uiSelectWrap', uiSelectWrap);
+
+        uiSelectWrap.$inject = ['$document', 'uiGridEditConstants'];
+        function uiSelectWrap($document, uiGridEditConstants) {
+            return function link($scope, $elm, $attr) {
+                $document.on('click', docClick);
+
+                function docClick(evt) {
+                    if ($(evt.target).closest('.ui-select-container').size() === 0) {
+                        $scope.$emit(uiGridEditConstants.events.END_CELL_EDIT);
+                        $document.off('click', docClick);
+                    }
+                }
+            };
+        }
 
         return adminModule;
     });

@@ -71,9 +71,11 @@
              */
             $scope.model = {
                 name: null,
-                vocationCode: null,
-                durationEKAP: null,
-                trashed: null
+                moduleCode: null,
+                vocation: null,
+                moduleType: null,
+                gradingType: null,
+                duration: null
             };
 
             /**
@@ -81,11 +83,12 @@
              * for grid select
              */
             $scope.vocations = [];
-            
+
             /**
              * Grid set up
              */
             $scope.gridOptions = {
+                rowHeight: 38,
                 enableCellEditOnFocus: true,
                 columnDefs: [
                     {
@@ -112,11 +115,34 @@
                         sortCellFiltered: $scope.sortFiltered
                     },
                     {field: 'name'},
-                    {field: 'moduleCode'},
-                    {field: 'moduleType'},
-                    {field: 'gradingType'},
-                    {field: 'duration'},
-                    {field: 'trashed'}
+                    {
+                        name: 'gender',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
+                        editDropdownOptionsArray: [
+                            'male',
+                            'female',
+                            'other'
+                        ]
+                    },
+                    {
+                        name: 'languages',
+                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
+                        editableCellTemplate: 'lis/dist/templates/partial/gradingTypeSelect.html',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+                        editDropdownOptionsArray: [
+                            {id: 1, name: 'English'},
+                            {id: 2, name: 'French'},
+                            {id: 3, name: 'German'},
+                            {id: 4, name: 'Spanish'}
+                        ]
+                    }
+
+//                    {field: 'moduleCode'},
+//                    {field: 'moduleType'},
+//                    {field: 'gradingType'},
+//                    {field: 'duration'},
+//                    {field: 'trashed'}
                 ],
                 enableGridMenu: true,
                 enableSelectAll: true,

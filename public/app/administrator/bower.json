@@ -33,6 +33,8 @@
     "angular-touch": "^1.4.9",
     "angular-sanitize": "^1.4.9",
     "what-input": "^1.1.4",
-    "requirejs": "^2.1.22"
+    "requirejs": "^2.1.22",
+    "ui-select": "angular-ui-select#^0.16.1",
+    "pdfmake": "^0.1.20"
   }
 }

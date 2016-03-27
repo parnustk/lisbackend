@@ -49,6 +49,9 @@
             'angular-sanitize': [
                 'angular'
             ],
+            'angular-ui-select': [
+                'angular'
+            ],
             pdfMakeLib: {
                 exports: 'pdfMake'
             },
@@ -67,6 +70,7 @@
             'angular-route': '../../bower_components/angular-route/angular-route',
             'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
             'angular-touch': '../../bower_components/angular-touch/angular-touch',
+            'angular-ui-select': '../../bower_components/ui-select/dist/select',
             'angular-ui-grid': '../../bower_components/angular-ui-grid/ui-grid',
             'jquery': '../../bower_components/jquery/dist/jquery',
             'what-input': '../../bower_components/what-input/what-input',

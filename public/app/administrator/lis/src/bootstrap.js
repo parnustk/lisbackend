@@ -35,7 +35,8 @@
                 'angular-route',
                 'angular-sanitize',
                 'angular-touch',
-                'angular-ui-grid'
+                'angular-ui-grid',
+                'angular-ui-select'
             ], function (angular) {
                 require(['app/adminModule'], function (adminModule) {
                     angular.bootstrap(document, ['adminModule']);

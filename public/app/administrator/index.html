@@ -11,13 +11,51 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LIS</title>
+        <link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation.min.css">
+
+        <link rel="stylesheet" type="text/css" href="bower_components/ui-select/dist/select.css" />
         <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
-        <link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.css" />
+        <style>
+            .selectize-input {
+                height: 44px;
+                border-radius: 0;
+            }
+            .selectize-input .ui-select-search {
+                height: 29px;
+            }
+            .selectize-input .ui-select-match {
+                line-height: 29px;
+            }
+            .ui-select-choices {
+                margin-top: -8px;
+            }
+            .ui-grid-cell {
+                overflow: visible;
+                z-index: 99999;
+            }
+            .ui-grid-cell, ui-select-wrap {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .selectize-control > .selectize-dropdown {
+                background: lightgray;
+            }
+            .select2-container-multi .select2-choices .select2-search-field {
+                width: 120px;
+            }
+        </style>
+
         <script src="lis/dist/globals.config.local.js"></script>
         <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
     <body><!-- All parts should go into widgets(controller + view) + content itself in our cas-->
-        
+
         <!-- these a tags go inside a menu-->
         <a href="#!/" class="button">Home</a>
         <a href="#!/vocation" class="button">Vocation</a>
@@ -26,12 +64,12 @@
         <a href="#!/gradeChoice" class="button">GradeChoice</a>
         <a href="#!/teacher" class="button">Teacher</a>
         <a href="#!/module" class="button">Module</a>
-        
+
         <div data-ng-view=""></div>
         <hr>
         <p class="panel">Before using login feature run tests in LisAuth, static user will be created.</p>
 
-        
+
         <form ng-controller="loginController">
             <div class="row">
                 <div class="large-3 medium-6 small-12 columns">
@@ -106,9 +144,9 @@
                         <li><a href="#">Two</a>
                             <ul class="dropdown-toggle>
                                 <li><a href="#">Haige</a></li>
-                                <li><a href="#">Koomas</a></li>
-                                <li><a href="#">Surnud</a></li>
-                            </ul>
+                        <li><a href="#">Koomas</a></li>
+                        <li><a href="#">Surnud</a></li>
+                    </ul>
                     </li>
                     <li><a href="#">Three</a></li>
                     </ul>
