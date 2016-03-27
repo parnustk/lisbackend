@@ -65,7 +65,7 @@ abstract class AbstractBaseRepository extends EntityRepository
                 $dql .= " $this->baseAlias.$key=$value";
             }
         } else {//default WHERE has trashed IS NULL for now nothing else
-            $dql .= " WHERE $this->baseAlias.trashed IS NULL";
+            $dql .= " WHERE ($this->baseAlias.trashed IS NULL OR $this->baseAlias.trashed=0)";
         }
         if (!!$extra) {
             //TODO

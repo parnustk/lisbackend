@@ -97,37 +97,20 @@
                         }
                     },
                     {
-                        field: "vocation['name']",
-                        displayName: "Vocation",
+                        field: "vocation['id']",
+                        displayName: 'Vocation',
                         editableCellTemplate: 'ui-grid/dropdownEditor',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+                        editDropdownOptionsArray: $scope.vocations,
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            console.log(rowEntity.vocation);
                             return $scope.vocations;
-                            return [{id: 'bar1', name: 'BAR 1'},
-                                {id: 'bar2', name: 'BAR 2'},
-                                {id: 'bar3', name: 'BAR 3'}];
-
                         },
-                        editDropdownIdLabel: 'id',
-                        editDropdownValueLabel: 'name'
+                        cellFilter: 'griddropdown:this'/*,
+                         TODO sortCellFiltered: $scope.sortFiltered,*/
                     },
-//                    {
-//                        name: 'gender',
-//                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
-//                        editDropdownOptionsArray: [
-//                            'male',
-//                            'female',
-//                            'other'
-//                        ]
-//                    },
-//                    {name: 'gender', displayName: 'Gender', editableCellTemplate: 'ui-grid/dropdownEditor', width: '20%',
-//                        cellFilter: 'mapGender', editDropdownValueLabel: 'gender', editDropdownOptionsArray: [
-//                            {id: 1, gender: 'male'},
-//                            {id: 2, gender: 'female'}
-//                        ]},
                     {field: 'name'},
                     {field: 'moduleCode'},
-                    {field: 'vocation'},
                     {field: 'moduleType'},
                     {field: 'gradingType'},
                     {field: 'duration'},
@@ -165,19 +148,6 @@
                 $scope.gridApi = gridApi;
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
-//                .filter('mapGender', function () {
-//                var genderHash = {
-//                    1: 'male',
-//                    2: 'female'
-//                };
-//                return function (input) {
-//                    if (!input) {
-//                        return '';
-//                    } else {
-//                        return genderHash[input];
-//                    }
-//                };
-//            });
 
             /**
              * GetList
@@ -187,15 +157,16 @@
                 vocationModel.GetList({}).then(
                     function (result) {
                         if (_resultHandler(result)) {
-                            console.log(result.data);
+                            //console.log(result.data);
                             $scope.vocations = result.data;
-                        }
-                    }
-                );
-                moduleModel.GetList($scope.params).then(
-                    function (result) {
-                        if (_resultHandler(result)) {
-                            $scope.gridOptions.data = result.data;
+
+                            moduleModel.GetList($scope.params).then(
+                                function (result) {
+                                    if (_resultHandler(result)) {
+                                        $scope.gridOptions.data = result.data;
+                                    }
+                                }
+                            );
                         }
                     }
                 );
@@ -242,7 +213,7 @@
                     .then(
                         function (result) {
                             if (result.success) {
-                                console.log(result);
+                                //console.log(result);
                                 $scope.gridOptions.data.push(result.data);
                                 $scope.reset();
                             } else {

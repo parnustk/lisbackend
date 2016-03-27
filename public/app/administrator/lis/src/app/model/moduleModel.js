@@ -27,10 +27,13 @@
         function moduleModel($http, $resource) {
 
             var _model;
-
-            var cleanedData = {};
-
-
+            
+            /**
+             * Leaves only id property for sub level objects
+             * required by Doctrine to work
+             * @param {type} data
+             * @returns {Array}
+             */
             function cleanData(data) {
                 var level = 0;
                 function copy(o) {
@@ -38,7 +41,7 @@
                     _out = Array.isArray(o) ? [] : {};
                     for (_key in o) {
                         v = o[_key];
-                        if (typeof v === "object") {
+                        if (typeof v === "object" && v !== null) {
                             level++;
                             _out[_key] = copy(v);
                             level--;
@@ -99,6 +102,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
+                    console.log(data);
                     return _model.update({id: id}, cleanData(data)).$promise;
                 },
                 /**

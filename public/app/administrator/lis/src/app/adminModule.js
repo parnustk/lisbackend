@@ -27,7 +27,6 @@
         'app/model/moduletypeModel',
         'app/model/loginModel',
         'app/model/moduleModel',
-        
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -63,6 +62,50 @@
         moduleController
         ) {
 
+        /**
+         * http://codepen.io/transistor1/pen/wGvMEE
+         * https://github.com/angular-ui/ui-grid/issues/5173
+         */
+        angular.module('gridFilters', []).filter('griddropdown', function () {
+            return function (input, context) {
+                try {
+                    //For some reason the text "this" is occasionally directly being
+                    //passed here
+                    if (typeof context === 'undefined' || context === 'this')
+                        return 0;
+
+                    //Workaround for bug in ui-grid
+                    if (typeof context.col === 'undefined') {
+                        var sortCols = context.grid.getColumnSorting();
+                        if (sortCols.length <= 0)
+                            return 0;
+
+                        context = {col: sortCols[0], row: context};
+                    }
+                    var ctx = context.col.colDef;
+                    //we do not use editDropdownOptionsArray
+                    //var map = context.col.colDef.editDropdownOptionsArray;
+                    var map = context.col.colDef.editDropdownOptionsFunction();
+                    var idField = context.col.colDef.editDropdownIdLabel;
+                    var valueField = context.col.colDef.editDropdownValueLabel;
+                    var initial = context.row.entity[context.col.field];
+                    if (typeof map !== "undefined") {
+                        for (var i = 0; i < map.length; i++) {
+                            if (map[i][idField] === input) {
+                                return map[i][valueField];
+                            }
+                        }
+                    } else if (initial) {
+                        return initial;
+                    }
+                    return input;
+
+                } catch (e) {
+                    context.grid.appScope.log("Error: " + e);
+                }
+            };
+        });
+
         var adminModule = angular.module('adminModule', [
             'ngRoute',
             'ngResource',
@@ -77,8 +120,9 @@
             'ui.grid.resizeColumns',
             'ui.grid.moveColumns',
             'ui.grid.pinning',
-            'ui.grid.grouping', 
-            'ui.grid.exporter'
+            'ui.grid.grouping',
+            'ui.grid.exporter',
+            'gridFilters'
         ]);
 
         adminModule.config(config);
