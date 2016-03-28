@@ -12,6 +12,8 @@
  * http://brianhann.com/ui-grid-and-multi-select/#more-732
  * http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
  * http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
+ * adding content later https://github.com/angular-ui/ui-grid/issues/2050
+ * dropdown menu http://brianhann.com/ui-grid-and-dropdowns/
  * 
  * @param {type} define
  * @param {type} document
@@ -41,8 +43,20 @@
             return s;
         };
 
+        /**
+         * 
+         * @param {type} $scope
+         * @param {type} $q
+         * @param {type} $routeParams
+         * @param {type} uiGridConstants
+         * @param {type} absenceModel
+         * @returns {absenceController_L30.absenceController}
+         */
         function absenceController($scope, $q, $routeParams, uiGridConstants, absenceModel) {
 
+            /**
+             * records sceleton
+             */
             $scope.model = {
                 description: null,
                 student: null,
@@ -50,14 +64,34 @@
                 absenceReason: null,
                 trashed: null
             };
+            
+            /**
+             * will hold students
+             * for grid select
+             */
+            $scope.students = [];
+            
+            /**
+             * will hold contactLessons
+             * for grid select
+             */
+            $scope.contactLesson = [];
+            
+            /**
+             * will hold absenceReasons
+             * for grid select
+             */
+            $scope.absenceReason = [];
 
             /**
              * Grid set up
              */
             $scope.gridOptions = {
+                rowHeight: 38,
                 enableCellEditOnFocus: true,
                 columnDefs: [
-                    {field: 'id',
+                    {
+                        field: 'id',
                         visible: false,
                         type: 'number',
                         sort: {
@@ -66,9 +100,45 @@
                         }
                     },
                     {field: 'description'},
-                    {field: 'student'},
-                    {field: 'contactLesson'},
-                    {field: 'absenceReason'},
+                    {
+                        field: "student['id']",
+                        displayName: 'Student',
+                        editableCellTemplate: 'ui-grid/dropdownEditor',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "firstName"+ " "+ "lastName",
+                        editDropdownOptionsArray: $scope.students,
+                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+                            return $scope.students;
+                        },
+                        cellFilter: 'griddropdown:this',
+                        sortCellFiltered: $scope.sortFiltered
+                    },
+                    {
+                        field: "contactLesson['id']",
+                        displayName: 'Contact Lesson',
+                        editableCellTemplate: 'ui-grid/dropdownEditor',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "lessonDate",
+                        editDropdownOptionsArray: $scope.contactLesson,
+                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+                            return $scope.contactLesson;
+                        },
+                        cellFilter: 'griddropdown:this',
+                        sortCellFiltered: $scope.sortFiltered
+                    },
+                    {
+                        field: "absenceReason['id']",
+                        displayName: 'Absence Reason',
+                        editableCellTemplate: 'ui-grid/dropdownEditor',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+                        editDropdownOptionsArray: $scope.absenceReason,
+                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+                            return $scope.absenceReason;
+                        },
+                        cellFilter: 'griddropdown:this',
+                        sortCellFiltered: $scope.sortFiltered
+                    },
                     {field: 'trashed'}
                 ],
                 enableGridMenu: true,
