@@ -21,15 +21,27 @@ class DumpController extends AbstractActionController
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
-
+    
+    /**
+     * Initial Display; List filenames of dumps on server for front-end display
+     * 
+     * @param type $filter
+     */
+    public function indexAction() 
+    {
+        return new ViewModel();
+    }
+    
     /**
      * Create new dump and return to client
      * 
      * @return VieModel
      */
-    public function createManualDump()
+    public function createManualAction()
     {
-        
+        return new ViewModel([
+            'content' => 'Manual Dump Placeholder'
+        ]);
         return $this
                     ->getServiceLocator()
                     ->get($this->service)
@@ -41,19 +53,11 @@ class DumpController extends AbstractActionController
      * 
      * @return ViewModel
      */
-    public function createServerDump()
+    public function createServerAction()
     {
-        return new ViewModel();
-    }
-
-    /**
-     * List filenames of dumps on server for front-end display
-     * 
-     * @param type $filter
-     */
-    public function getDumpList($filter = null) 
-    {
-        //TODO
+        return new ViewModel([
+            'content' => 'Server Dump Placeholder'
+        ]);
     }
     
     /**
@@ -62,9 +66,11 @@ class DumpController extends AbstractActionController
      * @param type $dumpName
      * @param type $dumpData
      */
-    public function pushDump($dumpName, $dumpData = null)
+    public function pushAction($dumpName, $dumpData = null)
     {
-        //TODO
+        return new ViewModel([
+            'content' => 'Push Backup Placeholder'
+        ]);
     }
 
 }
