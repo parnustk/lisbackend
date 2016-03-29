@@ -1,9 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- * @author Arnold Tserepov <tserepov@gmail.com>
+/** 
+ * Licence of Learning Info System (LIS)
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
+
 
 /* global define */
 
@@ -47,12 +48,11 @@
         /**
          * 
          * @param {type} $scope
-         * @param {type} $q
          * @param {type} $routeParams
          * @param {type} gradeChoiceModel
          * @returns {undefined}
          */
-        function gradeChoiceController($scope, $routeParams, gradeChoiceModel) {
+        function gradeChoiceController($scope, $routeParams,uiGridConstants, gradeChoiceModel) {
 
             /**
              * records sceleton
@@ -79,7 +79,6 @@
                             priority: 1
                         }
                     },
-                    {field: 'id'},
                     {field: 'name'},
                     {field: 'studentGrade'},
                     {field: 'trashed'}
@@ -152,21 +151,21 @@
              * @param {type} rowEntity
              * @returns {undefined}
              */
-            
+
             $scope.saveRow = function (rowEntity) {
-                var promise = $q.defer();
+                var promise = gradeChoiceModel.defer();
                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
                 gradeChoiceModel.Update(rowEntity.id, rowEntity).then(
-                    function (result) {
-                        if (result.success) {
-                            promise.resolve();
-                        } else {
-                            promise.reject();
-                        }
-                        //console.log(result);
-                    });
+                        function (result) {
+                            if (result.success) {
+                                promise.resolve();
+                            } else {
+                                promise.reject();
+                            }
+                            //console.log(result);
+                        });
             };
-            
+
             /**
              * Form reset the angular way
              * 
@@ -175,8 +174,8 @@
             $scope.reset = function () {
                 $scope.gradeChoice = angular.copy($scope.model);
             };
-            
-             /**
+
+            /**
              * Create
              * 
              * @returns {undefined}
@@ -184,25 +183,25 @@
             $scope.Create = function () {
 
                 gradeChoiceModel
-                    .Create(angular.copy($scope.gradeChoice))
-                    .then(
-                        function (result) {
-                            if (result.success) {
-                                console.log(result);
-                                $scope.gridOptions.data.push(result.data);
-                                $scope.reset();
-                            } else {
-                                alert('BAD');
-                            }
-                        }
-                    );
+                        .Create(angular.copy($scope.gradeChoice))
+                        .then(
+                                function (result) {
+                                    if (result.success) {
+                                        console.log(result);
+                                        $scope.gridOptions.data.push(result.data);
+                                        $scope.reset();
+                                    } else {
+                                        alert('BAD');
+                                    }
+                                }
+                        );
             };
 
             $scope.init();//Start loading data from server to grid
 
         }
 
-        gradeChoiceController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'gradeChoiceModel'];
+        gradeChoiceController.$inject = ['$scope', '$routeParams', 'uiGridConstants', 'gradeChoiceModel'];
 
         return gradeChoiceController;
     });
