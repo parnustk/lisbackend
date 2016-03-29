@@ -24,14 +24,14 @@
          * 
          * @param {type} $http
          * @param {type} $resource
-         * @return {absenceModel_L6.absenceModel.absenceModelAnonym$3}
+         * @returns {subjectModel_L21.subjectModel.subjectModelAnonym$3}
          */
-        function absenceModel($http, $resource) {
+        function subjectModel($http, $resource) {
 
             var _model;
-            
+
             _model = $resource(
-                window.LisGlobals.RestUrl + 'absence/:id',
+                window.LisGlobals.RestUrl + 'subject/:id',
                 {id: '@id'},
                 {
                     update: {method: "PUT"},
@@ -85,8 +85,8 @@
                 }
             };
         }
-        absenceModel.$inject = ['$http', '$resource'];
-        return absenceModel;
+        subjectModel.$inject = ['$http', '$resource'];
+        return subjectModel;
     });
 
 }(define, window));
