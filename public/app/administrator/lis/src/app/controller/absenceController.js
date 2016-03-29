@@ -50,9 +50,10 @@
          * @param {type} $routeParams
          * @param {type} uiGridConstants
          * @param {type} absenceModel
+         * @param {type} studentModel
          * @returns {absenceController_L30.absenceController}
          */
-        function absenceController($scope, $q, $routeParams, uiGridConstants, absenceModel) {
+        function absenceController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceModel, absencereasonModel) {
 
             /**
              * records sceleton
@@ -159,20 +160,7 @@
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))/*,
-                 onRegisterApi: function (gridApi) {
-                 $scope.gridApi = gridApi;
-                 //                    gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-                 //                        // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
-                 //                        // var msg = 'New RowCol is ' + angular.toJson(rowCol);
-                 //                        // if(oldRowCol){
-                 //                        //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
-                 //                        //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
-                 //                        // }
-                 //                        console.log('navigation event', newRowCol, oldRowCol);
-                 //                    });
-                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-                 }*/
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
             };
 
             /**
@@ -192,15 +180,29 @@
              * @returns {undefined}
              */
             $scope.init = function () {
+//                 absenceModel.GetList($scope.params).then(
+//                        function (result) {
+//                            if (_resultHandler(result)) {
+//                                $scope.gridOptions.data = result.data;
+                
+//                contactLessonModel.GetList({}).then(function (result) {
+//                    if (_resultHandler(result)) {
+//                        //console.log(result.data);
+//                        $scope.contactLesson = result.data;
+//                
+                absencereasonModel.GetList({}).then(function (result) {
+                    if (_resultHandler(result)) {
+                        //console.log(result.data);
+                        $scope.absenceReason = result.data;
+                        
                 absenceModel.GetList($scope.params).then(
                         function (result) {
                             if (_resultHandler(result)) {
                                 $scope.gridOptions.data = result.data;
-                                //console.log($scope.gridApi);
                             }
-//                            console.log($scope.store);
-                        }
-                );
+                        });
+                    }
+                });
             };
 
             $scope.saveRow = function (rowEntity) {
@@ -213,7 +215,6 @@
                             } else {
                                 promise.reject();
                             }
-                            //console.log(result);
                         });
             };
 
@@ -232,13 +233,11 @@
              * @returns {undefined}
              */
             $scope.Create = function () {
-
                 absenceModel
-                        .Create(angular.copy($scope.absence))
+                        .Create(angular.copy($scope.absenceReason))
                         .then(
                                 function (result) {
                                     if (result.success) {
-                                        console.log(result);
                                         $scope.gridOptions.data.push(result.data);
                                         $scope.reset();
                                     } else {
@@ -247,13 +246,10 @@
                                 }
                         );
             };
-
             $scope.init();//Start loading data from server to grid
-
         }
 
-        absenceController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'absenceModel'];
-
+        absenceController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceModel', 'absencereasonModel'];
         return absenceController;
     });
 

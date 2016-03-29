@@ -27,6 +27,38 @@
         function absenceModel($http, $resource) {
 
             var _model;
+            
+            /**
+             * Leaves only id property for sub level objects
+             * required by Doctrine to work
+             * @param {type} data
+             * @returns {Array}
+             */
+            function cleanData(data) {
+                var level = 0;
+                function copy(o) {
+                    var _out, v, _key;
+                    _out = Array.isArray(o) ? [] : {};
+                    for (_key in o) {
+                        v = o[_key];
+                        if (typeof v === "object" && v !== null) {
+                            level++;
+                            _out[_key] = copy(v);
+                            level--;
+                        } else {
+                            if (!level) {
+                                _out[_key] = v;
+                            } else {
+                                if (_key === 'id') {
+                                    _out[_key] = v;
+                                }
+                            }
+                        }
+                    }
+                    return _out;
+                }
+                return copy(data);
+            }
 
             _model = $resource(
                 window.LisGlobals.RestUrl + 'absence/:id',
