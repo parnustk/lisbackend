@@ -22,13 +22,13 @@
          * 
          * @param {type} $http
          * @param {type} $resource
-         * @return {gradeChoiceModel_L6.gradeChoiceModel.gradeChoiceModelAnonym$3}
+         * @return {roomModel_L6.roomModel.roomModelAnonym$3}
          */
         function roomModel($http, $resource) {
 
-            var _roomChoice;
+            var _model;
 
-            _roomChoice = $resource(
+            _model = $resource(
                 window.LisGlobals.RestUrl + 'room/:id',
                 {id: '@id'},
                 {
@@ -44,7 +44,7 @@
                  * @return {unresolved}
                  */
                 GetList: function (params) {
-                    return _room.query(params).$promise;
+                    return _model.query(params).$promise;
                 },
                 /**
                  * 
@@ -52,7 +52,7 @@
                  * @return {unresolved}
                  */
                 Get: function (id) {
-                    return _room.get({id: id}).$promise;
+                    return _model.get({id: id}).$promise;
                 },
                 /**
                  * 
@@ -61,7 +61,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _room.save(data).$promise;
+                    return _model.save(data).$promise;
                 },
                 /**
                  * 
@@ -70,7 +70,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _room.update({id: id}, data).$promise;
+                    return _model.update({id: id}, data).$promise;
 
                 },
                 /**
@@ -80,7 +80,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    return _room.delete({id: id}).$promise;
+                    return _model.delete({id: id}).$promise;
                 }
             };
         }

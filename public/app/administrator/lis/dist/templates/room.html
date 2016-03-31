@@ -1,10 +1,1 @@
-<form>
-  <div class="row">
-      <div class="large-3 medium-6 small-12 columns">
-      <label>Room
-        <input type="text" ng-model="room.name">
-      </label>
-    </div>
-  </div>
-  <button class="button" ng-click="Create()">CREATE</button>
-</form>
+<h2>ROOM</h2><form>  <div class="row">      <div class="large-3 medium-6 small-12 columns">      <label>Room          <input type="text" placeholder="Room name" ng-model="room.name">          <button class="button" ng-click="Create()">CREATE</button>          <button class="button" ng-click="Delete()">DELETE</button>      </label>    </div>  </div></form><div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
