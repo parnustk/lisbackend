@@ -50,7 +50,6 @@
             $scope.params = {};
 
             $scope.gridOptions = {
-                enableFiltering: true,
                 enableCellEditOnFocus: true,
                 columnDefs: [
                     {field: 'id', visible: false,
@@ -147,7 +146,7 @@
             $scope.Create = function () {
 
                 teacherModel
-                        .Create(angular.copy($scope.absencereason))
+                        .Create(angular.copy($scope.teacher))
                         .then(
                                 function (result) {
                                     if (result.success) {
