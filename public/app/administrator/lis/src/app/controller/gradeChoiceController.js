@@ -5,6 +5,10 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
+/**
+ * @author Arnold Tserepov <tserepov@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ */
 
 /* global define */
 
@@ -52,7 +56,7 @@
          * @param {type} gradeChoiceModel
          * @returns {undefined}
          */
-        function gradeChoiceController($scope, $routeParams,uiGridConstants, gradeChoiceModel) {
+        function gradeChoiceController($scope, $routeParams, uiGridConstants, gradeChoiceModel) {
 
             /**
              * records sceleton
