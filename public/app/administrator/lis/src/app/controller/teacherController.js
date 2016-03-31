@@ -34,7 +34,7 @@
             return s;
         };
 
-        function teacherController($scope, $routeParams, teacherModel) {
+        function teacherController($scope, $routeParams, uiGridConstants, teacherModel) {
 
             $scope.model = {
                 id: null,
@@ -50,9 +50,15 @@
             $scope.params = {};
 
             $scope.gridOptions = {
+                enableFiltering: true,
                 enableCellEditOnFocus: true,
                 columnDefs: [
-                    {field: 'id', visible: false},
+                    {field: 'id', visible: false,
+                        type: 'number',
+                        sort: {
+                            direction: uiGridConstants.DESC,
+                            priority: 1
+                        }},
                     {field: 'firstName'},
                     {field: 'lastName'},
                     {field: 'email'},
@@ -110,29 +116,55 @@
                         }
                 );
             };
-
-            $scope.saveRow = function (rowEntity) {
-//                console.log(rowEntity);
-                var promise = teacherModel.Update(rowEntity.id, rowEntity);
-//                // create a fake promise - normally you'd use the promise returned by $http or $resource
-//                var promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
-//
-//                // fake a delay of 3 seconds whilst the save occurs, return error if gender is "male"
-//                $interval(function () {
-//                    if (rowEntity.gender === 'male') {
-//                        promise.reject();
-//                    } else {
-//                        promise.resolve();
-//                    }
-//                }, 3000, 1);
+            /**
+             * Form reset the angular way
+             * 
+             * @returns {undefined}
+             */
+            $scope.reset = function () {
+                $scope.teacher = angular.copy($scope.model);
             };
 
+
+            $scope.saveRow = function (rowEntity) {
+                var promise = teacherModel.defer();
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                teacherModel.Update(rowEntity.id, rowEntity).then(
+                        function (result) {
+                            if (result.success) {
+                                promise.resolve();
+                            } else {
+                                promise.reject();
+                            }
+                            //console.log(result);
+                        });
+            };
+            /**
+             * Create
+             * 
+             * @returns {undefined}
+             */
+            $scope.Create = function () {
+
+                teacherModel
+                        .Create(angular.copy($scope.absencereason))
+                        .then(
+                                function (result) {
+                                    if (result.success) {
+                                        console.log(result);
+                                        $scope.gridOptions.data.push(result.data);
+                                        $scope.reset();
+                                    } else {
+                                        alert('BAD');
+                                    }
+                                }
+                        );
+            };
             $scope.init();
 
         }
 
-        teacherController.$inject = ['$scope', '$routeParams', 'teacherModel'];
+        teacherController.$inject = ['$scope', '$routeParams', 'uiGridConstants', 'teacherModel'];
 
         return teacherController;
     });
