@@ -22,7 +22,7 @@
          * 
          * @param {type} $http
          * @param {type} $resource
-         * @return {moduletypeModel_L6.moduletypeModel.modeltypeModelAnonym$3}
+         * @return {moduletypeModel_L6.moduletypeModel.moduletypeModelAnonym$3}
          */
         function moduletypeModel($http, $resource) {
 
