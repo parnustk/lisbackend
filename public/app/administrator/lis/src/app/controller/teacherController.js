@@ -5,6 +5,10 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
+/**
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ */
+
 /* global define */
 
 /**
