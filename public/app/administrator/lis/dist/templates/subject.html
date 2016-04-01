@@ -1,0 +1,43 @@
+<h2>Subject view</h2>
+<form>
+    <div class="row">
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Subject Code
+                <input type="text" placeholder="Enter subject code" ng-model="subject.subjectCode">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Name
+                <input type="text" placeholder="Enter name" ng-model="subject.name">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Duration All AK
+                <input type="text" placeholder="Enter duration All AK" ng-model="subject.durationAllAK">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Duration Contact AK
+                <input type="text" placeholder="Enter duration Contact AK" ng-model="subject.durationContactAK">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Duration Independent AK
+                <input type="text" placeholder="Enter duration Independent AK" ng-model="subject.durationIndependentAK">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Module
+                <input type="text" placeholder="Enter module" ng-model="subject.module">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Grading Type
+                <input type="text" placeholder="Enter gradingType" ng-model="subject.gradingType">
+            </label>
+        </div>
+    </div>
+    <button class="button" ng-click="Create()">CREATE</button>
+</form>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

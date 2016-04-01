@@ -65,11 +65,22 @@
                 durationAllAK: null,
                 durationContactAK : null,
                 durationIndependentAK: null,
-                subjectRound: null,
                 module: null,
                 gradingType: null,
                 trashed: null
             };
+            
+            /**
+             * will hold modules
+             * for grid select
+             */
+            $scope.modules = [];
+            
+            /**
+             * will hold gradingTypes
+             * for grid select
+             */
+            $scope.gradingTypes = [];
 
             /**
              * Grid set up
@@ -92,7 +103,6 @@
                     {field: 'durationAllAK'},
                     {field: 'durationContactAK'},
                     {field: 'durationIndependentAK'},
-                    {field: 'subjectRound'},
                     {field: 'module'},
                     {field: 'gradingType'},
                     {field: 'trashed'}
