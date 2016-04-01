@@ -46,7 +46,7 @@ class SubjectRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        code,
+                        subjectCode,
                         name,
                         durationAllAK,
                         durationContactAK,
@@ -75,7 +75,7 @@ class SubjectRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        code,
+                        subjectCode,
                         name,
                         durationAllAK,
                         durationContactAK,
@@ -104,7 +104,7 @@ class SubjectRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        code,
+                        subjectCode,
                         name,
                         durationAllAK,
                         durationContactAK,
@@ -133,7 +133,7 @@ class SubjectRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        code,
+                        subjectCode,
                         name,
                         durationAllAK,
                         durationContactAK,

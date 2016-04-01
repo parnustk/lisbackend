@@ -64,10 +64,10 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'code', 'name', 'durationAllAK', 'durationContactAK', 'durationIndependentAK', 'subjectRound', 'module', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'subjectCode', 'name', 'durationAllAK', 'durationContactAK', 'durationIndependentAK', 'subjectRound', 'module', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'code', 'name', 'durationAllAK', 'durationContactAK', 'durationIndependentAK', 'subjectRound', 'module', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'subjectCode', 'name', 'durationAllAK', 'durationContactAK', 'durationIndependentAK', 'subjectRound', 'module', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -191,12 +191,12 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getCode()
+    public function getSubjectCode()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCode', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubjectCode', array());
 
-        return parent::getCode();
+        return parent::getSubjectCode();
     }
 
     /**
@@ -345,12 +345,12 @@ class Subject extends \Core\Entity\Subject implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCode($code)
+    public function setSubjectCode($subjectCode)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCode', array($code));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubjectCode', array($subjectCode));
 
-        return parent::setCode($code);
+        return parent::setSubjectCode($subjectCode);
     }
 
     /**

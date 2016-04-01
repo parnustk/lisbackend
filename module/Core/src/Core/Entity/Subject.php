@@ -27,7 +27,7 @@ use Core\Entity\LisUser;
  * @ORM\Table(
  *     indexes={
  *          @ORM\Index(name="subjectname", columns={"name"}),
- *          @ORM\Index(name="subjectcode", columns={"code"}),
+ *          @ORM\Index(name="subjectcode", columns={"subjectCode"}),
  *          @ORM\Index(name="subject_trashed", columns={"trashed"}),
  *          @ORM\Index(name="subject_durationAllAK", columns={"durationAllAK"}),
  *          @ORM\Index(name="subject_durationContactAK", columns={"durationContactAK"}),
@@ -55,7 +55,7 @@ class Subject extends EntityValidation
      * 
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    protected $code;
+    protected $subjectCode;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -172,9 +172,9 @@ class Subject extends EntityValidation
      * 
      * @return string
      */
-    public function getCode()
+    public function getSubjectCode()
     {
-        return $this->code;
+        return $this->subjectCode;
     }
 
     /**
@@ -298,12 +298,12 @@ class Subject extends EntityValidation
 
     /**
      * 
-     * @param string $code
+     * @param string $subjectCode
      * @return \Core\Entity\Subject
      */
-    public function setCode($code)
+    public function setSubjectCode($subjectCode)
     {
-        $this->code = $code;
+        $this->subjectCode = $subjectCode;
         return $this;
     }
 

@@ -54,7 +54,7 @@ class SubjectController extends Base
     /**
      * <h2>POST student/subject</h2>
      * <h3>Body</h3>
-     * <code> code(string)*
+     * <code> subjectCode(string)*
      * name(string)*
      * durationAllAK(integer)*
      * durationContactAK(integer)*
@@ -75,7 +75,7 @@ class SubjectController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code> code(string)*
+     * <code> subjectCode(string)*
      * name(string)*
      * durationAllAK(integer)*
      * durationContactAK(integer)*

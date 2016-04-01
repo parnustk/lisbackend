@@ -72,7 +72,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
 
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("subjectCode", uniqid());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("durationAllAK", "30");
         $this->request->getPost()->set("durationContactAK", "10");
@@ -107,7 +107,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
 
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("subjectCode", uniqid());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("durationAllAK", "30");
         $this->request->getPost()->set("durationContactAK", "10");
@@ -139,7 +139,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
 
-        $this->request->getPost()->set("code", uniqid());
+        $this->request->getPost()->set("subjectCode", uniqid());
         $this->request->getPost()->set("name", "Test Tere Maailm");
         $this->request->getPost()->set("durationAllAK", "30");
         $this->request->getPost()->set("durationContactAK", "10");
@@ -224,7 +224,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $created = $this->CreateSubject();
 
-        $codeOld = $created->getCode();
+        $codeOld = $created->getSubjectCode();
         $nameOld = $created->getName();
         $durationAllAKOld = $created->getDurationAllAK();
         $durationContactAKOld = $created->getDurationContactAK();
@@ -240,7 +240,7 @@ class SubjectControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $created->getId());
 
         $this->request->setContent(http_build_query([
-            'code' => 'code',
+            'subjectCode' => 'subjectCode',
             'name' => 'Updated',
             'durationAllAK' => 1000,
             'durationContactAK' => 600,
@@ -268,7 +268,7 @@ class SubjectControllerTest extends UnitHelpers
         );
 
         $this->assertNotEquals(
-                $codeOld, $r->getCode()
+                $codeOld, $r->getSubjectCode()
         );
 
         $this->assertNotEquals(
@@ -517,7 +517,7 @@ class SubjectControllerTest extends UnitHelpers
             ['id' => $this->CreateGradingType()->getId()],
             ['id' => $this->CreateGradingType()->getId()],
         ];
-        $this->request->getPost()->set('code', $code);
+        $this->request->getPost()->set('subjectCode', $code);
         $this->request->getPost()->set('name', $name);
         $this->request->getPost()->set('durationAllAK', $durationAllAK);
         $this->request->getPost()->set('durationContactAK', $durationContactAK);

@@ -56,14 +56,14 @@ class SubjectTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers Core\Entity\Subject::setCode
-     * @covers Core\Entity\Subject::getCode
+     * @covers Core\Entity\Subject::setSubjectCode
+     * @covers Core\Entity\Subject::getSubjectCode
      */
-    public function testSetGetCode()
+    public function testSetGetSubjectCode()
     {
         $code = '123456abscef';
-        $this->subject->setCode($code);
-        $this->assertEquals($code, $this->subject->getCode());
+        $this->subject->setSubjectCode($code);
+        $this->assertEquals($code, $this->subject->getSubjectCode());
     }
     
     /**
