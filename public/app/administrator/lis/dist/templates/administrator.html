@@ -1,0 +1,28 @@
+<h2>Administrator view</h2>
+<form>
+    <div class="row">
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Firstname
+                <input type="text" placeholder="Enter first name" ng-model="administrator.firstName">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Lastname
+                <input type="text" placeholder="Enter last name" ng-model="administrator.lastName">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Email
+                <input type="text" placeholder="Enter email" ng-model="administrator.email">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Code
+                <input type="text" placeholder="Enter code" ng-model="administrator.personalCode">
+            </label>
+        </div>
+    </div>
+    <button class="button" ng-click="Create()">CREATE</button>
+</form>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

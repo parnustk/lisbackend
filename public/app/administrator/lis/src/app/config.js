@@ -63,6 +63,11 @@
                     templateUrl: 'lis/dist/templates/student.html',
                     controller: 'studentController'
                 })
+                
+                .when('/administrator', {
+                    templateUrl: 'lis/dist/templates/administrator.html',
+                    controller: 'administratorController'
+                })
 
                 .otherwise({redirectTo: '/'});
 
