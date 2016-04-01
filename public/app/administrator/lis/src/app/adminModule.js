@@ -27,6 +27,7 @@
         'app/model/moduletypeModel',
         'app/model/loginModel',
         'app/model/moduleModel',
+        'app/model/studentModel',
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -36,7 +37,8 @@
         'app/controller/roomController',
         'app/controller/moduletypeController',
         'app/controller/loginController',
-        'app/controller/moduleController'
+        'app/controller/moduleController',
+        'app/controller/studentController'
     ], function (
         angular,
         config,
@@ -50,6 +52,7 @@
         moduletypeModel,
         loginModel,
         moduleModel,
+        studentModel,
         vocationController,
         gradingTypeController,
         gradeChoiceController,
@@ -59,7 +62,8 @@
         roomController,
         moduletypeController,
         loginController,
-        moduleController
+        moduleController,
+        studentController
         ) {
 
         /**
@@ -138,6 +142,7 @@
         adminModule.factory('moduletypeModel', moduletypeModel);
         adminModule.factory('loginModel', loginModel);
         adminModule.factory('moduleModel', moduleModel);
+        adminModule.factory('studentModel', studentModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -149,6 +154,7 @@
         adminModule.controller('moduletypeController', moduletypeController);
         adminModule.controller('loginController', loginController);
         adminModule.controller('moduleController', moduleController);
+        adminModule.controller('studentController', studentController);
 
 
         adminModule.directive('uiSelectWrap', uiSelectWrap);
