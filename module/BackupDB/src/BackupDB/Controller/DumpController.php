@@ -7,12 +7,12 @@ use Zend\View\Model\ViewModel;
 
 class DumpController extends AbstractActionController
 {
-    
+
     /**
      * @var string
      */
     protected $service = 'dump_service';
-    
+
     /**
      * 
      * @return \Doctrine\ORM\EntityManager
@@ -21,33 +21,37 @@ class DumpController extends AbstractActionController
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
-    
+
     /**
      * Initial Display; List filenames of dumps on server for front-end display
-     * 
+     * Set up XDebug
      * @param type $filter
      */
-    public function indexAction() 
+    public function indexAction()
     {
-        return new ViewModel();
+        $this
+                ->getServiceLocator()
+                ->get($this->service)
+                ->createDump('manual');
+        die('ENDPOINT');//we cut framework from here
+//        return new ViewModel([
+//            'content' => 'Backup Index Placeholder'
+//        ]);
     }
-    
+
     /**
      * Create new dump and return to client
      * 
-     * @return VieModel
+     * @return ViewModel
      */
     public function createManualAction()
     {
-        return new ViewModel([
-            'content' => 'Manual Dump Placeholder'
-        ]);
-        return $this
-                    ->getServiceLocator()
-                    ->get($this->service)
-                    ->createDump('manual');
+        $this
+                ->getServiceLocator()
+                ->get($this->service)
+                ->createDump('manual');
     }
-    
+
     /**
      * Create new dump and save to server
      * 
@@ -59,7 +63,7 @@ class DumpController extends AbstractActionController
             'content' => 'Server Dump Placeholder'
         ]);
     }
-    
+
     /**
      * Push server dump named $dumpName to DB, or push raw $dumpData to DB
      * 
