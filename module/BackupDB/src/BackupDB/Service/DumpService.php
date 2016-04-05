@@ -27,6 +27,8 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use PDO;
 
+define("_PATH_", "/home/marten/LIS_workspace/lisbackend/data/BackupDB_Dumps/");
+
 /**
  * @author Marten Kähr <marten@kahr.ee>
  */
@@ -156,18 +158,25 @@ class DumpService implements ServiceManagerAwareInterface
             "Teacher",
             "Vocation"
         ];
+        
+        //Test for creating backup with system commands; Plan C
+        print_r(system('mysqldump --user=root --password=MgjsfF7 --databases lis --filename=' . _PATH_ . 'dump.sql'), true);
+        die(readfile(_PATH_.'dump.sql'));
+        
         for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, create temporary dumpfiles with mysql
             //TODO: pull data and structure from table into $queryData
-            die(system('pwd'));
-            $stmt = $this->db->prepare("SELECT * INTO OUTFILE filename=? FROM table=?");
-            $stmt->bindValue(1, "temp" . $tables[$t] . ".sql", PDO::PARAM_STR);
-            $stmt->bindValue(2, $tables[$t], PDO::PARAM_STR);
-            try {
-                $stmt->execute();
-            } catch (PDOException $ex) {
-                print_r($ex);
-                die();
-            }
+//            //Prepare structure query statement
+//            $stmt = $this->db->prepare("SHOW CREATE TABLE ?;");
+//            $stmt->bindValue(1, $tables[$t], PDO::PARAM_STMT);
+//            //Query table structure
+//            try {
+//                $stmt->execute();
+//            } catch (PDOException $ex) {
+//                print_r($ex);
+//                die();
+//            }
+//            die();
+            
         }
 
         for ($t = 0; $t < count($tables); $t++) {
