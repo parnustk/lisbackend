@@ -166,7 +166,6 @@
                         .then(
                             function (result) {
                                 if (result.success) {
-                                    console.log(result);
                                     $scope.gridOptions.data.push(result.data);
                                     $scope.reset();
                                 } else {
@@ -175,6 +174,17 @@
                             }
                         );
             };
+            
+            /**
+             * Delete
+             * kustutab küll vaatest aga mitte andmebaasist :/
+             */
+            $scope.Delete = function () {
+                angular.forEach($scope.gridApi.selection.getSelectedRows(), 
+                    function (data, index) {
+                        $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+                    });
+            }
             $scope.init();
         }
 
