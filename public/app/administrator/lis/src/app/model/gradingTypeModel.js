@@ -1,11 +1,8 @@
 /* 
- * 
- * LIS development
- * 
- * @link       https://github.com/parnustk/lisbackend
- * @copyright  Copyright (c) 2016 Lis dev team
- * @license    TODO
- * 
+ * Licence of Learning Info System (LIS)
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
 /* global define */
@@ -29,9 +26,9 @@
          */
         function gradingTypeModel($http, $resource) {
 
-            var _gradingType;
+            var _model;
 
-            _gradingType = $resource(
+            _model = $resource(
                 window.LisGlobals.RestUrl + 'gradingType/:id',
                 {id: '@id'},
                 {
@@ -47,7 +44,7 @@
                  * @return {unresolved}
                  */
                 GetList: function (params) {
-                    return _gradingType.query(params).$promise;
+                    return _model.query(params).$promise;
                 },
                 /**
                  * 
@@ -55,7 +52,7 @@
                  * @return {unresolved}
                  */
                 Get: function (id) {
-                    return _gradingType.get({id: id}).$promise;
+                    return _model.get({id: id}).$promise;
                 },
                 /**
                  * 
@@ -64,7 +61,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _gradingType.save(data).$promise;
+                    return _model.save(data).$promise;
                 },
                 /**
                  * 
@@ -73,7 +70,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    //TODO
+                    return _model.update({id: id}, data).$promise;
                 },
                 /**
                  * 
@@ -82,7 +79,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    //TODO
+                    return _model.delete({id: id}).$promise;
                 }
             };
         }
