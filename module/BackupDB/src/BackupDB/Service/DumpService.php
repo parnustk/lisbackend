@@ -159,43 +159,41 @@ class DumpService implements ServiceManagerAwareInterface
             "Vocation"
         ];
         
-        //Test for creating backup with system commands; Plan C
-        print_r(system('mysqldump --user=root --password=MgjsfF7 --databases lis --filename=' . _PATH_ . 'dump.sql'), true);
-        die(readfile(_PATH_.'dump.sql'));
-        
-        for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, create temporary dumpfiles with mysql
-            //TODO: pull data and structure from table into $queryData
-//            //Prepare structure query statement
-//            $stmt = $this->db->prepare("SHOW CREATE TABLE ?;");
-//            $stmt->bindValue(1, $tables[$t], PDO::PARAM_STMT);
-//            //Query table structure
-//            try {
-//                $stmt->execute();
-//            } catch (PDOException $ex) {
-//                print_r($ex);
-//                die();
-//            }
-//            die();
+//        //Test for creating backup with system commands; Plan C
+//        //Current problem: file is not created.
+//        print_r(system('mysqldump --user=root --password=MgjsfF7 --databases lis --filename=' . _PATH_ . 'dump.sql'), true);
+//        die(readfile(_PATH_.'dump.sql'));
+
+        for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, create temporary dumpfiles with mysql        
+            //Purpose: Prepare structure query statement
+            $tableString = '`'.$tables[$t].'`';
+            $stmt = $this->db->prepare('SHOW CREATE TABLE '.$tableString.';');
+            //Debugging lines:
+            print_r($tables[$t] . "\n");
+            //Query table structure
+            try {
+                //Problem: this returns '1', not actual data.
+                $dumpData = $stmt->execute();
+            } catch (PDOException $ex) {
+                print_r($ex);
+                die();
+            }
+            
+            //Problem: write permission denied
+            //file_put_contents(_PATH_.$this->fileName, $dumpData, FILE_APPEND);
+            
             
         }
-
-        for ($t = 0; $t < count($tables); $t++) {
-            $fileData = null;
-            $fileData = readfile("temp" . $tables[t] . ".sql");
-            $dumpData .= $fileData;
-            unlink("temp" . $tables[t] . ".sql");
-            unset($fileData);
-        }
-
-        if ($type == 'manual') {
-            file_put_contents($this->fileName, $dumpData);
-            header("Content-disposition: attachment;filename=$filename");
-            readfile($this->filename);
-            return 'successM';
-        } else {
-            file_put_contents($this->fileName, $dumpData);
-            return 'successA';
-        }
+        //Disabled for debugging above code
+//        if ($type == 'manual') {
+//            file_put_contents($this->fileName, $dumpData);
+//            header("Content-disposition: attachment;filename=$filename");
+//            readfile($this->filename);
+//            return 'successM';
+//        } else {
+//            file_put_contents($this->fileName, $dumpData);
+//            return 'successA';
+//        }
     }
 
 }
