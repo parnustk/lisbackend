@@ -184,7 +184,7 @@
                     function (data, index) {
                         $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
                     });
-            }
+            };
             $scope.init();
         }
 

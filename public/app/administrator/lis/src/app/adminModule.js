@@ -42,7 +42,7 @@
         'app/controller/moduleController',
         'app/controller/studentController',
         'app/controller/administratorController',
-        'app/controller/subjectController',
+        'app/controller/subjectController'
     ], function (
         angular,
         config,
@@ -80,6 +80,11 @@
          */
         angular.module('gridFilters', []).filter('griddropdown', function () {
             return function (input, context) {
+                function hasOwnProperty(obj, prop) {
+                    var proto = obj.__proto__ || obj.constructor.prototype;
+                    return (prop in obj) &&
+                        (!(prop in proto) || proto[prop] !== obj[prop]);
+                }
                 try {
                     //For some reason the text "this" is occasionally directly being
                     //passed here
@@ -94,23 +99,40 @@
 
                         context = {col: sortCols[0], row: context};
                     }
-                    var ctx = context.col.colDef;
+                    var colDef = context.col.colDef;
                     //we do not use editDropdownOptionsArray
-                    //var map = context.col.colDef.editDropdownOptionsArray;
-                    var map = context.col.colDef.editDropdownOptionsFunction();
-                    var idField = context.col.colDef.editDropdownIdLabel;
-                    var valueField = context.col.colDef.editDropdownValueLabel;
+                    var map;
+                    if (typeof colDef.editDropdownOptionsArray !== 'undefined') {
+                        map = colDef.editDropdownOptionsArray;
+                    } else {
+                        map = colDef.editDropdownOptionsFunction();
+                    }
+                    
+                    var idField = colDef.editDropdownIdLabel;
+
+                    var valueField = colDef.editDropdownValueLabel;
                     var initial = context.row.entity[context.col.field];
+                    var result;
+                    console.log(context.col.field);
+                    console.log(initial);
+                    console.log(idField);console.log(valueField);
                     if (typeof map !== "undefined") {
                         for (var i = 0; i < map.length; i++) {
-                            if (map[i][idField] === input) {
-                                return map[i][valueField];
+                            if (map[i][idField] === input.id) {
+                                result = map[i][valueField];
+                                console.log('found match');
+                                break;
                             }
                         }
                     } else if (initial) {
-                        return initial;
+                        result = initial;
+                        console.log('initial exists');
+                    } else {
+                        console.log('input stays');
+                        result = input;
                     }
-                    return input;
+                    console.log('RESULT', result);
+                    return result;
 
                 } catch (e) {
                     context.grid.appScope.log("Error: " + e);

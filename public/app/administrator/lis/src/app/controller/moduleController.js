@@ -48,12 +48,13 @@
          * @param {type} $scope
          * @param {type} $q
          * @param {type} $routeParams
+         * @param {type} rowSorter
          * @param {type} uiGridConstants
          * @param {type} moduleModel
          * @param {type} vocationModel
          * @returns {undefined}
          */
-        function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel) {
+        function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel, moduletypeModel, gradingTypeModel) {
 
             /*
              * id:"1"
@@ -93,76 +94,42 @@
                 columnDefs: [
                     {
                         field: 'id',
-                        visible: false,
+                        visible: true,
                         type: 'number',
-                        enableCellEdit: false,
+                        enableCellEdit: false/*,
                         sort: {
                             direction: uiGridConstants.DESC,
                             priority: 1
-                        }
+                        }*/
                     },
+                    
+                    {
+                        field: "vocation",
+                        name: "vocation",
+//                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
+                        displayName: 'Vocation',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+                            return $scope.vocations;
+                        },
+                        sortCellFiltered: $scope.sortFiltered,
+                        cellFilter: 'griddropdown:this'
+                    }/*,
                     {
                         field: "vocation['id']",
                         displayName: 'Vocation',
                         editableCellTemplate: 'ui-grid/dropdownEditor',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
-                        editDropdownOptionsArray: $scope.vocations,
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
                             return $scope.vocations;
                         },
-                        cellFilter: 'griddropdown:this',
-                        sortCellFiltered: $scope.sortFiltered
-                    },
-                    {field: 'name'},
-                    {
-                        name: 'gender',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
-                        editDropdownOptionsArray: [
-                            'male',
-                            'female',
-                            'other'
-                        ]
-                    },
-                    {
-                        name: 'languages',
-                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
-                        editableCellTemplate: 'lis/dist/templates/partial/gradingTypeSelect.html',
-                        editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "name",
-                        editDropdownOptionsArray: [
-                            {id: 1, name: 'English'},
-                            {id: 2, name: 'French'},
-                            {id: 3, name: 'German'},
-                            {id: 4, name: 'Spanish'}
-                        ]
-                    }
-
-//                    {field: 'moduleCode'},
-//                    {field: 'moduleType'},
-//                    {field: 'gradingType'},
-//                    {field: 'duration'},
-//                    {field: 'trashed'}
-                ],
-                enableGridMenu: true,
-                enableSelectAll: true,
-                exporterCsvFilename: 'vocations.csv',
-                exporterPdfDefaultStyle: {fontSize: 9},
-                exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-                exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-                exporterPdfFooter: function (currentPage, pageCount) {
-                    return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-                },
-                exporterPdfCustomFormatter: function (docDefinition) {
-                    docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-                    docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-                    return docDefinition;
-                },
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
+                        sortCellFiltered: $scope.sortFiltered,
+                        cellFilter: 'griddropdown:this'
+                    }*/
+                ]
             };
 
             /**
@@ -172,29 +139,27 @@
              * @returns {undefined}
              */
             $scope.gridOptions.onRegisterApi = function (gridApi) {
-                //set gridApi on scope
                 $scope.gridApi = gridApi;
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
 
-            /**
-             * GetList
-             * @returns {undefined}
-             */
-            $scope.init = function () {
-                vocationModel.GetList({}).then(function (result) {
-                    if (_resultHandler(result)) {
-                        //console.log(result.data);
-                        $scope.vocations = result.data;
 
-                        moduleModel.GetList($scope.params).then(function (result) {
+            vocationModel.GetList({}).then(function (result) {
+                if (_resultHandler(result)) {
+
+                    $scope.vocations = result.data;
+                    $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
+                    
+                    moduleModel.GetList($scope.params).then(function (result) {
                             if (_resultHandler(result)) {
-                                $scope.gridOptions.data = result.data;
+                                $scope.moduletypes = result.data;
+                                $scope.gridOptions.data = $scope.moduletypes;
                             }
                         });
-                    }
-                });
-            };
+
+                }
+            });
+
 
             /**
              * Update logic
@@ -203,50 +168,22 @@
              * @returns {undefined}
              */
             $scope.saveRow = function (rowEntity) {
-                var promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                var deferred = $q.defer();
                 moduleModel.Update(rowEntity.id, rowEntity).then(
                     function (result) {
                         if (result.success) {
-                            promise.resolve();
+                            deferred.resolve();
                         } else {
-                            promise.reject();
+                            deferred.reject();
                         }
                     });
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+
             };
 
-            /**
-             * Form reset the angular way
-             * 
-             * @returns {undefined}
-             */
-            $scope.reset = function () {
-                $scope.module = angular.copy($scope.model);
-            };
-
-            /**
-             * Create
-             * 
-             * @returns {undefined}
-             */
-            $scope.Create = function () {
-                moduleModel
-                    .Create(angular.copy($scope.vocation))
-                    .then(
-                        function (result) {
-                            if (result.success) {
-                                $scope.gridOptions.data.push(result.data);
-                                $scope.reset();
-                            } else {
-                                alert('BAD');
-                            }
-                        }
-                    );
-            };
-            $scope.init();//Start loading data from server to grid
         }
 
-        moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel'];
+        moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduletypeModel', 'gradingTypeModel'];
         return moduleController;
     });
 
