@@ -56,15 +56,17 @@ class ModuleRepository extends AbstractBaseRepository
                         vocationCode
                     },
                     partial moduleType.{
-                    id
+                        id,
+                        name
                     },
                     partial gradingType.{
-                    id
+                        id,
+                        gradingType
                     }
-                    FROM $this->baseEntity $this->baseAlias
-                    JOIN $this->baseAlias.vocation vocation
-                    JOIN $this->baseAlias.moduleType moduleType 
-                    JOIN $this->baseAlias.gradingType gradingType";
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.moduleType moduleType 
+                JOIN $this->baseAlias.gradingType gradingType";
     }
 
     /**
