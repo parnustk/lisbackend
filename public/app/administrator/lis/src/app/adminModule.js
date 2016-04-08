@@ -113,12 +113,12 @@
                     var valueField = colDef.editDropdownValueLabel;
                     var initial = context.row.entity[context.col.field];
                     var result;
-                    console.log(context.col.field);
-                    console.log(initial);
-                    console.log(idField);console.log(valueField);
+                    if(parseInt(input) !== input) {
+                        input = input.id;
+                    }
                     if (typeof map !== "undefined") {
                         for (var i = 0; i < map.length; i++) {
-                            if (map[i][idField] === input.id) {
+                            if (map[i][idField] === input) {
                                 result = map[i][valueField];
                                 console.log('found match');
                                 break;

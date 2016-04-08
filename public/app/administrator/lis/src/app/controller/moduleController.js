@@ -97,12 +97,11 @@
                         visible: true,
                         type: 'number',
                         enableCellEdit: false/*,
-                        sort: {
-                            direction: uiGridConstants.DESC,
-                            priority: 1
-                        }*/
+                         sort: {
+                         direction: uiGridConstants.DESC,
+                         priority: 1
+                         }*/
                     },
-                    
                     {
                         field: "vocation",
                         name: "vocation",
@@ -116,19 +115,21 @@
                         },
                         sortCellFiltered: $scope.sortFiltered,
                         cellFilter: 'griddropdown:this'
-                    }/*,
-                    {
-                        field: "vocation['id']",
-                        displayName: 'Vocation',
-                        editableCellTemplate: 'ui-grid/dropdownEditor',
+                    },
+                    {//gradingType many to many
+                        field: 'gradingType',
+                        name: 'gradingType',
+                        displayName: 'gradingTypes',
+                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.gradingType}} </span></div>",
+                        editableCellTemplate: 'lis/dist/templates/partial/gradingTypeSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
+                     
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.vocations;
-                        },
-                        sortCellFiltered: $scope.sortFiltered,
-                        cellFilter: 'griddropdown:this'
-                    }*/
+                            return $scope.greadingTypes;
+                        }
+
+                    }
                 ]
             };
 
@@ -149,13 +150,25 @@
 
                     $scope.vocations = result.data;
                     $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
-                    
-                    moduleModel.GetList($scope.params).then(function (result) {
-                            if (_resultHandler(result)) {
-                                $scope.moduletypes = result.data;
-                                $scope.gridOptions.data = $scope.moduletypes;
-                            }
-                        });
+
+
+
+                    gradingTypeModel.GetList($scope.params).then(function (result) {
+                        if (_resultHandler(result)) {
+                            $scope.gradingTypes = result.data;
+                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradingTypes;
+                            
+                            moduleModel.GetList($scope.params).then(function (result) {
+                                if (_resultHandler(result)) {
+                                    $scope.moduletypes = result.data;
+                                    $scope.gridOptions.data = $scope.moduletypes;
+                                }
+                            });
+
+                        }
+                    });
+
+
 
                 }
             });
