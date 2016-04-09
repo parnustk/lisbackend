@@ -22,12 +22,12 @@
 
     require([
         'jquery',
-        'foundation',
+        'bootstrap',
         'what-input',
         'pdfmake'
-    ], function ($, Foundation) {
+    ], function ($, bootstrap) {
         $(document).ready(function () {//DOM loaded
-            $(document).foundation();//Start foundation
+//            $(document).foundation();//Start foundation
             require([
                 'angular',
                 'angular-cookies',

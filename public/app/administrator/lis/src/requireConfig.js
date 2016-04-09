@@ -31,6 +31,9 @@
             'angular': {
                 exports: 'angular'
             },
+            'bootstrap': {
+                deps: ['jquery']
+            },
             'angular-cookies': [
                 'angular'
             ],
@@ -58,7 +61,7 @@
             pdfmake: {
                 deps: ['pdfMakeLib'],
                 exports: 'pdfMake'
-            },
+            }
         },
         catchError: {
             define: true
@@ -73,15 +76,16 @@
             'angular-ui-select': '../../bower_components/ui-select/dist/select',
             'angular-ui-grid': '../../bower_components/angular-ui-grid/ui-grid',
             'jquery': '../../bower_components/jquery/dist/jquery',
+            'bootstrap': '//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min',
             'what-input': '../../bower_components/what-input/what-input',
             'motion-ui': '../../bower_components/motion-ui/dist/motion-ui',
             'foundation': '../../bower_components/foundation-sites/dist/foundation',
             'pdfmake': '../../bower_components/pdfmake/build/vfs_fonts',
             'pdfMakeLib': '../../bower_components/pdfmake/build/pdfmake',
-            'bootstrap': 'bootstrap'
+            'bootstrapApp': 'bootstrapApp'
         },
         deps: [
-            'bootstrap'
+            'bootstrapApp'
         ]
     });
 }(require));
