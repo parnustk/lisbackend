@@ -107,7 +107,7 @@
                         field: "vocation",
                         name: "vocation",
                         displayName: 'Vocation',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
@@ -120,8 +120,8 @@
                         field: 'gradingType',
                         name: 'gradingType',
                         displayName: 'gradingTypes',
-                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.gradingType}} </span></div>",
-                        editableCellTemplate: 'lis/dist/templates/partial/gradingTypeSelect.html',
+                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
+                        editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
@@ -143,7 +143,6 @@
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
 
-
             vocationModel.GetList({}).then(function (result) {
                 if (_resultHandler(result)) {
 
@@ -164,8 +163,6 @@
 
                         }
                     });
-
-
 
                 }
             });
