@@ -23,7 +23,7 @@ use Core\Entity\LisUser;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradingTypeRepository")
  * @ORM\Table(
  *  indexes={
- *      @ORM\Index(name="gradingType", columns={"gradingType"}),
+ *      @ORM\Index(name="name", columns={"name"}),
  *      @ORM\Index(name="gradingtype_index_trashed", columns={"trashed"}),
  *  }
  * )
@@ -47,7 +47,7 @@ class GradingType extends EntityValidation
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      */
-    protected $gradingType;
+    protected $name;
 
     /**
      * @ORM\ManyToMany(targetEntity="Module", mappedBy="gradingType")
@@ -120,9 +120,9 @@ class GradingType extends EntityValidation
      * 
      * @return string
      */
-    public function getGradingType()
+    public function getName()
     {
-        return $this->gradingType;
+        return $this->name;
     }
 
     /**
@@ -201,12 +201,12 @@ class GradingType extends EntityValidation
 
     /**
      * 
-     * @param type $gradingType
+     * @param type $name
      * @return \Core\Entity\GradingType
      */
-    public function setGradingType($gradingType)
+    public function setName($name)
     {
-        $this->gradingType = $gradingType;
+        $this->name = $name;
         return $this;
     }
 

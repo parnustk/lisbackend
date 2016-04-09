@@ -56,14 +56,14 @@ class GradingTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Entity\GradingType::setGradingType
-     * @covers Core\Entity\GradingType::getGradingType
+     * @covers Core\Entity\GradingType::setName
+     * @covers Core\Entity\GradingType::getName
      */
-    public function testSetGetGradingType()
+    public function testSetGetName()
     {
-        $gradingType = 'Name';
-        $this->gradingType->setGradingType($gradingType);
-        $this->assertEquals($gradingType, $this->gradingType->getGradingType());
+        $name = 'Name';
+        $this->gradingType->setName($name);
+        $this->assertEquals($name, $this->gradingType->getName());
     }
 
     /**

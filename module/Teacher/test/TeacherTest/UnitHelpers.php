@@ -112,7 +112,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'gradingType' => 'GradingTypeName',
+                    'name' => 'GradingTypeName',
         ]);
     }
 

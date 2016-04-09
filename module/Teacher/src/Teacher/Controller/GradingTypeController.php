@@ -54,7 +54,7 @@ class GradingtypeController extends Base
     /**
      * <h2>POST teacher/gradingtype</h2>
      * <h3>Body</h3>
-     * <code>gradingType(string)*</code>
+     * <code>name(string)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -69,7 +69,7 @@ class GradingtypeController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>gradingType(string)*</code>
+     * <code>name(string)*</code>
      * 
      * @param type $id
      * @param type $data

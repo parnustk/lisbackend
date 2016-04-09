@@ -42,7 +42,7 @@ class GradingTypeRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        gradingType,
+                        name,
                         trashed
                     }
                     FROM $this->baseEntity $this->baseAlias";
@@ -58,7 +58,7 @@ class GradingTypeRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        gradingType,
+                        name,
                         trashed
                     }
                     FROM $this->baseEntity $this->baseAlias";
@@ -74,7 +74,7 @@ class GradingTypeRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        gradingType,
+                        name,
                         trashed
                     }
                     FROM $this->baseEntity $this->baseAlias";
@@ -90,7 +90,7 @@ class GradingTypeRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
-                        gradingType,
+                        name,
                         trashed
                     }
                     FROM $this->baseEntity $this->baseAlias";

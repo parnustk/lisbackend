@@ -68,7 +68,7 @@ class GradingtypeControllerTest extends UnitHelpers
 
         $name = 'Gradingtype name' . uniqid();
         $this->request->setMethod('post');
-        $this->request->getPost()->set('gradingType', $name);
+        $this->request->getPost()->set('name', $name);
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -97,7 +97,7 @@ class GradingtypeControllerTest extends UnitHelpers
         $this->assertEquals(null, $result->success);
 
         //test that message contains gradingType":{"isEmpty
-        $validator = new Regex(['pattern' => '/gradingType.{4}isEmpty/U']);
+        $validator = new Regex(['pattern' => '/name.{4}isEmpty/U']);
         $this->assertTrue($validator->isValid($result->message));
     }
 
@@ -154,13 +154,13 @@ class GradingtypeControllerTest extends UnitHelpers
         $entity = $this->CreateGradingType();
         $id = $entity->getId();
 
-        $nameOld = $entity->getGradingType();
+        $nameOld = $entity->getName();
 
         $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('put');
 
         $this->request->setContent(http_build_query([
-            "gradingType" => uniqid() . ' gradingType-Updated',
+            "name" => uniqid() . ' gradingType-Updated',
         ]));
 
         $result = $this->controller->dispatch($this->request);
@@ -176,7 +176,7 @@ class GradingtypeControllerTest extends UnitHelpers
                 ->find($result->data['id']);
 
         $this->assertNotEquals(
-                $nameOld, $r->getGradingType()
+                $nameOld, $r->getName()
         );
     }
 
@@ -262,8 +262,8 @@ class GradingtypeControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
 
-        $name = uniqid() . 'gradingtype';
-        $this->request->getPost()->set('gradingType', $name);
+        $name = uniqid() . 'name';
+        $this->request->getPost()->set('name', $name);
 
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());

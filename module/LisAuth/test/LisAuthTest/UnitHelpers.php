@@ -112,7 +112,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'gradingType' => 'GradingTypeName',
+                    'name' => 'GradingTypeName',
         ]);
     }
 
@@ -131,7 +131,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'code' => uniqid(),
+                    'moduleCode' => uniqid(),
                     'name' => 'asd',
                     'duration' => 12,
                     'vocation' => $this->CreateVocation()->getId(),
@@ -158,7 +158,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'code' => uniqid(),
+                    'subjectCode' => uniqid(),
                     'name' => 'asd',
                     'durationAllAk' => 30,
                     'durationContactAk' => 20,
