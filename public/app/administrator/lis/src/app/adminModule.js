@@ -80,60 +80,57 @@
          */
         angular.module('gridFilters', []).filter('griddropdown', function () {
             return function (input, context) {
-                function hasOwnProperty(obj, prop) {
-                    var proto = obj.__proto__ || obj.constructor.prototype;
-                    return (prop in obj) &&
-                        (!(prop in proto) || proto[prop] !== obj[prop]);
-                }
+//                function hasOwnProperty(obj, prop) {
+//                    var proto = obj.__proto__ || obj.constructor.prototype;
+//                    return (prop in obj) &&
+//                        (!(prop in proto) || proto[prop] !== obj[prop]);
+//                }
                 try {
-                    //For some reason the text "this" is occasionally directly being
-                    //passed here
-                    if (typeof context === 'undefined' || context === 'this')
+                    //For some reason the text "this" is occasionally directly beingpassed here
+                    if (typeof context === 'undefined' || context === 'this') {
                         return 0;
+                    }
 
                     //Workaround for bug in ui-grid
                     if (typeof context.col === 'undefined') {
                         var sortCols = context.grid.getColumnSorting();
-                        if (sortCols.length <= 0)
+                        if (sortCols.length <= 0) {
                             return 0;
-
+                        }
                         context = {col: sortCols[0], row: context};
                     }
-                    var colDef = context.col.colDef;
-                    //we do not use editDropdownOptionsArray
-                    var map;
+
+                    var map,
+                        colDef = context.col.colDef,
+                        idField = colDef.editDropdownIdLabel,
+                        valueField = colDef.editDropdownValueLabel,
+                        initial = context.row.entity[context.col.field],
+                        result;
+
                     if (typeof colDef.editDropdownOptionsArray !== 'undefined') {
                         map = colDef.editDropdownOptionsArray;
                     } else {
                         map = colDef.editDropdownOptionsFunction();
                     }
-                    
-                    var idField = colDef.editDropdownIdLabel;
 
-                    var valueField = colDef.editDropdownValueLabel;
-                    var initial = context.row.entity[context.col.field];
-                    var result;
-                    if(parseInt(input) !== input) {
+                    if (parseInt(input) !== input) {
                         input = input.id;
                     }
                     if (typeof map !== "undefined") {
                         for (var i = 0; i < map.length; i++) {
                             if (map[i][idField] === input) {
-                                result = map[i][valueField];
-                                console.log('found match');
+                                result = map[i][valueField];//console.log('found match');
                                 break;
                             }
                         }
                     } else if (initial) {
-                        result = initial;
-                        console.log('initial exists');
+                        result = initial;//console.log('initial exists');
                     } else {
-                        console.log('input stays');
-                        result = input;
+                        
+                        result = input;//console.log('input stays');
                     }
-                    console.log('RESULT', result);
+                    
                     return result;
-
                 } catch (e) {
                     context.grid.appScope.log("Error: " + e);
                 }
@@ -193,10 +190,10 @@
         adminModule.directive('uiSelectWrap', uiSelectWrap);
 
         uiSelectWrap.$inject = ['$document', 'uiGridEditConstants'];
+        
         function uiSelectWrap($document, uiGridEditConstants) {
             return function link($scope, $elm, $attr) {
                 $document.on('click', docClick);
-
                 function docClick(evt) {
                     if ($(evt.target).closest('.ui-select-container').size() === 0) {
                         $scope.$emit(uiGridEditConstants.events.END_CELL_EDIT);

@@ -97,16 +97,15 @@
                         field: 'id',
                         visible: true,
                         type: 'number',
-                        enableCellEdit: false/*,
-                         sort: {
-                         direction: uiGridConstants.DESC,
-                         priority: 1
-                         }*/
+                        enableCellEdit: false,
+                        sort: {
+                            direction: uiGridConstants.DESC,
+                            priority: 1
+                        }
                     },
                     {
                         field: "vocation",
                         name: "vocation",
-//                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
                         displayName: 'Vocation',
                         editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
                         editDropdownIdLabel: "id",
@@ -125,7 +124,6 @@
                         editableCellTemplate: 'lis/dist/templates/partial/gradingTypeSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
-                     
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
                             return $scope.gradingTypes;
                         }
@@ -152,13 +150,11 @@
                     $scope.vocations = result.data;
                     $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
 
-
-
                     gradingTypeModel.GetList($scope.params).then(function (result) {
                         if (_resultHandler(result)) {
                             $scope.gradingTypes = result.data;
                             $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradingTypes;
-                            
+
                             moduleModel.GetList($scope.params).then(function (result) {
                                 if (_resultHandler(result)) {
                                     $scope.moduletypes = result.data;
@@ -192,12 +188,12 @@
                         }
                     });
                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
-
             };
 
         }
 
         moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduletypeModel', 'gradingTypeModel'];
+        
         return moduleController;
     });
 
