@@ -44,6 +44,9 @@ Client side has to be covered at least with E2E tests for models.
 
     "PHP Data Persistence with Doctrine 2 ORM Concepts, Techniques and Practical Solutions" by Michael Romer
     http://framework.zend.com/manual/current/en/index.html  
+    bootstrap - https://getbootstrap.com/components/
+    angular ui select http://angular-ui.github.io/ui-select/#examples
+    grid itself http://ui-grid.info/
     
 ## Demo link
 TODO

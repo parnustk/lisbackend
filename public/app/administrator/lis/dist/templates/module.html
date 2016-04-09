@@ -1,5 +1,45 @@
 <h2>Module view</h2>
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Create form</legend>
 
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1">Name</span>
+                    <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="module.name">
+                </div>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-6">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon2">Code</span>
+                    <input type="text" class="form-control" aria-describedby="sizing-addon2" ng-model="module.moduleCode">
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group input-group-lg">
+                    <ui-select ng-model="module.vocation" convert-to-string theme="bootstrap" class="dropdown">
+                        <ui-select-match placeholder="Choose vocation">{{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="vocation in vocations">
+                            <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-6">
+                <div class="input-group">
+
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+    </fieldset>
+</form>
+<!--
 <form>
     <div class="row">
         <div class="large-3 medium-6 small-12 columns">
@@ -37,5 +77,6 @@
         </div>
     </div>
 </form>
-
+-->
+<br><br>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

@@ -147,6 +147,7 @@
             'ngRoute',
             'ngResource',
             'ngTouch',
+            'ngSanitize',
             'ui.grid',
             'ui.grid.cellNav',
             'ui.grid.rowEdit',
