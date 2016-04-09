@@ -61,7 +61,7 @@ class ModuleRepository extends AbstractBaseRepository
                     },
                     partial gradingType.{
                         id,
-                        gradingType
+                        name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.vocation vocation
