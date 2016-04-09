@@ -8,6 +8,7 @@
 /**
  * 
  * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 /* global define */
@@ -57,7 +58,7 @@
              * records sceleton
              */
             $scope.model={
-                gradingType: null,
+                name: null,
                 trashed: null
             };
             
@@ -75,7 +76,7 @@
                             priority: 1
                         }
                 },
-                {field: 'gradingType'},
+                {field: 'name'},
                 {field: 'trashed'}
             ],
             enableGridMenu: true,
