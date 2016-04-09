@@ -92,20 +92,20 @@
                 rowHeight: 38,
                 enableCellEditOnFocus: true,
                 columnDefs: [
+//                    {
+//                        field: 'id',
+//                        visible: true,
+//                        type: 'number',
+//                        enableCellEdit: false,
+//                        sort: {
+//                            direction: uiGridConstants.DESC,
+//                            priority: 1
+//                        }
+//                    },
+//                    {field: 'description'},
                     {
-                        field: 'id',
-                        visible: true,
-                        type: 'number',
-                        enableCellEdit: false,
-                        sort: {
-                            direction: uiGridConstants.DESC,
-                            priority: 1
-                        }
-                    },
-                    {field: 'description'},
-                    {
-                        field: "absencereason",
-                        name: "absencereason",
+                        field: "absenceReason",
+                        name: "absenceReason",
                         displayName: 'Absence Reason',
                         editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
@@ -116,36 +116,36 @@
                         },
                         cellFilter: 'griddropdown:this',
                         sortCellFiltered: $scope.sortFiltered
-                    },
-                    {
-                        field: "student",
-                        name: "student",
-                        displayName: 'Student',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                        editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "firstName" + " " + "lastName",
-//                        editDropdownOptionsArray: $scope.students,
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.students;
-                        },
-                        cellFilter: 'griddropdown:this',
-                        sortCellFiltered: $scope.sortFiltered
-                    },
-                    {
-                        field: "contactLesson",
-                        name: "contactLesson",
-                        displayName: 'Contact Lesson',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                        editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "lessonDate",
-//                        editDropdownOptionsArray: $scope.contactLesson,
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.contactLessons;
-                        },
-                        cellFilter: 'griddropdown:this',
-                        sortCellFiltered: $scope.sortFiltered
-                    },
-                    {field: 'trashed'}
+                    }//,
+//                    {
+//                        field: "student",
+//                        name: "student",
+//                        displayName: 'Student',
+//                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+//                        editDropdownIdLabel: "id",
+//                        editDropdownValueLabel: "firstName" + " " + "lastName",
+////                        editDropdownOptionsArray: $scope.students,
+//                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+//                            return $scope.students;
+//                        },
+//                        cellFilter: 'griddropdown:this',
+//                        sortCellFiltered: $scope.sortFiltered
+//                    },
+//                    {
+//                        field: "contactLesson",
+//                        name: "contactLesson",
+//                        displayName: 'Contact Lesson',
+//                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+//                        editDropdownIdLabel: "id",
+//                        editDropdownValueLabel: "lessonDate",
+////                        editDropdownOptionsArray: $scope.contactLesson,
+//                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+//                            return $scope.contactLessons;
+//                        },
+//                        cellFilter: 'griddropdown:this',
+//                        sortCellFiltered: $scope.sortFiltered
+//                    },
+//                    {field: 'trashed'}
                 ]
 //                enableGridMenu: true,
 //                enableSelectAll: true,
@@ -214,19 +214,19 @@
                 if (_resultHandler(result)) {
 
                     $scope.absenceReasons = result.data;
-                    $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.absenceReasons;
+                    $scope.gridOptions.columnDefs[0].editDropdownOptionsArray = $scope.absenceReasons;
 
                     studentModel.GetList({}).then(function (result) {
                         if (_resultHandler(result)) {
 
-                            $scope.students = result.data;
-                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.students;
+//                            $scope.students = result.data;
+//                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.students;
 
                             contactLessonModel.GetList({}).then(function (result) {
                                 if (_resultHandler(result)) {
 
                                     $scope.contactLessons = result.data;
-                                    $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.contactLessons;
+//                                    $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.contactLessons;
 
                                     absenceModel.GetList($scope.params).then(function (result) {
                                         if (_resultHandler(result)) {
