@@ -84,6 +84,7 @@
              * for grid select
              */
             $scope.vocations = [];
+            $scope.gradingTypes = [];
 
             /**
              * Grid set up
@@ -126,7 +127,7 @@
                         editDropdownValueLabel: "name",
                      
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.greadingTypes;
+                            return $scope.gradingTypes;
                         }
 
                     }

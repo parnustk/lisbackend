@@ -6,9 +6,9 @@
         ng-disabled="disabled"
         append-to-body="true">
 
-        <ui-select-match placeholder="Choose...">{{ $item.gradingType}}</ui-select-match>
+        <ui-select-match placeholder="Choose...">{{ $item.name}}</ui-select-match>
         <ui-select-choices repeat="item in col.colDef.editDropdownOptionsArray | filter: $select.search">
-            <span>{{ item.gradingType}}</span>
+            <span>{{ item.name}}</span>
         </ui-select-choices>
     </ui-select>
 </ui-select-wrap>
