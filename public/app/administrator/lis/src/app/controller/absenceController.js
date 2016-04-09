@@ -221,7 +221,6 @@
                             $scope.students = result.data;
                             $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.students;
                         }
-                        ;
                     });
 
                     contactLessonModel.GetList({}).then(function (result) {
@@ -230,7 +229,6 @@
                             $scope.contactLessons = result.data;
                             $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.contactLessons;
                         }
-                        ;
                     });
 
                 }
