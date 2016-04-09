@@ -1,0 +1,35 @@
+<h2>Absence view</h2>
+
+<form>
+    <div class="row">
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Lesson Date
+                <input type="datetime" placeholder="Enter datetime" ng-model="contactLesson.lessonDate">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Description
+                <input type="text" placeholder="Enter description" ng-model="contactLesson.description">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Duration AK
+                <input type="text" placeholder="Enter duration AK" ng-model="contactLesson.durationAK">
+            </label>
+        </div>
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Subject Round
+                <input type="text" placeholder="Enter SubjectRound" ng-model="contactLesson.subjectRound">
+            </label>
+        </div>
+
+        <div class="large-3 medium-6 small-12 columns">
+            <label>Teacher
+                <input type="text" placeholder="Enter Teacher" ng-model="contactLesson.teacher">
+            </label>
+        </div>
+    </div>
+    <button class="button" ng-click="Create()">CREATE</button>
+</form>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
