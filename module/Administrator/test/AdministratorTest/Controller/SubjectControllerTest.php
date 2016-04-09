@@ -87,7 +87,7 @@ class SubjectControllerTest extends UnitHelpers
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        $this->PrintOut($result, false);
+        $this->PrintOut($result, true);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }

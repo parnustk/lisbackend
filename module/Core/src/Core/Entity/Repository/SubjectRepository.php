@@ -59,7 +59,7 @@ class SubjectRepository extends AbstractBaseRepository
                     },
                     partial gradingType.{
                     id,
-                    gradingType
+                    name
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.module module 
@@ -88,7 +88,7 @@ class SubjectRepository extends AbstractBaseRepository
                     },
                     partial gradingType.{
                     id,
-                    gradingType
+                    name
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.module module 
@@ -117,7 +117,7 @@ class SubjectRepository extends AbstractBaseRepository
                     },
                     partial gradingType.{
                     id,
-                    gradingType
+                    name
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.module module 
@@ -146,7 +146,7 @@ class SubjectRepository extends AbstractBaseRepository
                     },
                     partial gradingType.{
                     id,
-                    gradingType
+                    name
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.module module 
