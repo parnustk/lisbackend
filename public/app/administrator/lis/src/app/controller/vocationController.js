@@ -26,7 +26,7 @@
      * @param {type} angular
      * @returns {vocationController_L19.vocationController_L25.vocationController}
      */
-    define(['angular', 'jquery', 'foundation'], function (angular, $, Foundation) {
+    define(['angular', 'jquery'], function (angular, $) {
 
         /**
          * Should move to Base controller
@@ -53,7 +53,6 @@
          */
         function vocationController($scope, $q, $routeParams, uiGridConstants, vocationModel) {
 
-            var elem = new Foundation.DropdownMenu($('#main-menu'));
             /**
              * records sceleton
              */
