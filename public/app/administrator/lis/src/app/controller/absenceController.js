@@ -59,10 +59,11 @@
              * records sceleton
              */
             $scope.model = {
+                id: null,
                 description: null,
+                absencereason: null,
                 student: null,
                 contactLesson: null,
-                absenceReason: null,
                 trashed: null
             };
 
@@ -95,18 +96,32 @@
                         field: 'id',
                         visible: true,
                         type: 'number',
-                        enableCellEdit: false/*,
-                         sort: {
-                         direction: uiGridConstants.DESC,
-                         priority: 1
-                         }*/
+                        enableCellEdit: false,
+                        sort: {
+                            direction: uiGridConstants.DESC,
+                            priority: 1
+                        }
                     },
                     {field: 'description'},
+                    {
+                        field: "absencereason",
+                        name: "absencereason",
+                        displayName: 'Absence Reason',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+//                        editDropdownOptionsArray: $scope.absenceReasons,
+                        editDropdownOptionsFunction: function (rowEntity, colDef) {
+                            return $scope.absenceReasons;
+                        },
+                        cellFilter: 'griddropdown:this',
+                        sortCellFiltered: $scope.sortFiltered
+                    },
                     {
                         field: "student",
                         name: "student",
                         displayName: 'Student',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "firstName" + " " + "lastName",
 //                        editDropdownOptionsArray: $scope.students,
@@ -120,26 +135,12 @@
                         field: "contactLesson",
                         name: "contactLesson",
                         displayName: 'Contact Lesson',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "lessonDate",
 //                        editDropdownOptionsArray: $scope.contactLesson,
                         editDropdownOptionsFunction: function (rowEntity, colDef) {
                             return $scope.contactLessons;
-                        },
-                        cellFilter: 'griddropdown:this',
-                        sortCellFiltered: $scope.sortFiltered
-                    },
-                    {
-                        field: "absenceReason",
-                        name: "absenceReason",
-                        displayName: 'Absence Reason',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSelect.html',
-                        editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "name",
-//                        editDropdownOptionsArray: $scope.absenceReasons,
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.absenceReasons;
                         },
                         cellFilter: 'griddropdown:this',
                         sortCellFiltered: $scope.sortFiltered
@@ -219,15 +220,22 @@
                         if (_resultHandler(result)) {
 
                             $scope.students = result.data;
-                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.students;
-                        }
-                    });
+                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.students;
 
-                    contactLessonModel.GetList({}).then(function (result) {
-                        if (_resultHandler(result)) {
+                            contactLessonModel.GetList({}).then(function (result) {
+                                if (_resultHandler(result)) {
 
-                            $scope.contactLessons = result.data;
-                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.contactLessons;
+                                    $scope.contactLessons = result.data;
+                                    $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.contactLessons;
+
+                                    absenceModel.GetList($scope.params).then(function (result) {
+                                        if (_resultHandler(result)) {
+                                            $scope.absences = result.data;
+                                            $scope.gridOptions.data = $scope.absences;
+                                        }
+                                    });
+                                }
+                            });
                         }
                     });
 

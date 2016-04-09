@@ -156,8 +156,8 @@
 
                             moduleModel.GetList($scope.params).then(function (result) {
                                 if (_resultHandler(result)) {
-                                    $scope.moduletypes = result.data;
-                                    $scope.gridOptions.data = $scope.moduletypes;
+                                    $scope.modules = result.data;
+                                    $scope.gridOptions.data = $scope.modules;
                                 }
                             });
 

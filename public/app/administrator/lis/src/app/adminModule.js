@@ -30,6 +30,7 @@
         'app/model/studentModel',
         'app/model/administratorModel',
         'app/model/subjectModel',
+        'app/model/contactLessonModel',
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -43,6 +44,7 @@
         'app/controller/studentController',
         'app/controller/administratorController',
         'app/controller/subjectController'
+//        'app/controller/contactLessonController'
     ], function (
         angular,
         config,
@@ -59,6 +61,7 @@
         studentModel,
         administratorModel,
         subjectModel,
+        contactLessonModel,
         vocationController,
         gradingTypeController,
         gradeChoiceController,
@@ -72,6 +75,7 @@
         studentController,
         administratorController,
         subjectController
+//        contactLessonController
         ) {
 
         /**
@@ -132,7 +136,9 @@
                     
                     return result;
                 } catch (e) {
-                    context.grid.appScope.log("Error: " + e);
+                    console.log("Error: " + e);
+                    //context.grid.appScope.log("Error: " + e);
+//                    context.grid.appScope.log("Error: " + e);
                 }
             };
         });
@@ -172,6 +178,7 @@
         adminModule.factory('studentModel', studentModel);
         adminModule.factory('administratorModel', administratorModel);
         adminModule.factory('subjectModel', subjectModel);
+        adminModule.factory('contactLessonModel', contactLessonModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -186,6 +193,7 @@
         adminModule.controller('studentController', studentController);
         adminModule.controller('administratorController', administratorController);
         adminModule.controller('subjectController', subjectController);
+//        adminModule.controller('contactLessonController', contactLessonController);
 
         adminModule.directive('uiSelectWrap', uiSelectWrap);
 
