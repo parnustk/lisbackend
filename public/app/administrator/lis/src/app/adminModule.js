@@ -130,15 +130,15 @@
                     } else if (initial) {
                         result = initial;//console.log('initial exists');
                     } else {
-                        
+
                         result = input;//console.log('input stays');
                     }
-                    
+
                     return result;
                 } catch (e) {
                     console.log("Error: " + e);
                     //context.grid.appScope.log("Error: " + e);
-//                    context.grid.appScope.log("Error: " + e);
+                    context.grid.appScope.log("Error: " + e);
                 }
             };
         });
@@ -166,6 +166,81 @@
 
         adminModule.config(config);
 
+        adminModule.directive('uiSelectWrap', uiSelectWrap);
+
+        uiSelectWrap.$inject = ['$document', 'uiGridEditConstants'];
+
+        function uiSelectWrap($document, uiGridEditConstants) {
+            return function link($scope, $elm, $attr) {
+                $document.on('click', docClick);
+                function docClick(evt) {
+                    if ($(evt.target).closest('.ui-select-container').size() === 0) {
+                        $scope.$emit(uiGridEditConstants.events.END_CELL_EDIT);
+                        $document.off('click', docClick);
+                    }
+                }
+            };
+        }
+
+        adminModule.directive('uiSelectRequired', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, element, attr, ctrl) {
+                    ctrl.$validators.uiSelectRequired = function (modelValue, viewValue) {
+                        if (attr.uiSelectRequired) {
+                            var isRequired = scope.$eval(attr.uiSelectRequired);
+                            if (!!isRequired === false) {
+                                return true;
+                            }
+                        }
+                        var determineVal;
+                        if (angular.isArray(modelValue)) {
+                            determineVal = modelValue;
+                        } else if (angular.isArray(viewValue)) {
+                            determineVal = viewValue;
+                        } else {
+                            return false;
+                        }
+                        return determineVal.length > 0;
+                    };
+                }
+            };
+        });
+
+        /**
+         * UI select
+         * AngularJS default filter with the following expression:
+         * "person in people | filter: {name: $select.search, age: $select.search}"
+         * performs a AND between 'name: $select.search' and 'age: $select.search'.
+         * We want to perform a OR.
+         */
+        adminModule.filter('propsFilter', function () {
+            return function (items, props) {
+                var out = [];
+                if (angular.isArray(items)) {
+                    items.forEach(function (item) {
+                        var itemMatches = false;
+                        var keys = Object.keys(props);
+                        for (var i = 0; i < keys.length; i++) {
+                            var prop = keys[i];
+                            var text = props[prop].toLowerCase();
+                            if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+                                itemMatches = true;
+                                break;
+                            }
+                        }
+                        if (itemMatches) {
+                            out.push(item);
+                        }
+                    });
+                } else {
+                    out = items;// Let the output be the input untouched
+                }
+                return out;
+            };
+        });
+
+        //Here we start with our Business Logic itself
         adminModule.factory('vocationModel', vocationModel);
         adminModule.factory('teacherModel', teacherModel);
         adminModule.factory('gradingTypeModel', gradingTypeModel);
@@ -195,22 +270,6 @@
         adminModule.controller('administratorController', administratorController);
         adminModule.controller('subjectController', subjectController);
 //        adminModule.controller('contactLessonController', contactLessonController);
-
-        adminModule.directive('uiSelectWrap', uiSelectWrap);
-
-        uiSelectWrap.$inject = ['$document', 'uiGridEditConstants'];
-        
-        function uiSelectWrap($document, uiGridEditConstants) {
-            return function link($scope, $elm, $attr) {
-                $document.on('click', docClick);
-                function docClick(evt) {
-                    if ($(evt.target).closest('.ui-select-container').size() === 0) {
-                        $scope.$emit(uiGridEditConstants.events.END_CELL_EDIT);
-                        $document.off('click', docClick);
-                    }
-                }
-            };
-        }
 
         return adminModule;
     });

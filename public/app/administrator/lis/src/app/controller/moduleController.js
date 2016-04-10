@@ -24,24 +24,10 @@
     /**
      * 
      * @param {type} angular
-     * @returns {vocationController_L19.vocationController_L25.vocationController}
+     * @param {type} globalFunctions
+     * @returns {moduleController_L21.moduleController_L32.moduleController}
      */
-    define(['angular'], function (angular) {
-
-        /**
-         * Should move to Base controller
-         * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
+    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
 
         /**
          * 
@@ -52,6 +38,8 @@
          * @param {type} uiGridConstants
          * @param {type} moduleModel
          * @param {type} vocationModel
+         * @param {type} moduletypeModel
+         * @param {type} gradingTypeModel
          * @returns {undefined}
          */
         function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel, moduletypeModel, gradingTypeModel) {
@@ -86,8 +74,25 @@
             $scope.vocations = [];
             $scope.gradingTypes = [];
 
-            $scope.Create = function () {
-                console.log($scope.module);
+            $scope.module = {};
+
+            /**
+             * Create new from form if succeeds push to grid
+             * 
+             * @param {type} valid
+             * @returns {undefined}
+             */
+            $scope.Create = function (valid) {
+                if (valid) {
+                    moduleModel.Create($scope.module).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            $scope.modules = result.data;
+                            $scope.gridOptions.data = $scope.modules;
+                        }
+                    });
+                } else {
+                    alert('Check form fields!');
+                }
             };
 
             /**
@@ -148,18 +153,18 @@
             };
 
             vocationModel.GetList({}).then(function (result) {
-                if (_resultHandler(result)) {
+                if (globalFunctions.resultHandler(result)) {
 
                     $scope.vocations = result.data;
                     $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
 
                     gradingTypeModel.GetList($scope.params).then(function (result) {
-                        if (_resultHandler(result)) {
+                        if (globalFunctions.resultHandler(result)) {
                             $scope.gradingTypes = result.data;
                             $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradingTypes;
 
                             moduleModel.GetList($scope.params).then(function (result) {
-                                if (_resultHandler(result)) {
+                                if (globalFunctions.resultHandler(result)) {
                                     $scope.modules = result.data;
                                     $scope.gridOptions.data = $scope.modules;
                                 }

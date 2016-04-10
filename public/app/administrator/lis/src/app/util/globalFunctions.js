@@ -8,13 +8,14 @@
 
 /**
  * Holds common functions used application wide
+ * 
  * @returns {undefined}
  */
 (function () {
     'use strict';
 
     define([], function () {
-        
+
         return {
             /**
              * Leaves only id property for sub level objects
@@ -48,6 +49,19 @@
                     return _out;
                 }
                 return copy(data);
+            },
+            /**
+             * 
+             * @param {type} result
+             * @returns {Boolean}
+             */
+            resultHandler: function (result) {
+                var s = true;
+                if (!result.success) {
+                    alert(result.message);
+                    s = false;
+                }
+                return s;
             }
         };
     });

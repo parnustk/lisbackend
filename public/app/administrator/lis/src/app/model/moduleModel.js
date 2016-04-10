@@ -31,12 +31,12 @@
             var _model;
 
             _model = $resource(
-                    window.LisGlobals.RestUrl + 'module/:id',
-                    {id: '@id'},
-            {
-                update: {method: "PUT"},
-                query: {method: 'GET', isArray: false}
-            }
+                window.LisGlobals.RestUrl + 'module/:id',
+                {id: '@id'},
+                {
+                    update: {method: "PUT"},
+                    query: {method: 'GET', isArray: false}
+                }
             );
 
             return {
@@ -63,7 +63,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _model.save(data).$promise;
+                    return _model.save(globalFunctions.cleanData(data)).$promise;
                 },
                 /**
                  * 
@@ -72,7 +72,6 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    console.log(data);
                     return _model.update({id: id}, globalFunctions.cleanData(data)).$promise;
                 },
                 /**
