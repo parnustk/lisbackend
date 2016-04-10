@@ -132,16 +132,6 @@
                 exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
             };
 
-            /*
-             * id:"1"
-             * name: "asd"
-             * moduleCode: "56f6ca69d5aff"
-             * vocation: {id: "1"}
-             * moduleType: {id: "1"}
-             * gradingType:[{id: 1}, {id: 2}]
-             * duration:12
-             * trashed: null
-             */
             /**
              * Adding event handlers
              * 
@@ -237,7 +227,7 @@
                 });
             }
 
-            LoadGrid();
+            LoadGrid();//let's start loading data
         }
 
         moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduletypeModel', 'gradingTypeModel'];
