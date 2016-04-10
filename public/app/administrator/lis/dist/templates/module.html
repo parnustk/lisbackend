@@ -22,9 +22,8 @@
             <div class="col-lg-6">
                 <div class="input-group input-group-lg">
                     <ui-select ng-model="module.vocation" convert-to-string theme="bootstrap" class="dropdown">
-                        <ui-select-match placeholder="Choose vocation">{{$select.selected.name}}
-                        </ui-select-match>
-                        <ui-select-choices repeat="vocation in vocations">
+                        <ui-select-match placeholder="Choose vocation">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                             <span ng-bind-html="vocation.name | highlight: $select.search"></span>
                         </ui-select-choices>
                     </ui-select>
@@ -32,11 +31,19 @@
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-6">
                 <div class="input-group">
-
+                    <ui-select multiple ng-model="module.gradingTypes" theme="bootstrap" close-on-select="false" style="width: 400px;">
+                        <ui-select-match placeholder="Select gradingType...">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
+                            <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
+                            <small>
+                                id: {{gradingType.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
-
+        <button type="button" class="btn btn-default" ng-click="Create()">Create</button>
     </fieldset>
 </form>
 <!--

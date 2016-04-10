@@ -1,4 +1,4 @@
-<ui-select ng-model="MODEL_COL_FIELD" theme="selectize" append-to-body="true">
+<ui-select ng-model="MODEL_COL_FIELD" theme="bootstrap" append-to-body="true">
  
   <ui-select-match placeholder="Choose...">{{ COL_FIELD.name }}</ui-select-match>
   <ui-select-choices repeat="item in col.colDef.editDropdownOptionsArray | filter: $select.search">

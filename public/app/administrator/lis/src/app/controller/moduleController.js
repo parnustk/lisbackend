@@ -86,6 +86,10 @@
             $scope.vocations = [];
             $scope.gradingTypes = [];
 
+            $scope.Create = function () {
+                console.log($scope.module);
+            };
+
             /**
              * Grid set up
              */
@@ -103,7 +107,7 @@
                             priority: 1
                         }
                     },
-                    {
+                    {//select one
                         field: "vocation",
                         name: "vocation",
                         displayName: 'Vocation',
@@ -116,7 +120,7 @@
                         sortCellFiltered: $scope.sortFiltered,
                         cellFilter: 'griddropdown:this'
                     },
-                    {//gradingType many to many
+                    {//select many
                         field: 'gradingType',
                         name: 'gradingType',
                         displayName: 'gradingTypes',
@@ -190,7 +194,7 @@
         }
 
         moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduletypeModel', 'gradingTypeModel'];
-        
+
         return moduleController;
     });
 
