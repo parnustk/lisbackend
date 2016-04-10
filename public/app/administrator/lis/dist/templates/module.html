@@ -1,7 +1,60 @@
 <h2>Module view</h2>
 <form class="form-horizontal" name="moduleForm" ng-submit="Create(moduleForm.$valid)">
+    
     <fieldset>
+        
         <legend>Create new module</legend>
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': moduleForm.vocation.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="vocation" ng-required="true" ng-model="module.vocation" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="Choose vocation">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{vocation.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': moduleForm.moduleType.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="moduleType" ng-required="true" ng-model="module.moduleType" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="Choose module type">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="moduleType in moduleTypes | filter: $select.search">
+                                <span ng-bind-html="moduleType.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{moduleType.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': moduleForm.gradingTypes.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="module.gradingTypes" theme="bootstrap" close-on-select="false" style="width: 310px;">
+                            <ui-select-match placeholder="Select gradingType...">{{$item.name}}</ui-select-match>
+                            <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
+                                <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
+                                <small>
+                                    id: {{gradingType.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
 
         <div class="row">
 
@@ -14,11 +67,11 @@
                 </div><!-- /.col-lg-6 -->
             </div>
 
-            <div class="form-group" ng-class="{ 'has-error': moduleForm.name.$invalid }">
+            <div class="form-group" ng-class="{ 'has-error': moduleForm.moduleCode.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="sizing-addon2">Code</span>
-                        <input type="text" class="form-control" aria-describedby="sizing-addon2" ng-model="module.moduleCode" required>
+                        <input name="moduleCode" type="text" class="form-control" aria-describedby="sizing-addon2" ng-model="module.moduleCode" required>
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -26,80 +79,24 @@
         </div><!-- /.row -->
 
         <div class="row">
-            <div class="form-group" ng-class="{ 'has-error': moduleForm.vocation.$invalid }">
+
+            <div class="form-group" ng-class="{ 'has-error': moduleForm.duration.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <ui-select name="vocation" ng-required="true" ng-model="module.vocation" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose vocation">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
-                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
-                                <small>
-                                    id: {{gradingType.id}}
-                                </small>
-                            </ui-select-choices>
-                        </ui-select>
+                        <span class="input-group-addon" id="sizing-addon3">Duration</span>
+                        <input name="duration" ng-required="true" type="number" class="form-control" placeholder="Name" aria-describedby="sizing-addon3" ng-model="module.duration">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
 
-            <div class="form-group" ng-class="{ 'has-error': moduleForm.gradingTypes.$invalid }">
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="module.gradingTypes" theme="bootstrap" close-on-select="false" style="width: 310px;">
-                            <ui-select-match placeholder="Select gradingType...">{{$item.name}}</ui-select-match>
-                            <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
-                                <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
-                                <small>
-                                    id: {{gradingType.id}}
-                                </small>
-                            </ui-select-choices>
-                        </ui-select>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div>
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
 
         </div><!-- /.row -->
-        <button type="submit" class="btn btn-primary">Create</button>
+
+
     </fieldset>
 </form>
-<!--
-<form>
-    <div class="row">
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Name
-                <input type="text" ng-model="module.name">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>ModuleCode
-                <input type="text" ng-model="module.moduleCode">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Vocation
-                <input type="text" ng-model="module.vocation">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>ModuleType
-                <input type="text" ng-model="module.moduleType">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>GradingType
-                <input type="text" ng-model="module.gradingType">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Duration
-                <input type="text" ng-model="module.duration">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <button class="button" ng-click="Create()">CREATE</button>
-        </div>
-    </div>
-</form>
--->
 <br><br>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

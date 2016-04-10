@@ -44,19 +44,8 @@
          */
         function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel, moduletypeModel, gradingTypeModel) {
 
-            /*
-             * id:"1"
-             * name: "asd"
-             * moduleCode: "56f6ca69d5aff"
-             * vocation: {id: "1"}
-             * moduleType: {id: "1"}
-             * gradingType:[{id: 1}, {id: 2}]
-             * duration:12
-             * trashed: null
-             */
-
             /**
-             * records sceleton
+             * records sceleton used for reset operations
              */
             $scope.model = {
                 name: null,
@@ -67,14 +56,9 @@
                 duration: null
             };
 
-            /**
-             * will hold vocations
-             * for grid select
-             */
-            $scope.vocations = [];
-            $scope.gradingTypes = [];
+            $scope.vocations = $scope.moduleTypes = $scope.gradingTypes =[];//for ui-select in form
 
-            $scope.module = {};
+            $scope.module = {};//for form object
 
             /**
              * Create new from form if succeeds push to grid
@@ -91,7 +75,7 @@
                         }
                     });
                 } else {
-                    alert('Check form fields!');
+                    alert('CHECK_FORM_FIELDS');
                 }
             };
 
@@ -104,7 +88,7 @@
                 columnDefs: [
                     {
                         field: 'id',
-                        visible: true,
+                        visible: false,
                         type: 'number',
                         enableCellEdit: false,
                         sort: {
@@ -119,9 +103,16 @@
                         editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.vocations;
-                        },
+                        sortCellFiltered: $scope.sortFiltered,
+                        cellFilter: 'griddropdown:this'
+                    },
+                    {//select one
+                        field: "moduleType",
+                        name: "moduleType",
+                        displayName: 'Module Type',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
                         sortCellFiltered: $scope.sortFiltered,
                         cellFilter: 'griddropdown:this'
                     },
@@ -132,15 +123,25 @@
                         cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
                         editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
                         editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "name",
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.gradingTypes;
-                        }
-
-                    }
+                        editDropdownValueLabel: "name"
+                    },
+                    {field: 'name'},
+                    {field: 'moduleCode'},
+                    {field: 'duration'},
+                    {field: 'trashed'}
                 ]
             };
 
+/*
+             * id:"1"
+             * name: "asd"
+             * moduleCode: "56f6ca69d5aff"
+             * vocation: {id: "1"}
+             * moduleType: {id: "1"}
+             * gradingType:[{id: 1}, {id: 2}]
+             * duration:12
+             * trashed: null
+             */
             /**
              * Adding event handlers
              * 
@@ -158,21 +159,30 @@
                     $scope.vocations = result.data;
                     $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
 
-                    gradingTypeModel.GetList($scope.params).then(function (result) {
+                    moduletypeModel.GetList($scope.params).then(function (result) {
+                        
                         if (globalFunctions.resultHandler(result)) {
-                            $scope.gradingTypes = result.data;
-                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradingTypes;
+                            
+                            $scope.moduleTypes = result.data;
+                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.moduleTypes;
 
-                            moduleModel.GetList($scope.params).then(function (result) {
+                            gradingTypeModel.GetList($scope.params).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
-                                    $scope.modules = result.data;
-                                    $scope.gridOptions.data = $scope.modules;
+                                    
+                                    $scope.gradingTypes = result.data;
+                                    $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.gradingTypes;
+
+                                    moduleModel.GetList($scope.params).then(function (result) {
+                                        if (globalFunctions.resultHandler(result)) {
+                                            $scope.modules = result.data;
+                                            $scope.gridOptions.data = $scope.modules;
+                                        }
+                                    });
+
                                 }
                             });
-
                         }
                     });
-
                 }
             });
 
