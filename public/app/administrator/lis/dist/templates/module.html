@@ -41,7 +41,7 @@
             <div class="form-group" ng-class="{ 'has-error': moduleForm.gradingTypes.$invalid }">
                 <div class="col-lg-4">
                     <div class="input-group">
-                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="module.gradingTypes" theme="bootstrap" close-on-select="false" style="width: 310px;">
+                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="module.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
                             <ui-select-match placeholder="Select gradingType...">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>

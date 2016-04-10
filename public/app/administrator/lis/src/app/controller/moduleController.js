@@ -56,28 +56,9 @@
                 duration: null
             };
 
-            $scope.vocations = $scope.moduleTypes = $scope.gradingTypes =[];//for ui-select in form
+            $scope.vocations = $scope.moduleTypes = $scope.gradingTypes = [];//for ui-select in form
 
             $scope.module = {};//for form object
-
-            /**
-             * Create new from form if succeeds push to grid
-             * 
-             * @param {type} valid
-             * @returns {undefined}
-             */
-            $scope.Create = function (valid) {
-                if (valid) {
-                    moduleModel.Create($scope.module).then(function (result) {
-                        if (globalFunctions.resultHandler(result)) {
-                            $scope.modules = result.data;
-                            $scope.gridOptions.data = $scope.modules;
-                        }
-                    });
-                } else {
-                    alert('CHECK_FORM_FIELDS');
-                }
-            };
 
             /**
              * Grid set up
@@ -132,7 +113,7 @@
                 ]
             };
 
-/*
+            /*
              * id:"1"
              * name: "asd"
              * moduleCode: "56f6ca69d5aff"
@@ -152,39 +133,6 @@
                 $scope.gridApi = gridApi;
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
-
-            vocationModel.GetList({}).then(function (result) {
-                if (globalFunctions.resultHandler(result)) {
-
-                    $scope.vocations = result.data;
-                    $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
-
-                    moduletypeModel.GetList($scope.params).then(function (result) {
-                        
-                        if (globalFunctions.resultHandler(result)) {
-                            
-                            $scope.moduleTypes = result.data;
-                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.moduleTypes;
-
-                            gradingTypeModel.GetList($scope.params).then(function (result) {
-                                if (globalFunctions.resultHandler(result)) {
-                                    
-                                    $scope.gradingTypes = result.data;
-                                    $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.gradingTypes;
-
-                                    moduleModel.GetList($scope.params).then(function (result) {
-                                        if (globalFunctions.resultHandler(result)) {
-                                            $scope.modules = result.data;
-                                            $scope.gridOptions.data = $scope.modules;
-                                        }
-                                    });
-
-                                }
-                            });
-                        }
-                    });
-                }
-            });
 
 
             /**
@@ -206,6 +154,71 @@
                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
             };
 
+            /**
+             * Create new from form if succeeds push to grid
+             * 
+             * @param {type} valid
+             * @returns {undefined}
+             */
+            $scope.Create = function (valid) {
+                if (valid) {
+                    moduleModel.Create($scope.module).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            console.log(result);
+                            $scope.gridOptions.data.push(result.data);
+                            LoadGrid();//only needed if grid contains many column
+                            //can be used for gridrefresh button
+                            //maybe it is good to refresh after create?
+                        }
+                    });
+                } else {
+                    alert('CHECK_FORM_FIELDS');
+                }
+            };
+
+            /**
+             * Before loading module data, 
+             * we first load relations and check success
+             * 
+             * @returns {undefined}
+             */
+            function LoadGrid() {
+
+                vocationModel.GetList({}).then(function (result) {
+                    $scope.gridOptions.data = [];
+                    if (globalFunctions.resultHandler(result)) {
+
+                        $scope.vocations = result.data;
+                        $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
+
+                        moduletypeModel.GetList($scope.params).then(function (result) {
+
+                            if (globalFunctions.resultHandler(result)) {
+
+                                $scope.moduleTypes = result.data;
+                                $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.moduleTypes;
+
+                                gradingTypeModel.GetList($scope.params).then(function (result) {
+                                    if (globalFunctions.resultHandler(result)) {
+
+                                        $scope.gradingTypes = result.data;
+                                        $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.gradingTypes;
+
+                                        moduleModel.GetList($scope.params).then(function (result) {
+                                            if (globalFunctions.resultHandler(result)) {
+                                                $scope.modules = result.data;
+                                                $scope.gridOptions.data = $scope.modules;
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
+            LoadGrid();
         }
 
         moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduletypeModel', 'gradingTypeModel'];

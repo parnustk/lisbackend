@@ -193,16 +193,29 @@ class ModuleRepository extends AbstractBaseRepository
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
         $this->validateVocation($data);
+        
         $entity = new Module($this->getEntityManager());
+        
         $vocation = $this->getEntityManager()
                 ->getRepository('Core\Entity\Vocation')
                 ->find($data['vocation']);
-        unset($data['vocation']);
+        
         $entity->setVocation($vocation);
-        $entity = $this->validateEntity(
+        
+        unset($data['vocation']);
+        
+        $entity->hydrate($data, $this->getEntityManager());
+        
+        $entityValidated = $this->validateEntity(
                 $entity, $data
         );
-        return $this->singleResult($entity, $returnPartial, $extra);
+
+        //manytomany validate manually
+        if (!count($entity->getGradingType())) {
+            throw new Exception(Json::encode('MISSING_GRADING_TYPES', true));
+        }
+        
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
     /**
@@ -297,7 +310,7 @@ class ModuleRepository extends AbstractBaseRepository
         }
         //manytomany validate manually
         if (!count($entity->getGradingType())) {
-            throw new Exception(Json::encode('Missing vocation for module', true));
+            throw new Exception(Json::encode('MISSING_GRADING_TYPES', true));
         }
         return $this->singleResult($entity, $returnPartial, $extra);
     }

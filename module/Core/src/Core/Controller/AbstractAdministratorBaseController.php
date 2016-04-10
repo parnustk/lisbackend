@@ -204,8 +204,6 @@ abstract class AbstractAdministratorBaseController extends AbstractBaseControlle
      */
     public function create($data)
     {
-
-
         return new JsonModel(
                 $this
                         ->getServiceLocator()
