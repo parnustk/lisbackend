@@ -91,7 +91,7 @@ class ContactLessonTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -116,14 +116,14 @@ class ContactLessonTest extends UnitHelpers
         $this->request->setMethod('post');
         $lessonDate = new \DateTime;
         $description = ' Description for contactlesson' . uniqid();
-        $durationAK = 4;
+        $sequenceNr = 4;
         $teacher = [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],
         ];
         $this->request->getPost()->set("lessonDate", $lessonDate);
         $this->request->getPost()->set("description", $description);
-        $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set("sequenceNr", $sequenceNr);
         $this->request->getPost()->set("teacher", $teacher);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -151,14 +151,14 @@ class ContactLessonTest extends UnitHelpers
 
         $this->request->setMethod('post');
         $lessonDate = new \DateTime;
-        $durationAK = 4;
+        $sequenceNr = 4;
         $teacher = [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],
         ];
         $subjectRound = $this->CreateSubjectRound()->getId();
         $this->request->getPost()->set("lessonDate", $lessonDate);
-        $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set("sequenceNr", $sequenceNr);
         $this->request->getPost()->set("teacher", $teacher);
         $this->request->getPost()->set('subjectRound', $subjectRound);
         $result = $this->controller->dispatch($this->request);
@@ -188,10 +188,10 @@ class ContactLessonTest extends UnitHelpers
         $this->request->setMethod('post');
         $lessonDate = new \DateTime;
         $description = ' Description for contactlesson' . uniqid();
-        $durationAK = 4;
+        $sequenceNr = 4;
         $subjectRound = $this->CreateSubjectRound()->getId();
         $this->request->getPost()->set("lessonDate", $lessonDate);
-        $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set("sequenceNr", $sequenceNr);
         $this->request->getPost()->set('subjectRound', $subjectRound);
         $this->request->getPost()->set("description", $description);
         $result = $this->controller->dispatch($this->request);
@@ -224,7 +224,7 @@ class ContactLessonTest extends UnitHelpers
 
         $lessonDateO = $contactLesson->getLessonDate()->format('Y-m-d H:i:s');
         $descriptionO = $contactLesson->getDescription();
-        $durationAKO = $contactLesson->getDurationAK();
+        $sequenceNrO = $contactLesson->getSequenceNr();
         $subjectRoundIdO = $contactLesson->getSubjectRound()->getId();
 
         $teachersO = [];
@@ -243,7 +243,7 @@ class ContactLessonTest extends UnitHelpers
                 ->format('Y-m-d H:i:s');
 
         $description = ' Updated Description for contactlesson';
-        $durationAK = 44;
+        $sequenceNr = 44;
         $subjectRound = $this->CreateSubjectRound();
         $teachers = [];
         foreach ($subjectRound->getTeacher() as $teacher) {
@@ -255,7 +255,7 @@ class ContactLessonTest extends UnitHelpers
         $insertData = [
             "lessonDate" => $lessonDate,
             "description" => $description,
-            "durationAK" => $durationAK,
+            "sequenceNr" => $sequenceNr,
             "subjectRound" => $subjectRound->getId(),
             "teacher" => $teachers
         ];
@@ -273,7 +273,7 @@ class ContactLessonTest extends UnitHelpers
         //start checking for changed data
         $this->assertNotEquals($lessonDateO, $result->data['lessonDate']);
         $this->assertNotEquals($descriptionO, $result->data['description']);
-        $this->assertNotEquals($durationAKO, $result->data['durationAK']);
+        $this->assertNotEquals($sequenceNrO, $result->data['sequenceNr']);
         $this->assertNotEquals($subjectRoundIdO, $result->data['subjectRound']);
 
         //no double check figured out, pure linear looping
@@ -421,7 +421,7 @@ class ContactLessonTest extends UnitHelpers
 
         $description = 'ContactLesson description' . uniqid();
         $lessonDate = new \DateTime;
-        $durationAK = 5;
+        $sequenceNr = 5;
         $subjectRound = $this->CreateSubjectRound()->getId();
         $teachers = [
             ['id' => $this->CreateTeacher()->getId()],
@@ -430,7 +430,7 @@ class ContactLessonTest extends UnitHelpers
 
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('lessonDate', $lessonDate);
-        $this->request->getPost()->set('durationAK', $durationAK);
+        $this->request->getPost()->set('sequenceNr', $sequenceNr);
         $this->request->getPost()->set('subjectRound', $subjectRound);
         $this->request->getPost()->set("teacher", $teachers);
 

@@ -108,7 +108,7 @@
                     {
                         field: "absenceReason",
                         name: "absenceReason",
-                        displayName: 'Absence Reason',
+                        displayName: 'AbsenceReason',
                         editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",

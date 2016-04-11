@@ -279,12 +279,14 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         $subjectRound = $this->CreateSubjectRound();
+        $studentGroup = $this->CreateStudentGroup();
 
         return $repository->Create([
                     'lessonDate' => new \DateTime,
                     'description' => uniqid() . ' Description for contactlesson',
-                    'durationAK' => 6,
+                    'sequenceNr' => 6,
                     'subjectRound' => $subjectRound->getId(),
+                    'studentGroup' => $studentGroup->getId(),
                     'teacher' => [
                         ['id' => $this->CreateTeacher()->getId()],
                         ['id' => $this->CreateTeacher()->getId()],
