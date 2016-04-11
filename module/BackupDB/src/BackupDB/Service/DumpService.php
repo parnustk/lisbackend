@@ -158,31 +158,44 @@ class DumpService implements ServiceManagerAwareInterface
             "Teacher",
             "Vocation"
         ];
-        
-//        //Test for creating backup with system commands; Plan C
-//        //Current problem: file is not created.
-//        print_r(system('mysqldump --user=root --password=MgjsfF7 --databases lis --filename=' . _PATH_ . 'dump.sql'), true);
-//        die(readfile(_PATH_.'dump.sql'));
 
-        for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, create temporary dumpfiles with mysql        
+        for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, append new data into output file with each loop      
             //Purpose: Prepare structure query statement
-            $tableString = '`'.$tables[$t].'`';
-            $stmt = $this->db->prepare('SHOW CREATE TABLE '.$tableString.';');
+            $tableString = '`' . $tables[$t] . '`';
+            $stmt = $this->db->prepare('SHOW CREATE TABLE ' . $tableString . ';');
             //Debugging lines:
-            print_r($tables[$t] . "\n");
+            print_r($tables[$t] . "<br>");
             //Query table structure
             try {
-                //Problem: this returns '1', not actual data.
-                $dumpData = $stmt->execute();
+                //This part adds table structure to dumpData
+                $stmt->execute();
+                $fetchData = $stmt->fetch();
+                $dumpData = $fetchData[1];
             } catch (PDOException $ex) {
                 print_r($ex);
                 die();
             }
+            //Write structure to table
+            file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
             
-            //Problem: write permission denied
-            //file_put_contents(_PATH_.$this->fileName, $dumpData, FILE_APPEND);
-            
-            
+            for ($i = 0; $i < 10; $i++) {
+                $fetchData = null;
+                if ($i == 0) { //Determine table columns; TODO
+                } else { //Add Data Lines to 
+                    $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
+                            " WHERE `Id` = " . $i . ";");
+                    //Query table data
+                    try {
+                        $stmt->execute();
+                        $fetchData = $stmt->fetch();
+                    } catch (PDOException $ex) {
+                        print_r($ex);
+                        die();
+                    }
+                    $dumpData = null;
+                    file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
+                }
+            }
         }
         //Disabled for debugging above code
 //        if ($type == 'manual') {
