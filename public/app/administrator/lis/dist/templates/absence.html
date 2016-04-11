@@ -26,4 +26,80 @@
      <button class="button" ng-click="Create()">CREATE</button>
  </form>
 
+<h2>Absence view</h2>
+<form class="form-horizontal" name="absenceForm" ng-submit="Create(absenceForm.$valid)">
+
+    <fieldset>
+        
+        <legend>Create new absence</legend>
+        
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': absenceForm.absenceReason.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="absenceReason" ng-required="true" ng-model="absence.absenceReason" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="Choose absence reason">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
+                                <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{absenceReason.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': absenceForm.student.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="student" ng-required="true" ng-model="absence.student" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="Choose student">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="student in students | filter: $select.search">
+                                <span ng-bind-html="student.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{student.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': absenceForm.contactLesson.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <ui-select name="contactLesson" ng-required="true" ng-model="absence.contactLesson" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="Choose contactLesson">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
+                                <div ng-bind-html="contactLesson.name | highlight: $select.search"></div>
+                                <small>
+                                    id: {{contactLesson.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-4 -->
+            </div>
+        </div><!-- /.row -->
+        
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': absenceForm.description.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon1">Description</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Description" aria-describedby="sizing-addon1" ng-model="absence.description">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+        </div><!-- /.row -->
+        
+    </fieldset>
+    <br><br>
+</form>
+
+    
+    
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

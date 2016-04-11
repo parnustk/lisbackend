@@ -189,7 +189,7 @@
                     ctrl.$validators.uiSelectRequired = function (modelValue, viewValue) {
                         if (attr.uiSelectRequired) {
                             var isRequired = scope.$eval(attr.uiSelectRequired);
-                            if (!!isRequired === false) {
+                            if (isRequired === false) {
                                 return true;
                             }
                         }
