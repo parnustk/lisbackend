@@ -70,24 +70,28 @@ class ContactLessonTest extends UnitHelpers
 
         $lessonDate = new \DateTime;
         $description = ' Description for contactlesson' . uniqid();
-        $durationAK = 4;
+        $sequenceNr = 4;
         $teacher = [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],
         ];
+        
         $subjectRound = $this->CreateSubjectRound()->getId();
-
+        $studentGroup = $this->CreateStudentGroup()->getId();
+        
+        
         $this->request->getPost()->set("lessonDate", $lessonDate);
         $this->request->getPost()->set("description", $description);
-        $this->request->getPost()->set("durationAK", $durationAK);
+        $this->request->getPost()->set("sequenceNr", $sequenceNr);
         $this->request->getPost()->set("teacher", $teacher);
         $this->request->getPost()->set('subjectRound', $subjectRound);
+        $this->request->getPost()->set('studentGroup', $studentGroup);
 
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, false);
+        $this->PrintOut($result, true);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
