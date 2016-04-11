@@ -21,6 +21,7 @@ use Core\Entity\Absence;
 use Core\Entity\Rooms;
 use Core\Entity\StudentGrade;
 use Core\Entity\SubjectRound;
+use Core\Entity\StudentGroup;
 use Core\Entity\Teacher;
 use Core\Entity\LisUser;
 
@@ -30,8 +31,7 @@ use Core\Entity\LisUser;
  *      indexes={
  *          @ORM\Index(name="contactlesson_index_lessondate", columns={"lessonDate"}),
  *          @ORM\Index(name="contactlesson_trashed", columns={"trashed"}),
- *          @ORM\Index(name="contactlesson_description", columns={"description"}),
- *          @ORM\Index(name="contactlesson_durationAK", columns={"durationAK"}),
+ *          @ORM\Index(name="contactlesson_description", columns={"description"})
  * })
  * @ORM\HasLifecycleCallbacks
  * 
@@ -50,6 +50,13 @@ class ContactLesson extends EntityValidation
      * 
      */
     protected $id;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $name;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -70,7 +77,7 @@ class ContactLesson extends EntityValidation
      * 
      * @ORM\Column(type="integer", nullable=false)
      */
-    protected $durationAK;
+    protected $sequenceNr;
 
     /**
      * @Annotation\Exclude()
@@ -104,7 +111,15 @@ class ContactLesson extends EntityValidation
      * @Annotation\Required({"required":"true"})
      */
     protected $subjectRound;
-
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="StudentGroup")
+     * @ORM\JoinColumn(name="student_group_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Annotation\Required({"required":"true"})
+     */
+    protected $studentGroup;
+    
     /**
      * @Annotation\Required({"required":"true"})
      * 
@@ -172,6 +187,15 @@ class ContactLesson extends EntityValidation
     {
         return $this->id;
     }
+    
+    /**
+     * 
+     * @return String
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * 
@@ -195,9 +219,9 @@ class ContactLesson extends EntityValidation
      * 
      * @return int
      */
-    public function getDurationAK()
+    public function getSequenceNr()
     {
-        return $this->durationAK;
+        return $this->sequenceNr;
     }
 
     /**
@@ -234,6 +258,15 @@ class ContactLesson extends EntityValidation
     public function getSubjectRound()
     {
         return $this->subjectRound;
+    }
+    
+    /**
+     * 
+     * @return studentGroup
+     */
+    public function getStudentGroup()
+    {
+        return $this->studentGroup;
     }
 
     /**
@@ -300,6 +333,17 @@ class ContactLesson extends EntityValidation
         $this->id = (int) $id;
         return $this;
     }
+    
+    /**
+     * 
+     * @param string $name
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
 
     /**
      * 
@@ -325,12 +369,12 @@ class ContactLesson extends EntityValidation
 
     /**
      * 
-     * @param integer $durationAK
+     * @param integer $sequenceNr
      * @return \Core\Entity\ContactLesson
      */
-    public function setDurationAK($durationAK)
+    public function setSequenceNr($sequenceNr)
     {
-        $this->durationAK = (int) $durationAK;
+        $this->sequenceNr = (int) $sequenceNr;
         return $this;
     }
 
@@ -375,6 +419,17 @@ class ContactLesson extends EntityValidation
     public function setSubjectRound(SubjectRound $subjectRound)
     {
         $this->subjectRound = $subjectRound;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param StudentGroup $studentGroup
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setStudentGroup(StudentGroup $studentGroup)
+    {
+        $this->studentGroup = $studentGroup;
         return $this;
     }
 

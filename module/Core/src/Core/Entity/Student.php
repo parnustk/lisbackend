@@ -60,6 +60,13 @@ class Student extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $name;
+
+    /**
+     * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
      * @Annotation\Validator({"name":"EmailAddress"})
      * 
@@ -156,266 +163,316 @@ class Student extends EntityValidation
     {
         parent::__construct($em);
     }
-/**
- * 
- * @return int
- */
+
+    /**
+     * 
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
-/**
- * 
- * @return String
- */
+
+    /**
+     * 
+     * @return String
+     */
     public function getFirstName()
     {
         return $this->firstName;
     }
-/**
- * 
- * @return String
- */
+
+    /**
+     * 
+     * @return String
+     */
     public function getLastName()
     {
         return $this->lastName;
     }
-/**
- * 
- * @return String
- */
+
+    /**
+     * 
+     * @return String
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * 
+     * @return String
+     */
     public function getEmail()
     {
         return $this->email;
     }
-/**
- * 
- * @return String
- */
+
+    /**
+     * 
+     * @return String
+     */
     public function getPersonalCode()
     {
         return $this->personalCode;
     }
-/**
- * 
- * @return LisUser
- */
+
+    /**
+     * 
+     * @return LisUser
+     */
     public function getLisUser()
     {
         return $this->lisUser;
     }
-/**
- * 
- * @return Absence
- */
+
+    /**
+     * 
+     * @return Absence
+     */
     public function getAbsence()
     {
         return $this->absence;
     }
-/**
- * 
- * @return StudentGrade
- */
+
+    /**
+     * 
+     * @return StudentGrade
+     */
     public function getStudentGrade()
     {
         return $this->studentGrade;
     }
-/**
- * 
- * @return StudentInGroups
- */
+
+    /**
+     * 
+     * @return StudentInGroups
+     */
     public function getStudentInGroups()
     {
         return $this->studentInGroups;
     }
-/**
- * 
- * @return IndependentWork
- */
+
+    /**
+     * 
+     * @return IndependentWork
+     */
     public function getIndependentWork()
     {
         return $this->independentWork;
     }
-/**
- * 
- * @return int
- */
+
+    /**
+     * 
+     * @return int
+     */
     public function getTrashed()
     {
         return $this->trashed;
     }
-/**
- * 
- * @return LisUser
- */
+
+    /**
+     * 
+     * @return LisUser
+     */
     public function getCreatedBy()
     {
         return $this->createdBy;
     }
-/**
- * 
- * @return LisUser
- */
+
+    /**
+     * 
+     * @return LisUser
+     */
     public function getUpdatedBy()
     {
         return $this->updatedBy;
     }
-/**
- * 
- * @return DateTime
- */
+
+    /**
+     * 
+     * @return DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
-/**
- * 
- * @return DateTime
- */
+
+    /**
+     * 
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
-/**
- * 
- * @param type $firstName
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $firstName
+     * @return \Core\Entity\Student
+     */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
         return $this;
     }
-/**
- * 
- * @param type $lastName
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $lastName
+     * @return \Core\Entity\Student
+     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
         return $this;
     }
-/**
- * 
- * @param type $email
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param string $name
+     * @return \Core\Entity\Student
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param type $email
+     * @return \Core\Entity\Student
+     */
     public function setEmail($email)
     {
         $this->email = $email;
         return $this;
     }
-/**
- * 
- * @param type $personalCode
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $personalCode
+     * @return \Core\Entity\Student
+     */
     public function setPersonalCode($personalCode)
     {
         $this->personalCode = $personalCode;
         return $this;
     }
-/**
- * 
- * @param type $lisUser
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $lisUser
+     * @return \Core\Entity\Student
+     */
     public function setLisUser($lisUser)
     {
         $this->lisUser = $lisUser;
         return $this;
     }
-/**
- * 
- * @param type $absence
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $absence
+     * @return \Core\Entity\Student
+     */
     public function setAbsence($absence)
     {
         $this->absence = $absence;
         return $this;
     }
-/**
- * 
- * @param type $studentGrade
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $studentGrade
+     * @return \Core\Entity\Student
+     */
     public function setStudentGrade($studentGrade)
     {
         $this->studentGrade = $studentGrade;
         return $this;
     }
-/**
- * 
- * @param type $studentInGroups
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $studentInGroups
+     * @return \Core\Entity\Student
+     */
     public function setStudentInGroups($studentInGroups)
     {
         $this->studentInGroups = $studentInGroups;
         return $this;
     }
-/**
- * 
- * @param type $independentWork
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $independentWork
+     * @return \Core\Entity\Student
+     */
     public function setIndependentWork($independentWork)
     {
         $this->independentWork = $independentWork;
         return $this;
     }
-/**
- * 
- * @param type $trashed
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $trashed
+     * @return \Core\Entity\Student
+     */
     public function setTrashed($trashed)
     {
         $this->trashed = (int) $trashed;
         return $this;
     }
-/**
- * 
- * @param type $createdBy
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $createdBy
+     * @return \Core\Entity\Student
+     */
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
         return $this;
     }
-/**
- * 
- * @param type $updatedBy
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $updatedBy
+     * @return \Core\Entity\Student
+     */
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
         return $this;
     }
-/**
- * 
- * @param type $createdAt
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $createdAt
+     * @return \Core\Entity\Student
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
-/**
- * 
- * @param type $updatedAt
- * @return \Core\Entity\Student
- */
+
+    /**
+     * 
+     * @param type $updatedAt
+     * @return \Core\Entity\Student
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
+
     /**
      * 
      * @param type $id
@@ -426,7 +483,7 @@ class Student extends EntityValidation
         $this->id = $id;
     }
 
-        /**
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */

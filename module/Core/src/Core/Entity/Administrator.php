@@ -55,6 +55,13 @@ class Administrator extends EntityValidation
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $lastName;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $name;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -159,6 +166,15 @@ class Administrator extends EntityValidation
     public function getLastName()
     {
         return $this->lastName;
+    }
+    
+    /**
+     * 
+     * @return String
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -272,6 +288,17 @@ class Administrator extends EntityValidation
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param string $name
+     * @return \Core\Entity\Administrator
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
         return $this;
     }
 

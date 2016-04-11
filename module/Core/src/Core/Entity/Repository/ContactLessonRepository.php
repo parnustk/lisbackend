@@ -13,6 +13,7 @@ namespace Core\Entity\Repository;
 use Core\Entity\ContactLesson;
 use Exception;
 use Zend\Json\Json;
+use DateTime;
 
 /**
  * 
@@ -43,9 +44,10 @@ class ContactLessonRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         lessonDate,
                         description,
-                        durationAK,
+                        sequenceNr,
                         trashed
                     },
                     partial subjectRound.{
@@ -80,9 +82,10 @@ class ContactLessonRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         lessonDate,
                         description,
-                        durationAK,
+                        sequenceNr,
                         trashed
                     },
                     partial subjectRound.{
@@ -117,9 +120,10 @@ class ContactLessonRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         lessonDate,
                         description,
-                        durationAK,
+                        sequenceNr,
                         trashed
                     },
                     partial subjectRound.{
@@ -154,9 +158,10 @@ class ContactLessonRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         lessonDate,
                         description,
-                        durationAK,
+                        sequenceNr,
                         trashed
                     },
                     partial subjectRound.{
@@ -199,6 +204,17 @@ class ContactLessonRepository extends AbstractBaseRepository
 
         unset($data['subjectRound']);
         $entity->setSubjectRound($subjectRound);
+
+        $studentGroup = $this->getEntityManager()
+                ->getRepository('Core\Entity\StudentGroup')
+                ->find($data['studentGroup']);
+
+        $fLessonDate = $data['lessonDate']->format('d.m.Y');
+        
+        //TA2-16.04.2016-2
+        $data['name'] = $studentGroup->getName() . '-' . 
+                $data['lessonDate']->format('d.m.Y') . '-' . $data['sequenceNr'];
+        
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );

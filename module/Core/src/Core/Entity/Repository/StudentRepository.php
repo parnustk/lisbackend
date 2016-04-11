@@ -46,6 +46,7 @@ class StudentRepository extends AbstractBaseRepository
                             id,
                             firstName,
                             lastName,
+                            name,
                             personalCode,
                             email,
                             trashed
@@ -64,6 +65,7 @@ class StudentRepository extends AbstractBaseRepository
                             id,
                             firstName,
                             lastName,
+                            name,
                             personalCode,
                             email,
                             trashed
@@ -78,6 +80,7 @@ class StudentRepository extends AbstractBaseRepository
                             id,
                             firstName,
                             lastName,
+                            name,
                             personalCode,
                             email,
                             trashed
@@ -96,6 +99,7 @@ class StudentRepository extends AbstractBaseRepository
                             id,
                             firstName,
                             lastName,
+                            name,
                             personalCode,
                             email,
                             trashed
@@ -105,16 +109,16 @@ class StudentRepository extends AbstractBaseRepository
 
     /**
      * 
-     * @param type $data
-     * @param type $returnPartial
-     * @return type
+     * @param array $data
+     * @param bool $returnPartial
+     * @return mixed
      */
     private function defaultCreate($data, $returnPartial = false, $extra = null)
     {
         if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        
+        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
         $entity = $this->validateEntity(
                 new Student($this->getEntityManager()), $data
         );

@@ -48,6 +48,7 @@ class AdministratorRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
+                        name,
                         personalCode,
                         email,
                         trashed
@@ -67,6 +68,7 @@ class AdministratorRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
+                        name,
                         email,
                         trashed
                     }
@@ -85,6 +87,7 @@ class AdministratorRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
+                        name,
                         email,
                         trashed
                     }
@@ -102,6 +105,7 @@ class AdministratorRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
+                        name,
                         personalCode,
                         email,
                         trashed
@@ -120,6 +124,7 @@ class AdministratorRepository extends AbstractBaseRepository
         if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
+        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
         $entity = $this->validateEntity(
                 new Administrator($this->getEntityManager()), $data
         );

@@ -46,6 +46,7 @@ class TeacherRepository extends AbstractBaseRepository
                      id,
                      firstName,
                      lastName,
+                     name,
                      personalCode,
                      email,
                      trashed
@@ -65,6 +66,7 @@ class TeacherRepository extends AbstractBaseRepository
                      id,
                      firstName,
                      lastName,
+                     name,
                      personalCode,
                      email,
                      trashed
@@ -85,6 +87,7 @@ class TeacherRepository extends AbstractBaseRepository
                      id,
                      firstName,
                      lastName,
+                     name,
                      personalCode,
                      email,
                      trashed
@@ -105,6 +108,7 @@ class TeacherRepository extends AbstractBaseRepository
                      id,
                      firstName,
                      lastName,
+                     name,
                      personalCode,
                      email,
                      trashed
@@ -147,6 +151,7 @@ class TeacherRepository extends AbstractBaseRepository
             throw new Exception('NO_DATA');
         }
 
+        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
         $entity = $this->validateEntity(
                 new Teacher($this->getEntityManager()), $data
         );
