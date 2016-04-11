@@ -1,38 +1,10 @@
 <h2>Absence view</h2>
-
-<form>
-     <div class="row">
-         <div class="large-3 medium-6 small-12 columns">
-             <label>Description
-                 <input type="text" placeholder="Enter absence description" ng-model="absence.description">
-             </label>
-         </div>
-         <div class="large-3 medium-6 small-12 columns">
-             <label>Student
-                 <input type="text" placeholder="Enter missing student id" ng-model="absence.student">
-             </label>
-         </div>
-         <div class="large-3 medium-6 small-12 columns">
-             <label>Contact Lesson
-                 <input type="text" placeholder="Enter contact lesson id" ng-model="absence.contactLesson">
-             </label>
-         </div>
-         <div class="large-3 medium-6 small-12 columns">
-             <label>Absence reason
-                 <input type="text" placeholder="Enter absence reason id" ng-model="absence.absenceReason">
-             </label>
-         </div>
-     </div>
-     <button class="button" ng-click="Create()">CREATE</button>
- </form>
-
-<h2>Absence view</h2>
 <form class="form-horizontal" name="absenceForm" ng-submit="Create(absenceForm.$valid)">
 
     <fieldset>
-        
+
         <legend>Create new absence</legend>
-        
+
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': absenceForm.absenceReason.$invalid }">
                 <div class="col-lg-4">
@@ -68,11 +40,11 @@
 
             <div class="form-group" ng-class="{ 'has-error': absenceForm.contactLesson.$invalid }">
                 <div class="col-lg-4">
-                    <div class="input-group">
+                    <div class="input-group input-group-lg">
                         <ui-select name="contactLesson" ng-required="true" ng-model="absence.contactLesson" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
                             <ui-select-match placeholder="Choose contactLesson">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
-                                <div ng-bind-html="contactLesson.name | highlight: $select.search"></div>
+                                <span ng-bind-html="contactLesson.name | highlight: $select.search"></span>
                                 <small>
                                     id: {{contactLesson.id}}
                                 </small>
@@ -82,7 +54,7 @@
                 </div><!-- /.col-lg-4 -->
             </div>
         </div><!-- /.row -->
-        
+
         <div class="row">
 
             <div class="form-group" ng-class="{ 'has-error': absenceForm.description.$invalid }">
@@ -94,12 +66,16 @@
                 </div><!-- /.col-lg-6 -->
             </div>
 
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
+
         </div><!-- /.row -->
-        
+
     </fieldset>
     <br><br>
 </form>
 
-    
-    
+
+
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
