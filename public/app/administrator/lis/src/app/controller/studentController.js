@@ -27,21 +27,9 @@
      * @param {type} angular
      * @returns {studentController_L28.studentController}
      */
-    define(['angular'], function (angular) {
+    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
 
-        /**
-         * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
+        studentController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'studentModel'];
 
         /**
          * 
@@ -66,6 +54,8 @@
                 personalCode: null,
                 trashed: null
             };
+            
+            $scope.student = {};
 
             /**
              * Grid set up
@@ -78,6 +68,7 @@
                         field: 'id',
                         visible: false,
                         type: 'number',
+                        enableCellEdit: false,
                         sort: {
                             direction: uiGridConstants.DESC,
                             priority: 1
@@ -123,64 +114,61 @@
             };
 
             /**
-             * GetList
+             * Update logic
+             * 
+             * @param {type} rowEntity
              * @returns {undefined}
              */
-            $scope.init = function () {
-
-                studentModel.GetList($scope.params).then(
-                        function (result) {
-                            if (_resultHandler(result)) {
-                                $scope.gridOptions.data = result.data;
-                            }
-                        });
-            };
-
             $scope.saveRow = function (rowEntity) {
-                var promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                var deferred = $q.defer();
                 studentModel.Update(rowEntity.id, rowEntity).then(
                         function (result) {
                             if (result.success) {
-                                promise.resolve();
+                                deferred.resolve();
                             } else {
-                                promise.reject();
+                                deferred.reject();
                             }
-                        });
+                        }
+                );
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
             };
 
             /**
-             * Form reset the angular way
+             * Create new from form if succeeds push to gri
              * 
+             * @param {type} valid
              * @returns {undefined}
              */
-            $scope.reset = function () {
-                $scope.student = angular.copy($scope.model);
+            $scope.Create = function (valid) {
+                if (valid) {
+                    studentModel.Create($scope.student).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            console.log(result);
+                            LoadGrid();
+                        }
+                    });
+                } else {
+                    alert('CHECK_FORM_FIELDS');
+                }
             };
-
             /**
-             * Create
+             * Before loading absence data, 
+             * we first load relations and check success
              * 
              * @returns {undefined}
              */
-            $scope.Create = function () {
-                studentModel
-                        .Create(angular.copy($scope.student))
-                        .then(
-                                function (result) {
-                                    if (result.success) {
-                                        $scope.gridOptions.data.push(result.data);
-                                        $scope.reset();
-                                    } else {
-                                        alert('BAD');
-                                    }
-                                }
-                        );
-            };
-            $scope.init();//Start loading data from server to grid
+            function LoadGrid() {
+
+                studentModel.GetList($scope.params).then(function (result) {
+                    if (globalFunctions.resultHandler(result)) {
+                        $scope.gridOptions.data = result.data;
+                    }
+                });
+            }
+
+            LoadGrid();//let's start loading data
         }
 
-        studentController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'studentModel'];
         return studentController;
     });
 
