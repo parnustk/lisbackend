@@ -1,15 +1,29 @@
-<h2>AbsenceReason view</h2>
+<h2>Absence reason view</h2>
+<form class="form-horizontal" name="absenceReasonForm" ng-submit="Create(absenceReasonForm.$valid)">
+    
+    <fieldset>
+        
+        <legend>Create new absence reason</legend>
+        
+        <div class="row">
+            
+            <div class="form-group" ng-class="{ 'has-error': absenceReasonForm.name.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon1">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="absenceReason.name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
 
-<form>
-    <div class="row">
-    <div class="large-3 medium-6 small-12 columns">
-        <label>Name
-            <input type="text" placeholder="Enter new absence reason" ng-model="absencereason.name">
-            <button class="button" ng-click="Create()">CREATE</button>
-            <button class="button" ng-click="Delete()">DELETE</button>
-        </label>
-    </div>
-    </div>
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
+            
+        </div>
+        
+        </fieldset>
 </form>
+<br><br>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
