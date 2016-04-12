@@ -24,52 +24,47 @@
     /**
      * 
      * @param {type} angular
+     * @param {type} globalFunctions
      * @returns {absenceReasonController_L19.absenceReasonController_L25.absenceReasonController}
      */
-    define(['angular'], function (angular) {
+    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
 
-        /**
-         * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
+        absenceReasonController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceReasonModel'];
 
         /**
          * 
          * @param {type} $scope
          * @param {type} $q
          * @param {type} $routeParams
+         * @param {type} uiGridConstants
          * @param {type} absenceReasonModel
-         * @returns {undefined}
+         * @returns {absenceReasonController_L30.absenceReasonController}
          */
-        function absenceReasonController($scope, $q, $routeParams, uiGridConstants, absenceReasonModel) {
+        function absenceReasonController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceReasonModel) {
 
             /**
              * records sceleton
              */
             $scope.model = {
+                id: null,
                 name: null,
                 trashed: null
             };
+
+            $scope.absenceReason = {};
 
             /**
              * Grid set up
              */
             $scope.gridOptions = {
+                rowHeight: 38,
                 enableCellEditOnFocus: true,
                 columnDefs: [
                     {
                         field: 'id',
                         visible: false,
                         type: 'number',
+                        enableCellEdit: false,
                         sort: {
                             direction: uiGridConstants.DESC,
                             priority: 1
@@ -96,20 +91,7 @@
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")), /*
-                 onRegisterApi: function (gridApi) {
-                 $scope.gridApi = gridApi;
-                 gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-                 // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
-                 // var msg = 'New RowCol is ' + angular.toJson(rowCol);
-                 // if(oldRowCol){
-                 //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
-                 //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
-                 // }
-                 console.log('navigation event', newRowCol, oldRowCol);
-                 });
-                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-                 }*/
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
             };
 
             /**
@@ -125,77 +107,61 @@
             };
 
             /**
-             * GetList
-             * @returns {undefined}
-             */
-            $scope.init = function () {
-                absenceReasonModel.GetList($scope.params).then(
-                        function (result) {
-                            if (_resultHandler(result)) {
-                                $scope.gridOptions.data = result.data;
-//                            console.log($scope.gridApi);
-                            }
-//                        console.log($scope.store);
-                        }
-                );
-            };
-
-            /**
              * Update logic
              * 
              * @param {type} rowEntity
              * @returns {undefined}
              */
             $scope.saveRow = function (rowEntity) {
-                var promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                var deferred = $q.defer();
                 absenceReasonModel.Update(rowEntity.id, rowEntity).then(
                         function (result) {
                             if (result.success) {
-                                promise.resolve();
+                                deferred.resolve();
                             } else {
-                                promise.reject();
+                                deferred.reject();
                             }
-                            //console.log(result);
-                        });
+                        }
+                );
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
             };
 
             /**
-             * Form reset the angular way
+             * Create new from form if succeeds push to gri
              * 
+             * @param {type} valid
              * @returns {undefined}
              */
-            $scope.reset = function () {
-                $scope.absenceReason = angular.copy($scope.model);
+            $scope.Create = function (valid) {
+                if (valid) {
+                    absenceReasonModel.Create($scope.absenceReason).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            console.log(result);
+                            //$scope.gridOptions.data.push(result.data);
+                            LoadGrid();
+                        }
+                    });
+                } else {
+                    alert('CHECK_FORM_FIELDS');
+                }
             };
-
             /**
-             * Create
+             * Before loading absence data, 
+             * we first load relations and check success
              * 
              * @returns {undefined}
              */
-            $scope.Create = function () {
+            function LoadGrid() {
 
-                absenceReasonModel
-                        .Create(angular.copy($scope.absenceReason))
-                        .then(
-                                function (result) {
-                                    if (result.success) {
-                                        console.log(result);
-                                        $scope.gridOptions.data.push(result.data);
-                                        $scope.reset();
-                                    } else {
-                                        alert('BAD');
-                                    }
-                                }
-                        );
-            };
+                absenceReasonModel.GetList($scope.params).then(function (result) {
+                    if (globalFunctions.resultHandler(result)) {;
+                        $scope.gridOptions.data = result.data;
+                    }
+                });
+            }
 
-            $scope.init();//Start loading data from server to grid
-
+            LoadGrid();//let's start loading data
         }
-
-        absenceReasonController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'absenceReasonModel'];
 
         return absenceReasonController;
     });
