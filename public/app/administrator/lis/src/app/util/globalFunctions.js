@@ -33,9 +33,11 @@
                     for (_key in o) {
                         v = o[_key];
                         if (typeof v === "object" && v !== null) {
-                            level++;
-                            _out[_key] = copy(v);
-                            level--;
+                            if(level === 0) {
+                                level++;
+                                _out[_key] = copy(v);
+                                level--;
+                            }
                         } else {
                             if (!level) {
                                 _out[_key] = v;

@@ -192,7 +192,7 @@
                     absenceModel.Create($scope.absence).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
                             console.log(result);
-                            $scope.gridOptions.data.push(result.data);
+                            //$scope.gridOptions.data.push(result.data);
                             LoadGrid();
                         }
                     });
