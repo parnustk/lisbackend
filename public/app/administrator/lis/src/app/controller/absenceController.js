@@ -31,20 +31,6 @@
 
         /**
          * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
-
-        /**
-         * 
          * @param {type} $scope
          * @param {type} $q
          * @param {type} $routeParams
@@ -63,10 +49,10 @@
              */
             $scope.model = {
                 id: null,
-                description: null,
                 absencereason: null,
                 student: null,
-                contactLesson: null,
+                contactLesson: null,               
+                description: null,
                 trashed: null
             };
 
@@ -97,7 +83,7 @@
                 columnDefs: [
                     {
                         field: 'id',
-                        visible: true,
+                        visible: false,
                         type: 'number',
                         enableCellEdit: false,
                         sort: {
@@ -112,10 +98,6 @@
                         editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
-//                        editDropdownOptionsArray: $scope.absenceReasons,
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.absenceReasons;
-                        },
                         cellFilter: 'griddropdown:this',
                         sortCellFiltered: $scope.sortFiltered
                     },
@@ -126,10 +108,6 @@
                         editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
-//                        editDropdownOptionsArray: $scope.students,
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.students;
-                        },
                         cellFilter: 'griddropdown:this',
                         sortCellFiltered: $scope.sortFiltered
                     },
@@ -140,10 +118,6 @@
                         editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
-//                        editDropdownOptionsArray: $scope.contactLesson,
-                        editDropdownOptionsFunction: function (rowEntity, colDef) {
-                            return $scope.contactLessons;
-                        },
                         cellFilter: 'griddropdown:this',
                         sortCellFiltered: $scope.sortFiltered
                     },
@@ -152,7 +126,7 @@
                 ],
                 enableGridMenu: true,
                 enableSelectAll: true,
-                exporterCsvFilename: 'absence.csv',
+                exporterCsvFilename: 'absences.csv',
                 exporterPdfDefaultStyle: {fontSize: 9},
                 exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
                 exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
@@ -233,8 +207,8 @@
                     $scope.gridOptions.data = [];
                     if (globalFunctions.resultHandler(result)) {
 
-                        $scope.absencereasons = result.data;
-                        $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.absencereasons;
+                        $scope.absenceReasons = result.data;
+                        $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.absenceReasons;
 
                         studentModel.GetList($scope.params).then(function (result) {
 
@@ -252,7 +226,7 @@
                                         absenceModel.GetList($scope.params).then(function (result) {
                                             if (globalFunctions.resultHandler(result)) {
                                                 $scope.absences = result.data;
-                                                $scope.gridOptions.data = $scope.ansences;
+                                                $scope.gridOptions.data = $scope.absences;
                                             }
                                         });
                                     }
