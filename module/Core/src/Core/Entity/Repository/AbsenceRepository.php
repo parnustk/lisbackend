@@ -46,10 +46,16 @@ class AbsenceRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        firstName,
+                        lastName,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr
                         },
                     partial absenceReason.{
                         id,
@@ -74,13 +80,20 @@ class AbsenceRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        firstName,
+                        lastName,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr
                         },
                     partial absenceReason.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactlesson
@@ -101,13 +114,20 @@ class AbsenceRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        firstName,
+                        lastName,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr
                         },
                     partial absenceReason.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactlesson
@@ -128,13 +148,20 @@ class AbsenceRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        firstName,
+                        lastName,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr
                         },
                     partial absenceReason.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactlesson

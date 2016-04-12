@@ -24,14 +24,14 @@
          * 
          * @param {type} $http
          * @param {type} $resource
-         * @return {absencereasonModel_L6.absencereasonModel.absencereasonModelAnonym$3}
+         * @return {absenceReasonModel_L6.absenceReasonModel.absenceReasonModelAnonym$3}
          */
-        function absencereasonModel($http, $resource) {
+        function absenceReasonModel($http, $resource) {
 
             var _model;
 
             _model = $resource(
-                    window.LisGlobals.RestUrl + 'absencereason/:id',
+                    window.LisGlobals.RestUrl + 'absenceReason/:id',
                     {id: '@id'},
             {
                 update: {method: "PUT"},
@@ -85,8 +85,8 @@
                 }
             };
         }
-        absencereasonModel.$inject = ['$http', '$resource'];
-        return absencereasonModel;
+        absenceReasonModel.$inject = ['$http', '$resource'];
+        return absenceReasonModel;
     });
 
 }(define, window));

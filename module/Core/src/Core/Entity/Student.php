@@ -22,7 +22,8 @@ use DateTime;
  *     indexes={
  *         @ORM\Index(name="studentcode", columns={"personalCode"}),
  *         @ORM\Index(name="studentfirstname", columns={"firstName"}),
- *         @ORM\Index(name="studentlastname", columns={"lastName"})
+ *         @ORM\Index(name="studentlastname", columns={"lastName"}),
+ *         @ORM\Index(name="studentname", columns={"name"})
  *     }
  * )
  * @ORM\HasLifecycleCallbacks

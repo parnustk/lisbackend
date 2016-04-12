@@ -24,7 +24,7 @@
     /**
      * 
      * @param {type} angular
-     * @returns {absencereasonController_L19.absencereasonController_L25.absencereasonController}
+     * @returns {absenceReasonController_L19.absenceReasonController_L25.absenceReasonController}
      */
     define(['angular'], function (angular) {
 
@@ -47,10 +47,10 @@
          * @param {type} $scope
          * @param {type} $q
          * @param {type} $routeParams
-         * @param {type} absencereasonModel
+         * @param {type} absenceReasonModel
          * @returns {undefined}
          */
-        function absencereasonController($scope, $q, $routeParams, uiGridConstants, absencereasonModel) {
+        function absenceReasonController($scope, $q, $routeParams, uiGridConstants, absenceReasonModel) {
 
             /**
              * records sceleton
@@ -80,7 +80,7 @@
                 ],
                 enableGridMenu: true,
                 enableSelectAll: true,
-                exporterCsvFilename: 'absencereason.csv',
+                exporterCsvFilename: 'absenceReason.csv',
                 exporterPdfDefaultStyle: {fontSize: 9},
                 exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
                 exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
@@ -129,7 +129,7 @@
              * @returns {undefined}
              */
             $scope.init = function () {
-                absencereasonModel.GetList($scope.params).then(
+                absenceReasonModel.GetList($scope.params).then(
                         function (result) {
                             if (_resultHandler(result)) {
                                 $scope.gridOptions.data = result.data;
@@ -149,7 +149,7 @@
             $scope.saveRow = function (rowEntity) {
                 var promise = $q.defer();
                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
-                absencereasonModel.Update(rowEntity.id, rowEntity).then(
+                absenceReasonModel.Update(rowEntity.id, rowEntity).then(
                         function (result) {
                             if (result.success) {
                                 promise.resolve();
@@ -166,7 +166,7 @@
              * @returns {undefined}
              */
             $scope.reset = function () {
-                $scope.absencereason = angular.copy($scope.model);
+                $scope.absenceReason = angular.copy($scope.model);
             };
 
             /**
@@ -176,8 +176,8 @@
              */
             $scope.Create = function () {
 
-                absencereasonModel
-                        .Create(angular.copy($scope.absencereason))
+                absenceReasonModel
+                        .Create(angular.copy($scope.absenceReason))
                         .then(
                                 function (result) {
                                     if (result.success) {
@@ -195,9 +195,9 @@
 
         }
 
-        absencereasonController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'absencereasonModel'];
+        absenceReasonController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'absenceReasonModel'];
 
-        return absencereasonController;
+        return absenceReasonController;
     });
 
 }(define, document));

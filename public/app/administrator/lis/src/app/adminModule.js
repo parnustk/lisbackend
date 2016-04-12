@@ -21,7 +21,7 @@
         'app/model/gradingTypeModel',
         'app/model/gradeChoiceModel',
         'app/model/teacherModel',
-        'app/model/absencereasonModel',
+        'app/model/absenceReasonModel',
         'app/model/absenceModel',
         'app/model/roomModel',
         'app/model/moduletypeModel',
@@ -35,7 +35,7 @@
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
         'app/controller/teacherController',
-        'app/controller/absencereasonController',
+        'app/controller/absenceReasonController',
         'app/controller/absenceController',
         'app/controller/roomController',
         'app/controller/moduletypeController',
@@ -52,7 +52,7 @@
         gradingTypeModel,
         gradeChoiceModel,
         teacherModel,
-        absencereasonModel,
+        absenceReasonModel,
         absenceModel,
         roomModel,
         moduletypeModel,
@@ -66,7 +66,7 @@
         gradingTypeController,
         gradeChoiceController,
         teacherController,
-        absencereasonController,
+        absenceReasonController,
         absenceController,
         roomController,
         moduletypeController,
@@ -245,7 +245,7 @@
         adminModule.factory('teacherModel', teacherModel);
         adminModule.factory('gradingTypeModel', gradingTypeModel);
         adminModule.factory('gradeChoiceModel', gradeChoiceModel);
-        adminModule.factory('absencereasonModel', absencereasonModel);
+        adminModule.factory('absenceReasonModel', absenceReasonModel);
         adminModule.factory('absenceModel', absenceModel);
         adminModule.factory('roomModel', roomModel);
         adminModule.factory('moduletypeModel', moduletypeModel);
@@ -260,7 +260,7 @@
         adminModule.controller('teacherController', teacherController);
         adminModule.controller('gradingTypeController', gradingTypeController);
         adminModule.controller('gradeChoiceController', gradeChoiceController);
-        adminModule.controller('absencereasonController', absencereasonController);
+        adminModule.controller('absenceReasonController', absenceReasonController);
         adminModule.controller('absenceController', absenceController);
         adminModule.controller('roomController', roomController);
         adminModule.controller('moduletypeController', moduletypeController);

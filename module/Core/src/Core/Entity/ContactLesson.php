@@ -31,7 +31,9 @@ use Core\Entity\LisUser;
  *      indexes={
  *          @ORM\Index(name="contactlesson_index_lessondate", columns={"lessonDate"}),
  *          @ORM\Index(name="contactlesson_trashed", columns={"trashed"}),
- *          @ORM\Index(name="contactlesson_description", columns={"description"})
+ *          @ORM\Index(name="contactlesson_description", columns={"description"}),
+ *          @ORM\Index(name="contactlesson_name", columns={"name"}),
+ *          @ORM\Index(name="contactlesson_sequenceNr", columns={"$sequenceNr"})
  * })
  * @ORM\HasLifecycleCallbacks
  * 

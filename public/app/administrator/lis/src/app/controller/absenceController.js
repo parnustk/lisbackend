@@ -42,14 +42,14 @@
          * @param {type} contactLessonModel
          * @returns {absenceController_L30.absenceController}
          */
-        function absenceController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceModel, absencereasonModel, studentModel, contactLessonModel) {
+        function absenceController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceModel, absenceReasonModel, studentModel, contactLessonModel) {
 
             /**
              * records sceleton
              */
             $scope.model = {
                 id: null,
-                absencereason: null,
+                absenceReason: null,
                 student: null,
                 contactLesson: null,               
                 description: null,
@@ -203,7 +203,7 @@
              */
             function LoadGrid() {
 
-                absencereasonModel.GetList({}).then(function (result) {
+                absenceReasonModel.GetList({}).then(function (result) {
                     $scope.gridOptions.data = [];
                     if (globalFunctions.resultHandler(result)) {
 
@@ -240,7 +240,7 @@
             LoadGrid();//let's start loading data
         }
 
-        absenceController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceModel', 'absencereasonModel', 'studentModel', 'contactLessonModel'];
+        absenceController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceModel', 'absenceReasonModel', 'studentModel', 'contactLessonModel'];
 
         return absenceController;
     });

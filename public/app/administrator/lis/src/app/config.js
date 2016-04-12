@@ -36,8 +36,8 @@
                 })
 
                 .when('/absencereason', {
-                    templateUrl: 'lis/dist/templates/absencereason.html',
-                    controller: 'absencereasonController'})
+                    templateUrl: 'lis/dist/templates/absenceReason.html',
+                    controller: 'absenceReasonController'})
 
                 .when('/gradechoice', {
                     templateUrl: 'lis/dist/templates/gradechoice.html',
@@ -74,7 +74,7 @@
                     controller: 'subjectController'
                 })
                 
-                .when('/contactLesson', {
+                .when('/contactlesson', {
                     templateUrl: 'lis/dist/templates/contactLesson.html'
 //                    controller: 'contactLessonController'
                 })
