@@ -4,14 +4,16 @@
  * and open the template in the editor.
  * @author Arnold Tserepov <tserepov@gmail.com>
  
-
-/* global define */
+ 
+ /* global define */
 
 /**
  * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
  * http://brianhann.com/ui-grid-and-multi-select/#more-732
  * http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
  * http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
+ * adding content later https://github.com/angular-ui/ui-grid/issues/2050
+ * dropdown menu http://brianhann.com/ui-grid-and-dropdowns/
  /**
  * 
  * @param {type} define
@@ -22,38 +24,29 @@
 (function (define, document) {
     'use strict';
 
-/**
+    /**
      * 
      * @param {type} angular
+     * @param {type} globalFunctions
      * @returns {moduletypeController_L19.moduletypeController_L25.moduletypeController}
      */
-    define(['angular'], function (angular) {
-        
-        
-        /**
-         * Should move to Base controller
-         * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
-        
+    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
+
+        moduletypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants','moduletypeModel','moduleModel'];
         /**
          * 
          * @param {type} $scope
+         * @param {type} $q
          * @param {type} $routeParams
+         * @param {type} rowSorter
+         * @param {type} uiGridConstants
          * @param {type} moduletypeModel
-         * @returns {undefined}
+         * @param {type} moduleModel
+         * @returns {moduletypeController_L30.moduletypeController}
          */
-        function moduletypeController($scope, $routeParams,uiGridConstants, moduletypeModel) {
-           
+
+        function moduletypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduletypeModel, moduleModel) {
+
             /**
              * records sceleton
              */
@@ -63,11 +56,20 @@
                 module: null,
                 trashed: null
             };
-            
+
+            /**
+             * will hold module
+             * for grid select
+             */
+            $scope.module = [];
+
+            $scope.moduletype = {};//for form object
+
             /**
              * Grid set up
              */
             $scope.gridOptions = {
+                rowHeight: 38,
                 enableCellEditOnFocus: true,
                 columnDefs: [
                     {
@@ -78,6 +80,16 @@
                             direction: uiGridConstants.DESC,
                             priority: 1
                         }
+                    },
+                    {
+                        field: "module",
+                        name: "module",
+                        displayName: 'module',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+                        cellFilter: 'griddropdown:this',
+                        sortCellFiltered: $scope.sortFiltered
                     },
                     {field: 'name'},
                     {field: 'module'},
@@ -101,107 +113,68 @@
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")), /*
-                 onRegisterApi: function (gridApi) {
-                 $scope.gridApi = gridApi;
-                 gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-                 // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
-                 // var msg = 'New RowCol is ' + angular.toJson(rowCol);
-                 // if(oldRowCol){
-                 //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
-                 //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
-                 // }
-                 console.log('navigation event', newRowCol, oldRowCol);
-                 });
-                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-                 }*/
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
             };
 
             /**
-             * Adding event handlers
-             * 
-             * @param {type} gridApi
-             * @returns {undefined}
-             */
-            $scope.gridOptions.onRegisterApi = function (gridApi) {
-                //set gridApi on scope
-                $scope.gridApi = gridApi;
-                gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-            };
-
-            /**
-             * GetList
-             * @returns {undefined}
-             */
-            $scope.init = function () {
-                moduletypeModel.GetList($scope.params).then(
-                        function (result) {
-                            if (_resultHandler(result)) {
-                                $scope.store = $scope.gridOptions.data = result.data;
-                                //console.log($scope.gridApi);
-                            }
-                            //console.log($scope.store);
-                        }
-                );
-            };
-
-            /**
-             * Update logic
              * 
              * @param {type} rowEntity
              * @returns {undefined}
              */
-
             $scope.saveRow = function (rowEntity) {
-                var promise = moduletypeModel.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                var deferred = $q.defer();
                 moduletypeModel.Update(rowEntity.id, rowEntity).then(
                         function (result) {
                             if (result.success) {
-                                promise.resolve();
+                                deferred.resolve();
                             } else {
-                                promise.reject();
+                                deferred.reject();
                             }
-                            //console.log(result);
-                        });
+                        }
+                );
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
             };
 
             /**
-             * Form reset the angular way
+             * Create new from form if succeeds push to grid
              * 
+             * @param {type} valid
              * @returns {undefined}
              */
-            $scope.reset = function () {
-                $scope.moduletype = angular.copy($scope.model);
+            $scope.Create = function (valid) {
+                if (valid) {
+                    moduletypeModel.Create($scope.absence).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            console.log(result);
+                            $scope.gridOptions.data.push(result.data);
+                            LoadGrid();
+                        }
+                    });
+                } else {
+                    alert('CHECK_FORM_FIELDS');
+                }
             };
 
             /**
-             * Create
+             * Before loading moduletype data, 
+             * we first load relations and check success
              * 
              * @returns {undefined}
              */
-            $scope.Create = function () {
+            function LoadGrid() {
 
-                moduletypeModel
-                        .Create(angular.copy($scope.moduletype))
-                        .then(
-                                function (result) {
-                                    if (result.success) {
-                                        console.log(result);
-                                        $scope.gridOptions.data.push(result.data);
-                                        $scope.reset();
-                                    } else {
-                                        alert('BAD');
-                                    }
-                                }
-                        );
-            };
+                moduleModel.GetList({}).then(function (result) {
+                    $scope.gridOptions.data = [];
+                    if (globalFunctions.resultHandler(result)) {
+                        $scope.module = result.data;
 
-            $scope.init();//Start loading data from server to grid
+                    }
+                });
+            }
 
+
+            LoadGrid();//let's start loading data
         }
-
-        moduletypeController.$inject = ['$scope', '$routeParams', 'uiGridConstants', 'moduletypeModel'];
 
         return moduletypeController;
     });

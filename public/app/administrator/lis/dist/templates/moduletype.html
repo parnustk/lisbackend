@@ -1,19 +1,37 @@
 <h2>ModuleType view</h2>
-<form>
-    <div class="row">
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Name
-                <input type="text" ng-model="moduletype.name">
-            </label>
+<form class="form-horizontal" name="moduletypeForm" ng-submit="Create(moduletypeForm.$valid)">
+
+    <fieldset>
+
+        <legend>Create new moduletype</legend>
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': moduleForm.name.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon1">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="moduletype.name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': moduleForm.module.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon2">Module</span>
+                        <input name="module" type="text" class="form-control" aria-describedby="sizing-addon2" ng-model="moduletype.module" required>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
+
         </div>
-         <div class="large-3 medium-6 small-12 columns">
-            <label>Module
-                <input type="text" ng-model="moduletype.module">
-            </label>
-        </div>
-    </div>
-    <button class="button" ng-click="Create()">CREATE</button>
-    <button class="button" ng-click="Delete()">DELETE</button>
+
+    </fieldset>
+    <br><br>
 </form>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

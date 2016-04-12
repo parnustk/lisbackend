@@ -80,7 +80,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    return _moduletype.delete({id: id}).$promise;
+                    return _moduletype.remove({id: id}).$promise;
                 }
             };
         }
