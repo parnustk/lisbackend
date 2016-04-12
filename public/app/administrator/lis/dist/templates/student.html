@@ -1,28 +1,57 @@
 <h2>Student view</h2>
-<form>
-    <div class="row">
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Firstname
-                <input type="text" placeholder="Enter first name" ng-model="student.firstName">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Lastname
-                <input type="text" placeholder="Enter last name" ng-model="student.lastName">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Email
-                <input type="text" placeholder="Enter email" ng-model="student.email">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Code
-                <input type="text" placeholder="Enter code" ng-model="student.personalCode">
-            </label>
-        </div>
-    </div>
-    <button class="button" ng-click="Create()">CREATE</button>
+<form class="form-horizontal" name="studentForm" ng-submit="Create(studentForm.$valid)">
+    
+    <fieldset>
+        
+        <legend>Create new student</legend>
+
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': studentForm.firstName.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon1">Firstname</span>
+                        <input name="firstName" ng-required="true" type="text" class="form-control" placeholder="Firstname" aria-describedby="sizing-addon1" ng-model="student.firstName">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': studentForm.lastName.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon2">Lastname</span>
+                        <input name="lastName" ng-required="true" type="text" class="form-control" placeholder="Lastname" aria-describedby="sizing-addon2" ng-model="student.lastName">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': studentForm.email.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon3">Email</span>
+                        <input name="email" type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon3" ng-model="student.email" required>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': studentForm.personalCode.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon4">Personal Code</span>
+                        <input name="personalCode" type="text" class="form-control" placeholder="Personal Code" aria-describedby="sizing-addon4" ng-model="student.personalCode" required>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
+
+        </div><!-- /.row -->
+
+
+    </fieldset>
 </form>
+<br><br>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
