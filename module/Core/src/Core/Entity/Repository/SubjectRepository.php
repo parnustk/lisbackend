@@ -189,6 +189,9 @@ class SubjectRepository extends AbstractBaseRepository
                 new Subject($this->getEntityManager()), $data
         );
         //IF required MANY TO MANY validate manually
+        if (!count($entity->getGradingType())) {
+            throw new Exception(Json::encode('MISSING_GRADING_TYPES', true));
+        }
         return $this->singleResult($entity, $returnPartial, $extra);
     }
 

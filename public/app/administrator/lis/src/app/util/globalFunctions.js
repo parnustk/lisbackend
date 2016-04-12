@@ -33,7 +33,11 @@
                     for (_key in o) {
                         v = o[_key];
                         if (typeof v === "object" && v !== null) {
-                            if(level === 0) {
+                            if(level < 1 && !Array.isArray(o)) {
+                                level++;
+                                _out[_key] = copy(v);
+                                level--;
+                            } else if (level < 2 && Array.isArray(o)) {
                                 level++;
                                 _out[_key] = copy(v);
                                 level--;
