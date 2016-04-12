@@ -178,9 +178,14 @@ class DumpService implements ServiceManagerAwareInterface
             //Write structure to table
             file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
             
-            for ($i = 0; $i < 10; $i++) {
+            $stmt = $this->db->prepare('SELECT Id FROM ' . $tableString . ';');
+            $stmt->execute();
+            $rowCount = count($stmt->fetch());
+            
+            for ($i = 0; $i < $rowCount; $i++) {
                 $fetchData = null;
                 if ($i == 0) { //Determine table columns; TODO
+                    
                 } else { //Add Data Lines to 
                     $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
                             " WHERE `Id` = " . $i . ";");
