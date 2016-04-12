@@ -159,7 +159,8 @@ class DumpService implements ServiceManagerAwareInterface
             "Vocation"
         ];
 
-        for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, append new data into output file with each loop      
+//        for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, append new data into output file with each loop      
+        for ($t = 0; $t < 1; $t++) { //Alternate loop for debugging
             //Purpose: Prepare structure query statement
             $tableString = '`' . $tables[$t] . '`';
             $stmt = $this->db->prepare('SHOW CREATE TABLE ' . $tableString . ';');
@@ -177,29 +178,76 @@ class DumpService implements ServiceManagerAwareInterface
             }
             //Write structure to table
             file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
+            $dumpData = null;
             
-            $stmt = $this->db->prepare('SELECT Id FROM ' . $tableString . ';');
+            $stmt = $this->db->prepare('SELECT id FROM ' . $tableString . ' WHERE 1;');
             $stmt->execute();
             $rowCount = count($stmt->fetch());
             
-            for ($i = 0; $i < $rowCount; $i++) {
+            for ($i = 0; $i < $rowCount+1; $i++) { //Write data from single table
                 $fetchData = null;
-                if ($i == 0) { //Determine table columns; TODO
-                    
-                } else { //Add Data Lines to 
+                $colCount = null;
+                if ($i == 0) { //Begin backup INSERT statement
+                    $stmt = $this->db->prepare("SELECT `COLUMN_NAME` 
+                                                FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+                                                WHERE `TABLE_SCHEMA`= 'lis' 
+                                                AND `TABLE_NAME`='" . $tables[$t] . "';");
+                    $stmt->execute();
+                    $fetchData = $stmt->fetch(); //fetchData is Column Names
+                    $colCount = count($fetchData);
+                    $dumpData = "INSERT INTO " . $tableString . "(";
+                    for ($c=0;$c<$colCount+1;$c++) { //Append column names into statement
+                        if ($c == $colCount) { //Close column names, begin data
+                            $dumpData .= ") VALUES";
+                            break;
+                        }
+                        if ($c == 0) { //Append first column name into statement
+                            $dumpData .= $fetchData[$c];
+                        } else { //Append following column names into statement
+                            //ERROR with $fetchData offsets
+                            print_r($fetchData[$c]."<br>");
+                            $dumpData .= "," . $fetchData[$c];
+                        }
+                    }
+                } elseif ($i == $rowCount) { //Add last data row; close statement
                     $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
-                            " WHERE `Id` = " . $i . ";");
-                    //Query table data
+                                               " WHERE id = " . $i . ";");
+                    //Query data row
                     try {
                         $stmt->execute();
-                        $fetchData = $stmt->fetch();
+                        $fetchData = $stmt->fetch(); //fetchData is data row
                     } catch (PDOException $ex) {
                         print_r($ex);
                         die();
                     }
-                    $dumpData = null;
-                    file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
+                    for ($c = 0; $c < $colCount; $c++) {
+                        null;
+                    }
+                    
+                } else { //Add regular data row.
+                    $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
+                            " WHERE id = " . $i . ";");
+                    //Query table data
+                    try {
+                        $stmt->execute();
+                        $fetchData = $stmt->fetch(); //fetchData is data row
+                    } catch (PDOException $ex) {
+                        print_r($ex);
+                        die();
+                    }
+                    for ($c = 0; $c<$colCount+1; $c++) {
+                        if ($c == 0) {
+                            $dumpData = "(".$fetchData[$c];
+                        } elseif ($c == $colCount) { //Close data row value
+                            $dumpData .= "),";
+                        } else {
+                            $dumpData .= "," . $fetchData[$c];
+                        }
+                    }
                 }
+                //Write current pass to file
+                file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
+                $dumpData = null;
             }
         }
         //Disabled for debugging above code
