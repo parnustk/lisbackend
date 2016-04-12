@@ -27,21 +27,9 @@
      * @param {type} angular
      * @returns {subjectController_L28.subjectController}
      */
-    define(['angular'], function (angular) {
+    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
 
-        /**
-         * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
+        subjectController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'subjectModel', 'moduleModel', 'gradingTypeModel'];
 
         /**
          * 
@@ -51,36 +39,40 @@
          * @param {type} rowSorter
          * @param {type} uiGridConstants
          * @param {type} subjectModel
-         * @returns {undefined}
+         * @param {type} moduleModel
+         * @param {type} gradingTypeModel
+         * @returns {subjectController_L30.subjectController}
          */
-        function subjectController($scope, $q, $routeParams, rowSorter, uiGridConstants, subjectModel) {
+        function subjectController($scope, $q, $routeParams, rowSorter, uiGridConstants, subjectModel, moduleModel, gradingTypeModel) {
 
             /**
              * records sceleton
              */
             $scope.model = {
                 id: null,
-                subjectCode: null,
-                name: null,
-                durationAllAK: null,
-                durationContactAK : null,
-                durationIndependentAK: null,
                 module: null,
                 gradingType: null,
+                name: null,
+                subjectCode: null,
+                durationAllAK: null,
+                durationContactAK: null,
+                durationIndependentAK: null,
                 trashed: null
             };
-            
+
             /**
              * will hold modules
              * for grid select
              */
             $scope.modules = [];
-            
+
             /**
              * will hold gradingTypes
              * for grid select
              */
             $scope.gradingTypes = [];
+
+            $scope.subject = {};
 
             /**
              * Grid set up
@@ -93,23 +85,40 @@
                         field: 'id',
                         visible: false,
                         type: 'number',
+                        enableCellEdit: false,
                         sort: {
                             direction: uiGridConstants.DESC,
                             priority: 1
                         }
                     },
-                    {field: 'subjectCode'},
+                    {//select one
+                        field: "module",
+                        name: "module",
+                        displayName: 'Module',
+                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+                        sortCellFiltered: $scope.sortFiltered,
+                        cellFilter: 'griddropdown:this'},
+                    {//select many
+                        field: "gradingType",
+                        name: 'gradingType',
+                        displayName: 'gradingTypes',
+                        cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
+                        editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name"
+                    },
                     {field: 'name'},
+                    {field: 'subjectCode'},
                     {field: 'durationAllAK'},
                     {field: 'durationContactAK'},
                     {field: 'durationIndependentAK'},
-                    {field: 'module'},
-                    {field: 'gradingType'},
                     {field: 'trashed'}
                 ],
                 enableGridMenu: true,
                 enableSelectAll: true,
-                exporterCsvFilename: 'subject.csv',
+                exporterCsvFilename: 'subjects.csv',
                 exporterPdfDefaultStyle: {fontSize: 9},
                 exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
                 exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
@@ -140,31 +149,17 @@
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
 
-            /**
-             * GetList
-             * @returns {undefined}
-             */
-            $scope.init = function () {
-
-                subjectModel.GetList($scope.params).then(
-                        function (result) {
-                            if (_resultHandler(result)) {
-                                $scope.gridOptions.data = result.data;
-                            }
-                        });
-            };
-
             $scope.saveRow = function (rowEntity) {
-                var promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                var deferred = $q.defer();
                 subjectModel.Update(rowEntity.id, rowEntity).then(
-                        function (result) {
-                            if (result.success) {
-                                promise.resolve();
-                            } else {
-                                promise.reject();
-                            }
-                        });
+                    function (result) {
+                        if (result.success) {
+                            deferred.resolve();
+                        } else {
+                            deferred.reject();
+                        }
+                    });
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
             };
 
             /**
@@ -177,28 +172,63 @@
             };
 
             /**
-             * Create
+             * Create new from form if succeeds push to grid
+             * 
+             * @param {type} valid
+             * @returns {undefined}
+             */
+            $scope.Create = function (valid) {
+                if (valid) {
+                    subjectModel.Create($scope.subject).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            console.log(result);
+                            $scope.gridOptions.data.push(result.data);
+                            LoadGrid();//only needed if grid contains many column
+                            //can be used for gridrefresh button
+                            //maybe it is good to refresh after create?
+                        }
+                    });
+                } else {
+                    alert('CHECK_FORM_FIELDS');
+                }
+            };
+
+            /**
+             * Before loading module data, 
+             * we first load relations and check success
              * 
              * @returns {undefined}
              */
-            $scope.Create = function () {
-                subjectModel
-                        .Create(angular.copy($scope.subject))
-                        .then(
-                                function (result) {
-                                    if (result.success) {
-                                        $scope.gridOptions.data.push(result.data);
-                                        $scope.reset();
-                                    } else {
-                                        alert('BAD');
+            function LoadGrid() {
+
+                moduleModel.GetList({}).then(function (result) {
+                    $scope.gridOptions.data = [];
+                    if (globalFunctions.resultHandler(result)) {
+
+                        $scope.modules = result.data;
+                        $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.modules;
+
+                                gradingTypeModel.GetList($scope.params).then(function (result) {
+                                    if (globalFunctions.resultHandler(result)) {
+
+                                        $scope.gradingTypes = result.data;
+                                        $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradingTypes;
+
+                                        subjectModel.GetList($scope.params).then(function (result) {
+                                            if (globalFunctions.resultHandler(result)) {
+                                                $scope.gridOptions.data = result.data;
+                                            }
+                                        });
                                     }
-                                }
-                        );
-            };
-            $scope.init();//Start loading data from server to grid
+                                });
+                            
+                    }
+                });
+            }
+
+            LoadGrid();//let's start loading data
         }
 
-        subjectController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'subjectModel'];
         return subjectController;
     });
 

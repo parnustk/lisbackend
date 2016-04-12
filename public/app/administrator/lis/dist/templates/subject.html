@@ -40,4 +40,108 @@
     <button class="button" ng-click="Create()">CREATE</button>
 </form>
 
+
+<h2>Subject view</h2>
+<form class="form-horizontal" name="subjectForm" ng-submit="Create(subjectForm.$valid)">
+
+    <fieldset>
+
+        <legend>Create new subject</legend>
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.module.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="module" ng-required="true" ng-model="subject.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="Choose module">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="subject in subjects | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{module.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.gradingTypes.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="subject.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
+                            <ui-select-match placeholder="Select gradingType">{{$item.name}}</ui-select-match>
+                            <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
+                                <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
+                                <small>
+                                    id: {{gradingType.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.name.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon1">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="subject.name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.subjectCode.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon2">Code</span>
+                        <input name="subjectCode" type="text" class="form-control" placeholder="Code" aria-describedby="sizing-addon2" ng-model="subject.subjectCode" required>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+        </div><!-- /.row -->
+
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.durationAllAK.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon1">Duration All AK</span>
+                        <input name="durationAllAK" ng-required="true" type="number" class="form-control" placeholder="durationAllAK" aria-describedby="sizing-addon1" ng-model="subject.durationAllAK">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.durationContactAK.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon2">Duration Contact AK</span>
+                        <input name="durationContactAK" ng-required="true" type="number" class="form-control" placeholder="durationContactAK" aria-describedby="sizing-addon2" ng-model="subject.durationContactAK">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.durationIndependentAK.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon3">Duration Independent AK</span>
+                        <input name="durationIndependentAK" ng-required="true" type="number" class="form-control" placeholder="Duration Independent AK" aria-describedby="sizing-addon3" ng-model="subject.durationIndependentAK">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+            
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
+
+        </div><!-- /.row -->
+
+    </fieldset>
+</form>
+<br><br>
+
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
