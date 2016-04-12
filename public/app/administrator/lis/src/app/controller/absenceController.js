@@ -25,9 +25,12 @@
     /**
      * 
      * @param {type} angular
+     * @param {type} globalFunctions
      * @returns {absenceController_L19.absenceController_L25.absenceController}
      */
     define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
+
+        absenceController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceModel', 'absenceReasonModel', 'studentModel', 'contactLessonModel'];
 
         /**
          * 
@@ -37,7 +40,7 @@
          * @param {type} rowSorter
          * @param {type} uiGridConstants
          * @param {type} absenceModel
-         * @param {type} absencereasonModel
+         * @param {type} absenceReasonModel
          * @param {type} studentModel
          * @param {type} contactLessonModel
          * @returns {absenceController_L30.absenceController}
@@ -51,7 +54,7 @@
                 id: null,
                 absenceReason: null,
                 student: null,
-                contactLesson: null,               
+                contactLesson: null,
                 description: null,
                 trashed: null
             };
@@ -74,6 +77,8 @@
              */
             $scope.absenceReasons = [];
 
+            $scope.absence = {};
+
             /**
              * Grid set up
              */
@@ -94,7 +99,7 @@
                     {
                         field: "absenceReason",
                         name: "absenceReason",
-                        displayName: 'AbsenceReason',
+                        displayName: 'Absence Reason',
                         editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                         editDropdownIdLabel: "id",
                         editDropdownValueLabel: "name",
@@ -156,7 +161,7 @@
                 $scope.gridApi = gridApi;
                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
             };
-            
+
             /**
              * 
              * @param {type} rowEntity
@@ -165,16 +170,17 @@
             $scope.saveRow = function (rowEntity) {
                 var deferred = $q.defer();
                 absenceModel.Update(rowEntity.id, rowEntity).then(
-                    function (result) {
-                        if (result.success) {
-                            deferred.resolve();
-                        } else {
-                            deferred.reject();
+                        function (result) {
+                            if (result.success) {
+                                deferred.resolve();
+                            } else {
+                                deferred.reject();
+                            }
                         }
-                    });
+                );
                 $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
             };
-            
+
             /**
              * Create new from form if succeeds push to grid
              * 
@@ -194,7 +200,7 @@
                     alert('CHECK_FORM_FIELDS');
                 }
             };
-            
+
             /**
              * Before loading absence data, 
              * we first load relations and check success
@@ -225,8 +231,9 @@
 
                                         absenceModel.GetList($scope.params).then(function (result) {
                                             if (globalFunctions.resultHandler(result)) {
-                                                $scope.absences = result.data;
-                                                $scope.gridOptions.data = $scope.absences;
+//                                                $scope.absences = result.data;
+//                                                $scope.gridOptions.data = $scope.absences;
+                                                  $scope.gridOptions.data = result.data;
                                             }
                                         });
                                     }
@@ -239,8 +246,6 @@
 
             LoadGrid();//let's start loading data
         }
-
-        absenceController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceModel', 'absenceReasonModel', 'studentModel', 'contactLessonModel'];
 
         return absenceController;
     });

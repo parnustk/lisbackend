@@ -33,7 +33,7 @@ use Core\Entity\LisUser;
  *          @ORM\Index(name="contactlesson_trashed", columns={"trashed"}),
  *          @ORM\Index(name="contactlesson_description", columns={"description"}),
  *          @ORM\Index(name="contactlesson_name", columns={"name"}),
- *          @ORM\Index(name="contactlesson_sequenceNr", columns={"$sequenceNr"})
+ *          @ORM\Index(name="contactlesson_sequenceNr", columns={"sequenceNr"})
  * })
  * @ORM\HasLifecycleCallbacks
  * 
