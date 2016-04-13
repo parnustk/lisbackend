@@ -53,7 +53,7 @@ class Rooms extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="rooms")
+     * @ORM\OneToMany(targetEntity="ContactLesson", mappedBy="rooms")
      */
     protected $contactLesson;
 

@@ -52,7 +52,7 @@ class ContactLesson extends EntityValidation
      * 
      */
     protected $id;
-    
+
     /**
      * @Annotation\Required({"required":"true"})
      * 
@@ -91,12 +91,8 @@ class ContactLesson extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToMany(targetEntity="Rooms", inversedBy="contactLesson")
-     * @ORM\JoinTable(
-     *     name="RoomsToContactLesson",
-     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=true)},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="rooms_id", referencedColumnName="id", nullable=true)}
-     * )
+     * @ORM\ManyToOne(targetEntity="ModuleType", inversedBy="contactLesson")
+     * @ORM\JoinColumn(name="rooms_id", referencedColumnName="id", nullable=false)
      */
     protected $rooms;
 
@@ -108,29 +104,27 @@ class ContactLesson extends EntityValidation
     protected $studentGrade;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="contactLesson")
      * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Annotation\Required({"required":"true"})
      */
     protected $subjectRound;
-    
-    
+
     /**
+     * @Annotation\Required({"required":"true"})
+
      * @ORM\ManyToOne(targetEntity="StudentGroup")
      * @ORM\JoinColumn(name="student_group_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Annotation\Required({"required":"true"})
+     * 
      */
     protected $studentGroup;
-    
+
     /**
      * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="contactLesson")
-     * @ORM\JoinTable(
-     *     name="TeacherToContactLesson",
-     *     joinColumns={@ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", nullable=false)},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)}
-     * )
+     * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="contactLesson")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $teacher;
 
@@ -189,7 +183,7 @@ class ContactLesson extends EntityValidation
     {
         return $this->id;
     }
-    
+
     /**
      * 
      * @return String
@@ -261,7 +255,7 @@ class ContactLesson extends EntityValidation
     {
         return $this->subjectRound;
     }
-    
+
     /**
      * 
      * @return studentGroup
@@ -335,7 +329,7 @@ class ContactLesson extends EntityValidation
         $this->id = (int) $id;
         return $this;
     }
-    
+
     /**
      * 
      * @param string $name
@@ -423,7 +417,7 @@ class ContactLesson extends EntityValidation
         $this->subjectRound = $subjectRound;
         return $this;
     }
-    
+
     /**
      * 
      * @param StudentGroup $studentGroup

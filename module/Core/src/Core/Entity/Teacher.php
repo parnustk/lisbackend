@@ -114,7 +114,7 @@ class Teacher extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToMany(targetEntity="ContactLesson", mappedBy="teacher")
+     * @ORM\OneToMany(targetEntity="ContactLesson", mappedBy="teacher")
      */
     protected $contactLesson;
 
