@@ -10,8 +10,8 @@
             <div class="form-group" ng-class="{ 'has-error': absenceReasonForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">Name</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="absenceReason.name">
+                        <span class="input-group-addon" id="absenceReasonForm-name">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="absenceReasonForm-name" ng-model="absenceReason.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -25,5 +25,30 @@
         </fieldset>
 </form>
 <br><br>
+
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+        
+        <legend>Absence reason grid filters</legend>
+        <div class="form-group">
+            
+            <label class="col-sm-3 control-label">Name filter</label>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterAbsenceReason-name">Name</span>
+                        <input name="name" ng-model="filterAbsenceReason.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterAbsenceReason-name">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div><!-- /.col-lg-6 -->
+            
+        </div>
+    </fieldset>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
