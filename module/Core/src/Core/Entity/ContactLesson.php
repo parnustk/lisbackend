@@ -121,7 +121,7 @@ class ContactLesson extends EntityValidation
      * 
      */
     protected $studentGroup;
-    
+
     /**
      * @Annotation\Required({"required":"true"})
 
@@ -130,8 +130,8 @@ class ContactLesson extends EntityValidation
      * 
      */
     protected $module;
-    
-     /**
+
+    /**
      * @Annotation\Required({"required":"true"})
 
      * @ORM\ManyToOne(targetEntity="Vocation")
@@ -284,7 +284,7 @@ class ContactLesson extends EntityValidation
     {
         return $this->studentGroup;
     }
-    
+
     /**
      * 
      * @return Module
@@ -293,7 +293,7 @@ class ContactLesson extends EntityValidation
     {
         return $this->module;
     }
-    
+
     /**
      * 
      * @return Vocation
@@ -466,7 +466,7 @@ class ContactLesson extends EntityValidation
         $this->studentGroup = $studentGroup;
         return $this;
     }
-    
+
     /**
      * 
      * @param Module $module
@@ -477,7 +477,7 @@ class ContactLesson extends EntityValidation
         $this->module = $module;
         return $this;
     }
-    
+
     /**
      * 
      * @param Vocation $vocation
