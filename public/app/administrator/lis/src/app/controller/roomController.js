@@ -8,29 +8,21 @@
 /**
  * @author Alar Aasa <alar@alaraasa.ee>
  */
+
+
 (function (define, document) {
     'use strict';
     /**
-     *  @param {type} angular
-     *  @returns {roomController_L19.roomController_L25.roomController}
+     * @param angular
+     * @param globalFunctions
+     * @returns {roomController_L21.roomController_L32.moduleController}
      */
 
-    define(['angular'], function (angular) {
+    define(['angular', 'app/util/globalFunctions'],
+        function (angular, globalFunctions) {
 
+        roomController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'roomModel'];
 
-        /**
-         *
-         * @param {Object} result
-         * @returns {boolean}
-         */
-        var _resultHandler = function (result){
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
 
 
         /**
@@ -38,18 +30,30 @@
          * @param $scope
          * @param $q
          * @param $routeParams
+         * @param rowSorter
          * @param uiGridConstants
          * @param roomModel
+         * @returns {roomController}
          */
-        function roomController($scope, $q, $routeParams, uiGridConstants, roomModel) {
+        function roomController($scope, $q, $routeParams, rowSorter, uiGridConstants, roomModel) {
+
+            var urlParams = {
+                page: 1,
+                limit: 10
+            };
 
             $scope.model = {
                 name: null,
                 trashed: null
             };
 
+            $scope.room = {};
+
+            $scope.filterModule = {};
+
 
             $scope.gridOptions = {
+                rowHeight: 38,
                 enableCellEditOnFocus: true,
                 columnDefs: [
                     {
@@ -82,7 +86,7 @@
                 exporterPdfOrientation: 'portrait',
                 exporterPdfPageSize: 'LETTER',
                 exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custon-csv-link-location"))
+                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
 
             };
 
@@ -96,58 +100,84 @@
             };
 
 
-
-            $scope.init = function(){
-                roomModel.GetList($scope.params).then(
-                    function (result) {
-                        if(_resultHandler(result)) {
-                            $scope.gridOptions.data = result.data;
-                        }
-                    }
-                );
-            };
-
             /**
              *
              * @param rowEntity
              */
             $scope.saveRow = function (rowEntity) {
-                var  promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+                var  deferred = $q.defer();
                 roomModel.Update(rowEntity.id, rowEntity).then(
                     function (result) {
                         if (result.success) {
-                            promise.resolve();
+                            deferred.resolve();
                         } else {
-                            promise.reject();
+                            deferred.reject();
                         }
                     }
                 );
+                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+
             };
 
-            $scope.reset = function () {
-                $scope.room = angular.copy($scope.model);
+            // $scope.reset = function () {
+            //     $scope.room = angular.copy($scope.model);
+            // };
+            /**
+             *
+             * @param valid
+             * @constructor
+             */
+
+            $scope.Create = function (valid) {
+                if (valid) {
+                    roomModel.Create($scope.room).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            console.log(result);
+                            //$scope.gridOptions.data.push(result.data);
+                            LoadGrid();
+                        }
+                    });
+                } else {
+                    alert('CHECK_FORM_FIELDS');
+                }
             };
 
-            $scope.Create = function () {
-                roomModel
-                        .Create(angular.copy($scope.room))
-                        .then(
-                                function (result) {
-                                    if (result.success) {
-                                        console.log(result);
-                                        $scope.gridOptions.data.push(result.data);
-                                        $scope.reset();
-                                    } else {
-                                        alert('BAD');
-                                    }
-                                }
-                        );
+            /**
+             *
+             * @constructor
+             */
+            $scope.Filter = function() {
+                if (!angular.equals({}, $scope.items)) {
+                    urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
+                    LoadGrid();
+                }
             };
-            $scope.init();
+
+            /**
+             *
+             * @constructor
+             */
+            $scope.ClearFilters = function() {
+                $scope.filterModule = {};
+                LoadGrid();
+            };
+
+            /**
+             *
+             * @constructor
+             */
+            function LoadGrid() {
+                roomModel.GetList({}).then(function (result) {
+                    if (globalFunctions.resultHandler(result)) {
+                        $scope.rooms = result.data;
+                        $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.rooms;
+                        $scope.gridOptions.data = result.data;
+                    }
+                });
+            }
+            LoadGrid();
         }
 
-        roomController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'roomModel'];
 
         return roomController;
     });

@@ -16,7 +16,9 @@
 (function (define, window) {
     'use strict';
 
-    define([], function () {
+    define([
+        'app/util/globalFunctions'
+    ], function (globalFunctions) {
 
         /**
          * 
@@ -39,29 +41,31 @@
 
             return {
                 /**
-                 * 
-                 * @param {type} params
-                 * @return {unresolved}
+                 *
+                 * @param params
+                 * @returns {*|Function}
+                 * @constructor
                  */
                 GetList: function (params) {
                     return _model.query(params).$promise;
                 },
                 /**
-                 * 
-                 * @param {type} id
-                 * @return {unresolved}
+                 *
+                 * @param id
+                 * @returns {*|Function}
+                 * @constructor
                  */
                 Get: function (id) {
                     return _model.get({id: id}).$promise;
                 },
                 /**
-                 * 
-                 * @param {type} data
-                 * @return {undefined}
-                 * @return {unresolved}
+                 *
+                 * @param data
+                 * @returns {*|Function}
+                 * @constructor
                  */
                 Create: function (data) {
-                    return _model.save(data).$promise;
+                    return _model.save(globalFunctions.cleanData(data)).$promise;
                 },
                 /**
                  * 
@@ -70,7 +74,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _model.update({id: id}, data).$promise;
+                    return _model.update({id: id}, globalFunctions.cleanData(data)).$promise;
 
                 },
                 /**
@@ -80,7 +84,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    return _model.delete({id: id}).$promise;
+                    return _model.remove({id: id}).$promise;
                 }
             };
         }
