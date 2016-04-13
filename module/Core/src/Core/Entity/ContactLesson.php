@@ -24,6 +24,8 @@ use Core\Entity\SubjectRound;
 use Core\Entity\StudentGroup;
 use Core\Entity\Teacher;
 use Core\Entity\LisUser;
+use Core\Entity\Module;
+use Core\Entity\Vocation;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\ContactLessonRepository")
@@ -119,6 +121,24 @@ class ContactLesson extends EntityValidation
      * 
      */
     protected $studentGroup;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
+
+     * @ORM\ManyToOne(targetEntity="Module")
+     * @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * 
+     */
+    protected $module;
+    
+     /**
+     * @Annotation\Required({"required":"true"})
+
+     * @ORM\ManyToOne(targetEntity="Vocation")
+     * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * 
+     */
+    protected $vocation;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -258,11 +278,29 @@ class ContactLesson extends EntityValidation
 
     /**
      * 
-     * @return studentGroup
+     * @return StudentGroup
      */
     public function getStudentGroup()
     {
         return $this->studentGroup;
+    }
+    
+    /**
+     * 
+     * @return Module
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+    
+    /**
+     * 
+     * @return Vocation
+     */
+    public function getVocation()
+    {
+        return $this->vocation;
     }
 
     /**
@@ -426,6 +464,28 @@ class ContactLesson extends EntityValidation
     public function setStudentGroup(StudentGroup $studentGroup)
     {
         $this->studentGroup = $studentGroup;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param Module $module
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setModule(Module $module)
+    {
+        $this->module = $module;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param Vocation $vocation
+     * @return \Core\Entity\ContactLesson
+     */
+    public function setVocation(Vocation $vocation)
+    {
+        $this->vocation = $vocation;
         return $this;
     }
 
