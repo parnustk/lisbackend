@@ -64,7 +64,7 @@
 
                     $scope.absenceReason = {};
 
-                    $scope.filterModule = {};
+                    $scope.filterAbsenceReason = {};
 
                     /**
                      * Grid set up
