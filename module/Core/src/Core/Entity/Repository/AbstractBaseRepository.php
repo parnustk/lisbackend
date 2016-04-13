@@ -42,6 +42,42 @@ abstract class AbstractBaseRepository extends EntityRepository
         }
     }
 
+    protected function dqlWhereInner($dql, $params)
+    {
+        $dql .= " WHERE";
+        $firstCycle = true;
+        foreach ($params['where'] as $key => $value) {
+            if (!$firstCycle) {
+                $dql .= ' AND';
+            } else {
+                $firstCycle = false;
+            }
+
+            if (is_object($value)) {
+                $v = $value->id;
+                $dql .= " $this->baseAlias.$key=$v ";
+            } else if (is_array($value)) { //needs to be made using unit tests
+                $firstCycleI = true;
+                $dql .= ' (';
+                foreach ($value as $ki => $vi) {
+                    if (!$firstCycleI) {
+                        $dql .= ' OR ';
+                    } else {
+                        $firstCycleI = false;
+                    }
+
+                    $vInner = $vi->id;
+                    $dql .= " $key.id=$vInner ";
+                }
+                $dql .= ') ';
+            } else {
+                $dql .= " $this->baseAlias.$key=$value ";
+            }
+        }
+
+        return $dql;
+    }
+
     /**
      * 
      * @param array $params
@@ -54,16 +90,7 @@ abstract class AbstractBaseRepository extends EntityRepository
         $dql = '';
 
         if (!!$params['where']) {//if where is not null
-            $dql .= " WHERE";
-            $firstCycle = true;
-            foreach ($params['where'] as $key => $value) {
-                if (!$firstCycle) {
-                    $dql .= ' AND';
-                } else {
-                    $firstCycle = false;
-                }
-                $dql .= " $this->baseAlias.$key=$value";
-            }
+            $dql = $this->dqlWhereInner($dql, $params);
         } else {//default WHERE has trashed IS NULL for now nothing else
             $dql .= " WHERE ($this->baseAlias.trashed IS NULL OR $this->baseAlias.trashed=0)";
         }
@@ -115,7 +142,7 @@ abstract class AbstractBaseRepository extends EntityRepository
 
         $dql .= " WHERE $this->baseAlias.id = :id";
         $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
-        
+
         $q->setParameter('id', $id, Type::INTEGER);
 //        throw new Exception($id."\n".$q->getSQL());
         return $q->getSingleResult($hydrateMethod);
@@ -173,6 +200,7 @@ abstract class AbstractBaseRepository extends EntityRepository
     {
         $dql = $this->dqlStart();
         $dql .= $this->dqlWhere($params, $extra);
+
         return $this->wrapPaginator($dql);
     }
 

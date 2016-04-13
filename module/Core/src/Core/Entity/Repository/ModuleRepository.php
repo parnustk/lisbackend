@@ -560,6 +560,7 @@ class ModuleRepository extends AbstractBaseRepository
         if ($dqlRestriction) {
             $dql .= $dqlRestriction;
         }
+        //throw new Exception($dql);//debug dql from front
         return $this->wrapPaginator($dql);
     }
 

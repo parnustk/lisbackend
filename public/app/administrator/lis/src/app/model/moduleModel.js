@@ -81,7 +81,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    //TODO
+                    return _model.remove({id: id}).$promise;
                 }
             };
         }

@@ -64,7 +64,9 @@
             resultHandler: function (result) {
                 var s = true;
                 if (!result.success) {
+                    console.log(result.message);
                     alert(result.message);
+                    
                     s = false;
                 }
                 return s;
