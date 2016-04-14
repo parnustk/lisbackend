@@ -28,212 +28,239 @@
      * @param {type} globalFunctions
      * @returns {absenceController_L19.absenceController_L25.absenceController}
      */
-    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
+    define(['angular', 'app/util/globalFunctions'],
+            function (angular, globalFunctions) {
 
-        absenceController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceModel', 'absenceReasonModel', 'studentModel', 'contactLessonModel'];
+                absenceController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'absenceModel', 'absenceReasonModel', 'studentModel', 'contactLessonModel'];
 
-        /**
-         * 
-         * @param {type} $scope
-         * @param {type} $q
-         * @param {type} $routeParams
-         * @param {type} rowSorter
-         * @param {type} uiGridConstants
-         * @param {type} absenceModel
-         * @param {type} absenceReasonModel
-         * @param {type} studentModel
-         * @param {type} contactLessonModel
-         * @returns {absenceController_L30.absenceController}
-         */
-        function absenceController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceModel, absenceReasonModel, studentModel, contactLessonModel) {
+                /**
+                 * 
+                 * @param {type} $scope
+                 * @param {type} $q
+                 * @param {type} $routeParams
+                 * @param {type} rowSorter
+                 * @param {type} uiGridConstants
+                 * @param {type} absenceModel
+                 * @param {type} absenceReasonModel
+                 * @param {type} studentModel
+                 * @param {type} contactLessonModel
+                 * @returns {absenceController_L30.absenceController}
+                 */
+                function absenceController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceModel, absenceReasonModel, studentModel, contactLessonModel) {
 
-            /**
-             * records sceleton
-             */
-            $scope.model = {
-                id: null,
-                absenceReason: null,
-                student: null,
-                contactLesson: null,
-                description: null,
-                trashed: null
-            };
+                    /**
+                     * records sceleton
+                     */
+                    $scope.model = {
+                        id: null,
+                        absenceReason: null,
+                        student: null,
+                        contactLesson: null,
+                        description: null,
+                        trashed: null
+                    };
 
-            /**
-             * will hold students
-             * for grid select
-             */
-            $scope.students = [];
+                    /**
+                     * will hold students
+                     * for grid select
+                     */
+                    $scope.students = [];
 
-            /**
-             * will hold contactLessons
-             * for grid select
-             */
-            $scope.contactLessons = [];
+                    /**
+                     * will hold contactLessons
+                     * for grid select
+                     */
+                    $scope.contactLessons = [];
 
-            /**
-             * will hold absenceReasons
-             * for grid select
-             */
-            $scope.absenceReasons = [];
+                    /**
+                     * will hold absenceReasons
+                     * for grid select
+                     */
+                    $scope.absenceReasons = [];
 
-            $scope.absence = {};
+                    $scope.absence = {};
+                    
+                    $scope.filterAbsence = {};//for form filters, object
 
-            /**
-             * Grid set up
-             */
-            $scope.gridOptions = {
-                rowHeight: 38,
-                enableCellEditOnFocus: true,
-                columnDefs: [
-                    {
-                        field: 'id',
-                        visible: false,
-                        type: 'number',
-                        enableCellEdit: false,
-                        sort: {
-                            direction: uiGridConstants.DESC,
-                            priority: 1
+                    /**
+                     * Grid set up
+                     */
+                    $scope.gridOptions = {
+                        rowHeight: 38,
+                        enableCellEditOnFocus: true,
+                        columnDefs: [
+                            {
+                                field: 'id',
+                                visible: false,
+                                type: 'number',
+                                enableCellEdit: false,
+                                sort: {
+                                    direction: uiGridConstants.DESC,
+                                    priority: 1
+                                }
+                            },
+                            {
+                                field: "absenceReason",
+                                name: "absenceReason",
+                                displayName: 'Absence Reason',
+                                editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                                editDropdownIdLabel: "id",
+                                editDropdownValueLabel: "name",
+                                cellFilter: 'griddropdown:this',
+                                sortCellFiltered: $scope.sortFiltered
+                            },
+                            {
+                                field: "student",
+                                name: "student",
+                                displayName: 'Student',
+                                editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                                editDropdownIdLabel: "id",
+                                editDropdownValueLabel: "name",
+                                cellFilter: 'griddropdown:this',
+                                sortCellFiltered: $scope.sortFiltered
+                            },
+                            {
+                                field: "contactLesson",
+                                name: "contactLesson",
+                                displayName: 'Contact Lesson',
+                                editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                                editDropdownIdLabel: "id",
+                                editDropdownValueLabel: "name",
+                                cellFilter: 'griddropdown:this',
+                                sortCellFiltered: $scope.sortFiltered
+                            },
+                            {field: 'description'},
+                            {field: 'trashed'}
+                        ],
+                        enableGridMenu: true,
+                        enableSelectAll: true,
+                        exporterCsvFilename: 'absences.csv',
+                        exporterPdfDefaultStyle: {fontSize: 9},
+                        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+                        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                        exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+                        exporterPdfFooter: function (currentPage, pageCount) {
+                            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+                        },
+                        exporterPdfCustomFormatter: function (docDefinition) {
+                            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+                            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+                            return docDefinition;
+                        },
+                        exporterPdfOrientation: 'portrait',
+                        exporterPdfPageSize: 'LETTER',
+                        exporterPdfMaxGridWidth: 500,
+                        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
+                    };
+
+                    /**
+                     * Adding event handlers
+                     * 
+                     * @param {type} gridApi
+                     * @returns {undefined}
+                     */
+                    $scope.gridOptions.onRegisterApi = function (gridApi) {
+                        //set gridApi on scope
+                        $scope.gridApi = gridApi;
+                        gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+                    };
+
+                    /**
+                     * 
+                     * @param {type} rowEntity
+                     * @returns {undefined}
+                     */
+                    $scope.saveRow = function (rowEntity) {
+                        var deferred = $q.defer();
+                        absenceModel.Update(rowEntity.id, rowEntity).then(
+                                function (result) {
+                                    if (result.success) {
+                                        deferred.resolve();
+                                    } else {
+                                        deferred.reject();
+                                    }
+                                }
+                        );
+                        $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+                    };
+
+                    /**
+                     * Create new from form if succeeds push to grid
+                     * 
+                     * @param {type} valid
+                     * @returns {undefined}
+                     */
+                    $scope.Create = function (valid) {
+                        if (valid) {
+                            absenceModel.Create($scope.absence).then(function (result) {
+                                if (globalFunctions.resultHandler(result)) {
+                                    console.log(result);
+                                    //$scope.gridOptions.data.push(result.data);
+                                    LoadGrid();
+                                }
+                            });
+                        } else {
+                            alert('CHECK_FORM_FIELDS');
                         }
-                    },
-                    {
-                        field: "absenceReason",
-                        name: "absenceReason",
-                        displayName: 'Absence Reason',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                        editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "name",
-                        cellFilter: 'griddropdown:this',
-                        sortCellFiltered: $scope.sortFiltered
-                    },
-                    {
-                        field: "student",
-                        name: "student",
-                        displayName: 'Student',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                        editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "name",
-                        cellFilter: 'griddropdown:this',
-                        sortCellFiltered: $scope.sortFiltered
-                    },
-                    {
-                        field: "contactLesson",
-                        name: "contactLesson",
-                        displayName: 'Contact Lesson',
-                        editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                        editDropdownIdLabel: "id",
-                        editDropdownValueLabel: "name",
-                        cellFilter: 'griddropdown:this',
-                        sortCellFiltered: $scope.sortFiltered
-                    },
-                    {field: 'description'},
-                    {field: 'trashed'}
-                ],
-                enableGridMenu: true,
-                enableSelectAll: true,
-                exporterCsvFilename: 'absences.csv',
-                exporterPdfDefaultStyle: {fontSize: 9},
-                exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-                exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-                exporterPdfFooter: function (currentPage, pageCount) {
-                    return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-                },
-                exporterPdfCustomFormatter: function (docDefinition) {
-                    docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-                    docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-                    return docDefinition;
-                },
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
-            };
+                    };
+                    
+                     /**
+                 * Set remote criteria for DB
+                 * 
+                 * @returns {undefined}
+                 */
+                $scope.Filter = function () {
+                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterAbsence));
+                        LoadGrid();
+                    }
+                };
 
-            /**
-             * Adding event handlers
-             * 
-             * @param {type} gridApi
-             * @returns {undefined}
-             */
-            $scope.gridOptions.onRegisterApi = function (gridApi) {
-                //set gridApi on scope
-                $scope.gridApi = gridApi;
-                gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-            };
+                /**
+                 * Remove criteria
+                 * 
+                 * @returns {undefined}
+                 */
+                $scope.ClearFilters = function () {
+                    $scope.filterAbsence = {};
+                    LoadGrid();
+                };
 
-            /**
-             * 
-             * @param {type} rowEntity
-             * @returns {undefined}
-             */
-            $scope.saveRow = function (rowEntity) {
-                var deferred = $q.defer();
-                absenceModel.Update(rowEntity.id, rowEntity).then(
-                        function (result) {
-                            if (result.success) {
-                                deferred.resolve();
-                            } else {
-                                deferred.reject();
-                            }
-                        }
-                );
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
-            };
+                    /**
+                     * Before loading absence data, 
+                     * we first load relations and check success
+                     * 
+                     * @returns {undefined}
+                     */
+                    function LoadGrid() {
 
-            /**
-             * Create new from form if succeeds push to grid
-             * 
-             * @param {type} valid
-             * @returns {undefined}
-             */
-            $scope.Create = function (valid) {
-                if (valid) {
-                    absenceModel.Create($scope.absence).then(function (result) {
-                        if (globalFunctions.resultHandler(result)) {
-                            console.log(result);
-                            //$scope.gridOptions.data.push(result.data);
-                            LoadGrid();
-                        }
-                    });
-                } else {
-                    alert('CHECK_FORM_FIELDS');
-                }
-            };
-
-            /**
-             * Before loading absence data, 
-             * we first load relations and check success
-             * 
-             * @returns {undefined}
-             */
-            function LoadGrid() {
-
-                absenceReasonModel.GetList({}).then(function (result) {
-                    $scope.gridOptions.data = [];
-                    if (globalFunctions.resultHandler(result)) {
-
-                        $scope.absenceReasons = result.data;
-                        $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.absenceReasons;
-
-                        studentModel.GetList($scope.params).then(function (result) {
-
+                        absenceReasonModel.GetList({}).then(function (result) {
+                            $scope.gridOptions.data = [];
                             if (globalFunctions.resultHandler(result)) {
 
-                                $scope.students = result.data;
-                                $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.students;
+                                $scope.absenceReasons = result.data;
+                                $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.absenceReasons;
 
-                                contactLessonModel.GetList($scope.params).then(function (result) {
+                                studentModel.GetList($scope.params).then(function (result) {
+
                                     if (globalFunctions.resultHandler(result)) {
 
-                                        $scope.contactLessons = result.data;
-                                        $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.contactLessons;
+                                        $scope.students = result.data;
+                                        $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.students;
 
-                                        absenceModel.GetList($scope.params).then(function (result) {
+                                        contactLessonModel.GetList($scope.params).then(function (result) {
                                             if (globalFunctions.resultHandler(result)) {
+
+                                                $scope.contactLessons = result.data;
+                                                $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.contactLessons;
+
+                                                absenceModel.GetList($scope.params).then(function (result) {
+                                                    if (globalFunctions.resultHandler(result)) {
 //                                                $scope.absences = result.data;
 //                                                $scope.gridOptions.data = $scope.absences;
-                                                  $scope.gridOptions.data = result.data;
+                                                        $scope.gridOptions.data = result.data;
+                                                    }
+                                                });
                                             }
                                         });
                                     }
@@ -241,13 +268,11 @@
                             }
                         });
                     }
-                });
-            }
 
-            LoadGrid();//let's start loading data
-        }
+                    LoadGrid();//let's start loading data
+                }
 
-        return absenceController;
-    });
+                return absenceController;
+            });
 
 }(define, document));
