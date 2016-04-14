@@ -45,8 +45,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">Name</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="subject.name">
+                        <span class="input-group-addon" id="subjectForm-name">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="subjectForm-name" ng-model="subject.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -54,8 +54,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.subjectCode.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon2">Code</span>
-                        <input name="subjectCode" type="text" class="form-control" placeholder="Code" aria-describedby="sizing-addon2" ng-model="subject.subjectCode" required>
+                        <span class="input-group-addon" id="subjectForm-subjectCode">Code</span>
+                        <input name="subjectCode" type="text" class="form-control" placeholder="Code" aria-describedby="subjectForm-subjectCode" ng-model="subject.subjectCode" required>
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -67,8 +67,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationAllAK.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">Duration All AK</span>
-                        <input name="durationAllAK" ng-required="true" type="number" class="form-control" placeholder="durationAllAK" aria-describedby="sizing-addon1" ng-model="subject.durationAllAK">
+                        <span class="input-group-addon" id="subjectForm-durationAllAK">Duration All AK</span>
+                        <input name="durationAllAK" ng-required="true" type="number" class="form-control" placeholder="durationAllAK" aria-describedby="subjectForm-durationAllAK" ng-model="subject.durationAllAK">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -76,8 +76,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationContactAK.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon2">Duration Contact AK</span>
-                        <input name="durationContactAK" ng-required="true" type="number" class="form-control" placeholder="durationContactAK" aria-describedby="sizing-addon2" ng-model="subject.durationContactAK">
+                        <span class="input-group-addon" id="subjectForm-durationContactAK">Duration Contact AK</span>
+                        <input name="durationContactAK" ng-required="true" type="number" class="form-control" placeholder="durationContactAK" aria-describedby="subjectForm-durationContactAK" ng-model="subject.durationContactAK">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -85,8 +85,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationIndependentAK.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon3">Duration Independent AK</span>
-                        <input name="durationIndependentAK" ng-required="true" type="number" class="form-control" placeholder="Duration Independent AK" aria-describedby="sizing-addon3" ng-model="subject.durationIndependentAK">
+                        <span class="input-group-addon" id="subjectForm-durationIndependentAK">Duration Independent AK</span>
+                        <input name="durationIndependentAK" ng-required="true" type="number" class="form-control" placeholder="Duration Independent AK" aria-describedby="subjectForm-durationIndependentAK" ng-model="subject.durationIndependentAK">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -101,4 +101,94 @@
 </form>
 <br><br>
 
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+
+        <legend>Subject grid filters</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Subject filter</label>
+            <div class="col-sm-12">
+                <div class="input-group">
+
+                    <ui-select allow-clear ng-model="filterSubject.module" theme="bootstrap">
+                        <ui-select-match placeholder="Select or search a module in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="module in modules | filter: $select.search">
+                            <span ng-bind-html="module.name | highlight: $select.search"></span>
+                            <small>
+                                id: {{module.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <ui-select name="gradingTypes" multiple  ng-model="filterSubject.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
+                        <ui-select-match placeholder="Select gradingType...">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
+                            <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
+                            <small>
+                                id: {{gradingType.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterSubject-name">Name</span>
+                        <input name="name" ng-model="filterSubject.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterSubject-name">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterSubject-subjectCode">Code</span>
+                        <input name="subjectCode" ng-model="filterSubject.subjectCode" type="text" class="form-control" placeholder="Code" aria-describedby="filterSubject-subjectCode">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterSubject-durationAllAK">Duration All</span>
+                        <input name="durationAllAK" ng-model="filterSubject.durationAllAK" type="number" class="form-control" placeholder="Duration All" aria-describedby="filterSubject-durationAllAK">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterSubject-durationContactAK">Duration Contact</span>
+                        <input name="durationContactAK" ng-model="filterSubject.durationContactAK" type="number" class="form-control" placeholder="Duration Contact" aria-describedby="filterSubject-durationContactAK">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterSubject-durationIndependentAK">Duration Independent</span>
+                        <input name="durationIndependentAK" ng-model="filterSubject.durationIndependentAK" type="number" class="form-control" placeholder="Duration Independent" aria-describedby="filterSubject-durationIndependentAK">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div><!-- /.col-lg-6 -->
+        </div>
+    </fieldset>
+</form>
+<br><br>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
