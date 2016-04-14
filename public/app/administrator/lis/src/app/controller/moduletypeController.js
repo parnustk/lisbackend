@@ -64,14 +64,9 @@
                     $scope.model = {
                         id: null,
                         name: null,
-                        module: null,
                         trashed: null
                     };
 
-                    /**
-                     * will hold module
-                     * for grid select
-                     */
                     $scope.moduletype = [];
 
                     $scope.filterModuleType = {};//for form object
@@ -155,7 +150,7 @@
                      */
                     $scope.Create = function (valid) {
                         if (valid) {
-                            moduletypeModel.Create($scope.absence).then(function (result) {
+                            moduletypeModel.Create($scope.moduletype).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
                                     console.log(result);
                                     //$scope.gridOptions.data.push(result.data);
@@ -175,7 +170,7 @@
                  */
                 $scope.Filter = function () {
                     if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
+                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filtermoduletype));
                         LoadGrid();
                     }
                 };
@@ -186,7 +181,8 @@
                  * @returns {undefined}
                  */
                 $scope.ClearFilters = function () {
-                    $scope.filterModule = {};
+                    $scope.filterModuleType = {};
+                    delete urlParams.where;
                     LoadGrid();
                 };
 
@@ -198,7 +194,7 @@
                      */
                     function LoadGrid() {
 
-                        moduletypeModel.GetList({}).then(function (result) {
+                        moduletypeModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.gridOption.data = result.data;
 

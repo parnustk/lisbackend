@@ -1,13 +1,55 @@
-<h2>GradeChoice view</h2>
-<form>
-    <div class="row">
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Name
-                <input type="text" ng-model="gradeChoice.name">
-            </label>
+<h2>Grade Choice view</h2>
+<form class="form-horizontal" name="gradechoiceForm" ng-submit="Create(gradechoiceForm.$valid)">
+
+    <fieldset>
+
+        <legend>Create new grade choice</legend>
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': gradeChoiceForm.name.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="gradeChoiceForm-name">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="gradeChoiceForm-name" ng-model="gradeChoice.name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
         </div>
-    </div>
-    <button class="button" ng-click="Create()">CREATE</button>
+    </fieldset>
 </form>
+
+<br>
+
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+        <legend>Grade Choice grid filter</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Name filter</label>
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <ui-select ng-model="filterGradeChoice.name" theme="bootstrap">
+                        <ui-select-match placeholder="Select or search a moduletype in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="gradeChoice in gradeChoices | filter: $select.search">
+                            <span ng-bind-html="gradeChoice.name | highlight: $select.search"></span>
+                            <small>
+                                id: {{gradeChoice.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<br>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
