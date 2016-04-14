@@ -68,8 +68,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                         name
                     },
                     partial absence.{
-                        id,
-                        name
+                        id
                     },
                     partial rooms.{
                         id,
@@ -196,8 +195,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                         name
                     },
                     partial absence.{
-                        id,
-                        name
+                        id
                     },
                     partial rooms.{
                         id,
