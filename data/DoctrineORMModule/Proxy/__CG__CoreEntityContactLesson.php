@@ -64,10 +64,10 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -290,6 +290,28 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
+    public function getModule()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModule', array());
+
+        return parent::getModule();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getVocation()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getVocation', array());
+
+        return parent::getVocation();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getTeacher()
     {
 
@@ -461,6 +483,28 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGroup', array($studentGroup));
 
         return parent::setStudentGroup($studentGroup);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setModule(\Core\Entity\Module $module)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModule', array($module));
+
+        return parent::setModule($module);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setVocation(\Core\Entity\Vocation $vocation)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVocation', array($vocation));
+
+        return parent::setVocation($vocation);
     }
 
     /**

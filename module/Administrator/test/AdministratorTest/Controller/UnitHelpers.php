@@ -280,6 +280,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         $subjectRound = $this->CreateSubjectRound();
         $studentGroup = $this->CreateStudentGroup();
+        $teacher = $this->CreateTeacher();
+        $rooms = $this->CreateRoom();
+        $module = $this->CreateModule();
+        $vocation = $this->CreateVocation();
 
         return $repository->Create([
                     'lessonDate' => new \DateTime,
@@ -287,10 +291,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'sequenceNr' => 6,
                     'subjectRound' => $subjectRound->getId(),
                     'studentGroup' => $studentGroup->getId(),
-                    'teacher' => [
-                        ['id' => $this->CreateTeacher()->getId()],
-                        ['id' => $this->CreateTeacher()->getId()],
-                    ],
+                    'teacher' => $teacher->getId(),
+                    'rooms' => $rooms->getId(),
+                    'module' => $module->getId(),
+                    'vocation' => $vocation->getId(),
         ]);
     }
 
