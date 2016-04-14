@@ -1,24 +1,92 @@
 <h2>Vocation view</h2>
+<form class="form-horizontal" name="vocationForm" ng-submit="Create(vocationForm.$valid)">
+    
+    <fieldset>
+        
+        <legend>Create new vocation</legend>
+        
+        <div class="row">
+            
+            <div class="form-group" ng-class="{ 'has-error': vocationForm.name.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="vocationForm-name">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="vocationForm-name" ng-model="vocation.name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': vocationForm.vocationCode.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="vocationForm-vocationCode">Code</span>
+                        <input name="vocationCode" ng-required="true" type="text" class="form-control" placeholder="Code" aria-describedby="vocationForm-vocationCode" ng-model="vocation.vocationCode">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': vocationForm.durationEKAP.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="vocationForm-durationEKAP">Duration</span>
+                        <input name="durationEKAP" ng-required="true" type="number" class="form-control" placeholder="Duration" aria-describedby="vocationForm-durationEKAP" ng-model="vocation.durationEKAP">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
 
-<form>
-    <div class="row">
-        <div class="large-3 medium-6 small-12 columns">
-            <label>Name
-                <input type="text" ng-model="vocation.name">
-            </label>
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div><!-- /.col-lg-6 -->
+            
         </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>vocationCode
-                <input type="text" ng-model="vocation.vocationCode">
-            </label>
-        </div>
-        <div class="large-3 medium-6 small-12 columns">
-            <label>durationEKAP
-                <input type="text" ng-model="vocation.durationEKAP">
-            </label>
-        </div>
-    </div>
-    <button class="button" ng-click="Create()">CREATE</button>
+        
+        </fieldset>
 </form>
+<br><br>
 
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+
+        <legend>Vocation grid filters</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Vocation filter</label>
+
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterVocation-name">Name</span>
+                        <input name="name" ng-model="filterVocation.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterVocation-name">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterVocation-vocationCode">Code</span>
+                        <input name="vocationCode" ng-model="filterVocation.vocationCode" type="text" class="form-control" placeholder="Code" aria-describedby="filterVocation-vocationCode">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterVocation-durationEKAP">Duration</span>
+                        <input name="durationEKAP" ng-model="filterVocation.durationEKAP" type="number" class="form-control" placeholder="Duration" aria-describedby="filterVocation-durationEKAP">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div><!-- /.col-lg-6 -->
+        </div>
+    </fieldset>
+</form>
+<br><br>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

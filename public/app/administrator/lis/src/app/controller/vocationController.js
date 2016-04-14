@@ -26,183 +26,182 @@
      * @param {type} angular
      * @returns {vocationController_L19.vocationController_L25.vocationController}
      */
-    define(['angular', 'jquery'], function (angular, $) {
+    define(['angular', 'app/util/globalFunctions'],
+            function (angular, globalFunctions) {
 
-        /**
-         * Should move to Base controller
-         * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
+                vocationController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'vocationModel'];
 
-        /**
-         * 
-         * @param {type} $scope
-         * @param {type} $q
-         * @param {type} $routeParams
-         * @param {type} vocationModel
-         * @returns {undefined}
-         */
-        function vocationController($scope, $q, $routeParams, uiGridConstants, vocationModel) {
+                /**
+                 * 
+                 * @param {type} $scope
+                 * @param {type} $q
+                 * @param {type} $routeParams
+                 * @param {type} rowSorter
+                 * @param {type} uiGridConstants
+                 * @param {type} vocationModel
+                 * @returns {vocationController_L30.vocationController}
+                 */
+                function vocationController($scope, $q, $routeParams, rowSorter, uiGridConstants, vocationModel) {
 
-            /**
-             * records sceleton
-             */
-            $scope.model = {
-                name: null,
-                vocationCode: null,
-                durationEKAP: null,
-                trashed: null
-            };
+                    /**
+                     * For filters and maybe later pagination
+                     * 
+                     * @type type
+                     */
+                    var urlParams = {
+                        page: 1,
+                        limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
+                    };
 
-            /**
-             * Grid set up
-             */
-            $scope.gridOptions = {
-                enableCellEditOnFocus: true,
-                columnDefs: [
-                    {
-                        field: 'id',
-                        visible: false,
-                        type: 'number',
-                        sort: {
-                            direction: uiGridConstants.DESC,
-                            priority: 1
-                        }
-                    },
-                    {field: 'name'},
-                    {field: 'vocationCode'},
-                    {field: 'durationEKAP'},
-                    {field: 'trashed'}
-                ],
-                enableGridMenu: true,
-                enableSelectAll: true,
-                exporterCsvFilename: 'vocations.csv',
-                exporterPdfDefaultStyle: {fontSize: 9},
-                exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-                exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-                exporterPdfFooter: function (currentPage, pageCount) {
-                    return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-                },
-                exporterPdfCustomFormatter: function (docDefinition) {
-                    docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-                    docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-                    return docDefinition;
-                },
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))/*,
-                 onRegisterApi: function (gridApi) {
-                 $scope.gridApi = gridApi;
-                 //                    gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-                 //                        // var rowCol = {row: newRowCol.row.index, col:newRowCol.col.colDef.name};
-                 //                        // var msg = 'New RowCol is ' + angular.toJson(rowCol);
-                 //                        // if(oldRowCol){
-                 //                        //    rowCol = {row: oldRowCol.row.index, col:oldRowCol.col.colDef.name};
-                 //                        //    msg += ' Old RowCol is ' + angular.toJson(rowCol);
-                 //                        // }
-                 //                        console.log('navigation event', newRowCol, oldRowCol);
-                 //                    });
-                 gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-                 }*/
-            };
+                    /**
+                     * records sceleton
+                     */
+                    $scope.model = {
+                        id: null,
+                        name: null,
+                        vocationCode: null,
+                        durationEKAP: null,
+                        trashed: null
+                    };
 
-            /**
-             * Adding event handlers
-             * 
-             * @param {type} gridApi
-             * @returns {undefined}
-             */
-            $scope.gridOptions.onRegisterApi = function (gridApi) {
-                //set gridApi on scope
-                $scope.gridApi = gridApi;
-                gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-            };
+                    $scope.vocation = {};
 
-            /**
-             * GetList
-             * @returns {undefined}
-             */
-            $scope.init = function () {
-                vocationModel.GetList($scope.params).then(
-                    function (result) {
-                        if (_resultHandler(result)) {
-                            $scope.gridOptions.data = result.data;
-                            //console.log($scope.gridApi);
-                        }
-                        //console.log($scope.store);
-                    }
-                );
-            };
+                    $scope.filterVocation = {};
 
-            /**
-             * Update logic
-             * 
-             * @param {type} rowEntity
-             * @returns {undefined}
-             */
-            $scope.saveRow = function (rowEntity) {
-                var promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
-                vocationModel.Update(rowEntity.id, rowEntity).then(
-                    function (result) {
-                        if (result.success) {
-                            promise.resolve();
+                    /**
+                     * Grid set up
+                     */
+                    $scope.gridOptions = {
+                        enableCellEditOnFocus: true,
+                        columnDefs: [
+                            {
+                                field: 'id',
+                                visible: false,
+                                type: 'number',
+                                enableCellEdit: false,
+                                sort: {
+                                    direction: uiGridConstants.DESC,
+                                    priority: 1
+                                }
+                            },
+                            {field: 'name'},
+                            {field: 'vocationCode'},
+                            {field: 'durationEKAP'},
+                            {field: 'trashed'}
+                        ],
+                        enableGridMenu: true,
+                        enableSelectAll: true,
+                        exporterCsvFilename: 'vocations.csv',
+                        exporterPdfDefaultStyle: {fontSize: 9},
+                        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+                        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                        exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+                        exporterPdfFooter: function (currentPage, pageCount) {
+                            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+                        },
+                        exporterPdfCustomFormatter: function (docDefinition) {
+                            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+                            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+                            return docDefinition;
+                        },
+                        exporterPdfOrientation: 'portrait',
+                        exporterPdfPageSize: 'LETTER',
+                        exporterPdfMaxGridWidth: 500,
+                        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
+                    };
+
+                    /**
+                     * Adding event handlers
+                     * 
+                     * @param {type} gridApi
+                     * @returns {undefined}
+                     */
+                    $scope.gridOptions.onRegisterApi = function (gridApi) {
+                        //set gridApi on scope
+                        $scope.gridApi = gridApi;
+                        gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+                    };
+
+                    /**
+                     * Update logic
+                     * 
+                     * @param {type} rowEntity
+                     * @returns {undefined}
+                     */
+                    $scope.saveRow = function (rowEntity) {
+                        var deferred = $q.defer();
+                        vocationModel.Update(rowEntity.id, rowEntity).then(
+                                function (result) {
+                                    if (result.success) {
+                                        deferred.resolve();
+                                    } else {
+                                        deferred.reject();
+                                    }
+                                }
+                        );
+                        $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+                    };
+
+                    /**
+                     * Create
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Create = function (valid) {
+                        if (valid) {
+                            vocationModel.Create($scope.vocation).then(function (result) {
+                                if (globalFunctions.resultHandler(result)) {
+                                    console.log(result);
+                                    LoadGrid();
+                                }
+                            });
                         } else {
-                            promise.reject();
+                            alert('CHECK_FORM_FIELDS');
                         }
-                        //console.log(result);
-                    });
-            };
+                    };
 
-            /**
-             * Form reset the angular way
-             * 
-             * @returns {undefined}
-             */
-            $scope.reset = function () {
-                $scope.vocation = angular.copy($scope.model);
-            };
+                    /**
+                     * Set remote criteria for DB
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Filter = function () {
+                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterVocation));
+                            LoadGrid();
+                        }
+                    };
 
-            /**
-             * Create
-             * 
-             * @returns {undefined}
-             */
-            $scope.Create = function () {
+                    /**
+                     * Remove criteria
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.ClearFilters = function () {
+                        $scope.filterVocation = {};
+                        delete urlParams.where;
+                        LoadGrid();
+                    };
 
-                vocationModel
-                    .Create(angular.copy($scope.vocation))
-                    .then(
-                        function (result) {
-                            if (result.success) {
-                                console.log(result);
-                                $scope.gridOptions.data.push(result.data);
-                                $scope.reset();
-                            } else {
-                                alert('BAD');
+                    /**
+                     * Before loading absence data, 
+                     * we first load relations and check success
+                     * 
+                     * @returns {undefined}
+                     */
+                    function LoadGrid() {
+
+                        vocationModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.gridOptions.data = result.data;
                             }
-                        }
-                    );
-            };
+                        });
+                    }
 
-            $scope.init();//Start loading data from server to grid
+                    LoadGrid();//let's start loading data
+                }
 
-        }
-
-        vocationController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'vocationModel'];
-
-        return vocationController;
-    });
+                return vocationController;
+            });
 
 }(define, document));
