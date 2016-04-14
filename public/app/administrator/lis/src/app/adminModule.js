@@ -31,6 +31,8 @@
         'app/model/administratorModel',
         'app/model/subjectModel',
         'app/model/contactLessonModel',
+        'app/model/subjectRoundModel',
+        'app/model/studentGroupModel',
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -62,6 +64,8 @@
         administratorModel,
         subjectModel,
         contactLessonModel,
+        subjectRoundModel,
+        studentGroupModel,
         vocationController,
         gradingTypeController,
         gradeChoiceController,
@@ -255,6 +259,8 @@
         adminModule.factory('administratorModel', administratorModel);
         adminModule.factory('subjectModel', subjectModel);
         adminModule.factory('contactLessonModel', contactLessonModel);
+        adminModule.factory('subjectRoundModel', subjectRoundModel);
+        adminModule.factory('studentGroupModel', subjectRoundModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
