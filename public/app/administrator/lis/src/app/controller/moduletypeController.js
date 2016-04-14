@@ -34,7 +34,7 @@
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
 
-                moduletypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduletypeModel', 'moduleModel'];
+                moduletypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduletypeModel'];
                 /**
                  * 
                  * @param {type} $scope
@@ -43,11 +43,10 @@
                  * @param {type} rowSorter
                  * @param {type} uiGridConstants
                  * @param {type} moduletypeModel
-                 * @param {type} moduleModel
                  * @returns {moduletypeController_L30.moduletypeController}
                  */
 
-                function moduletypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduletypeModel, moduleModel) {
+                function moduletypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduletypeModel) {
  
   /**
                      * For filters and maybe later pagination
@@ -95,7 +94,6 @@
                                 }
                             },
                             {field: 'name'},
-                            {field: 'module'},
                             {field: 'trashed'}
                         ],
                         enableGridMenu: true,
