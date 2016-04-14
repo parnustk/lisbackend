@@ -75,8 +75,8 @@
                 })
                 
                 .when('/contactlesson', {
-                    templateUrl: 'lis/dist/templates/contactLesson.html'
-//                    controller: 'contactLessonController'
+                    templateUrl: 'lis/dist/templates/contactLesson.html',
+                    controller: 'contactLessonController'
                 })
 
                 .otherwise({redirectTo: '/'});

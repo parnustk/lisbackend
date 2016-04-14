@@ -43,8 +43,8 @@
         'app/controller/moduleController',
         'app/controller/studentController',
         'app/controller/administratorController',
-        'app/controller/subjectController'
-//        'app/controller/contactLessonController'
+        'app/controller/subjectController',
+        'app/controller/contactLessonController'
     ], function (
         angular,
         config,
@@ -74,8 +74,8 @@
         moduleController,
         studentController,
         administratorController,
-        subjectController
-//        contactLessonController
+        subjectController,
+        contactLessonController
         ) {
 
         /**
@@ -269,7 +269,7 @@
         adminModule.controller('studentController', studentController);
         adminModule.controller('administratorController', administratorController);
         adminModule.controller('subjectController', subjectController);
-//        adminModule.controller('contactLessonController', contactLessonController);
+        adminModule.controller('contactLessonController', contactLessonController);
 
         return adminModule;
     });
