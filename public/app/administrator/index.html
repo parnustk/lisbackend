@@ -156,23 +156,23 @@
 
         <div data-ng-view=""></div>
         <hr>
-        <p class="panel">Before using login feature run tests in LisAuth, static user will be created.</p>
+        <p class="panel panel-default">Before using login feature run tests in LisAuth, static user will be created.</p>
 
 
         <form ng-controller="loginController">
-            <div class="row">
-                <div class="large-3 medium-6 small-12 columns">
+            <div class="form-group">
+                <div class="col-sm-12">
                     <label>email
-                        <input type="text" ng-model="credentials.email" value="admin@test.ee">
+                        <input class="form-control" type="text" ng-model="credentials.email" value="admin@test.ee">
                     </label>
                 </div>
-                <div class="large-3 medium-6 small-12 columns">
+                <div class="col-sm-12">
                     <label>password
-                        <input type="password" ng-model="credentials.password" value="Tere1234">
+                        <input class="form-control" type="password" ng-model="credentials.password" value="Tere1234">
                     </label>
                 </div>
             </div>
-            <button class="button" ng-click="Login()">login</button>
+            <button class="btn btn-primary" ng-click="Login()">login</button>
         </form>
 
     </body>
