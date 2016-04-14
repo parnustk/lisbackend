@@ -27,149 +27,185 @@
      * @param {type} angular
      * @returns {administratorController_L28.administratorController}
      */
-    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
-        
-        administratorController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'administratorModel'];
+    define(['angular', 'app/util/globalFunctions'],
+            function (angular, globalFunctions) {
 
-        /**
-         * 
-         * @param {type} $scope
-         * @param {type} $q
-         * @param {type} $routeParams
-         * @param {type} rowSorter
-         * @param {type} uiGridConstants
-         * @param {type} administratorModel
-         * @returns {administratorController_L30.administratorController}
-         */
-        function administratorController($scope, $q, $routeParams, rowSorter, uiGridConstants, administratorModel) {
+                administratorController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'administratorModel'];
 
-            /**
-             * records sceleton
-             */
-            $scope.model = {
-                id: null,
-                firstName: null,
-                lastName: null,
-                email: null,
-                personalCode: null,
-                trashed: null
-            };
-            
-            $scope.administrator = {};
+                /**
+                 * 
+                 * @param {type} $scope
+                 * @param {type} $q
+                 * @param {type} $routeParams
+                 * @param {type} rowSorter
+                 * @param {type} uiGridConstants
+                 * @param {type} administratorModel
+                 * @returns {administratorController_L30.administratorController}
+                 */
+                function administratorController($scope, $q, $routeParams, rowSorter, uiGridConstants, administratorModel) {
 
-            /**
-             * Grid set up
-             */
-            $scope.gridOptions = {
-                rowHeight: 38,
-                enableCellEditOnFocus: true,
-                columnDefs: [
-                    {
-                        field: 'id',
-                        visible: false,
-                        type: 'number',
-                        enableCellEdit: false,
-                        sort: {
-                            direction: uiGridConstants.DESC,
-                            priority: 1
+                    /**
+                     * For filters and maybe later pagination
+                     * 
+                     * @type type
+                     */
+                    var urlParams = {
+                        page: 1,
+                        limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
+                    };
+
+                    /**
+                     * records sceleton
+                     */
+                    $scope.model = {
+                        id: null,
+                        firstName: null,
+                        lastName: null,
+                        email: null,
+                        personalCode: null,
+                        trashed: null
+                    };
+
+                    $scope.administrator = {};
+                    
+                    $scope.filterAdministrator = {};
+
+                    /**
+                     * Grid set up
+                     */
+                    $scope.gridOptions = {
+                        rowHeight: 38,
+                        enableCellEditOnFocus: true,
+                        columnDefs: [
+                            {
+                                field: 'id',
+                                visible: false,
+                                type: 'number',
+                                enableCellEdit: false,
+                                sort: {
+                                    direction: uiGridConstants.DESC,
+                                    priority: 1
+                                }
+                            },
+                            {field: 'firstName'},
+                            {field: 'lastName'},
+                            {field: 'email'},
+                            {field: 'personalCode'},
+                            {field: 'trashed'}
+                        ],
+                        enableGridMenu: true,
+                        enableSelectAll: true,
+                        exporterCsvFilename: 'administrator.csv',
+                        exporterPdfDefaultStyle: {fontSize: 9},
+                        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+                        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                        exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+                        exporterPdfFooter: function (currentPage, pageCount) {
+                            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+                        },
+                        exporterPdfCustomFormatter: function (docDefinition) {
+                            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+                            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+                            return docDefinition;
+                        },
+                        exporterPdfOrientation: 'portrait',
+                        exporterPdfPageSize: 'LETTER',
+                        exporterPdfMaxGridWidth: 500,
+                        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
+                    };
+
+                    /**
+                     * Adding event handlers
+                     * 
+                     * @param {type} gridApi
+                     * @returns {undefined}
+                     */
+                    $scope.gridOptions.onRegisterApi = function (gridApi) {
+                        //set gridApi on scope
+                        $scope.gridApi = gridApi;
+                        gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+                    };
+
+                    /**
+                     * Update logic
+                     * 
+                     * @param {type} rowEntity
+                     * @returns {undefined}
+                     */
+                    $scope.saveRow = function (rowEntity) {
+                        var deferred = $q.defer();
+                        administratorModel.Update(rowEntity.id, rowEntity).then(
+                                function (result) {
+                                    if (result.success) {
+                                        deferred.resolve();
+                                    } else {
+                                        deferred.reject();
+                                    }
+                                }
+                        );
+                        $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+                    };
+
+                    /**
+                     * Create new from form if succeeds push to gri
+                     * 
+                     * @param {type} valid
+                     * @returns {undefined}
+                     */
+                    $scope.Create = function (valid) {
+                        if (valid) {
+                            administratorModel.Create($scope.administrator).then(function (result) {
+                                if (globalFunctions.resultHandler(result)) {
+                                    console.log(result);
+                                    LoadGrid();
+                                }
+                            });
+                        } else {
+                            alert('CHECK_FORM_FIELDS');
                         }
-                    },
-                    {field: 'firstName'},
-                    {field: 'lastName'},
-                    {field: 'email'},
-                    {field: 'personalCode'},
-                    {field: 'trashed'}
-                ],
-                enableGridMenu: true,
-                enableSelectAll: true,
-                exporterCsvFilename: 'administrator.csv',
-                exporterPdfDefaultStyle: {fontSize: 9},
-                exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-                exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-                exporterPdfFooter: function (currentPage, pageCount) {
-                    return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-                },
-                exporterPdfCustomFormatter: function (docDefinition) {
-                    docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-                    docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-                    return docDefinition;
-                },
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
-            };
-
-            /**
-             * Adding event handlers
-             * 
-             * @param {type} gridApi
-             * @returns {undefined}
-             */
-            $scope.gridOptions.onRegisterApi = function (gridApi) {
-                //set gridApi on scope
-                $scope.gridApi = gridApi;
-                gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-            };
-
-            /**
-             * Update logic
-             * 
-             * @param {type} rowEntity
-             * @returns {undefined}
-             */
-            $scope.saveRow = function (rowEntity) {
-                var deferred = $q.defer();
-                administratorModel.Update(rowEntity.id, rowEntity).then(
-                        function (result) {
-                            if (result.success) {
-                                deferred.resolve();
-                            } else {
-                                deferred.reject();
-                            }
-                        }
-                );
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
-            };
-
-            /**
-             * Create new from form if succeeds push to gri
-             * 
-             * @param {type} valid
-             * @returns {undefined}
-             */
-            $scope.Create = function (valid) {
-                if (valid) {
-                    administratorModel.Create($scope.administrator).then(function (result) {
-                        if (globalFunctions.resultHandler(result)) {
-                            console.log(result);
-                            LoadGrid();
-                        }
-                    });
-                } else {
-                    alert('CHECK_FORM_FIELDS');
-                }
-            };
-            /**
-             * Before loading absence data, 
-             * we first load relations and check success
-             * 
-             * @returns {undefined}
-             */
-            function LoadGrid() {
-
-                administratorModel.GetList($scope.params).then(function (result) {
-                    if (globalFunctions.resultHandler(result)) {
-                        $scope.gridOptions.data = result.data;
+                    };
+                    
+                    /**
+                 * Set remote criteria for DB
+                 * 
+                 * @returns {undefined}
+                 */
+                $scope.Filter = function () {
+                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterAdministrator));
+                        LoadGrid();
                     }
-                });
-            }
+                };
 
-            LoadGrid();//let's start loading data
-        }
+                /**
+                 * Remove criteria
+                 * 
+                 * @returns {undefined}
+                 */
+                $scope.ClearFilters = function () {
+                    $scope.filterAdministrator = {};
+                    LoadGrid();
+                };
+                
+                    /**
+                     * Before loading absence data, 
+                     * we first load relations and check success
+                     * 
+                     * @returns {undefined}
+                     */
+                    function LoadGrid() {
 
-        return administratorController;
-    });
+                        administratorModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.gridOptions.data = result.data;
+                            }
+                        });
+                    }
+
+                    LoadGrid();//let's start loading data
+                }
+
+                return administratorController;
+            });
 
 }(define, document));

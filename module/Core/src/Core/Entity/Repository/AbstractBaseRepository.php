@@ -44,12 +44,12 @@ abstract class AbstractBaseRepository extends EntityRepository
 
     protected function dqlWhereInner($dql, $params)
     {
-        $dql .= " WHERE";
         $firstCycle = true;
         foreach ($params['where'] as $key => $value) {
             if (!$firstCycle) {
                 $dql .= ' AND';
             } else {
+                $dql .= " WHERE";
                 $firstCycle = false;
             }
 
@@ -71,10 +71,10 @@ abstract class AbstractBaseRepository extends EntityRepository
                 }
                 $dql .= ') ';
             } else {
-                $dql .= " $this->baseAlias.$key=$value ";
+                $dql .= " $this->baseAlias.$key='$value' ";
             }
         }
-
+        //throw new Exception($dql);//debug dql where part
         return $dql;
     }
 
@@ -97,6 +97,7 @@ abstract class AbstractBaseRepository extends EntityRepository
         if (!!$extra) {
             //TODO
         }
+        //throw new Exception($dql);//debug dql where part
         return $dql;
     }
 
