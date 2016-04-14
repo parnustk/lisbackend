@@ -49,6 +49,13 @@ class SubjectRound extends EntityValidation
     protected $id;
 
     /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $name;
+
+    /**
      * @Annotation\Exclude()
      * 
      * @ORM\OneToMany(targetEntity="IndependentWork", mappedBy="subjectRound")
@@ -151,6 +158,15 @@ class SubjectRound extends EntityValidation
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -260,6 +276,16 @@ class SubjectRound extends EntityValidation
     public function setId($id)
     {
         $this->id = (int) $id;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
         return $this;
     }
 

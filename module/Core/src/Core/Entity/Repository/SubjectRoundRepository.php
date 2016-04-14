@@ -42,6 +42,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         trashed
                     },
                     partial subject.{
@@ -148,10 +149,16 @@ class SubjectRoundRepository extends AbstractBaseRepository
          if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        $entity = $this->validateEntity(
+        $entity = new SubjectRound($this->getEntityManager());
+        
+        $subject = $this->getEntityManager()
+                ->getRepository('Core\Entity\Subject')
+                ->find($data['subject']);
+        
+        $entityValidated = $this->validateEntity(
                 new SubjectRound($this->getEntityManager()), $data
         );
-        return $this->singleResult($entity, $returnPartial, $extra);
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
     /**

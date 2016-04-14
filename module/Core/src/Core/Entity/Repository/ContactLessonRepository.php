@@ -41,6 +41,7 @@ class ContactLessonRepository extends AbstractBaseRepository
      */
     protected function dqlStart()
     {
+        //studentGrade rquires some thinking
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
@@ -51,23 +52,37 @@ class ContactLessonRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial subjectRound.{
-                        id
-                        },
+                        id,
+                        name
+                    },
+                    partial module.{
+                        id,
+                        name
+                    },
+                    partial vocation.{
+                        id,
+                        name
+                    },
                     partial teacher.{
-                        id
-                        },
+                        id,
+                        name
+                    },
                     partial absence.{
-                        id
-                        },
+                        id,
+                        name
+                    },
                     partial rooms.{
-                        id
-                        },
+                        id,
+                        name
+                    },
                     partial studentGrade.{
                         id
-                        }
+                    }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.module module
+                JOIN $this->baseAlias.vocation vocation
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
@@ -165,23 +180,37 @@ class ContactLessonRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial subjectRound.{
-                        id
-                        },
+                        id,
+                        name
+                    },
+                    partial module.{
+                        id,
+                        name
+                    },
+                    partial vocation.{
+                        id,
+                        name
+                    },
                     partial teacher.{
-                        id
-                        },
+                        id,
+                        name
+                    },
                     partial absence.{
-                        id
-                        },
+                        id,
+                        name
+                    },
                     partial rooms.{
-                        id
-                        },
+                        id,
+                        name
+                    },
                     partial studentGrade.{
                         id
-                        }
+                    }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.module module
+                JOIN $this->baseAlias.vocation vocation
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
@@ -209,12 +238,10 @@ class ContactLessonRepository extends AbstractBaseRepository
                 ->getRepository('Core\Entity\StudentGroup')
                 ->find($data['studentGroup']);
 
-        $fLessonDate = $data['lessonDate']->format('d.m.Y');
-        
         //TA2-16.04.2016-2
-        $data['name'] = $studentGroup->getName() . '-' . 
+        $data['name'] = $studentGroup->getName() . '-' .
                 $data['lessonDate']->format('d.m.Y') . '-' . $data['sequenceNr'];
-        
+
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );

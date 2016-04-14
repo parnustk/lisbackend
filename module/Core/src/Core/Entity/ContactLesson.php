@@ -91,9 +91,9 @@ class ContactLesson extends EntityValidation
     protected $absence;
 
     /**
-     * @Annotation\Exclude()
+     * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\ManyToOne(targetEntity="ModuleType", inversedBy="contactLesson")
+     * @ORM\ManyToOne(targetEntity="Rooms", inversedBy="contactLesson")
      * @ORM\JoinColumn(name="rooms_id", referencedColumnName="id", nullable=false)
      */
     protected $rooms;
