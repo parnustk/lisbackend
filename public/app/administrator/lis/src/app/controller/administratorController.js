@@ -67,7 +67,7 @@
                     };
 
                     $scope.administrator = {};
-                    
+
                     $scope.filterAdministrator = {};
 
                     /**
@@ -164,30 +164,30 @@
                             alert('CHECK_FORM_FIELDS');
                         }
                     };
-                    
-                    /**
-                 * Set remote criteria for DB
-                 * 
-                 * @returns {undefined}
-                 */
-                $scope.Filter = function () {
-                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterAdministrator));
-                        LoadGrid();
-                    }
-                };
 
-                /**
-                 * Remove criteria
-                 * 
-                 * @returns {undefined}
-                 */
-                $scope.ClearFilters = function () {
-                    $scope.filterAdministrator = {};
-                    delete urlParams.where;
-                    LoadGrid();
-                };
-                
+                    /**
+                     * Set remote criteria for DB
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Filter = function () {
+                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterAdministrator));
+                            LoadGrid();
+                        }
+                    };
+
+                    /**
+                     * Remove criteria
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.ClearFilters = function () {
+                        $scope.filterAdministrator = {};
+                        delete urlParams.where;
+                        LoadGrid();
+                    };
+
                     /**
                      * Before loading absence data, 
                      * we first load relations and check success

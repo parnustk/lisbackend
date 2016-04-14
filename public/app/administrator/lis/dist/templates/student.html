@@ -54,4 +54,58 @@
 </form>
 <br><br>
 
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+
+        <legend>Student grid filters</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Student filter</label>
+
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterStudent-firstName">First name</span>
+                        <input name="firstName" ng-model="filterStudent.firstName" type="text" class="form-control" placeholder="First name" aria-describedby="filterStudent-firstName">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterStudent-lastName">Last name</span>
+                        <input name="lastName" ng-model="filterStudent.lastName" type="text" class="form-control" placeholder="Last name" aria-describedby="filterStudent-lastName">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterStudent-email">Email</span>
+                        <input name="email" ng-model="filterStudent.email" type="text" class="form-control" placeholder="Email" aria-describedby="filterStudent-email">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterStudent-personalCode">Code</span>
+                        <input name="personalCode" ng-model="filterStudent.personalCode" type="text" class="form-control" placeholder="Code" aria-describedby="filterStudent-personalCode">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div><!-- /.col-lg-6 -->
+        </div>
+    </fieldset>
+</form>
+<br><br>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

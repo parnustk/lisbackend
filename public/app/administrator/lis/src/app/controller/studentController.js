@@ -27,149 +27,186 @@
      * @param {type} angular
      * @returns {studentController_L28.studentController}
      */
-    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
+    define(['angular', 'app/util/globalFunctions'],
+            function (angular, globalFunctions) {
 
-        studentController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'studentModel'];
+                studentController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'studentModel'];
 
-        /**
-         * 
-         * @param {type} $scope
-         * @param {type} $q
-         * @param {type} $routeParams
-         * @param {type} rowSorter
-         * @param {type} uiGridConstants
-         * @param {type} studentModel
-         * @returns {studentController_L30.studentController}
-         */
-        function studentController($scope, $q, $routeParams, rowSorter, uiGridConstants, studentModel) {
+                /**
+                 * 
+                 * @param {type} $scope
+                 * @param {type} $q
+                 * @param {type} $routeParams
+                 * @param {type} rowSorter
+                 * @param {type} uiGridConstants
+                 * @param {type} studentModel
+                 * @returns {studentController_L30.studentController}
+                 */
+                function studentController($scope, $q, $routeParams, rowSorter, uiGridConstants, studentModel) {
 
-            /**
-             * records sceleton
-             */
-            $scope.model = {
-                id: null,
-                firstName: null,
-                lastName: null,
-                email: null,
-                personalCode: null,
-                trashed: null
-            };
-            
-            $scope.student = {};
+                    /**
+                     * For filters and maybe later pagination
+                     * 
+                     * @type type
+                     */
+                    var urlParams = {
+                        page: 1,
+                        limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
+                    };
+                    
+                    /**
+                     * records sceleton
+                     */
+                    $scope.model = {
+                        id: null,
+                        firstName: null,
+                        lastName: null,
+                        email: null,
+                        personalCode: null,
+                        trashed: null
+                    };
 
-            /**
-             * Grid set up
-             */
-            $scope.gridOptions = {
-                rowHeight: 38,
-                enableCellEditOnFocus: true,
-                columnDefs: [
-                    {
-                        field: 'id',
-                        visible: false,
-                        type: 'number',
-                        enableCellEdit: false,
-                        sort: {
-                            direction: uiGridConstants.DESC,
-                            priority: 1
+                    $scope.student = {};
+                    
+                    $scope.filterStudent = {};
+
+                    /**
+                     * Grid set up
+                     */
+                    $scope.gridOptions = {
+                        rowHeight: 38,
+                        enableCellEditOnFocus: true,
+                        columnDefs: [
+                            {
+                                field: 'id',
+                                visible: false,
+                                type: 'number',
+                                enableCellEdit: false,
+                                sort: {
+                                    direction: uiGridConstants.DESC,
+                                    priority: 1
+                                }
+                            },
+                            {field: 'firstName'},
+                            {field: 'lastName'},
+                            {field: 'email'},
+                            {field: 'personalCode'},
+                            {field: 'trashed'}
+                        ],
+                        enableGridMenu: true,
+                        enableSelectAll: true,
+                        exporterCsvFilename: 'student.csv',
+                        exporterPdfDefaultStyle: {fontSize: 9},
+                        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+                        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                        exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
+                        exporterPdfFooter: function (currentPage, pageCount) {
+                            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+                        },
+                        exporterPdfCustomFormatter: function (docDefinition) {
+                            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+                            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+                            return docDefinition;
+                        },
+                        exporterPdfOrientation: 'portrait',
+                        exporterPdfPageSize: 'LETTER',
+                        exporterPdfMaxGridWidth: 500,
+                        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
+                    };
+
+                    /**
+                     * Adding event handlers
+                     * 
+                     * @param {type} gridApi
+                     * @returns {undefined}
+                     */
+                    $scope.gridOptions.onRegisterApi = function (gridApi) {
+                        //set gridApi on scope
+                        $scope.gridApi = gridApi;
+                        gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+                    };
+
+                    /**
+                     * Update logic
+                     * 
+                     * @param {type} rowEntity
+                     * @returns {undefined}
+                     */
+                    $scope.saveRow = function (rowEntity) {
+                        var deferred = $q.defer();
+                        studentModel.Update(rowEntity.id, rowEntity).then(
+                                function (result) {
+                                    if (result.success) {
+                                        deferred.resolve();
+                                    } else {
+                                        deferred.reject();
+                                    }
+                                }
+                        );
+                        $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+                    };
+
+                    /**
+                     * Create new from form if succeeds push to gri
+                     * 
+                     * @param {type} valid
+                     * @returns {undefined}
+                     */
+                    $scope.Create = function (valid) {
+                        if (valid) {
+                            studentModel.Create($scope.student).then(function (result) {
+                                if (globalFunctions.resultHandler(result)) {
+                                    console.log(result);
+                                    LoadGrid();
+                                }
+                            });
+                        } else {
+                            alert('CHECK_FORM_FIELDS');
                         }
-                    },
-                    {field: 'firstName'},
-                    {field: 'lastName'},
-                    {field: 'email'},
-                    {field: 'personalCode'},
-                    {field: 'trashed'}
-                ],
-                enableGridMenu: true,
-                enableSelectAll: true,
-                exporterCsvFilename: 'student.csv',
-                exporterPdfDefaultStyle: {fontSize: 9},
-                exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-                exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-                exporterPdfFooter: function (currentPage, pageCount) {
-                    return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-                },
-                exporterPdfCustomFormatter: function (docDefinition) {
-                    docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-                    docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-                    return docDefinition;
-                },
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
-            };
-
-            /**
-             * Adding event handlers
-             * 
-             * @param {type} gridApi
-             * @returns {undefined}
-             */
-            $scope.gridOptions.onRegisterApi = function (gridApi) {
-                //set gridApi on scope
-                $scope.gridApi = gridApi;
-                gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-            };
-
-            /**
-             * Update logic
-             * 
-             * @param {type} rowEntity
-             * @returns {undefined}
-             */
-            $scope.saveRow = function (rowEntity) {
-                var deferred = $q.defer();
-                studentModel.Update(rowEntity.id, rowEntity).then(
-                        function (result) {
-                            if (result.success) {
-                                deferred.resolve();
-                            } else {
-                                deferred.reject();
-                            }
-                        }
-                );
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
-            };
-
-            /**
-             * Create new from form if succeeds push to gri
-             * 
-             * @param {type} valid
-             * @returns {undefined}
-             */
-            $scope.Create = function (valid) {
-                if (valid) {
-                    studentModel.Create($scope.student).then(function (result) {
-                        if (globalFunctions.resultHandler(result)) {
-                            console.log(result);
+                    };
+                    
+                    /**
+                     * Set remote criteria for DB
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Filter = function () {
+                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterStudent));
                             LoadGrid();
                         }
-                    });
-                } else {
-                    alert('CHECK_FORM_FIELDS');
-                }
-            };
-            /**
-             * Before loading absence data, 
-             * we first load relations and check success
-             * 
-             * @returns {undefined}
-             */
-            function LoadGrid() {
+                    };
 
-                studentModel.GetList($scope.params).then(function (result) {
-                    if (globalFunctions.resultHandler(result)) {
-                        $scope.gridOptions.data = result.data;
+                    /**
+                     * Remove criteria
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.ClearFilters = function () {
+                        $scope.filterStudent = {};
+                        delete urlParams.where;
+                        LoadGrid();
+                    };
+                    
+                    /**
+                     * Before loading absence data, 
+                     * we first load relations and check success
+                     * 
+                     * @returns {undefined}
+                     */
+                    function LoadGrid() {
+
+                        studentModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.gridOptions.data = result.data;
+                            }
+                        });
                     }
-                });
-            }
 
-            LoadGrid();//let's start loading data
-        }
+                    LoadGrid();//let's start loading data
+                }
 
-        return studentController;
-    });
+                return studentController;
+            });
 
 }(define, document));
