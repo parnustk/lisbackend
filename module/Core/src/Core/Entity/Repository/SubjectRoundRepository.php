@@ -146,17 +146,20 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function defaultCreate($data, $returnPartial = false, $extra = null)
     {
-         if (count($data) < 1) {
+        if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        $entity = new SubjectRound($this->getEntityManager());
         
+        $entity = new SubjectRound($this->getEntityManager());
+
         $subject = $this->getEntityManager()
                 ->getRepository('Core\Entity\Subject')
                 ->find($data['subject']);
         
+        $entity->setName($subject->getName());
+
         $entityValidated = $this->validateEntity(
-                new SubjectRound($this->getEntityManager()), $data
+                $entity, $data
         );
         return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
