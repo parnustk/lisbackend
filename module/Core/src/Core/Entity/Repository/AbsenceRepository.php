@@ -49,12 +49,12 @@ class AbsenceRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
-                        name
+                        name,
+                        personalCode
                         },
-                    partial contactlesson.{
+                    partial contactLesson.{
                         id,
                         name,
-                        lessonDate,
                         sequenceNr
                         },
                     partial absenceReason.{
@@ -62,7 +62,7 @@ class AbsenceRepository extends AbstractBaseRepository
                         name
                         }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.absenceReason absenceReason";
     }
@@ -83,12 +83,12 @@ class AbsenceRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
-                        name
+                        name,
+                        personalCode
                         },
-                    partial contactlesson.{
+                    partial contactLesson.{
                         id,
                         name,
-                        lessonDate,
                         sequenceNr
                         },
                     partial absenceReason.{
@@ -96,9 +96,9 @@ class AbsenceRepository extends AbstractBaseRepository
                         name
                         }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
+                JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
     /**
@@ -117,12 +117,12 @@ class AbsenceRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
-                        name
+                        name,
+                        personalCode
                         },
-                    partial contactlesson.{
+                    partial contactLesson.{
                         id,
                         name,
-                        lessonDate,
                         sequenceNr
                         },
                     partial absenceReason.{
@@ -130,9 +130,9 @@ class AbsenceRepository extends AbstractBaseRepository
                         name
                         }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
+                JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
     /**
@@ -151,12 +151,12 @@ class AbsenceRepository extends AbstractBaseRepository
                         id,
                         firstName,
                         lastName,
-                        name
+                        name,
+                        personalCode
                         },
-                    partial contactlesson.{
+                    partial contactLesson.{
                         id,
                         name,
-                        lessonDate,
                         sequenceNr
                         },
                     partial absenceReason.{
@@ -164,9 +164,9 @@ class AbsenceRepository extends AbstractBaseRepository
                         name
                         }
                 FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.contactLesson contactlesson
+                JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
-                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
+                JOIN $this->baseAlias.absenceReason absenceReason";
     }
 
     /**
