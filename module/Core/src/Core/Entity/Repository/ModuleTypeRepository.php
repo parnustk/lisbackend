@@ -17,6 +17,7 @@ Use Exception;
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Alar Aasa <alar@alaraasa.ee>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Arnold Tserepov <tserepov@gmail.com>
  */
 class ModuleTypeRepository extends AbstractBaseRepository
 {
@@ -39,14 +40,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlStart()
     {
-        $dql = "SELECT
+        return  "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
-        return $dql;
+        
     }
 
     /**
@@ -55,14 +56,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlStudentStart()
     {
-        $dql = "SELECT
+        return  "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
-        return $dql;
+        
     }
 
     /**
@@ -71,14 +72,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlTeacherStart()
     {
-        $dql = "SELECT
+        return "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
-        return $dql;
+        
     }
 
     /**
@@ -87,14 +88,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlAdministratorStart()
     {
-        $dql = "SELECT
+        return "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
-        return $dql;
+        
     }
 
     /**
@@ -443,6 +444,7 @@ class ModuleTypeRepository extends AbstractBaseRepository
         if ($dqlRestriction) {
             $dql .= $dqlRestriction;
         }
+        //throw new Exception($dql);//debug dql from front
         return $this->wrapPaginator($dql);
     }
 

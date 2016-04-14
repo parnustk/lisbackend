@@ -16,8 +16,9 @@
 (function (define, window) {
     'use strict';
 
-    define([], function () {
-
+     define([
+        'app/util/globalFunctions'
+    ], function (globalFunctions) {
         /**
          * 
          * @param {type} $http
@@ -26,9 +27,9 @@
          */
         function moduletypeModel($http, $resource) {
 
-            var _moduletype;
+            var _model;
 
-            _moduletype = $resource(
+            _model = $resource(
                     window.LisGlobals.RestUrl + 'moduletype/:id',
                     {id: '@id'},
             {
@@ -44,7 +45,7 @@
                  * @return {unresolved}
                  */
                 GetList: function (params) {
-                    return _moduletype.query(params).$promise;
+                    return _model.query(params).$promise;
                 },
                 /**
                  * 
@@ -52,7 +53,7 @@
                  * @return {unresolved}
                  */
                 Get: function (id) {
-                    return _moduletype.get({id: id}).$promise;
+                    return _model.get({id: id}).$promise;
                 },
                 /**
                  * 
@@ -61,7 +62,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _moduletype.save(data).$promise;
+                    return _model.save((globalFunctions.cleanData(data))).$promise;
                 },
                 /**
                  * 
@@ -70,7 +71,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _moduletype.update({id: id}, data).$promise;
+                    return _model.update({id: id},globalFunctions.cleanData(data)).$promise;
 
                 },
                 /**
@@ -80,7 +81,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    return _moduletype.remove({id: id}).$promise;
+                    return _model.remove({id: id}).$promise;
                 }
             };
         }

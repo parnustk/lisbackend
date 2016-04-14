@@ -9,8 +9,8 @@
             <div class="form-group" ng-class="{ 'has-error': moduleForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">Name</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="moduletype.name">
+                        <span class="input-group-addon" id="moduletypeForm-name">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="moduletypeForm-name" ng-model="moduletype.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -18,8 +18,8 @@
             <div class="form-group" ng-class="{ 'has-error': moduleForm.module.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon2">Module</span>
-                        <input name="module" type="text" class="form-control" aria-describedby="sizing-addon2" ng-model="moduletype.module" required>
+                        <span class="input-group-addon" id="moduletypeForm-name">Module</span>
+                        <input name="module" ng-required="true"  type="text" class="form-control" aria-describedby="moduletypeForm-module" ng-model="moduletype.module" required>
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -27,11 +27,38 @@
             <div class="col-lg-6">
                 <button type="submit" class="btn btn-primary">Create</button>
             </div><!-- /.col-lg-6 -->
-
         </div>
-
     </fieldset>
-    <br><br>
 </form>
+
+<br>
+
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+        <legend>ModuleType grid filter</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Name filter</label>
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <ui-select ng-model="filterModuleType.name" theme="bootstrap">
+                        <ui-select-match placeholder="Select or search a moduletype in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="moduletype in moduletypes | filter: $select.search">
+                            <span ng-bind-html="moduletype.name | highlight: $select.search"></span>
+                            <small>
+                                id: {{moduletype.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<br>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
