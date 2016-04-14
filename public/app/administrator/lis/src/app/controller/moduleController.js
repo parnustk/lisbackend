@@ -219,6 +219,7 @@
                  */
                 $scope.ClearFilters = function () {
                     $scope.filterModule = {};
+                    delete urlParams.where;
                     LoadGrid();
                 };
                 /**
