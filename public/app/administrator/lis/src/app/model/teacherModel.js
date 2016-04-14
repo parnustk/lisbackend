@@ -78,7 +78,7 @@
                  * @returns {unresolved}
                  */
                 Delete: function (id) {
-                    return _teacher.delete({id: id}).$promise;
+                    return _teacher.remove({id: id}).$promise;
                 }
             };
         }
