@@ -1,7 +1,7 @@
 /**
  * Licence of Learning Info System (LIS)
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tﾅ｡erepov, Marten Kﾃ､hr, Kristen Sepp, Alar Aasa, Juhan Kﾃｵks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
@@ -15,7 +15,7 @@
     /**
      * @param angular
      * @param globalFunctions
-     * @returns {roomController_L21.roomController_L32.moduleController}
+     * @returns {roomController_L19.roomController_L25.roomController}
      */
 
     define(['angular', 'app/util/globalFunctions'],
@@ -39,17 +39,18 @@
 
             var urlParams = {
                 page: 1,
-                limit: 10
+                limit: 1000
             };
 
             $scope.model = {
+                id: null,
                 name: null,
                 trashed: null
             };
 
             $scope.room = {};
 
-            $scope.filterModule = {};
+            $scope.filterRoom = {};
 
 
             $scope.gridOptions = {
@@ -148,7 +149,7 @@
              */
             $scope.Filter = function() {
                 if (!angular.equals({}, $scope.items)) {
-                    urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
+                    urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterRoom));
                     LoadGrid();
                 }
             };
@@ -158,7 +159,8 @@
              * @constructor
              */
             $scope.ClearFilters = function() {
-                $scope.filterModule = {};
+                $scope.filterRoom = {};
+                delete urlParams.where;
                 LoadGrid();
             };
 
@@ -167,12 +169,10 @@
              * @constructor
              */
             function LoadGrid() {
-                roomModel.GetList({}).then(function (result) {
-                    if (globalFunctions.resultHandler(result)) {
-                        $scope.rooms = result.data;
-                        $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.rooms;
-                        $scope.gridOptions.data = result.data;
-                    }
+                roomModel.GetList(urlParams).then(function (result) {
+                   if (globalFunctions.resultHandler(result)) {
+                       $scope.gridOptions.data = result.data;
+                   } 
                 });
             }
             LoadGrid();
