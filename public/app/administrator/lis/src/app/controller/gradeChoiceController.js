@@ -72,7 +72,7 @@
                         trashed: null
                     };
 
-                    $scope.gradeChoice = [];
+                    $scope.gradeChoice = {};
 
                     $scope.filterGradeChoice = {};//for form object
 
@@ -201,7 +201,9 @@
 
                         gradeChoiceModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                $scope.gridOption.data = result.data;
+                                $scope.rooms = result.data;
+                                $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.rooms;
+                                $scope.gridOptions.data = result.data;
 
                             }
                         });

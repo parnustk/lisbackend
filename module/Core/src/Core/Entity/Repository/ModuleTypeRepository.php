@@ -40,13 +40,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlStart()
     {
-        return  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
+        return $dql;
         
     }
 
@@ -56,13 +57,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlStudentStart()
     {
-        return  "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
+        return $dql;
         
     }
 
@@ -72,13 +74,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlTeacherStart()
     {
-        return "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
+        return $dql;
         
     }
 
@@ -88,13 +91,14 @@ class ModuleTypeRepository extends AbstractBaseRepository
      */
     protected function dqlAdministratorStart()
     {
-        return "SELECT
+        $dql = "SELECT
                     partial $this->baseAlias.{
                      id,
                      name,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
+        return $dql;
         
     }
 

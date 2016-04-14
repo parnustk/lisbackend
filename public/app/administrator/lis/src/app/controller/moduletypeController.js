@@ -5,8 +5,8 @@
  * @author Arnold Tserepov <tserepov@gmail.com>
  * 
  */
- 
- /* global define */
+
+/* global define */
 
 /**
  * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
@@ -47,8 +47,8 @@
                  */
 
                 function moduletypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduletypeModel) {
- 
-  /**
+
+                    /**
                      * For filters and maybe later pagination
                      * 
                      * @type type
@@ -57,7 +57,7 @@
                         page: 1,
                         limit: 100000
                     };
-                    
+
                     /**
                      * records sceleton
                      */
@@ -67,7 +67,7 @@
                         trashed: null
                     };
 
-                    $scope.moduletype = [];
+                    $scope.moduletype = {};
 
                     $scope.filterModuleType = {};//for form object
 
@@ -112,7 +112,7 @@
                         exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
                     };
 
-                     /**
+                    /**
                      * Adding event handlers
                      * 
                      * @param {type} gridApi
@@ -155,36 +155,36 @@
                                     console.log(result);
                                     //$scope.gridOptions.data.push(result.data);
                                     LoadGrid();//only needed if grid contains many column
-                                //can be used for gridrefresh button
+                                    //can be used for gridrefresh button
                                 }
                             });
                         } else {
                             alert('CHECK_FORM_FIELDS');
                         }
                     };
-                    
-                 /**
-                 * Set remote criteria for DB
-                 * 
-                 * @returns {undefined}
-                 */
-                $scope.Filter = function () {
-                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filtermoduletype));
+
+                    /**
+                     * Set remote criteria for DB
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Filter = function () {
+                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filtermoduletype));
+                            LoadGrid();
+                        }
+                    };
+
+                    /**
+                     * Remove criteria
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.ClearFilters = function () {
+                        $scope.filterModuleType = {};
+                        delete urlParams.where;
                         LoadGrid();
-                    }
-                };
-                
-                /**
-                 * Remove criteria
-                 * 
-                 * @returns {undefined}
-                 */
-                $scope.ClearFilters = function () {
-                    $scope.filterModuleType = {};
-                    delete urlParams.where;
-                    LoadGrid();
-                };
+                    };
 
                     /**
                      * Before loading moduletype data, 
@@ -196,7 +196,9 @@
 
                         moduletypeModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                $scope.gridOption.data = result.data;
+                                $scope.rooms = result.data;
+                                $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.rooms;
+                                $scope.gridOptions.data = result.data;
 
                             }
                         });
