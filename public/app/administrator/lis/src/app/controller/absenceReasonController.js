@@ -178,6 +178,7 @@
                      */
                     $scope.ClearFilters = function () {
                         $scope.filterAbsenceReason = {};
+                        delete urlParams.where;
                         LoadGrid();
                     };
 

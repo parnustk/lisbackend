@@ -49,6 +49,17 @@
                 function absenceController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceModel, absenceReasonModel, studentModel, contactLessonModel) {
 
                     /**
+                     * For filters and maybe later pagination
+                     * 
+                     * @type type
+                     */
+                    var urlParams = {
+                        page: 1,
+                        limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
+                    };
+
+
+                    /**
                      * records sceleton
                      */
                     $scope.model = {
@@ -79,7 +90,7 @@
                     $scope.absenceReasons = [];
 
                     $scope.absence = {};
-                    
+
                     $scope.filterAbsence = {};//for form filters, object
 
                     /**
@@ -203,28 +214,29 @@
                             alert('CHECK_FORM_FIELDS');
                         }
                     };
-                    
-                     /**
-                 * Set remote criteria for DB
-                 * 
-                 * @returns {undefined}
-                 */
-                $scope.Filter = function () {
-                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterAbsence));
-                        LoadGrid();
-                    }
-                };
 
-                /**
-                 * Remove criteria
-                 * 
-                 * @returns {undefined}
-                 */
-                $scope.ClearFilters = function () {
-                    $scope.filterAbsence = {};
-                    LoadGrid();
-                };
+                    /**
+                     * Set remote criteria for DB
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Filter = function () {
+                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterAbsence));
+                            LoadGrid();
+                        }
+                    };
+
+                    /**
+                     * Remove criteria
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.ClearFilters = function () {
+                        $scope.filterAbsence = {};
+                        delete urlParams.where;
+                        LoadGrid();
+                    };
 
                     /**
                      * Before loading absence data, 
@@ -254,7 +266,7 @@
                                                 $scope.contactLessons = result.data;
                                                 $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.contactLessons;
 
-                                                absenceModel.GetList($scope.params).then(function (result) {
+                                                absenceModel.GetList(urlParams).then(function (result) {
                                                     if (globalFunctions.resultHandler(result)) {
 //                                                $scope.absences = result.data;
 //                                                $scope.gridOptions.data = $scope.absences;
