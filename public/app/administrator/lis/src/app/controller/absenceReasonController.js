@@ -189,7 +189,7 @@
                      */
                     function LoadGrid() {
 
-                        absenceReasonModel.GetList($scope.params).then(function (result) {
+                        absenceReasonModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.gridOptions.data = result.data;
                             }

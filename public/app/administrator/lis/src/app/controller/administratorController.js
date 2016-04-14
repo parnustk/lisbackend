@@ -184,6 +184,7 @@
                  */
                 $scope.ClearFilters = function () {
                     $scope.filterAdministrator = {};
+                    delete urlParams.where;
                     LoadGrid();
                 };
                 
