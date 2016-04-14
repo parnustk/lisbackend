@@ -16,19 +16,6 @@
 
     define(['angular', 'app/util/globalFunctions'],
         function (angular, globalFunctions) {
-            /*
-             * 
-             * * name
-             * * lessonDate
-             * * description
-             * * sequenceNr
-             * * rooms r
-             * * subjectRound r 
-             * * studentGroup r
-             * * module r
-             * * vocation r
-             * * teacher r
-             */
 
             contactLessonController.$inject = [
                 '$scope',
@@ -36,6 +23,7 @@
                 '$routeParams',
                 'rowSorter',
                 'uiGridConstants',
+                'contactLessonModel',
                 'roomModel',
                 'subjectRoundModel',
                 'studentGroupModel',
@@ -50,6 +38,7 @@
                 $routeParams,
                 rowSorter,
                 uiGridConstants,
+                contactLessonModel,
                 roomModel,
                 subjectRoundModel,
                 studentGroupModel,
@@ -72,18 +61,22 @@
                  */
                 $scope.model = {
                     name: null,
-                    moduleCode: null,
+                    lessonDate: null,
+                    description: null,
+                    sequenceNr: null,
+                    rooms: null,
+                    subjectRound: null,
+                    studentGroup: null,
+                    module: null,
                     vocation: null,
-                    moduleType: null,
-                    gradingType: null,
-                    duration: null
+                    teacher: null
                 };
 
-                $scope.vocations = $scope.moduleTypes = $scope.gradingTypes = [];//for ui-select in form
+                $scope.roomsAll = $scope.subjectRounds = $scope.studentGroups = $scope.modules = $scope.vocations = $scope.teachers = [];
 
-                $scope.module = {};//for form, object
+                $scope.contactLesson = {};//for form, object
 
-                $scope.filterModule = {};//for form filters, object
+                $scope.filterContactLesson = {};//for form filters, object
 
                 /**
                  * Grid set up
@@ -169,96 +162,156 @@
 //                };
 
 
-                /**
-                 * Update logic
-                 * 
-                 * @param {type} rowEntity
-                 * @returns {undefined}
-                 */
-                $scope.saveRow = function (rowEntity) {
-                    var deferred = $q.defer();
-                    moduleModel.Update(rowEntity.id, rowEntity).then(
-                        function (result) {
-                            if (result.success) {
-                                deferred.resolve();
-                            } else {
-                                deferred.reject();
-                            }
-                        }
-                    );
-                    $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
-                };
+//                /**
+//                 * Update logic
+//                 * 
+//                 * @param {type} rowEntity
+//                 * @returns {undefined}
+//                 */
+//                $scope.saveRow = function (rowEntity) {
+//                    var deferred = $q.defer();
+//                    moduleModel.Update(rowEntity.id, rowEntity).then(
+//                        function (result) {
+//                            if (result.success) {
+//                                deferred.resolve();
+//                            } else {
+//                                deferred.reject();
+//                            }
+//                        }
+//                    );
+//                    $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+//                };
+//
+//                /**
+//                 * Create new from form if succeeds push to grid
+//                 * 
+//                 * @param {type} valid
+//                 * @returns {undefined}
+//                 */
+//                $scope.Create = function (valid) {
+//                    if (valid) {
+//                        moduleModel.Create($scope.module).then(function (result) {
+//                            if (globalFunctions.resultHandler(result)) {
+//                                LoadGrid();
+//                            }
+//                        });
+//                    } else {
+//                        alert('CHECK_FORM_FIELDS');
+//                    }
+//                };
+//
+//                /**
+//                 * Set remote criteria for DB
+//                 * 
+//                 * @returns {undefined}
+//                 */
+//                $scope.Filter = function () {
+//                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+//                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
+//                        LoadGrid();
+//                    }
+//                };
+//
+//                /**
+//                 * Remove criteria
+//                 * 
+//                 * @returns {undefined}
+//                 */
+//                $scope.ClearFilters = function () {
+//                    $scope.filterModule = {};
+//                    delete urlParams.where;
+//                    LoadGrid();
+//                };
+//                /**
+//                 * Before loading module data, 
+//                 * we first load relations and check success
+//                 * 
+//                 * @returns {undefined}
+//                 */
+//                function LoadGrid() {
+//
+//                    vocationModel.GetList({}).then(function (result) {
+//                        if (globalFunctions.resultHandler(result)) {
+//
+//                            $scope.vocations = result.data;
+//                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
+//
+//                            moduletypeModel.GetList($scope.params).then(function (result) {
+//
+//                                if (globalFunctions.resultHandler(result)) {
+//
+//                                    $scope.moduleTypes = result.data;
+//                                    $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.moduleTypes;
+//
+//                                    gradingTypeModel.GetList($scope.params).then(function (result) {
+//                                        if (globalFunctions.resultHandler(result)) {
+//
+//                                            $scope.gradingTypes = result.data;
+//                                            $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.gradingTypes;
+//
+//                                            moduleModel.GetList(urlParams).then(function (result) {
+//                                                if (globalFunctions.resultHandler(result)) {
+//                                                    $scope.gridOptions.data = result.data;
+//                                                }
+//                                            });
+//                                        }
+//                                    });
+//                                }
+//                            });
+//                        }
+//                    });
+//                }
 
-                /**
-                 * Create new from form if succeeds push to grid
-                 * 
-                 * @param {type} valid
-                 * @returns {undefined}
-                 */
-                $scope.Create = function (valid) {
-                    if (valid) {
-                        moduleModel.Create($scope.module).then(function (result) {
-                            if (globalFunctions.resultHandler(result)) {
-                                LoadGrid();
-                            }
-                        });
-                    } else {
-                        alert('CHECK_FORM_FIELDS');
-                    }
-                };
 
-                /**
-                 * Set remote criteria for DB
+                /*
                  * 
-                 * @returns {undefined}
+                 * * name
+                 * * lessonDate
+                 * * description
+                 * * sequenceNr
+                 * * rooms r
+                 * * subjectRound r 
+                 * * studentGroup r
+                 * * module r
+                 * * vocation r
+                 * * teacher r
                  */
-                $scope.Filter = function () {
-                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
-                        LoadGrid();
-                    }
-                };
 
-                /**
-                 * Remove criteria
-                 * 
-                 * @returns {undefined}
-                 */
-                $scope.ClearFilters = function () {
-                    $scope.filterModule = {};
-                    delete urlParams.where;
-                    LoadGrid();
-                };
-                /**
-                 * Before loading module data, 
-                 * we first load relations and check success
-                 * 
-                 * @returns {undefined}
-                 */
                 function LoadGrid() {
-
-                    vocationModel.GetList({}).then(function (result) {
+                    roomModel.GetList(urlParams).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
+                            $scope.roomsAll = result.data;
 
-                            $scope.vocations = result.data;
-                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
-
-                            moduletypeModel.GetList($scope.params).then(function (result) {
-
+                            subjectRoundModel.GetList(urlParams).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
+                                    $scope.subjectRounds = result.data;
 
-                                    $scope.moduleTypes = result.data;
-                                    $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.moduleTypes;
-
-                                    gradingTypeModel.GetList($scope.params).then(function (result) {
+                                    studentGroupModel.GetList(urlParams).then(function (result) {
                                         if (globalFunctions.resultHandler(result)) {
-
-                                            $scope.gradingTypes = result.data;
-                                            $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.gradingTypes;
+                                            $scope.studentGroups = result.data;
 
                                             moduleModel.GetList(urlParams).then(function (result) {
                                                 if (globalFunctions.resultHandler(result)) {
-                                                    $scope.gridOptions.data = result.data;
+                                                    $scope.modules = result.data;
+
+                                                    vocationModel.GetList(urlParams).then(function (result) {
+                                                        if (globalFunctions.resultHandler(result)) {
+                                                            $scope.vocations = result.data;
+
+                                                            teacherModel.GetList(urlParams).then(function (result) {
+                                                                if (globalFunctions.resultHandler(result)) {
+                                                                    $scope.teachers = result.data;
+
+                                                                    contactLessonModel.GetList(urlParams).then(function (result) {
+                                                                        if (globalFunctions.resultHandler(result)) {
+                                                                            //$scope.gridOptions.data = result.data;
+                                                                            alert(1);
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
