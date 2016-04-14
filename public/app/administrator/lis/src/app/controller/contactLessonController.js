@@ -181,25 +181,26 @@
 //                    );
 //                    $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
 //                };
-//
-//                /**
-//                 * Create new from form if succeeds push to grid
-//                 * 
-//                 * @param {type} valid
-//                 * @returns {undefined}
-//                 */
-//                $scope.Create = function (valid) {
-//                    if (valid) {
+
+                /**
+                 * Create new from form if succeeds push to grid
+                 * 
+                 * @param {type} valid
+                 * @returns {undefined}
+                 */
+                $scope.Create = function (valid) {
+                    if (valid) {
+                        console.log($scope.contactLesson);
 //                        moduleModel.Create($scope.module).then(function (result) {
 //                            if (globalFunctions.resultHandler(result)) {
 //                                LoadGrid();
 //                            }
 //                        });
-//                    } else {
-//                        alert('CHECK_FORM_FIELDS');
-//                    }
-//                };
-//
+                    } else {
+                        alert('CHECK_FORM_FIELDS');
+                    }
+                };
+
 //                /**
 //                 * Set remote criteria for DB
 //                 * 
@@ -305,7 +306,7 @@
                                                                     contactLessonModel.GetList(urlParams).then(function (result) {
                                                                         if (globalFunctions.resultHandler(result)) {
                                                                             //$scope.gridOptions.data = result.data;
-                                                                            alert(1);
+                                                                            //alert(1);
                                                                         }
                                                                     });
                                                                 }
