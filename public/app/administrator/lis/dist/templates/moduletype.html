@@ -31,15 +31,10 @@
             <label class="col-sm-3 control-label">Name filter</label>
             <div class="col-sm-12">
                 <div class="input-group">
-                    <ui-select ng-model="filterModuleType.name" theme="bootstrap">
-                        <ui-select-match placeholder="Select or search a moduletype in the list...">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="moduletype in moduletypes | filter: $select.search">
-                            <span ng-bind-html="moduletype.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{moduletype.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
+                   <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterModuleType-name">Name</span>
+                        <input name="name" ng-model="filterModuleType.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterModuleType-name">
+                    </div> 
                 </div>
             </div>
             <div class="col-lg-6">
