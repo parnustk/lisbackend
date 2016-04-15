@@ -8,8 +8,8 @@
             <div class="form-group" ng-class="{ 'has-error': gradingTypeForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="sizing-addon1">Name</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="gradingType.name">
+                        <span class="input-group-addon" id="gradingTypeForm-name">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="gradingTypeForm-name" ng-model="gradingType.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -18,6 +18,31 @@
                 <button type="button" ng-click="Delete()" class="btn btn-default">Delete</button>
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
+    </fieldset>
+</form>
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+        <legend>Grading Type grid filter</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Name filter</label>
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <ui-select allow-clear ng-model="filterGradingType.name" theme="bootstrap">
+                        <ui-select-match placeholder="Select or search a gradingType in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
+                            <span ng-bind-html="gradingType.name | highlight: $select.search"></span>
+                            <small>
+                                id: {{gradingType.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
     </fieldset>
 </form>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

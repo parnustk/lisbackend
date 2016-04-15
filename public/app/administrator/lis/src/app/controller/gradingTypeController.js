@@ -29,182 +29,199 @@
 (function (define, document) {
     'use strict';
 
-    
     /**
      * 
      * @param {type} angular
+     * @param {type} globalFunctions
      * @returns {gradingTypeController_L19.gradingTypeController_L25.gradingTypeController}
      */
-    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
-        
-        /**
-         * 
-         * @param {Object} result
-         * @returns {Boolean}
-         */
-        var _resultHandler = function (result) {
-            var s = true;
-            if (!result.success && result.message === "NO_USER") {
-                alert('Login!');
-                s = false;
-            }
-            return s;
-        };
-        
-        /**
-         * 
-         * @param {type} $scope
-         * @param {type} $q
-         * @param {type} $routeParams
-         * @param {type} rowSorter
-         * @param {type} uiGridConstants
-         * @param {type} gradingTypeModel
-         * @returns {undefined}
-         */
-        function gradingTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, gradingTypeModel) {
-            
-//            var elem = new Foundation.DropdownMenu($('#main-menu'));
-            /**
-             * records sceleton used for reset operations
-             */
-            $scope.model={
-                name: null,
-                trashed: null
-            };
-            $scope.gradingType = {};//for form object
-            
-            /**
-             * Grid set up
-             */
-            $scope.gridOptions ={
-                enableCellEditOnFocus: true,
-                columnDefs:[{
-                        field: 'id',
-                        visible: false,
-                        type: 'number',
-                        sort:{
-                            direction: uiGridConstants.DESC,
-                            priority: 1
-                        }
-                },
-                {field: 'name'},
-                {field: 'trashed'}
-            ],
-            enableGridMenu: true,
-            enalbeSelectAll: true,
-            exporterCsvFilename: 'gradingtype.csv',
-            exporterPdfDefaultStyle: {fontSize: 9},
-                exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color:'red'},
-                exporterPdfHeader: {text:"Grading Type Header", style: 'headerStyle'},
-                exporterPdfFooter: function (currentPage, pageCount) {
-                    return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-                },
-                exporterPdfCustomFormatter: function (docDefinition) {
-                    docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-                    docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-                    return docDefinition;
-                },
-                exporterPdfOrientation: 'portrait',
-                exporterPdfPageSize: 'LETTER',
-                exporterPdfMaxGridWidth: 500,
-                exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
-            };
+    define(['angular', 'app/util/globalFunctions'],
+            function (angular, globalFunctions) {
+                
+                gradingTypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'gradingTypeModel'];
+                
+                /**
+                 * 
+                 * @param {type} $scope
+                 * @param {type} $q
+                 * @param {type} $routeParams
+                 * @param {type} rowSorter
+                 * @param {type} uiGridConstants
+                 * @param {type} gradingTypeModel
+                 * @returns {undefined}
+                 */
+                function gradingTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, gradingTypeModel) {
 
-            /**
-             * Adding event handlers
-             * 
-             * @param {type} gridApi
-             * @returns {undefined}
-             */
-            $scope.gridOptions.onRegisterApi = function (gridApi) {
-                //set gridApi on scope
-                $scope.gridApi = gridApi;
-                gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-            };
-            /**
-             * GetList
-             * @returns {undefined}
-             */
-            $scope.init = function () {
-                gradingTypeModel.GetList($scope.params).then(
-                    function (result) {
-                        if (_resultHandler(result)) {
-                            $scope.gridOptions.data = result.data;
-                            //console.log($scope.gridApi);
-                        }
-                        //console.log($scope.store);
-                    }
-                );
-            };
-            
-            /**
-             * Update logic
-             * 
-             * @param {type} rowEntity
-             * @returns {undefined}
-             */
-            $scope.saveRow = function (rowEntity) {
-                var promise = $q.defer();
-                $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
-                gradingTypeModel.Update(rowEntity.id, rowEntity).then(
-                    function (result) {
-                        if (result.success) {
-                            promise.resolve();
-                        } else {
-                            promise.reject();
-                        }
-                        //console.log(result);
-                    });
-            };
+                    /**
+                     * For filters and maybe later pagination
+                     * 
+                     * @type type
+                     */
+                    var urlParams = {
+                        page: 1,
+                        limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
+                    };
+                    
+                    /**
+                     * records sceleton used for reset operations
+                     */
+                    $scope.model = {
+                        id:null,
+                        name: null,
+                        trashed: null
+                    };
 
-            /**
-             * Form reset the angular way
-             * 
-             * @returns {undefined}
-             */
-            $scope.reset = function () {
-                $scope.gradingType = angular.copy($scope.model);
-            };
-            
-            /**
-             * Create
-             * 
-             * @returns {undefined}
-             */
-            $scope.Create = function () {
-                gradingTypeModel
-                        .Create(angular.copy($scope.gradingType))
-                        .then(
-                            function (result) {
-                                if (result.success) {
-                                    $scope.gridOptions.data.push(result.data);
-                                    $scope.reset();
-//                                    LoadGrid();
-                                } else {
-                                    alert('BAD');
+                    $scope.gradingType = {};//for form object
+
+                    $scope.filterGradingType = {};//for form filters, object
+
+                    /**
+                     * Grid set up
+                     */
+                    $scope.gridOptions = {
+                        enableCellEditOnFocus: true,
+                        columnDefs: [
+                            {
+                                field: 'id',
+                                visible: false,
+                                type: 'number',
+                                enableCellEdit: false,
+                                sort: {
+                                    direction: uiGridConstants.DESC,
+                                    priority: 1
                                 }
-                            }
+                            },
+                            {field: 'name'},
+                            {field: 'trashed'}
+                        ],
+                        enableGridMenu: true,
+                        enalbeSelectAll: true,
+                        exporterCsvFilename: 'gradingtype.csv',
+                        exporterPdfDefaultStyle: {fontSize: 9},
+                        exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+                        exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                        exporterPdfHeader: {text: "Grading Type Header", style: 'headerStyle'},
+                        exporterPdfFooter: function (currentPage, pageCount) {
+                            return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
+                        },
+                        exporterPdfCustomFormatter: function (docDefinition) {
+                            docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
+                            docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
+                            return docDefinition;
+                        },
+                        exporterPdfOrientation: 'portrait',
+                        exporterPdfPageSize: 'LETTER',
+                        exporterPdfMaxGridWidth: 500,
+                        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
+                    };
+
+                    /**
+                     * Adding event handlers
+                     * 
+                     * @param {type} gridApi
+                     * @returns {undefined}
+                     */
+                    $scope.gridOptions.onRegisterApi = function (gridApi) {
+                        $scope.gridApi = gridApi;
+                        gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+                    };
+
+                    /**
+                     * Update logic
+                     * 
+                     * @param {type} rowEntity
+                     * @returns {undefined}
+                     */
+                    $scope.saveRow = function (rowEntity) {
+                        var deferred = $q.defer();
+                        gradingTypeModel.Update(rowEntity.id, rowEntity).then(
+                                function (result) {
+                                    if (result.success) {
+                                        deferred.resolve();
+                                    } else {
+                                        deferred.reject();
+                                    }
+                                }
                         );
-            };
-            
-            /**
-             * Delete
-             * kustutab küll vaatest aga mitte andmebaasist :/
-             */
-            $scope.Delete = function () {
-                angular.forEach($scope.gridApi.selection.getSelectedRows(), 
-                    function (data, index) {
-                        $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
-                    });
-            };
-            $scope.init();
-        }
+                        $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+                    };
 
-        gradingTypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'gradingTypeModel'];
+                    /**
+                     * Create
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Create = function (valid) {
+                        if (valid) {
+                            gradingTypeModel.Create($scope.gradingType).then(function (result) {
+                                if (globalFunctions.resultHandler(result)) {
+                                    console.log(result);
+                                    //$scope.gridOptions.data.push(result.data);
+                                    LoadGrid();//only needed if grid contains many column
+                                    //can be used for gridrefresh button
+                                    //maybe it is good to refresh after create?
+                                }
+                            });
+                        } else {
+                            alert('CHECK_FORM_FIELDS');
+                        }
+                    };
 
-        return gradingTypeController;
-    });
+                    /**
+                     * Set remote criteria for DB
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.Filter = function () {
+                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
+                            LoadGrid();
+                        }
+                    };
+
+                    /**
+                     * Remove criteria
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.ClearFilters = function () {
+                        $scope.filterModule = {};
+                        delete urlParams.where;
+                        LoadGrid();
+                    };
+
+                    /**
+                     * Delete
+                     * kustutab küll vaatest aga mitte andmebaasist :/
+                     */
+                    $scope.Delete = function () {//oooo :O (Y) algus tehtud 
+                        //aga ma teeks vbl tiba teistmoodi, see m
+                        angular.forEach($scope.gridApi.selection.getSelectedRows(),
+                                function (data, index) {
+                                    $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+                                });
+                    };
+
+
+                    /**
+                     * Before loading module data, 
+                     * we first load relations and check success
+                     * 
+                     * @returns {undefined}
+                     */
+                    function LoadGrid() {
+                        gradingTypeModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.gridOptions.data = result.data;
+                            }
+                        });
+                    }
+
+                    LoadGrid();//let's start loading data
+                }
+                
+                return gradingTypeController;
+            });
 
 }(define, document));
 

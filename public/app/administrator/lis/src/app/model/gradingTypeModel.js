@@ -61,7 +61,7 @@
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _model.save(data).$promise;
+                    return _model.save(globalFunctions.cleanData(data)).$promise;
                 },
                 /**
                  * 
@@ -70,7 +70,7 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _model.update({id: id}, data).$promise;
+                    return _model.update({id: id}, globalFunctions.cleanData(data)).$promise;
                 },
                 /**
                  * 
