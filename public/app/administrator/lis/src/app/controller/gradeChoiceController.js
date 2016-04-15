@@ -201,8 +201,6 @@
 
                         gradeChoiceModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-//                                $scope.rooms = result.data; NEID EI OLE SIIA VAJA - KRISTEN
-//                                $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.rooms;
                                 $scope.gridOptions.data = result.data;
 
                             }
