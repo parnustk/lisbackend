@@ -35,7 +35,7 @@
      * @param {type} angular
      * @returns {gradingTypeController_L19.gradingTypeController_L25.gradingTypeController}
      */
-    define(['angular', 'jquery', 'foundation'], function (angular, $, Foundation) {
+    define(['angular', 'app/util/globalFunctions'], function (angular, globalFunctions) {
         
         /**
          * 
@@ -50,17 +50,28 @@
             }
             return s;
         };
-
-        function gradingTypeController($scope, $q, $routeParams, uiGridConstants, gradingTypeModel) {
+        
+        /**
+         * 
+         * @param {type} $scope
+         * @param {type} $q
+         * @param {type} $routeParams
+         * @param {type} rowSorter
+         * @param {type} uiGridConstants
+         * @param {type} gradingTypeModel
+         * @returns {undefined}
+         */
+        function gradingTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, gradingTypeModel) {
             
-            var elem = new Foundation.DropdownMenu($('#main-menu'));
+//            var elem = new Foundation.DropdownMenu($('#main-menu'));
             /**
-             * records sceleton
+             * records sceleton used for reset operations
              */
             $scope.model={
                 name: null,
                 trashed: null
             };
+            $scope.gradingType = {};//for form object
             
             /**
              * Grid set up
@@ -169,6 +180,7 @@
                                 if (result.success) {
                                     $scope.gridOptions.data.push(result.data);
                                     $scope.reset();
+//                                    LoadGrid();
                                 } else {
                                     alert('BAD');
                                 }
@@ -189,7 +201,7 @@
             $scope.init();
         }
 
-        gradingTypeController.$inject = ['$scope', '$q', '$routeParams', 'uiGridConstants', 'gradingTypeModel'];
+        gradingTypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'gradingTypeModel'];
 
         return gradingTypeController;
     });

@@ -16,7 +16,7 @@
 (function (define, window) {
     'use strict';
 
-    define([], function () {
+    define(['app/util/globalFunctions'], function (globalFunctions) {
 
         /**
          * 
@@ -79,7 +79,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-                    return _model.delete({id: id}).$promise;
+                    return _model.remove({id: id}).$promise;
                 }
             };
         }

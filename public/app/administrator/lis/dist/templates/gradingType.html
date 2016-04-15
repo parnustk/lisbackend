@@ -1,14 +1,23 @@
-<h2>GRADING TYPE</h2>
-<form>
-  <div class="row">
-      <div class="large-3 medium-6 small-12 columns">
-      <label>Grading Type name
-        <input type="text" ng-model="gradingType.name">
-      </label>
-    </div>
-  </div>
-  <button class="button" ng-click="Create()">CREATE</button>
-  <button class="button" ng-click="Delete()">DELETE</button>
-</form>
+<h2>GradingType view</h2>
+<form class="form-horizontal" name="gradingTypeForm" ng-submit="Create(gradingTypeForm.$valid)">
+    <fieldset>
+        <legend>Create new gradingType</legend>
 
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': gradingTypeForm.name.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="sizing-addon1">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1" ng-model="gradingType.name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="button" ng-click="Delete()" class="btn btn-default">Delete</button>
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+    </fieldset>
+</form>
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
