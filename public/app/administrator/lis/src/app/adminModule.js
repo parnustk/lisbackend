@@ -33,6 +33,7 @@
         'app/model/contactLessonModel',
         'app/model/subjectRoundModel',
         'app/model/studentGroupModel',
+        'app/model/independentWorkModel',
         'app/controller/vocationController',
         'app/controller/gradingTypeController',
         'app/controller/gradeChoiceController',
@@ -46,7 +47,8 @@
         'app/controller/studentController',
         'app/controller/administratorController',
         'app/controller/subjectController',
-        'app/controller/contactLessonController'
+        'app/controller/contactLessonController',
+        'app/controller/independentWorkController'
     ], function (
         angular,
         config,
@@ -79,7 +81,8 @@
         studentController,
         administratorController,
         subjectController,
-        contactLessonController
+        contactLessonController,
+        independentWorkController
         ) {
 
         /**
@@ -260,7 +263,8 @@
         adminModule.factory('subjectModel', subjectModel);
         adminModule.factory('contactLessonModel', contactLessonModel);
         adminModule.factory('subjectRoundModel', subjectRoundModel);
-        adminModule.factory('studentGroupModel', subjectRoundModel);
+        adminModule.factory('studentGroupModel', studentGroupModel);
+        adminModule.factory('independentWorkModel', independentWorkController);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -276,6 +280,7 @@
         adminModule.controller('administratorController', administratorController);
         adminModule.controller('subjectController', subjectController);
         adminModule.controller('contactLessonController', contactLessonController);
+        adminModule.controller('independentWorkController', independentWorkController);
 
         return adminModule;
     });

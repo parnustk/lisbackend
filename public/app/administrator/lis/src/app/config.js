@@ -78,6 +78,11 @@
                     templateUrl: 'lis/dist/templates/contactLesson.html',
                     controller: 'contactLessonController'
                 })
+                
+                .when('/independentWork', {
+                    templateUrl: 'lis/dist/templates/independentWork.html',
+                    controller: 'independentWorkController'
+                })
 
                 .otherwise({redirectTo: '/'});
 
