@@ -174,7 +174,7 @@
                      */
                     $scope.Filter = function () {
                         if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterGradingType));
                             LoadGrid();
                         }
                     };

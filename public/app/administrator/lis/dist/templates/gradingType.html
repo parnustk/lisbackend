@@ -25,19 +25,16 @@
         <legend>Grading Type grid filter</legend>
         <div class="form-group">
             <label class="col-sm-3 control-label">Name filter</label>
+            
             <div class="col-sm-12">
                 <div class="input-group">
-                    <ui-select allow-clear ng-model="filterGradingType.name" theme="bootstrap">
-                        <ui-select-match placeholder="Select or search a gradingType in the list...">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
-                            <span ng-bind-html="gradingType.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{gradingType.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterGradingType-name">Name</span>
+                        <input name="name" ng-model="filterGradingType.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterGradingType-name">
+                    </div>
                 </div>
             </div>
+            
             <div class="col-lg-6">
                 <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">Clear</span></button>
                 <button type="submit" class="btn btn-primary">Filter</button>
