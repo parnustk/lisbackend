@@ -29,12 +29,12 @@
      * 
      * @param {type} angular
      * @param {type} globalFunctions
-     * @returns {moduletypeController_L19.moduletypeController_L25.moduletypeController}
+     * @returns {moduleTypeController_L19.moduleTypeController_L25.moduleTypeController}
      */
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
 
-                moduletypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduletypeModel'];
+                moduleTypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduletypeModel'];
                 /**
                  * 
                  * @param {type} $scope
@@ -42,11 +42,11 @@
                  * @param {type} $routeParams
                  * @param {type} rowSorter
                  * @param {type} uiGridConstants
-                 * @param {type} moduletypeModel
-                 * @returns {moduletypeController_L30.moduletypeController}
+                 * @param {type} moduleTypeModel
+                 * @returns {moduleTypeController_L30.moduletypeController}
                  */
 
-                function moduletypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduletypeModel) {
+                function moduleTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleTypeModel) {
 
                     /**
                      * For filters and maybe later pagination
@@ -67,7 +67,7 @@
                         trashed: null
                     };
 
-                    $scope.moduletype = {};
+                    $scope.moduleType = {};
 
                     $scope.filterModuleType = {};//for form object
 
@@ -75,7 +75,6 @@
                      * Grid set up
                      */
                     $scope.gridOptions = {
-                        rowHeight: 38,
                         enableCellEditOnFocus: true,
                         columnDefs: [
                             {
@@ -130,7 +129,7 @@
                      */
                     $scope.saveRow = function (rowEntity) {
                         var deferred = $q.defer();
-                        moduletypeModel.Update(rowEntity.id, rowEntity).then(
+                        moduleTypeModel.Update(rowEntity.id, rowEntity).then(
                                 function (result) {
                                     if (result.success) {
                                         deferred.resolve();
@@ -150,7 +149,7 @@
                      */
                     $scope.Create = function (valid) {
                         if (valid) {
-                            moduletypeModel.Create($scope.moduletype).then(function (result) {
+                            moduleTypeModel.Create($scope.moduleType).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
                                     console.log(result);
                                     //$scope.gridOptions.data.push(result.data);
@@ -170,7 +169,7 @@
                      */
                     $scope.Filter = function () {
                         if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filtermoduletype));
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModuleType));
                             LoadGrid();
                         }
                     };
@@ -187,17 +186,17 @@
                     };
 
                     /**
-                     * Before loading moduletype data, 
+                     * Before loading moduleType data, 
                      * we first load relations and check success
                      * 
                      * @returns {undefined}
                      */
                     function LoadGrid() {
 
-                        moduletypeModel.GetList(urlParams).then(function (result) {
+                        moduleTypeModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                $scope.rooms = result.data;
-                                $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.rooms;
+//                                $scope.rooms = result.data; NEID EI OLE SIIA VAJA - KRISTEN
+//                                $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.rooms;
                                 $scope.gridOptions.data = result.data;
 
                             }
@@ -208,7 +207,7 @@
                     LoadGrid();//let's start loading data
                 }
 
-                return moduletypeController;
+                return moduleTypeController;
             });
 
 }(define, document));

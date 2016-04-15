@@ -79,7 +79,7 @@
                     controller: 'contactLessonController'
                 })
                 
-                .when('/independentWork', {
+                .when('/independentwork', {
                     templateUrl: 'lis/dist/templates/independentWork.html',
                     controller: 'independentWorkController'
                 })
