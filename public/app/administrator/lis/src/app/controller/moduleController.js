@@ -30,7 +30,7 @@
     define(['angular', 'app/util/globalFunctions'],
         function (angular, globalFunctions) {
 
-            moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduletypeModel', 'gradingTypeModel'];
+            moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduleTypeModel', 'gradingTypeModel'];
             /**
              * 
              * @param {type} $scope
@@ -40,11 +40,11 @@
              * @param {type} uiGridConstants
              * @param {type} moduleModel
              * @param {type} vocationModel
-             * @param {type} moduletypeModel
+             * @param {type} moduleTypeModel
              * @param {type} gradingTypeModel
              * @returns {undefined}
              */
-            function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel, moduletypeModel, gradingTypeModel) {
+            function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel, moduleTypeModel, gradingTypeModel) {
 
                 /**
                  * For filters and maybe later pagination
@@ -236,7 +236,7 @@
                             $scope.vocations = result.data;
                             $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
 
-                            moduletypeModel.GetList($scope.params).then(function (result) {
+                            moduleTypeModel.GetList($scope.params).then(function (result) {
 
                                 if (globalFunctions.resultHandler(result)) {
 

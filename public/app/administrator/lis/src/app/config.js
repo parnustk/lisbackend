@@ -48,8 +48,8 @@
                     controller: 'roomController'})
 
                 .when('/moduletype', {
-                    templateUrl: 'lis/dist/templates/moduletype.html',
-                    controller: 'moduletypeController'})
+                    templateUrl: 'lis/dist/templates/moduleType.html',
+                    controller: 'moduleTypeController'})
 
                 .when('/absence', {
                     templateUrl: 'lis/dist/templates/absence.html',
