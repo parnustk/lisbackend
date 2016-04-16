@@ -134,7 +134,7 @@ class DumpService implements ServiceManagerAwareInterface
     {
         $this->setUp();
         $this->setFilename($type);
-        $dumpData = null;
+        $dumpStructure = null;
 
         //TODO: Create SQL Dump
         $tables = [
@@ -171,57 +171,65 @@ class DumpService implements ServiceManagerAwareInterface
                 //This part adds table structure to dumpData
                 $stmt->execute();
                 $fetchData = $stmt->fetch();
-                $dumpData = $fetchData[1];
+                $dumpData = $fetchData[1]."; \n";
             } catch (PDOException $ex) {
                 print_r($ex);
                 die();
             }
             //Write structure to table
-            file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
-            $dumpData = null;
+            file_put_contents(_PATH_ . $this->fileName, $dumpStructure, FILE_APPEND);
             
             $stmt = $this->db->prepare('SELECT id FROM ' . $tableString . ' WHERE 1;');
             $stmt->execute();
-            $rowCount = count($stmt->fetch());
-            
+            $rowCount = count($stmt->fetchAll());
+            $columnNames = null;
             for ($i = 0; $i < $rowCount+1; $i++) { //Write data from single table
                 $fetchData = null;
-                $colCount = null;
+                $columnCount = null;
+                $dumpData = null;
                 if ($i == 0) { //Begin backup INSERT statement
                     $stmt = $this->db->prepare("SELECT `COLUMN_NAME` 
                                                 FROM `INFORMATION_SCHEMA`.`COLUMNS` 
                                                 WHERE `TABLE_SCHEMA`= 'lis' 
                                                 AND `TABLE_NAME`='" . $tables[$t] . "';");
                     $stmt->execute();
-                    $fetchData = $stmt->fetch(); //fetchData is Column Names
-                    $colCount = count($fetchData);
+                    $fetchData = $stmt->fetchAll(); //fetchData is Column Names
+                    $columnCount = count($fetchData);
+                    $columnNames = array_column($fetchData, 'COLUMN_NAME');
                     $dumpData = "INSERT INTO " . $tableString . "(";
-                    for ($c=0;$c<$colCount+1;$c++) { //Append column names into statement
-                        if ($c == $colCount) { //Close column names, begin data
-                            $dumpData .= ") VALUES";
+                    for ($c=0;$c<$columnCount+1;$c++) { //Append column names into statement
+                        if ($c == $columnCount) { //Close column names, begin data
+                            $dumpData .= ") \n VALUES";
                             break;
                         }
                         if ($c == 0) { //Append first column name into statement
-                            $dumpData .= $fetchData[$c];
+                            $dumpData .= $columnNames[$c];
                         } else { //Append following column names into statement
-                            //ERROR with $fetchData offsets
-                            print_r($fetchData[$c]."<br>");
-                            $dumpData .= "," . $fetchData[$c];
+                            $dumpData .= "," . $columnNames[$c];
                         }
                     }
-                } elseif ($i == $rowCount) { //Add last data row; close statement
+                } elseif ($i == $rowCount) { //Add last data row; close statement; Breaks if table id column skips lines
                     $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
-                                               " WHERE id = " . $i . ";");
+                                               " WHERE id = " . $i . "; \n \n");
                     //Query data row
                     try {
                         $stmt->execute();
-                        $fetchData = $stmt->fetch(); //fetchData is data row
+                        $fetchData = $stmt->fetchAll(); //fetchData is data row
+                        $fetchData = $fetchData[0];
                     } catch (PDOException $ex) {
                         print_r($ex);
                         die();
                     }
-                    for ($c = 0; $c < $colCount; $c++) {
-                        null;
+                    for ($c = 0; $c < $columnCount; $c++) {
+                        if ($c == 0) {
+                            $dumpData .= "(".$fetchData[$columnNames[$c]];
+                        } elseif ($c == $columnCount) { //Close data row value
+                            $dumpData .= "); \n";
+                        } else {
+                            if (isset($fetchData[$columnNames[$c]])) {
+                            $dumpData .= "," . $fetchData[$columnNames[$c]];
+                            } else { $dumpData .= ",NULL"; }
+                        }
                     }
                     
                 } else { //Add regular data row.
@@ -230,24 +238,29 @@ class DumpService implements ServiceManagerAwareInterface
                     //Query table data
                     try {
                         $stmt->execute();
-                        $fetchData = $stmt->fetch(); //fetchData is data row
+                        $fetchData = $stmt->fetchAll(); //fetchData is data row
+                        if (count($fetchData)!= 0) {
+                        $fetchData = $fetchData[0];
+                        } else {  }
                     } catch (PDOException $ex) {
                         print_r($ex);
                         die();
                     }
-                    for ($c = 0; $c<$colCount+1; $c++) {
+                    for ($c = 0; $c<$columnCount; $c++) {
                         if ($c == 0) {
-                            $dumpData = "(".$fetchData[$c];
-                        } elseif ($c == $colCount) { //Close data row value
-                            $dumpData .= "),";
+                            $dumpData .= "(".$fetchData[$columnNames[$c]];
+                        } elseif ($c == $columnCount) { //Close data row value
+                            $dumpData .= "), \n";
                         } else {
-                            $dumpData .= "," . $fetchData[$c];
+                            if (isset($fetchData[$columnNames[$c]])) {
+                            $dumpData .= "," . $fetchData[$columnNames[$c]];
+                            } else { $dumpData .= ",NULL"; }
                         }
                     }
+                    file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
                 }
                 //Write current pass to file
-                file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
-                $dumpData = null;
+//                file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
             }
         }
         //Disabled for debugging above code
