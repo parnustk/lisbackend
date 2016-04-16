@@ -40,7 +40,7 @@
                     controller: 'absenceReasonController'})
 
                 .when('/gradechoice', {
-                    templateUrl: 'lis/dist/templates/gradechoice.html',
+                    templateUrl: 'lis/dist/templates/gradeChoice.html',
                     controller: 'gradeChoiceController'})
 
                 .when('/room', {
