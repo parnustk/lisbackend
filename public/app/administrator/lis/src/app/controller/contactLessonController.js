@@ -223,45 +223,6 @@
 //                    delete urlParams.where;
 //                    LoadGrid();
 //                };
-//                /**
-//                 * Before loading module data, 
-//                 * we first load relations and check success
-//                 * 
-//                 * @returns {undefined}
-//                 */
-//                function LoadGrid() {
-//
-//                    vocationModel.GetList({}).then(function (result) {
-//                        if (globalFunctions.resultHandler(result)) {
-//
-//                            $scope.vocations = result.data;
-//                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.vocations;
-//
-//                            moduletypeModel.GetList($scope.params).then(function (result) {
-//
-//                                if (globalFunctions.resultHandler(result)) {
-//
-//                                    $scope.moduleTypes = result.data;
-//                                    $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.moduleTypes;
-//
-//                                    gradingTypeModel.GetList($scope.params).then(function (result) {
-//                                        if (globalFunctions.resultHandler(result)) {
-//
-//                                            $scope.gradingTypes = result.data;
-//                                            $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.gradingTypes;
-//
-//                                            moduleModel.GetList(urlParams).then(function (result) {
-//                                                if (globalFunctions.resultHandler(result)) {
-//                                                    $scope.gridOptions.data = result.data;
-//                                                }
-//                                            });
-//                                        }
-//                                    });
-//                                }
-//                            });
-//                        }
-//                    });
-//                }
 
 
                 /*

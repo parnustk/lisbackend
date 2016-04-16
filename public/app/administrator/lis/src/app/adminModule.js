@@ -255,7 +255,7 @@
         adminModule.factory('absenceReasonModel', absenceReasonModel);
         adminModule.factory('absenceModel', absenceModel);
         adminModule.factory('roomModel', roomModel);
-        adminModule.factory('moduletypeModel', moduletypeModel);
+        //adminModule.factory('moduletypeModel', moduletypeModel);
         adminModule.factory('loginModel', loginModel);
         adminModule.factory('moduleModel', moduleModel);
         adminModule.factory('studentModel', studentModel);
@@ -273,7 +273,7 @@
         adminModule.controller('absenceReasonController', absenceReasonController);
         adminModule.controller('absenceController', absenceController);
         adminModule.controller('roomController', roomController);
-        adminModule.controller('moduletypeController', moduletypeController);
+        //adminModule.controller('moduletypeController', moduletypeController);
         adminModule.controller('loginController', loginController);
         adminModule.controller('moduleController', moduleController);
         adminModule.controller('studentController', studentController);
