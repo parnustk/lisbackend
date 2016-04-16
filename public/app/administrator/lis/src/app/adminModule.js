@@ -24,7 +24,7 @@
         'app/model/absenceReasonModel',
         'app/model/absenceModel',
         'app/model/roomModel',
-        'app/model/moduletypeModel',
+        'app/model/moduleTypeModel',
         'app/model/loginModel',
         'app/model/moduleModel',
         'app/model/studentModel',
@@ -41,7 +41,7 @@
         'app/controller/absenceReasonController',
         'app/controller/absenceController',
         'app/controller/roomController',
-        'app/controller/moduletypeController',
+        'app/controller/moduleTypeController',
         'app/controller/loginController',
         'app/controller/moduleController',
         'app/controller/studentController',
@@ -59,7 +59,7 @@
         absenceReasonModel,
         absenceModel,
         roomModel,
-        moduletypeModel,
+        moduleTypeModel,
         loginModel,
         moduleModel,
         studentModel,
@@ -76,7 +76,7 @@
         absenceReasonController,
         absenceController,
         roomController,
-        moduletypeController,
+        moduleTypeController,
         loginController,
         moduleController,
         studentController,
@@ -256,7 +256,7 @@
         adminModule.factory('absenceReasonModel', absenceReasonModel);
         adminModule.factory('absenceModel', absenceModel);
         adminModule.factory('roomModel', roomModel);
-        //adminModule.factory('moduletypeModel', moduletypeModel);
+        adminModule.factory('moduleTypeModel', moduleTypeModel);
         adminModule.factory('loginModel', loginModel);
         adminModule.factory('moduleModel', moduleModel);
         adminModule.factory('studentModel', studentModel);
@@ -274,7 +274,7 @@
         adminModule.controller('absenceReasonController', absenceReasonController);
         adminModule.controller('absenceController', absenceController);
         adminModule.controller('roomController', roomController);
-        //adminModule.controller('moduletypeController', moduletypeController);
+        adminModule.controller('moduleTypeController', moduleTypeController);
         adminModule.controller('loginController', loginController);
         adminModule.controller('moduleController', moduleController);
         adminModule.controller('studentController', studentController);

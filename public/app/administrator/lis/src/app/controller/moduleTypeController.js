@@ -34,7 +34,7 @@
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
 
-                moduleTypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduletypeModel'];
+                moduleTypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleTypeModel'];
                 /**
                  * 
                  * @param {type} $scope
@@ -43,7 +43,7 @@
                  * @param {type} rowSorter
                  * @param {type} uiGridConstants
                  * @param {type} moduleTypeModel
-                 * @returns {moduleTypeController_L30.moduletypeController}
+                 * @returns {moduleTypeController_L30.moduleTypeController}
                  */
 
                 function moduleTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleTypeModel) {
@@ -92,7 +92,7 @@
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
-                        exporterCsvFilename: 'moduletype.csv',
+                        exporterCsvFilename: 'moduleType.csv',
                         exporterPdfDefaultStyle: {fontSize: 9},
                         exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
                         exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},

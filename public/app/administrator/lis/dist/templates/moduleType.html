@@ -1,16 +1,16 @@
 <h2>Module Type view</h2>
-<form class="form-horizontal" name="moduletypeForm" ng-submit="Create(moduletypeForm.$valid)">
+<form class="form-horizontal" name="moduleTypeForm" ng-submit="Create(moduleTypeForm.$valid)">
 
     <fieldset>
 
         <legend>Create new module type</legend>
 
         <div class="row">
-            <div class="form-group" ng-class="{ 'has-error': moduletypeForm.name.$invalid }">
+            <div class="form-group" ng-class="{ 'has-error': moduleTypeForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="moduletypeForm-name">Name</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="moduletypeForm-name" ng-model="moduleType.name">
+                        <span class="input-group-addon" id="moduleTypeForm-name">Name</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="moduleTypeForm-name" ng-model="moduleType.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>

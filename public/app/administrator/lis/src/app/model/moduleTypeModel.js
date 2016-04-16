@@ -23,14 +23,14 @@
          * 
          * @param {type} $http
          * @param {type} $resource
-         * @return {moduletypeModel_L6.moduletypeModel.moduletypeModelAnonym$3}
+         * @return {moduleTypeModel_L6.moduleTypeModel.moduleTypeModelAnonym$3}
          */
-        function moduletypeModel($http, $resource) {
+        function moduleTypeModel($http, $resource) {
 
             var _model;
 
             _model = $resource(
-                    window.LisGlobals.RestUrl + 'moduletype/:id',
+                    window.LisGlobals.RestUrl + 'moduleType/:id',
                     {id: '@id'},
             {
                 update: {method: "PUT"},
@@ -85,8 +85,8 @@
                 }
             };
         }
-        moduletypeModel.$inject = ['$http', '$resource'];
-        return moduletypeModel;
+        moduleTypeModel.$inject = ['$http', '$resource'];
+        return moduleTypeModel;
     });
 
 }(define, window));
