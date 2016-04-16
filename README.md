@@ -2,12 +2,12 @@
 
 ## Developers
 
-    Eleri Apsolon - developer, eleri.apsolon@gmail.com
-    Marten Kähr - developer
-    Juhan Kõks - developer, release manager(Jenkins), juhankoks@gmail.com
-    Kristen Sepp - developer, seppkristen@gmail.com
+    Eleri Apsolon - developer, analytics, eleri.apsolon@gmail.com
+    Marten Kähr - developer, addon backup module architect, analytic and developer
+    Juhan Kõks - developer, release manager(Jenkins), server administrator(LAMP), juhankoks@gmail.com
+    Kristen Sepp - developer, analytics, seppkristen@gmail.com
     Arnold Tserepov - developer, tserepov@gmail.com
-    Alar Aasa - developer, alar@alaraasa.ee
+    Alar Aasa - developer, UI/UX, alar@alaraasa.ee
     Sander Mets - developer, software architect, team lead sandermets0@gmail.com
 
 ## What
@@ -32,8 +32,8 @@ List of used technologies:
     RequireJS, 
     NodeJS, 
     Gulp, 
-    Foundation6 sites
-    Karma or Casper(probably as Angular docs suggest)
+    ~~Foundation6 sites~~ switched to Bootstrap3
+    ~Karma or Casper(probably as Angular docs suggest)~~ - if we get time, then like angular1 docs suggest :(
 
 ## Technical requirements
 

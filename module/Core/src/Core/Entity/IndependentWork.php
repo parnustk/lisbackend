@@ -48,6 +48,13 @@ class IndependentWork extends EntityValidation
      * @ORM\Column(type="datetime", nullable=false)
      */
     protected $duedate;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected $name;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -155,6 +162,15 @@ class IndependentWork extends EntityValidation
     public function getDuedate()
     {
         return $this->duedate;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -264,6 +280,16 @@ class IndependentWork extends EntityValidation
     public function setDuedate($duedate)
     {
         $this->duedate = $duedate;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
         return $this;
     }
 

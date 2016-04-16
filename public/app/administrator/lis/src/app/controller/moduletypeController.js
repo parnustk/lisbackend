@@ -108,7 +108,7 @@
                         exporterPdfOrientation: 'portrait',
                         exporterPdfPageSize: 'LETTER',
                         exporterPdfMaxGridWidth: 500,
-                        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+                        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
                     };
 
                     /**
