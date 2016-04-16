@@ -68,6 +68,7 @@
         contactLessonModel,
         subjectRoundModel,
         studentGroupModel,
+        independentWorkModel,
         vocationController,
         gradingTypeController,
         gradeChoiceController,
