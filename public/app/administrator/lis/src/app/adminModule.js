@@ -34,6 +34,7 @@
         /*15*/'app/model/subjectRoundModel',
         /*16*/'app/model/studentGroupModel',
         /*17*/'app/model/independentWorkModel',
+        /*18*/'app/model/studentGradeModel',
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -49,7 +50,8 @@
         /*13*/'app/controller/subjectController',
         /*14*/'app/controller/contactLessonController',
         /*15*/'app/controller/independentWorkController',
-        /*16*/'app/controller/studentGroupController'
+        /*16*/'app/controller/studentGroupController',
+        /*18*/'app/controller/studentGradeController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -70,6 +72,7 @@
         /*15*/subjectRoundModel,
         /*16*/studentGroupModel,
         /*17*/independentWorkModel,
+        /*18*/studentGradeModel,
         /*1*/vocationController,
         /*2*/gradingTypeController,
         /*3*/gradeChoiceController,
@@ -85,7 +88,8 @@
         /*13*/subjectController,
         /*14*/contactLessonController,
         /*15*/independentWorkController,
-        /*16*/studentGroupController
+        /*16*/studentGroupController,
+        /*18*/studentGradeController
         ) {
 
         /**
@@ -268,6 +272,7 @@
         adminModule.factory('subjectRoundModel', subjectRoundModel);
         adminModule.factory('studentGroupModel', studentGroupModel);
         adminModule.factory('independentWorkModel', independentWorkModel);
+        adminModule.factory('studentGradeModel', studentGradeModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -285,6 +290,7 @@
         adminModule.controller('contactLessonController', contactLessonController);
         adminModule.controller('independentWorkController', independentWorkController);
         adminModule.controller('studentGroupController', studentGroupController);
+        adminModule.controller('studentGradeController', studentGradeController);
 
         return adminModule;
     });

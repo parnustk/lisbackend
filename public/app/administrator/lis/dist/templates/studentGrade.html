@@ -1,0 +1,172 @@
+<h2>LIS_STUDENTGRADE_VIEW</h2>
+<form class="form-horizontal" name="studentGradeForm" ng-submit="Create(studentGradeForm.$valid)">
+
+    <fieldset>
+
+        <legend>LIS_CREATE_NEW_STUDENTGRADE</legend>
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.student.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="student" ng-required="true" ng-model="studentGrade.student" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_STUDENT">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="student in students | filter: $select.search">
+                                <span ng-bind-html="student.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{student.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.gradeChoice.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="gradeChoice" ng-required="true" ng-model="studentGrade.gradeChoice" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_GRADECHOICE">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="gradeChoice in gradeChoices | filter: $select.search">
+                                <span ng-bind-html="gradeChoice.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{gradeChoice.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.teacher.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="teacher" ng-required="true" ng-model="studentGrade.teacher" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_TEACHER">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="teacher in teachers | filter: $select.search">
+                                <span ng-bind-html="teacher.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{teacher.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+        
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.notes.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="studentGradeForm-notes">LIS_NOTES</span>
+                        <input name="notes" ng-required="true" type="text" class="form-control" placeholder="LIS_NOTES" aria-describedby="studentGradeForm-notes" ng-model="studentGrade.notes">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.independentWork.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="independentWork" ng-required="true" ng-model="studentGrade.independentWork" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_INDEPENDENTWORK">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="independentWork in independentWorks | filter: $select.search">
+                                <span ng-bind-html="independentWork.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{independentWork.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+           
+
+        <div class="col-lg-6">
+            <button type="submit" class="btn btn-primary">LIS_CREATE</button>
+        </div><!-- /.col-lg-6 -->
+
+
+
+    </fieldset>
+
+</form>
+<br><br>
+
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+
+        <legend>STUDENTGRADE_GRID_FILTERS</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">STUDENTGRADE_FILTER</label>
+
+            <div class="col-sm-12">
+                <div class="input-group">
+
+                    <ui-select allow-clear ng-model="filterStudentGrade.student" theme="bootstrap">
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_STUDENT">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="student in students | filter: $select.search">
+                            <span ng-bind-html="student.name | highlight: $select.search"></span>
+                            <small>
+                                id: {{student.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+
+                    <ui-select allow-clear ng-model="filterStudentGrade.teacher" theme="bootstrap">
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_TEACHER">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="teacher in teachers | filter: $select.search">
+                            <span ng-bind-html="teacher.name | highlight: $select.search"></span>
+                            <small>
+                                id: {{teacher.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="input-group">
+
+                    <ui-select allow-clear ng-model="filterStudentGrade.gradeChoice" theme="bootstrap">
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_GRADECHOICE">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="gradeChoice in gradeChoices | filter: $select.search">
+                            <span ng-bind-html="gradeChoice.name | highlight: $select.search"></span>
+                            <small>
+                                id: {{gradeChoice.id}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div><!-- /.col-lg-6 -->
+
+        </div>
+    </fieldset>
+</form>
+<br><br>
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

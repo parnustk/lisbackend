@@ -88,6 +88,11 @@
                     templateUrl: 'lis/dist/templates/studentGroup.html',
                     controller: 'studentGroupController'
                 })
+                
+                .when('/studentgrade', {
+                    templateUrl: 'lis/dist/templates/studentGrade.html',
+                    controller: 'studentGradeController'
+                })
 
                 .otherwise({redirectTo: '/'});
 

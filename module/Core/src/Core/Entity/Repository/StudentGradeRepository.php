@@ -44,19 +44,24 @@ class StudentGradeRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name
                         },
                     partial gradeChoice.{
-                        id
+                        id,
+                        name
                         },
                     partial teacher.{
-                        id
+                        id,
+                        name
                         },
                     partial independentWork.{
-                        id
+                        id,
+                        name
                         },
                     partial module.{
                         id
@@ -87,19 +92,24 @@ class StudentGradeRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name
                         },
                     partial gradeChoice.{
-                        id
+                        id,
+                        name
                         },
                     partial teacher.{
-                        id
+                        id,
+                        name
                         },
                     partial independentWork.{
-                        id
+                        id,
+                        name
                         },
                     partial module.{
                         id
@@ -130,19 +140,24 @@ class StudentGradeRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name
                         },
                     partial gradeChoice.{
-                        id
+                        id,
+                        name
                         },
                     partial teacher.{
-                        id
+                        id,
+                        name
                         },
                     partial independentWork.{
-                        id
+                        id,
+                        name
                         },
                     partial module.{
                         id
@@ -173,19 +188,24 @@ class StudentGradeRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial contactlesson.{
-                        id
+                        id,
+                        name
                         },
                     partial gradeChoice.{
-                        id
+                        id,
+                        name
                         },
                     partial teacher.{
-                        id
+                        id,
+                        name
                         },
                     partial independentWork.{
-                        id
+                        id,
+                        name
                         },
                     partial module.{
                         id
