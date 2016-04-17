@@ -281,14 +281,16 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $subjectRound = $this->CreateSubjectRound();
 
         return $repository->Create([
-                    'lessonDate' => new \DateTime,
-                    'description' => uniqid() . ' Description for contactlesson',
-                    'durationAK' => 6,
-                    'subjectRound' => $subjectRound->getId(),
-                    'teacher' => [
-                        ['id' => $this->CreateTeacher()->getId()],
-                        ['id' => $this->CreateTeacher()->getId()],
-                    ],
+        'name' => 'contact lesson',
+        'lessonDate' => new \DateTime,
+        'description' => uniqid() . ' Description for contactlesson',
+        'sequenceNr' => 5,
+        'subjectRound' => $subjectRound->getId(),
+        'teacher' => $this->CreateTeacher()->getId(),
+        'rooms' => $this->CreateRoom()->getId(),
+        'studentGroup' => $this->CreateStudentGroup()->getId(),
+        'module' => $this->CreateModule()->getId(),
+        'vocation' => $this->CreateVocation()->getId(),
         ]);
     }
 
@@ -448,9 +450,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'student' => $student->getId(),
                     'teacher' => $teacher->getId(),
                     'contactLesson' => $contactLesson->getId(),
-                    //'independentWork'=> $independentWork->getId(),
-                    //'module' => $module->getId(),
-                    //'subjectRound' => $subjectRound->getId(),                  
+                        //'independentWork'=> $independentWork->getId(),
+                        //'module' => $module->getId(),
+                        //'subjectRound' => $subjectRound->getId(),                  
         ]);
     }
 
@@ -488,7 +490,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     protected function CreateStudentUser(\Core\Entity\Student $student, $data = null)
     {
         $d = $data;
-        
+
         if (!$d) {//if $data was not given
             $d = [
                 'personalCode' => $student->getPersonalCode(),
@@ -496,7 +498,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                 'email' => uniqid() . '@asd.ee',
             ];
         }
-        
+
         $lisUser = $this
                 ->em
                 ->getRepository('Core\Entity\LisUser')
@@ -505,10 +507,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $student->setLisUser($lisUser); //associate
         $this->em->persist($student);
         $this->em->flush($student);
-        
+
         return $lisUser;
     }
-    
+
     /**
      * Creates lisUser and associates to given Teacher
      * 
@@ -520,7 +522,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     protected function CreateTeacherUser(\Core\Entity\Teacher $teacher, $data = null)
     {
         $d = $data;
-        
+
         if (!$d) {//if $data was not given
             $d = [
                 'personalCode' => $teacher->getPersonalCode(),
@@ -528,7 +530,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                 'email' => uniqid() . '@asd.ee',
             ];
         }
-        
+
         $lisUser = $this
                 ->em
                 ->getRepository('Core\Entity\LisUser')
@@ -537,10 +539,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $teacher->setLisUser($lisUser); //associate
         $this->em->persist($teacher);
         $this->em->flush($teacher);
-        
+
         return $lisUser;
     }
-    
+
     /**
      * Creates lisUser and associates to given Administrator
      * 
@@ -552,7 +554,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
     protected function CreateAdministratorUser(\Core\Entity\Administrator $administrator, $data = null)
     {
         $d = $data;
-        
+
         if (!$d) {//if $data was not given
             $d = [
                 'personalCode' => $administrator->getPersonalCode(),
@@ -560,7 +562,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                 'email' => uniqid() . '@asd.ee',
             ];
         }
-        
+
         $lisUser = $this
                 ->em
                 ->getRepository('Core\Entity\LisUser')
@@ -569,7 +571,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $administrator->setLisUser($lisUser); //associate
         $this->em->persist($administrator);
         $this->em->flush($administrator);
-        
+
         return $lisUser;
     }
 
