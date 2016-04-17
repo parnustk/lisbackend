@@ -49,7 +49,7 @@
         /*12*/'app/controller/administratorController',
         /*13*/'app/controller/subjectController',
         /*14*/'app/controller/contactLessonController',
-        /*15*/'app/controller/subjectRoundController',
+        ///*15*/'app/controller/subjectRoundController',
         /*16*/'app/controller/studentGroupController',
         /*17*/'app/controller/independentWorkController'
     ], function (
@@ -87,7 +87,7 @@
         /*12*/administratorController,
         /*13*/subjectController,
         /*14*/contactLessonController,
-        /*15*/subjectRoundController,
+        ///*15*/subjectRoundController,
         /*16*/studentGroupController,
         /*17*/independentWorkController,
         /*18*/studentGradeController
@@ -291,7 +291,7 @@
         adminModule.controller('subjectController', subjectController);
         adminModule.controller('contactLessonController', contactLessonController);
         adminModule.controller('independentWorkController', independentWorkController);
-        adminModule.controller('subjectRoundController', subjectRoundController);
+        //adminModule.controller('subjectRoundController', subjectRoundController);
         adminModule.controller('studentGroupController', studentGroupController);
         adminModule.controller('studentGradeController', studentGradeController);
 
