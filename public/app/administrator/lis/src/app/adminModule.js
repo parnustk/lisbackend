@@ -48,7 +48,8 @@
         /*12*/'app/controller/administratorController',
         /*13*/'app/controller/subjectController',
         /*14*/'app/controller/contactLessonController',
-        /*15*/'app/controller/independentWorkController'
+        /*15*/'app/controller/independentWorkController',
+        /*16*/'app/controller/studentGroupController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -83,7 +84,8 @@
         /*12*/administratorController,
         /*13*/subjectController,
         /*14*/contactLessonController,
-        /*15*/independentWorkController
+        /*15*/independentWorkController,
+        /*16*/studentGroupController
         ) {
 
         /**
@@ -282,6 +284,7 @@
         adminModule.controller('subjectController', subjectController);
         adminModule.controller('contactLessonController', contactLessonController);
         adminModule.controller('independentWorkController', independentWorkController);
+        adminModule.controller('studentGroupController', studentGroupController);
 
         return adminModule;
     });
