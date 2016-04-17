@@ -51,39 +51,39 @@
         /*15*/'app/controller/independentWorkController'
     ], function (
         /*1*/angular,
-        config,
-        vocationModel,
-        gradingTypeModel,
-        gradeChoiceModel,
-        teacherModel,
-        absenceReasonModel,
-        absenceModel,
-        roomModel,
-        moduleTypeModel,
-        loginModel,
-        moduleModel,
-        studentModel,
-        administratorModel,
-        subjectModel,
-        contactLessonModel,
-        subjectRoundModel,
-        studentGroupModel,
-        independentWorkModel,
-        vocationController,
-        gradingTypeController,
-        gradeChoiceController,
-        teacherController,
-        absenceReasonController,
-        absenceController,
-        roomController,
-        moduleTypeController,
-        loginController,
-        /*1*/moduleController,
-        /*1*/studentController,
-        /*1*/administratorController,
-        /*1*/subjectController,
-        /*1*/contactLessonController,
-        /*1*/independentWorkController
+        /*2*/config,
+        /*1*/vocationModel,
+        /*2*/gradingTypeModel,
+        /*3*/gradeChoiceModel,
+        /*4*/teacherModel,
+        /*5*/absenceReasonModel,
+        /*6*/absenceModel,
+        /*7*/roomModel,
+        /*8*/moduleTypeModel,
+        /*9*/loginModel,
+        /*10*/moduleModel,
+        /*11*/studentModel,
+        /*12*/administratorModel,
+        /*13*/subjectModel,
+        /*14*/contactLessonModel,
+        /*15*/subjectRoundModel,
+        /*16*/studentGroupModel,
+        /*17*/independentWorkModel,
+        /*1*/vocationController,
+        /*2*/gradingTypeController,
+        /*3*/gradeChoiceController,
+        /*4*/teacherController,
+        /*5*/absenceReasonController,
+        /*6*/absenceController,
+        /*7*/roomController,
+        /*8*/moduleTypeController,
+        /*9*/loginController,
+        /*10*/moduleController,
+        /*11*/studentController,
+        /*12*/administratorController,
+        /*13*/subjectController,
+        /*14*/contactLessonController,
+        /*15*/independentWorkController
         ) {
 
         /**
@@ -265,7 +265,7 @@
         adminModule.factory('contactLessonModel', contactLessonModel);
         adminModule.factory('subjectRoundModel', subjectRoundModel);
         adminModule.factory('studentGroupModel', studentGroupModel);
-        adminModule.factory('independentWorkModel', independentWorkController);
+        adminModule.factory('independentWorkModel', independentWorkModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
