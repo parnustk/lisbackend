@@ -45,10 +45,13 @@
             'angular-bootstrap': {
                 deps: [
                     'angular',
-                    /*'angular-animate',*/
+                    'angular-animate',
                     'angular-touch'
                 ]
             },
+            'angular-animate': [
+                'angular'
+            ],
             'angular-ui-grid': [
                 'angular'
             ],
