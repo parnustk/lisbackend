@@ -152,17 +152,22 @@
             </div>
 
         </div>
-        
+
         <!-- http://plnkr.co/edit/9mq6W6XfoGK2vDP4PZLA?p=preview look for more-->
         <div class="row">
-            <div class="col-md-6">
-                <p class="input-group">
-                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.lessonDate.$invalid }">
+                <div class="col-lg-6">
+                    <p class="input-group">
+                        <span class="input-group-addon" id="contactLessonForm-lessonDate">LIS_LESSONDATE</span>
+                        <input type="text" name="lessonDate" class="form-control" uib-datepicker-popup ng-model="contactLesson.lessonDate" placeholder="LIS_LESSONDATE" aria-describedby="contactLessonForm-lessonDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
             </div>
+
         </div>
 
         <div class="col-lg-6">

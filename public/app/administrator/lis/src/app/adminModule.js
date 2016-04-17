@@ -162,6 +162,7 @@
             'ngRoute',
             'ngResource',
             'ngTouch',
+            'ngAnimate',
             'ngSanitize',
             'ui.bootstrap',
             'ui.grid',
@@ -219,6 +220,18 @@
                         }
                         return determineVal.length > 0;
                     };
+                }
+            };
+        });
+
+        adminModule.directive('datepickerPopup', function () {
+            /* http://stackoverflow.com/questions/24198669/angular-bootsrap-datepicker-date-format-does-not-format-ng-model-value */
+            return {
+                restrict: 'EAC',
+                require: 'ngModel',
+                link: function (scope, element, attr, controller) {
+                    //remove the default formatter from the input directive to prevent conflict
+                    controller.$formatters.shift();
                 }
             };
         });

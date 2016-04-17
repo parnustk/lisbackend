@@ -49,6 +49,11 @@
                     'angular-touch'
                 ]
             },
+            'angular-bootstrap-tpls': {
+                deps: [
+                    'angular-bootstrap'
+                ]
+            },
             'angular-animate': [
                 'angular'
             ],
@@ -85,6 +90,7 @@
             'jquery': '../../bower_components/jquery/dist/jquery',
             'bootstrap': '//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min',
             'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap',
+            'angular-bootstrap-tpls': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
             'what-input': '../../bower_components/what-input/what-input',
             'motion-ui': '../../bower_components/motion-ui/dist/motion-ui',
             'foundation': '../../bower_components/foundation-sites/dist/foundation',
