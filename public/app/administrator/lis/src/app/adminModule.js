@@ -49,9 +49,9 @@
         /*12*/'app/controller/administratorController',
         /*13*/'app/controller/subjectController',
         /*14*/'app/controller/contactLessonController',
-        /*15*/'app/controller/independentWorkController',
+        /*15*/'app/controller/subjectRoundController',
         /*16*/'app/controller/studentGroupController',
-        /*18*/'app/controller/studentGradeController'
+        /*17*/'app/controller/independentWorkController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -87,8 +87,9 @@
         /*12*/administratorController,
         /*13*/subjectController,
         /*14*/contactLessonController,
-        /*15*/independentWorkController,
+        /*15*/subjectRoundController,
         /*16*/studentGroupController,
+        /*17*/independentWorkController,
         /*18*/studentGradeController
         ) {
 
@@ -270,9 +271,9 @@
         adminModule.factory('administratorModel', administratorModel);
         adminModule.factory('subjectModel', subjectModel);
         adminModule.factory('contactLessonModel', contactLessonModel);
-        adminModule.factory('subjectRoundModel', subjectRoundModel);
         adminModule.factory('studentGroupModel', studentGroupModel);
         adminModule.factory('independentWorkModel', independentWorkModel);
+        adminModule.factory('subjectRoundModel', subjectRoundModel);
         adminModule.factory('studentGradeModel', studentGradeModel);
 
         adminModule.controller('vocationController', vocationController);
@@ -290,6 +291,7 @@
         adminModule.controller('subjectController', subjectController);
         adminModule.controller('contactLessonController', contactLessonController);
         adminModule.controller('independentWorkController', independentWorkController);
+        adminModule.controller('subjectRoundController', subjectRoundController);
         adminModule.controller('studentGroupController', studentGroupController);
         adminModule.controller('studentGradeController', studentGradeController);
 

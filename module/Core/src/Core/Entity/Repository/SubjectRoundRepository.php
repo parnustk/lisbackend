@@ -17,6 +17,7 @@ use Exception;
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * @author Arnold Tserepov <tserepov@gmail.com>
+ * @author Alar Aasa <alar@alaraasa.ee>
  */
 class SubjectRoundRepository extends AbstractBaseRepository
 {
@@ -46,13 +47,16 @@ class SubjectRoundRepository extends AbstractBaseRepository
                         trashed
                     },
                     partial subject.{
-                            id
+                            id,
+                            name
                     },
                     partial studentGroup.{
-                            id
+                            id,
+                            name
                     },
                     partial teacher.{
-                            id
+                            id,
+                            name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
@@ -121,16 +125,20 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         trashed
                     },
                     partial subject.{
-                            id
+                            id,
+                            name
                     },
                     partial studentGroup.{
-                            id
+                            id,
+                            name
                     },
                     partial teacher.{
-                            id
+                            id,
+                            name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher

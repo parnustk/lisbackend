@@ -24,7 +24,7 @@
          * 
          * @param {type} $http
          * @param {type} $resource
-         * @returns {subjectRoundModel_L21.subjectRoundModel.subjectRoundModelAnonym$3}
+         * @returns {subjectRoundModel_L6.subjectRoundModel.subjectRoundModelAnonym$3}
          */
         function subjectRoundModel($http, $resource) {
 
