@@ -9,6 +9,7 @@
  */
 
 namespace Core\Entity\Repository;
+
 use Core\Entity\StudentGroup;
 use Exception;
 
@@ -45,8 +46,13 @@ class StudentGroupRepository extends AbstractBaseRepository
                         id,
                         name,
                         trashed
-                    }
-                FROM $this->baseEntity $this->baseAlias";
+                    },
+                    partial vocation.{
+                        id,
+                        name
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation";
     }
 
     protected function dqlStudentStart()
@@ -56,8 +62,13 @@ class StudentGroupRepository extends AbstractBaseRepository
                         id,
                         name,
                         trashed
-                    }
-                FROM $this->baseEntity $this->baseAlias";
+                    },
+                    partial vocation.{
+                        id,
+                        name
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation";
     }
 
     protected function dqlTeacherStart()
@@ -67,8 +78,13 @@ class StudentGroupRepository extends AbstractBaseRepository
                         id,
                         name,
                         trashed
-                    }
-                FROM $this->baseEntity $this->baseAlias";
+                    },
+                    partial vocation.{
+                        id,
+                        name
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation";
     }
 
     protected function dqlAdministratorStart()
@@ -78,8 +94,13 @@ class StudentGroupRepository extends AbstractBaseRepository
                         id,
                         name,
                         trashed
-                    }
-                FROM $this->baseEntity $this->baseAlias";
+                    },
+                    partial vocation.{
+                        id,
+                        name
+                        }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation";
     }
 
     /**
