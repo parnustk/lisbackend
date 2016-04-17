@@ -23,8 +23,9 @@
     require([
         'jquery',
         'bootstrap',
-        'pdfmake'
-    ], function ($, bootstrap) {
+        'pdfmake',
+        'angular-bootstrap'
+    ], function ($, bootstrap, pdfmake, angularBootstrap) {
         $(document).ready(function () {//DOM loaded
             require([
                 'angular',

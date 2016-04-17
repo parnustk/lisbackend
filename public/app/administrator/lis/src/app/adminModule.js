@@ -162,6 +162,7 @@
             'ngResource',
             'ngTouch',
             'ngSanitize',
+            'ui.bootstrap',
             'ui.grid',
             'ui.grid.cellNav',
             'ui.grid.rowEdit',
