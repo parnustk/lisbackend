@@ -64,10 +64,12 @@ class StudentGradeRepository extends AbstractBaseRepository
                         name
                         },
                     partial module.{
-                        id
+                        id,
+                        name
                         },
                     partial subjectRound.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -112,10 +114,12 @@ class StudentGradeRepository extends AbstractBaseRepository
                         name
                         },
                     partial module.{
-                        id
+                        id,
+                        name
                         },
                     partial subjectRound.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -160,10 +164,12 @@ class StudentGradeRepository extends AbstractBaseRepository
                         name
                         },
                     partial module.{
-                        id
+                        id,
+                        name
                         },
                     partial subjectRound.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -208,10 +214,12 @@ class StudentGradeRepository extends AbstractBaseRepository
                         name
                         },
                     partial module.{
-                        id
+                        id,
+                        name
                         },
                     partial subjectRound.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student

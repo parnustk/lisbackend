@@ -61,18 +61,6 @@
             </div>
 
         </div><!-- /.row -->
-        
-        <div class="row">
-
-            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.notes.$invalid }">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="studentGradeForm-notes">LIS_NOTES</span>
-                        <input name="notes" ng-required="true" type="text" class="form-control" placeholder="LIS_NOTES" aria-describedby="studentGradeForm-notes" ng-model="studentGrade.notes">
-                    </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
-        </div><!-- /.row -->
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': studentGradeForm.independentWork.$invalid }">
@@ -91,6 +79,75 @@
                 </div><!-- /.col-lg-4 -->
             </div>
 
+        </div><!-- /.row -->
+        
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.module.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="module" ng-required="true" ng-model="studentGrade.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_MODULE">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{module.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+        
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.subjectRound.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="subjectRound" ng-required="true" ng-model="studentGrade.subjectRound" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_SUBJECTROUND">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
+                                <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{subjectRound.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+        
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.contactLesson.$invalid }">
+                <div class="col-lg-4">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="contactLesson" ng-required="true" ng-model="studentGrade.contactLesson" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_CONTACTLESSON">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
+                                <span ng-bind-html="contactLesson.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{contactLesson.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div>
+
+        </div><!-- /.row -->
+        
+         <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': studentGradeForm.notes.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="studentGradeForm-notes">LIS_NOTES</span>
+                        <input name="notes" ng-required="true" type="text" class="form-control" placeholder="LIS_NOTES" aria-describedby="studentGradeForm-notes" ng-model="studentGrade.notes">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
         </div><!-- /.row -->
            
 

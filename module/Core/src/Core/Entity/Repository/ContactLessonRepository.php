@@ -76,12 +76,17 @@ class ContactLessonRepository extends AbstractBaseRepository
                     },
                     partial studentGrade.{
                         id
+                    },
+                    partial studentGroup.{
+                    id,
+                    name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subjectRound subjectRound
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.studentGroup studentGroup
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
@@ -116,10 +121,17 @@ class ContactLessonRepository extends AbstractBaseRepository
                         },
                     partial studentGrade.{
                         id
-                        }
+                        },
+                    partial studentGroup.{
+                    id,
+                    name
+                    }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.module module
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.studentGroup studentGroup
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
@@ -154,10 +166,17 @@ class ContactLessonRepository extends AbstractBaseRepository
                         },
                     partial studentGrade.{
                         id
-                        }
+                        },
+                    partial studentGroup.{
+                    id,
+                    name
+                    }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.module module
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.studentGroup studentGroup
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
@@ -203,12 +222,17 @@ class ContactLessonRepository extends AbstractBaseRepository
                     },
                     partial studentGrade.{
                         id
+                    },
+                    partial studentGroup.{
+                    id,
+                    name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subjectRound subjectRound
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.studentGroup studentGroup
                 LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";

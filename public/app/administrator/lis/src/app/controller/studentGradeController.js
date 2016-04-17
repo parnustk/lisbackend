@@ -41,7 +41,10 @@
                     'studentModel',
                     'teacherModel',
                     'gradeChoiceModel',
-                    'independentWorkModel'
+                    'independentWorkModel',
+                    'moduleModel',
+                    'subjectRoundModel',
+                    'contactLessonModel',
                 ];
 
                 /**
@@ -68,7 +71,10 @@
                         studentModel,
                         teacherModel,
                         gradeChoiceModel,
-                        independentWorkModel) {
+                        independentWorkModel,
+                        moduleModel,
+                        subjectRoundModel,
+                        contactLessonModel) {
 
                     /**
                      * For filters and maybe later pagination
@@ -90,10 +96,10 @@
                         gradeChoice: null,
                         teacher: null,
                         independentWork: null,
-                        notes: null                        
-//                        module: null,
-//                        subjectRound: null,
-//                        contactLesson: null
+                        module: null,
+                        subjectRound: null,
+                        contactLesson: null,
+                        notes: null,
                     };
 
                     /**
@@ -204,7 +210,37 @@
 //                                    {id: 3, name: 'subjectRound'},
 //                                    {id: 4, name: 'contactLesson'}
 //                                ]
-                            },                                
+                            },
+                            {
+                                field: "module",
+                                name: "module",
+                                displayName: 'Module',
+                                editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                                editDropdownIdLabel: "id",
+                                editDropdownValueLabel: "name",
+                                cellFilter: 'griddropdown:this',
+                                sortCellFiltered: $scope.sortFiltered
+                            },
+                            {
+                                field: "subjectRound",
+                                name: "subjectRound",
+                                displayName: 'SubjectRound',
+                                editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                                editDropdownIdLabel: "id",
+                                editDropdownValueLabel: "name",
+                                cellFilter: 'griddropdown:this',
+                                sortCellFiltered: $scope.sortFiltered
+                            },
+                            {
+                                field: "contactLesson",
+                                name: "contactLesson",
+                                displayName: 'ContactLesson',
+                                editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                                editDropdownIdLabel: "id",
+                                editDropdownValueLabel: "name",
+                                cellFilter: 'griddropdown:this',
+                                sortCellFiltered: $scope.sortFiltered
+                            },
                             {field: 'notes'},
                             {field: 'trashed'}
                         ],
@@ -339,36 +375,36 @@
                                                         $scope.independentWorks = result.data;
                                                         $scope.gridOptions.columnDefs[4].editDropdownOptionsArray = $scope.independentWorks;
 
-//                                                        moduleModel.GetList({}).then(function (result) {
-//                                                            $scope.gridOptions.data = [];
-//                                                            if (globalFunctions.resultHandler(result)) {
-//
-//                                                                $scope.modules = result.data;
-//                                                                $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.modules;
-//
-//                                                                subjectRoundModel.GetList({}).then(function (result) {
-//                                                                    $scope.gridOptions.data = [];
-//                                                                    if (globalFunctions.resultHandler(result)) {
-//
-//                                                                        $scope.subjectRounds = result.data;
-//                                                                        $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.subjectRounds;
-//
-//                                                                        contactLessonModel.GetList({}).then(function (result) {
-//                                                                            $scope.gridOptions.data = [];
-//                                                                            if (globalFunctions.resultHandler(result)) {
-//
-//                                                                                $scope.contactLessons = result.data;
-//                                                                                $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.contactLessons;
-//
+                                                        moduleModel.GetList({}).then(function (result) {
+                                                            $scope.gridOptions.data = [];
+                                                            if (globalFunctions.resultHandler(result)) {
+
+                                                                $scope.modules = result.data;
+                                                                $scope.gridOptions.columnDefs[5].editDropdownOptionsArray = $scope.modules;
+
+                                                                subjectRoundModel.GetList({}).then(function (result) {
+                                                                    $scope.gridOptions.data = [];
+                                                                    if (globalFunctions.resultHandler(result)) {
+
+                                                                        $scope.subjectRounds = result.data;
+                                                                        $scope.gridOptions.columnDefs[6].editDropdownOptionsArray = $scope.subjectRounds;
+
+                                                                        contactLessonModel.GetList({}).then(function (result) {
+                                                                            $scope.gridOptions.data = [];
+                                                                            if (globalFunctions.resultHandler(result)) {
+
+                                                                                $scope.contactLessons = result.data;
+                                                                                $scope.gridOptions.columnDefs[7].editDropdownOptionsArray = $scope.contactLessons;
+
                                                                                 studentGradeModel.GetList(urlParams).then(function (result) {
                                                                                     if (globalFunctions.resultHandler(result)) {
                                                                                         $scope.gridOptions.data = result.data;
-//                                                                                    }
-//                                                                                });
-//                                                                            }
-//                                                                        });
-//                                                                    }
-//                                                                });
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
                                                             }
                                                         });
                                                     }
