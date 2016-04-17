@@ -70,9 +70,9 @@ class ContactLesson extends EntityValidation
     protected $lessonDate;
 
     /**
-     * @Annotation\Required({"required":"true"})
+     * @Annotation\Exclude()
      * 
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     protected $description;
 

@@ -43,7 +43,7 @@
             </div>
 
         </div>
-        
+
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': contactLessonForm.studentGroup.$invalid }">
                 <div class="col-lg-12">
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': contactLessonForm.module.$invalid }">
                 <div class="col-lg-12">
@@ -79,8 +79,8 @@
                 </div>
             </div>
         </div>
-        
-         <div class="row">
+
+        <div class="row">
             <div class="form-group" ng-class="{ 'has-error': contactLessonForm.vocation.$invalid }">
                 <div class="col-lg-12">
                     <div class="input-group input-group-lg">
@@ -95,6 +95,72 @@
                         </ui-select>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.teacher.$invalid }">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="teacher" ng-required="true" ng-model="contactLesson.teacher" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_TEACHER">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="teacher in teachers | filter: $select.search">
+                                <span ng-bind-html="teacher.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{teacher.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.name.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonForm-name">LIS_NAME</span>
+                        <input name="name" ng-model="contactLesson.name" ng-required="true" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="contactLessonForm-name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonForm-description">LIS_DESCRIPTION</span>
+                        <input name="description" ng-model="contactLesson.description" ng-required="false" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="contactLessonForm-description">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.sequenceNr.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonForm-sequenceNr">LIS_SEQUENCENR</span>
+                        <input name="sequenceNr" ng-model="contactLesson.sequenceNr" ng-required="true" type="number" class="form-control" placeholder="LIS_SEQUENCENR" aria-describedby="contactLessonForm-sequenceNr">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
             </div>
         </div>
 
