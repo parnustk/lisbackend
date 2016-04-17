@@ -98,35 +98,35 @@
                         <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Link</a></li>-->
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curriculum <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_CURRICULUM <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#!/vocation">Vocation</a></li>
-                                <li><a href="#!/module">Module</a></li>
-                                <li><a href="#!/subject">Subject</a></li>
-                                <li><a href="#!/moduletype">ModuleType</a></li>
-                                <li><a href="#!/gradechoice">GradeChoice</a></li>
-                                <li><a href="#!/gradingtype">GradingType</a></li>
+                                <li><a href="#!/vocation">LIS_VOCATION</a></li>
+                                <li><a href="#!/module">LIS_MODULE</a></li>
+                                <li><a href="#!/subject">LIS_SUBJECT</a></li>
+                                <li><a href="#!/moduletype">LIS_MODULETYPE</a></li>
+                                <li><a href="#!/gradechoice">LIS_GRADECHOICE</a></li>
+                                <li><a href="#!/gradingtype">LIS_GRADINGTYPE</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">separated link</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diary <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_DIARY <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#!/contactlesson">ContactLesson</a></li>
-                                <li><a href="#!/absence">Absence</a></li>
-                                <li><a href="#!/absencereason">AbsenceReason</a></li>
-                                <li><a href="#!/independentwork">IndependentWork</a></li>
+                                <li><a href="#!/contactlesson">LIS_CONTACTLESSON</a></li>
+                                <li><a href="#!/absence">LIS_ABSENCE</a></li>
+                                <li><a href="#!/absencereason">LIS_ABSENCEREASON</a></li>
+                                <li><a href="#!/independentwork">LIS_INDEPENDENTWORK</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#!/room">Room</a></li>
+                                <li><a href="#!/room">LIS_ROOM</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Persons <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_PERSONS <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#!/teacher" class="button">Teacher</a></li>
-                                <li><a href="#!/student">Student</a></li>
-                                <li><a href="#!/administrator">Administrator</a></li>
+                                <li><a href="#!/teacher" class="button">LIS_TEACHER</a></li>
+                                <li><a href="#!/student">LIS_STUDENT</a></li>
+                                <li><a href="#!/administrator">LIS_ADMINISTRATOR</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -134,16 +134,16 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="What here?">
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn-default">LIS_SUBMIT</button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Log out?</a></li>
+                        <li><a href="#">LIS_LOGOUT</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_ME <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Change my user data</a></li>
+                                <li><a href="#">LIS_CHANGE_MY_USER_DATA</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">My user data</a></li>
+                                <li><a href="#">LIS_MY_DATA</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -154,25 +154,23 @@
         <!-- these a tags go inside a menu-->
 
         <div data-ng-view=""></div>
-        <hr>
-        <p class="panel panel-default">Before using login feature run tests in LisAuth, static user will be created.</p>
 
         <!-- START Login/Menu widget-->
         <div ng-controller="loginController">
             <form>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label>email
+                        <label>LIS_EMAIL
                             <input class="form-control" type="text" ng-model="credentials.email" value="admin@test.ee">
                         </label>
                     </div>
                     <div class="col-sm-12">
-                        <label>password
+                        <label>LIS_PASSWORD
                             <input class="form-control" type="password" ng-model="credentials.password" value="Tere1234">
                         </label>
                     </div>
                 </div>
-                <button class="btn btn-primary" ng-click="Login()">login</button>
+                <button class="btn btn-primary" ng-click="Login()">LIS_LOGIN</button>
             </form>
         </div>
         <!-- END Login/Menu widget-->

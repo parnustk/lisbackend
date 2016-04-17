@@ -1,17 +1,17 @@
-<h2>Contactlesson view</h2>
+<h2>LIS_CONTACTLESSON_VIEW</h2>
 
 <form class="form-horizontal" name="contactLessonForm" ng-submit="Create(contactLessonForm.$valid)">
 
     <fieldset>
 
-        <legend>Create new module</legend>
+        <legend>LIS_CREATE_NEW_CONTACTLESSON</legend>
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': contactLessonForm.room.$invalid }">
                 <div class="col-lg-12">
                     <div class="input-group input-group-lg">
                         <ui-select name="room" ng-required="true" ng-model="contactLesson.rooms" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose vocation">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="LIS_CHOOSE_ROOM">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="room in roomsAll | filter: $select.search">
                                 <span ng-bind-html="room.name | highlight: $select.search"></span>
                                 <small>
@@ -30,7 +30,7 @@
                 <div class="col-lg-12">
                     <div class="input-group input-group-lg">
                         <ui-select name="subjectRound" ng-required="true" ng-model="contactLesson.subjectRound" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose subjectRound">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="LIS_CHOOSE_SUBJECTROUND">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
                                 <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
                                 <small>
@@ -49,7 +49,7 @@
                 <div class="col-lg-12">
                     <div class="input-group input-group-lg">
                         <ui-select name="studentGroup" ng-required="true" ng-model="contactLesson.studentGroup" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose studentGroup">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="LIS_CHOOSE_STUDENTGROUP">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
                                 <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
                                 <small>
@@ -60,11 +60,46 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.module.$invalid }">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="module" ng-required="true" ng-model="contactLesson.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_MODULE">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{module.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.vocation.$invalid }">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="vocation" ng-required="true" ng-model="contactLesson.vocation" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_VOCATION">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{vocation.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-6">
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">LIS_CREATE</button>
         </div>
 
     </fieldset>
