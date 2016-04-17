@@ -45,6 +45,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         duedate,
                         description,
                         durationAK,
@@ -64,6 +65,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         duedate,
                         description,
                         durationAK,
@@ -83,6 +85,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         duedate,
                         description,
                         durationAK,
@@ -102,6 +105,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
                         duedate,
                         description,
                         durationAK,

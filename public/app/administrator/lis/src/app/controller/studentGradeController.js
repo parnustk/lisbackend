@@ -26,7 +26,7 @@
      * 
      * @param {type} angular
      * @param {type} globalFunctions
-     * @returns {studentGroupController_L29.studentGroupController}
+     * @returns {studentGradeController_L29.studentGradeController}
      */
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
@@ -51,9 +51,12 @@
                  * @param {type} $routeParams
                  * @param {type} rowSorter
                  * @param {type} uiGridConstants
-                 * @param {type} studentGroupModel
-                 * @param {type} vocationModel
-                 * @returns {studentGroupController_L32.studentGroupController}
+                 * @param {type} studentGradeModel
+                 * @param {type} studentModel
+                 * @param {type} teacherModel
+                 * @param {type} gradeChoiceModel
+                 * @param {type} independentWorkModel
+                 * @returns {studentGradeController_L32.studentGradeController}
                  */
                 function studentGradeController(
                         $scope,

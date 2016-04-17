@@ -74,7 +74,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.gradeChoice gradeChoice
                 JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
-                LEFT JOIN $this->baseAlias.independentWork independentWork
+                JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
@@ -122,7 +122,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.gradeChoice gradeChoice
                 JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
-                LEFT JOIN $this->baseAlias.independentWork independentWork
+                JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
@@ -170,7 +170,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.gradeChoice gradeChoice
                 JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
-                LEFT JOIN $this->baseAlias.independentWork independentWork
+                JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
@@ -218,7 +218,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.gradeChoice gradeChoice
                 JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
-                LEFT JOIN $this->baseAlias.independentWork independentWork
+                JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
                 LEFT JOIN $this->baseAlias.subjectRound subjectRound";
     }
