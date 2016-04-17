@@ -281,7 +281,7 @@ class SubjectRepository extends AbstractBaseRepository
 
         unset($data['module']);
 
-        $entity->hydrate($data);
+        $entity->hydrate($data, $this->getEntityManager());
 
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));
