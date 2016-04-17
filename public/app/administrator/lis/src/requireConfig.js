@@ -24,10 +24,6 @@
             'what-input': [
                 'jquery'
             ],
-            'foundation': {
-                deps: ['jquery'],
-                exports: "Foundation"
-            },
             'angular': {
                 exports: 'angular'
             },
@@ -49,6 +45,7 @@
             'angular-bootstrap': {
                 deps: [
                     'angular',
+                    /*'angular-animate',*/
                     'angular-touch'
                 ]
             },
@@ -81,6 +78,7 @@
             'angular-touch': '../../bower_components/angular-touch/angular-touch',
             'angular-ui-select': '../../bower_components/ui-select/dist/select',
             'angular-ui-grid': '../../bower_components/angular-ui-grid/ui-grid',
+            'angular-animate': '../../bower_components/angular-animate/angular-animate',
             'jquery': '../../bower_components/jquery/dist/jquery',
             'bootstrap': '//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min',
             'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap',
