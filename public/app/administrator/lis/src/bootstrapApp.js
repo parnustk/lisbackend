@@ -26,7 +26,7 @@
         'pdfmake',
         'angular-bootstrap',
         'angular-bootstrap-tpls'
-    ], function ($, bootstrap, pdfmake, angularBootstrap) {
+    ], function ($, bootstrap, pdfmake, angularBootstrap, angularBootstrapTpls) {
         $(document).ready(function () {//DOM loaded
             require([
                 'angular',
