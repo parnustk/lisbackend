@@ -24,12 +24,14 @@
         'jquery',
         'bootstrap',
         'pdfmake',
+        'moment',
+        'angular',
         'angular-bootstrap',
         'angular-bootstrap-tpls'
-    ], function ($, bootstrap, pdfmake, angularBootstrap, angularBootstrapTpls) {
+    ], function ($, bootstrap, pdfmake, moment, angular, angularBootstrap, angularBootstrapTpls) {
+        moment().format();
         $(document).ready(function () {//DOM loaded
             require([
-                'angular',
                 'angular-cookies',
                 'angular-resource',
                 'angular-route',
@@ -37,7 +39,7 @@
                 'angular-touch',
                 'angular-ui-grid',
                 'angular-ui-select'
-            ], function (angular) {
+            ], function () {
                 require(['app/adminModule'], function (adminModule) {
                     angular.bootstrap(document, ['adminModule']);
                 });

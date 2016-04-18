@@ -247,6 +247,7 @@ class ContactLessonRepository extends AbstractBaseRepository
      */
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
+        //throw new Exception($data['lessonDate']);
         $this->validateSubjectRound($data);
         $entity = new ContactLesson($this->getEntityManager());
         $subjectRound = $this->getEntityManager()
@@ -260,9 +261,16 @@ class ContactLessonRepository extends AbstractBaseRepository
                 ->getRepository('Core\Entity\StudentGroup')
                 ->find($data['studentGroup']);
 
-        //TA2-16.04.2016-2
-        $data['name'] = $studentGroup->getName() . '-' .
-                $data['lessonDate']->format('d.m.Y') . '-' . $data['sequenceNr'];
+        try {
+            if (is_string($data['lessonDate']) && !is_object($data['lessonDate'])) {
+                $data['lessonDate'] = new DateTime($data['lessonDate']);
+            }
+            //TA2-16.04.2016-2
+            $data['name'] = $studentGroup->getName() . '-' .
+                    $data['lessonDate']->format('d.m.Y') . '-' . $data['sequenceNr'];
+        } catch (Exception $ex) {
+            throw new Exception($ex->getMessage());
+        }
 
         $entityValidated = $this->validateEntity(
                 $entity, $data

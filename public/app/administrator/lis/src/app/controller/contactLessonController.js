@@ -14,8 +14,8 @@
 (function (define, document) {
     'use strict';
 
-    define(['angular', 'app/util/globalFunctions'],
-        function (angular, globalFunctions) {
+    define(['angular', 'app/util/globalFunctions', 'moment'],
+        function (angular, globalFunctions, moment) {
 
             contactLessonController.$inject = [
                 '$scope',
@@ -87,10 +87,6 @@
 
                 $scope.toggleMin();
 
-                $scope.open1 = function () {
-                    $scope.popup1.opened = true;
-                };
-
                 $scope.open2 = function () {
                     $scope.popup2.opened = true;
                 };
@@ -99,13 +95,9 @@
                     $scope.dt = new Date(year, month, day);
                 };
 
-                $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+                $scope.formats = ['dd.MM.yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
                 $scope.format = $scope.formats[0];
                 $scope.altInputFormats = ['M!/d!/yyyy'];
-
-                $scope.popup1 = {
-                    opened: false
-                };
 
                 $scope.popup2 = {
                     opened: false
@@ -289,12 +281,16 @@
                  */
                 $scope.Create = function (valid) {
                     if (valid) {
-                        console.log($scope.contactLesson);
-//                        moduleModel.Create($scope.module).then(function (result) {
-//                            if (globalFunctions.resultHandler(result)) {
-//                                LoadGrid();
-//                            }
-//                        });
+                        var buf = $scope.contactLesson.lessonDate;
+                        $scope.contactLesson.lessonDate = moment($scope.contactLesson.lessonDate).format();
+                        console.log(typeof $scope.contactLesson.lessonDate, $scope.contactLesson.lessonDate);
+//                        moment("12-25-1995", "MM-DD-YYYY");
+                        contactLessonModel.Create($scope.contactLesson).then(function (result) {
+                            $scope.contactLesson.lessonDate = buf;
+                            if (globalFunctions.resultHandler(result)) {
+                                LoadGrid();
+                            }
+                        });
                     } else {
                         alert('CHECK_FORM_FIELDS');
                     }

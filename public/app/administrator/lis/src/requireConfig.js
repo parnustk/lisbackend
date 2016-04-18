@@ -25,6 +25,7 @@
                 'jquery'
             ],
             'angular': {
+                deps: ['moment'],
                 exports: 'angular'
             },
             'bootstrap': {
@@ -78,6 +79,7 @@
             define: true
         },
         paths: {
+            'moment': '../../bower_components/moment/min/moment.min',
             'angular': '../../bower_components/angular/angular',
             'angular-cookies': '../../bower_components/angular-cookies/angular-cookies',
             'angular-resource': '../../bower_components/angular-resource/angular-resource',

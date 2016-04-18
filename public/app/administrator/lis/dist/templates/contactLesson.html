@@ -160,7 +160,7 @@
                 <div class="col-lg-6">
                     <p class="input-group">
                         <span class="input-group-addon" id="contactLessonForm-lessonDate">LIS_LESSONDATE</span>
-                        <input type="text" name="lessonDate" class="form-control" uib-datepicker-popup ng-model="contactLesson.lessonDate" placeholder="LIS_LESSONDATE" aria-describedby="contactLessonForm-lessonDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <input type="text" name="lessonDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="contactLesson.lessonDate" placeholder="LIS_LESSONDATE" aria-describedby="contactLessonForm-lessonDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
