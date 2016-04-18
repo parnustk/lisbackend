@@ -48,12 +48,13 @@
                     name: null,
                     subject: null,
                     studentGroup: null,
+                    teacher: null,
                     trashed: null
                 };
 
 
 
-                $scope.subjects = $scope.studentGroups = [];
+                $scope.subjects = $scope.studentGroups = $scope.teachers = [];
 
                 $scope.subjectRound = {};
                 $scope.filterSubjectRound = {};
@@ -92,6 +93,15 @@
                             editDropdownValueLabel: "name",
                             sortCellFiltered: $scope.sortFiltered,
                             cellFilter: 'griddropdown:this'
+                        },
+                        {
+                            field: 'teacher',
+                            name: 'teacher',
+                            displayName: 'teachers',
+                            cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}}</span></div>",
+                            editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name"
                         },
                         {field: 'name'},
                         {field: 'trashed'}
@@ -206,11 +216,17 @@
                                 $scope.studentGroups = result.data;
                                 $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.studentGroups;
 
-                                subjectRoundModel.GetList(urlParams).then(function (result) {
-                                    if (globalFunctions.resultHandler(result)) {
-                                        $scope.gridOptions.data = result.data;
-                                    }
+                                subjectRoundModel.GetList($scope.params).then(function (result) {
+                                    $scope.teachers = result.data;
+                                    $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.teachers;
+
+                                    subjectRoundModel.GetList(urlParams).then(function (result) {
+                                        if (globalFunctions.resultHandler(result)) {
+                                            $scope.gridOptions.data = result.data;
+                                        }
+                                    });
                                 });
+
                             });
                         }
                     });
