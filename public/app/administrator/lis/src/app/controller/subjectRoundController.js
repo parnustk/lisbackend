@@ -15,12 +15,10 @@
     /**
      * @param angular
      * @param globalFunctions
-     * @returns {subjectRoundController_L19.subjectRoundController_L25.subjectRoundController}
+     * @returns {subjectRoundController_L21.subjectRoundController_L32.subjectRoundController}
      */
 
-    /**
-     * @returns (subjectRoundController_L21.subjectRoundController_L32.subjectRoundController)
-     */
+
     define(['angular', 'app/util/globalFunctions'],
         function (angular, globalFunctions) {
 
@@ -55,7 +53,7 @@
 
 
 
-                $scope.subject = $scope.studentGroup = [];
+                $scope.subjects = $scope.studentGroups = [];
 
                 $scope.subjectRound = {};
                 $scope.filterSubjectRound = {};
@@ -69,6 +67,7 @@
                             field: 'id',
                             visible: false,
                             type: 'number',
+                            enableCellEdit: false,
                             sort:{
                                 direction: uiGridConstants.DESC,
                                 priority: 1
@@ -77,7 +76,7 @@
                         {
                             field: "subject",
                             name: "subject",
-                            displayName: "Subject",
+                            displayName: 'Subject',
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
@@ -197,14 +196,15 @@
                  * @constructor
                  */
                 function LoadGrid() {
-                    subjectModel.GetList(urlParams).then(function (result) {
+                    subjectModel.GetList({}).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
-                            $scope.subject = result.data;
-                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.subject;
 
-                            studentGroupModel.GetList(urlParams).then(function (result) {
-                                $scope.studentGroup = result.data;
-                                $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.studentGroup;
+                            $scope.subjects = result.data;
+                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.subjects;
+
+                            studentGroupModel.GetList($scope.params).then(function (result) {
+                                $scope.studentGroups = result.data;
+                                $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.studentGroups;
 
                                 subjectRoundModel.GetList(urlParams).then(function (result) {
                                     if (globalFunctions.resultHandler(result)) {
