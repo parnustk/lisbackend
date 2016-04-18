@@ -172,106 +172,129 @@
                 /**
                  * Grid set up
                  */
-//                $scope.gridOptions = {
-//                    rowHeight: 38,
-//                    enableCellEditOnFocus: true,
-//                    columnDefs: [
-//                        {
-//                            field: 'id',
-//                            visible: false,
-//                            type: 'number',
-//                            enableCellEdit: false,
-//                            sort: {
-//                                direction: uiGridConstants.DESC,
-//                                priority: 1
-//                            }
-//                        },
-//                        {//select one
-//                            field: "vocation",
-//                            name: "vocation",
-//                            displayName: 'Vocation',
-//                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-//                            editDropdownIdLabel: "id",
-//                            editDropdownValueLabel: "name",
-//                            sortCellFiltered: $scope.sortFiltered,
-//                            cellFilter: 'griddropdown:this'
-//                        },
-//                        {//select one
-//                            field: "moduleType",
-//                            name: "moduleType",
-//                            displayName: 'Module Type',
-//                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-//                            editDropdownIdLabel: "id",
-//                            editDropdownValueLabel: "name",
-//                            sortCellFiltered: $scope.sortFiltered,
-//                            cellFilter: 'griddropdown:this'
-//                        },
-//                        {//select many
-//                            field: 'gradingType',
-//                            name: 'gradingType',
-//                            displayName: 'gradingTypes',
-//                            cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
-//                            editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
-//                            editDropdownIdLabel: "id",
-//                            editDropdownValueLabel: "name"
-//                        },
-//                        {field: 'name'},
-//                        {field: 'moduleCode'},
-//                        {field: 'duration'},
-//                        {field: 'trashed'}
-//                    ],
-//                    enableGridMenu: true,
-//                    enableSelectAll: true,
-//                    exporterCsvFilename: 'modules.csv',
-//                    exporterPdfDefaultStyle: {fontSize: 9},
-//                    exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-//                    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-//                    exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-//                    exporterPdfFooter: function (currentPage, pageCount) {
-//                        return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-//                    },
-//                    exporterPdfCustomFormatter: function (docDefinition) {
-//                        docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-//                        docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-//                        return docDefinition;
-//                    },
-//                    exporterPdfOrientation: 'portrait',
-//                    exporterPdfPageSize: 'LETTER',
-//                    exporterPdfMaxGridWidth: 500,
-//                    exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
-//                };
+                $scope.gridOptions = {
+                    rowHeight: 38,
+                    enableCellEditOnFocus: true,
+                    columnDefs: [
+                        {
+                            field: 'id',
+                            visible: false,
+                            type: 'number',
+                            enableCellEdit: false,
+                            sort: {
+                                direction: uiGridConstants.DESC,
+                                priority: 1
+                            }
+                        },
+                        {//select one
+                            field: "rooms",
+                            name: "rooms",
+                            displayName: 'LIS_ROOM',
+                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            sortCellFiltered: $scope.sortFiltered,
+                            cellFilter: 'griddropdown:this'
+                        },
+                        {//select one
+                            field: "subjectRound",
+                            name: "subjectRound",
+                            displayName: 'LIS_SUBJECTROUND',
+                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            sortCellFiltered: $scope.sortFiltered,
+                            cellFilter: 'griddropdown:this'
+                        },
+                        {//select one
+                            field: "studentGroup",
+                            name: "studentGroup",
+                            displayName: 'LIS_SUBJECTROUND',
+                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            sortCellFiltered: $scope.sortFiltered,
+                            cellFilter: 'griddropdown:this'
+                        },
+                        {//select one
+                            field: "module",
+                            name: "module",
+                            displayName: 'LIS_MODULE',
+                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            sortCellFiltered: $scope.sortFiltered,
+                            cellFilter: 'griddropdown:this'
+                        },
+                        {//select one
+                            field: "vocation",
+                            name: "vocation",
+                            displayName: 'LIS_VOCATION',
+                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            sortCellFiltered: $scope.sortFiltered,
+                            cellFilter: 'griddropdown:this'
+                        },
+                        {//select one
+                            field: "teacher",
+                            name: "teacher",
+                            displayName: 'LIS_TEACHER',
+                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            sortCellFiltered: $scope.sortFiltered,
+                            cellFilter: 'griddropdown:this'
+                        },
+                        {field: 'name'},
+                        {
+                            field: "lessonDate['date']", 
+                            name: "lessonDate['date']", 
+                            displayName: 'LIS_DATE', 
+                            type: 'date', 
+                            cellFilter: 'date:"yyyy-MM-dd"', 
+                            width: '20%'
+                        },
+                        {field: 'sequenceNr', type: 'number'},
+                        {field: 'description'}
+                    ],
+                    enableGridMenu: true,
+                    enableSelectAll: true,
+                    exporterCsvFilename: 'modules.csv',
+                    exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
+                };
 
-//                /**
-//                 * Adding event handlers
-//                 * 
-//                 * @param {type} gridApi
-//                 * @returns {undefined}
-//                 */
-//                $scope.gridOptions.onRegisterApi = function (gridApi) {
-//                    $scope.gridApi = gridApi;
-//                    gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-//                };
+                /**
+                 * Adding event handlers
+                 * 
+                 * @param {type} gridApi
+                 * @returns {undefined}
+                 */
+                $scope.gridOptions.onRegisterApi = function (gridApi) {
+                    $scope.gridApi = gridApi;
+                    gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+                };
 
 
-//                /**
-//                 * Update logic
-//                 * 
-//                 * @param {type} rowEntity
-//                 * @returns {undefined}
-//                 */
-//                $scope.saveRow = function (rowEntity) {
-//                    var deferred = $q.defer();
-//                    moduleModel.Update(rowEntity.id, rowEntity).then(
-//                        function (result) {
-//                            if (result.success) {
-//                                deferred.resolve();
-//                            } else {
-//                                deferred.reject();
-//                            }
-//                        }
-//                    );
-//                    $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
-//                };
+                /**
+                 * Update logic
+                 * 
+                 * @param {type} rowEntity
+                 * @returns {undefined}
+                 */
+                $scope.saveRow = function (rowEntity) {
+                    var deferred = $q.defer();
+                    contactLessonModel.Update(rowEntity.id, rowEntity).then(
+                        function (result) {
+                            if (result.success) {
+                                deferred.resolve();
+                            } else {
+                                deferred.reject();
+                            }
+                        }
+                    );
+                    $scope.gridApi.rowEdit.setSavePromise(rowEntity, deferred.promise);
+                };
 
                 /**
                  * Create new from form if succeeds push to grid
@@ -283,8 +306,6 @@
                     if (valid) {
                         var buf = $scope.contactLesson.lessonDate;
                         $scope.contactLesson.lessonDate = moment($scope.contactLesson.lessonDate).format();
-                        console.log(typeof $scope.contactLesson.lessonDate, $scope.contactLesson.lessonDate);
-//                        moment("12-25-1995", "MM-DD-YYYY");
                         contactLessonModel.Create($scope.contactLesson).then(function (result) {
                             $scope.contactLesson.lessonDate = buf;
                             if (globalFunctions.resultHandler(result)) {
@@ -319,49 +340,40 @@
 //                    LoadGrid();
 //                };
 
-
-                /*
-                 * 
-                 * * name
-                 * * lessonDate
-                 * * description
-                 * * sequenceNr
-                 * * rooms r
-                 * * subjectRound r 
-                 * * studentGroup r
-                 * * module r
-                 * * vocation r
-                 * * teacher r
-                 */
-
                 function LoadGrid() {
                     roomModel.GetList(urlParams).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
                             $scope.roomsAll = result.data;
+                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.roomsAll;
 
                             subjectRoundModel.GetList(urlParams).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
                                     $scope.subjectRounds = result.data;
+                                    $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.subjectRounds;
 
                                     studentGroupModel.GetList(urlParams).then(function (result) {
                                         if (globalFunctions.resultHandler(result)) {
                                             $scope.studentGroups = result.data;
+                                            $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.studentGroups;
 
                                             moduleModel.GetList(urlParams).then(function (result) {
                                                 if (globalFunctions.resultHandler(result)) {
                                                     $scope.modules = result.data;
+                                                    $scope.gridOptions.columnDefs[4].editDropdownOptionsArray = $scope.modules;
 
                                                     vocationModel.GetList(urlParams).then(function (result) {
                                                         if (globalFunctions.resultHandler(result)) {
                                                             $scope.vocations = result.data;
+                                                            $scope.gridOptions.columnDefs[5].editDropdownOptionsArray = $scope.vocations;
 
                                                             teacherModel.GetList(urlParams).then(function (result) {
                                                                 if (globalFunctions.resultHandler(result)) {
                                                                     $scope.teachers = result.data;
+                                                                    $scope.gridOptions.columnDefs[6].editDropdownOptionsArray = $scope.teachers;
 
                                                                     contactLessonModel.GetList(urlParams).then(function (result) {
                                                                         if (globalFunctions.resultHandler(result)) {
-                                                                            //$scope.gridOptions.data = result.data;
+                                                                            $scope.gridOptions.data = result.data;
                                                                             //alert(1);
                                                                         }
                                                                     });

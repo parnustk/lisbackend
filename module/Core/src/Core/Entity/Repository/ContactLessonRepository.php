@@ -385,7 +385,7 @@ class ContactLessonRepository extends AbstractBaseRepository
 
         unset($data['subjectRound']);
 
-        $entity->hydrate($data);
+        $entity->hydrate($data, $this->getEntityManager());
 
         if (!$entity->validate()) {
             throw new Exception(Json::encode($entity->getMessages(), true));

@@ -17,8 +17,9 @@
     'use strict';
 
     define([
-        'app/util/globalFunctions'
-    ], function (globalFunctions) {
+        'app/util/globalFunctions',
+        'moment'
+    ], function (globalFunctions, moment) {
 
         /**
          * 
@@ -72,7 +73,12 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _model.update({id: id}, globalFunctions.cleanData(data)).$promise;
+                    var d = globalFunctions.cleanData(data);
+                    delete d.studentGrade;//batch mapped by
+                    delete d.absence;//batch mapped by
+                    d.lessonDate = moment(data.lessonDate.date).format();
+                    //d.lessonDate = data.lessonDate.date;
+                    return _model.update({id: id}, d).$promise;
                 },
                 /**
                  * 
