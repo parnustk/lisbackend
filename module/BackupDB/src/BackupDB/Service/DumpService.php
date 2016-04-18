@@ -103,7 +103,12 @@ class DumpService implements ServiceManagerAwareInterface
      * @var string
      */
     protected $fileName;
-
+    
+    /**
+     * @var string
+     */
+    protected $dumpData;
+    
     /**
      * 
      */
@@ -134,7 +139,7 @@ class DumpService implements ServiceManagerAwareInterface
     {
         $this->setUp();
         $this->setFilename($type);
-        $dumpStructure = null;
+        $this->dumpData = null;
 
         //TODO: Create SQL Dump
         $tables = [
@@ -159,6 +164,7 @@ class DumpService implements ServiceManagerAwareInterface
             "Vocation"
         ];
 
+        $offset = 0;
 //        for ($t = 0; $t < count($tables); $t++) { //Loop through all tables, append new data into output file with each loop      
         for ($t = 0; $t < 1; $t++) { //Alternate loop for debugging
             //Purpose: Prepare structure query statement
@@ -171,22 +177,23 @@ class DumpService implements ServiceManagerAwareInterface
                 //This part adds table structure to dumpData
                 $stmt->execute();
                 $fetchData = $stmt->fetch();
-                $dumpData = $fetchData[1]."; \n";
+                $this->dumpData = $fetchData[1]."; \n";
             } catch (PDOException $ex) {
                 print_r($ex);
                 die();
             }
             //Write structure to table
-            file_put_contents(_PATH_ . $this->fileName, $dumpStructure, FILE_APPEND);
+            file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
+            $this->dumpData = null;
             
             $stmt = $this->db->prepare('SELECT id FROM ' . $tableString . ' WHERE 1;');
             $stmt->execute();
             $rowCount = count($stmt->fetchAll());
             $columnNames = null;
+            $columnCount = null;
             for ($i = 0; $i < $rowCount+1; $i++) { //Write data from single table
                 $fetchData = null;
-                $columnCount = null;
-                $dumpData = null;
+                $this->dumpData = null;
                 if ($i == 0) { //Begin backup INSERT statement
                     $stmt = $this->db->prepare("SELECT `COLUMN_NAME` 
                                                 FROM `INFORMATION_SCHEMA`.`COLUMNS` 
@@ -196,19 +203,20 @@ class DumpService implements ServiceManagerAwareInterface
                     $fetchData = $stmt->fetchAll(); //fetchData is Column Names
                     $columnCount = count($fetchData);
                     $columnNames = array_column($fetchData, 'COLUMN_NAME');
-                    $dumpData = "INSERT INTO " . $tableString . "(";
-                    for ($c=0;$c<$columnCount+1;$c++) { //Append column names into statement
+                    $this->dumpData = "INSERT INTO " . $tableString . "(";
+                    for ($c=0;$c<=$columnCount;$c++) { //Append column names into statement
                         if ($c == $columnCount) { //Close column names, begin data
-                            $dumpData .= ") \n VALUES";
+                            $this->dumpData .= ") \n VALUES";
                             break;
                         }
                         if ($c == 0) { //Append first column name into statement
-                            $dumpData .= $columnNames[$c];
+                            $this->dumpData .= $columnNames[$c];
                         } else { //Append following column names into statement
-                            $dumpData .= "," . $columnNames[$c];
+                            $this->dumpData .= "," . $columnNames[$c];
                         }
                     }
                 } elseif ($i == $rowCount) { //Add last data row; close statement; Breaks if table id column skips lines
+                    $fetchdata = null;
                     $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
                                                " WHERE id = " . $i . "; \n \n");
                     //Query data row
@@ -222,55 +230,64 @@ class DumpService implements ServiceManagerAwareInterface
                     }
                     for ($c = 0; $c < $columnCount; $c++) {
                         if ($c == 0) {
-                            $dumpData .= "(".$fetchData[$columnNames[$c]];
+                            $this->dumpData .= "(".$fetchData[$columnNames[$c]];
                         } elseif ($c == $columnCount) { //Close data row value
-                            $dumpData .= "); \n";
+                            $this->dumpData .= "); \n";
                         } else {
                             if (isset($fetchData[$columnNames[$c]])) {
-                            $dumpData .= "," . $fetchData[$columnNames[$c]];
-                            } else { $dumpData .= ",NULL"; }
+                            $this->dumpData .= "," . $fetchData[$columnNames[$c]];
+                            } else { $this->dumpData .= ",NULL"; }
                         }
                     }
                     
                 } else { //Add regular data row.
-                    $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
-                            " WHERE id = " . $i . ";");
-                    //Query table data
-                    try {
-                        $stmt->execute();
-                        $fetchData = $stmt->fetchAll(); //fetchData is data row
-                        if (count($fetchData)!= 0) {
-                        $fetchData = $fetchData[0];
-                        } else {  }
-                    } catch (PDOException $ex) {
-                        print_r($ex);
-                        die();
+                    $fetchdata = null;
+                    while (count($fetchData) == 0) {
+                        if ($offset > 1000) { die("Infinite Offset loop"); }
+                        $id = $i + $offset;
+                        $stmt = $this->db->prepare("SELECT * FROM " . $tableString .
+                                " WHERE id = " . $id . ";");
+                        //Query table data
+                        try {
+                            $stmt->execute();
+                            $fetchData = $stmt->fetchAll(); //fetchData is data row
+                            if (count($fetchData) != 0) {
+                                $fetchData = $fetchData[0];
+                            } else {
+                                $offset += 1;
+                                continue;
+                            }
+                        } catch (PDOException $ex) {
+                            print_r($ex);
+                            die();
+                        }
+                        
                     }
-                    for ($c = 0; $c<$columnCount; $c++) {
+                    for ($c = 0; $c<=$columnCount; $c++) {
                         if ($c == 0) {
-                            $dumpData .= "(".$fetchData[$columnNames[$c]];
+                            $this->dumpData .= "(".$fetchData[$columnNames[$c]];
                         } elseif ($c == $columnCount) { //Close data row value
-                            $dumpData .= "), \n";
+                            $this->dumpData .= "), \n";
                         } else {
                             if (isset($fetchData[$columnNames[$c]])) {
-                            $dumpData .= "," . $fetchData[$columnNames[$c]];
-                            } else { $dumpData .= ",NULL"; }
+                            $this->dumpData .= "," . $fetchData[$columnNames[$c]];
+                            } else { $this->dumpData .= ",NULL"; }
                         }
                     }
-                    file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
                 }
                 //Write current pass to file
-//                file_put_contents(_PATH_ . $this->fileName, $dumpData, FILE_APPEND);
+                file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
+                if ($offset != 0) { $offset += 1; }
             }
         }
-        //Disabled for debugging above code
+// Disabled for debugging above code
 //        if ($type == 'manual') {
-//            file_put_contents($this->fileName, $dumpData);
+//            file_put_contents($this->fileName, $this->dumpData);
 //            header("Content-disposition: attachment;filename=$filename");
 //            readfile($this->filename);
 //            return 'successM';
 //        } else {
-//            file_put_contents($this->fileName, $dumpData);
+//            file_put_contents($this->fileName, $this->dumpData);
 //            return 'successA';
 //        }
     }
