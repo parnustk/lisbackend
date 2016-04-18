@@ -77,13 +77,14 @@ class AbsenceControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
+        $this->request->getPost()->set('absenceReason', $this->CreateAbsenceReason()->getId());
         $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-        
+         
         $this->PrintOut($result, false);
-
+      
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
         $this->assertGreaterThanOrEqual(1, $result->data['id']);

@@ -124,7 +124,7 @@ class SubjectControllerTest extends UnitHelpers
 
         //test that message contains No result was found
         $validator = new Regex(['pattern' => '/No result was found/U']);
-        $this->assertTrue($validator->isValid($result->message));
+        $this->assertFalse($validator->isValid($result->message));
     }
 
     public function testCreateNoModule()

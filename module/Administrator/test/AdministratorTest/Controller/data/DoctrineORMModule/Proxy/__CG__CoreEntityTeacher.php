@@ -64,10 +64,10 @@ class Teacher extends \Core\Entity\Teacher implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'name', 'email', 'personalCode', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'email', 'personalCode', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'name', 'email', 'personalCode', 'lisUser', 'independentWork', 'studentGrade', 'subjectRound', 'contactLesson', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -208,6 +208,17 @@ class Teacher extends \Core\Entity\Teacher implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLastName', array());
 
         return parent::getLastName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
+
+        return parent::getName();
     }
 
     /**
@@ -367,6 +378,17 @@ class Teacher extends \Core\Entity\Teacher implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setName($name)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
+
+        return parent::setName($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setPersonalCode($personalCode)
     {
 
@@ -428,6 +450,17 @@ class Teacher extends \Core\Entity\Teacher implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubjectRound', array($subjectRound));
 
         return parent::setSubjectRound($subjectRound);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
     }
 
     /**
@@ -576,12 +609,12 @@ class Teacher extends \Core\Entity\Teacher implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data, \Doctrine\ORM\EntityManager $em = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data, $em));
 
-        return parent::hydrate($data);
+        return parent::hydrate($data, $em);
     }
 
     /**

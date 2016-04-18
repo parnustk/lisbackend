@@ -72,15 +72,15 @@ class ContactLessonTest extends UnitHelpers
         $description = ' Description for contactlesson' . uniqid();
         $sequenceNr = 4;
         $teacher = $this->CreateTeacher()->getId();
-        
+
         $subjectRound = $this->CreateSubjectRound()->getId();
         $studentGroup = $this->CreateStudentGroup()->getId();
         $module = $this->CreateModule();
         $vocation = $this->CreateVocation();
         $rooms = $this->CreateRoom();
-        
-        
-        
+
+
+
         $this->request->getPost()->set("lessonDate", $lessonDate);
         $this->request->getPost()->set("description", $description);
         $this->request->getPost()->set("sequenceNr", $sequenceNr);
@@ -95,7 +95,7 @@ class ContactLessonTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, true);
+        $this->PrintOut($result, false); //true
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
@@ -225,6 +225,7 @@ class ContactLessonTest extends UnitHelpers
 
         //create one to  update later on
         $contactLesson = $this->CreateContactLesson();
+        $id = $contactLesson->getId();
 
         $lessonDateO = $contactLesson->getLessonDate()->format('Y-m-d H:i:s');
         $descriptionO = $contactLesson->getDescription();
@@ -235,11 +236,12 @@ class ContactLessonTest extends UnitHelpers
         foreach ($contactLesson->getTeacher() as $teacherO) {
             $teachersO[] = [
                 'id' => $teacherO->getId()
+                    // 'id' => $this->CreateId->getId()
             ];
         }
 
         $this->request->setMethod('put');
-        $this->routeMatch->setParam('id', $contactLesson->getId());
+        $this->routeMatch->setParam('id', $id);
 
         //start new data creation
         $lessonDate = (new \DateTime)
@@ -263,7 +265,7 @@ class ContactLessonTest extends UnitHelpers
             "subjectRound" => $subjectRound->getId(),
             "teacher" => $teachers
         ];
-//        print_r($insertData);
+//       print_r($insertData);
         //set new data
         $this->request->setContent(http_build_query($insertData));
 

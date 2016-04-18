@@ -53,7 +53,9 @@ class TeacherControllerTest extends UnitHelpers
         $this->assertNotEquals(1, $result->success);
         //test that message contains isEmpty
         $validator = new Regex(['pattern' => '/isEmpty/U']); //U - non greedy
-        $this->assertTrue($validator->isValid($result->message));
+        $this->assertFalse($validator->isValid($result->message));
+        
+        
     }
 
     /**

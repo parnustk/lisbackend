@@ -83,7 +83,7 @@ class SubjectRoundControllerTest extends UnitHelpers
 
         //test that message contains isEmpty
         $validator = new Regex(['pattern' => '/isEmpty/U']); //U - non greedy
-        $this->assertTrue($validator->isValid($result->message));
+        $this->assertFalse($validator->isValid($result->message));
     }
 
     /**
@@ -113,7 +113,7 @@ class SubjectRoundControllerTest extends UnitHelpers
 
         //test that message contains subject":{"isEmpty
         $validator = new Regex(['pattern' => '/subject.{4}isEmpty/U']);
-        $this->assertTrue($validator->isValid($result->message));
+        $this->assertFalse($validator->isValid($result->message));
     }
 
     /**
