@@ -246,7 +246,9 @@
                             sortCellFiltered: $scope.sortFiltered,
                             cellFilter: 'griddropdown:this'
                         },
-                        {field: 'name'},
+                        {
+                            field: 'name'
+                        },
                         {
                             field: "lessonDate['date']", 
                             name: "lessonDate['date']", 
