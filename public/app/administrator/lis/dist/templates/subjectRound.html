@@ -1,0 +1,90 @@
+<h2>SubjectRound view</h2>
+
+<form class="form-horizontal" name="subjectRoundForm" ng-submit="Create(subjectRoundForm.$valid)">
+    <fieldset>
+        <legend>Create a new subjectRound</legend>
+
+        <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.subject.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="subject" ng-required="true" ng-model="subjectRound.subject" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px">
+                            <ui-select-match placeholder="Choose subject">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="subject in subjects | filter: $select.search">
+                                <span ng-bind-html="subject.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{subject.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.studentGroup.$invalid }">
+                    <div class="col-lg-6">
+                        <div class="input-group input-group-lg">
+                            <ui-select name="subject" ng-required="true" ng-model="subjectRound.studentGroup" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px">
+                                <ui-select-match placeholder="Choose studentGroup">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
+                                    <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
+                                    <small>
+                                        id: {{studentGroup.id}}
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.name.$invalid }">
+                    <div class="col-lg-6">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="subjectRoundForm-name">Name</span>
+                            <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="subjectRoundForm-name" ng-model="subjectRound.name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<br>
+
+<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+
+        <legend>subjectRound grid filter</legend>
+
+        <div class="form-group">
+
+            <label class="col-sm-3 control-label">Name filter</label>
+
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterSubjectRound-name">Name</span>
+                        <input name="name" ng-model="filterSubjectRound.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterSubjectRound-name">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<br>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
