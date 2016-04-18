@@ -2,13 +2,13 @@
 
 ## Developers
 
-    Eleri Apsolon - developer, analytics, eleri.apsolon@gmail.com
-    Marten Kähr - developer, addon backup module architect, analytic and developer
-    Juhan Kõks - developer, release manager(Jenkins), server administrator(LAMP), juhankoks@gmail.com
-    Kristen Sepp - developer, analytics, seppkristen@gmail.com
-    Arnold Tserepov - developer, tserepov@gmail.com
-    Alar Aasa - developer, UI/UX, alar@alaraasa.ee
-    Sander Mets - developer, software architect, team lead sandermets0@gmail.com
+    Eleri Apsolon - Front-end key developer, analytics, developer, eleri.apsolon@gmail.com
+    Marten Kähr - addon backup module architect, analytic and developer, developer
+    Juhan Kõks - release manager(Jenkins), server administrator(LAMP), developer, juhankoks@gmail.com
+    Kristen Sepp - analytics, developer seppkristen@gmail.com
+    Arnold Tserepov - QA, developer, tserepov@gmail.com
+    Alar Aasa - UI/UX, developer, alar@alaraasa.ee
+    Sander Mets - team lead, software architect, developer, sandermets0@gmail.com
 
 ## What
 
