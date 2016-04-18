@@ -120,11 +120,11 @@
                     }
 
                     var map,
-                        colDef = context.col.colDef,
-                        idField = colDef.editDropdownIdLabel,
-                        valueField = colDef.editDropdownValueLabel,
-                        initial = context.row.entity[context.col.field],
-                        result;
+                            colDef = context.col.colDef,
+                            idField = colDef.editDropdownIdLabel,
+                            valueField = colDef.editDropdownValueLabel,
+                            initial = context.row.entity[context.col.field],
+                            result;
 
                     if (typeof colDef.editDropdownOptionsArray !== 'undefined') {
                         map = colDef.editDropdownOptionsArray;
@@ -133,7 +133,11 @@
                     }
 
                     if (parseInt(input) !== input) {
-                        input = input.id;
+                        if (!!input) {
+                            input = input.id;
+                        } else {
+                            return null;
+                        }
                     }
                     if (typeof map !== "undefined") {
                         for (var i = 0; i < map.length; i++) {

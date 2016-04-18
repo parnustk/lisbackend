@@ -146,7 +146,7 @@
 
                     $scope.studentGrades = {};
 
-                    $scope.filterStudentGrades = {};//for form filters, object
+                    $scope.filterStudentGrade = {};//for form filters, object
 
                     /**
                      * Grid set up
