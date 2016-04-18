@@ -79,88 +79,85 @@
     </head>
     <body><!-- All parts should go into widgets(controller + view) + content itself in our cas-->
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#!/">LIS</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Link</a></li>-->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_CURRICULUM <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#!/vocation">LIS_VOCATION</a></li>
-                                <li><a href="#!/module">LIS_MODULE</a></li>
-                                <li><a href="#!/subject">LIS_SUBJECT</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#!/moduletype">LIS_MODULETYPE</a></li>
-                                <li><a href="#!/gradechoice">LIS_GRADECHOICE</a></li>
-                                <li><a href="#!/gradingtype">LIS_GRADINGTYPE</a></li>
-                                <li><a href="#!/subjectround">LIS_SUBJECTROUND</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_DIARY <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#!/contactlesson">LIS_CONTACTLESSON</a></li>
-                                <li><a href="#!/absence">LIS_ABSENCE</a></li>
-                                <li><a href="#!/absencereason">LIS_ABSENCEREASON</a></li>
-                                <li><a href="#!/independentwork">LIS_INDEPENDENTWORK</a></li>
-                                <li><a href="#!/studentgrade">LIS_STUDENTGRADE</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#!/room">LIS_ROOM</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_PERSONS <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#!/teacher" class="button">LIS_TEACHER</a></li>
-                                <li><a href="#!/student">LIS_STUDENT</a></li>
-                                <li><a href="#!/administrator">LIS_ADMINISTRATOR</a></li>
-                                <li><a href="#!/studentgroup">LIS_STUDENTGROUP</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!--
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="What here?">
-                        </div>
-                        <button type="submit" class="btn btn-default">LIS_SUBMIT</button>
-                    </form>
-                    -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">LIS_LOGOUT</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_ME <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">LIS_CHANGE_MY_USER_DATA</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">LIS_MY_DATA</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-
-        <!-- these a tags go inside a menu-->
-
-        <div data-ng-view=""></div>
-
         <!-- START Login/Menu widget-->
         <div ng-controller="loginController">
+
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#!/">LIS</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">Link</a></li>-->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_CURRICULUM <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#!/vocation">LIS_VOCATION</a></li>
+                                    <li><a href="#!/module">LIS_MODULE</a></li>
+                                    <li><a href="#!/subject">LIS_SUBJECT</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#!/moduletype">LIS_MODULETYPE</a></li>
+                                    <li><a href="#!/gradechoice">LIS_GRADECHOICE</a></li>
+                                    <li><a href="#!/gradingtype">LIS_GRADINGTYPE</a></li>
+                                    <li><a href="#!/subjectround">LIS_SUBJECTROUND</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_DIARY <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#!/contactlesson">LIS_CONTACTLESSON</a></li>
+                                    <li><a href="#!/absence">LIS_ABSENCE</a></li>
+                                    <li><a href="#!/absencereason">LIS_ABSENCEREASON</a></li>
+                                    <li><a href="#!/independentwork">LIS_INDEPENDENTWORK</a></li>
+                                    <li><a href="#!/studentgrade">LIS_STUDENTGRADE</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#!/room">LIS_ROOM</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_PERSONS <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#!/teacher" class="button">LIS_TEACHER</a></li>
+                                    <li><a href="#!/student">LIS_STUDENT</a></li>
+                                    <li><a href="#!/administrator">LIS_ADMINISTRATOR</a></li>
+                                    <li><a href="#!/studentgroup">LIS_STUDENTGROUP</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!--
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="What here?">
+                            </div>
+                            <button type="submit" class="btn btn-default">LIS_SUBMIT</button>
+                        </form>
+                        -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">LIS_LOGOUT</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LIS_ME <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">LIS_CHANGE_MY_USER_DATA</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">LIS_MY_DATA</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+
             <form>
                 <div class="form-group">
                     <div class="col-sm-12">
@@ -178,5 +175,9 @@
             </form>
         </div>
         <!-- END Login/Menu widget-->
+
+        <!-- these a tags go inside a menu-->
+
+        <div data-ng-view=""></div>
     </body>
 </html>
