@@ -168,7 +168,7 @@
                             {
                                 field: "student",
                                 name: "student",
-                                displayName: 'Student',
+                                displayName: 'LIS_STUDENT',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -178,7 +178,7 @@
                             {
                                 field: "gradeChoice",
                                 name: "gradeChoice",
-                                displayName: 'GradeChoice',
+                                displayName: 'LIS_GRADECHOICE',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -188,7 +188,7 @@
                             {
                                 field: "teacher",
                                 name: "teacher",
-                                displayName: 'Teacher',
+                                displayName: 'LIS_TEACHER',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -198,7 +198,7 @@
                             {
                                 field: "independentWork",
                                 name: "independentWork",
-                                displayName: 'IndependentWork',
+                                displayName: 'LIS_INDEPENDENTWORK',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -214,7 +214,7 @@
                             {
                                 field: "module",
                                 name: "module",
-                                displayName: 'Module',
+                                displayName: 'LIS_MODULE',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -224,7 +224,7 @@
                             {
                                 field: "subjectRound",
                                 name: "subjectRound",
-                                displayName: 'SubjectRound',
+                                displayName: 'LIS_SUBJECTROUND',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -234,15 +234,19 @@
                             {
                                 field: "contactLesson",
                                 name: "contactLesson",
-                                displayName: 'ContactLesson',
+                                displayName: 'LILESSON',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
                                 sortCellFiltered: $scope.sortFiltered
                             },
-                            {field: 'notes'},
-                            {field: 'trashed'}
+                            {field: 'notes',
+                                displayName: 'LIS_NOTES',
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED',
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
