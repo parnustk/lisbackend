@@ -1,16 +1,16 @@
-<h2>Absence view</h2>
+<h2>LIS_ABSENCE_VIEW</h2>
 <form class="form-horizontal" name="absenceForm" ng-submit="Create(absenceForm.$valid)">
 
     <fieldset>
 
-        <legend>Create new absence</legend>
+        <legend>ABSENCE_GRID_FILTERS</legend>
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': absenceForm.absenceReason.$invalid }">
                 <div class="col-lg-4">
                     <div class="input-group input-group-lg">
                         <ui-select name="absenceReason" ng-required="true" ng-model="absence.absenceReason" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose absence reason">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="SELECT_OR_SEARCH_AN_ABSENCEREASON">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
                                 <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>
                                 <small>
@@ -26,7 +26,7 @@
                 <div class="col-lg-4">
                     <div class="input-group input-group-lg">
                         <ui-select name="student" ng-required="true" ng-model="absence.student" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose student">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="SELECT_OR_SEARCH_A_STUDENT">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="student in students | filter: $select.search">
                                 <span ng-bind-html="student.name | highlight: $select.search"></span>
                                 <small>
@@ -42,7 +42,7 @@
                 <div class="col-lg-4">
                     <div class="input-group input-group-lg">
                         <ui-select name="contactLesson" ng-required="true" ng-model="absence.contactLesson" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose contactLesson">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="SELECT_OR_SEARCH_A_CONTACTLESSON">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
                                 <span ng-bind-html="contactLesson.name | highlight: $select.search"></span>
                                 <small>
@@ -60,14 +60,14 @@
             <div class="form-group" ng-class="{ 'has-error': absenceForm.description.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="absenceForm-description">Description</span>
-                        <input name="description" ng-required="true" type="text" class="form-control" placeholder="Description" aria-describedby="absenceForm-description" ng-model="absence.description">
+                        <span class="input-group-addon" id="absenceForm-description">LIS_DESCRIPTION</span>
+                        <input name="description" ng-required="true" type="text" class="form-control" placeholder="LIS_DESCRIPTION" aria-describedby="absenceForm-description" ng-model="absence.description">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
 
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
             </div><!-- /.col-lg-6 -->
 
         </div><!-- /.row -->
@@ -80,14 +80,14 @@
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
-        <legend>Absence grid filters</legend>
+        <legend>ABSENCE_GRID_FILTERS</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Absence filter</label>
+            <label class="col-sm-3 control-label">ABSENCE_FILTER</label>
             <div class="col-sm-12">
                 <div class="input-group">
 
                     <ui-select allow-clear ng-model="filterAbsence.absenceReason" theme="bootstrap">
-                        <ui-select-match placeholder="Select or search an absence reason in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_AN_ABSENCEREASON">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
                             <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>
                             <small>
@@ -102,7 +102,7 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <ui-select allow-clear ng-model="filterAbsence.student" theme="bootstrap">
-                        <ui-select-match placeholder="Select student...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_STUDENT">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="student in students | filter: $select.search">
                             <div ng-bind-html="student.name | highlight: $select.search"></div>
                             <small>
@@ -116,7 +116,7 @@
              <div class="col-sm-12">
                 <div class="input-group">
                     <ui-select allow-clear ng-model="filterAbsence.contactLesson" theme="bootstrap">
-                        <ui-select-match placeholder="Select contactLesson...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_CONTACTLESSON">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
                             <div ng-bind-html="contactLesson.name | highlight: $select.search"></div>
                             <small>
@@ -129,8 +129,8 @@
 
 
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
+                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
             </div><!-- /.col-lg-6 -->
         </div>
     </fieldset>
