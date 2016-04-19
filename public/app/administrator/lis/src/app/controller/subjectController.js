@@ -107,7 +107,7 @@
                             {//select one
                                 field: "module",
                                 name: "module",
-                                displayName: 'Module',
+                                displayName: 'LIS_MODULE',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -116,18 +116,30 @@
                             {//select many
                                 field: "gradingType",
                                 name: 'gradingType',
-                                displayName: 'gradingTypes',
+                                displayName: 'LIS_GRADINGTYPE',
                                 cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
                                 editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name"
                             },
-                            {field: 'name'},
-                            {field: 'subjectCode'},
-                            {field: 'durationAllAK'},
-                            {field: 'durationContactAK'},
-                            {field: 'durationIndependentAK'},
-                            {field: 'trashed'}
+                            {field: 'name',
+                                displayName: 'LIS_NAME'
+                            },
+                            {field: 'subjectCode',
+                                displayName: 'LIS_SUBJECTCODE'
+                            },
+                            {field: 'durationAllAK',
+                                displayName: 'LIS_DURATIONALLAK'
+                            },
+                            {field: 'durationContactAK',
+                                displayName: 'LIS_DURATIONCONTACTAK'
+                            },
+                            {field: 'durationIndependentAK',
+                                displayName: 'LIS_DURATIONINDEPENDENTAK'
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED'
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,

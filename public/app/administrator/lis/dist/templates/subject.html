@@ -1,16 +1,16 @@
-<h2>Subject view</h2>
+<h2>LIS_SUBJECT_VIEW</h2>
 <form class="form-horizontal" name="subjectForm" ng-submit="Create(subjectForm.$valid)">
 
     <fieldset>
 
-        <legend>Create new subject</legend>
+        <legend>LIS_CREATE_NEW_SUBJECT</legend>
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': subjectForm.module.$invalid }">
                 <div class="col-lg-4">
                     <div class="input-group input-group-lg">
                         <ui-select name="module" ng-required="true" ng-model="subject.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="Choose module">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="SELECT_OR_SEARCH_A_MODULE">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="module in modules | filter: $select.search">
                                 <span ng-bind-html="module.name | highlight: $select.search"></span>
                                 <small>
@@ -26,7 +26,7 @@
                 <div class="col-lg-4">
                     <div class="input-group">
                         <ui-select name="gradingTypes" multiple ng-required="true" ng-model="subject.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
-                            <ui-select-match placeholder="Select gradingType">{{$item.name}}</ui-select-match>
+                            <ui-select-match placeholder="SELECT_GRADINGTYPES">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
                                 <small>
@@ -45,8 +45,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="subjectForm-name">Name</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="subjectForm-name" ng-model="subject.name">
+                        <span class="input-group-addon" id="subjectForm-name">LIS_NAME</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="subjectForm-name" ng-model="subject.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -54,8 +54,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.subjectCode.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="subjectForm-subjectCode">Code</span>
-                        <input name="subjectCode" type="text" class="form-control" placeholder="Code" aria-describedby="subjectForm-subjectCode" ng-model="subject.subjectCode" required>
+                        <span class="input-group-addon" id="subjectForm-subjectCode">LIS_SUBJECTCODE</span>
+                        <input name="subjectCode" type="text" class="form-control" placeholder="LIS_SUBJECTCODE" aria-describedby="subjectForm-subjectCode" ng-model="subject.subjectCode" required>
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -67,8 +67,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationAllAK.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="subjectForm-durationAllAK">Duration All AK</span>
-                        <input name="durationAllAK" ng-required="true" type="number" class="form-control" placeholder="durationAllAK" aria-describedby="subjectForm-durationAllAK" ng-model="subject.durationAllAK">
+                        <span class="input-group-addon" id="subjectForm-durationAllAK">LIS_DURATIONALLAK</span>
+                        <input name="durationAllAK" ng-required="true" type="number" class="form-control" placeholder="LIS_DURATIONALLAK" aria-describedby="subjectForm-durationAllAK" ng-model="subject.durationAllAK">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -76,8 +76,8 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationContactAK.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="subjectForm-durationContactAK">Duration Contact AK</span>
-                        <input name="durationContactAK" ng-required="true" type="number" class="form-control" placeholder="durationContactAK" aria-describedby="subjectForm-durationContactAK" ng-model="subject.durationContactAK">
+                        <span class="input-group-addon" id="subjectForm-durationContactAK">LIS_DURATIONCONTACTAK</span>
+                        <input name="durationContactAK" ng-required="true" type="number" class="form-control" placeholder="LIS_DURATIONCONTACTAK" aria-describedby="subjectForm-durationContactAK" ng-model="subject.durationContactAK">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -85,14 +85,14 @@
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationIndependentAK.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="subjectForm-durationIndependentAK">Duration Independent AK</span>
-                        <input name="durationIndependentAK" ng-required="true" type="number" class="form-control" placeholder="Duration Independent AK" aria-describedby="subjectForm-durationIndependentAK" ng-model="subject.durationIndependentAK">
+                        <span class="input-group-addon" id="subjectForm-durationIndependentAK">LIS_DURATIONINDEPENDENTAK</span>
+                        <input name="durationIndependentAK" ng-required="true" type="number" class="form-control" placeholder="LIS_DURATIONINDEPENDENTAK" aria-describedby="subjectForm-durationIndependentAK" ng-model="subject.durationIndependentAK">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
             
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
             </div><!-- /.col-lg-6 -->
 
         </div><!-- /.row -->
@@ -104,14 +104,14 @@
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
-        <legend>Subject grid filters</legend>
+        <legend>SUBJECT_GRID_FILTERS</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Subject filter</label>
+            <label class="col-sm-3 control-label">SUBJECT_FILTER</label>
             <div class="col-sm-12">
                 <div class="input-group">
 
                     <ui-select allow-clear ng-model="filterSubject.module" theme="bootstrap">
-                        <ui-select-match placeholder="Select or search a module in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_MODULE">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="module in modules | filter: $select.search">
                             <span ng-bind-html="module.name | highlight: $select.search"></span>
                             <small>
@@ -126,7 +126,7 @@
             <div class="col-lg-4">
                 <div class="input-group">
                     <ui-select name="gradingTypes" multiple  ng-model="filterSubject.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
-                        <ui-select-match placeholder="Select gradingType...">{{$item.name}}</ui-select-match>
+                        <ui-select-match placeholder="SELECT_OR_SEARCH_GRADINGTYPES">{{$item.name}}</ui-select-match>
                         <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                             <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
                             <small>
@@ -140,8 +140,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-name">Name</span>
-                        <input name="name" ng-model="filterSubject.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterSubject-name">
+                        <span class="input-group-addon" id="filterSubject-name">LIS_NAME</span>
+                        <input name="name" ng-model="filterSubject.name" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="filterSubject-name">
                     </div>
                 </div>
             </div>
@@ -149,8 +149,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-subjectCode">Code</span>
-                        <input name="subjectCode" ng-model="filterSubject.subjectCode" type="text" class="form-control" placeholder="Code" aria-describedby="filterSubject-subjectCode">
+                        <span class="input-group-addon" id="filterSubject-subjectCode">LIS_SUBJECTCODE</span>
+                        <input name="subjectCode" ng-model="filterSubject.subjectCode" type="text" class="form-control" placeholder="LIS_SUBJECTCODE" aria-describedby="filterSubject-subjectCode">
                     </div>
                 </div>
             </div>
@@ -158,8 +158,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-durationAllAK">Duration All</span>
-                        <input name="durationAllAK" ng-model="filterSubject.durationAllAK" type="number" class="form-control" placeholder="Duration All" aria-describedby="filterSubject-durationAllAK">
+                        <span class="input-group-addon" id="filterSubject-durationAllAK">LIS_DURATIONALLAK</span>
+                        <input name="durationAllAK" ng-model="filterSubject.durationAllAK" type="number" class="form-control" placeholder="LIS_DURATIONALLAK" aria-describedby="filterSubject-durationAllAK">
                     </div>
                 </div>
             </div>
@@ -167,8 +167,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-durationContactAK">Duration Contact</span>
-                        <input name="durationContactAK" ng-model="filterSubject.durationContactAK" type="number" class="form-control" placeholder="Duration Contact" aria-describedby="filterSubject-durationContactAK">
+                        <span class="input-group-addon" id="filterSubject-durationContactAK">LIS_DURATIONCONTACTAK</span>
+                        <input name="durationContactAK" ng-model="filterSubject.durationContactAK" type="number" class="form-control" placeholder="LIS_DURATIONCONTACTAK" aria-describedby="filterSubject-durationContactAK">
                     </div>
                 </div>
             </div>
@@ -176,15 +176,15 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-durationIndependentAK">Duration Independent</span>
-                        <input name="durationIndependentAK" ng-model="filterSubject.durationIndependentAK" type="number" class="form-control" placeholder="Duration Independent" aria-describedby="filterSubject-durationIndependentAK">
+                        <span class="input-group-addon" id="filterSubject-durationIndependentAK">LIS_DURATIONINDEPENDENTAK</span>
+                        <input name="durationIndependentAK" ng-model="filterSubject.durationIndependentAK" type="number" class="form-control" placeholder="LIS_DURATIONINDEPENDENTAK" aria-describedby="filterSubject-durationIndependentAK">
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
+                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
             </div><!-- /.col-lg-6 -->
         </div>
     </fieldset>
