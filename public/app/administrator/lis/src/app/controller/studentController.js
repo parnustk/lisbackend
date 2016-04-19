@@ -53,7 +53,7 @@
                         page: 1,
                         limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
                     };
-                    
+
                     /**
                      * records sceleton
                      */
@@ -67,7 +67,7 @@
                     };
 
                     $scope.student = {};
-                    
+
                     $scope.filterStudent = {};
 
                     /**
@@ -87,11 +87,21 @@
                                     priority: 1
                                 }
                             },
-                            {field: 'firstName'},
-                            {field: 'lastName'},
-                            {field: 'email'},
-                            {field: 'personalCode'},
-                            {field: 'trashed'}
+                            {field: 'firstName',
+                                displayName: 'LIS_FIRSTNAME'
+                            },
+                            {field: 'lastName',
+                                displayName: 'LIS_LASTNAME'
+                            },
+                            {field: 'email',
+                                displayName: 'LIS_EMAIL'
+                            },
+                            {field: 'personalCode',
+                                displayName: 'LIS_PERSONALCODE'
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED'
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
@@ -164,7 +174,7 @@
                             alert('CHECK_FORM_FIELDS');
                         }
                     };
-                    
+
                     /**
                      * Set remote criteria for DB
                      * 
@@ -187,7 +197,7 @@
                         delete urlParams.where;
                         LoadGrid();
                     };
-                    
+
                     /**
                      * Before loading absence data, 
                      * we first load relations and check success
