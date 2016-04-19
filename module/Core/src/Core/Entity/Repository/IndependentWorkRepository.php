@@ -50,8 +50,23 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         description,
                         durationAK,
                         trashed
+                    },
+                    partial subjectRound.{
+                        id,
+                        name
+                    },
+                    partial student.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
                     }
-                FROM Core\Entity\IndependentWork $this->baseAlias";
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.student student";
 
         return $dql;
     }
@@ -70,8 +85,23 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         description,
                         durationAK,
                         trashed
+                    },
+                    partial subjectRound.{
+                        id,
+                        name
+                    },
+                    partial student.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
                     }
-                FROM Core\Entity\IndependentWork $this->baseAlias";
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.student student";
 
         return $dql;
     }
@@ -90,8 +120,23 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         description,
                         durationAK,
                         trashed
+                    },
+                    partial subjectRound.{
+                        id,
+                        name
+                    },
+                    partial student.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
                     }
-                FROM Core\Entity\IndependentWork $this->baseAlias";
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.student student";
 
         return $dql;
     }
@@ -110,8 +155,23 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         description,
                         durationAK,
                         trashed
+                    },
+                    partial subjectRound.{
+                        id,
+                        name
+                    },
+                    partial student.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
                     }
-                FROM Core\Entity\IndependentWork $this->baseAlias";
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.student student";
 
         return $dql;
     }
