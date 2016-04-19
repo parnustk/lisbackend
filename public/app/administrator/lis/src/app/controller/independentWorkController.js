@@ -17,12 +17,6 @@
  */
 
 /**
- * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
- * http://brianhann.com/ui-grid-and-multi-select/#more-732
- * http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
- * http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
- * adding content later https://github.com/angular-ui/ui-grid/issues/2050
- * dropdown menu http://brianhann.com/ui-grid-and-dropdowns/
  * 
  * @param {type} define
  * @param {type} document
@@ -364,7 +358,7 @@
                  */
                 function LoadGrid() {
 
-                    subjectRoundModel.GetList({}).then(function (result) {
+                    subjectRoundModel.GetList(urlParams).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
 
                             $scope.subjectRounds = result.data;
