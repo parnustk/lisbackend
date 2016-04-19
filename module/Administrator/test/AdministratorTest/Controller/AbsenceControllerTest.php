@@ -139,6 +139,7 @@ class AbsenceControllerTest extends UnitHelpers
 
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
         $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
+        $this->request->getPost()->set('absenceReason', $this->CreateAbsenceReason()->getId());
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -146,11 +147,11 @@ class AbsenceControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
         
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, $result->success);
+        $this->assertEquals(true, $result->success);
         
         //test that message contains description":{"isEmpty
-        $validator = new Regex(['pattern' => '/description.{4}isEmpty/U']);
-        $this->assertTrue($validator->isValid($result->message));
+//        $validator = new Regex(['pattern' => '/description.{4}isEmpty/U']);
+//        $this->assertTrue($validator->isValid($result->message));
     }
     /**
      * Should be NOT successful

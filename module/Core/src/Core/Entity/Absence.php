@@ -24,7 +24,6 @@ use Core\Entity\LisUser;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\AbsenceRepository")
  * @ORM\Table(
  *     indexes={
- *          @ORM\Index(name="absence_decription", columns={"description"}),
  *          @ORM\Index(name="absence_index_trashed", columns={"trashed"})
  *      }
  * )
@@ -46,9 +45,9 @@ class Absence extends EntityValidation
     protected $id;
 
     /**
-     * @Annotation\Required({"required":"true"})
+     * @Annotation\Exclude()
      * 
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $description;
 
