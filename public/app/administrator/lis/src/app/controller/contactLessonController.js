@@ -349,7 +349,7 @@
                  * @returns {undefined}
                  */
                 $scope.ClearFilters = function () {
-                    $scope.filterModule = {};
+                    $scope.contactLessonFilter = {};
                     delete urlParams.where;
                     LoadGrid();
                 };
