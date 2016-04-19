@@ -173,7 +173,8 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered
+                                sortCellFiltered: $scope.sortFiltered,
+                                enableCellEdit: false
                             },
                             {
                                 field: "gradeChoice",
@@ -183,7 +184,8 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered
+                                sortCellFiltered: $scope.sortFiltered,
+                                enableCellEdit: false
                             },
                             {
                                 field: "teacher",
@@ -193,7 +195,8 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered
+                                sortCellFiltered: $scope.sortFiltered,
+                                enableCellEdit: false
                             },
                             {
                                 field: "independentWork",
@@ -203,7 +206,8 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered
+                                sortCellFiltered: $scope.sortFiltered,
+                                enableCellEdit: false
                             },
                             {
                                 field: "module",
@@ -213,7 +217,8 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered
+                                sortCellFiltered: $scope.sortFiltered,
+                                enableCellEdit: false
                             },
                             {
                                 field: "subjectRound",
@@ -223,7 +228,8 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered
+                                sortCellFiltered: $scope.sortFiltered,
+                                enableCellEdit: false
                             },
                             {
                                 field: "contactLesson",
@@ -233,13 +239,16 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered
+                                sortCellFiltered: $scope.sortFiltered,
+                                enableCellEdit: false
                             },
                             {field: 'notes',
                                 displayName: 'LIS_NOTES',
+                                enableCellEdit: false
                             },
                             {field: 'trashed',
                                 displayName: 'LIS_TRASHED',
+                                enableCellEdit: false
                             }
                         ],
                         enableGridMenu: true,
