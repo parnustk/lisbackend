@@ -9,7 +9,7 @@
             <div class="form-group" ng-class="{ 'has-error': absenceForm.absenceReason.$invalid }">
                 <div class="col-lg-4">
                     <div class="input-group input-group-lg">
-                        <ui-select name="absenceReason" ng-required="true" ng-model="absence.absenceReason" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="absenceReason" ng-required="false" ng-model="absence.absenceReason" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
                             <ui-select-match placeholder="SELECT_AN_ABSENCEREASON">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
                                 <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>

@@ -64,7 +64,7 @@ class AbsenceRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
-                JOIN $this->baseAlias.absenceReason absenceReason";
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
     /**
@@ -98,7 +98,7 @@ class AbsenceRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
-                JOIN $this->baseAlias.absenceReason absenceReason";
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
     /**
@@ -132,7 +132,7 @@ class AbsenceRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
-                JOIN $this->baseAlias.absenceReason absenceReason";
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
     
     /**
@@ -166,7 +166,7 @@ class AbsenceRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.contactLesson contactLesson
                 JOIN $this->baseAlias.student student
-                JOIN $this->baseAlias.absenceReason absenceReason";
+                LEFT JOIN $this->baseAlias.absenceReason absenceReason";
     }
 
     /**
