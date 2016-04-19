@@ -87,7 +87,8 @@
                                 displayName: 'LIS_NAME'
                             },
                             {field: 'trashed',
-                                displayName: 'LIS_TRASHED'}
+                                displayName: 'LIS_TRASHED'
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,

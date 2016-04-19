@@ -84,10 +84,18 @@
                                     priority: 1
                                 }
                             },
-                            {field: 'name'},
-                            {field: 'vocationCode'},
-                            {field: 'durationEKAP'},
-                            {field: 'trashed'}
+                            {field: 'name',
+                                displayName: 'LIS_NAME'
+                            },
+                            {field: 'vocationCode',
+                                displayName: 'LIS_VOCATIONCODE'
+                            },
+                            {field: 'durationEKAP',
+                                displayName: 'LIS_DURATIONEKAP'
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED'
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
