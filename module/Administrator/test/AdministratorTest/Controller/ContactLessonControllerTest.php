@@ -230,16 +230,8 @@ class ContactLessonTest extends UnitHelpers
         $lessonDateO = $contactLesson->getLessonDate()->format('Y-m-d H:i:s');
         $descriptionO = $contactLesson->getDescription();
         $sequenceNrO = $contactLesson->getSequenceNr();
-        $subjectRoundIdO = $contactLesson->getSubjectRound()->getId();
-
-        $teachersO = [];
-        foreach ($contactLesson->getTeacher() as $teacherO) {
-            $teachersO[] = [
-                'id' => $teacherO->getId()
-                    // 'id' => $this->CreateId->getId()
-            ];
-        }
-
+        $subjectRoundIdO = $contactLesson->getSubjectRound();
+        $teacher0 = $contactLesson->getTeacher();
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $id);
 
@@ -251,21 +243,15 @@ class ContactLessonTest extends UnitHelpers
         $description = ' Updated Description for contactlesson';
         $sequenceNr = 44;
         $subjectRound = $this->CreateSubjectRound();
-        $teachers = [];
-        foreach ($subjectRound->getTeacher() as $teacher) {
-            $teachers[] = [
-                'id' => $teacher->getId()
-            ];
-        }
 
         $insertData = [
             "lessonDate" => $lessonDate,
             "description" => $description,
             "sequenceNr" => $sequenceNr,
             "subjectRound" => $subjectRound->getId(),
-            "teacher" => $teachers
+            "teacher" => $contactLesson->getTeacher()->getId(),
         ];
-//       print_r($insertData);
+
         //set new data
         $this->request->setContent(http_build_query($insertData));
 
@@ -280,14 +266,10 @@ class ContactLessonTest extends UnitHelpers
         $this->assertNotEquals($lessonDateO, $result->data['lessonDate']);
         $this->assertNotEquals($descriptionO, $result->data['description']);
         $this->assertNotEquals($sequenceNrO, $result->data['sequenceNr']);
-        $this->assertNotEquals($subjectRoundIdO, $result->data['subjectRound']);
+        $this->assertNotEquals($subjectRoundIdO->getId(), $result->data['subjectRound']);
+        $this->assertNotEquals($teacher0->getId(), $result->data['teacher']);
+        
 
-        //no double check figured out, pure linear looping
-        foreach ($teachersO as $teacherO) {
-            foreach ($result->data['teacher'] as $teacherU) {
-                $this->assertNotEquals($teacherO['id'], $teacherU['id']);
-            }
-        }
     }
 
     /**
