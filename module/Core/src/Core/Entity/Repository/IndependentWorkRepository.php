@@ -170,8 +170,8 @@ class IndependentWorkRepository extends AbstractBaseRepository
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subjectRound subjectRound
-                JOIN $this->baseAlias.student student";
+                JOIN $this->baseAlias.student student
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
 
         return $dql;
     }

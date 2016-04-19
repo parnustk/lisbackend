@@ -31,8 +31,8 @@
      * @param {type} globalFunctions
      * @returns {independentWorkController_L21.independentWorkController_L32.independentWorkController}
      */
-    define(['angular', 'app/util/globalFunctions'],
-        function (angular, globalFunctions) {
+    define(['angular', 'app/util/globalFunctions', 'moment'],
+        function (angular, globalFunctions, moment) {
 
             independentWorkController.$inject = [
                 '$scope', 
@@ -194,7 +194,9 @@
                     student: null
                 };
 
-                $scope.subjectRounds = $scope.teachers = $scope.students = [];//for ui-select in form
+                $scope.subjectRounds = [];
+                $scope.teachers = [];
+                $scope.students = [];//for ui-select in form
 
                 $scope.independentWork = {};//for form, object
 
@@ -205,7 +207,7 @@
                  */
                 $scope.gridOptions = {
                     rowHeight: 38,
-                    enableCellEditOnFocus: true,
+                    enableCellEditOnFocus: false,
                     columnDefs: [
                         {
                             field: 'id',
@@ -220,57 +222,64 @@
                         {//select one
                             field: "subjectRound",
                             name: "subjectRound",
-                            displayName: 'Subject Round',
+                            displayName: 'LIS_SUBJECTROUND',
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
                             sortCellFiltered: $scope.sortFiltered,
-                            cellFilter: 'griddropdown:this'
+                            cellFilter: 'griddropdown:this',
+                            enableCellEdit: false
                         },
                         {//select one
                             field: "teacher",
                             name: "teacher",
-                            displayName: 'Teacher',
+                            displayName: 'LIS_TEACHER',
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
                             sortCellFiltered: $scope.sortFiltered,
-                            cellFilter: 'griddropdown:this'
+                            cellFilter: 'griddropdown:this',
+                            enableCellEdit: false
                         },
                         {//select one
                             field: "student",
                             name: "student",
-                            displayName: 'Student',
+                            displayName: 'LIS_STUDENT',
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
                             sortCellFiltered: $scope.sortFiltered,
-                            cellFilter: 'griddropdown:this'
+                            cellFilter: 'griddropdown:this',
+                            enableCellEdit: false
                         },
-                        {field: 'name'},
-                        {field: 'duedate'},
-                        {field: 'description'},
-                        {field: 'durationAK'},
-                        {field: 'trashed'}
+                        {
+                            field: "name",
+                            displayName: 'LIS_NAME',
+                            enableCellEdit: false
+                        },
+                        {
+                            field: "duedate['date']",
+                            name: "duedate['date']",
+                            displayName: 'LIS_DUEDATE',
+                            type: "date",
+                            cellFilter: 'date:"yyyy-MM-dd"',
+                            width: '20%',
+                            enableCellEdit: false
+                        },
+                        {
+                            field: "description",
+                            displayName:'LIS_DESCRIPTION',
+                            enableCellEdit: false
+                        },
+                        {
+                            field: "durationAK",
+                            displayName:'LIS_DURATIONAK',
+                            enableCellEdit: false
+                        }
                     ],
                     enableGridMenu: true,
                     enableSelectAll: true,
                     exporterCsvFilename: 'independentWorks.csv',
-                    exporterPdfDefaultStyle: {fontSize: 9},
-                    exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
-                    exporterPdfHeader: {text: "My Header", style: 'headerStyle'},
-                    exporterPdfFooter: function (currentPage, pageCount) {
-                        return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
-                    },
-                    exporterPdfCustomFormatter: function (docDefinition) {
-                        docDefinition.styles.headerStyle = {fontSize: 22, bold: true};
-                        docDefinition.styles.footerStyle = {fontSize: 10, bold: true};
-                        return docDefinition;
-                    },
-                    exporterPdfOrientation: 'portrait',
-                    exporterPdfPageSize: 'LETTER',
-                    exporterPdfMaxGridWidth: 500,
                     exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location"))
                 };
 
@@ -314,13 +323,12 @@
                  */
                 $scope.Create = function (valid) {
                     if (valid) {
+                        var buf = $scope.independentWork.duedate;
+                        $scope.independentWork.duedate = moment($scope.independentWork.duedate).format();
                         independentWorkModel.Create($scope.independentWork).then(function (result) {
+                            $scope.independentWork.duedate = buf;
                             if (globalFunctions.resultHandler(result)) {
-                                console.log(result);
-                                //$scope.gridOptions.data.push(result.data);
-                                LoadGrid();//only needed if grid contains many column
-                                //can be used for gridrefresh button
-                                //maybe it is good to refresh after create?
+                                LoadGrid();
                             }
                         });
                     } else {
@@ -335,7 +343,7 @@
                  */
                 $scope.Filter = function () {
                     if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterindependentWork));
+                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterIndependentWork));
                         LoadGrid();
                     }
                 };
@@ -346,7 +354,7 @@
                  * @returns {undefined}
                  */
                 $scope.ClearFilters = function () {
-                    $scope.filterindependentWork = {};
+                    $scope.filterIndependentWork = {};
                     delete urlParams.where;
                     LoadGrid();
                 };
@@ -362,6 +370,7 @@
                         if (globalFunctions.resultHandler(result)) {
 
                             $scope.subjectRounds = result.data;
+                            console.log($scope.subjectRounds);
                             $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.subjectRounds;
 
                             teacherModel.GetList($scope.params).then(function (result) {
