@@ -112,15 +112,19 @@
                             {
                                 field: "vocation",
                                 name: "vocation",
-                                displayName: 'Vocation',
+                                displayName: 'LIS_VOCATION',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
                                 sortCellFiltered: $scope.sortFiltered
                             },
-                            {field: 'name'},
-                            {field: 'trashed'}
+                            {field: 'name',
+                                displayName: 'LIS_NAME'
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED'
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,

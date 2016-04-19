@@ -203,13 +203,7 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                sortCellFiltered: $scope.sortFiltered,
-//                                editDropdownOptionsArray: [
-//                                    {id: 1, name: 'independentWork'},
-//                                    {id: 2, name: 'module'},
-//                                    {id: 3, name: 'subjectRound'},
-//                                    {id: 4, name: 'contactLesson'}
-//                                ]
+                                sortCellFiltered: $scope.sortFiltered
                             },
                             {
                                 field: "module",
@@ -234,7 +228,7 @@
                             {
                                 field: "contactLesson",
                                 name: "contactLesson",
-                                displayName: 'LILESSON',
+                                displayName: 'LIS_CONTACTLESSON',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
