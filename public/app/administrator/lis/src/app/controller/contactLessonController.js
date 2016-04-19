@@ -86,6 +86,10 @@
                 };
 
                 $scope.toggleMin();
+                
+                $scope.open1 = function () {
+                    $scope.popup1.opened = true;
+                };
 
                 $scope.open2 = function () {
                     $scope.popup2.opened = true;
@@ -99,6 +103,10 @@
                 $scope.format = $scope.formats[0];
                 $scope.altInputFormats = ['M!/d!/yyyy'];
 
+                $scope.popup1 = {
+                    opened: false
+                };
+                
                 $scope.popup2 = {
                     opened: false
                 };
@@ -319,56 +327,60 @@
                     }
                 };
 
-//                /**
-//                 * Set remote criteria for DB
-//                 * 
-//                 * @returns {undefined}
-//                 */
-//                $scope.Filter = function () {
-//                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-//                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterModule));
-//                        LoadGrid();
-//                    }
-//                };
-//
-//                /**
-//                 * Remove criteria
-//                 * 
-//                 * @returns {undefined}
-//                 */
-//                $scope.ClearFilters = function () {
-//                    $scope.filterModule = {};
-//                    delete urlParams.where;
-//                    LoadGrid();
-//                };
+                /**
+                 * Set remote criteria for DB
+                 * 
+                 * @returns {undefined}
+                 */
+                $scope.Filter = function () {
+                    if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                        var buf = $scope.contactLessonFilter.lessonDate,
+                            data = globalFunctions.cleanData($scope.contactLessonFilter);
+                        data.lessonDate = moment(buf).format();
+                        var whereJSON = angular.toJson(data);
+                        urlParams.where = whereJSON;
+                        LoadGrid();
+                    }
+                };
+
+                /**
+                 * Remove criteria
+                 * 
+                 * @returns {undefined}
+                 */
+                $scope.ClearFilters = function () {
+                    $scope.filterModule = {};
+                    delete urlParams.where;
+                    LoadGrid();
+                };
 
                 function LoadGrid() {
-                    roomModel.GetList(urlParams).then(function (result) {
+                    roomModel.GetList({}).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
                             $scope.roomsAll = result.data;
                             $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.roomsAll;
 
-                            subjectRoundModel.GetList(urlParams).then(function (result) {
+                            subjectRoundModel.GetList({}).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
                                     $scope.subjectRounds = result.data;
                                     $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.subjectRounds;
 
-                                    studentGroupModel.GetList(urlParams).then(function (result) {
+                                    studentGroupModel.GetList({}).then(function (result) {
                                         if (globalFunctions.resultHandler(result)) {
                                             $scope.studentGroups = result.data;
                                             $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.studentGroups;
 
-                                            moduleModel.GetList(urlParams).then(function (result) {
+                                            moduleModel.GetList({}).then(function (result) {
                                                 if (globalFunctions.resultHandler(result)) {
                                                     $scope.modules = result.data;
                                                     $scope.gridOptions.columnDefs[4].editDropdownOptionsArray = $scope.modules;
 
-                                                    vocationModel.GetList(urlParams).then(function (result) {
+                                                    vocationModel.GetList({}).then(function (result) {
                                                         if (globalFunctions.resultHandler(result)) {
                                                             $scope.vocations = result.data;
                                                             $scope.gridOptions.columnDefs[5].editDropdownOptionsArray = $scope.vocations;
 
-                                                            teacherModel.GetList(urlParams).then(function (result) {
+                                                            teacherModel.GetList({}).then(function (result) {
                                                                 if (globalFunctions.resultHandler(result)) {
                                                                     $scope.teachers = result.data;
                                                                     $scope.gridOptions.columnDefs[6].editDropdownOptionsArray = $scope.teachers;

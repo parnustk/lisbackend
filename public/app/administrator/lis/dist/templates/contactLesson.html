@@ -178,4 +178,36 @@
 
 </form>
 
+<br><br>
+<form class="form-horizontal" name="filterContactLesson" ng-submit="Filter()">
+    <fieldset>
+
+        <legend>Module grid filters</legend>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Vocation filter</label>
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <p class="input-group">
+                        <span class="input-group-addon" id="filterForm-lessonDate">LIS_LESSONDATE</span>
+                        <input type="text" name="lessonDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="contactLessonFilter.lessonDate" placeholder="LIS_LESSONDATE" aria-describedby="filterForm-lessonDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div><!-- /.col-lg-6 -->
+        </div>
+    </fieldset>
+</form>
+<br><br>
+
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>
