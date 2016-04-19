@@ -36,17 +36,6 @@
             </div>
         </div><!-- /.row -->
 
-        <div class="row">
-            <div class="col-md-6">
-                <p class="input-group">
-                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
-            </div>
-        </div>
-
         <div class="col-lg-6">
             <button type="submit" class="btn btn-primary">LIS_CREATE</button>
         </div><!-- /.col-lg-6 -->
@@ -91,8 +80,8 @@
             </div>
 
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
+                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
             </div><!-- /.col-lg-6 -->
             
         </div>
