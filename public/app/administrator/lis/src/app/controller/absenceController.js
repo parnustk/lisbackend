@@ -113,7 +113,7 @@
                             {
                                 field: "absenceReason",
                                 name: "absenceReason",
-                                displayName: 'Absence Reason',
+                                displayName: 'LIS_ABSENCEREASON',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -123,7 +123,7 @@
                             {
                                 field: "student",
                                 name: "student",
-                                displayName: 'Student',
+                                displayName: 'LIS_STUDENT',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -133,15 +133,18 @@
                             {
                                 field: "contactLesson",
                                 name: "contactLesson",
-                                displayName: 'Contact Lesson',
+                                displayName: 'LIS_CONTACTLESSON',
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
                                 sortCellFiltered: $scope.sortFiltered
                             },
-                            {field: 'description'},
-                            {field: 'trashed'}
+                            {field: 'description',
+                                displayName: 'LIS_DESCRIPTION'
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED'}
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
