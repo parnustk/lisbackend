@@ -381,6 +381,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
     /**
      * IndependentWork
+     * @author Kristen Sepp <seppkristen@gmail.com>
      * 
      * @param type $data
      * @return type
@@ -394,6 +395,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         $subjectRound = $this->CreateSubjectRound();
         $teacher = $this->CreateTeacher();
+        $student = $this->CreateStudent();
 
         return $repository->Create([
                     'name' => uniqid() . 'Name',
@@ -402,6 +404,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'durationAK' => (int) uniqid(),
                     'subjectRound' => $subjectRound->getId(),
                     'teacher' => $teacher->getId(),
+                    'student' => $student->getId(),
         ]);
     }
 

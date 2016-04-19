@@ -5,8 +5,8 @@
  * LIS development
  * 
  * @link       https://github.com/parnustk/lisbackend
- * @copyright  Copyright (c) 2016 Lis dev team
- * @license    TODO
+ * @copyright  opyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license    https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  * 
  */
 
@@ -92,11 +92,11 @@ class IndependentWorkControllerTest extends UnitHelpers
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, false);
+        $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-        $this->assertEquals(0, count($result->data));
+        $this->assertGreaterThan(0, count($result->data));
     }
 
     /**
@@ -121,7 +121,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(0, $result->success);
+        $this->assertEquals(true, $result->success);
     }
 
     /**
@@ -164,9 +164,9 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, $result->success);
+        $this->assertEquals(true, $result->success);
         //limit is set to 1
-        $this->assertEquals(0, count($result->data));
+        $this->assertGreaterThan(0, count($result->data));
         //assert all results have trashed not null
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);
