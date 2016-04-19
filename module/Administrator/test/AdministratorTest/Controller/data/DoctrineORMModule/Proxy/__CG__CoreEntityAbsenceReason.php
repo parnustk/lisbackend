@@ -268,6 +268,17 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name)
     {
 
@@ -279,7 +290,7 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setAbsence($absence)
+    public function setAbsence(\Core\Entity\Absence $absence)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAbsence', array($absence));
@@ -301,7 +312,7 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Core\Entity\LisUser $createdBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
@@ -312,7 +323,7 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(\Core\Entity\LisUser $updatedBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
@@ -323,7 +334,7 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
@@ -334,7 +345,7 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
@@ -422,12 +433,12 @@ class AbsenceReason extends \Core\Entity\AbsenceReason implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data, \Doctrine\ORM\EntityManager $em = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data, $em));
 
-        return parent::hydrate($data);
+        return parent::hydrate($data, $em);
     }
 
     /**

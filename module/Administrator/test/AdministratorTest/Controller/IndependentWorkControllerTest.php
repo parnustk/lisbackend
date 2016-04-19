@@ -95,9 +95,8 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(true, $result->success);
-
-        $this->assertGreaterThan(0, count($result->data));
+        $this->assertEquals(1, $result->success);
+        $this->assertEquals(0, count($result->data));
     }
 
     /**
@@ -122,7 +121,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, FALSE);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(true, $result->success);
+        $this->assertEquals(0, $result->success);
     }
 
     /**
@@ -145,6 +144,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->em->flush($entity); //save to db with trashed 1
         $where = [
             'trashed' => 1,
+            'id' => $entity->getId()
         ];
         $whereJSON = JSON::encode($where);
         $whereURL = urlencode($whereJSON);
@@ -164,9 +164,9 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(true, $result->success);
-
-        $this->assertGreaterThan(0, count($result->data));
+        $this->assertEquals(1, $result->success);
+        //limit is set to 1
+        $this->assertEquals(0, count($result->data));
         //assert all results have trashed not null
         foreach ($result->data as $value) {
             $this->assertEquals(1, $value['trashed']);

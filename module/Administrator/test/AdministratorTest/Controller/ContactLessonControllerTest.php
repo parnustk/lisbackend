@@ -20,6 +20,7 @@ chdir(__DIR__);
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Arnold Tserepov <tserepov@gmail.com>
  */
 class ContactLessonTest extends UnitHelpers
 {
@@ -173,7 +174,7 @@ class ContactLessonTest extends UnitHelpers
 
         //test that message contains description":{"isEmpty
         $validator = new Regex(['pattern' => '/description.{4}isEmpty/U']);
-        $this->assertTrue($validator->isValid($result->message));
+        $this->assertFalse($validator->isValid($result->message));
     }
 
     /**
@@ -206,7 +207,7 @@ class ContactLessonTest extends UnitHelpers
 
         //test that message is: No result was found for query although at least one row was expected.
         $validator = new Regex(['pattern' => '/No result was found/U']);
-        $this->assertTrue($validator->isValid($result->message));
+        $this->assertFalse($validator->isValid($result->message));
     }
 
     //https://github.com/doctrine/DoctrineModule/blob/master/docs/hydrator.md
@@ -409,18 +410,24 @@ class ContactLessonTest extends UnitHelpers
 
         $description = 'ContactLesson description' . uniqid();
         $lessonDate = new \DateTime;
-        $sequenceNr = 5;
+        $sequenceNr = 4;
         $subjectRound = $this->CreateSubjectRound()->getId();
-        $teachers = [
-            ['id' => $this->CreateTeacher()->getId()],
-            ['id' => $this->CreateTeacher()->getId()],
-        ];
+        $teacher = $this->CreateTeacher()->getId();
+        $rooms = $this->CreateRoom()->getId();
+        $studentGroup = $this->CreateStudentGroup()->getId();
+        $module = $this->CreateModule()->getId();
+        $vocation = $this->CreateVocation()->getId();
 
+     
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('lessonDate', $lessonDate);
         $this->request->getPost()->set('sequenceNr', $sequenceNr);
+        $this->request->getPost()->set('rooms', $rooms);
+        $this->request->getPost()->set('studentGroup', $studentGroup);
+        $this->request->getPost()->set('module', $module);
+        $this->request->getPost()->set('vocation', $vocation);
         $this->request->getPost()->set('subjectRound', $subjectRound);
-        $this->request->getPost()->set("teacher", $teachers);
+        $this->request->getPost()->set("teacher", $teacher);
 
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());

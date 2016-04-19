@@ -64,10 +64,10 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'lessonDate', 'description', 'durationAK', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'lessonDate', 'description', 'durationAK', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -191,6 +191,17 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
+    public function getName()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
+
+        return parent::getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getLessonDate()
     {
 
@@ -213,12 +224,12 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function getDurationAK()
+    public function getSequenceNr()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDurationAK', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSequenceNr', array());
 
-        return parent::getDurationAK();
+        return parent::getSequenceNr();
     }
 
     /**
@@ -263,6 +274,39 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubjectRound', array());
 
         return parent::getSubjectRound();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStudentGroup()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentGroup', array());
+
+        return parent::getStudentGroup();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getModule()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModule', array());
+
+        return parent::getModule();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getVocation()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getVocation', array());
+
+        return parent::getVocation();
     }
 
     /**
@@ -334,6 +378,28 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setName($name)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
+
+        return parent::setName($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setLessonDate($lessonDate)
     {
 
@@ -356,18 +422,18 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setDurationAK($durationAK)
+    public function setSequenceNr($sequenceNr)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDurationAK', array($durationAK));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSequenceNr', array($sequenceNr));
 
-        return parent::setDurationAK($durationAK);
+        return parent::setSequenceNr($sequenceNr);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setAbsence($absence)
+    public function setAbsence(\Core\Entity\Absence $absence)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAbsence', array($absence));
@@ -378,7 +444,7 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setRooms($rooms)
+    public function setRooms(\Core\Entity\Rooms $rooms)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRooms', array($rooms));
@@ -389,7 +455,7 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setStudentGrade($studentGrade)
+    public function setStudentGrade(\Core\Entity\StudentGrade $studentGrade)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGrade', array($studentGrade));
@@ -400,7 +466,7 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setSubjectRound($subjectRound)
+    public function setSubjectRound(\Core\Entity\SubjectRound $subjectRound)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubjectRound', array($subjectRound));
@@ -411,7 +477,40 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setTeacher($teacher)
+    public function setStudentGroup(\Core\Entity\StudentGroup $studentGroup)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentGroup', array($studentGroup));
+
+        return parent::setStudentGroup($studentGroup);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setModule(\Core\Entity\Module $module)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModule', array($module));
+
+        return parent::setModule($module);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setVocation(\Core\Entity\Vocation $vocation)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVocation', array($vocation));
+
+        return parent::setVocation($vocation);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTeacher(\Core\Entity\Teacher $teacher)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTeacher', array($teacher));
@@ -433,7 +532,7 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Core\Entity\LisUser $createdBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedBy', array($createdBy));
@@ -444,7 +543,7 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(\Core\Entity\LisUser $updatedBy)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedBy', array($updatedBy));
@@ -455,7 +554,7 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', array($createdAt));
@@ -466,7 +565,7 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdatedAt', array($updatedAt));
@@ -494,72 +593,6 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeTeacher', array($teachers));
 
         return parent::removeTeacher($teachers);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function addAbsence($absence)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addAbsence', array($absence));
-
-        return parent::addAbsence($absence);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeAbsence($absence)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeAbsence', array($absence));
-
-        return parent::removeAbsence($absence);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function addRooms(\Doctrine\Common\Collections\Collection $rooms)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addRooms', array($rooms));
-
-        return parent::addRooms($rooms);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeRooms(\Doctrine\Common\Collections\Collection $rooms)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeRooms', array($rooms));
-
-        return parent::removeRooms($rooms);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function addSubjectRound($subjectRound)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addSubjectRound', array($subjectRound));
-
-        return parent::addSubjectRound($subjectRound);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeSubjectRound($subjectRound)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeSubjectRound', array($subjectRound));
-
-        return parent::removeSubjectRound($subjectRound);
     }
 
     /**
@@ -642,12 +675,12 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     /**
      * {@inheritDoc}
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data, \Doctrine\ORM\EntityManager $em = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hydrate', array($data, $em));
 
-        return parent::hydrate($data);
+        return parent::hydrate($data, $em);
     }
 
     /**
