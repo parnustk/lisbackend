@@ -44,13 +44,16 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         status,
+                        notes,
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial studentGroup.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -67,13 +70,16 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         status,
+                        notes
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial studentGroup.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -90,13 +96,16 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         status,
+                        notes,
                         trashed
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial studentGroup.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -113,13 +122,16 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         status,
-                        trashed
+                        trashed,
+                        notes
                     },
                     partial student.{
-                        id
+                        id,
+                        name
                         },
                     partial studentGroup.{
-                        id
+                        id,
+                        name
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
