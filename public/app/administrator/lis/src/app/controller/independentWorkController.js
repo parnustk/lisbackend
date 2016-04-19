@@ -11,6 +11,10 @@
  */
 
 /* global define */
+/**
+ * 
+ * @author Kristen Sepp <seppkristen@gmail.com>
+ */
 
 /**
  * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
@@ -187,16 +191,16 @@
                 $scope.model = {
                     id: null,
                     name: null,
-                    subjectRound: null,
-                    teacher: null,
-                    student: null,
                     duedate: null,
                     description: null,
                     durationAK: null,
-                    trashed: null
+                    trashed: null,
+                    subjectRound: null,
+                    teacher: null,
+                    student: null
                 };
 
-                $scope.subjectRound = $scope.teacher = $scope.student = [];//for ui-select in form
+                $scope.subjectRounds = $scope.teachers = $scope.students = [];//for ui-select in form
 
                 $scope.independentWork = {};//for form, object
 
@@ -363,21 +367,21 @@
                     subjectRoundModel.GetList({}).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
 
-                            $scope.subjectRound = result.data;
-                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.subjectRound;
+                            $scope.subjectRounds = result.data;
+                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.subjectRounds;
 
                             teacherModel.GetList($scope.params).then(function (result) {
 
                                 if (globalFunctions.resultHandler(result)) {
 
-                                    $scope.teacher = result.data;
-                                    $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.teacher;
+                                    $scope.teachers = result.data;
+                                    $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.teachers;
 
                                     studentModel.GetList($scope.params).then(function (result) {
                                         if (globalFunctions.resultHandler(result)) {
 
-                                            $scope.student = result.data;
-                                            $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.student;
+                                            $scope.students = result.data;
+                                            $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.students;
 
                                             independentWorkModel.GetList(urlParams).then(function (result) {
                                                 if (globalFunctions.resultHandler(result)) {
