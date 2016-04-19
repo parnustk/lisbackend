@@ -1,43 +1,43 @@
-<h2>GradingType view</h2>
+<h2>LIS_GRADINGTYPE_VIEW</h2>
 <form class="form-horizontal" name="gradingTypeForm" ng-submit="Create(gradingTypeForm.$valid)">
     <fieldset>
-        <legend>Create new gradingType</legend>
+        <legend>LIS_CREATE_NEW_GRADINGTYPE</legend>
 
         <div class="row">
 
             <div class="form-group" ng-class="{ 'has-error': gradingTypeForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="gradingTypeForm-name">Name</span>
+                        <span class="input-group-addon" id="gradingTypeForm-name">LIS_NAME</span>
                         <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="gradingTypeForm-name" ng-model="gradingType.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <button type="button" ng-click="Delete()" class="btn btn-default">Delete</button>
+                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
+                <button type="button" ng-click="Delete()" class="btn btn-default">LIS_DELETE</button>
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
     </fieldset>
 </form>
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
-        <legend>Grading Type grid filter</legend>
+        <legend>LIS_GRADINGTYPE_FILTERS</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Name filter</label>
+            <label class="col-sm-3 control-label">LIS_NAME_FILTER</label>
             
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterGradingType-name">Name</span>
+                        <span class="input-group-addon" id="filterGradingType-name">LIS_SEARCH_NAME</span>
                         <input name="name" ng-model="filterGradingType.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterGradingType-name">
                     </div>
                 </div>
             </div>
             
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">Clear</span></button>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">LIS_CLEAR</span></button>
+                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
             </div>
         </div>
     </fieldset>
