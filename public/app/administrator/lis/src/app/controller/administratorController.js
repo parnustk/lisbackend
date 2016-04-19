@@ -87,11 +87,21 @@
                                     priority: 1
                                 }
                             },
-                            {field: 'firstName'},
-                            {field: 'lastName'},
-                            {field: 'email'},
-                            {field: 'personalCode'},
-                            {field: 'trashed'}
+                            {field: 'firstName',
+                                displayName: 'LIS_FIRSTNAME'
+                            },
+                            {field: 'lastName',
+                                displayName: 'LIS_LASTNAME'
+                            },
+                            {field: 'email',
+                                displayName: 'LIS_EMAIL'
+                            },
+                            {field: 'personalCode',
+                                displayName: 'LIS_PERSONALCODE'
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED'
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,

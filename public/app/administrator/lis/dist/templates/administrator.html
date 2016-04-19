@@ -1,17 +1,17 @@
-<h2>Administrator view</h2>
+<h2>LIS_ADMINISTRATOR_VIEW</h2>
 <form class="form-horizontal" name="administratorForm" ng-submit="Create(administratorForm.$valid)">
     
     <fieldset>
         
-        <legend>Create new administrator</legend>
+        <legend>LIS_CREATE_NEW_ADMINISTRATOR</legend>
 
         <div class="row">
 
             <div class="form-group" ng-class="{ 'has-error': administratorForm.firstName.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.firstName">Firstname</span>
-                        <input name="firstName" ng-required="true" type="text" class="form-control" placeholder="Firstname" aria-describedby="administratorForm.firstName" ng-model="administrator.firstName">
+                        <span class="input-group-addon" id="administratorForm.firstName">LIS_FIRSTNAME</span>
+                        <input name="firstName" ng-required="true" type="text" class="form-control" placeholder="LIS_FIRSTNAME" aria-describedby="administratorForm.firstName" ng-model="administrator.firstName">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -19,8 +19,8 @@
             <div class="form-group" ng-class="{ 'has-error': administratorForm.lastName.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.lastName">Lastname</span>
-                        <input name="lastName" ng-required="true" type="text" class="form-control" placeholder="Lastname" aria-describedby="administratorForm.lastName" ng-model="administrator.lastName">
+                        <span class="input-group-addon" id="administratorForm.lastName">LIS_LASTNAME</span>
+                        <input name="lastName" ng-required="true" type="text" class="form-control" placeholder="LIS_LASTNAME" aria-describedby="administratorForm.lastName" ng-model="administrator.lastName">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -28,8 +28,8 @@
             <div class="form-group" ng-class="{ 'has-error': administratorForm.email.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.email">Email</span>
-                        <input name="email" type="text" class="form-control" placeholder="Email" aria-describedby="administratorForm.email" ng-model="administrator.email" required>
+                        <span class="input-group-addon" id="administratorForm.email">LIS_EMAIL</span>
+                        <input name="email" type="text" class="form-control" placeholder="LIS_EMAIL" aria-describedby="administratorForm.email" ng-model="administrator.email" required>
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -37,14 +37,14 @@
             <div class="form-group" ng-class="{ 'has-error': administratorForm.personalCode.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.personalCode">Code</span>
-                        <input name="personalCode" type="text" class="form-control" placeholder="Code" aria-describedby="administratorForm.personalCode" ng-model="administrator.personalCode" required>
+                        <span class="input-group-addon" id="administratorForm.personalCode">LIS_PERSONALCODE</span>
+                        <input name="personalCode" type="text" class="form-control" placeholder="LIS_PERSONALCODE" aria-describedby="administratorForm.personalCode" ng-model="administrator.personalCode" required>
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
             </div>
 
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
             </div><!-- /.col-lg-6 -->
 
         </div><!-- /.row -->
@@ -57,15 +57,15 @@
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
-        <legend>Administrator grid filters</legend>
+        <legend>ADMINISTRATOR_GRID_FILTERS</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Administrator filter</label>
+            <label class="col-sm-3 control-label">ADMINISTRATOR_FILTER</label>
 
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-firstName">First name</span>
-                        <input name="firstName" ng-model="filterAdministrator.firstName" type="text" class="form-control" placeholder="First name" aria-describedby="filterAdministrator-firstName">
+                        <span class="input-group-addon" id="filterAdministrator-firstName">SEARCH_A_FIRSTNAME</span>
+                        <input name="firstName" ng-model="filterAdministrator.firstName" type="text" class="form-control" placeholder="LIS_FIRSTNAME" aria-describedby="filterAdministrator-firstName">
                     </div>
                 </div>
             </div>
@@ -73,8 +73,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-lastName">Last name</span>
-                        <input name="lastName" ng-model="filterAdministrator.lastName" type="text" class="form-control" placeholder="Last name" aria-describedby="filterAdministrator-lastName">
+                        <span class="input-group-addon" id="filterAdministrator-lastName">SEARCH_A_LASTNAME</span>
+                        <input name="lastName" ng-model="filterAdministrator.lastName" type="text" class="form-control" placeholder="LIS_LASTNAME" aria-describedby="filterAdministrator-lastName">
                     </div>
                 </div>
             </div>
@@ -82,8 +82,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-email">Email</span>
-                        <input name="email" ng-model="filterAdministrator.email" type="text" class="form-control" placeholder="Email" aria-describedby="filterAdministrator-email">
+                        <span class="input-group-addon" id="filterAdministrator-email">SEARCH_AN_EMAIL</span>
+                        <input name="email" ng-model="filterAdministrator.email" type="text" class="form-control" placeholder="LIS_EMAIL" aria-describedby="filterAdministrator-email">
                     </div>
                 </div>
             </div>
@@ -91,8 +91,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-personalCode">Code</span>
-                        <input name="personalCode" ng-model="filterAdministrator.personalCode" type="text" class="form-control" placeholder="Code" aria-describedby="filterAdministrator-personalCode">
+                        <span class="input-group-addon" id="filterAdministrator-personalCode">SEARCH_A_PERSONALCODE</span>
+                        <input name="personalCode" ng-model="filterAdministrator.personalCode" type="text" class="form-control" placeholder="LIS_PERSONALCODE" aria-describedby="filterAdministrator-personalCode">
                     </div>
                 </div>
             </div>
@@ -100,8 +100,8 @@
 
 
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
+                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
             </div><!-- /.col-lg-6 -->
         </div>
     </fieldset>
