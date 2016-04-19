@@ -98,7 +98,12 @@
                     templateUrl: 'lis/dist/templates/subjectRound.html',
                     controller: 'subjectRoundController'
                 })
-
+                
+                .when('/studentingroups', {
+                    templateUrl: 'lis/dist/templates/studentInGroups.html',
+                    controller: 'studentInGroupsController'
+                })
+                
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

@@ -26,7 +26,7 @@
          * @param {type} $resource
          * @returns {studentInGroupsModel_L21.studentInGroupModel.studentInGroupsModelAnonym$3}
          */
-        function studentInGroupModel($http, $resource) {
+        function studentInGroupsModel($http, $resource) {
 
             var _model;
 
@@ -81,7 +81,7 @@
                  * @return {unresolved}
                  */
                 Delete: function (id) {
-//                    return _model.delete({ id:id }, data).$promise;
+                    return _model.remove({ id:id }).$promise;
                 }
             };
         }
