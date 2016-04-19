@@ -1,23 +1,23 @@
-<h2>Absence reason view</h2>
+<h2>LIS_ABSENCEREASON_VIEW</h2>
 <form class="form-horizontal" name="absenceReasonForm" ng-submit="Create(absenceReasonForm.$valid)">
     
     <fieldset>
         
-        <legend>Create new absence reason</legend>
+        <legend>LIS_CREATE_NEW_ABSENCEREASON</legend>
         
         <div class="row">
             
             <div class="form-group" ng-class="{ 'has-error': absenceReasonForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="absenceReasonForm-name">Name</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="absenceReasonForm-name" ng-model="absenceReason.name">
+                        <span class="input-group-addon" id="absenceReasonForm-name">LIS_NAME</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="absenceReasonForm-name" ng-model="absenceReason.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
 
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
             </div><!-- /.col-lg-6 -->
             
         </div>
@@ -29,23 +29,23 @@
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
         
-        <legend>Absence reason grid filters</legend>
+        <legend>ABSENCEREASON_GRID_FILTERS</legend>
         <div class="form-group">
             
-            <label class="col-sm-3 control-label">Name filter</label>
+            <label class="col-sm-3 control-label">ABSENCEREASON_FILTER</label>
             
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAbsenceReason-name">Name</span>
-                        <input name="name" ng-model="filterAbsenceReason.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterAbsenceReason-name">
+                        <span class="input-group-addon" id="filterAbsenceReason-name">SEARCH_A_NAME</span>
+                        <input name="name" ng-model="filterAbsenceReason.name" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="filterAbsenceReason-name">
                     </div>
                 </div>
             </div>
             
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> Clear</span></button>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
+                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
             </div><!-- /.col-lg-6 -->
             
         </div>

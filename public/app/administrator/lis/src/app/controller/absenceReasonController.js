@@ -83,8 +83,11 @@
                                     priority: 1
                                 }
                             },
-                            {field: 'name'},
-                            {field: 'trashed'}
+                            {field: 'name',
+                                displayName: 'LIS_NAME'
+                            },
+                            {field: 'trashed',
+                                displayName: 'LIS_TRASHED'}
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
