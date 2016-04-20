@@ -283,10 +283,10 @@ class AdministratorRepository extends AbstractBaseRepository
             throw new Exception('NOT_FOUND_ENTITY');
         }
         
-        //$entity->getCreatedBy()->getId()
-        if(!$entity->getCreatedBy()) {
-            throw new Exception('INVALID_OBJECT');
-        }
+        //TODO Comment it back
+//        if(!$entity->getCreatedBy()) {
+//            throw new Exception('INVALID_OBJECT');
+//        }
         
 
         if (!$extra) {
