@@ -78,6 +78,7 @@
             }*/
         </style>
 
+
         <script src="lis/dist/globals.config.local.js"></script>
         <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
     </head>
@@ -86,7 +87,7 @@
         <!-- START Login/Menu widget-->
         <div ng-controller="loginController">
 
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" ng-show="userLoggedIn">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -114,7 +115,6 @@
                                     <li><a href="#!/moduletype">LIS_MODULETYPE</a></li>
                                     <li><a href="#!/gradechoice">LIS_GRADECHOICE</a></li>
                                     <li><a href="#!/gradingtype">LIS_GRADINGTYPE</a></li>
-                                    <li><a href="#!/subjectround">LIS_SUBJECTROUND</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -125,6 +125,7 @@
                                     <li><a href="#!/absencereason">LIS_ABSENCEREASON</a></li>
                                     <li><a href="#!/independentwork">LIS_INDEPENDENTWORK</a></li>
                                     <li><a href="#!/studentgrade">LIS_STUDENTGRADE</a></li>
+                                    <li><a href="#!/subjectround">LIS_SUBJECTROUND</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#!/room">LIS_ROOM</a></li>
                                 </ul>
@@ -163,7 +164,10 @@
                 </div><!-- /.container-fluid -->
             </nav>
 
-            <form>
+            <form ng-hide="userLoggedIn">
+                <div class="alert alert-danger" ng-show="userLoginError">
+                    LIS_LOGIN_ERROR
+                </div>
                 <div class="form-group">
                     <div class="col-sm-12">
                         <label>LIS_EMAIL

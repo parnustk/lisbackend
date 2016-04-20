@@ -173,6 +173,7 @@
             'ngTouch',
             'ngAnimate',
             'ngSanitize',
+            'ngCookies',
             'ui.bootstrap',
             'ui.grid',
             'ui.grid.cellNav',
