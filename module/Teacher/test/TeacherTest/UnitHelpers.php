@@ -441,18 +441,18 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $teacher = $this->CreateTeacher();
         $contactLesson = $this->CreateContactLesson();
         //$independentWork = $this->CreateIndependentWork();
-        //$module = $this->CreateModule();
-        //$subjectRound = $this->CreateSubjectRound();
+//        $module = $this->CreateModule();
+        $subjectRound = $this->CreateSubjectRound();
 
         return $repository->Create([
                     'notes' => uniqid() . 'StudentGradeNotes',
                     'gradeChoice' => $gradeChoice->getId(),
                     'student' => $student->getId(),
                     'teacher' => $teacher->getId(),
-                    'contactLesson' => $contactLesson->getId(),
+                    //'contactLesson' => $contactLesson->getId(),
                         //'independentWork'=> $independentWork->getId(),
                         //'module' => $module->getId(),
-                        //'subjectRound' => $subjectRound->getId(),                  
+                        'subjectRound' => $subjectRound->getId(),                  
         ]);
     }
 

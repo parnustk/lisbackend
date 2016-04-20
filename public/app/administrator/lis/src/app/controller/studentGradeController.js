@@ -44,7 +44,7 @@
                     'independentWorkModel',
                     'moduleModel',
                     'subjectRoundModel',
-                    'contactLessonModel',
+                    'contactLessonModel'
                 ];
 
                 /**
@@ -99,7 +99,7 @@
                         module: null,
                         subjectRound: null,
                         contactLesson: null,
-                        notes: null,
+                        notes: null
                     };
 
                     /**
@@ -124,7 +124,7 @@
                      * will hold independentWorks
                      * for grid select
                      */
-                    $scope.independentWorks = [];
+                    $scope.independentWorks = [];//4
 
                     /**
                      * will hold modules
@@ -144,7 +144,7 @@
                      */
                     $scope.contactLessons = [];
 
-                    $scope.studentGrades = {};
+                    $scope.studentGrade = {};
 
                     $scope.filterStudentGrade = {};//for form filters, object
 
@@ -242,11 +242,13 @@
                                 sortCellFiltered: $scope.sortFiltered,
                                 enableCellEdit: false
                             },
-                            {field: 'notes',
+                            {
+                                field: 'notes',
                                 displayName: 'LIS_NOTES',
                                 enableCellEdit: false
                             },
-                            {field: 'trashed',
+                            {
+                                field: 'trashed',
                                 displayName: 'LIS_TRASHED',
                                 enableCellEdit: false
                             }
@@ -362,42 +364,36 @@
                                 $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.students;
 
                                 gradeChoiceModel.GetList({}).then(function (result) {
-                                    $scope.gridOptions.data = [];
                                     if (globalFunctions.resultHandler(result)) {
 
                                         $scope.gradeChoices = result.data;
                                         $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradeChoices;
 
                                         teacherModel.GetList({}).then(function (result) {
-                                            $scope.gridOptions.data = [];
                                             if (globalFunctions.resultHandler(result)) {
 
                                                 $scope.teachers = result.data;
                                                 $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.teachers;
 
                                                 independentWorkModel.GetList({}).then(function (result) {
-                                                    $scope.gridOptions.data = [];
                                                     if (globalFunctions.resultHandler(result)) {
 
                                                         $scope.independentWorks = result.data;
                                                         $scope.gridOptions.columnDefs[4].editDropdownOptionsArray = $scope.independentWorks;
 
                                                         moduleModel.GetList({}).then(function (result) {
-                                                            $scope.gridOptions.data = [];
                                                             if (globalFunctions.resultHandler(result)) {
 
                                                                 $scope.modules = result.data;
                                                                 $scope.gridOptions.columnDefs[5].editDropdownOptionsArray = $scope.modules;
 
                                                                 subjectRoundModel.GetList({}).then(function (result) {
-                                                                    $scope.gridOptions.data = [];
                                                                     if (globalFunctions.resultHandler(result)) {
 
                                                                         $scope.subjectRounds = result.data;
                                                                         $scope.gridOptions.columnDefs[6].editDropdownOptionsArray = $scope.subjectRounds;
 
                                                                         contactLessonModel.GetList({}).then(function (result) {
-                                                                            $scope.gridOptions.data = [];
                                                                             if (globalFunctions.resultHandler(result)) {
 
                                                                                 $scope.contactLessons = result.data;
