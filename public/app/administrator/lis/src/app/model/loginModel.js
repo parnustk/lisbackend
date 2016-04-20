@@ -49,7 +49,11 @@
                  */
                 Create: function (data) {
                     return _login.save(data).$promise;
+                },
+                 Delete: function (id) {
+                    return _login.remove({id: id}).$promise;
                 }
+               
             };
         }
         loginModel.$inject = ['$http', '$resource'];
