@@ -122,7 +122,7 @@
                     $scope.dt = new Date(year, month, day);
                 };
 
-                $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+                $scope.formats = ['dd.MM.yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
                 $scope.format = $scope.formats[0];
                 $scope.altInputFormats = ['M!/d!/yyyy'];
 
@@ -262,7 +262,7 @@
                             name: "duedate['date']",
                             displayName: 'LIS_DUEDATE',
                             type: "date",
-                            cellFilter: 'date:"yyyy-MM-dd"',
+                            cellFilter: 'date:\"YYYY-MM-DD\"',
                             width: '20%',
                             enableCellEdit: false
                         },
@@ -343,7 +343,11 @@
                  */
                 $scope.Filter = function () {
                     if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterIndependentWork));
+                        var buf = $scope.filterIndependentWork.duedate,
+                                data = globalFunctions.cleanData($scope.filterIndependentWork);
+                        data.duedate = moment(buf).format();
+                        var whereJSON = angular.toJson(data);
+                        urlParams.where = whereJSON;
                         LoadGrid();
                     }
                 };
@@ -366,21 +370,20 @@
                  */
                 function LoadGrid() {
 
-                    subjectRoundModel.GetList(urlParams).then(function (result) {
+                    subjectRoundModel.GetList({}).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
 
                             $scope.subjectRounds = result.data;
-                            console.log($scope.subjectRounds);
                             $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.subjectRounds;
 
-                            teacherModel.GetList($scope.params).then(function (result) {
+                            teacherModel.GetList({}).then(function (result) {
 
                                 if (globalFunctions.resultHandler(result)) {
 
                                     $scope.teachers = result.data;
                                     $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.teachers;
 
-                                    studentModel.GetList($scope.params).then(function (result) {
+                                    studentModel.GetList({}).then(function (result) {
                                         if (globalFunctions.resultHandler(result)) {
 
                                             $scope.students = result.data;
