@@ -86,7 +86,7 @@
                 };
 
                 $scope.toggleMin();
-                
+
                 $scope.open1 = function () {
                     $scope.popup1.opened = true;
                 };
@@ -106,7 +106,7 @@
                 $scope.popup1 = {
                     opened: false
                 };
-                
+
                 $scope.popup2 = {
                     opened: false
                 };
@@ -175,7 +175,7 @@
 
                 $scope.contactLesson = {};//for form, object
 
-                $scope.filterContactLesson = {};//for form filters, object
+                $scope.contactLessonFilter = {};//for form filters, object
 
                 /**
                  * Grid set up
@@ -258,11 +258,11 @@
                             field: 'name'
                         },
                         {
-                            field: "lessonDate['date']", 
-                            name: "lessonDate['date']", 
-                            displayName: 'LIS_DATE', 
-                            type: 'date', 
-                            cellFilter: 'date:"yyyy-MM-dd"', 
+                            field: "lessonDate['date']",
+                            name: "lessonDate['date']",
+                            displayName: 'LIS_DATE',
+                            type: 'date',
+                            cellFilter: 'date:"yyyy-MM-dd"',
                             width: '20%'
                         },
                         {field: 'sequenceNr', type: 'number'},
@@ -328,19 +328,43 @@
                 };
 
                 /**
+                 * 
+                 * @returns {undefined}
+                 */
+                var resetUrlParams = function () {
+                    urlParams = {
+                        page: 1,
+                        limit: 1000
+                    };
+                };
+
+                /**
                  * Set remote criteria for DB
                  * 
                  * @returns {undefined}
                  */
                 $scope.Filter = function () {
+                    resetUrlParams();
                     if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                        var buf = $scope.contactLessonFilter.lessonDate,
+
+                        var bufDate = null,
                             data = globalFunctions.cleanData($scope.contactLessonFilter);
-                        data.lessonDate = moment(buf).format();
-                        var whereJSON = angular.toJson(data);
-                        urlParams.where = whereJSON;
-                        LoadGrid();
+
+                        if (!!$scope.contactLessonFilter.lessonDate) {
+                            bufDate = $scope.contactLessonFilter.lessonDate;
+                        }
+
+                        if (!!bufDate) {
+                            data.lessonDate = moment(bufDate).format();
+                        } else {
+                            delete data.lessonDate;
+                        }
+
+                        if (!!data) {
+                            urlParams.where = angular.toJson(data);
+                        }
                     }
+                    LoadGrid();
                 };
 
                 /**
@@ -349,6 +373,7 @@
                  * @returns {undefined}
                  */
                 $scope.ClearFilters = function () {
+                    resetUrlParams();
                     $scope.contactLessonFilter = {};
                     delete urlParams.where;
                     LoadGrid();

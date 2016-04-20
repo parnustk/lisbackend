@@ -22,7 +22,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="row">
@@ -130,18 +129,6 @@
         </div>
 
         <div class="row">
-            <div class="form-group">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="contactLessonForm-description">LIS_DESCRIPTION</span>
-                        <input name="description" ng-model="contactLesson.description" ng-required="false" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="contactLessonForm-description">
-                    </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
-        </div>
-
-        <div class="row">
-
             <div class="form-group" ng-class="{ 'has-error': contactLessonForm.sequenceNr.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
@@ -150,7 +137,6 @@
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
-
         </div>
 
         <!-- http://plnkr.co/edit/9mq6W6XfoGK2vDP4PZLA?p=preview look for more-->
@@ -170,6 +156,17 @@
 
         </div>
 
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonForm-description">LIS_DESCRIPTION</span>
+                        <input name="description" ng-model="contactLesson.description" ng-required="false" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="contactLessonForm-description">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+        </div>
+
         <div class="col-lg-6">
             <button type="submit" class="btn btn-primary">LIS_CREATE</button>
         </div>
@@ -182,12 +179,126 @@
 <form class="form-horizontal" name="filterContactLesson" ng-submit="Filter()">
     <fieldset>
 
-        <legend>Module grid filters</legend>
+        <legend>LIS_CONTACTLESSONFILTER</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Vocation filter</label>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="roomFilter" ng-required="false" ng-model="contactLessonFilter.rooms" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_ROOM">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="room in roomsAll | filter: $select.search">
+                                <span ng-bind-html="room.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{room.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="subjectRoundFilter" ng-required="false" ng-model="contactLessonFilter.subjectRound" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_SUBJECTROUND">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
+                                <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{subjectRound.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="studentGroupFilter" ng-required="false" ng-model="contactLessonFilter.studentGroup" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_STUDENTGROUP">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
+                                <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{studentGroup.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="moduleFilter" ng-required="false" ng-model="contactLessonFilter.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_MODULE">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{module.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="vocationFilter" ng-required="false" ng-model="contactLessonFilter.vocation" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_VOCATION">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{vocation.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="teacherFilter" ng-required="false" ng-model="contactLessonFilter.teacher" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="LIS_CHOOSE_TEACHER">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="teacher in teachers | filter: $select.search">
+                                <span ng-bind-html="teacher.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{teacher.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
 
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonFilter-name">LIS_NAME</span>
+                        <input name="name" ng-model="contactLessonFilter.name" ng-required="false" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="contactLessonFilter-name">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+
+            </div>
+
+            <div class="row">
+                    <div class="col-lg-6">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="contactLessonFilter-sequenceNr">LIS_SEQUENCENR</span>
+                            <input name="sequenceNrFilter" ng-model="contactLessonFilter.sequenceNr" ng-required="false" type="number" class="form-control" placeholder="LIS_SEQUENCENR" aria-describedby="contactLessonFilter-sequenceNr">
+                        </div>
+                    </div><!-- /.col-lg-6 -->
+            </div>
+
+            <div class="row">
                 <div class="col-lg-6">
                     <p class="input-group">
                         <span class="input-group-addon" id="filterForm-lessonDate">LIS_LESSONDATE</span>

@@ -1,3 +1,5 @@
+/* global define */
+
 /**
  * Licence of Learning Info System (LIS)
  * @link      https://github.com/parnustk/lisbackend
@@ -22,7 +24,7 @@
     define(['angular', 'app/util/globalFunctions'],
         function (angular, globalFunctions) {
 
-            subjectRoundController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'subjectRoundModel', 'subjectModel', 'studentGroupModel'];
+            subjectRoundController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'subjectRoundModel', 'subjectModel', 'studentGroupModel', 'teacherModel'];
 
 
             /**
@@ -36,7 +38,7 @@
              * @param subjectModel
              * @param studentGroupModel
              */
-            function subjectRoundController($scope, $q, $routeParams, rowSorter, uiGridConstants, subjectRoundModel, subjectModel, studentGroupModel) {
+            function subjectRoundController($scope, $q, $routeParams, rowSorter, uiGridConstants, subjectRoundModel, subjectModel, studentGroupModel, teacherModel) {
 
                 var urlParams = {
                     page: 1,
@@ -69,7 +71,7 @@
                             visible: false,
                             type: 'number',
                             enableCellEdit: false,
-                            sort:{
+                            sort: {
                                 direction: uiGridConstants.DESC,
                                 priority: 1
                             }
@@ -111,8 +113,8 @@
                     exporterCsvFilename: 'subjectround.csv',
                     exporterPdfDefaultStyle: {fontSize: 9},
                     exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
-                    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color:'red'},
-                    exporterPdfHeader: {text:"Subject round Header", style: 'headerStyle'},
+                    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+                    exporterPdfHeader: {text: "Subject round Header", style: 'headerStyle'},
                     exporterPdfFooter: function (currentPage, pageCount) {
                         return {text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle'};
                     },
@@ -143,7 +145,7 @@
                  * @param rowEntity
                  */
                 $scope.saveRow = function (rowEntity) {
-                    var  deferred = $q.defer();
+                    var deferred = $q.defer();
                     subjectRoundModel.Update(rowEntity.id, rowEntity).then(
                         function (result) {
                             if (result.success) {
@@ -181,10 +183,22 @@
                 };
 
                 /**
+                 * 
+                 * @returns {undefined}
+                 */
+                var resetUrlParams = function () {
+                    urlParams = {
+                        page: 1,
+                        limit: 1000
+                    };
+                };
+
+                /**
                  *
                  * @constructor
                  */
-                $scope.Filter = function() {
+                $scope.Filter = function () {
+                    resetUrlParams();
                     if (!angular.equals({}, $scope.items)) {
                         urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterSubjectRound));
                         LoadGrid();
@@ -195,9 +209,10 @@
                  *
                  * @constructor
                  */
-                $scope.ClearFilters = function() {
+                $scope.ClearFilters = function () {
                     $scope.filterSubjectRound = {};
                     delete urlParams.where;
+                    resetUrlParams();
                     LoadGrid();
                 };
 
@@ -216,7 +231,7 @@
                                 $scope.studentGroups = result.data;
                                 $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.studentGroups;
 
-                                subjectRoundModel.GetList($scope.params).then(function (result) {
+                                teacherModel.GetList($scope.params).then(function (result) {
                                     $scope.teachers = result.data;
                                     $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.teachers;
 
