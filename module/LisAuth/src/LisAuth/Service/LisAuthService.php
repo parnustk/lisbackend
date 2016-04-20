@@ -171,11 +171,11 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     /**
      * 
      */
-    public function logout()
+    public function logout($id)
     {
         $this->getStorage()->clear();
     }
-    
+
     /**
      * 
      * @param string $email
@@ -187,9 +187,9 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         $user = $this->getEntityManager()
                 ->getRepository($entityName)
-                ->FetchUser($email);//all good if no exceptions
+                ->FetchUser($email); //all good if no exceptions
 
-        Hash::verifyHash($password, $user['lisUser']['password']);//all good if no exceptions
+        Hash::verifyHash($password, $user['lisUser']['password']); //all good if no exceptions
 
         $session = new SessionContainer($this->getStorage()->getNameSpace()); //regen the id
         $session->getManager()->regenerateId();
@@ -212,7 +212,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     public function authenticate($data, $role)
     {
         try {
-            $this->logout(); //logout first 
+            $this->logout(1); //logout first 
 
             $email = Validator::validateEmail($data['email']);
             $password = Validator::validatePassword($data['password']);
@@ -221,7 +221,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
                 $this->auth($email, $password, 'Core\Entity\Administrator', $role);
             } else if ($role === 'teacher') {
                 $this->auth($email, $password, 'Core\Entity\Teacher', $role);
-            }  else if ($role === 'student') {
+            } else if ($role === 'student') {
                 $this->auth($email, $password, 'Core\Entity\Student', $role);
             } else {
                 throw new Exception('NO_ROLE_SPECIFIED');
@@ -237,7 +237,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
                 'success' => false,
                 'message' => $ex->getTraceAsString()
             ];
-            
+
             return [
                 'success' => false,
                 'message' => 'FALSE_ATTEMPT'

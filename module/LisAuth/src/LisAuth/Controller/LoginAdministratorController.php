@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Licence of Learning Info System (LIS)
@@ -93,7 +93,10 @@ class LoginAdministratorController extends Base
      */
     public function delete($id)
     {
-        return new JsonModel([$id]);
+        $this->headerAccessControlAllowOrigin();
+        return new JsonModel($this
+                        ->getLisAuthService()
+                        ->logout($id));
     }
 
 }

@@ -37,7 +37,8 @@
                         }
                     },
                     update: {method: "PUT"},
-                    query: {method: 'GET', isArray: false}
+                    query: {method: 'GET', isArray: false},
+                    remove: {method: "DELETE", isArray:true}
                 }
             );
             return {

@@ -40,7 +40,8 @@
                         });
             };
             $scope.Logout = function () {
-                loginModel.Delete();
+                console.log("Logout");
+                loginModel.Delete(1);
             };
         }
 
