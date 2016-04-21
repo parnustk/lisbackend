@@ -110,27 +110,31 @@ class DumpService implements ServiceManagerAwareInterface
     protected $dumpData;
     
     protected $tables = [
-            "Absence",
-            "AbsenceReason",
-            "Administrator",
-            "ContactLesson",
-            "GradeChoice",
-            "GradingType",
-            "IndependentWork",
-            "LisUser",
-            "Module",
-            "ModuleType",
-            "Rooms",
-            "Student",
-            "StudentGrade",
-            "StudentGroup",
-            "StudentInGroups",
-            "Subject",
-            "SubjectRound",
-            "Teacher",
-            "Vocation"
-        ];
-    
+        "Absence",
+        "AbsenceReason",
+        "Administrator",
+        "ContactLesson",
+        "GradeChoice",
+        "GradingType",
+        "GradingTypeToModule",
+        "GradingTypeToSubject",
+        "IndependentWork",
+        "LisUser",
+        "Module",
+        "ModuleType",
+        "Rooms",
+        "Student",
+        "StudentGrade",
+        "StudentGroup",
+        "StudentInGroups",
+        "Subject",
+        "SubjectRound",
+        "Teacher",
+        "TeacherToSubjectRound",
+        "user",
+        "Vocation"
+    ];
+
     /**
      *
      * @var int
@@ -198,6 +202,9 @@ class DumpService implements ServiceManagerAwareInterface
             $stmt2 = $this->db->prepare('SELECT id FROM `' . $this->tables[$t] . '` WHERE 1;');
             $stmt2->execute();
             $rowCount = count($stmt2->fetchAll());
+            if ($rowCount == 0) { //Ends loop early if table contains no data
+                continue;
+            }
             $offset = 0;
             for ($i = 0; $i <= $rowCount; $i++) { //Write data from single table
                 $fetchData = null;
@@ -259,13 +266,13 @@ class DumpService implements ServiceManagerAwareInterface
         $this->dumpData = "SET FOREIGN_KEY_CHECKS=1;"; //Re-enables foreign key checks when db has been restored from backup file
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
         
-        if ($type == 'manual') {
-            header("Content-disposition: attachment;filename=$this->filename");
-            readfile($this->filename);
-            return 'successM';
-        } else {
-            return 'successA';
-        }
+//        if ($type == 'manual') {
+//            header("Content-disposition: attachment;filename=$this->filename");
+//            readfile($this->filename);
+//            return 'successM';
+//        } else {
+//            return 'successA';
+//        }
     }
     /**
      * Counts number of columns in table and put into $columnCount
@@ -311,12 +318,12 @@ class DumpService implements ServiceManagerAwareInterface
         if (!$lastRow) {
             for ($c = 0; $c <= $this->columnCount; $c++) {
                 if ($c == 0) {
-                    $this->dumpData .= "(" . $data[$this->columnNames[$c]];
+                    $this->dumpData .= "(" . $this->sqlStringParse($data[$this->columnNames[$c]]);
                 } elseif ($c == $this->columnCount) { //Close data row value
                     $this->dumpData .= "), \n";
                 } else {
                     if (isset($data[$this->columnNames[$c]])) {
-                        $this->dumpData .= "," . $data[$this->columnNames[$c]];
+                        $this->dumpData .= "," . $this->sqlStringParse($data[$this->columnNames[$c]]);
                     } else {
                         $this->dumpData .= ",NULL";
                     }
@@ -325,12 +332,12 @@ class DumpService implements ServiceManagerAwareInterface
         } else {
             for ($c = 0; $c <= $this->columnCount; $c++) {
                 if ($c == 0) {
-                    $this->dumpData .= "(" . $data[$this->columnNames[$c]];
+                    $this->dumpData .= "(" . $this->sqlStringParse($data[$this->columnNames[$c]]);
                 } elseif ($c == $this->columnCount) { //Close data row value
                     $this->dumpData .= "); \n";
                 } else {
                     if (isset($data[$this->columnNames[$c]])) {
-                        $this->dumpData .= "," . $data[$this->columnNames[$c]];
+                        $this->dumpData .= "," . $this->sqlStringParse($data[$this->columnNames[$c]]);
                     } else {
                         $this->dumpData .= ",NULL";
                     }
@@ -338,6 +345,20 @@ class DumpService implements ServiceManagerAwareInterface
             }
         }
     }
-
+    
+    /**
+     * Adds SQL quotes to input string $var, if $var is a string
+     * 
+     * @param int OR string $var
+     * @return int OR string
+     */
+    protected function sqlStringParse($var) {
+        if (is_numeric($var)) {
+            $temp = (int) $var;
+        } else {
+            $temp = "'" . $var . "'";
+        }
+        return $temp;
+    }
 }
 
