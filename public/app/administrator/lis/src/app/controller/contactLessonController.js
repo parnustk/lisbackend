@@ -45,6 +45,8 @@
                 moduleModel,
                 vocationModel,
                 teacherModel) {
+                
+                $scope.T = globalFunctions.T;
 
                 $scope.dt = {};
 

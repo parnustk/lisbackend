@@ -9,14 +9,28 @@
 /**
  * Holds common functions used application wide
  * 
- * @returns {undefined}
+ * @param {type} window
+ * @returns {Object}
  */
-(function () {
+(function (window) {
     'use strict';
 
-    define([], function () {
+    define([
+        'app/util/translations'
+    ], function (translations) {
 
         return {
+            /**
+             * 
+             * @param {String} k
+             * @returns {String}
+             */
+            T: function(k) {
+                if(!!translations[window.LisGlobals.L][k]) {
+                    return translations[window.LisGlobals.L][k];
+                }
+                return k;
+            },
             /**
              * Leaves only id property for sub level objects
              * required by Doctrine to work
@@ -74,4 +88,4 @@
         };
     });
 
-}());
+}(window));

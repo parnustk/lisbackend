@@ -80,7 +80,7 @@
              */
             function removeCookie (itemKey){
                 $cookies.remove(itemKey);
-            };
+            }
 
             
 
@@ -130,7 +130,7 @@
                 loginModel.Delete(1);
                 removeCookie('userObj');
                 window.location.reload();
-            }
+            };
         }
 
         return loginController;
