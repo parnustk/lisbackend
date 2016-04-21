@@ -15,7 +15,7 @@
 (function (define) {
     'use strict';
 
-    define([], function () {
+    define(['app/util/globalFunctions'], function (globalFunctions) {
 
 
         loginController.$inject = ['$scope', 'loginModel', '$cookies'];
@@ -81,6 +81,8 @@
             function removeCookie (itemKey){
                 $cookies.remove(itemKey);
             }
+
+            $scope.T = globalFunctions.T;
 
             
 
