@@ -78,7 +78,7 @@
              *
              * @param itemKey
              */
-            $scope.removeCookie = function (itemKey){
+            function removeCookie (itemKey){
                 $cookies.remove(itemKey);
             };
 
@@ -117,7 +117,7 @@
                     password: loginData.password
                 };
                 addCookieTimed('userObj', $scope.credentials);
-                // $scope.Login();
+                // $scope.Login(); //error
 
             }
 
@@ -125,6 +125,12 @@
             /** /cookies **/
 
 
+            $scope.Logout = function() {
+                //console.log("Logout");
+                loginModel.Delete(1);
+                removeCookie('userObj');
+                window.location.reload();
+            }
         }
 
         return loginController;
