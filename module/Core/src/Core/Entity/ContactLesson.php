@@ -75,6 +75,13 @@ class ContactLesson extends EntityValidation
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $description;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $durationAK;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -230,6 +237,16 @@ class ContactLesson extends EntityValidation
     {
         return $this->description;
     }
+    
+    /**
+     * 
+     * @return int
+     */
+     public function getDurationAK()
+    {
+        return $this->durationAK;
+    }
+    
 
     /**
      * 
@@ -400,6 +417,18 @@ class ContactLesson extends EntityValidation
         $this->description = $description;
         return $this;
     }
+     /**
+     * 
+     * @param int $durationAK
+     * @return \Core\Entity\ContactLesson
+     */
+    
+     public function setDurationAK($durationAK)
+    {
+        $this->durationAK = $durationAK;
+        return $this;
+    }
+
 
     /**
      * 
