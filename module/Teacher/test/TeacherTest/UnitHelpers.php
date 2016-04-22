@@ -281,16 +281,16 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $subjectRound = $this->CreateSubjectRound();
 
         return $repository->Create([
-        'name' => 'contact lesson',
-        'lessonDate' => new \DateTime,
-        'description' => uniqid() . ' Description for contactlesson',
-        'sequenceNr' => 5,
-        'subjectRound' => $subjectRound->getId(),
-        'teacher' => $this->CreateTeacher()->getId(),
-        'rooms' => $this->CreateRoom()->getId(),
-        'studentGroup' => $this->CreateStudentGroup()->getId(),
-        'module' => $this->CreateModule()->getId(),
-        'vocation' => $this->CreateVocation()->getId(),
+                    'name' => 'contact lesson',
+                    'lessonDate' => new \DateTime,
+                    'description' => uniqid() . ' Description for contactlesson',
+                    'sequenceNr' => 5,
+                    'subjectRound' => $subjectRound->getId(),
+                    'teacher' => $this->CreateTeacher()->getId(),
+                    'rooms' => $this->CreateRoom()->getId(),
+                    'studentGroup' => $this->CreateStudentGroup()->getId(),
+                    'module' => $this->CreateModule()->getId(),
+                    'vocation' => $this->CreateVocation()->getId(),
         ]);
     }
 
@@ -391,20 +391,20 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         $subjectRound = $this->CreateSubjectRound();
         $teacher = $this->CreateTeacher();
         $student = $this->CreateStudent();
+        //$studentGrade = $this->CreateStudentGrade();
         //$duedate = $this->CreateDuedate();
-       // $description = $this->CreateDescription();
-       // $durationAK = $this->CreateDurationAK();
-                   
+        //$description = $this->CreateDescription();
+        //$durationAK = $this->CreateDurationAK();
+
 
         return $repository->Create([
-                    'name' => uniqid() . 'Name',
-                    'duedate' => new \DateTime,
-                    'description' => uniqid() . ' Description for independentwork',
-                    'durationAK' => (int) uniqid(),
-                    'subjectRound' => $subjectRound->getId(),
-                    'teacher' => $teacher->getId(),
-                    'student' => $student->getId(),
-                     
+                    "duedate" => new \DateTime,
+                    "name" => uniqid() . 'Name',
+                    "description" => uniqid() . 'Description',
+                    "durationAK" => (rand(1, 10) * 2),
+                    "subjectRound" => $subjectRound->getId(),
+                    "teacher" => $teacher->getId(),
+                    "student" => $student->getId(),
         ]);
     }
 
@@ -457,9 +457,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'student' => $student->getId(),
                     'teacher' => $teacher->getId(),
                     //'contactLesson' => $contactLesson->getId(),
-                        //'independentWork'=> $independentWork->getId(),
-                        //'module' => $module->getId(),
-                        'subjectRound' => $subjectRound->getId(),                  
+                    //'independentWork'=> $independentWork->getId(),
+                    //'module' => $module->getId(),
+                    'subjectRound' => $subjectRound->getId(),
         ]);
     }
 

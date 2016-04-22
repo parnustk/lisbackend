@@ -52,18 +52,16 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
-        $subjectRound = $this->CreateSubjectRound();
-        $student = $this->CreateStudent();
-
+        
         $this->request->setMethod('post');
-
         $this->request->getPost()->set("duedate", (new DateTime)->format('Y-m-d'));
         $this->request->getPost()->set("name", uniqid() . 'Name');
         $this->request->getPost()->set("description", uniqid() . 'Description');
         $this->request->getPost()->set("durationAK", (rand(1, 10) * 2));
-        $this->request->getPost()->set("subjectRound", $subjectRound->getId());
+        $this->request->getPost()->set("subjectRound", $this->CreateSubjectRound());
         $this->request->getPost()->set("teacher", $teacher->getId());
-        $this->request->getPost()->set("student", $student->getId());
+        $this->request->getPost()->set("student", $this->CreateStudent()->getId());
+        //$this->request->getPost()->set("studentGrade", $this->CreateStudentGrade()->getId());
 
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -86,22 +84,34 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
+        //create independentWork with teacheruser
         $subjectRound = $this->CreateSubjectRound();
         $student = $this->CreateStudent();
+        //$teacher = $this->CreateTeacher();
 
         $independentWork = $this->CreateIndependentWork([
-            'name' => uniqid() . 'Name',
-            'duedate' => new \DateTime,
-            'description' => uniqid() . 'Description',
-            'durationAK' => (int) uniqid(),
-            'subjectRound' => $subjectRound->getId(),
-            'teacher' => $teacher->getId(),
-            'student' => $student->getId(),
-            'createdBy' => $lisUser->getId(),
+            //'name' => uniqid() . 'Name',
+            //'duedate' => new \DateTime,
+            //'description' => uniqid() . 'Description',
+            //'durationAK' => (int) uniqid(),
+            //'subjectRound' => $subjectRound->getId(),
+            //'teacher' => $teacher->getId(),
+            //'student' => $student->getId(),
+            //'createdBy' => $lisUser->getId(),
+
+            "duedate" => (new DateTime)->format('Y-m-d'),
+            "name" => uniqid() . 'Name',
+            "description" => uniqid() . 'Description',
+            "durationAK" => (rand(1, 10) * 2),
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $teacher->getId(),
+            "student" => $student->getId(),
+            "createdBy" => $lisUser->getId(),
         ]);
 
         $subjectRoundIdOld = $independentWork->getSubjectRound()->getId();
         $studentIdOld = $independentWork->getStudent()->getId();
+        $teacherIdOld = $independentWork->getTeacher()->getId();
 
 
         //prepare request
@@ -109,8 +119,9 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $independentWork->getId());
 
         $this->request->setContent(http_build_query([
-            'subjectRound' => $this->CreateSubjectRound(),
-            'student' => $this->CreateStudent(),
+            'subjectRound' => $this->CreateSubjectRound()->getId(),
+            'student' => $this->CreateStudent()->getId(),
+            'teacher' => $teacher->getId(),
         ]));
 
         //fire request
@@ -125,10 +136,11 @@ class IndependentWorkControllerTest extends UnitHelpers
 
         $this->assertNotEquals($subjectRoundIdOld, $result->data['subjectRound']['id']);
         $this->assertNotEquals($studentIdOld, $result->data['student']['id']);
+        //$this->assertNotEquals($teacherIdOld, $result->data['teacher']['id']);
     }
 
     /**
-     * should not be NOT successful
+     * should NOT be  successful
      */
     public function testUpdateNotOwnCreated()
     {
@@ -140,34 +152,41 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
-        $subjectRound = $this->CreateSubjectRound();
-        $student = $this->CreateStudent();
-
         //create other teacher user
         $otherTeacher = $this->CreateTeacher();
         $otherLisUser = $this->CreateTeacherUser($otherTeacher);
 
+        $subjectRound = $this->CreateSubjectRound();
+        $student = $this->CreateStudent();
+        //$teacher = $this->CreateTeacher();
+        //$studentGrade = $this->CreateStudentGrade();
+
         $independentWork = $this->CreateIndependentWork([
-            'name' => uniqid() . 'Name',
-            'duedate' => new \DateTime,
-            'description' => uniqid() . 'Description',
-            'durationAK' => (int) uniqid(),
-            'subjectRound' => $subjectRound->getId(),
-            'teacher' => $teacher->getId(),
-            'student' => $student->getId(),
-            'createdBy' => $lisUser->getId(),
+            "duedate" => (new DateTime)->format('Y-m-d'),
+            "name" => uniqid() . 'Name',
+            "description" => uniqid() . 'Description',
+            "durationAK" => (rand(1, 10) * 2),
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $otherTeacher->getId(),
+            "student" => $student->getId(), //created by some other lisUser
+            "createdBy" => $otherLisUser->getId()
         ]);
 
-        //$subjectRoundIdOld = $independentWork->getSubjectRound()->getId();
-        //$studentIdOld = $independentWork->getStudent();
+        $subjectRoundIdOld = $independentWork->getSubjectRound()->getId();
+        $studentIdOld = $independentWork->getStudent()->getId();
+        $teacherIdOld = $independentWork->getTeacher()->getId();
+        
         //prepare request
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $independentWork->getId());
 
         $this->request->setContent(http_build_query([
-            'subjectRound' => $this->CreateSubjectRound()->getId(),
-            'student' => $this->CreateStudent()->getId(),
+            "subjectRound" => $this->CreateSubjectRound()->getId(),
+            "student" => $this->CreateStudent()->getId(),
+            "teacher" => $teacher->getId(),
+            //"studentGrade" => $studentGrade()->getId(),
         ]));
+
 
         //fire request
         $result = $this->controller->dispatch($this->request);
@@ -219,11 +238,45 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
+        $subjectRound = $this->CreateSubjectRound();
+        $student = $this->CreateStudent();
+        $teacher = $this->CreateTeacher();
+        //$studentGrade = $this->CreateStudentGrade();
+        //create other teacher user
+
+        $independentWork = $this->CreateIndependentWork([
+            //"name" => uniqid() . 'Name',
+            "duedate" => (new DateTime)->format('Y-m-d'),
+            "name" => uniqid() . 'Name',
+            "description" => uniqid() . 'Description',
+            "durationAK" => (rand(1, 10) * 2),
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $teacher->getId(),
+            "student" => $student->getId(), //created by some other lisUser
+        ]);
+
+        //prepare request
+        $this->request->setMethod('put');
+        $this->routeMatch->setParam('id', $independentWork->getId());
+
+        $this->request->setContent(http_build_query([
+            'subjectRound' => $this->CreateSubjectRound()->getId(),
+            'student' => $this->CreateStudent()->getId(),
+            'teacher' => $teacher->getId(),
+            //'studentGrade' => $this->CreateStudentGrade()->getId(),
+        ]));
+
+        $this->em->persist($independentWork);
+        $this->em->flush($independentWork);
+
+
         $this->request->setMethod('get');
         $this->routeMatch->setParam('id', $this->CreateIndependentWork()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
+
+        //do assertions
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
     }
@@ -244,16 +297,18 @@ class IndependentWorkControllerTest extends UnitHelpers
         $subjectRound = $this->CreateSubjectRound();
         $student = $this->CreateStudent();
 
-        
+        //create original data
+
+
         $independentWork = $this->CreateIndependentWork([
-            'name' => uniqid() . 'Name',
-            'duedate' => new \DateTime,
-            'description' => uniqid() . 'Description',
-            'durationAK' => (int) uniqid(),
-            'subjectRound' => $subjectRound->getId(),
-            'teacher' => $teacher->getId(),
-            'student' => $student->getId(),
-            'createdBy' => $lisUser->getId(),
+            "duedate" => (new DateTime)->format('Y-m-d'),
+            "name" => uniqid() . 'Name',
+            "description" => uniqid() . 'Description',
+            "durationAK" => (rand(1, 10) * 2),
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $teacher->getId(),
+            "student" => $student->getId(),
+            'createdBy' => $lisUser->getId()
         ]);
 
         $independentWork->setTrashed(1);
@@ -297,24 +352,25 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
-        //create indpendentWork with teacheruser
-        $subjectRound = $this->CreateSubjectRound();
-        $student = $this->CreateStudent();
-
         //create other teacher user
         $otherTeacher = $this->CreateTeacher();
         $otherLisUser = $this->CreateTeacherUser($otherTeacher);
 
-    
+        //create indpendentWork with teacheruser
+        $subjectRound = $this->CreateSubjectRound();
+        $student = $this->CreateStudent();
+        //$teacher = $this->CreateTeacher();
+
+
         $independentWork = $this->CreateIndependentWork([
-            'name' => uniqid() . 'Name',
-            'duedate' => new \DateTime,
-            'description' => uniqid() . 'Description',
-            'durationAK' => (int) uniqid(),
-            'subjectRound' => $subjectRound->getId(),
-            'teacher' => $teacher->getId(),
-            'student' => $student->getId(),
-            'createdBy' => $lisUser->getId(),
+            "duedate" => (new DateTime)->format('Y-m-d'),
+            "name" => uniqid() . 'Name',
+            "description" => uniqid() . 'Description',
+            "durationAK" => (int) uniqid(),
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $otherTeacher->getId(),
+            "student" => $student->getId(),
+            "createdBy" => $otherLisUser->getId()
         ]);
 
         //set independentWork trashed
@@ -340,64 +396,62 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->assertEquals('SELF_CREATED_RESTRICTION', $result->message);
 
         //test if it is not in the database anymore
-        $deleted = $this->em
-                ->getRepository('Core\Entity\IndependentWork')
-                ->find($id);
+        //$deleted = $this->em
+        // ->getRepository('Core\Entity\IndependentWork')
+        // ->find($id);
+        // $this->assertNotEquals(null, $deleted);
+    }
+    
+    /**
+     * should not be successful
+     */
+    public function testDeleteNotTrashedAndOwnCreated()
+    {
+        //create teacher user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+        
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
 
-        $this->assertNotEquals(null, $deleted);
+       //create indpendentWork with teacheruser
+        $subjectRound = $this->CreateSubjectRound();
+        $student = $this->CreateStudent();
+        //$teacher = $this->CreateTeacher();
+
+
+        $independentWork = $this->CreateIndependentWork([
+            "duedate" => (new DateTime)->format('Y-m-d'),
+            "name" => uniqid() . 'Name',
+            "description" => uniqid() . 'Description',
+            "durationAK" => (rand(1, 10) * 2),
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $teacher->getId(),
+            "student" => $student->getId(),
+            "createdBy" => $lisUser->getId()
+        ]);
+
+        
+        $this->em->persist($independentWork);
+        $this->em->flush($independentWork);
+        
+        $id = $independentWork->getId();
+        
+        //prepare request
+        $this->routeMatch->setParam('id', $id);
+
+        $this->request->setMethod('delete');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        //assertions
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, $result->success);
+        $this->assertEquals('NOT_TRASHED', $result->message);
     }
 
 }
 
-/**
-     * should not be successful
-     */
-    //public function testDeleteNotTrashedAndOwnCreated()
-    //{
-        //create teacher user
-      //  $teacher = $this->CreateTeacher();
-      //  $lisUser = $this->CreateTeacherUser($teacher);
-
-        //now we have created studentuser set to current controller
-      //  $this->controller->setLisUser($lisUser);
-       // $this->controller->setLisPerson($teacher);
-
-        //create original data
-      //  $name = 'Name' . uniqid();
-      //  $duedate = new \DateTime;
-       // $description = ' Description for independentWork' . uniqid();
-       // $durationAK = 5 . uniqid();
-      //  $subjectRound = $this->CreateSubjectRound();
-        //$teacher = $this->CreateTeacher();
-
-       // $independentWork = $this->CreateIndependentWork([
-          //  'name' => $name,
-            //'duedate' => $duedate->getId(),
-            //'description' => $description->getId(),
-            //'durationAK' => $durationAK->getId(),
-           // 'subjectRound' => $subjectRound->getId(),
-           // 'teacher' => $teacher->getId(),
-           // 'createdBy' => $lisUser->getId(),
-       // ]);
-
-      //  $this->em->persist($independentWork);
-      //  $this->em->flush($independentWork);
-
-      //  $id = $independentWork->getId();
-
-        //prepare request
-       // $this->routeMatch->setParam('id', $id);
-
-       // $this->request->setMethod('delete');
-      //  $result = $this->controller->dispatch($this->request);
-      //  $response = $this->controller->getResponse();
-
-       // $this->PrintOut($result, false);
-
-        //assertions
-      //  $this->assertEquals(200, $response->getStatusCode());
-       // $this->assertEquals(false, $result->success);
-      //  $this->assertEquals('NOT_TRASHED', $result->message);
-   // }
-
-//}
