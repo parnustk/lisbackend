@@ -37,6 +37,8 @@
          */
         function roomController($scope, $q, $routeParams, rowSorter, uiGridConstants, roomModel) {
 
+            $scope.T = globalFunctions.T;
+
             var urlParams = {
                 page: 1,
                 limit: 1000
@@ -66,8 +68,10 @@
                             priority: 1
                         }
                     },
-                    {field: 'name'},
-                    {field: 'trashed'}
+                    {field: 'name',
+                        displayName: 'Name'},
+                    {field: 'trashed',
+                        displayName: 'Trashed'}
                 ],
                 enableGridMenu: true,
                 enableSelectAll: true,
@@ -134,7 +138,7 @@
                     roomModel.Create($scope.room).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
                             console.log(result);
-                            //$scope.gridOptions.data.push(result.data);
+                            $scope.gridOptions.data.push(result.data);
                             LoadGrid();
                         }
                     });
