@@ -54,7 +54,7 @@ class StudentGroup extends EntityValidation
      * @Annotation\Required({"required":"true"})
      * 
      * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="studentGroup")
-     * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false, unique=true, onDelete="RESTRICT")
+     * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $vocation;
 
