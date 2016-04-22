@@ -93,7 +93,7 @@
                         if (result.success) {
                             //GOOD
 
-                            addCookieTimed('userObj', $scope.credentials);
+                            addCookie('userObj', $scope.credentials);
 
                             $scope.userLoginError = false;
                             $scope.userLoggedIn = true;
@@ -112,13 +112,13 @@
              * Then we update the cookie to extend the expiration date.
              */
             if (getCookieValue('userObj') !== undefined) {
-                var loginData = getCookieValue('userObj');
+                //var loginData = getCookieValue('userObj');
                 $scope.userLoggedIn = true;
-                $scope.credentials = {
-                    email: loginData.email,
-                    password: loginData.password
-                };
-                addCookieTimed('userObj', $scope.credentials);
+                // $scope.credentials = {
+                //     email: loginData.email,
+                //     password: loginData.password
+                // };
+                //addCookieTimed('userObj', $scope.credentials);
                 // $scope.Login(); //error
 
             }
