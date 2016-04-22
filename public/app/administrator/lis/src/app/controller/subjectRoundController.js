@@ -40,6 +40,8 @@
              */
             function subjectRoundController($scope, $q, $routeParams, rowSorter, uiGridConstants, subjectRoundModel, subjectModel, studentGroupModel, teacherModel) {
 
+                $scope.T = globalFunctions.T;
+
                 var urlParams = {
                     page: 1,
                     limit: 1000
