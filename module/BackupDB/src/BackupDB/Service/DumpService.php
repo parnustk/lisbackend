@@ -131,7 +131,6 @@ class DumpService implements ServiceManagerAwareInterface
         "SubjectRound",
         "Teacher",
         "TeacherToSubjectRound",
-        "user",
         "Vocation"
     ];
 
@@ -158,6 +157,15 @@ class DumpService implements ServiceManagerAwareInterface
         );
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
+    
+    protected function destructPDO() //Close PDO connection
+    {
+        try {
+            $this->db = null;
+        } catch (PDOException $ex) {
+            die($ex->getMessage());
+        }
+    }
 
     /**
      * 
@@ -175,9 +183,9 @@ class DumpService implements ServiceManagerAwareInterface
      */
     public function createDump($type)
     {
-        $this->setUp();
-        $this->setFilename($type);
-        $this->dumpData = "SET FOREIGN_KEY_CHECKS=0;"; //Disables foreign key checks when restoring backup
+        $this->setUp(); //Open DB connection
+        $this->setFilename($type); //Set filename of backup file
+        $this->dumpData = "SET FOREIGN_KEY_CHECKS=0; \n"; //Disables foreign key checks when restoring backup
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
         $this->dumpData = null;
         
@@ -205,64 +213,45 @@ class DumpService implements ServiceManagerAwareInterface
             if ($rowCount == 0) { //Ends loop early if table contains no data
                 continue;
             }
-            $offset = 0;
             for ($i = 0; $i <= $rowCount; $i++) { //Write data from single table
                 $fetchData = null;
                 $this->dumpData = null;
                 if ($i == 0) { //Begin backup INSERT statement
                     $this->dumpTableBegin($t);
-                } elseif ($i == $rowCount) { //Add last data row
-                    $fetchData = null;
-                    while (count($fetchData) == 0) {
-                        if ($offset > 1000) { die("Infinite Offset loop"); }
-                        $id = $i + $offset;
-                        $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
-                                "` WHERE id = " . $id . ";");
-                        //Query data row
-                        try {
-                            $stmt->execute();
-                            $fetchData = $stmt->fetchAll(); //fetchData is data row
-                            if (count($fetchData) != 0) {
-                                $fetchData = $fetchData[0];
-                            } else {
-                                $offset += 1;
-                                continue;
-                            }
-                        } catch (PDOException $ex) {
-                            print_r($ex);
-                            die();
-                        }
+                }
+                if ($i == $rowCount) { //Add last data row
+                    $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
+                            "` LIMIT" . $i . ",1;");
+                    //Query data row
+                    try {
+                        $stmt->execute();
+                        $fetchData = $stmt->fetchAll(); //fetchData is data row
+                        $fetchData = $fetchData[0];
+                    } catch (PDOException $ex) {
+                        print_r($ex);
+                        die();
                     }
                     $this->dumpTableRow($fetchData, true);
-                    
                 } else { //Add regular data row.
-                    $fetchData = null;
-                    while (count($fetchData) == 0) {
-                        if ($offset > 1000) { die("Infinite Offset loop"); }
-                        $id = $i + $offset;
-                        $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
-                                "` WHERE id = " . $id . ";");
-                        //Query table data
-                        try {
-                            $stmt->execute();
-                            $fetchData = $stmt->fetchAll(); //fetchData is data row
-                            if (count($fetchData) != 0) {
-                                $fetchData = $fetchData[0];
-                            } else {
-                                $offset += 1;
-                                continue;
-                            }
-                        } catch (PDOException $ex) {
-                            print_r($ex);
-                            die();
-                        }
+                    $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
+                            "` LIMIT" . $i . ",1;");
+                    //Query data row
+                    try {
+                        $stmt->execute();
+                        $fetchData = $stmt->fetchAll(); //fetchData is data row
+                        $fetchData = $fetchData[0];
+                    } catch (PDOException $ex) {
+                        print_r($ex);
+                        die();
                     }
                     $this->dumpTableRow($fetchData, false);
                 }
                 //Write current pass to file
                 file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
             }
+            
         }
+        $this->destructPDO(); //Close DB connection
         $this->dumpData = "SET FOREIGN_KEY_CHECKS=1;"; //Re-enables foreign key checks when db has been restored from backup file
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
         
