@@ -16,10 +16,11 @@ use Zend\View\Model\JsonModel;
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class LoginTeacherController extends AbstractRestfulController
 {
-    
+
     /**
      * 
      * @return LisAuth\Service\LisRegisterService
@@ -28,7 +29,7 @@ class LoginTeacherController extends AbstractRestfulController
     {
         return $this->getServiceLocator()->get('lisauth_service');
     }
-    
+
     /**
      * 
      * @return \Doctrine\ORM\EntityManager
@@ -37,7 +38,7 @@ class LoginTeacherController extends AbstractRestfulController
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
-    
+
     /**
      * Allow CORS
      * 
@@ -45,6 +46,7 @@ class LoginTeacherController extends AbstractRestfulController
      */
     public function options()
     {
+        $this->headerAccessControlAllowOrigin();
         return new JsonModel([]);
     }
 
@@ -56,7 +58,7 @@ class LoginTeacherController extends AbstractRestfulController
     {
         return new JsonModel([]);
     }
-    
+
     /**
      * Register new user Teacher
      * 
@@ -65,13 +67,14 @@ class LoginTeacherController extends AbstractRestfulController
      */
     public function create($data)
     {
+        $this->headerAccessControlAllowOrigin();
         return new JsonModel(
                 $this
                         ->getLisAuthService()
                         ->authenticate($data, 'teacher')
         );
     }
-    
+
     /**
      * Update existing user Teacher
      * 
@@ -92,6 +95,7 @@ class LoginTeacherController extends AbstractRestfulController
      */
     public function delete($id)
     {
+        $this->headerAccessControlAllowOrigin();
         return new JsonModel([$id]);
     }
 
