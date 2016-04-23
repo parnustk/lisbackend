@@ -93,11 +93,32 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->routeMatch->setParam('id', $this->CreateIndependentWork()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->PrintOut($result, false);
-
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
+    }
+    
+    /**
+     * TEST rows get read
+     */
+    public function testGetList()
+    {
+        //create user
+        $student = $this->CreateStudent();
+        $lisUser = $this->CreateStudentUser($student);
+
+        //now we have created studentuser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($student);
+        
+        $this->CreateContactLesson();
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->assertGreaterThan(0, count($result->data));
     }
 
     /**
@@ -119,6 +140,7 @@ class IndependentWorkControllerTest extends UnitHelpers
 
         $repository = $this->em->getRepository('Core\Entity\IndependentWork');
         $independentWork = $repository->Create([
+            'name' => uniqid() . 'Name',
             'duedate' => new \DateTime,
             'description' => uniqid() . ' Description for independentwork',
             'durationAK' => (int) uniqid(),
@@ -159,6 +181,7 @@ class IndependentWorkControllerTest extends UnitHelpers
 
         $repository = $this->em->getRepository('Core\Entity\IndependentWork');
         $repository->Create([
+            'name' => uniqid() . 'Name',
             'duedate' => new \DateTime,
             'description' => uniqid() . ' Description for independentwork',
             'durationAK' => (int) uniqid(),

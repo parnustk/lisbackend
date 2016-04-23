@@ -279,16 +279,20 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         $subjectRound = $this->CreateSubjectRound();
-
+        
         return $repository->Create([
+                    'name' => 'contact lesson',
                     'lessonDate' => new \DateTime,
                     'description' => uniqid() . ' Description for contactlesson',
-                    'durationAK' => 6,
+                    'sequenceNr' => 5,
                     'subjectRound' => $subjectRound->getId(),
-                    'teacher' => [
-                        ['id' => $this->CreateTeacher()->getId()],
-                        ['id' => $this->CreateTeacher()->getId()],
-                    ],
+                    'teacher' => $this->CreateTeacher()->getId(),
+                    'rooms' => $this->CreateRoom()->getId(),
+                    'studentGroup' => $this->CreateStudentGroup()->getId(),
+                    'module' => $this->CreateModule()->getId(),
+                    'vocation' => $this->CreateVocation()->getId(),
+                    'durationAK' => 6,
+                    
         ]);
     }
 
@@ -388,6 +392,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         $subjectRound = $this->CreateSubjectRound();
         $teacher = $this->CreateTeacher();
+        $student = $this->CreateStudent();
 
         return $repository->Create([
                     'name' => uniqid() . 'Name',
@@ -396,6 +401,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'durationAK' => (int) uniqid(),
                     'subjectRound' => $subjectRound->getId(),
                     'teacher' => $teacher->getId(),
+                    'student' => $student->getId(),
         ]);
     }
 

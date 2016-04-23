@@ -58,6 +58,21 @@ class ContactLessonTest extends UnitHelpers
 
         $this->assertEquals(405, $response->getStatusCode());
     }
+    
+    /**
+     * NOT ALLOWED
+     */
+    public function testUpdate()
+    {
+        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        $this->request->setMethod('put');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false);
+
+        $this->assertEquals(405, $response->getStatusCode());
+    }
 
     /**
      * TEST rows get read
@@ -145,7 +160,7 @@ class ContactLessonTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($student);
         
-//prepare one AbsenceReason with trashed flag set up
+        //prepare one AbsenceReason with trashed flag set up
         $entity = $this->CreateContactLesson();
         $entity->setTrashed(1);
         $this->em->persist($entity);

@@ -398,13 +398,13 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
 
         return $repository->Create([
-                    "duedate" => new \DateTime,
-                    "name" => uniqid() . 'Name',
-                    "description" => uniqid() . 'Description',
-                    "durationAK" => (rand(1, 10) * 2),
-                    "subjectRound" => $subjectRound->getId(),
-                    "teacher" => $teacher->getId(),
-                    "student" => $student->getId(),
+                    'name' => uniqid() . 'Name',
+                    'duedate' => new \DateTime,
+                    'description' => uniqid() . ' Description for independentwork',
+                    'durationAK' => (int) uniqid(),
+                    'subjectRound' => $subjectRound->getId(),
+                    'teacher' => $teacher->getId(),
+                    'student' => $student->getId(),
         ]);
     }
 
