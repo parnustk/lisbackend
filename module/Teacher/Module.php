@@ -56,7 +56,7 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        //$eventManager->attach('render', [$this, 'registerJsonStrategy'], 100);
+        $eventManager->attach('render', [$this, 'registerJsonStrategy'], 100);
     }
 
     /**
@@ -67,6 +67,7 @@ class Module
      */
     public function registerJsonStrategy(MvcEvent $e)
     {
+        /*
         return;
         $matches = $e->getRouteMatch();
         $controller = $matches->getParam('controller');
@@ -86,6 +87,8 @@ class Module
             //$e->setResult($newModel);
             $e->setViewModel($newModel);
         }
+
+         */
     }
 
 }

@@ -10,7 +10,7 @@
 
 namespace LisAuth\Controller;
 
-use Zend\Mvc\Controller\AbstractRestfulController;
+use Core\Controller\AbstractBaseController as Base;
 use Zend\View\Model\JsonModel;
 
 /**
@@ -18,7 +18,7 @@ use Zend\View\Model\JsonModel;
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * @author Juhan Kõks <juhankoks@gmail.com>
  */
-class LoginTeacherController extends AbstractRestfulController
+class LoginTeacherController extends Base
 {
 
     /**
@@ -96,7 +96,9 @@ class LoginTeacherController extends AbstractRestfulController
     public function delete($id)
     {
         $this->headerAccessControlAllowOrigin();
-        return new JsonModel([$id]);
+        return new JsonModel($this
+                        ->getLisAuthService()
+                        ->logout($id));
     }
 
 }

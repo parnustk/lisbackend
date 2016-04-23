@@ -17,10 +17,10 @@ ob_start(); //clears error - session_regenerate_id(): Cannot regenerate session 
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class LoginTeacherControllerTest extends UnitHelpers
 {
-
 
     /**
      * REST access setup
@@ -37,7 +37,6 @@ class LoginTeacherControllerTest extends UnitHelpers
     public function testCreateWithCorrectData()
     {
         $teacher = $this->CreateTeacher();
-
         $email = uniqid() . '@test.ee';
         $password = uniqid();
 
@@ -111,7 +110,7 @@ class LoginTeacherControllerTest extends UnitHelpers
         $this->assertEquals(false, $result->success);
         $this->assertEquals('FALSE_ATTEMPT', $result->message);
     }
-    
+
     /**
      * Log in teacher false email
      */
@@ -151,6 +150,41 @@ class LoginTeacherControllerTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, $result->success);
         $this->assertEquals('FALSE_ATTEMPT', $result->message);
+    }
+
+    public function testCreateStaticTeacherUser()
+    {
+        try {
+
+            $email = 'teacher@test.ee';
+            $password = 'Tere1234';
+
+            $teacherRepository = $this->em->getRepository('Core\Entity\Teacher');
+
+            $teacher = $teacherRepository->Create([
+                'firstName' => 'firstName' . uniqid(),
+                'lastName' => 'lastName' . uniqid(),
+                'personalCode' => 'code' . uniqid(),
+                'email' => $email
+            ]);
+
+            $d = [
+                'personalCode' => $teacher->getPersonalCode(),
+                'email' => $email,
+                'password' => $password,
+            ];
+
+            $lisUser = $this
+                    ->em
+                    ->getRepository('Core\Entity\LisUser')
+                    ->Create($d);
+
+            $teacher->setLisUser($lisUser); //associate
+            $this->em->persist($teacher);
+            $this->em->flush($teacher);
+        } catch (\Exception $exc) {
+            $this->PrintOut($exc->getMessage(), false);
+        }
     }
 
 }
