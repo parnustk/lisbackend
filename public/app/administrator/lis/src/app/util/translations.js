@@ -65,8 +65,11 @@
                 VOCATION_GRID_FILTERS:'Eriala filtrid',
                 SEARCH_A_NAME: 'Otsi nime järgi',
                 SEARCH_A_VOCATIONCODE: 'Otsi eriala koodi järgi',
-                SEARCH_A_DURATIONEKAP: 'Otsi kestuse (EKAP) järgi'
+                SEARCH_A_DURATIONEKAP: 'Otsi kestuse (EKAP) järgi',
 
+                LIS_GRADECHOICE_VIEW:'Hinde valikud',
+                LIS_CREATE_NEW_GRADECHOICE: 'Loo uus hinde valik',
+                GRADECHOICE_GRID_FILTERS: 'Hinde valiku filter'
 
 
             },
@@ -124,7 +127,11 @@
                 VOCATION_GRID_FILTERS:'Vocations filters',
                 SEARCH_A_NAME: 'Search by name',
                 SEARCH_A_VOCATIONCODE: 'Search by vocation code',
-                SEARCH_A_DURATIONEKAP: 'Search by duration (EKAP)'
+                SEARCH_A_DURATIONEKAP: 'Search by duration (EKAP)',
+                
+                LIS_GRADECHOICE_VIEW:'Grade choices',
+                LIS_CREATE_NEW_GRADECHOICE: 'Create new grade choice',
+                GRADECHOICE_GRID_FILTERS: 'Grade choice filter'
 
             }
         };

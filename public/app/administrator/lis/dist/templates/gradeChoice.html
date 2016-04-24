@@ -1,22 +1,22 @@
-<h2>LIS_GRADECHOICE_VIEW</h2>
+<h2>{{ T('LIS_GRADECHOICE_VIEW') }}</h2>
 <form class="form-horizontal" name="gradeChoiceForm" ng-submit="Create(gradeChoiceForm.$valid)">
 
     <fieldset>
 
-        <legend>LIS_CREATE_NEW_GRADECHOICE</legend>
+        <legend>{{ T('LIS_CREATE_NEW_GRADECHOICE') }}</legend>
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': gradeChoiceForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="gradeChoiceForm-name">LIS_NAME</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="gradeChoiceForm-name" ng-model="gradeChoice.name">
+                        <span class="input-group-addon" id="gradeChoiceForm-name">{{ T('LIS_NAME') }}</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="gradeChoiceForm-name" ng-model="gradeChoice.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
 
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
             </div><!-- /.col-lg-6 -->
         </div>
     </fieldset>
@@ -26,20 +26,20 @@
 
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
-        <legend>GRADECHOICE_GRID_FILTERS</legend>
+        <legend>{{ T('GRADECHOICE_GRID_FILTERS') }}</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Name filter</label>
+            
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterGradeChoice-name">SEARCH_A_NAME</span>
-                        <input name="name" ng-model="filterGradeChoice.name" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="filterGradeChoice-name">
+                        <span class="input-group-addon" id="filterGradeChoice-name">{{ T('SEARCH_A_NAME') }}</span>
+                        <input name="name" ng-model="filterGradeChoice.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterGradeChoice-name">
                     </div> 
                 </div>
             </div>
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
-                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
             </div>
         </div>
     </fieldset>
