@@ -65,7 +65,7 @@
                 LIS_CREATE_NEW_VOCATION: 'Loo uus eriala',
                 LIS_VOCATIONCODE: 'Eriala kood',
                 LIS_DURATIONEKAP: 'Kestus (EKAP)',
-                VOCATION_GRID_FILTERS:'Eriala filtrid',
+                VOCATION_GRID_FILTERS:'Erialade filtrid',
                 SEARCH_A_NAME: 'Otsi nime järgi',
                 SEARCH_A_VOCATIONCODE: 'Otsi eriala koodi järgi',
                 SEARCH_A_DURATIONEKAP: 'Otsi kestuse (EKAP) järgi',
@@ -83,7 +83,12 @@
                 SEARCH_A_FIRSTNAME:'Otsi eesnime järgi',
                 SEARCH_A_LASTNAME:'Otsi perekonnanime järgi',
                 SEARCH_AN_EMAIL:'Otsi e-posti aadressi järgi',
-                SEARCH_A_PERSONALCODE:'Otsi koodi järgi'
+                SEARCH_A_PERSONALCODE:'Otsi koodi järgi',
+                STUDENT_GRID_FILTERS:'Õpilaste filtrid',
+                
+                LIS_ADMINISTRATOR_VIEW:'Administraatorid',
+                LIS_CREATE_NEW_ADMINISTRATOR:'Loo uus administraator',
+                ADMINISTRATOR_GRID_FILTERS:'Administraatorite filtrid'
 
 
             },

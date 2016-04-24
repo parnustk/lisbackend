@@ -44,6 +44,8 @@
                  */
                 function administratorController($scope, $q, $routeParams, rowSorter, uiGridConstants, administratorModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -88,19 +90,19 @@
                                 }
                             },
                             {field: 'firstName',
-                                displayName: 'LIS_FIRSTNAME'
+                                displayName: $scope.T('LIS_FIRSTNAME')
                             },
                             {field: 'lastName',
-                                displayName: 'LIS_LASTNAME'
+                                displayName: $scope.T('LIS_LASTNAME')
                             },
                             {field: 'email',
-                                displayName: 'LIS_EMAIL'
+                                displayName: $scope.T('LIS_EMAIL')
                             },
                             {field: 'personalCode',
-                                displayName: 'LIS_PERSONALCODE'
+                                displayName: $scope.T('LIS_PERSONALCODE')
                             },
                             {field: 'trashed',
-                                displayName: 'LIS_TRASHED'
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,
