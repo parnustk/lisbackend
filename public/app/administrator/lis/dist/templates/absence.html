@@ -86,7 +86,7 @@
             <div class="col-sm-12">
                 <div class="input-group">
 
-                    <ui-select allow-clear ng-model="filterAbsence.absenceReason" theme="bootstrap">
+                    <ui-select allow-clear ng-model="filterAbsence.absenceReason" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
                         <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_AN_ABSENCEREASON') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
                             <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>
@@ -101,7 +101,7 @@
 
             <div class="col-sm-12">
                 <div class="input-group">
-                    <ui-select allow-clear ng-model="filterAbsence.student" theme="bootstrap">
+                    <ui-select allow-clear ng-model="filterAbsence.student" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
                         <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENT') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="student in students | filter: $select.search">
                             <div ng-bind-html="student.name | highlight: $select.search"></div>
@@ -115,7 +115,7 @@
             
              <div class="col-sm-12">
                 <div class="input-group">
-                    <ui-select allow-clear ng-model="filterAbsence.contactLesson" theme="bootstrap">
+                    <ui-select allow-clear ng-model="filterAbsence.contactLesson" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
                         <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_CONTACTLESSON') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
                             <div ng-bind-html="contactLesson.name | highlight: $select.search"></div>
