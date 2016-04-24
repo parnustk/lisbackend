@@ -48,6 +48,8 @@
 
                 function moduleTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleTypeModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -88,10 +90,10 @@
                                 }
                             },
                             {field: 'name',
-                                displayName: 'LIS_NAME'
+                                displayName: $scope.T('LIS_NAME')
                             },
                             {field: 'trashed',
-                                displayName: 'LIS_TRASHED'
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,

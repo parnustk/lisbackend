@@ -69,7 +69,11 @@
 
                 LIS_GRADECHOICE_VIEW:'Hinde valikud',
                 LIS_CREATE_NEW_GRADECHOICE: 'Loo uus hinde valik',
-                GRADECHOICE_GRID_FILTERS: 'Hinde valiku filter'
+                GRADECHOICE_GRID_FILTERS: 'Hinde valikute filter',
+                
+                LIS_MODULETYPE_VIEW:'Mooduli tüübid',
+                LIS_CREATE_NEW_MODULETYPE:'Loo uus mooduli tüüp',
+                MODULETYPE_GRID_FILTERS:'Mooduli tüüpide filter'
 
 
             },
@@ -131,7 +135,11 @@
                 
                 LIS_GRADECHOICE_VIEW:'Grade choices',
                 LIS_CREATE_NEW_GRADECHOICE: 'Create new grade choice',
-                GRADECHOICE_GRID_FILTERS: 'Grade choice filter'
+                GRADECHOICE_GRID_FILTERS: 'Grade choices filter',
+                
+                LIS_MODULETYPE_VIEW:'Module types',
+                LIS_CREATE_NEW_MODULETYPE:'Create new module type',
+                MODULETYPE_GRID_FILTERS:'Module types filter'
 
             }
         };
