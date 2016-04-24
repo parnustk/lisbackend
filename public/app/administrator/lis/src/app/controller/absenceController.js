@@ -48,6 +48,8 @@
                  */
                 function absenceController($scope, $q, $routeParams, rowSorter, uiGridConstants, absenceModel, absenceReasonModel, studentModel, contactLessonModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -113,7 +115,7 @@
                             {
                                 field: "absenceReason",
                                 name: "absenceReason",
-                                displayName: 'LIS_ABSENCEREASON',
+                                displayName: $scope.T('LIS_ABSENCEREASON'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -123,7 +125,7 @@
                             {
                                 field: "student",
                                 name: "student",
-                                displayName: 'LIS_STUDENT',
+                                displayName: $scope.T('LIS_STUDENT'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -133,7 +135,7 @@
                             {
                                 field: "contactLesson",
                                 name: "contactLesson",
-                                displayName: 'LIS_CONTACTLESSON',
+                                displayName: $scope.T('LIS_CONTACTLESSON'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -141,10 +143,11 @@
                                 sortCellFiltered: $scope.sortFiltered
                             },
                             {field: 'description',
-                                displayName: 'LIS_DESCRIPTION'
+                                displayName: $scope.T('LIS_DESCRIPTION')
                             },
                             {field: 'trashed',
-                                displayName: 'LIS_TRASHED'}
+                                displayName: $scope.T('LIS_TRASHED')
+                            }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,

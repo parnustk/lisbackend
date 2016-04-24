@@ -1,10 +1,10 @@
-<h2>{{ T('LIS_CONTACTLESSON_VIEW') }}</h2>
+<h2>{{ T('LIS_CONTACTLESSON_VIEW')}}</h2>
 
 <form class="form-horizontal" name="contactLessonForm" ng-submit="Create(contactLessonForm.$valid)">
 
     <fieldset>
 
-        <legend>{{ T('LIS_CREATE_NEW_CONTACTLESSON') }}</legend>
+        <legend>{{ T('LIS_CREATE_NEW_CONTACTLESSON')}}</legend>
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': contactLessonForm.room.$invalid }">
@@ -157,6 +157,18 @@
         </div>
 
         <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.durationAK.$invalid }">
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonForm-durationAK">LIS_DURATIONAK</span>
+                        <input name="durationAK" ng-model="contactLesson.durationAK" ng-required="true" type="number" class="form-control" placeholder="LIS_DURATIONAK" aria-describedby="contactLessonForm-durationAK">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+        </div>
+
+        <div class="row">
             <div class="form-group">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
@@ -165,7 +177,8 @@
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
-        </div>
+
+        </div>         
 
         <div class="col-lg-6">
             <button type="submit" class="btn btn-primary">LIS_CREATE</button>
@@ -290,12 +303,12 @@
             </div>
 
             <div class="row">
-                    <div class="col-lg-6">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon" id="contactLessonFilter-sequenceNr">LIS_SEQUENCENR</span>
-                            <input name="sequenceNrFilter" ng-model="contactLessonFilter.sequenceNr" ng-required="false" type="number" class="form-control" placeholder="LIS_SEQUENCENR" aria-describedby="contactLessonFilter-sequenceNr">
-                        </div>
-                    </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonFilter-sequenceNr">LIS_SEQUENCENR</span>
+                        <input name="sequenceNrFilter" ng-model="contactLessonFilter.sequenceNr" ng-required="false" type="number" class="form-control" placeholder="LIS_SEQUENCENR" aria-describedby="contactLessonFilter-sequenceNr">
+                    </div>
+                </div><!-- /.col-lg-6 -->
             </div>
 
             <div class="row">

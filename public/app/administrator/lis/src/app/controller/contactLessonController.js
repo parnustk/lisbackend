@@ -170,7 +170,8 @@
                     studentGroup: null,
                     module: null,
                     vocation: null,
-                    teacher: null
+                    teacher: null,
+                    durationAK: null
                 };
 
                 $scope.roomsAll = $scope.subjectRounds = $scope.studentGroups = $scope.modules = $scope.vocations = $scope.teachers = [];
@@ -268,7 +269,8 @@
                             width: '20%'
                         },
                         {field: 'sequenceNr', type: 'number'},
-                        {field: 'description'}
+                        {field: 'description'},
+                        {field: 'durationAK'}
                     ],
                     enableGridMenu: true,
                     enableSelectAll: true,

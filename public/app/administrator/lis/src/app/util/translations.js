@@ -25,6 +25,7 @@
                 LIS_FILTER: 'Filtreeri',
                 LIS_TRASHED: 'Prügikastis',
                 LIS_NAME_FILTER: 'Nime filter',
+                LIS_DESCRIPTION: 'Kirjeldus',
 
                 LIS_ROOM: 'Ruumid',
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
@@ -41,9 +42,11 @@
                 LIS_TEACHER: 'Õpetajad',
                 LIS_SUBJECT: 'Teemad',
                 
-                LIS_ABSENCEREASON: 'Puudumise põhjus',
+                LIS_ABSENCEREASON: 'Puudumise põhjused',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Loo uus puudumise põhjus',
-                ABSENCEREASON_GRID_FILTERS: 'Puudumise põhjuste filter'
+                ABSENCEREASON_GRID_FILTERS: 'Puudumise põhjuste filter',
+                
+                LIS_ABSENCE_VIEW: 'Puudumised'
 
 
 
@@ -79,7 +82,7 @@
                 LIS_TEACHER: 'Teachers',
                 LIS_SUBJECT: 'Subjects',
                 
-                LIS_ABSENCEREASON: 'Absence reason',
+                LIS_ABSENCEREASON: 'Absence reasons',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Create new absence reason',
                 ABSENCEREASON_GRID_FILTERS: 'Absence reason filter'
 

@@ -291,6 +291,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'sequenceNr' => 6,
                     'subjectRound' => $subjectRound->getId(),
                     'studentGroup' => $studentGroup->getId(),
+                    'durationAK' => 120,
                     'teacher' => $teacher->getId(),
                     'rooms' => $rooms->getId(),
                     'module' => $module->getId(),
