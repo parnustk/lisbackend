@@ -35,18 +35,28 @@
                 LIS_CREATE_NEW_SUBJECTROUND: 'Uus SR',
                 LIS_SUBJECTROUND_GRID_FILTERS: 'SR filtrid',
 
-                LIS_CONTACTLESSON: 'Kontakt tunnid',
-                LIS_CONTACTLESSON_VIEW: 'Kontakt tunnid',
+                LIS_CONTACTLESSON: 'Kontakttund',
+                LIS_CONTACTLESSON_VIEW: 'Kontakttunnid',
 
                 LIS_STUDENTGROUP: 'Õppegrupid',
                 LIS_TEACHER: 'Õpetajad',
                 LIS_SUBJECT: 'Teemad',
                 
-                LIS_ABSENCEREASON: 'Puudumise põhjused',
+                LIS_ABSENCEREASON_VIEW:'Puudumise põhjused',
+                LIS_ABSENCEREASON: 'Puudumise põhjus',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Loo uus puudumise põhjus',
-                ABSENCEREASON_GRID_FILTERS: 'Puudumise põhjuste filter',
+                ABSENCEREASON_GRID_FILTERS: 'Filtreeri puudumise põhjuseid',
                 
-                LIS_ABSENCE_VIEW: 'Puudumised'
+                LIS_ABSENCE_VIEW: 'Puudumised',
+                LIS_CREATE_NEW_ABSENCE: 'Loo uus puudumine',
+                SELECT_AN_ABSENCEREASON: 'Vali puudumise põhjus',
+                SELECT_A_STUDENT: 'Vali õpilane',
+                SELECT_A_CONTACTLESSON: 'Vali kontakttund',
+                ABSENCE_GRID_FILTERS: 'Filtreeri puudumisi',
+                SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Vali või otsi puudumise põhjus',
+                SELECT_OR_SEARCH_A_STUDENT: 'Vali või otsi õpilane',
+                SELECT_OR_SEARCH_A_CONTACTLESSON: 'Vali või otsi kontakttund',
+                LIS_STUDENT: 'Õpilane'
 
 
 
@@ -61,6 +71,7 @@
                 LIS_FILTER: 'Filter',
                 LIS_TRASHED: 'Trashed',
                 LIS_NAME_FILTER: 'Name filter',
+                LIS_DESCRIPTION: 'Description',
 
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
@@ -84,7 +95,18 @@
                 
                 LIS_ABSENCEREASON: 'Absence reasons',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Create new absence reason',
-                ABSENCEREASON_GRID_FILTERS: 'Absence reason filter'
+                ABSENCEREASON_GRID_FILTERS: 'Filter absence reason',
+                
+                LIS_ABSENCE_VIEW: 'Absences',
+                LIS_CREATE_NEW_ABSENCE: 'Create new absence',
+                SELECT_AN_ABSENCEREASON: 'Select an absence reason',
+                SELECT_A_STUDENT: 'Select a student',
+                SELECT_A_CONTACTLESSON: 'Select a contact lesson',
+                ABSENCE_GRID_FILTERS: 'Filter absences',
+                SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Select or search an absence reason',
+                SELECT_OR_SEARCH_A_STUDENT: 'Select or search a student',
+                SELECT_OR_SEARCH_A_CONTACTLESSON: 'elect or search a contact lesson',
+                LIS_STUDENT: 'Student'
 
             }
         };
