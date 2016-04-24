@@ -46,6 +46,8 @@
                  */
                 function subjectController($scope, $q, $routeParams, rowSorter, uiGridConstants, subjectModel, moduleModel, gradingTypeModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -107,7 +109,7 @@
                             {//select one
                                 field: "module",
                                 name: "module",
-                                displayName: 'LIS_MODULE',
+                                displayName: $scope.T('LIS_MODULE'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -116,29 +118,29 @@
                             {//select many
                                 field: "gradingType",
                                 name: 'gradingType',
-                                displayName: 'LIS_GRADINGTYPE',
+                                displayName: $scope.T('LIS_GRADINGTYPE'),
                                 cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}} </span></div>",
                                 editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name"
                             },
                             {field: 'name',
-                                displayName: 'LIS_NAME'
+                                displayName: $scope.T('LIS_NAME')
                             },
                             {field: 'subjectCode',
-                                displayName: 'LIS_SUBJECTCODE'
+                                displayName: $scope.T('LIS_SUBJECTCODE')
                             },
                             {field: 'durationAllAK',
-                                displayName: 'LIS_DURATIONALLAK'
+                                displayName: $scope.T('LIS_DURATIONALLAK')
                             },
                             {field: 'durationContactAK',
-                                displayName: 'LIS_DURATIONCONTACTAK'
+                                displayName: $scope.T('LIS_DURATIONCONTACTAK')
                             },
                             {field: 'durationIndependentAK',
-                                displayName: 'LIS_DURATIONINDEPENDENTAK'
+                                displayName: $scope.T('LIS_DURATIONINDEPENDENTAK')
                             },
                             {field: 'trashed',
-                                displayName: 'LIS_TRASHED'
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,

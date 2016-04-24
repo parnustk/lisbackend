@@ -88,7 +88,25 @@
                 
                 LIS_ADMINISTRATOR_VIEW:'Administraatorid',
                 LIS_CREATE_NEW_ADMINISTRATOR:'Loo uus administraator',
-                ADMINISTRATOR_GRID_FILTERS:'Administraatorite filtrid'
+                ADMINISTRATOR_GRID_FILTERS:'Administraatorite filtrid',
+                
+                LIS_SUBJECT_VIEW: 'Õppeained',
+                LIS_CREATE_NEW_SUBJECT:'Loo uus õppeaine',
+                SELECT_A_MODULE:'Vali moodul',
+                SELECT_GRADINGTYPES:'Vali hindamise tüübid',
+                LIS_SUBJECTCODE:'Kood',
+                LIS_DURATIONALLAK:'Kogu kestus (AK)',
+                LIS_DURATIONCONTACTAK:'Kontakttundide kestus (AK)',
+                LIS_DURATIONINDEPENDENTAK:'Iseseisva töö kestus (AK)',
+                SUBJECT_GRID_FILTERS:'Õppeainete filtrid',
+                SELECT_OR_SEARCH_A_MODULE:'Vali või otsi moodul',
+                SELECT_OR_SEARCH_GRADINGTYPES:'Vali või otsi hindamise tüüpe',
+                SEARCH_A_SUBJECTCODE:'Otsi koodi järgi',
+                SEARCH_DURATIONALLAK:'Otsi kogu kestuse (AK) järgi',
+                SEARCH_DURATIONCONTACTAK:'Otsi kontakttundide kestuse (AK) järgi',
+                SEARCH_DURATIONINDEPENDENTAK:'Otsi iseseisva töö kestuse (AK) järgi',
+                LIS_MODULE:'Moodul',
+                LIS_GRADINGTYPE:'Hindamise tüüp'
 
 
             },
@@ -164,7 +182,30 @@
                 SEARCH_A_FIRSTNAME:'Search by first name',
                 SEARCH_A_LASTNAME:'Search by last name',
                 SEARCH_AN_EMAIL:'Search by e-mail address',
-                SEARCH_A_PERSONALCODE:'Search by code'
+                SEARCH_A_PERSONALCODE:'Search by code',
+                STUDENT_GRID_FILTERS:'Students filters',
+                
+                LIS_ADMINISTRATOR_VIEW:'Administrators',
+                LIS_CREATE_NEW_ADMINISTRATOR:'Create new administrator',
+                ADMINISTRATOR_GRID_FILTERS:'Administrators filters',
+                
+                LIS_SUBJECT_VIEW: 'Subjects',
+                LIS_CREATE_NEW_SUBJECT:'Create new subject',
+                SELECT_A_MODULE:'Select a module',
+                SELECT_GRADINGTYPES:'Select grading types',
+                LIS_SUBJECTCODE:'Code',
+                LIS_DURATIONALLAK:'Duration all (AK)',
+                LIS_DURATIONCONTACTAK:'Contact lesson duration (AK)',
+                LIS_DURATIONINDEPENDENTAK:'Independent work duration (AK)',
+                SUBJECT_GRID_FILTERS:'Subjects filters',
+                SELECT_OR_SEARCH_A_MODULE:'Select or search a module',
+                SELECT_OR_SEARCH_GRADINGTYPES:'Select or search grading types',
+                SEARCH_A_SUBJECTCODE:'Search by code',
+                SEARCH_DURATIONALLAK:'Search by duration all (AK)',
+                SEARCH_DURATIONCONTACTAK:'Search by contact lesson duration (AK)',
+                SEARCH_DURATIONINDEPENDENTAK:'Search by independent work duration (AK)',
+                LIS_MODULE:'Module',
+                LIS_GRADINGTYPE:'Grading type'
 
             }
         };
