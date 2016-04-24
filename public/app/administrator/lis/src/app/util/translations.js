@@ -45,18 +45,27 @@
                 LIS_ABSENCEREASON_VIEW:'Puudumise põhjused',
                 LIS_ABSENCEREASON: 'Puudumise põhjus',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Loo uus puudumise põhjus',
-                ABSENCEREASON_GRID_FILTERS: 'Filtreeri puudumise põhjuseid',
+                ABSENCEREASON_GRID_FILTERS: 'Puudumise põhjuste filter',
                 
                 LIS_ABSENCE_VIEW: 'Puudumised',
                 LIS_CREATE_NEW_ABSENCE: 'Loo uus puudumine',
                 SELECT_AN_ABSENCEREASON: 'Vali puudumise põhjus',
                 SELECT_A_STUDENT: 'Vali õpilane',
                 SELECT_A_CONTACTLESSON: 'Vali kontakttund',
-                ABSENCE_GRID_FILTERS: 'Filtreeri puudumisi',
+                ABSENCE_GRID_FILTERS: 'Puudumiste filtrid',
                 SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Vali või otsi puudumise põhjus',
                 SELECT_OR_SEARCH_A_STUDENT: 'Vali või otsi õpilane',
                 SELECT_OR_SEARCH_A_CONTACTLESSON: 'Vali või otsi kontakttund',
-                LIS_STUDENT: 'Õpilane'
+                LIS_STUDENT: 'Õpilane',
+                
+                LIS_VOCATION_VIEW: 'Erialad',
+                LIS_CREATE_NEW_VOCATION: 'Loo uus eriala',
+                LIS_VOCATIONCODE: 'Eriala kood',
+                LIS_DURATIONEKAP: 'Kestus (EKAP)',
+                VOCATION_GRID_FILTERS:'Eriala filtrid',
+                SEARCH_A_NAME: 'Otsi nime järgi',
+                SEARCH_A_VOCATIONCODE: 'Otsi eriala koodi järgi',
+                SEARCH_A_DURATIONEKAP: 'Otsi kestuse (EKAP) järgi'
 
 
 
@@ -95,18 +104,27 @@
                 
                 LIS_ABSENCEREASON: 'Absence reasons',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Create new absence reason',
-                ABSENCEREASON_GRID_FILTERS: 'Filter absence reason',
+                ABSENCEREASON_GRID_FILTERS: 'Absence reasons filter',
                 
                 LIS_ABSENCE_VIEW: 'Absences',
                 LIS_CREATE_NEW_ABSENCE: 'Create new absence',
                 SELECT_AN_ABSENCEREASON: 'Select an absence reason',
                 SELECT_A_STUDENT: 'Select a student',
                 SELECT_A_CONTACTLESSON: 'Select a contact lesson',
-                ABSENCE_GRID_FILTERS: 'Filter absences',
+                ABSENCE_GRID_FILTERS: 'Absences filters',
                 SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Select or search an absence reason',
                 SELECT_OR_SEARCH_A_STUDENT: 'Select or search a student',
-                SELECT_OR_SEARCH_A_CONTACTLESSON: 'elect or search a contact lesson',
-                LIS_STUDENT: 'Student'
+                SELECT_OR_SEARCH_A_CONTACTLESSON: 'Select or search a contact lesson',
+                LIS_STUDENT: 'Student',
+                
+                LIS_VOCATION_VIEW: 'Vocations',
+                LIS_CREATE_NEW_VOCATION: 'Create new vocation',
+                LIS_VOCATIONCODE: 'Vocation code',
+                LIS_DURATIONEKAP: 'Duration (EKAP)',
+                VOCATION_GRID_FILTERS:'Vocations filters',
+                SEARCH_A_NAME: 'Search by name',
+                SEARCH_A_VOCATIONCODE: 'Search by vocation code',
+                SEARCH_A_DURATIONEKAP: 'Search by duration (EKAP)'
 
             }
         };

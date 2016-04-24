@@ -43,6 +43,8 @@
                  */
                 function vocationController($scope, $q, $routeParams, rowSorter, uiGridConstants, vocationModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -85,16 +87,16 @@
                                 }
                             },
                             {field: 'name',
-                                displayName: 'LIS_NAME'
+                                displayName: $scope.T('LIS_NAME')
                             },
                             {field: 'vocationCode',
-                                displayName: 'LIS_VOCATIONCODE'
+                                displayName: $scope.T('LIS_VOCATIONCODE')
                             },
                             {field: 'durationEKAP',
-                                displayName: 'LIS_DURATIONEKAP'
+                                displayName: $scope.T('LIS_DURATIONEKAP')
                             },
                             {field: 'trashed',
-                                displayName: 'LIS_TRASHED'
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,

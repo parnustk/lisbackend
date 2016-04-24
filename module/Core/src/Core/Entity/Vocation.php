@@ -55,8 +55,6 @@ class Vocation extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Validator({"name":"StringLength", "options":{"min":"3", "max":"255"}})
-     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/^[0-9\p{L}]{2,255}$/"}})
      * 
      * @ORM\Column(type="string", unique=true, length=255, nullable=false)
      */

@@ -1,17 +1,17 @@
-<h2>LIS_VOCATION_VIEW</h2>
+<h2>{{ T('LIS_VOCATION_VIEW') }}</h2>
 <form class="form-horizontal" name="vocationForm" ng-submit="Create(vocationForm.$valid)">
     
     <fieldset>
         
-        <legend>LIS_CREATE_NEW_VOCATION</legend>
+        <legend>{{ T('LIS_CREATE_NEW_VOCATION') }}</legend>
         
         <div class="row">
             
             <div class="form-group" ng-class="{ 'has-error': vocationForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="vocationForm-name">LIS_NAME</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="vocationForm-name" ng-model="vocation.name">
+                        <span class="input-group-addon" id="vocationForm-name">{{ T('LIS_NAME') }}</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="vocationForm-name" ng-model="vocation.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -19,8 +19,8 @@
             <div class="form-group" ng-class="{ 'has-error': vocationForm.vocationCode.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="vocationForm-vocationCode">LIS_VOCATIONCODE</span>
-                        <input name="vocationCode" ng-required="true" type="text" class="form-control" placeholder="LIS_VOCATIONCODE" aria-describedby="vocationForm-vocationCode" ng-model="vocation.vocationCode">
+                        <span class="input-group-addon" id="vocationForm-vocationCode">{{ T('LIS_VOCATIONCODE') }}</span>
+                        <input name="vocationCode" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_VOCATIONCODE') }}" aria-describedby="vocationForm-vocationCode" ng-model="vocation.vocationCode">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
@@ -28,14 +28,14 @@
             <div class="form-group" ng-class="{ 'has-error': vocationForm.durationEKAP.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="vocationForm-durationEKAP">LIS_DURATIONEKAP</span>
-                        <input name="durationEKAP" ng-required="true" type="number" class="form-control" placeholder="LIS_DURATIONEKAP" aria-describedby="vocationForm-durationEKAP" ng-model="vocation.durationEKAP">
+                        <span class="input-group-addon" id="vocationForm-durationEKAP">{{ T('LIS_DURATIONEKAP') }}</span>
+                        <input name="durationEKAP" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_DURATIONEKAP') }}" aria-describedby="vocationForm-durationEKAP" ng-model="vocation.durationEKAP">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
 
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
             </div><!-- /.col-lg-6 -->
             
         </div>
@@ -47,15 +47,14 @@
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
-        <legend>VOCATION_GRID_FILTERS</legend>
+        <legend>{{ T('VOCATION_GRID_FILTERS') }}</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">VOCATION_FILTER</label>
 
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterVocation-name">SEARCH_A_NAME</span>
-                        <input name="name" ng-model="filterVocation.name" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="filterVocation-name">
+                        <span class="input-group-addon" id="filterVocation-name">{{ T('SEARCH_A_NAME') }}</span>
+                        <input name="name" ng-model="filterVocation.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterVocation-name">
                     </div>
                 </div>
             </div>
@@ -63,8 +62,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterVocation-vocationCode">SEARCH_A_VOCATIONCODE</span>
-                        <input name="vocationCode" ng-model="filterVocation.vocationCode" type="text" class="form-control" placeholder="LIS_VOCATIONCODE" aria-describedby="filterVocation-vocationCode">
+                        <span class="input-group-addon" id="filterVocation-vocationCode">{{ T('SEARCH_A_VOCATIONCODE') }}</span>
+                        <input name="vocationCode" ng-model="filterVocation.vocationCode" type="text" class="form-control" placeholder="{{ T('LIS_VOCATIONCODE') }}" aria-describedby="filterVocation-vocationCode">
                     </div>
                 </div>
             </div>
@@ -72,8 +71,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterVocation-durationEKAP">SEARCH_A_DURATIONEKAP</span>
-                        <input name="durationEKAP" ng-model="filterVocation.durationEKAP" type="number" class="form-control" placeholder="LIS_DURATIONEKAP" aria-describedby="filterVocation-durationEKAP">
+                        <span class="input-group-addon" id="filterVocation-durationEKAP">{{ T('SEARCH_A_DURATIONEKAP') }}</span>
+                        <input name="durationEKAP" ng-model="filterVocation.durationEKAP" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONEKAP') }}" aria-describedby="filterVocation-durationEKAP">
                     </div>
                 </div>
             </div>
@@ -81,8 +80,8 @@
 
 
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
-                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
             </div><!-- /.col-lg-6 -->
         </div>
     </fieldset>
