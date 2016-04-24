@@ -19,6 +19,8 @@
                 LIS_LOGIN: 'Logi sisse',
                 LIS_LOGOUT: 'Logi välja',
                 LIS_NAME: 'Nimi',
+                LIS_FIRSTNAME: 'Eesnimi',
+                LIS_LASTNAME: 'Perekonnanimi',
                 LIS_CREATE: 'Loo',
                 LIS_DELETE: 'Kustuta',
                 LIS_CLEAR: 'Tühjenda',
@@ -26,6 +28,7 @@
                 LIS_TRASHED: 'Prügikastis',
                 LIS_NAME_FILTER: 'Nime filter',
                 LIS_DESCRIPTION: 'Kirjeldus',
+                LIS_PERSONALCODE: 'Kood',
 
                 LIS_ROOM: 'Ruumid',
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
@@ -73,7 +76,14 @@
                 
                 LIS_MODULETYPE_VIEW:'Mooduli tüübid',
                 LIS_CREATE_NEW_MODULETYPE:'Loo uus mooduli tüüp',
-                MODULETYPE_GRID_FILTERS:'Mooduli tüüpide filter'
+                MODULETYPE_GRID_FILTERS:'Mooduli tüüpide filter',
+                
+                LIS_STUDENT_VIEW: 'Õpilased',
+                LIS_CREATE_NEW_STUDENT: 'Loo uus õpilane',
+                SEARCH_A_FIRSTNAME:'Otsi eesnime järgi',
+                SEARCH_A_LASTNAME:'Otsi perekonnanime järgi',
+                SEARCH_AN_EMAIL:'Otsi e-posti aadressi järgi',
+                SEARCH_A_PERSONALCODE:'Otsi koodi järgi'
 
 
             },
@@ -88,6 +98,9 @@
                 LIS_TRASHED: 'Trashed',
                 LIS_NAME_FILTER: 'Name filter',
                 LIS_DESCRIPTION: 'Description',
+                LIS_FIRSTNAME: 'First name',
+                LIS_LASTNAME: 'Last name',
+                LIS_PERSONALCODE: 'Code',
 
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
@@ -139,7 +152,14 @@
                 
                 LIS_MODULETYPE_VIEW:'Module types',
                 LIS_CREATE_NEW_MODULETYPE:'Create new module type',
-                MODULETYPE_GRID_FILTERS:'Module types filter'
+                MODULETYPE_GRID_FILTERS:'Module types filter',
+                
+                LIS_STUDENT_VIEW: 'Students',
+                LIS_CREATE_NEW_STUDENT: 'Create new student',
+                SEARCH_A_FIRSTNAME:'Search by first name',
+                SEARCH_A_LASTNAME:'Search by last name',
+                SEARCH_AN_EMAIL:'Search by e-mail address',
+                SEARCH_A_PERSONALCODE:'Search by code'
 
             }
         };
