@@ -39,7 +39,11 @@
 
                 LIS_STUDENTGROUP: 'Õppegrupid',
                 LIS_TEACHER: 'Õpetajad',
-                LIS_SUBJECT: 'Teemad'
+                LIS_SUBJECT: 'Teemad',
+                
+                LIS_ABSENCEREASON: 'Puudumise põhjus',
+                LIS_CREATE_NEW_ABSENCEREASON: 'Loo uus puudumise põhjus',
+                ABSENCEREASON_GRID_FILTERS: 'Puudumise põhjuste filter'
 
 
 
@@ -73,7 +77,11 @@
 
                 LIS_STUDENTGROUP: 'Student groups',
                 LIS_TEACHER: 'Teachers',
-                LIS_SUBJECT: 'Subjects'
+                LIS_SUBJECT: 'Subjects',
+                
+                LIS_ABSENCEREASON: 'Absence reason',
+                LIS_CREATE_NEW_ABSENCEREASON: 'Create new absence reason',
+                ABSENCEREASON_GRID_FILTERS: 'Absence reason filter'
 
             }
         };
