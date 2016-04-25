@@ -76,6 +76,8 @@
                         subjectRoundModel,
                         contactLessonModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -168,7 +170,7 @@
                             {
                                 field: "student",
                                 name: "student",
-                                displayName: 'LIS_STUDENT',
+                                displayName: $scope.T('LIS_STUDENT'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -179,7 +181,7 @@
                             {
                                 field: "gradeChoice",
                                 name: "gradeChoice",
-                                displayName: 'LIS_GRADECHOICE',
+                                displayName: $scope.T('LIS_GRADECHOICE'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -190,7 +192,7 @@
                             {
                                 field: "teacher",
                                 name: "teacher",
-                                displayName: 'LIS_TEACHER',
+                                displayName: $scope.T('LIS_TEACHER'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -201,7 +203,7 @@
                             {
                                 field: "independentWork",
                                 name: "independentWork",
-                                displayName: 'LIS_INDEPENDENTWORK',
+                                displayName: $scope.T('LIS_INDEPENDENTWORK'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -212,7 +214,7 @@
                             {
                                 field: "module",
                                 name: "module",
-                                displayName: 'LIS_MODULE',
+                                displayName: $scope.T('LIS_MODULE'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -223,7 +225,7 @@
                             {
                                 field: "subjectRound",
                                 name: "subjectRound",
-                                displayName: 'LIS_SUBJECTROUND',
+                                displayName: $scope.T('LIS_SUBJECTROUND'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -234,7 +236,7 @@
                             {
                                 field: "contactLesson",
                                 name: "contactLesson",
-                                displayName: 'LIS_CONTACTLESSON',
+                                displayName: $scope.T('LIS_CONTACTLESSON'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -244,12 +246,12 @@
                             },
                             {
                                 field: 'notes',
-                                displayName: 'LIS_NOTES',
+                                displayName: $scope.T('LIS_NOTES'),
                                 enableCellEdit: false
                             },
                             {
                                 field: 'trashed',
-                                displayName: 'LIS_TRASHED',
+                                displayName: $scope.T('LIS_TRASHED'),
                                 enableCellEdit: false
                             }
                         ],

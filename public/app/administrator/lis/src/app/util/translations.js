@@ -48,9 +48,9 @@
                 SELECT_A_STUDENT: 'Vali õpilane',
                 SELECT_A_CONTACTLESSON: 'Vali kontakttund',
                 ABSENCE_GRID_FILTERS: 'Puudumiste filtrid',
-                SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Vali või otsi puudumise põhjus',
-                SELECT_OR_SEARCH_A_STUDENT: 'Vali või otsi õpilane',
-                SELECT_OR_SEARCH_A_CONTACTLESSON: 'Vali või otsi kontakttund',
+                SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Vali või otsi puudumise põhjuse järgi',
+                SELECT_OR_SEARCH_A_STUDENT: 'Vali või otsi õpilase järgi',
+                SELECT_OR_SEARCH_A_CONTACTLESSON: 'Vali või otsi kontakttunni järgi',
                 
                 LIS_VOCATION_VIEW: 'Erialad',
                 LIS_CREATE_NEW_VOCATION: 'Loo uus eriala',
@@ -90,8 +90,8 @@
                 LIS_DURATIONCONTACTAK:'Kontakttundide kestus (AK)',
                 LIS_DURATIONINDEPENDENTAK:'Iseseisva töö kestus (AK)',
                 SUBJECT_GRID_FILTERS:'Õppeainete filtrid',
-                SELECT_OR_SEARCH_A_MODULE:'Vali või otsi moodul',
-                SELECT_OR_SEARCH_GRADINGTYPES:'Vali või otsi hindamise tüüpe',
+                SELECT_OR_SEARCH_A_MODULE:'Vali või otsi mooduli järgi',
+                SELECT_OR_SEARCH_GRADINGTYPES:'Vali või otsi hindamise tüüpide järgi',
                 SEARCH_A_SUBJECTCODE:'Otsi koodi järgi',
                 SEARCH_DURATIONALLAK:'Otsi kogu kestuse (AK) järgi',
                 SEARCH_DURATIONCONTACTAK:'Otsi kontakttundide kestuse (AK) järgi',
@@ -133,7 +133,14 @@
                 
                 LIS_ME:'Minu asjad',
                 LIS_CHANGE_MY_USER_DATA:'Muuda oma andmeid',
-                LIS_MY_DATA:'Näita minu andmeid'
+                LIS_MY_DATA:'Näita minu andmeid',
+                
+                LIS_STUDENTGRADE_VIEW:'Õpilase hinded',
+                STUDENTGRADE_GRID_FILTERS:'Õpilase hinde filtrid',
+                SELECT_OR_SEARCH_A_GRADECHOICE:'Vali või otsi hinde valiku järgi',
+                SELECT_OR_SEARCH_AN_INDEPENDENTWORK:'Vali või otsi iseseisva töö järgi',
+                LIS_NOTES:'Märkmed'
+                
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -171,7 +178,7 @@
                 SELECT_AN_ABSENCEREASON: 'Select an absence reason',
                 SELECT_A_STUDENT: 'Select a student',
                 SELECT_A_CONTACTLESSON: 'Select a contact lesson',
-                ABSENCE_GRID_FILTERS: 'Absences filters',
+                ABSENCE_GRID_FILTERS: 'Absence filters',
                 SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Select or search an absence reason',
                 SELECT_OR_SEARCH_A_STUDENT: 'Select or search a student',
                 SELECT_OR_SEARCH_A_CONTACTLESSON: 'Select or search a contact lesson',
@@ -180,18 +187,18 @@
                 LIS_CREATE_NEW_VOCATION: 'Create new vocation',
                 LIS_VOCATIONCODE: 'Vocation code',
                 LIS_DURATIONEKAP: 'Duration (EKAP)',
-                VOCATION_GRID_FILTERS:'Vocations filters',
+                VOCATION_GRID_FILTERS:'Vocation filters',
                 SEARCH_A_NAME: 'Search by name',
                 SEARCH_A_VOCATIONCODE: 'Search by vocation code',
                 SEARCH_A_DURATIONEKAP: 'Search by duration (EKAP)',
                 
                 LIS_GRADECHOICE_VIEW:'Grade choices',
                 LIS_CREATE_NEW_GRADECHOICE: 'Create new grade choice',
-                GRADECHOICE_GRID_FILTERS: 'Grade choices filter',
+                GRADECHOICE_GRID_FILTERS: 'Grade choice filter',
                 
                 LIS_MODULETYPE_VIEW:'Module types',
                 LIS_CREATE_NEW_MODULETYPE:'Create new module type',
-                MODULETYPE_GRID_FILTERS:'Module types filter',
+                MODULETYPE_GRID_FILTERS:'Module type filter',
                 
                 LIS_STUDENT_VIEW: 'Students',
                 LIS_CREATE_NEW_STUDENT: 'Create new student',
@@ -199,11 +206,11 @@
                 SEARCH_A_LASTNAME:'Search by last name',
                 SEARCH_AN_EMAIL:'Search by e-mail address',
                 SEARCH_A_PERSONALCODE:'Search by code',
-                STUDENT_GRID_FILTERS:'Students filters',
+                STUDENT_GRID_FILTERS:'Student filters',
                 
                 LIS_ADMINISTRATOR_VIEW:'Administrators',
                 LIS_CREATE_NEW_ADMINISTRATOR:'Create new administrator',
-                ADMINISTRATOR_GRID_FILTERS:'Administrators filters',
+                ADMINISTRATOR_GRID_FILTERS:'Administrator filters',
                 
                 LIS_SUBJECT_VIEW: 'Subjects',
                 LIS_CREATE_NEW_SUBJECT:'Create new subject',
@@ -213,7 +220,7 @@
                 LIS_DURATIONALLAK:'Duration all (AK)',
                 LIS_DURATIONCONTACTAK:'Contact lesson duration (AK)',
                 LIS_DURATIONINDEPENDENTAK:'Independent work duration (AK)',
-                SUBJECT_GRID_FILTERS:'Subjects filters',
+                SUBJECT_GRID_FILTERS:'Subject filters',
                 SELECT_OR_SEARCH_A_MODULE:'Select or search a module',
                 SELECT_OR_SEARCH_GRADINGTYPES:'Select or search grading types',
                 SEARCH_A_SUBJECTCODE:'Search by code',
@@ -256,7 +263,13 @@
                 
                 LIS_ME:'Me',
                 LIS_CHANGE_MY_USER_DATA:'Change my data',
-                LIS_MY_DATA:'My data'
+                LIS_MY_DATA:'My data',
+                
+                LIS_STUDENTGRADE_VIEW:'Student grades',
+                STUDENTGRADE_GRID_FILTERS:'Student grade filters',
+                SELECT_OR_SEARCH_A_GRADECHOICE:'Select or search by grade choice',
+                SELECT_OR_SEARCH_AN_INDEPENDENTWORK:'Select or search by independent work',
+                LIS_NOTES:'Notes'
             }
         };
         return t;
