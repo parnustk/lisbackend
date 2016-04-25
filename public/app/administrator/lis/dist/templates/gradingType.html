@@ -1,43 +1,41 @@
-<h2>LIS_GRADINGTYPE_VIEW</h2>
+<h2>{{ T('LIS_GRADINGTYPE_VIEW') }}</h2>
 <form class="form-horizontal" name="gradingTypeForm" ng-submit="Create(gradingTypeForm.$valid)">
     <fieldset>
-        <legend>LIS_CREATE_NEW_GRADINGTYPE</legend>
+        <legend>{{ T('LIS_CREATE_NEW_GRADINGTYPE') }}</legend>
 
         <div class="row">
 
             <div class="form-group" ng-class="{ 'has-error': gradingTypeForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="gradingTypeForm-name">LIS_NAME</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="Name" aria-describedby="gradingTypeForm-name" ng-model="gradingType.name">
+                        <span class="input-group-addon" id="gradingTypeForm-name">{{ T('LIS_NAME') }}</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="gradingTypeForm-name" ng-model="gradingType.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
             <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">LIS_CREATE</button>
-                <button type="button" ng-click="Delete()" class="btn btn-default">LIS_DELETE</button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
+                <button type="button" ng-click="Delete()" class="btn btn-default">{{ T('LIS_DELETE') }}</button>
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
     </fieldset>
 </form>
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
-        <legend>LIS_GRADINGTYPE_FILTERS</legend>
+        <legend>{{ T('LIS_GRADINGTYPE_FILTERS') }}</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">LIS_NAME_FILTER</label>
-            
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterGradingType-name">LIS_SEARCH_NAME</span>
-                        <input name="name" ng-model="filterGradingType.name" type="text" class="form-control" placeholder="Name" aria-describedby="filterGradingType-name">
+                        <span class="input-group-addon" id="filterGradingType-name">{{ T('LIS_SEARCH_NAME') }}</span>
+                        <input name="name" ng-model="filterGradingType.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterGradingType-name">
                     </div>
                 </div>
             </div>
             
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">LIS_CLEAR</span></button>
-                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
             </div>
         </div>
     </fieldset>

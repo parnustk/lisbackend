@@ -51,7 +51,7 @@
                  * @returns {undefined}
                  */
                 function gradingTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, gradingTypeModel) {
-
+                    $scope.T = globalFunctions.T;
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -91,8 +91,10 @@
                                     priority: 1
                                 }
                             },
-                            {field: 'name'},
-                            {field: 'trashed'}
+                            {field: 'name',
+                                displayName: $scope.T('LIS_NAME')},
+                            {field: 'trashed',
+                                displayName: $scope.T('LIS_TRASHED')}
                         ],
                         enableGridMenu: true,
                         enalbeSelectAll: true,

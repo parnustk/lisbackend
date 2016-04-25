@@ -30,23 +30,15 @@
                 LIS_DESCRIPTION: 'Kirjeldus',
                 LIS_PERSONALCODE: 'Kood',
 
-                LIS_ROOM: 'Ruumid',
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
                 LIS_ROOM_GRID_FILTERS: 'Ruumide filter',
 
-                LIS_SUBJECTROUND: 'SR', //tõlge?
                 LIS_CREATE_NEW_SUBJECTROUND: 'Uus SR',
                 LIS_SUBJECTROUND_GRID_FILTERS: 'SR filtrid',
 
-                LIS_CONTACTLESSON: 'Kontakttund',
                 LIS_CONTACTLESSON_VIEW: 'Kontakttunnid',
-
-                LIS_STUDENTGROUP: 'Õppegrupid',
-                LIS_TEACHER: 'Õpetajad',
-                LIS_SUBJECT: 'Teemad',
                 
                 LIS_ABSENCEREASON_VIEW:'Puudumise põhjused',
-                LIS_ABSENCEREASON: 'Puudumise põhjus',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Loo uus puudumise põhjus',
                 ABSENCEREASON_GRID_FILTERS: 'Puudumise põhjuste filter',
                 
@@ -59,7 +51,6 @@
                 SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Vali või otsi puudumise põhjus',
                 SELECT_OR_SEARCH_A_STUDENT: 'Vali või otsi õpilane',
                 SELECT_OR_SEARCH_A_CONTACTLESSON: 'Vali või otsi kontakttund',
-                LIS_STUDENT: 'Õpilane',
                 
                 LIS_VOCATION_VIEW: 'Erialad',
                 LIS_CREATE_NEW_VOCATION: 'Loo uus eriala',
@@ -105,10 +96,44 @@
                 SEARCH_DURATIONALLAK:'Otsi kogu kestuse (AK) järgi',
                 SEARCH_DURATIONCONTACTAK:'Otsi kontakttundide kestuse (AK) järgi',
                 SEARCH_DURATIONINDEPENDENTAK:'Otsi iseseisva töö kestuse (AK) järgi',
+//                Kristen
+                LIS_DUEDATE:'Tähtaeg',
+                LIS_INDEPENDENTWORK_VIEW:'Iseseisev töö',
+                INDEPENDENDWORK_GRID_FILTERS:'Iseseisva töö filtrid',
+                SELECT_OR_SEARCH_A_SUBJECTROUND:'Vali või otsi SR järgi',
+                SELECT_OR_SEARCH_A_TEACHER:'Vali või otsi õpetaja järgi',
+                LIS_GRADINGTYPE_VIEW:'Hindamise tüüp',
+                LIS_CREATE_NEW_GRADINGTYPE:'Loo uus hindamise tüüp',
+                LIS_GRADINGTYPE_FILTERS:'Hindamise tüübi filtrid',
+                LIS_SEARCH_NAME:'Otsi nime järgi',
+//                MENÜÜ
+                LIS_CURRICULUM:'Muu',
+                LIS_VOCATION:'Eriala',
                 LIS_MODULE:'Moodul',
-                LIS_GRADINGTYPE:'Hindamise tüüp'
-
-
+                LIS_SUBJECT:'Teema',
+                LIS_MODULETYPE:'Mooduli tüüp',
+                LIS_GRADECHOICE:'Hinnete valik',
+                LIS_GRADINGTYPE:'Hindamise tüüp',
+                LIS_ROOM:'Ruumid',
+                
+                LIS_DIARY:'Päevik',
+                LIS_CONTACTLESSON:'Kontakttund',
+                LIS_ABSENCE:'Puudumine',
+                LIS_ABSENCEREASON:'Puudumise põhjus',
+                LIS_INDEPENDENTWORK:'Iseseisev töö',
+                LIS_STUDENTGRADE:'Õpilase hinne',
+                LIS_SUBJECTROUND:'SR? tõlget please',
+                
+                LIS_PERSONS:'Inimesed',
+                LIS_TEACHER:'Õpetaja',
+                LIS_STUDENT:'Õpilane',
+                LIS_ADMINISTRATOR:'Administraator',
+                LIS_STUDENTGROUP:'Õppegrupp',
+                LIS_STUDENTINGROUPS:'Õpilane gruppides',
+                
+                LIS_ME:'Minu asjad',
+                LIS_CHANGE_MY_USER_DATA:'Muuda oma andmeid',
+                LIS_MY_DATA:'Näita minu andmeid'
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -130,22 +155,14 @@
                 LIS_LOGIN_GREETING: 'Please log in',
                 LIS_LOGIN_ERROR: 'The entered username or password are incorrect. Please try again',
 
-                LIS_ROOM: 'Rooms',
                 LIS_CREATE_NEW_ROOM: 'Create a new room',
                 LIS_ROOM_GRID_FILTERS: 'Room filter',
 
-                LIS_SUBJECTROUND: 'Subject round?',
                 LIS_CREATE_NEW_SUBJECTROUND: 'New SR',
                 LIS_SUBJECTROUND_GRID_FILTERS: 'SR filters',
 
-                LIS_CONTACTLESSON: 'Contact lessons',
                 LIS_CONTACTLESSON_VIEW: 'Contactlesson',
-
-                LIS_STUDENTGROUP: 'Student groups',
-                LIS_TEACHER: 'Teachers',
-                LIS_SUBJECT: 'Subjects',
                 
-                LIS_ABSENCEREASON: 'Absence reasons',
                 LIS_CREATE_NEW_ABSENCEREASON: 'Create new absence reason',
                 ABSENCEREASON_GRID_FILTERS: 'Absence reasons filter',
                 
@@ -158,7 +175,6 @@
                 SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Select or search an absence reason',
                 SELECT_OR_SEARCH_A_STUDENT: 'Select or search a student',
                 SELECT_OR_SEARCH_A_CONTACTLESSON: 'Select or search a contact lesson',
-                LIS_STUDENT: 'Student',
                 
                 LIS_VOCATION_VIEW: 'Vocations',
                 LIS_CREATE_NEW_VOCATION: 'Create new vocation',
@@ -204,9 +220,43 @@
                 SEARCH_DURATIONALLAK:'Search by duration all (AK)',
                 SEARCH_DURATIONCONTACTAK:'Search by contact lesson duration (AK)',
                 SEARCH_DURATIONINDEPENDENTAK:'Search by independent work duration (AK)',
+//                Kristen
+                LIS_DUEDATE:'Due date',
+                INDEPENDENDWORK_GRID_FILTERS:'Independent work filters',
+                SELECT_OR_SEARCH_A_SUBJECTROUND:'Choose or search by a SR',
+                SELECT_OR_SEARCH_A_TEACHER:'Choose or search by a teacher',
+                LIS_GRADINGTYPE_VIEW:'Grading type',
+                LIS_CREATE_NEW_GRADINGTYPE:'Create new grading type',
+                LIS_GRADINGTYPE_FILTERS:'Grading type filters',
+                LIS_SEARCH_NAME:'Search by a name',
+//                MAIN MENU
+                LIS_CURRICULUM:'Others',
+                LIS_VOCATION:'Vocation',
                 LIS_MODULE:'Module',
-                LIS_GRADINGTYPE:'Grading type'
-
+                LIS_SUBJECT:'Subject',
+                LIS_MODULETYPE:'Module type',
+                LIS_GRADECHOICE:'Grade choice',
+                LIS_GRADINGTYPE:'Grading type',
+                LIS_ROOM:'Rooms',
+                
+                LIS_DIARY:'Diary',
+                LIS_CONTACTLESSON:'Contactlesson',
+                LIS_ABSENCE:'Absence',
+                LIS_ABSENCEREASON:'Absence reason',
+                LIS_INDEPENDENTWORK:'Independent work',
+                LIS_STUDENTGRADE:'Student grade',
+                LIS_SUBJECTROUND:'Subject round',
+                
+                LIS_PERSONS:'Persons',
+                LIS_TEACHER:'Teacher',
+                LIS_STUDENT:'Student',
+                LIS_ADMINISTRATOR:'Administrator',
+                LIS_STUDENTGROUP:'Studentgroup',
+                LIS_STUDENTINGROUPS:'Student in groups',
+                
+                LIS_ME:'Me',
+                LIS_CHANGE_MY_USER_DATA:'Change my data',
+                LIS_MY_DATA:'My data'
             }
         };
         return t;
