@@ -1,16 +1,16 @@
-<h2>LIS_STUDENTGROUP_VIEW</h2>
+<h2>{{ T('LIS_STUDENTGROUP_VIEW') }}</h2>
 <form class="form-horizontal" name="studentGroupForm" ng-submit="Create(studentGroupForm.$valid)">
 
     <fieldset>
 
-        <legend>LIS_CREATE_NEW_STUDENTGROUP</legend>
+        <legend>{{ T('LIS_CREATE_NEW_STUDENTGROUP') }}</legend>
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': studentGroupForm.vocation.$invalid }">
                 <div class="col-lg-4">
                     <div class="input-group input-group-lg">
                         <ui-select name="vocation" ng-required="true" ng-model="studentGroup.vocation" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                            <ui-select-match placeholder="LIS_CHOOSE_VOCATION">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="{{ T('LIS_CHOOSE_VOCATION') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                                 <span ng-bind-html="vocation.name | highlight: $select.search"></span>
                                 <small>
@@ -29,15 +29,15 @@
             <div class="form-group" ng-class="{ 'has-error': studentGroupForm.name.$invalid }">
                 <div class="col-lg-6">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="studentGroupForm-name">LIS_NAME</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="studentGroupForm-name" ng-model="studentGroup.name">
+                        <span class="input-group-addon" id="studentGroupForm-name">{{ T('LIS_NAME') }}</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="studentGroupForm-name" ng-model="studentGroup.name">
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div>
         </div><!-- /.row -->
 
         <div class="col-lg-6">
-            <button type="submit" class="btn btn-primary">LIS_CREATE</button>
+            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
         </div><!-- /.col-lg-6 -->
 
 
@@ -50,15 +50,14 @@
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
-        <legend>STUDENTGROUP_GRID_FILTERS</legend>
+        <legend>{{ T('STUDENTGROUP_GRID_FILTERS') }}</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">STUDENTGROUP_FILTER</label>
 
             <div class="col-sm-12">
                 <div class="input-group">
 
                     <ui-select allow-clear ng-model="filterStudentGroup.vocation" theme="bootstrap">
-                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_VOCATION">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_VOCATION') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                             <span ng-bind-html="vocation.name | highlight: $select.search"></span>
                             <small>
@@ -73,15 +72,15 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterStudentGroup-name">LIS_NAME</span>
-                        <input name="name" ng-model="filterStudentGroup.name" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="filterStudentGroup-name">
+                        <span class="input-group-addon" id="filterStudentGroup-name">{{ T('SEARCH_A_NAME') }}</span>
+                        <input name="name" ng-model="filterStudentGroup.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterStudentGroup-name">
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> LIS_CLEAR</span></button>
-                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
             </div><!-- /.col-lg-6 -->
             
         </div>

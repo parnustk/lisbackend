@@ -139,7 +139,14 @@
                 STUDENTGRADE_GRID_FILTERS:'Õpilase hinde filtrid',
                 SELECT_OR_SEARCH_A_GRADECHOICE:'Vali või otsi hinde valiku järgi',
                 SELECT_OR_SEARCH_AN_INDEPENDENTWORK:'Vali või otsi iseseisva töö järgi',
-                LIS_NOTES:'Märkmed'
+                LIS_NOTES:'Märkmed',
+                
+                LIS_STUDENTGROUP_VIEW:'Õppegrupp',
+                LIS_CREATE_NEW_STUDENTGROUP:'Loo uus õppegrupp',
+                LIS_CHOOSE_VOCATION:'Vali eriala',
+                
+                STUDENTGROUP_GRID_FILTERS:'Õppegrupi filtrid',
+                SELECT_OR_SEARCH_A_VOCATION:'Vali või otsi eriala järgi'
                 
             },
             en: {
@@ -269,7 +276,10 @@
                 STUDENTGRADE_GRID_FILTERS:'Student grade filters',
                 SELECT_OR_SEARCH_A_GRADECHOICE:'Select or search by grade choice',
                 SELECT_OR_SEARCH_AN_INDEPENDENTWORK:'Select or search by independent work',
-                LIS_NOTES:'Notes'
+                LIS_NOTES:'Notes',
+                
+                STUDENTGROUP_GRID_FILTERS:'Student group filters',
+                SELECT_OR_SEARCH_A_VOCATION:'Select or search by vocation'
             }
         };
         return t;

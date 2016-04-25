@@ -61,6 +61,8 @@
                         studentGroupModel,
                         vocationModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -112,7 +114,7 @@
                             {
                                 field: "vocation",
                                 name: "vocation",
-                                displayName: 'LIS_VOCATION',
+                                displayName: $scope.T('LIS_VOCATION'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -120,10 +122,10 @@
                                 sortCellFiltered: $scope.sortFiltered
                             },
                             {field: 'name',
-                                displayName: 'LIS_NAME'
+                                displayName: $scope.T('LIS_NAME')
                             },
                             {field: 'trashed',
-                                displayName: 'LIS_TRASHED'
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,
