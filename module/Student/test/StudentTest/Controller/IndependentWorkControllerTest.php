@@ -177,7 +177,7 @@ class IndependentWorkControllerTest extends UnitHelpers
 
         $subjectRound = $this->CreateSubjectRound();
         $teacher = $this->CreateTeacher();
-        $anotherStudentId = $this->CreateStudent()->getId();
+        $anotherStudentId = $this->CreateStudent();
 
         $repository = $this->em->getRepository('Core\Entity\IndependentWork');
         $repository->Create([
@@ -187,7 +187,7 @@ class IndependentWorkControllerTest extends UnitHelpers
             'durationAK' => (int) uniqid(),
             'subjectRound' => $subjectRound->getId(),
             'teacher' => $teacher->getId(),
-            'student' => $anotherStudentId
+            'student' => $anotherStudentId->getId()
         ]);
 
         $this->request->setMethod('get');

@@ -148,7 +148,7 @@ class IndependentWorkControllerTest extends UnitHelpers
 
         $subjectRound = $this->CreateSubjectRound();
         $student = $this->CreateStudent();
-        //$teacher = $this->CreateTeacher();
+        $anotherTeacher = $this->CreateTeacher();
         //$studentGrade = $this->CreateStudentGrade();
 
         $independentWork = $this->CreateIndependentWork([
@@ -157,7 +157,7 @@ class IndependentWorkControllerTest extends UnitHelpers
             'description' => uniqid() . ' Description for independentwork',
             'durationAK' => (int) uniqid(),
             'subjectRound' => $subjectRound->getId(),
-            'teacher' => $teacher->getId(),
+            'teacher' => $anotherTeacher->getId(),
             'student' => $student->getId(),
             "createdBy" => $otherLisUser->getId()
         ]);
@@ -173,7 +173,8 @@ class IndependentWorkControllerTest extends UnitHelpers
             "subjectRound" => $this->CreateSubjectRound()->getId(),
             "student" => $this->CreateStudent()->getId(),
             "teacher" => $teacher->getId(),
-                        //"studentGrade" => $studentGrade()->getId(),
+           //"studentGrade" => $studentGrade()->getId(),
+            
         ]));
 
 
@@ -348,7 +349,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         //create indpendentWork with teacheruser
         $subjectRound = $this->CreateSubjectRound();
         $student = $this->CreateStudent();
-        //$teacher = $this->CreateTeacher();
+        $anotherTeacher = $this->CreateTeacher();
 
 
         $independentWork = $this->CreateIndependentWork([
@@ -357,7 +358,7 @@ class IndependentWorkControllerTest extends UnitHelpers
             'description' => uniqid() . ' Description for independentwork',
             'durationAK' => (int) uniqid(),
             'subjectRound' => $subjectRound->getId(),
-            'teacher' => $teacher->getId(),
+            'teacher' => $anotherTeacher->getId(),
             'student' => $student->getId(),
             "createdBy" => $otherLisUser->getId()
         ]);
