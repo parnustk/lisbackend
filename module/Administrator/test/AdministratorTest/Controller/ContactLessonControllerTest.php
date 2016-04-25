@@ -73,7 +73,7 @@ class ContactLessonTest extends UnitHelpers
         $description = ' Description for contactlesson' . uniqid();
         $sequenceNr = 4;
         $teacher = $this->CreateTeacher()->getId();
-
+        $durationAK = 120;
         $subjectRound = $this->CreateSubjectRound()->getId();
         $studentGroup = $this->CreateStudentGroup()->getId();
         $module = $this->CreateModule();
@@ -91,6 +91,7 @@ class ContactLessonTest extends UnitHelpers
         $this->request->getPost()->set('module', $module);
         $this->request->getPost()->set('vocation', $vocation);
         $this->request->getPost()->set('rooms', $rooms);
+        $this->request->getPost()->set('durationAK', $durationAK);
 
 
         $result = $this->controller->dispatch($this->request);
@@ -269,8 +270,6 @@ class ContactLessonTest extends UnitHelpers
         $this->assertNotEquals($sequenceNrO, $result->data['sequenceNr']);
         $this->assertNotEquals($subjectRoundIdO->getId(), $result->data['subjectRound']);
         $this->assertNotEquals($teacher0->getId(), $result->data['teacher']);
-        
-
     }
 
     /**
@@ -414,11 +413,12 @@ class ContactLessonTest extends UnitHelpers
         $subjectRound = $this->CreateSubjectRound()->getId();
         $teacher = $this->CreateTeacher()->getId();
         $rooms = $this->CreateRoom()->getId();
+        $durationAK = 120;
         $studentGroup = $this->CreateStudentGroup()->getId();
         $module = $this->CreateModule()->getId();
         $vocation = $this->CreateVocation()->getId();
 
-     
+
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('lessonDate', $lessonDate);
         $this->request->getPost()->set('sequenceNr', $sequenceNr);
@@ -428,6 +428,7 @@ class ContactLessonTest extends UnitHelpers
         $this->request->getPost()->set('vocation', $vocation);
         $this->request->getPost()->set('subjectRound', $subjectRound);
         $this->request->getPost()->set("teacher", $teacher);
+        $this->request->getPost()->set("durationAK", $durationAK);
 
         $lisUser = $this->CreateLisUser();
         $this->request->getPost()->set("lisUser", $lisUser->getId());
