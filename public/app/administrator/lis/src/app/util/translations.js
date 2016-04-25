@@ -102,7 +102,7 @@
                 INDEPENDENDWORK_GRID_FILTERS:'Iseseisva töö filtrid',
                 SELECT_OR_SEARCH_A_SUBJECTROUND:'Vali või otsi SR järgi',
                 SELECT_OR_SEARCH_A_TEACHER:'Vali või otsi õpetaja järgi',
-                LIS_GRADINGTYPE_VIEW:'Hindamise tüüp',
+                LIS_GRADINGTYPE_VIEW:'Hindamise tüübid',
                 LIS_CREATE_NEW_GRADINGTYPE:'Loo uus hindamise tüüp',
                 LIS_GRADINGTYPE_FILTERS:'Hindamise tüübi filtrid',
                 LIS_SEARCH_NAME:'Otsi nime järgi',
@@ -153,7 +153,17 @@
                 SELECT_A_STUDENTGROUP:'Vali õppegrupp',
                 STUDENTINGROUPS_GRID_FILTERS:'Õpilane gruppides filter',
                 LIS_STATUS:'Staatus',
-                SELECT_OR_SEARCH_A_STUDENTGROUP:'Vali või otsi õppegrupi järgi'
+                SELECT_OR_SEARCH_A_STUDENTGROUP:'Vali või otsi õppegrupi järgi',
+                
+                LIS_CREATE_NEW_CONTACTLESSON:'Loo uus kontakttund',
+                LIS_CHOOSE_ROOM:'Vali ruum',
+                LIS_CHOOSE_SUBJECTROUND:'Vali SR?',
+                LIS_CHOOSE_STUDENTGROUP:'Vali õppegrupp',
+                LIS_CHOOSE_MODULE:'Vali moodul',
+                LIS_CHOOSE_TEACHER:'Vali õpetaja',
+                LIS_DURATIONAK:'Vali kestus (AK)',
+                LIS_SEQUENCENR:'Tunni number',
+                LIS_LESSONDATE:'Tunni toimumise aeg'
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
