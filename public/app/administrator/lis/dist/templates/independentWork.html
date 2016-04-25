@@ -1,17 +1,15 @@
-<h2>LIS_INDEPENDENTWORK_VIEW</h2>
+<h2>{{ T('LIS_INDEPENDENTWORK_VIEW') }}</h2>
 
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
-        <legend>INDEPENDENDWORK_GRID_FILTERS</legend>
+        <legend>{{ T('INDEPENDENDWORK_GRID_FILTERS') }}</legend>
         <div class="form-group">
-            <label class="col-sm-3 control-label">INDEPENDENTWORK_FILTER</label>
-            
             <div class="col-sm-12">
                 <div class="input-group">
 
                     <ui-select allow-clear ng-model="filterIndependentWork.subjectRound" theme="bootstrap">
-                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_SUBJECTROUND">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
                             <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
                             <small>
@@ -27,7 +25,7 @@
                 <div class="input-group">
 
                     <ui-select allow-clear ng-model="filterIndependentWork.teacher" theme="bootstrap">
-                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_TEACHER">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_TEACHER') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="teacher in teachers | filter: $select.search">
                             <span ng-bind-html="teacher.name | highlight: $select.search"></span>
                             <small>
@@ -43,7 +41,7 @@
                 <div class="input-group">
 
                     <ui-select allow-clear ng-model="filterIndependentWork.student" theme="bootstrap">
-                        <ui-select-match placeholder="SELECT_OR_SEARCH_A_STUDENT">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENT') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="student in students | filter: $select.search">
                             <span ng-bind-html="student.name | highlight: $select.search"></span>
                             <small>
@@ -58,16 +56,16 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterIndependentWork-name">LIS_NAME</span>
-                        <input name="name" ng-model="filterIndependentWork.name" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="filterIndependentWork-name">
+                        <span class="input-group-addon" id="filterIndependentWork-name">{{ T('LIS_NAME') }}</span>
+                        <input name="name" ng-model="filterIndependentWork.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterIndependentWork-name">
                     </div>
                 </div>
             </div>
             
             <div class="col-sm-12">
                 <div class="input-group">
-                    <span class="input-group-addon" id="filterIndependentWork-duedate">LIS_DUEDATE</span>
-                        <input type="text" name="dueDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="filterIndependentWork.duedate" placeholder="LIS_DUEDATE" aria-describedby="independentWorkForm-dueDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                    <span class="input-group-addon" id="filterIndependentWork-duedate">{{ T('LIS_DUEDATE') }}</span>
+                        <input type="text" name="dueDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="filterIndependentWork.duedate" placeholder="{{ T('LIS_DUEDATE') }}" aria-describedby="independentWorkForm-dueDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -77,8 +75,8 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterIndependentWork-description">LIS_DESCRIPTION</span>
-                        <input name="description" ng-model="filterIndependentWork.description" type="text" class="form-control" placeholder="LIS_DESCRIPTION" aria-describedby="filterIndependentWork-description">
+                        <span class="input-group-addon" id="filterIndependentWork-description">{{ T('LIS_DESCRIPTION') }}</span>
+                        <input name="description" ng-model="filterIndependentWork.description" type="text" class="form-control" placeholder="{{ T('LIS_DESCRIPTION') }}" aria-describedby="filterIndependentWork-description">
                     </div>
                 </div>
             </div>
@@ -86,15 +84,15 @@
             <div class="col-sm-12">
                 <div class="input-group">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterIndependentWork-durationAK">LIS_DURATIONAK</span>
-                        <input name="description" ng-model="filterIndependentWork.durationAK" type="number" class="form-control" placeholder="LIS_DURATIONAK" aria-describedby="filterIndependentWork-durationAK">
+                        <span class="input-group-addon" id="filterIndependentWork-durationAK">{{ T('LIS_DURATIONINDEPENDENTAK') }}</span>
+                        <input name="description" ng-model="filterIndependentWork.durationAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONINDEPENDENTAK') }}" aria-describedby="filterIndependentWork-durationAK">
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">LIS_CLEAR</span></button>
-                <button type="submit" class="btn btn-primary">LIS_FILTER</button>
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
             </div>
         </div>
     </fieldset>

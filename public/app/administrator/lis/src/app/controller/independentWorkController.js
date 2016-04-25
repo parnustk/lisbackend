@@ -70,6 +70,7 @@
                     studentModel) {
 
                 $scope.dt = {};
+                $scope.T = globalFunctions.T;
                 
                 //START datepicker
 
@@ -222,7 +223,7 @@
                         {//select one
                             field: "subjectRound",
                             name: "subjectRound",
-                            displayName: 'LIS_SUBJECTROUND',
+                            displayName: $scope.T('LIS_SUBJECTROUND'),
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
@@ -233,7 +234,7 @@
                         {//select one
                             field: "teacher",
                             name: "teacher",
-                            displayName: 'LIS_TEACHER',
+                            displayName: $scope.T('LIS_TEACHER'),
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
@@ -244,7 +245,7 @@
                         {//select one
                             field: "student",
                             name: "student",
-                            displayName: 'LIS_STUDENT',
+                            displayName: $scope.T('LIS_STUDENT'),
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
@@ -254,13 +255,13 @@
                         },
                         {
                             field: "name",
-                            displayName: 'LIS_NAME',
+                            displayName: $scope.T('LIS_NAME'),
                             enableCellEdit: false
                         },
                         {
                             field: "duedate['date']",
                             name: "duedate['date']",
-                            displayName: 'LIS_DUEDATE',
+                            displayName: $scope.T('LIS_DUEDATE'),
                             type: "date",
                             cellFilter: 'date:\"YYYY-MM-DD\"',
                             width: '20%',
@@ -268,12 +269,12 @@
                         },
                         {
                             field: "description",
-                            displayName:'LIS_DESCRIPTION',
+                            displayName: $scope.T('LIS_DESCRIPTION'),
                             enableCellEdit: false
                         },
                         {
                             field: "durationAK",
-                            displayName:'LIS_DURATIONAK',
+                            displayName: $scope.T('LIS_DURATIONINDEPENDENTAK'),
                             enableCellEdit: false
                         }
                     ],
@@ -332,7 +333,7 @@
                             }
                         });
                     } else {
-                        alert('CHECK_FORM_FIELDS');
+                        alert($scope.T('LIS_CHECK_FORM_FIELDS'));
                     }
                 };
 
