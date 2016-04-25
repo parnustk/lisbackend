@@ -46,6 +46,8 @@
                  */
                 function studentInGroupsController($scope, $q, $routeParams, rowSorter, uiGridConstants, studentInGroupsModel, studentModel, studentGroupModel) {
 
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -104,7 +106,7 @@
                             {//select one
                                 field: "student",
                                 name: "student",
-                                displayName: 'LIS_STUDENT',
+                                displayName: $scope.T('LIS_STUDENT'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -113,7 +115,7 @@
                             {//select one
                                 field: "studentGroup",
                                 name: "studentGroup",
-                                displayName: 'LIS_STUDENTGROUP',
+                                displayName: $scope.T('LIS_STUDENTGROUP'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
@@ -121,10 +123,10 @@
                                 cellFilter: 'griddropdown:this'
                             },
                             {field: 'status',
-                                displayName: 'LIS_STATUS'
+                                displayName: $scope.T('LIS_STATUS')
                             },
                             {field: 'notes',
-                                displayName: 'LIS_NOTES'
+                                displayName: $scope.T('LIS_NOTES')
                             }
                         ],
                         enableGridMenu: true,

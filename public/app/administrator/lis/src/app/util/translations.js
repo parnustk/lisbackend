@@ -146,8 +146,14 @@
                 LIS_CHOOSE_VOCATION:'Vali eriala',
                 
                 STUDENTGROUP_GRID_FILTERS:'Õppegrupi filtrid',
-                SELECT_OR_SEARCH_A_VOCATION:'Vali või otsi eriala järgi'
+                SELECT_OR_SEARCH_A_VOCATION:'Vali või otsi eriala järgi',
                 
+                LIS_STUDENTINGROUPS_VIEW:'Õpilased gruppides',
+                LIS_CREATE_NEW_STUDENTINGROUPS:'Loo uus õpilane gruppides',
+                SELECT_A_STUDENTGROUP:'Vali õppegrupp',
+                STUDENTINGROUPS_GRID_FILTERS:'Õpilane gruppides filter',
+                LIS_STATUS:'Staatus',
+                SELECT_OR_SEARCH_A_STUDENTGROUP:'Vali või otsi õppegrupi järgi'
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -279,7 +285,14 @@
                 LIS_NOTES:'Notes',
                 
                 STUDENTGROUP_GRID_FILTERS:'Student group filters',
-                SELECT_OR_SEARCH_A_VOCATION:'Select or search by vocation'
+                SELECT_OR_SEARCH_A_VOCATION:'Select or search by vocation',
+                
+                LIS_STUDENTINGROUPS_VIEW:'Students in groups',
+                LIS_CREATE_NEW_STUDENTINGROUPS:'Create new student in groups',
+                SELECT_A_STUDENTGROUP:'Select a student group',
+                STUDENTINGROUPS_GRID_FILTERS:'Student in groups filters',
+                LIS_STATUS:'Status',
+                SELECT_OR_SEARCH_A_STUDENTGROUP:'Select or search by student group'
             }
         };
         return t;
