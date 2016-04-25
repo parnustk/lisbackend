@@ -161,9 +161,14 @@
                 LIS_CHOOSE_STUDENTGROUP:'Vali õppegrupp',
                 LIS_CHOOSE_MODULE:'Vali moodul',
                 LIS_CHOOSE_TEACHER:'Vali õpetaja',
-                LIS_DURATIONAK:'Vali kestus (AK)',
+                LIS_DURATIONAK:'Kestus (AK)',
                 LIS_SEQUENCENR:'Tunni number',
-                LIS_LESSONDATE:'Tunni toimumise aeg'
+                LIS_LESSONDATE:'Tunni toimumise aeg',
+                LIS_DATE:'Kuupäev',
+                SELECT_OR_SEARCH_A_ROOM:'Otsi ruumi järgi',
+                SEARCH_A_SEQUENCENR:'Otsi tunni numbri järgi',
+                SEARCH_A_LESSONDATE:'Otsi kestuse järgi',
+                LIS_CONTACTLESSONFILTER:'Kontakttunni filtrid'
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -302,7 +307,22 @@
                 SELECT_A_STUDENTGROUP:'Select a student group',
                 STUDENTINGROUPS_GRID_FILTERS:'Student in groups filters',
                 LIS_STATUS:'Status',
-                SELECT_OR_SEARCH_A_STUDENTGROUP:'Select or search by student group'
+                SELECT_OR_SEARCH_A_STUDENTGROUP:'Select or search by student group',
+                
+                LIS_CREATE_NEW_CONTACTLESSON:'Create new contact lesson',
+                LIS_CHOOSE_ROOM:'Choose room',
+                LIS_CHOOSE_SUBJECTROUND:'Choose subject round',
+                LIS_CHOOSE_STUDENTGROUP:'Choose student group',
+                LIS_CHOOSE_MODULE:'Choose module',
+                LIS_CHOOSE_TEACHER:'Choose teacher',
+                LIS_DURATIONAK:'Duration (AK)',
+                LIS_SEQUENCENR:'Lesson sequence number',
+                LIS_LESSONDATE:'Lesson date',
+                LIS_DATE:'Date',
+                SELECT_OR_SEARCH_A_ROOM:'Select or search by room',
+                SEARCH_A_SEQUENCENR:'Select or search by sequence number',
+                SEARCH_A_LESSONDATE:'Select or search by lesson date',
+                LIS_CONTACTLESSONFILTER:'Contact lesson filters'
             }
         };
         return t;
