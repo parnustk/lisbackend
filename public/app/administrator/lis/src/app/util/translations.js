@@ -141,7 +141,7 @@
                 SELECT_OR_SEARCH_AN_INDEPENDENTWORK:'Vali või otsi iseseisva töö järgi',
                 LIS_NOTES:'Märkmed',
                 
-                LIS_STUDENTGROUP_VIEW:'Õppegrupp',
+                LIS_STUDENTGROUP_VIEW:'Õppegrupid',
                 LIS_CREATE_NEW_STUDENTGROUP:'Loo uus õppegrupp',
                 LIS_CHOOSE_VOCATION:'Vali eriala',
                 
