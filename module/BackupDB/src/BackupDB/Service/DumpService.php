@@ -207,23 +207,24 @@ class DumpService implements ServiceManagerAwareInterface
             $this->dumpData = null;
             
             //Count data rows of table
-            $stmt2 = $this->db->prepare('SELECT id FROM `' . $this->tables[$t] . '` WHERE 1;');
+            $stmt2 = $this->db->prepare('SELECT * FROM `' . $this->tables[$t] . '` WHERE 1;');
             $stmt2->execute();
             $rowCount = count($stmt2->fetchAll());
             if ($rowCount == 0) { //Ends loop early if table contains no data
                 continue;
             }
-            for ($i = 0; $i <= $rowCount; $i++) { //Write data from single table
+            for ($i = 0; $i < $rowCount; $i++) { //Write data from single table
                 $fetchData = null;
                 $this->dumpData = null;
                 if ($i == 0) { //Begin backup INSERT statement
                     $this->dumpTableBegin($t);
-                }
-                if ($i == $rowCount) { //Add last data row
+                } else { }
+                if ($i == $rowCount-1) { //Add last data row
                     $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
-                            "` LIMIT" . $i . ",1;");
+                            "` LIMIT " . $i . ",1;");
                     //Query data row
                     try {
+                        print_r("Fetch ". $this->tables[$t] . " row " . $i);
                         $stmt->execute();
                         $fetchData = $stmt->fetchAll(); //fetchData is data row
                         $fetchData = $fetchData[0];
@@ -234,7 +235,7 @@ class DumpService implements ServiceManagerAwareInterface
                     $this->dumpTableRow($fetchData, true);
                 } else { //Add regular data row.
                     $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
-                            "` LIMIT" . $i . ",1;");
+                            "` LIMIT " . $i . ",1;");
                     //Query data row
                     try {
                         $stmt->execute();
