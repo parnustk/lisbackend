@@ -28,8 +28,10 @@
 
 
                 function teacherController($scope, $q, $routeParams, rowSorter, uiGridConstants, teacherModel) {
-                   
-                     $scope.T = globalFunctions.T;
+
+
+                    $scope.T = globalFunctions.T;
+
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -64,18 +66,18 @@
                                     priority: 1
                                 }},
                             {field: 'firstName',
-                            displayName: $scope.T('LIS_FIRSTNAME')},
+                                displayName: $scope.T('LIS_FIRSTNAME')},
                             {field: 'lastName',
-                             displayName: $scope.T('LIS_LASTNAME')
+                                displayName: $scope.T('LIS_LASTNAME')
                             },
                             {field: 'email',
-                             displayName: $scope.T('LIS_EMAIL')
+                                displayName: $scope.T('LIS_EMAIL')
                             },
                             {field: 'personalCode',
-                             displayName: $scope.T('LIS_PERSONALCODE')   
+                                displayName: $scope.T('LIS_PERSONALCODE')
                             },
                             {field: 'trashed',
-                            displayName: $scope.T('LIS_TRASHED')}
+                                displayName: $scope.T('LIS_TRASHED')}
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
