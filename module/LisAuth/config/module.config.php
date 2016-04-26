@@ -16,6 +16,7 @@ return [
             'LisAuth\Controller\RegisterAdministrator' => 'LisAuth\Controller\RegisterAdministratorController',
             'LisAuth\Controller\LoginAdministrator' => 'LisAuth\Controller\LoginAdministratorController',
             'LisAuth\Controller\LoginTeacher' => 'LisAuth\Controller\LoginTeacherController',
+            'LisAuth\Controller\LoginStudent' => 'LisAuth\Controller\LoginStudentController',
         ],
     ],
     'router' => [

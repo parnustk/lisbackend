@@ -11,7 +11,7 @@
 namespace LisAuth\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController as Base;l;
+use Core\Controller\AbstractBaseController as Base;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
