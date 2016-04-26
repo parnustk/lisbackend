@@ -168,7 +168,17 @@
                 SELECT_OR_SEARCH_A_ROOM:'Otsi ruumi järgi',
                 SEARCH_A_SEQUENCENR:'Otsi tunni numbri järgi',
                 SEARCH_A_LESSONDATE:'Otsi kestuse järgi',
-                LIS_CONTACTLESSONFILTER:'Kontakttunni filtrid'
+                LIS_CONTACTLESSONFILTER:'Kontakttunni filtrid',
+                
+                LIS_CHOOSE_MODULETYPE:'Vali mooduli tüüp',
+                LIS_MODULECODE:'Kood',
+                LIS_DURATION:'Kestus',
+                SEARCH_DURATION:'Otsi kestuse järgi',
+                LIS_MODULE_VIEW:'Moodulid',
+                LIS_CREATE_NEW_MODULE:'Loo uus moodul',
+                MODULE_GRID_FILTERS:'Mooduli filtrid',
+                SEARCH_A_MODULECODE:'Otsi koodi järgi'
+                
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -322,7 +332,16 @@
                 SELECT_OR_SEARCH_A_ROOM:'Select or search by room',
                 SEARCH_A_SEQUENCENR:'Select or search by sequence number',
                 SEARCH_A_LESSONDATE:'Select or search by lesson date',
-                LIS_CONTACTLESSONFILTER:'Contact lesson filters'
+                LIS_CONTACTLESSONFILTER:'Contact lesson filters',
+                
+                LIS_CHOOSE_MODULETYPE:'Choose module type',
+                LIS_MODULECODE:'Code',
+                LIS_DURATION:'Duration',
+                SEARCH_DURATION:'Search by duration',
+                LIS_MODULE_VIEW:'Modules',
+                LIS_CREATE_NEW_MODULE:'Create new module',
+                MODULE_GRID_FILTERS:'Module filters',
+                SEARCH_A_MODULECODE:'Search by code'
             }
         };
         return t;
