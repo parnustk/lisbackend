@@ -233,12 +233,9 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
             ];
         } catch (Exception $ex) {
 
-            return [
-                'success' => false,
-                'message' => $ex->getTraceAsString()
-            ];
 
             return [
+
                 'success' => false,
                 'message' => 'FALSE_ATTEMPT'
             ];
