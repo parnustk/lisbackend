@@ -56,7 +56,7 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        //$eventManager->attach('render', [$this, 'registerJsonStrategy'], 100);
+        $eventManager->attach('render', [$this, 'registerJsonStrategy'], 100);
     }
 
     /**
@@ -67,25 +67,25 @@ class Module
      */
     public function registerJsonStrategy(MvcEvent $e)
     {
-        return;
-        $matches = $e->getRouteMatch();
-        $controller = $matches->getParam('controller');
-        if (false === strpos($controller, __NAMESPACE__)) {
-            // not a controller from this module
-            return;
-        }
-
-        // Potentially, you could be even more selective at this point, and test
-        // for specific controller classes, and even specific actions or request
-        // methods.
-        // Set the JSON model when controllers from this module are selected
-        $model = $e->getResult();
-
-        if ($model instanceof ViewModel) {
-            $newModel = new JsonModel($model->getVariables());
-            //$e->setResult($newModel);
-            $e->setViewModel($newModel);
-        }
+//        return;
+//        $matches = $e->getRouteMatch();
+//        $controller = $matches->getParam('controller');
+//        if (false === strpos($controller, __NAMESPACE__)) {
+//            // not a controller from this module
+//            return;
+//        }
+//
+//        // Potentially, you could be even more selective at this point, and test
+//        // for specific controller classes, and even specific actions or request
+//        // methods.
+//        // Set the JSON model when controllers from this module are selected
+//        $model = $e->getResult();
+//
+//        if ($model instanceof ViewModel) {
+//            $newModel = new JsonModel($model->getVariables());
+//            //$e->setResult($newModel);
+//            $e->setViewModel($newModel);
+//        }
     }
 
 }
