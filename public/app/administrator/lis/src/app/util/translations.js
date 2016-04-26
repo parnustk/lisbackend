@@ -109,6 +109,8 @@
 //               Teacher
                 LIS_TEACHER_VIEW: "Õpetaja",
                 LIS_TEACHER_FILTER: "Õpetaja filtrid",
+                LIS_TEACHER_CREATE: "Loo uus õpetaja",
+                LIS_TEACHER_GRID_FILTERS: "Õpetajate filtrid",
 //                MENÜÜ
                 LIS_CURRICULUM:'Muu',
                 LIS_VOCATION:'Eriala',
@@ -280,6 +282,8 @@
 //               Teacher
                 LIS_TEACHER_VIEW: "Teacher view",
                 LIS_TEACHER_FILTER: "Teacher filter",
+                LIS_TEACHER_CREATE: "Create new teacher",
+                LIS_TEACHER_GRID_FILTERS: "Teacher grid filters",
 
 //                MAIN MENU
                 LIS_CURRICULUM:'Others',

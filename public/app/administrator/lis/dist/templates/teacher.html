@@ -3,7 +3,7 @@
 
     <fieldset>
 
-        <legend>Create new teacher</legend>
+        <legend>{{ T('LIS_TEACHER_CREATE') }</legend>
 
         <div class="row">
             <div class="form-group" ng-class="{ 'has-error': teacherForm.firstName.$invalid }">
@@ -51,7 +51,7 @@
 <form class="form-horizontal" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
-        <legend>Teacher grid filters</legend>
+        <legend>{{ T('LIS_TEACHER_GRID_FILTERS') }</legend>
         <div class="form-group">
             <label class="col-sm-3 control-label">{{ T('LIS_TEACHER_FILTER) }</label>
 

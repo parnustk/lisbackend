@@ -31,6 +31,7 @@
 
 
                     $scope.T = globalFunctions.T;
+                    
 
                     /**
                      * For filters and maybe later pagination
