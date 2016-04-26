@@ -12,6 +12,8 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\Student;
 use Exception;
+use Doctrine\ORM\Query;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * Description of StudentRepository
@@ -27,13 +29,13 @@ class StudentRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    protected $baseAlias = 'student';
+    public $baseAlias = 'student';
 
     /**
      *
      * @var string 
      */
-    protected $baseEntity = 'Core\Entity\Student';
+    public $baseEntity = 'Core\Entity\Student';
 
     /**
      * 
@@ -508,6 +510,31 @@ class StudentRepository extends AbstractBaseRepository
         } else if ($extra->lisRole === 'administrator') {
             return $this->administratorGetList($params, $extra);
         }
+    }
+    
+    /**
+     * 
+     * @param string $email
+     * @return array
+     */
+    public function FetchUser($email)
+    {
+        $dql = "SELECT 
+                    partial $this->baseAlias.{
+                        id
+                    },
+                    partial lisUser.{
+                        id,
+                        password
+                    }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.lisUser lisUser
+                WHERE lisUser.email=:email AND lisUser.state=1";
+        
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('email', $email, Type::STRING);
+        $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
+        return $r;
     }
 
 }

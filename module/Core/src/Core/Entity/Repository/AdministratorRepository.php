@@ -69,6 +69,7 @@ class AdministratorRepository extends AbstractBaseRepository
                         firstName,
                         lastName,
                         name,
+                        personalCode,
                         email,
                         trashed
                     }
@@ -88,6 +89,7 @@ class AdministratorRepository extends AbstractBaseRepository
                         firstName,
                         lastName,
                         name,
+                        personalCode,
                         email,
                         trashed
                     }
