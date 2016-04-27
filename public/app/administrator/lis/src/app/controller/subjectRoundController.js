@@ -81,7 +81,7 @@
                         {
                             field: "subject",
                             name: "subject",
-                            displayName: 'Subject',
+                            displayName: $scope.T('LIS_SUBJECT'),
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
@@ -91,7 +91,7 @@
                         {
                             field: "studentGroup",
                             name: "studentGroup",
-                            displayName: "Student Group",
+                            displayName: $scope.T('LIS_STUDENTGROUP'),
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
@@ -101,14 +101,20 @@
                         {
                             field: 'teacher',
                             name: 'teacher',
-                            displayName: 'teachers',
+                            displayName: $scope.T('LIS_TEACHER'),
                             cellTemplate: "<div class='ui-grid-cell-contents'><span ng-repeat='field in COL_FIELD'>{{field.name}}</span></div>",
                             editableCellTemplate: 'lis/dist/templates/partial/uiMultiNameSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name"
                         },
-                        {field: 'name'},
-                        {field: 'trashed'}
+                        {
+                            field: 'name',
+                            displayName: $scope.T('LIS_NAME')
+                        },
+                        {
+                            field: 'trashed',
+                            displayName: $scope.T('LIS_TRASHED')
+                        }
                     ],
                     enableGridMenu: true,
                     enableSelectAll: true,
