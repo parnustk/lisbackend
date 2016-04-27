@@ -69,9 +69,9 @@
                         }
                     },
                     {field: 'name',
-                        displayName: 'Name'},
+                        displayName: $scope.T('LIS_NAME')},
                     {field: 'trashed',
-                        displayName: 'Trashed'}
+                        displayName: $scope.T('LIS_TRASHED')}
                 ],
                 enableGridMenu: true,
                 enableSelectAll: true,
