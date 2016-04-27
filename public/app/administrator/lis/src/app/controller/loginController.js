@@ -93,7 +93,7 @@
                         if (result.success) {
                             //GOOD
 
-                            addCookie('userObj', $scope.credentials);
+                            addCookieTimed('userObj', $scope.credentials);
 
                             $scope.userLoginError = false;
                             $scope.userLoggedIn = true;
@@ -118,7 +118,10 @@
                 //     email: loginData.email,
                 //     password: loginData.password
                 // };
-                //addCookieTimed('userObj', $scope.credentials);
+                var lang = {
+                    lang: 'et'
+                };
+                addCookieTimed('userObj', $scope.credentials);
                 // $scope.Login(); //error
 
             }
