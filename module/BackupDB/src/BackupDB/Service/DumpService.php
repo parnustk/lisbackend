@@ -103,12 +103,11 @@ class DumpService implements ServiceManagerAwareInterface
      * @var string
      */
     protected $fileName;
-    
+
     /**
      * @var string
      */
     protected $dumpData;
-    
     protected $tables = [
         "Absence",
         "AbsenceReason",
@@ -139,25 +138,31 @@ class DumpService implements ServiceManagerAwareInterface
      * @var int
      */
     protected $columnCount = null;
-    
+
     /**
      * 
      * @var array 
      */
     protected $columnNames = array();
-    
+
     /**
      * 
      */
     protected function setUp() //Should load values things from config later
     {
+//        include config.php;
+        $host = "localhost";
+        $dbname = "lis";
+        $uname = "root";
+        $dbpwd = "MgjsfF7";
+
         $this->db = new PDO(
-                'mysql:host=localhost;' .
-                ' dbname=lis;' . ' charset=utf8mb4', 'root', 'MgjsfF7'
+                'mysql:host=' . $host .
+                '; dbname=' . $dbname . '; charset=utf8mb4', $uname, $dbpwd
         );
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
-    
+
     protected function destructPDO() //Close PDO connection
     {
         try {
@@ -188,16 +193,16 @@ class DumpService implements ServiceManagerAwareInterface
         $this->dumpData = "SET FOREIGN_KEY_CHECKS=0; \n"; //Disables foreign key checks when restoring backup
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
         $this->dumpData = null;
-        
+
         for ($t = 0; $t < count($this->tables); $t++) { //Loop through all tables, append new data into output file with each loop
             //Prepare structure query statement
             $stmt1 = $this->db->prepare('SHOW CREATE TABLE `' . $this->tables[$t] . '`;');
-            
+
             //Query table structure
             try {
                 $stmt1->execute();
                 $fetchData = $stmt1->fetch();
-                $this->dumpData = $fetchData[1]."; \n";
+                $this->dumpData = $fetchData[1] . "; \n";
             } catch (PDOException $ex) {
                 print_r($ex);
                 die();
@@ -205,7 +210,7 @@ class DumpService implements ServiceManagerAwareInterface
             //Write table structure to dumpfile
             file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
             $this->dumpData = null;
-            
+
             //Count data rows of table
             $stmt2 = $this->db->prepare('SELECT * FROM `' . $this->tables[$t] . '` WHERE 1;');
             $stmt2->execute();
@@ -218,13 +223,15 @@ class DumpService implements ServiceManagerAwareInterface
                 $this->dumpData = null;
                 if ($i == 0) { //Begin backup INSERT statement
                     $this->dumpTableBegin($t);
-                } else { }
-                if ($i == $rowCount-1) { //Add last data row
+                } else {
+                    
+                }
+                if ($i == $rowCount - 1) { //Add last data row
                     $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
                             "` LIMIT " . $i . ",1;");
                     //Query data row
                     try {
-                        print_r("Fetch ". $this->tables[$t] . " row " . $i);
+                        print_r("Fetch " . $this->tables[$t] . " row " . $i);
                         $stmt->execute();
                         $fetchData = $stmt->fetchAll(); //fetchData is data row
                         $fetchData = $fetchData[0];
@@ -250,12 +257,11 @@ class DumpService implements ServiceManagerAwareInterface
                 //Write current pass to file
                 file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
             }
-            
         }
         $this->destructPDO(); //Close DB connection
         $this->dumpData = "SET FOREIGN_KEY_CHECKS=1;"; //Re-enables foreign key checks when db has been restored from backup file
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
-        
+
 //        if ($type == 'manual') {
 //            header("Content-disposition: attachment;filename=$this->filename");
 //            readfile($this->filename);
@@ -264,6 +270,7 @@ class DumpService implements ServiceManagerAwareInterface
 //            return 'successA';
 //        }
     }
+
     /**
      * Counts number of columns in table and put into $columnCount
      * Lists column names in array $columnNames
@@ -294,7 +301,7 @@ class DumpService implements ServiceManagerAwareInterface
             }
         }
     }
-    
+
     /**
      * Parses and appends single row of data values to $dumpData
      * 
@@ -335,14 +342,15 @@ class DumpService implements ServiceManagerAwareInterface
             }
         }
     }
-    
+
     /**
      * Adds SQL quotes to input string $var, if $var is a string
      * 
      * @param int OR string $var
      * @return int OR string
      */
-    protected function sqlStringParse($var) {
+    protected function sqlStringParse($var)
+    {
         if (is_numeric($var)) {
             $temp = (int) $var;
         } else {
@@ -350,5 +358,16 @@ class DumpService implements ServiceManagerAwareInterface
         }
         return $temp;
     }
-}
 
+    /**
+     * Pushes 
+     * 
+     * @param type $filename
+     */
+    public function pushDump($filename)
+    {
+        $this->setUp();
+        $this->db->prepare($statement)
+    }
+
+}
