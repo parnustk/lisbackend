@@ -132,6 +132,7 @@
 
             $scope.Logout = function() {
                 //console.log("Logout");
+                window.location.href = "#!/"; //for firefox
                 loginModel.Delete(1);
                 removeCookie('userObj');
                 window.location.reload();
