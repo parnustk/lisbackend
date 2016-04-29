@@ -29,10 +29,7 @@ class DumpController extends AbstractActionController
      */
     public function indexAction()
     {
-        $this
-                ->getServiceLocator()
-                ->get($this->service)
-                ->createDump('manual');
+        $this->pushAction("LISBACKUP_manual_29042016_121200", true);
         die('ENDPOINT');//we cut framework from here
 //        return new ViewModel([
 //            'content' => 'Backup Index Placeholder'
@@ -53,28 +50,21 @@ class DumpController extends AbstractActionController
     }
 
     /**
-     * Create new dump and save to server
-     * 
-     * @return ViewModel
-     */
-    public function createServerAction()
-    {
-        return new ViewModel([
-            'content' => 'Server Dump Placeholder'
-        ]);
-    }
-
-    /**
      * Push server dump named $dumpName to DB, or push raw $dumpData to DB
      * 
-     * @param type $dumpName
-     * @param type $dumpData
+     * @param string $filename
+     * @param boolean $clearTable
      */
-    public function pushAction($dumpName, $dumpData = null)
+     
+    public function pushAction($filename, $clearTable)
     {
-        return new ViewModel([
-            'content' => 'Push Backup Placeholder'
-        ]);
+        $this
+                ->getServiceLocator()
+                ->get($this->service)
+                ->pushDump($filename, $clearTable);
+//        return new ViewModel([
+//            'content' => 'Push Backup Placeholder'
+//        ]);
     }
 
 }

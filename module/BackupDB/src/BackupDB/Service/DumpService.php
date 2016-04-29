@@ -8,15 +8,9 @@
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 /*
- * Plan A: Backups generate:
- * Table Names
- * Column Names
- * Relations/Foreign Keys
- * Data
- * 
- * Plan B:
- * Static structure.sql made manually in dev.
- * Backup only fetches data
+ * Dump create logic done.
+ * TODO: Return dump list for controller
+ * TODO: Push selected dump to db
  */
 
 namespace BackupDB\Service;
@@ -261,10 +255,10 @@ class DumpService implements ServiceManagerAwareInterface
         $this->destructPDO(); //Close DB connection
         $this->dumpData = "SET FOREIGN_KEY_CHECKS=1;"; //Re-enables foreign key checks when db has been restored from backup file
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
-
+        print_r("Created dumpfile " . $this->fileName);
 //        if ($type == 'manual') {
 //            header("Content-disposition: attachment;filename=$this->filename");
-//            readfile($this->filename);
+//            file_get_contents($this->filename);
 //            return 'successM';
 //        } else {
 //            return 'successA';
@@ -360,14 +354,35 @@ class DumpService implements ServiceManagerAwareInterface
     }
 
     /**
-     * Pushes 
+     * Pushes an sql dump to server. Optionally clears existing data and structures.
      * 
-     * @param type $filename
+     * @param string $filename
+     * @param bool $clearTable
      */
-    public function pushDump($filename)
+    public function pushDump($filename, $clearTable)
     {
         $this->setUp();
-        $this->db->prepare($statement)
+// Disabled for now, loop execute causes race conditions with db connection.
+//        if ($clearTable) {
+//            $clearStmt = $this->db->prepare(
+//                    "SET FOREIGN_KEY_CHECKS = 0;"
+//                    . "DROP TABLE *;"
+//                    . "SET FOREIGN_KEY_CHECKS = 1;");
+//            try {
+//                $clearStmt->execute();
+//            } catch (PDOException $ex) {
+//                print_r($ex);
+//                die();
+//            }
+//        }
+
+        $pushStatement = $this->db->prepare(file_get_contents(_PATH_ . $filename));
+        try {
+            $pushStatement->execute();
+        } catch (PDOException $ex) {
+            print_r($ex);
+            die();
+        }
     }
 
 }
