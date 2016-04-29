@@ -55,8 +55,7 @@ class AbsenceRepository extends AbstractBaseRepository
                     partial contactLesson.{
                         id,
                         name,
-                        sequenceNr,
-                        durationAK
+                        sequenceNr
                         },
                     partial absenceReason.{
                         id,
@@ -90,8 +89,7 @@ class AbsenceRepository extends AbstractBaseRepository
                     partial contactLesson.{
                         id,
                         name,
-                        sequenceNr,
-                        durationAK
+                        sequenceNr
                         },
                     partial absenceReason.{
                         id,
@@ -125,8 +123,7 @@ class AbsenceRepository extends AbstractBaseRepository
                     partial contactLesson.{
                         id,
                         name,
-                        sequenceNr,
-                        durationAK
+                        sequenceNr
                         },
                     partial absenceReason.{
                         id,
@@ -160,8 +157,7 @@ class AbsenceRepository extends AbstractBaseRepository
                     partial contactLesson.{
                         id,
                         name,
-                        sequenceNr,
-                        durationAK
+                        sequenceNr
                         },
                     partial absenceReason.{
                         id,

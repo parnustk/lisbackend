@@ -57,7 +57,7 @@ class ContactLessonController extends Base
      * <h3>Body</h3>
      * <code> lessonDate(datetime)*
      * description(string)*
-     * durationAK(integer)*
+     * sequenceNr(integer)*
      * subjectRound(array) [ { id(integer) } ] ]*
      * teacher(array) [ { id(integer) } ] ]*</code>
      * 
@@ -76,7 +76,7 @@ class ContactLessonController extends Base
      * <h3>Body</h3>
      * <code> lessonDate(datetime)*
      * description(string)*
-     * durationAK(integer)*
+     * sequenceNr(integer)*
      * subjectRound(array) [ { id(integer) } ] ]*
      * teacher(array) [ { id(integer) } ] ]*</code>
      * @param int $id

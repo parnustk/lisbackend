@@ -49,8 +49,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                         lessonDate,
                         description,
                         sequenceNr,
-                        trashed,
-                        durationAK
+                        trashed
                     },
                     partial subjectRound.{
                         id,
@@ -106,8 +105,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                         lessonDate,
                         description,
                         sequenceNr,
-                        trashed,
-                        durationAK
+                        trashed
                     },
                     partial subjectRound.{
                         id
@@ -152,8 +150,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                         lessonDate,
                         description,
                         sequenceNr,
-                        trashed,
-                        durationAK
+                        trashed
                     },
                     partial subjectRound.{
                         id
@@ -198,8 +195,7 @@ class ContactLessonRepository extends AbstractBaseRepository
                         lessonDate,
                         description,
                         sequenceNr,
-                        trashed,
-                        durationAK
+                        trashed
                     },
                     partial subjectRound.{
                         id,

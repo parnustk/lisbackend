@@ -170,8 +170,7 @@
                         studentGroup: null,
                         module: null,
                         vocation: null,
-                        teacher: null,
-                        durationAK: null
+                        teacher: null
                     };
 
                     $scope.roomsAll = $scope.subjectRounds = $scope.studentGroups = $scope.modules = $scope.vocations = $scope.teachers = [];
@@ -275,9 +274,6 @@
                             },
                             {field: 'description',
                                 displayName: $scope.T('LIS_DESCRIPTION'),
-                            },
-                            {field: 'durationAK',
-                                displayName: $scope.T('LIS_DURATIONAK'),
                             }
                         ],
                         enableGridMenu: true,
