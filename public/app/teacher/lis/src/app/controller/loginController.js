@@ -23,7 +23,7 @@
         function loginController($scope, loginModel, $cookies) {
 
             $scope.credentials = {
-                email: 'admin@test.ee',
+                email: 'teacher@test.ee',
                 password: 'Tere1234'
             };
 
