@@ -1,0 +1,45 @@
+{
+  "name": "teacher",
+  "description": "Teacher client",
+  "main": "index.js",
+  "authors": [
+    "Sander Mets <sandermets0@gmail.com>"
+  ],
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "keywords": [
+    "ediary",
+    "angular"
+  ],
+  "homepage": "https://github.com/parnustk/lisbackend",
+  "moduleType": [
+    "amd"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "angular-route": "^1.5.3",
+    "angular-cookies": "^1.5.3",
+    "angular-resource": "^1.5.3",
+    "angular-ui-grid": "^3.1.1",
+    "angular-touch": "^1.5.3",
+    "angular-sanitize": "^1.5.3",
+    "requirejs": "^2.2.0",
+    "ui-select": "angular-ui-select#^0.16.1",
+    "pdfmake": "^0.1.20",
+    "bootstrap": "^3.3.6",
+    "angular-bootstrap": "^1.3.2",
+    "angular-animate": "^1.5.3",
+    "angular": "^1.5.4",
+    "moment": "^2.12.0"
+  },
+  "resolutions": {
+    "angular": "1.5.3"
+  }
+}

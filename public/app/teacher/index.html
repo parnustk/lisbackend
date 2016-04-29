@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+ * LIS development
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2016 LIS dev team
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LIS Teacher</title>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/ui-select/dist/select.css" />
+        <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.css" />
+        <style>
+
+            body {
+                padding: 20px;
+            }
+
+            .grid {
+                width: 600px;
+                height: 250px;
+            }
+
+            .ui-grid-cell {
+                overflow: visible;
+                z-index: 99999;
+            }
+
+            .ui-grid-cell, ui-select-wrap {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .grid {
+                width: 100%;
+                min-height: 40%;
+            }
+
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+                display: none !important;
+            }
+
+            .wrapper {
+                margin-top: 80px;
+                margin-bottom: 80px;
+            }
+
+            .form-signin {
+                max-width: 380px;
+                padding: 15px 35px 45px;
+                margin: 0 auto;
+                background-color: #fff;
+                border: 1px solid rgba(0,0,0,0.1);
+
+            .form-signin-heading,
+            .checkbox {
+                margin-bottom: 30px;
+            }
+
+            .checkbox {
+                font-weight: normal;
+            }
+
+            .form-control {
+                position: relative;
+                font-size: 16px;
+                height: auto;
+                padding: 10px;
+            @include box-sizing(border-box);
+
+            &:focus {
+                 z-index: 2;
+             }
+            }
+
+            input[type="text"] {
+                margin-bottom: -1px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            input[type="password"] {
+                margin-bottom: 20px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+            }
+
+
+
+            .languageSwitcher {
+                display: inline;
+            }
+
+            .languageSwitcher a img {
+                width:78px;
+                height:50px;
+            }
+
+            /*
+            .selectize-input {
+                height: 44px;
+                border-radius: 0;
+            }
+            .selectize-input .ui-select-search {
+                height: 29px;
+            }
+            .selectize-input .ui-select-match {
+                line-height: 29px;
+            }
+            .ui-select-choices {
+                margin-top: -8px;
+            }
+            .ui-grid-cell {
+                overflow: visible;
+                z-index: 99999;
+            }
+            .ui-grid-cell, ui-select-wrap {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .selectize-control > .selectize-dropdown {
+                background: lightgray;
+            }
+            .select2-container-multi .select2-choices .select2-search-field {
+                width: 120px;
+            }*/
+        </style>
+
+
+        <script src="lis/dist/globals.config.local.js"></script>
+        <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
+    </head>
+    <body><!-- All parts should go into widgets(controller + view) + content itself in our cas-->
+
+        <!-- START Login/Menu widget-->
+        <div ng-controller="loginController">
+
+            <nav class="navbar navbar-default" ng-if="userLoggedIn" ng-cloak>
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#!/">LIS</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">Link</a></li>-->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ T('LIS_CURRICULUM') }}<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#!/">TODO</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!--
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="What here?">
+                            </div>
+                            <button type="submit" class="btn btn-default">LIS_SUBMIT</button>
+                        </form>
+                        -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#" ng-click="Logout()">{{ T('LIS_LOGOUT') }}</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ T('LIS_ME') }}<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">{{ T('LIS_CHANGE_MY_USER_DATA') }}</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">{{ T('LIS_MY_DATA') }}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+
+            <div class="nav navbar-nav navbar-right" ng-cloak>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ T('LIS_LANGUAGE') }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="languageSwitcher"><a href=""><img src="http://www.flags.net/images/largeflags/ESTN0001.GIF"/> Eesti</a></li>
+                            <li class="languageSwitcher"><a href=""><img src="http://www.enchantedlearning.com/europe/britain/Flagsmall.GIF" /> English</a></li>
+                        </ul>
+                    </li>
+            </div>
+
+            <div ng-if="!userLoggedIn" class="wrapper" ng-cloak>
+                <form class="form-signin">
+                    <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
+                        {{ T('LIS_LOGIN_ERROR') }}
+                    </div>
+                    <h2 class="form-signin-heading">{{ T('LIS_LOGIN_GREETING') }}</h2>
+                    <input class="form-control" name="username" placeholder="{{ T('LIS_EMAIL') }}" type="text"
+                                   ng-model="credentials.email" value="admin@test.ee" autofocus=""/>
+                    <input class="form-control" type="password" name="password" placeholder="{{ T('LIS_PASSWORD') }}"
+                                   ng-model="credentials.password" value="Tere1234">
+                    <button class="btn btn-lg btn-primary btn-block" ng-click="Login()">{{ T('LIS_LOGIN') }}</button>
+                </form>
+            </div>
+
+        </div>
+        <!-- END Login/Menu widget-->
+
+        <!-- these a tags go inside a menu-->
+
+        <div data-ng-view=""></div>
+    </body>
+</html>
