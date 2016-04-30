@@ -14,6 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Entity\Student;
 use Core\Entity\LisUser;
 use stdClass;
+use Exception;
 
 /**
  * Application ACL resolves by this layer
@@ -103,15 +104,65 @@ abstract class AbstractStudentBaseController extends AbstractBaseController
 
     /**
      * 
+     */
+    protected function checkUserSession()
+    {
+        $auth = $this->getLisAuthService();
+        $storage = $auth->read();
+//        print_r(gettype($storage));
+        try {
+            if (!$storage) {
+                throw new Exception('1NOT_LOGGED_IN');
+            }
+            if (!key_exists('role', $storage)) {
+                throw new Exception('2NOT_LOGGED_IN');
+            }
+            if ($storage['role'] !== $this->lisRole) {
+                throw new Exception('3NOT_LOGGED_IN');
+            }
+            if (!key_exists('lisPerson', $storage)) {
+                throw new Exception('4NOT_LOGGED_IN');
+            }
+            if (!key_exists('lisUser', $storage)) {
+                throw new Exception('5NOT_LOGGED_IN');
+            }
+
+            $lisUser = $this->getEntityManager()->getRepository('Core\Entity\LisUser')->find($storage['lisUser']);
+            if (!$lisUser instanceof \Core\Entity\LisUser) {
+                throw new Exception('6NOT_LOGGED_IN');
+            }
+            $this->setLisUser($lisUser);
+
+            $lisPerson = $this->getEntityManager()->getRepository('Core\Entity\Student')->find($storage['lisPerson']);
+            if (!($lisPerson instanceof \Core\Entity\Student)) {
+                throw new Exception('7NOT_LOGGED_IN');
+            }
+            $this->setlisPerson($lisPerson);
+
+            return ['NOT_LOGGED_IN' => false];
+        } catch (Exception $ex) {
+//            print_r($ex->getMessage());die;
+            return ['NOT_LOGGED_IN' => true];
+        }
+    }
+
+    /**
+     * 
      * @return stdClass
      */
     protected function GetExtra()
     {
-        return (object) [
+        if (!$this->lisUser || !$this->lisPerson) { //testing environment
+            $this->checkUserSession();
+        }
+
+        $e = (object) [
                     'lisRole' => $this->getLisRole(),
                     'lisUser' => $this->getLisUser(),
                     'lisPerson' => $this->getLisPerson(),
         ];
+        $this->headerAccessControlAllowOrigin();
+        return $e;
     }
 
     /**

@@ -18,12 +18,12 @@
          */
         function config($routeProvider, $locationProvider, $httpProvider) {
 
-//            $routeProvider
-//                .when('/vocation', {
-//                    templateUrl: 'lis/dist/templates/vocation.html',
-//                    controller: 'vocationController'
-//                })
-//                .otherwise({redirectTo: '/'});
+            $routeProvider
+                .when('/diary', {
+                    templateUrl: 'lis/dist/templates/diary.html',
+                    controller: 'diaryController'
+                })
+                .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
                 enabled: false,

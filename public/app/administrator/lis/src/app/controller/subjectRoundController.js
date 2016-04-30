@@ -9,9 +9,11 @@
 
 /**
  * @author Alar Aasa <alar@alaraasa.ee>
+ * 
+ * @param {type} define
+ * @param {type} document
+ * @returns {undefined}
  */
-
-
 (function (define, document) {
     'use strict';
     /**
@@ -26,18 +28,6 @@
 
             subjectRoundController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'subjectRoundModel', 'subjectModel', 'studentGroupModel', 'teacherModel'];
 
-
-            /**
-             *
-             * @param $scope
-             * @param $q
-             * @param $routeParams
-             * @param rowSorter
-             * @param uiGridConstants
-             * @param subjectRoundModel
-             * @param subjectModel
-             * @param studentGroupModel
-             */
             function subjectRoundController($scope, $q, $routeParams, rowSorter, uiGridConstants, subjectRoundModel, subjectModel, studentGroupModel, teacherModel) {
 
                 $scope.T = globalFunctions.T;

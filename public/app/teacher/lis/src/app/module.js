@@ -36,7 +36,8 @@
         /*17*/'app/model/independentWorkModel',
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
-        /*1*/'app/controller/loginController'
+        /*1*/'app/controller/loginController',
+        /*2*/'app/controller/diaryController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -59,7 +60,8 @@
         /*17*/independentWorkModel,
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
-        /*1*/loginController
+        /*1*/loginController,
+        /*2*/diaryController
         ) {
 
         /**
@@ -89,11 +91,11 @@
                     }
 
                     var map,
-                            colDef = context.col.colDef,
-                            idField = colDef.editDropdownIdLabel,
-                            valueField = colDef.editDropdownValueLabel,
-                            initial = context.row.entity[context.col.field],
-                            result;
+                        colDef = context.col.colDef,
+                        idField = colDef.editDropdownIdLabel,
+                        valueField = colDef.editDropdownValueLabel,
+                        initial = context.row.entity[context.col.field],
+                        result;
 
                     if (typeof colDef.editDropdownOptionsArray !== 'undefined') {
                         map = colDef.editDropdownOptionsArray;
@@ -265,6 +267,7 @@
         module.factory('studentInGroupsModel', studentInGroupsModel);
 
         module.controller('loginController', loginController);
+        module.controller('diaryController', diaryController);
 
         return module;
     });
