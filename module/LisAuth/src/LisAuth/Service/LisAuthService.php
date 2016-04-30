@@ -233,7 +233,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
             ];
         } catch (Exception $ex) {
 
-
             return [
 
                 'success' => false,

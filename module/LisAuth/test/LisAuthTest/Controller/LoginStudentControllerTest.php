@@ -45,6 +45,7 @@ class LoginStudentControllerTest extends UnitHelpers
             'password' => $password,
         ];
 
+
         $lisUser = $this
                 ->em
                 ->getRepository('Core\Entity\LisUser')
