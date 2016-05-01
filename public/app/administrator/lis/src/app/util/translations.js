@@ -29,7 +29,6 @@
                 LIS_NAME_FILTER: 'Nime filter',
                 LIS_DESCRIPTION: 'Kirjeldus',
                 LIS_PERSONALCODE: 'Kood',
-                LIS_LANGUAGE: 'Keel',
 
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
                 LIS_ROOM_GRID_FILTERS: 'Ruumide filter',
@@ -205,9 +204,7 @@
                 LIS_LOGOUT: 'Log out',
                 LIS_LOGIN_GREETING: 'Please log in',
                 LIS_LOGIN_ERROR: 'The entered username or password are incorrect. Please try again',
-
-                LIS_LANGUAGE: 'Language',
-
+                
                 LIS_CREATE_NEW_ROOM: 'Create a new room',
                 LIS_ROOM_GRID_FILTERS: 'Room filter',
 
