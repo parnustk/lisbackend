@@ -12,6 +12,12 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\SubjectRound;
 use Exception;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Zend\Paginator\Paginator;
+use Doctrine\ORM\Query;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
@@ -33,6 +39,47 @@ class SubjectRoundRepository extends AbstractBaseRepository
      * @var string 
      */
     public $baseEntity = 'Core\Entity\SubjectRound';
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     */
+    public function diaryRelatedData($params = null, $extra = null)
+    {
+        print_r($params);
+        $dql = "SELECT 
+                    partial subjectround.{
+                        id,
+                        trashed
+                    },
+                    partial contactLesson.{
+                            id,
+                            name,
+                            lessonDate,
+                            description,
+                            sequenceNr
+                    },
+                    partial studentGrade.{
+                            id
+                    },
+                    partial student.{
+                            id
+                    }
+                FROM Core\Entity\SubjectRound subjectround
+                JOIN subjectround.contactLesson contactLesson
+                LEFT JOIN contactLesson.studentGrade studentGrade
+                LEFT JOIN studentGrade.student student
+                WHERE subjectround.id=:subjectroundId";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
+
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
 
     /**
      * 
@@ -157,13 +204,13 @@ class SubjectRoundRepository extends AbstractBaseRepository
         if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        
+
         $entity = new SubjectRound($this->getEntityManager());
 
         $subject = $this->getEntityManager()
                 ->getRepository('Core\Entity\Subject')
                 ->find($data['subject']);
-        
+
         $entity->setName($subject->getName());
 
         $entityValidated = $this->validateEntity(
@@ -530,6 +577,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function teacherGetList($params = null, $extra = null)
     {
+        if (array_key_exists('diaryview', $params)) {
+            return $this->diaryRelatedData($params, $extra);
+        }
 //        $this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
         //$dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods

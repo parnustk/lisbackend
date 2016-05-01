@@ -48,13 +48,19 @@
 
                 $scope.T = globalFunctions.T;
 
-                var urlParams = {
+                var urlParamsStudentGroup = {
+                    page: 1,
+                    limit: 1000,
+                    diaryview: 1
+                };
+                
+                var urlParamsSubjectRound = {
                     page: 1,
                     limit: 1000,
                     diaryview: 1
                 };
 
-                var rawData = null;
+                var rawDataStudentGroup = null, rawDataSubjectRound = null;
 
                 $scope.diaryFilter = {};
 
@@ -74,22 +80,39 @@
                 });
 
                 var resetUrlParams = function () {
-                    urlParams = {
+                    
+                    urlParamsStudentGroup = {
                         page: 1,
                         limit: 1000,
-                        diaryview: 1
+                        diaryview: 'diaryview'
+                    };
+                    
+                    urlParamsSubjectRound = {
+                        page: 1,
+                        limit: 1000,
+                        diaryview: 'diaryview'
                     };
                 };
 
+                /**
+                 * Set up StudentGroup as param SubkectRound
+                 * @returns {undefined}
+                 */
                 $scope.Filter = function () {
                     resetUrlParams();
                     var data = globalFunctions.cleanData($scope.diaryFilter);
-                    urlParams.where = angular.toJson(data);
+                    urlParamsSubjectRound.where = angular.toJson(data);
                     getData();
                 };
 
+                /**
+                 * We get student related data from by StudentGroup related req, has default params
+                 * Grade related data we get by SubjectRound req has params by StudentGroup.
+                 * 
+                 * @returns {undefined}
+                 */
                 var getData = function () {
-                    subjectRoundModel.GetList(urlParams).then(function (result) {
+                    subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {
                         console.log(result);
                         if (globalFunctions.resultHandler(result)) {
 
