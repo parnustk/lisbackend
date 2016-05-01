@@ -115,7 +115,16 @@
                     subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {
                         console.log(result);
                         if (globalFunctions.resultHandler(result)) {
-
+                            rawDataSubjectRound = result.data;
+                            console.log('RAW rawDataSubjectRound', rawDataSubjectRound);
+                        }
+                    });
+                    
+                    studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
+                        console.log(result);
+                        if (globalFunctions.resultHandler(result)) {
+                            rawDataStudentGroup = result.data;
+                            console.log('rawDataSubjectRound', rawDataSubjectRound);
                         }
                     });
                 };

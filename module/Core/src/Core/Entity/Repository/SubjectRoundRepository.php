@@ -47,7 +47,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     public function diaryRelatedData($params = null, $extra = null)
     {
-        print_r($params);
+        //print_r($params);
         $dql = "SELECT 
                     partial subjectround.{
                         id,
@@ -68,12 +68,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     }
                 FROM Core\Entity\SubjectRound subjectround
                 JOIN subjectround.contactLesson contactLesson
+                JOIN subjectround.studentGroup studentGroup
                 LEFT JOIN contactLesson.studentGrade studentGrade
                 LEFT JOIN studentGrade.student student
-                WHERE subjectround.id=:subjectroundId";
+                WHERE subjectround.id=:subjectroundId AND studentGroup.id=:studentGroupId";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
 
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
@@ -582,6 +584,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         }
 //        $this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
+        $dqlRestriction = null;
         //$dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }

@@ -12,6 +12,12 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\StudentGroup;
 use Exception;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Zend\Paginator\Paginator;
+use Doctrine\ORM\Query;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * StudentGroupRepository
@@ -35,6 +41,26 @@ class StudentGroupRepository extends AbstractBaseRepository
      */
     public $baseEntity = 'Core\Entity\StudentGroup';
 
+    public function diaryRelatedData($params = null, $extra = null)
+    {
+        //print_r($params);
+        $dql = "SELECT 
+                    partial studentgroup.{
+                        id
+                    }
+                FROM Core\Entity\StudentGroup studentgroup
+                JOIN studentgroup.vocation vocation
+                WHERE studentgroup.id=:studentGroupId";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
+
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+    
     /**
      * 
      * @return string
@@ -472,6 +498,9 @@ class StudentGroupRepository extends AbstractBaseRepository
      */
     private function teacherGetList($params = null, $extra = null)
     {
+        if (array_key_exists('diaryview', $params)) {
+            return $this->diaryRelatedData($params, $extra);
+        }
         return $this->defaultGetList($params, $extra);
     }
 
