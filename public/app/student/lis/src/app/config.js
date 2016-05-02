@@ -18,12 +18,19 @@
          */
         function config($routeProvider, $locationProvider, $httpProvider) {
 
-//            $routeProvider
-//                .when('/vocation', {
-//                    templateUrl: 'lis/dist/templates/vocation.html',
-//                    controller: 'vocationController'
-//                })
-//                .otherwise({redirectTo: '/'});
+            $routeProvider
+            
+                .when('/absence', {
+                    templateUrl: 'lis/dist/templates/absence.html',
+                    controller: 'absenceController'
+                })
+                
+                .when('/studentgrade', {
+                    templateUrl: 'lis/dist/templates/studentGrade.html',
+                    controller: 'studentGradeController'
+                })
+                
+                .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
                 enabled: false,

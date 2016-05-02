@@ -59,7 +59,9 @@
         /*17*/independentWorkModel,
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
-        /*1*/loginController
+        /*1*/loginController,
+        /*6*/absenceController,
+        /*18*/studentGradeController
         ) {
 
         /**
@@ -131,7 +133,7 @@
             };
         });
 
-        var module = angular.module('module', [
+        var studentModule = angular.module('studentModule', [
             'ngRoute',
             'ngResource',
             'ngTouch',
@@ -155,9 +157,9 @@
             'ui.select'
         ]);
 
-        module.config(config);
+        studentModule.config(config);
 
-        module.directive('uiSelectWrap', uiSelectWrap);
+        studentModule.directive('uiSelectWrap', uiSelectWrap);
 
         uiSelectWrap.$inject = ['$document', 'uiGridEditConstants'];
 
@@ -173,7 +175,7 @@
             };
         }
 
-        module.directive('uiSelectRequired', function () {
+        studentModule.directive('uiSelectRequired', function () {
             return {
                 require: 'ngModel',
                 link: function (scope, element, attr, ctrl) {
@@ -198,7 +200,7 @@
             };
         });
 
-        module.directive('datepickerPopup', function () {
+        studentModule.directive('datepickerPopup', function () {
             /* http://stackoverflow.com/questions/24198669/angular-bootsrap-datepicker-date-format-does-not-format-ng-model-value */
             return {
                 restrict: 'EAC',
@@ -217,7 +219,7 @@
          * performs a AND between 'name: $select.search' and 'age: $select.search'.
          * We want to perform a OR.
          */
-        module.filter('propsFilter', function () {
+        studentModule.filter('propsFilter', function () {
             return function (items, props) {
                 var out = [];
                 if (angular.isArray(items)) {
@@ -244,29 +246,31 @@
         });
 
         //Here we start with our Business Logic itself
-        module.factory('vocationModel', vocationModel);
-        module.factory('teacherModel', teacherModel);
-        module.factory('gradingTypeModel', gradingTypeModel);
-        module.factory('gradeChoiceModel', gradeChoiceModel);
-        module.factory('absenceReasonModel', absenceReasonModel);
-        module.factory('absenceModel', absenceModel);
-        module.factory('roomModel', roomModel);
-        module.factory('moduleTypeModel', moduleTypeModel);
-        module.factory('loginModel', loginModel);
-        module.factory('moduleModel', moduleModel);
-        module.factory('studentModel', studentModel);
-        module.factory('administratorModel', administratorModel);
-        module.factory('subjectModel', subjectModel);
-        module.factory('contactLessonModel', contactLessonModel);
-        module.factory('studentGroupModel', studentGroupModel);
-        module.factory('independentWorkModel', independentWorkModel);
-        module.factory('subjectRoundModel', subjectRoundModel);
-        module.factory('studentGradeModel', studentGradeModel);
-        module.factory('studentInGroupsModel', studentInGroupsModel);
+        studentModule.factory('vocationModel', vocationModel);
+        studentModule.factory('teacherModel', teacherModel);
+        studentModule.factory('gradingTypeModel', gradingTypeModel);
+        studentModule.factory('gradeChoiceModel', gradeChoiceModel);
+        studentModule.factory('absenceReasonModel', absenceReasonModel);
+        studentModule.factory('absenceModel', absenceModel);
+        studentModule.factory('roomModel', roomModel);
+        studentModule.factory('moduleTypeModel', moduleTypeModel);
+        studentModule.factory('loginModel', loginModel);
+        studentModule.factory('moduleModel', moduleModel);
+        studentModule.factory('studentModel', studentModel);
+        studentModule.factory('administratorModel', administratorModel);
+        studentModule.factory('subjectModel', subjectModel);
+        studentModule.factory('contactLessonModel', contactLessonModel);
+        studentModule.factory('studentGroupModel', studentGroupModel);
+        studentModule.factory('independentWorkModel', independentWorkModel);
+        studentModule.factory('subjectRoundModel', subjectRoundModel);
+        studentModule.factory('studentGradeModel', studentGradeModel);
+        studentModule.factory('studentInGroupsModel', studentInGroupsModel);
 
-        module.controller('loginController', loginController);
+        studentModule.controller('loginController', loginController);
+        studentModule.controller('absenceController', absenceController);
+        studentModule.controller('studentGradeController', studentGradeController);
 
-        return module;
+        return studentModule;
     });
 
 }(define));
