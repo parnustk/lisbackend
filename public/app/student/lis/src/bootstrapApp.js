@@ -40,7 +40,7 @@
                 'angular-ui-grid',
                 'angular-ui-select'
             ], function () {
-                require(['app/studentModule'], function (adminModule) {
+                require(['app/studentModule'], function (studentModule) {
                     angular.bootstrap(document, ['studentModule']);
                 });
             });
