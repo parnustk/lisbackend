@@ -1,110 +1,102 @@
 <h2>{{ T('LIS_ADMINISTRATOR_VIEW') }}</h2>
-<form class="form-horizontal" name="administratorForm" ng-submit="Create(administratorForm.$valid)">
-    
-    <fieldset>
-        
-        <legend>{{ T('LIS_CREATE_NEW_ADMINISTRATOR') }}</legend>
+<div class="row">
+    <form class="form-horizontal col-md-6" role="form" name="administratorForm" ng-submit="Create(administratorForm.$valid)">
 
-        <div class="row">
+        <fieldset>
 
-            <div class="form-group" ng-class="{ 'has-error': administratorForm.firstName.$invalid }">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.firstName">{{ T('LIS_FIRSTNAME') }}</span>
-                        <input name="firstName" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_FIRSTNAME') }}" aria-describedby="administratorForm.firstName" ng-model="administrator.firstName">
+            <legend>{{ T('LIS_CREATE_NEW_ADMINISTRATOR') }}</legend>
+
+                <div class="form-group" ng-class="{ 'has-error': administratorForm.firstName.$invalid }">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="administratorForm.firstName">{{ T('LIS_FIRSTNAME') }}</span>
+                            <input name="firstName" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_FIRSTNAME') }}" aria-describedby="administratorForm.firstName" ng-model="administrator.firstName">
+                        </div>
                     </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
-            
-            <div class="form-group" ng-class="{ 'has-error': administratorForm.lastName.$invalid }">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.lastName">{{ T('LIS_LASTNAME') }}</span>
-                        <input name="lastName" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_LASTNAME') }}" aria-describedby="administratorForm.lastName" ng-model="administrator.lastName">
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': administratorForm.lastName.$invalid }">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="administratorForm.lastName">{{ T('LIS_LASTNAME') }}</span>
+                            <input name="lastName" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_LASTNAME') }}" aria-describedby="administratorForm.lastName" ng-model="administrator.lastName">
+                        </div>
                     </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
+                </div>
 
-            <div class="form-group" ng-class="{ 'has-error': administratorForm.email.$invalid }">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.email">{{ T('LIS_EMAIL') }}</span>
-                        <input name="email" type="text" class="form-control" placeholder="{{ T('LIS_EMAIL') }}" aria-describedby="administratorForm.email" ng-model="administrator.email" required>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div>
+                <div class="form-group" ng-class="{ 'has-error': administratorForm.email.$invalid }">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="administratorForm.email">{{ T('LIS_EMAIL') }}</span>
+                            <input name="email" type="text" class="form-control" placeholder="{{ T('LIS_EMAIL') }}" aria-describedby="administratorForm.email" ng-model="administrator.email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': administratorForm.personalCode.$invalid }">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="administratorForm.personalCode">{{ T('LIS_PERSONALCODE') }}</span>
+                            <input name="personalCode" type="text" class="form-control" placeholder="{{ T('LIS_PERSONALCODE') }}" aria-describedby="administratorForm.personalCode" ng-model="administrator.personalCode" required>
+                        </div>
+                    </div>
+                </div>
             
-            <div class="form-group" ng-class="{ 'has-error': administratorForm.personalCode.$invalid }">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="administratorForm.personalCode">{{ T('LIS_PERSONALCODE') }}</span>
-                        <input name="personalCode" type="text" class="form-control" placeholder="{{ T('LIS_PERSONALCODE') }}" aria-describedby="administratorForm.personalCode" ng-model="administrator.personalCode" required>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div>
-
-            <div class="col-lg-6">
                 <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
-            </div><!-- /.col-lg-6 -->
 
-        </div><!-- /.row -->
+        </fieldset>
+    </form>
+    <br><br>
 
+    <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
+        <fieldset>
 
-    </fieldset>
-</form>
-<br><br>
+            <legend>{{ T('ADMINISTRATOR_GRID_FILTERS') }}</legend>
+            <div class="form-group">
 
-<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
-    <fieldset>
-
-        <legend>{{ T('ADMINISTRATOR_GRID_FILTERS') }}</legend>
-        <div class="form-group">
-
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-firstName">{{ T('SEARCH_A_FIRSTNAME') }}</span>
-                        <input name="firstName" ng-model="filterAdministrator.firstName" type="text" class="form-control" placeholder="{{ T('LIS_FIRSTNAME') }}" aria-describedby="filterAdministrator-firstName">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterAdministrator-firstName">{{ T('SEARCH_A_FIRSTNAME') }}</span>
+                            <input name="firstName" ng-model="filterAdministrator.firstName" type="text" class="form-control" placeholder="{{ T('LIS_FIRSTNAME') }}" aria-describedby="filterAdministrator-firstName">
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-lastName">{{ T('SEARCH_A_LASTNAME') }}</span>
-                        <input name="lastName" ng-model="filterAdministrator.lastName" type="text" class="form-control" placeholder="{{ T('LIS_LASTNAME') }}" aria-describedby="filterAdministrator-lastName">
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterAdministrator-lastName">{{ T('SEARCH_A_LASTNAME') }}</span>
+                            <input name="lastName" ng-model="filterAdministrator.lastName" type="text" class="form-control" placeholder="{{ T('LIS_LASTNAME') }}" aria-describedby="filterAdministrator-lastName">
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-email">{{ T('SEARCH_AN_EMAIL') }}</span>
-                        <input name="email" ng-model="filterAdministrator.email" type="text" class="form-control" placeholder="{{ T('LIS_EMAIL') }}" aria-describedby="filterAdministrator-email">
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterAdministrator-email">{{ T('SEARCH_AN_EMAIL') }}</span>
+                            <input name="email" ng-model="filterAdministrator.email" type="text" class="form-control" placeholder="{{ T('LIS_EMAIL') }}" aria-describedby="filterAdministrator-email">
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterAdministrator-personalCode">{{ T('SEARCH_A_PERSONALCODE') }}</span>
-                        <input name="personalCode" ng-model="filterAdministrator.personalCode" type="text" class="form-control" placeholder="{{ T('LIS_PERSONALCODE') }}" aria-describedby="filterAdministrator-personalCode">
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterAdministrator-personalCode">{{ T('SEARCH_A_PERSONALCODE') }}</span>
+                            <input name="personalCode" ng-model="filterAdministrator.personalCode" type="text" class="form-control" placeholder="{{ T('LIS_PERSONALCODE') }}" aria-describedby="filterAdministrator-personalCode">
+                        </div>
                     </div>
                 </div>
+                
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                </div>
             </div>
-
-
-
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-    </fieldset>
-</form>
-<br><br>
+        </fieldset>
+    </form>
+</div>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

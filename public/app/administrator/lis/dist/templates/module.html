@@ -1,15 +1,15 @@
 <h2>{{ T('LIS_MODULE_VIEW') }}</h2>
-<form class="form-horizontal" name="moduleForm" ng-submit="Create(moduleForm.$valid)">
+<div class="row">
+    <form class="form-horizontal col-md-6" role="form" name="moduleForm" ng-submit="Create(moduleForm.$valid)">
 
-    <fieldset>
+        <fieldset>
 
-        <legend>{{ T('LIS_CREATE_NEW_MODULE')}}</legend>
-
-        <div class="row">
+            <legend>{{ T('LIS_CREATE_NEW_MODULE')}}</legend>
+            
             <div class="form-group" ng-class="{ 'has-error': moduleForm.vocation.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="vocation" ng-required="true" ng-model="module.vocation" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="vocation" ng-required="true" ng-model="module.vocation" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('LIS_CHOOSE_VOCATION') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                                 <span ng-bind-html="vocation.name | highlight: $select.search"></span>
@@ -19,13 +19,13 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                </div><!-- /.col-lg-4 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': moduleForm.moduleType.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="moduleType" ng-required="true" ng-model="module.moduleType" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="moduleType" ng-required="true" ng-model="module.moduleType" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('LIS_CHOOSE_MODULETYPE') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="moduleType in moduleTypes | filter: $select.search">
                                 <span ng-bind-html="moduleType.name | highlight: $select.search"></span>
@@ -35,13 +35,13 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                </div><!-- /.col-lg-4 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': moduleForm.gradingTypes.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group">
-                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="module.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
+                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="module.gradingType" theme="bootstrap" close-on-select="false">
                             <ui-select-match placeholder="{{ T('SELECT_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
@@ -50,116 +50,104 @@
                                 </small>
                             </ui-select-choices>
                         </ui-select>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-4 -->
+                    </div>
+                </div>
             </div>
 
-        </div><!-- /.row -->
-
-        <div class="row">
-
             <div class="form-group" ng-class="{ 'has-error': moduleForm.name.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="moduleForm-name">{{ T('LIS_NAME') }}</span>
                         <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="moduleForm-name" ng-model="module.name">
                     </div>
-                </div><!-- /.col-lg-6 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': moduleForm.moduleCode.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="moduleForm-moduleCode">{{ T('LIS_MODULECODE') }}</span>
                         <input name="moduleCode" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_MODULECODE') }}" aria-describedby="moduleForm-moduleCode" ng-model="module.moduleCode">
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
+                    </div>
+                </div>
             </div>
 
-        </div><!-- /.row -->
-
-        <div class="row">
-
             <div class="form-group" ng-class="{ 'has-error': moduleForm.duration.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="moduleForm-duration">{{ T('LIS_DURATION') }}</span>
                         <input name="duration" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_DURATION') }}" aria-describedby="moduleForm-duration" ng-model="module.duration">
                     </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
-
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
-            </div><!-- /.col-lg-6 -->
-
-        </div><!-- /.row -->
-
-
-    </fieldset>
-</form>
-<br><br>
-<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
-    <fieldset>
-
-        <legend>{{ T('MODULE_GRID_FILTERS') }}</legend>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterModule.vocation" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_VOCATION') }}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="vocation in vocations | filter: $select.search">
-                            <span ng-bind-html="vocation.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{vocation.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
                 </div>
             </div>
 
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterModule-duration">{{ T('SEARCH_DURATION') }}</span>
-                        <input name="duration" ng-model="filterModule.duration" type="number" class="form-control" placeholder="{{ T('LIS_DURATION') }}" aria-describedby="filterModule-duration">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterModule-moduleCode">{{ T('SEARCH_A_MODULECODE') }}</span>
-                        <input name="moduleCode" ng-model="filterModule.moduleCode" type="text" class="form-control" placeholder="{{ T('LIS_MODULECODE') }}" aria-describedby="filterModule-moduleCode">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <ui-select name="gradingTypes" multiple  ng-model="filterModule.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
-                        <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
-                            <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
-                            <small>
-                                id: {{gradingType.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-                </div>
+            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
                 
+        </fieldset>
+    </form>
+    <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
+        <fieldset>
+
+            <legend>{{ T('MODULE_GRID_FILTERS') }}</legend>
+            
+            <div class="form-group">
+                
+                <div class="col-md-12">
+                    <div class="input-group">
+
+                        <ui-select allow-clear ng-model="filterModule.vocation" theme="bootstrap">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_VOCATION') }}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{vocation.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterModule-duration">{{ T('SEARCH_DURATION') }}</span>
+                            <input name="duration" ng-model="filterModule.duration" type="number" class="form-control" placeholder="{{ T('LIS_DURATION') }}" aria-describedby="filterModule-duration">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterModule-moduleCode">{{ T('SEARCH_A_MODULECODE') }}</span>
+                            <input name="moduleCode" ng-model="filterModule.moduleCode" type="text" class="form-control" placeholder="{{ T('LIS_MODULECODE') }}" aria-describedby="filterModule-moduleCode">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <ui-select name="gradingTypes" multiple  ng-model="filterModule.gradingType" theme="bootstrap" close-on-select="false">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
+                            <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
+                                <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
+                                <small>
+                                    id: {{gradingType.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                </div>
             </div>
-
-
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-    </fieldset>
-</form>
-<br><br>
+        </fieldset>
+    </form>
+</div>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

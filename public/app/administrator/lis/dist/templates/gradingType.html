@@ -1,43 +1,46 @@
 <h2>{{ T('LIS_GRADINGTYPE_VIEW') }}</h2>
-<form class="form-horizontal" name="gradingTypeForm" ng-submit="Create(gradingTypeForm.$valid)">
-    <fieldset>
-        <legend>{{ T('LIS_CREATE_NEW_GRADINGTYPE') }}</legend>
+<div class="row">
+    <form class="form-horizontal col-md-6" role="form" name="gradingTypeForm" ng-submit="Create(gradingTypeForm.$valid)">
+        
+        <fieldset>
+            
+            <legend>{{ T('LIS_CREATE_NEW_GRADINGTYPE') }}</legend>
 
-        <div class="row">
 
-            <div class="form-group" ng-class="{ 'has-error': gradingTypeForm.name.$invalid }">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="gradingTypeForm-name">{{ T('LIS_NAME') }}</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="gradingTypeForm-name" ng-model="gradingType.name">
-                    </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
-                <button type="button" ng-click="Delete()" class="btn btn-default">{{ T('LIS_DELETE') }}</button>
-            </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
-    </fieldset>
-</form>
-<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
-    <fieldset>
-        <legend>{{ T('LIS_GRADINGTYPE_FILTERS') }}</legend>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterGradingType-name">{{ T('LIS_SEARCH_NAME') }}</span>
-                        <input name="name" ng-model="filterGradingType.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterGradingType-name">
+
+                <div class="form-group" ng-class="{ 'has-error': gradingTypeForm.name.$invalid }">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="gradingTypeForm-name">{{ T('LIS_NAME') }}</span>
+                            <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="gradingTypeForm-name" ng-model="gradingType.name">
+                        </div>
                     </div>
                 </div>
-            </div>
             
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
+                <button type="button" ng-click="Delete()" class="btn btn-default">{{ T('LIS_DELETE') }}</button>
+            
+        </fieldset>
+    </form>
+    <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
+        <fieldset>
+            <legend>{{ T('LIS_GRADINGTYPE_FILTERS') }}</legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterGradingType-name">{{ T('LIS_SEARCH_NAME') }}</span>
+                            <input name="name" ng-model="filterGradingType.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterGradingType-name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                </div>
             </div>
-        </div>
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
+</div>    
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

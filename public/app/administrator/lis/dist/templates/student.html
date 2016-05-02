@@ -1,110 +1,101 @@
 <h2>{{ T('LIS_STUDENT_VIEW') }}</h2>
-<form class="form-horizontal" name="studentForm" ng-submit="Create(studentForm.$valid)">
-    
-    <fieldset>
-        
-        <legend>{{ T('LIS_CREATE_NEW_STUDENT') }}</legend>
+<div class="row">
+    <form class="form-horizontal col-md-6" role="form" name="studentForm" ng-submit="Create(studentForm.$valid)">
 
-        <div class="row">
+        <fieldset>
 
+            <legend>{{ T('LIS_CREATE_NEW_STUDENT') }}</legend>
+            
             <div class="form-group" ng-class="{ 'has-error': studentForm.firstName.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="studentForm-firstName">{{ T('LIS_FIRSTNAME') }}</span>
                         <input name="firstName" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_FIRSTNAME') }}" aria-describedby="studentForm-firstName" ng-model="student.firstName">
                     </div>
-                </div><!-- /.col-lg-6 -->
+                </div>
             </div>
-            
+
             <div class="form-group" ng-class="{ 'has-error': studentForm.lastName.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="studentForm-lastName">{{ T('LIS_LASTNAME') }}</span>
                         <input name="lastName" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_LASTNAME') }}" aria-describedby="studentForm-lastName" ng-model="student.lastName">
                     </div>
-                </div><!-- /.col-lg-6 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': studentForm.email.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="studentForm.email">{{ T('LIS_EMAIL') }}</span>
                         <input name="email" type="text" class="form-control" placeholder="{{ T('LIS_EMAIL') }}" aria-describedby="studentForm.email" ng-model="student.email" required>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
+                    </div>
+                </div>
             </div>
-            
+
             <div class="form-group" ng-class="{ 'has-error': studentForm.personalCode.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="studentForm.personalCode">{{ T('LIS_PERSONALCODE') }}</span>
                         <input name="personalCode" type="text" class="form-control" placeholder="{{ T('LIS_PERSONALCODE') }}" aria-describedby="studentForm.personalCode" ng-model="student.personalCode" required>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div>
-
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
-            </div><!-- /.col-lg-6 -->
-
-        </div><!-- /.row -->
-
-
-    </fieldset>
-</form>
-<br><br>
-
-<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
-    <fieldset>
-
-        <legend>{{ T('STUDENT_GRID_FILTERS') }}</legend>
-        <div class="form-group">
-
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterStudent-firstName">{{ T('SEARCH_A_FIRSTNAME') }}</span>
-                        <input name="firstName" ng-model="filterStudent.firstName" type="text" class="form-control" placeholder="{{ T('LIS_FIRSTNAME') }}" aria-describedby="filterStudent-firstName">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterStudent-lastName">{{ T('SEARCH_A_LASTNAME') }}</span>
-                        <input name="lastName" ng-model="filterStudent.lastName" type="text" class="form-control" placeholder="{{ T('LIS_LASTNAME') }}" aria-describedby="filterStudent-lastName">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterStudent-email">{{ T('SEARCH_AN_EMAIL') }}</span>
-                        <input name="email" ng-model="filterStudent.email" type="text" class="form-control" placeholder="{{ T('LIS_EMAIL') }}" aria-describedby="filterStudent-email">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterStudent-personalCode">{{ T('SEARCH_A_PERSONALCODE') }}</span>
-                        <input name="personalCode" ng-model="filterStudent.personalCode" type="text" class="form-control" placeholder="{{ T('LIS_PERSONALCODE') }}" aria-describedby="filterStudent-personalCode">
                     </div>
                 </div>
             </div>
 
+            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
 
 
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-    </fieldset>
-</form>
-<br><br>
+        </fieldset>
+    </form>
+    <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
+        <fieldset>
+
+            <legend>{{ T('STUDENT_GRID_FILTERS') }}</legend>
+            <div class="form-group">
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterStudent-firstName">{{ T('SEARCH_A_FIRSTNAME') }}</span>
+                            <input name="firstName" ng-model="filterStudent.firstName" type="text" class="form-control" placeholder="{{ T('LIS_FIRSTNAME') }}" aria-describedby="filterStudent-firstName">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterStudent-lastName">{{ T('SEARCH_A_LASTNAME') }}</span>
+                            <input name="lastName" ng-model="filterStudent.lastName" type="text" class="form-control" placeholder="{{ T('LIS_LASTNAME') }}" aria-describedby="filterStudent-lastName">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterStudent-email">{{ T('SEARCH_AN_EMAIL') }}</span>
+                            <input name="email" ng-model="filterStudent.email" type="text" class="form-control" placeholder="{{ T('LIS_EMAIL') }}" aria-describedby="filterStudent-email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterStudent-personalCode">{{ T('SEARCH_A_PERSONALCODE') }}</span>
+                            <input name="personalCode" ng-model="filterStudent.personalCode" type="text" class="form-control" placeholder="{{ T('LIS_PERSONALCODE') }}" aria-describedby="filterStudent-personalCode">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

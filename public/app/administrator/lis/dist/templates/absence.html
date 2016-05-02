@@ -1,15 +1,16 @@
 <h2>{{ T('LIS_ABSENCE_VIEW') }}</h2>
-<form class="form-horizontal topLeft" name="absenceForm" ng-submit="Create(absenceForm.$valid)">
+<div class="row">
+    <form class="form-horizontal col-md-6" role="form" name="absenceForm" ng-submit="Create(absenceForm.$valid)">
 
-    <fieldset>
+        <fieldset>
 
-        <legend>{{ T('LIS_CREATE_NEW_ABSENCE') }}</legend>
+            <legend>{{ T('LIS_CREATE_NEW_ABSENCE') }}</legend>
 
-        <div>
+            
             <div class="form-group" ng-class="{ 'has-error': absenceForm.absenceReason.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="absenceReason" ng-required="false" ng-model="absence.absenceReason" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="absenceReason" ng-required="false" ng-model="absence.absenceReason" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('SELECT_AN_ABSENCEREASON') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
                                 <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>
@@ -19,13 +20,13 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                </div><!-- /.col-lg-4 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': absenceForm.student.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="student" ng-required="true" ng-model="absence.student" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="student" ng-required="true" ng-model="absence.student" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('SELECT_A_STUDENT') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="student in students | filter: $select.search">
                                 <span ng-bind-html="student.name | highlight: $select.search"></span>
@@ -35,13 +36,13 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                </div><!-- /.col-lg-4 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': absenceForm.contactLesson.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="contactLesson" ng-required="true" ng-model="absence.contactLesson" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="contactLesson" ng-required="true" ng-model="absence.contactLesson" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('SELECT_A_CONTACTLESSON') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
                                 <span ng-bind-html="contactLesson.name | highlight: $select.search"></span>
@@ -50,81 +51,79 @@
                                 </small>
                             </ui-select-choices>
                         </ui-select>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-4 -->
+                    </div>
+                </div>
             </div>
             <div class="form-group" ng-class="{ 'has-error': absenceForm.description.$invalid }">
-                <div>
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="absenceForm-description">{{ T('LIS_DESCRIPTION') }}</span>
                         <input name="description" ng-required="false" type="text" class="form-control" placeholder="{{ T('LIS_DESCRIPTION') }}" aria-describedby="absenceForm-description" ng-model="absence.description">
                     </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
-
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-    </fieldset>
-    
-</form>
-<form class="form-horizontal topRight" name="filterForm" ng-submit="Filter()">
-    <fieldset>
-
-        <legend>{{ T('ABSENCE_GRID_FILTERS') }}</legend>
-        <div class="form-group ">
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterAbsence.absenceReason" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_AN_ABSENCEREASON') }}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
-                            <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{absenceReason.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
                 </div>
             </div>
 
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <ui-select allow-clear ng-model="filterAbsence.student" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENT') }}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="student in students | filter: $select.search">
-                            <div ng-bind-html="student.name | highlight: $select.search"></div>
-                            <small>
-                                id: {{student.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
+            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
+        
+        </fieldset>
+
+    </form>
+    <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
+        <fieldset>
+            <legend>{{ T('ABSENCE_GRID_FILTERS') }}</legend>
+            <div class="form-group ">
+
+                <div class="col-md-12">
+                    <div class="input-group">
+
+                        <ui-select allow-clear ng-model="filterAbsence.absenceReason" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_AN_ABSENCEREASON') }}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="absenceReason in absenceReasons | filter: $select.search">
+                                <span ng-bind-html="absenceReason.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{absenceReason.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
                 </div>
-            </div>
-            
-             <div class="col-sm-12">
-                <div class="input-group">
-                    <ui-select allow-clear ng-model="filterAbsence.contactLesson" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_CONTACTLESSON') }}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
-                            <div ng-bind-html="contactLesson.name | highlight: $select.search"></div>
-                            <small>
-                                id: {{contactLesson.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <ui-select allow-clear ng-model="filterAbsence.student" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENT') }}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="student in students | filter: $select.search">
+                                <div ng-bind-html="student.name | highlight: $select.search"></div>
+                                <small>
+                                    id: {{student.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
                 </div>
-            </div>
+
+                 <div class="col-md-12">
+                    <div class="input-group">
+                        <ui-select allow-clear ng-model="filterAbsence.contactLesson" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_CONTACTLESSON') }}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
+                                <div ng-bind-html="contactLesson.name | highlight: $select.search"></div>
+                                <small>
+                                    id: {{contactLesson.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
 
 
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-    </fieldset>
-</form>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

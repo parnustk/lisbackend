@@ -1,15 +1,15 @@
 <h2>{{ T('LIS_SUBJECT_VIEW') }}</h2>
-<form class="form-horizontal" name="subjectForm" ng-submit="Create(subjectForm.$valid)">
+<div class="row">
+    <form class="form-horizontal col-md-6" role="form" name="subjectForm" ng-submit="Create(subjectForm.$valid)">
 
-    <fieldset>
+        <fieldset>
 
-        <legend>{{ T('LIS_CREATE_NEW_SUBJECT') }}</legend>
+            <legend>{{ T('LIS_CREATE_NEW_SUBJECT') }}</legend>
 
-        <div class="row">
             <div class="form-group" ng-class="{ 'has-error': subjectForm.module.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="module" ng-required="true" ng-model="subject.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="module" ng-required="true" ng-model="subject.module" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('SELECT_A_MODULE') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="module in modules | filter: $select.search">
                                 <span ng-bind-html="module.name | highlight: $select.search"></span>
@@ -19,13 +19,13 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                </div><!-- /.col-lg-4 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': subjectForm.gradingTypes.$invalid }">
-                <div class="col-lg-4">
+                <div class="col-md-12">
                     <div class="input-group">
-                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="subject.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
+                        <ui-select name="gradingTypes" multiple ng-required="true" ng-model="subject.gradingType" theme="bootstrap" close-on-select="false">
                             <ui-select-match placeholder="{{ T('SELECT_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
@@ -34,161 +34,148 @@
                                 </small>
                             </ui-select-choices>
                         </ui-select>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-4 -->
+                    </div>
+                </div>
             </div>
 
-        </div><!-- /.row -->
-
-        <div class="row">
-
             <div class="form-group" ng-class="{ 'has-error': subjectForm.name.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="subjectForm-name">{{ T('LIS_NAME') }}</span>
                         <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="subjectForm-name" ng-model="subject.name">
                     </div>
-                </div><!-- /.col-lg-6 -->
+                </div>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error': subjectForm.subjectCode.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="subjectForm-subjectCode">{{ T('LIS_SUBJECTCODE') }}</span>
                         <input name="subjectCode" type="text" class="form-control" placeholder="{{ T('LIS_SUBJECTCODE') }}" aria-describedby="subjectForm-subjectCode" ng-model="subject.subjectCode" required>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
+                    </div>
+                </div>
             </div>
 
-        </div><!-- /.row -->
-
-        <div class="row">
-
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationAllAK.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="subjectForm-durationAllAK">{{ T('LIS_DURATIONALLAK') }}</span>
                         <input name="durationAllAK" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONALLAK') }}" aria-describedby="subjectForm-durationAllAK" ng-model="subject.durationAllAK">
                     </div>
-                </div><!-- /.col-lg-6 -->
+                </div>
             </div>
-            
+
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationContactAK.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="subjectForm-durationContactAK">{{ T('LIS_DURATIONCONTACTAK') }}</span>
                         <input name="durationContactAK" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONCONTACTAK') }}" aria-describedby="subjectForm-durationContactAK" ng-model="subject.durationContactAK">
                     </div>
-                </div><!-- /.col-lg-6 -->
+                </div>
             </div>
-            
+
             <div class="form-group" ng-class="{ 'has-error': subjectForm.durationIndependentAK.$invalid }">
-                <div class="col-lg-6">
+                <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="subjectForm-durationIndependentAK">{{ T('LIS_DURATIONINDEPENDENTAK') }}</span>
                         <input name="durationIndependentAK" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONINDEPENDENTAK') }}" aria-describedby="subjectForm-durationIndependentAK" ng-model="subject.durationIndependentAK">
                     </div>
-                </div><!-- /.col-lg-6 -->
-            </div>
-            
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
-            </div><!-- /.col-lg-6 -->
-
-        </div><!-- /.row -->
-
-    </fieldset>
-</form>
-<br><br>
-
-<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
-    <fieldset>
-
-        <legend>{{ T('SUBJECT_GRID_FILTERS') }}</legend>
-        <div class="form-group">
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterSubject.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_MODULE') }}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="module in modules | filter: $select.search">
-                            <span ng-bind-html="module.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{module.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                <div class="input-group">
-                    <ui-select name="gradingTypes" multiple  ng-model="filterSubject.gradingType" theme="bootstrap" close-on-select="false" style="width: 310px;">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
-                        <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
-                            <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
-                            <small>
-                                id: {{gradingType.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-name">{{ T('SEARCH_A_NAME') }}</span>
-                        <input name="name" ng-model="filterSubject.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterSubject-name">
+            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
+
+        </fieldset>
+    </form>
+
+
+    <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
+        <fieldset>
+
+            <legend>{{ T('SUBJECT_GRID_FILTERS') }}</legend>
+            <div class="form-group">
+
+                <div class="col-md-12">
+                    <div class="input-group">
+
+                        <ui-select allow-clear ng-model="filterSubject.module" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_MODULE') }}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{module.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-subjectCode">{{ T('SEARCH_A_SUBJECTCODE') }}</span>
-                        <input name="subjectCode" ng-model="filterSubject.subjectCode" type="text" class="form-control" placeholder="{{ T('LIS_SUBJECTCODE') }}" aria-describedby="filterSubject-subjectCode">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-durationAllAK">{{ T('SEARCH_DURATIONALLAK') }}</span>
-                        <input name="durationAllAK" ng-model="filterSubject.durationAllAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONALLAK') }}" aria-describedby="filterSubject-durationAllAK">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-durationContactAK">{{ T('SEARCH_DURATIONCONTACTAK') }}</span>
-                        <input name="durationContactAK" ng-model="filterSubject.durationContactAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONCONTACTAK') }}" aria-describedby="filterSubject-durationContactAK">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="filterSubject-durationIndependentAK">{{ T('SEARCH_DURATIONINDEPENDENTAK') }}</span>
-                        <input name="durationIndependentAK" ng-model="filterSubject.durationIndependentAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONINDEPENDENTAK') }}" aria-describedby="filterSubject-durationIndependentAK">
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR') }}</span></button>
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-    </fieldset>
-</form>
-<br><br>
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <ui-select name="gradingTypes" multiple  ng-model="filterSubject.gradingType" theme="bootstrap" close-on-select="false">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
+                            <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
+                                <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
+                                <small>
+                                    id: {{gradingType.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
 
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterSubject-name">{{ T('SEARCH_A_NAME') }}</span>
+                            <input name="name" ng-model="filterSubject.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterSubject-name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterSubject-subjectCode">{{ T('SEARCH_A_SUBJECTCODE') }}</span>
+                            <input name="subjectCode" ng-model="filterSubject.subjectCode" type="text" class="form-control" placeholder="{{ T('LIS_SUBJECTCODE') }}" aria-describedby="filterSubject-subjectCode">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterSubject-durationAllAK">{{ T('SEARCH_DURATIONALLAK') }}</span>
+                            <input name="durationAllAK" ng-model="filterSubject.durationAllAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONALLAK') }}" aria-describedby="filterSubject-durationAllAK">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterSubject-durationContactAK">{{ T('SEARCH_DURATIONCONTACTAK') }}</span>
+                            <input name="durationContactAK" ng-model="filterSubject.durationContactAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONCONTACTAK') }}" aria-describedby="filterSubject-durationContactAK">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterSubject-durationIndependentAK">{{ T('SEARCH_DURATIONINDEPENDENTAK') }}</span>
+                            <input name="durationIndependentAK" ng-model="filterSubject.durationIndependentAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONINDEPENDENTAK') }}" aria-describedby="filterSubject-durationIndependentAK">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
