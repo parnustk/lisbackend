@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -11,12 +12,14 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\ModuleManager;
 
 class Module
 {
+
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
@@ -36,4 +39,13 @@ class Module
             ),
         );
     }
+
+    //see http://stackoverflow.com/questions/16351034/use-differents-layouts-to-differents-modules-zend-framework-2
+//    public function init(ModuleManager $mm)
+//    {
+//        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
+//            $e->getTarget()->layout('admin/layout');
+//        });
+//    }
+
 }
