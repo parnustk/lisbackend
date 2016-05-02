@@ -41,15 +41,29 @@ class StudentGroupRepository extends AbstractBaseRepository
      */
     public $baseEntity = 'Core\Entity\StudentGroup';
 
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return Paginator
+     */
     public function diaryRelatedData($params = null, $extra = null)
     {
         //print_r($params);
         $dql = "SELECT 
                     partial studentgroup.{
                         id
+                    },
+                    partial studentInGroups.{
+                        id
+                    },
+                    partial student.{
+                        id,
+                        name
                     }
                 FROM Core\Entity\StudentGroup studentgroup
-                JOIN studentgroup.vocation vocation
+                JOIN studentgroup.studentInGroups studentInGroups
+                JOIN studentInGroups.student student
                 WHERE studentgroup.id=:studentGroupId";
 
         $q = $this->getEntityManager()->createQuery($dql);
