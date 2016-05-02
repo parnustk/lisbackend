@@ -67,6 +67,16 @@
 
             /**
              *
+             * @param lang
+             */
+            $scope.changeLanguage = function(lang){
+                location.reload(false);
+                addCookie('userLang', lang);
+                window.LisGlobals.L = lang;
+            };
+
+            /**
+             *
              * @param itemKey
              * @returns {*}
              */
@@ -114,18 +124,38 @@
             if (getCookieValue('userObj') !== undefined) {
                 //var loginData = getCookieValue('userObj');
                 $scope.userLoggedIn = true;
+
+                //this gives some HTML error in console, but seems harmless otherwise, doesn't actually break anything
                 // $scope.credentials = {
                 //     email: loginData.email,
                 //     password: loginData.password
                 // };
-                var lang = {
-                    lang: 'et'
-                };
+                // $scope.Login();
+
                 addCookieTimed('userObj', $scope.credentials);
                 // $scope.Login(); //error
 
             }
 
+            /**
+             * This runs on every refresh
+             * Default language: Et
+             * $scope.langEt: true = english button is shown; false = eesti button is shown;
+             *
+             */
+            if (getCookieValue('userLang') === undefined) {
+                var currentLang = window.LisGlobals.L;
+                addCookie('userLang', currentLang);
+                $scope.langEt = true;
+            } else if (getCookieValue('userLang') === 'et') {
+                window.LisGlobals.L = 'et';
+                $scope.langEt = true;
+            } else if (getCookieValue('userLang') === 'en') {
+                window.LisGlobals.L = 'en';
+                $scope.langEt = false;
+            } else {
+                console.log('ERROR in Login/Language Change. Possible cookie error.');
+            }
 
             /** /cookies **/
 

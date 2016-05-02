@@ -99,12 +99,7 @@
 
 
             .languageSwitcher {
-                display: inline;
-            }
-
-            .languageSwitcher a img {
-                width:78px;
-                height:50px;
+                float: right;
             }
 
             /*
@@ -229,6 +224,10 @@
 
 
             <div ng-if="!userLoggedIn" class="wrapper" ng-cloak>
+                <div>
+                    <button class="btn languageSwitcher" ng-show="langEt" ng-click="changeLanguage('en')">English</button>
+                    <button class="btn languageSwitcher" ng-show="!langEt" ng-click="changeLanguage('et')">Eesti</button>
+                </div>
                 <form class="form-signin">
                     <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
                         {{ T('LIS_LOGIN_ERROR') }}
