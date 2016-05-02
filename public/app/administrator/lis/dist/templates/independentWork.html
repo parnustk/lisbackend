@@ -6,7 +6,7 @@
         <legend>{{ T('INDEPENDENDWORK_GRID_FILTERS') }}</legend>
         <div class="form-group">
             <div class="col-sm-12">
-                <div class="input-group">
+                <div class="input-group input-group-lg">
 
                     <ui-select allow-clear ng-model="filterIndependentWork.subjectRound" theme="bootstrap">
                         <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND') }}">{{$select.selected.name}}</ui-select-match>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-addon" id="filterIndependentWork-duedate">{{ T('LIS_DUEDATE') }}</span>
                         <input type="text" name="dueDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="filterIndependentWork.duedate" placeholder="{{ T('LIS_DUEDATE') }}" aria-describedby="independentWorkForm-dueDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-sm-12">
                 <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
                 <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
             </div>

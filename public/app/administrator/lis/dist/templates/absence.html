@@ -1,11 +1,11 @@
 <h2>{{ T('LIS_ABSENCE_VIEW') }}</h2>
-<form class="form-horizontal" name="absenceForm" ng-submit="Create(absenceForm.$valid)">
+<form class="form-horizontal topLeft" name="absenceForm" ng-submit="Create(absenceForm.$valid)">
 
     <fieldset>
 
         <legend>{{ T('LIS_CREATE_NEW_ABSENCE') }}</legend>
 
-        <div class="row">
+        <div>
             <div class="form-group" ng-class="{ 'has-error': absenceForm.absenceReason.$invalid }">
                 <div class="col-lg-4">
                     <div class="input-group input-group-lg">
@@ -53,12 +53,8 @@
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-4 -->
             </div>
-        </div><!-- /.row -->
-
-        <div class="row">
-
             <div class="form-group" ng-class="{ 'has-error': absenceForm.description.$invalid }">
-                <div class="col-lg-6">
+                <div>
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="absenceForm-description">{{ T('LIS_DESCRIPTION') }}</span>
                         <input name="description" ng-required="false" type="text" class="form-control" placeholder="{{ T('LIS_DESCRIPTION') }}" aria-describedby="absenceForm-description" ng-model="absence.description">
@@ -69,19 +65,15 @@
             <div class="col-lg-6">
                 <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
             </div><!-- /.col-lg-6 -->
-
-        </div><!-- /.row -->
-
+        </div>
     </fieldset>
     
 </form>
-<br><br>
-
-<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
+<form class="form-horizontal topRight" name="filterForm" ng-submit="Filter()">
     <fieldset>
 
         <legend>{{ T('ABSENCE_GRID_FILTERS') }}</legend>
-        <div class="form-group">
+        <div class="form-group ">
             
             <div class="col-sm-12">
                 <div class="input-group">
@@ -135,5 +127,4 @@
         </div>
     </fieldset>
 </form>
-<br><br>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
