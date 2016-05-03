@@ -64,13 +64,24 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             id
                     },
                     partial student.{
-                            id
+                            id,
+                            name
+                    },
+                    partial teacher.{
+                            id,
+                            name
+                    },
+                    partial gradeChoice.{
+                            id,
+                            name
                     }
                 FROM Core\Entity\SubjectRound subjectround
                 JOIN subjectround.contactLesson contactLesson
                 JOIN subjectround.studentGroup studentGroup
                 LEFT JOIN contactLesson.studentGrade studentGrade
                 LEFT JOIN studentGrade.student student
+                LEFT JOIN studentGrade.teacher teacher
+                LEFT JOIN studentGrade.gradeChoice gradeChoice
                 WHERE subjectround.id=:subjectroundId AND studentGroup.id=:studentGroupId";
 
         $q = $this->getEntityManager()->createQuery($dql);
