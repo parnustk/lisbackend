@@ -98,12 +98,12 @@
 
 
             .languageSwitcher {
-                display: inline;
+                float: right;
             }
 
-            .languageSwitcher a img {
-                width:78px;
-                height:50px;
+            .languageSwitcherMenu {
+                background: none;
+                margin-top:0.5em;
             }
 
             /*
@@ -192,22 +192,19 @@
                                     <li><a href="#">{{ T('LIS_MY_DATA') }}</a></li>
                                 </ul>
                             </li>
+                            <a href="javascript:history.go(0);" class="btn languageSwitcherMenu" ng-show="showButton()" ng-click="changeLanguage('en')">in English</a></li>
+                            <a href="javascript:history.go(0);" class="btn languageSwitcherMenu" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
 
-            <div class="nav navbar-nav navbar-right" ng-cloak>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ T('LIS_LANGUAGE') }} <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="languageSwitcher"><a href=""><img src="http://www.flags.net/images/largeflags/ESTN0001.GIF"/> Eesti</a></li>
-                            <li class="languageSwitcher"><a href=""><img src="http://www.enchantedlearning.com/europe/britain/Flagsmall.GIF" /> English</a></li>
-                        </ul>
-                    </li>
-            </div>
 
             <div ng-if="!userLoggedIn" class="wrapper" ng-cloak>
+                <div>
+                    <button class="btn languageSwitcher" ng-show="showButton()" ng-click="changeLanguage('en')">in English</button>
+                    <button class="btn languageSwitcher" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</button>
+                </div>
                 <form class="form-signin">
                     <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
                         {{ T('LIS_LOGIN_ERROR') }}

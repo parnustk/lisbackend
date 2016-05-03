@@ -82,6 +82,35 @@
                 $cookies.remove(itemKey);
             }
 
+            /**
+             *
+             * @param lang
+             */
+            $scope.changeLanguage = function(lang){
+                addCookie('userLang', lang);
+                window.LisGlobals.L = lang;
+            };
+
+            /**'
+             * @description Used in ng-show and ng-hide for the language buttons. Because this is a function, the page doesn't need to be refreshed after running changeLanguage();
+             * @returns {boolean}
+             */
+            $scope.showButton = function(bool){
+                var lang = getCookieValue('userLang');
+
+                if (lang === 'et') {
+                    return true;
+                } else if (lang === 'en') {
+                    return false;
+                } else {
+                    console.log('Language button display error. Possible cookie error.');
+                }
+
+                if (bool) {
+                    window.location = window.location;
+                }
+            };
+
             $scope.T = globalFunctions.T;
 
             
@@ -108,7 +137,6 @@
 
             /**
              * If a cookie exists, that means that there has been a successful login.
-             * We get the JSON data from the cookie, put the data into credentials.
              * Then we update the cookie to extend the expiration date.
              */
             if (getCookieValue('userObj') !== undefined) {
@@ -118,12 +146,23 @@
                 //     email: loginData.email,
                 //     password: loginData.password
                 // };
-                var lang = {
-                    lang: 'et'
-                };
                 addCookieTimed('userObj', $scope.credentials);
                 // $scope.Login(); //error
 
+            }
+
+            if (getCookieValue('userLang') === undefined) {
+                var currentLang = window.LisGlobals.L;
+                addCookie('userLang', currentLang);
+                $scope.langEt = true;
+            } else if (getCookieValue('userLang') === 'et') {
+                window.LisGlobals.L = 'et';
+                $scope.langEt = true;
+            } else if (getCookieValue('userLang') === 'en') {
+                window.LisGlobals.L = 'en';
+                $scope.langEt = false;
+            } else {
+                console.log('ERROR in Login/Language Change. Possible cookie error.');
             }
 
 
