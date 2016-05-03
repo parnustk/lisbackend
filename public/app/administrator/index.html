@@ -102,6 +102,10 @@
                 float: right;
             }
 
+            .languageSwitcherMenu {
+                background: none;
+                margin-top:0.5em;
+            }
             /*
             .selectize-input {
                 height: 44px;
@@ -196,6 +200,7 @@
                                     <li><a href="#!/administrator">{{ T('LIS_ADMINISTRATOR') }}</a></li>
                                     <li><a href="#!/studentgroup">{{ T('LIS_STUDENTGROUP') }}</a></li>
                                     <li><a href="#!/studentingroups">{{ T('LIS_STUDENTINGROUPS') }}</a></li>
+
                                 </ul>
                             </li>
                         </ul>
@@ -215,11 +220,17 @@
                                     <li><a href="#">{{ T('LIS_CHANGE_MY_USER_DATA') }}</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">{{ T('LIS_MY_DATA') }}</a></li>
+
                                 </ul>
                             </li>
+                            <a href="javascript:history.go(0);" class="btn languageSwitcherMenu" ng-show="showButton()" ng-click="changeLanguage('en')">in English</a></li>
+                            <a href="javascript:history.go(0);" class="btn languageSwitcherMenu" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</a></li>
                         </ul>
+
                     </div><!-- /.navbar-collapse -->
+
                 </div><!-- /.container-fluid -->
+
             </nav>
 
 
