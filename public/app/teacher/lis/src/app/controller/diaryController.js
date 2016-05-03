@@ -53,7 +53,7 @@
                     limit: 1000,
                     diaryview: 1
                 };
-                
+
                 var urlParamsSubjectRound = {
                     page: 1,
                     limit: 1000,
@@ -80,13 +80,13 @@
                 });
 
                 var resetUrlParams = function () {
-                    
+
                     urlParamsStudentGroup = {
                         page: 1,
                         limit: 1000,
                         diaryview: 'diaryview'
                     };
-                    
+
                     urlParamsSubjectRound = {
                         page: 1,
                         limit: 1000,
@@ -113,20 +113,84 @@
                  */
                 var getData = function () {
                     subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {
-                        console.log(result);
                         if (globalFunctions.resultHandler(result)) {
                             rawDataSubjectRound = result.data;
-                            console.log('RAW rawDataSubjectRound', rawDataSubjectRound);
+                            //console.log('RAW rawDataSubjectRound', rawDataSubjectRound);
+
+                            studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
+                                if (globalFunctions.resultHandler(result)) {
+                                    rawDataStudentGroup = result.data;
+                                    //console.log('rawDataSubjectRound', rawDataSubjectRound);
+                                    sortDataForDiary();
+                                }
+                            });
+
                         }
                     });
-                    
-                    studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
-                        console.log(result);
-                        if (globalFunctions.resultHandler(result)) {
-                            rawDataStudentGroup = result.data;
-                            console.log('rawDataSubjectRound', rawDataSubjectRound);
+                };
+
+                $scope.Sort = function () {
+                    sortDataForDiary();
+                };
+
+                var columns = [], //array of elements
+                    rows = [];//array of arrays of elements
+
+                var teacherId = 1;//comes from session LisPerson
+                
+                var sortDataForDiary = function () {
+                    columns = [];//tmp
+                    rows = [];//tmp
+
+                    //rows 
+                    var students = rawDataStudentGroup[0].studentInGroups;
+                    for (var y in students) {
+                        var row = [];
+                        console.log(students[y].student);
+                        row.push({
+                            id: students[y].student.id,
+                            name: students[y].student.name});
+                        rows.push(row);
+                        //break;
+                    }
+
+                    //columns -> studentName contactlesson1...contactLessonN
+                    columns.push('student');
+                    var contactLessons = rawDataSubjectRound[0].contactLesson;
+                    for (var x in contactLessons) {
+                        //console.log(contactLessons[x]);
+                        var cl = contactLessons[x];
+                        columns.push({
+                            id: cl.id,
+                            name: contactLessons[x].name
+                        });
+                        for (var i = 0; i < rows.length; i++) {
+
+                                var studentGrade,
+                                    gradeChoiceId,
+                                    gradeChoiceName;
+
+                            if(cl.studentGrade.length === 0) {
+                                gradeChoiceId = null;
+                                studentGrade = null;
+                                gradeChoiceName = null;
+                            } else {
+                                console.log('found grades');
+                            }
+                            rows[i].push({
+                                id: gradeChoiceId,
+                                name: gradeChoiceName,
+                                studentGrade: studentGrade,
+                                contactLessonId: cl.id,
+                                studentId: rows[i][0].id,
+                                teacherId: teacherId
+                            });
                         }
-                    });
+                    }
+
+
+                    console.log(columns);
+                    console.log(rows);
                 };
 
             }
