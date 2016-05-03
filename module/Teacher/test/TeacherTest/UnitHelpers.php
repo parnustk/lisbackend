@@ -401,7 +401,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'name' => uniqid() . 'Name',
                     'duedate' => new \DateTime,
                     'description' => uniqid() . ' Description for independentwork',
-                    'durationAK' => (int) uniqid(),
+                    'durationAK' => (rand(1, 10) * 2),
                     'subjectRound' => $subjectRound->getId(),
                     'teacher' => $teacher->getId(),
                     'student' => $student->getId(),
@@ -432,6 +432,8 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'absenceReason' => $absenceReason->getId(),
                     'student' => $student->getId(),
                     'contactLesson' => $contactLesson->getId(),
+                    
+                 
         ]);
     }
 

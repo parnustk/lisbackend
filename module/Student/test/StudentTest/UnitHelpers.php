@@ -391,8 +391,8 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         $subjectRound = $this->CreateSubjectRound();
-        //$teacher = $this->CreateTeacher();
-       // $student = $this->CreateStudent();
+        $teacher = $this->CreateTeacher();
+        $student = $this->CreateStudent();
 
         return $repository->Create([
                     'name' => uniqid() . 'Name',

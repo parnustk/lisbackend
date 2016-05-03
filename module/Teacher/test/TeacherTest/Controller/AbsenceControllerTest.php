@@ -47,7 +47,7 @@ class AbsenceControllerTest extends UnitHelpers
         $this->request->getPost()->set('description', $description);
         $this->request->getPost()->set('student', $this->CreateStudent()->getId());
         $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
-
+    
         //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
