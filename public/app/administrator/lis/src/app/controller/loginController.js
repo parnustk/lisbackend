@@ -70,9 +70,24 @@
              * @param lang
              */
             $scope.changeLanguage = function(lang){
-                location.reload(false);
                 addCookie('userLang', lang);
                 window.LisGlobals.L = lang;
+            };
+
+            /**'
+             * @description Used in ng-show and ng-hide for the language buttons. Because this is a function, the page doesn't need to be refreshed after running changeLanguage();
+             * @returns {boolean}
+             */
+            $scope.showButton = function(){
+                var lang = getCookieValue('userLang');
+
+                if (lang === 'et') {
+                    return true;
+                } else if (lang === 'en') {
+                    return false;
+                } else {
+                    console.log('Language button display error. Possible cookie error.');
+                }
             };
 
             /**
@@ -118,7 +133,6 @@
 
             /**
              * If a cookie exists, that means that there has been a successful login.
-             * We get the JSON data from the cookie, put the data into credentials.
              * Then we update the cookie to extend the expiration date.
              */
             if (getCookieValue('userObj') !== undefined) {
@@ -137,12 +151,7 @@
 
             }
 
-            /**
-             * This runs on every refresh
-             * Default language: Et
-             * $scope.langEt: true = english button is shown; false = eesti button is shown;
-             *
-             */
+
             if (getCookieValue('userLang') === undefined) {
                 var currentLang = window.LisGlobals.L;
                 addCookie('userLang', currentLang);
