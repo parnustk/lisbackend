@@ -1,0 +1,1227 @@
+<?xml version="1.0"?>
+<skipper version="3.2.6.1309" mvc="Zend Framework" orm="Doctrine2" name="Lisbackend" uuid="9082500b-2744-4451-83e8-7c48a2c0223c">
+  <module name="\LIS" local-name="LIS" namespace="\" uuid="497e75e2-fac9-410b-974b-10f7d097d89c">
+    <entity name="\Absence" local-name="Absence" namespace="\" uuid="5e47bd32-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="3a326da3-1d2f-4646-acc7-e13adba08526"/>
+      <field name="absence_reason_id" type="integer" size="8" default="NULL" uuid="5c56d4bd-149f-4913-bd81-15b877f2d796"/>
+      <field name="student_id" type="integer" size="8" required="true" uuid="d2b4e004-dc13-4a9d-988b-376a3b5b612f"/>
+      <field name="contact_lesson_id" type="integer" size="8" required="true" uuid="021f5f53-7886-407d-aee1-746de4c537d7"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="1bd8dfcc-d870-4a18-bf7e-bb002adf0652"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="c5aa2029-8791-4a1a-a6ee-353be70fdf11"/>
+      <field name="description" type="string" size="255" default="NULL" uuid="09283f65-26d3-4c3a-87e6-3ac94b5bf920"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="e942075f-50b0-4b3f-bd0d-7c71b926ec71"/>
+      <field name="created_at" type="date" required="true" uuid="8ccdde7c-d6c0-429b-b507-10e0c28de41b"/>
+      <field name="updated_at" type="date" default="NULL" uuid="f0baa9fb-6ff3-4467-be6a-dcf8f06dbd5b"/>
+      <index name="IDX_B9E7D955E1E51A10">
+        <index-field name="absence_reason_id"/>
+      </index>
+      <index name="IDX_B9E7D955CB944F1A">
+        <index-field name="student_id"/>
+      </index>
+      <index name="IDX_B9E7D955A30922ED">
+        <index-field name="contact_lesson_id"/>
+      </index>
+      <index name="IDX_B9E7D955DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_B9E7D95516FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="absence_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Absence</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Absence" to="\LisUser" caption="FK_B9E7D95516FE72E1" many-owner="true" many-inverse="false" uuid="5e47ce3a-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Absence" to="\ContactLesson" caption="FK_B9E7D955A30922ED" many-owner="true" many-inverse="false" parent-required="true" uuid="5e47cf3e-110d-11e6-804a-0800272acedb">
+      <association-field from="contact_lesson_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Absence" to="\Student" caption="FK_B9E7D955CB944F1A" many-owner="true" many-inverse="false" parent-required="true" uuid="5e47cfc0-110d-11e6-804a-0800272acedb">
+      <association-field from="student_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Absence" to="\LisUser" caption="FK_B9E7D955DE12AB56" many-owner="true" many-inverse="false" uuid="5e47d01a-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Absence" to="\AbsenceReason" caption="FK_B9E7D955E1E51A10" many-owner="true" many-inverse="false" uuid="5e47d07e-110d-11e6-804a-0800272acedb">
+      <association-field from="absence_reason_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\AbsenceReason" local-name="AbsenceReason" namespace="\" uuid="5e47dab0-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="8b275116-6294-44b2-a579-9b99177151b9"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="8d3d675a-dad3-4282-ae4b-8e1c0b8cd144"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="82c293fa-4089-451a-832a-b67a85ff2930"/>
+      <field name="name" type="string" size="255" required="true" uuid="882f9198-1cfe-4880-abfc-3eea195d5eec"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="e81dfdd4-5f6c-4d73-8581-0ae17ac1e29f"/>
+      <field name="created_at" type="date" required="true" uuid="c034cf9a-f1c3-4ba5-b236-3c51914b457e"/>
+      <field name="updated_at" type="date" default="NULL" uuid="cbff26be-0192-406a-8b57-124194c778a1"/>
+      <index name="IDX_6595B548DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_6595B54816FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="absencereason_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">AbsenceReason</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AbsenceReason" to="\LisUser" caption="FK_6595B54816FE72E1" many-owner="true" many-inverse="false" uuid="5e47f446-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\AbsenceReason" to="\LisUser" caption="FK_6595B548DE12AB56" many-owner="true" many-inverse="false" uuid="5e47f4c8-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\Administrator" local-name="Administrator" namespace="\" uuid="5e47fef0-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="c60e47c5-0aba-46dc-8df7-d8bea33edb90"/>
+      <field name="lis_user_id" type="integer" size="8" default="NULL" uuid="c18ed1cc-b118-4cd3-9f42-3df1ae3a69e0"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="f48287fc-165a-4068-90d4-605cffad9855"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="ba97ba1d-cb7c-4226-9220-f3c29d423436"/>
+      <field name="firstName" type="string" size="255" required="true" uuid="fc705622-63ea-486e-856f-4ae0f32700d9"/>
+      <field name="lastName" type="string" size="255" required="true" uuid="5a013b6a-35bd-4412-904d-48bedddb8924"/>
+      <field name="name" type="string" size="255" required="true" uuid="b9ad9326-fd98-4a70-9677-b608766407b9"/>
+      <field name="email" type="string" size="255" required="true" uuid="f7103a65-a99e-4e69-ad79-785ea2e1c4b0"/>
+      <field name="personalCode" type="string" size="255" required="true" uuid="06ffeae0-0c99-49e8-b990-e6c4828d65da"/>
+      <field name="superAdministrator" type="integer" size="11" required="true" uuid="88e41e96-6c7a-4fa4-bca6-fe7987fbdbd0"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="91bd8278-e9fe-4860-ad52-a2f39f0320dd"/>
+      <field name="created_at" type="date" required="true" uuid="985071e6-d97d-4009-a500-f70c27375769"/>
+      <field name="updated_at" type="date" default="NULL" uuid="998d53e0-bddb-44fc-bc92-a31b0d6607ce"/>
+      <index name="UNIQ_EBA14DA4FEC554F2" unique="true">
+        <index-field name="personalCode"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="UNIQ_EBA14DA463918838" unique="true">
+        <index-field name="lis_user_id"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="IDX_EBA14DA4DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_EBA14DA416FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="administrator_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Administrator</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Administrator" to="\LisUser" caption="FK_EBA14DA416FE72E1" many-owner="true" many-inverse="false" uuid="5e481070-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Administrator" to="\LisUser" caption="FK_EBA14DA463918838" many-owner="true" many-inverse="false" uuid="5e4810f2-110d-11e6-804a-0800272acedb">
+      <association-field from="lis_user_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Administrator" to="\LisUser" caption="FK_EBA14DA4DE12AB56" many-owner="true" many-inverse="false" uuid="5e48114c-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\ContactLesson" local-name="ContactLesson" namespace="\" uuid="5e48ae90-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="5e8a1e32-a94f-477b-8870-f2ae2b83f35e"/>
+      <field name="rooms_id" type="integer" size="8" required="true" uuid="8ac832ba-1202-4904-86fb-b71471713de6"/>
+      <field name="subject_round_id" type="integer" size="8" required="true" uuid="9f250a3c-aff7-4164-b358-c0f4569970df"/>
+      <field name="student_group_id" type="integer" size="8" required="true" uuid="71f5ac08-90f2-40c6-a56a-d58bbae15762"/>
+      <field name="module_id" type="integer" size="8" required="true" uuid="c6668017-3dea-40ab-ab10-9d9e1f1442af"/>
+      <field name="vocation_id" type="integer" size="8" required="true" uuid="11265b00-1cd2-49ee-ae12-217c019351b2"/>
+      <field name="teacher_id" type="integer" size="8" required="true" uuid="60cfe2ee-213c-4184-9814-af528ba8bf7b"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="012ca52c-6573-4737-af69-a7f0ab82e0e5"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="f37df934-0c91-4595-812d-2e2eeebaf78d"/>
+      <field name="name" type="string" size="255" required="true" uuid="ccf63e33-3911-46ba-a5b1-625a99d67ed0"/>
+      <field name="lessonDate" type="date" required="true" uuid="a7570914-4b3d-4bfa-b372-2a4ec846d621"/>
+      <field name="description" type="string" size="255" default="NULL" uuid="67b93dca-d9fe-41e6-95e8-085f7c2a852a"/>
+      <field name="sequenceNr" type="integer" size="11" required="true" uuid="b7de6cad-fa61-40e1-9fbe-e5b96a8b5ab9"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="a086b855-ec4d-4c86-9609-a763f57d0c10"/>
+      <field name="created_at" type="date" required="true" uuid="852b6cd1-31aa-4483-b509-3fca69198f5f"/>
+      <field name="updated_at" type="date" default="NULL" uuid="93a5ecc9-3c6d-4827-88e0-b8721d706e17"/>
+      <index name="IDX_EBB4C6A38E2368AB">
+        <index-field name="rooms_id"/>
+      </index>
+      <index name="IDX_EBB4C6A39E7D1CC8">
+        <index-field name="subject_round_id"/>
+      </index>
+      <index name="IDX_EBB4C6A34DDF95DC">
+        <index-field name="student_group_id"/>
+      </index>
+      <index name="IDX_EBB4C6A3AFC2B591">
+        <index-field name="module_id"/>
+      </index>
+      <index name="IDX_EBB4C6A34A14BDC1">
+        <index-field name="vocation_id"/>
+      </index>
+      <index name="IDX_EBB4C6A341807E1D">
+        <index-field name="teacher_id"/>
+      </index>
+      <index name="IDX_EBB4C6A3DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_EBB4C6A316FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="contactlesson_index_lessondate">
+        <index-field name="lessonDate"/>
+      </index>
+      <index name="contactlesson_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <index name="contactlesson_description">
+        <index-field name="description"/>
+      </index>
+      <index name="contactlesson_name">
+        <index-field name="name"/>
+      </index>
+      <index name="contactlesson_sequenceNr">
+        <index-field name="sequenceNr"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">ContactLesson</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\ContactLesson" to="\LisUser" caption="FK_EBB4C6A316FE72E1" many-owner="true" many-inverse="false" uuid="5e48ceac-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\Teacher" caption="FK_EBB4C6A341807E1D" many-owner="true" many-inverse="false" parent-required="true" uuid="5e48cf42-110d-11e6-804a-0800272acedb">
+      <association-field from="teacher_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\Vocation" caption="FK_EBB4C6A34A14BDC1" many-owner="true" many-inverse="false" parent-required="true" uuid="5e48cfe2-110d-11e6-804a-0800272acedb">
+      <association-field from="vocation_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\StudentGroup" caption="FK_EBB4C6A34DDF95DC" many-owner="true" many-inverse="false" parent-required="true" uuid="5e48d064-110d-11e6-804a-0800272acedb">
+      <association-field from="student_group_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\Rooms" caption="FK_EBB4C6A38E2368AB" many-owner="true" many-inverse="false" parent-required="true" uuid="5e48d0d2-110d-11e6-804a-0800272acedb">
+      <association-field from="rooms_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\SubjectRound" caption="FK_EBB4C6A39E7D1CC8" many-owner="true" many-inverse="false" parent-required="true" uuid="5e48d12c-110d-11e6-804a-0800272acedb">
+      <association-field from="subject_round_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\Module" caption="FK_EBB4C6A3AFC2B591" many-owner="true" many-inverse="false" parent-required="true" uuid="5e48d1d6-110d-11e6-804a-0800272acedb">
+      <association-field from="module_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ContactLesson" to="\LisUser" caption="FK_EBB4C6A3DE12AB56" many-owner="true" many-inverse="false" uuid="5e48d23a-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\GradeChoice" local-name="GradeChoice" namespace="\" uuid="5e48e0ea-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="95491e45-b337-4f71-a135-b180148f02af"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="c0fe5591-27fa-47cb-a478-93310477927a"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="15f3dd49-eaf2-4ad4-a3c4-77098a6afe8e"/>
+      <field name="name" type="string" size="255" required="true" uuid="445d0aca-92e7-4827-84be-2701c11158eb"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="53ec51a1-dcbe-4f3e-b162-952ef517dc7e"/>
+      <field name="created_at" type="date" required="true" uuid="ab48e925-8438-4171-a754-a1c367b31e08"/>
+      <field name="updated_at" type="date" default="NULL" uuid="c9d81fd3-394a-4c43-b4cd-14b5fae87fdb"/>
+      <index name="IDX_D7BA4EC6DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_D7BA4EC616FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="gradechoice_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">GradeChoice</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\GradeChoice" to="\LisUser" caption="FK_D7BA4EC616FE72E1" many-owner="true" many-inverse="false" uuid="5e48e964-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\GradeChoice" to="\LisUser" caption="FK_D7BA4EC6DE12AB56" many-owner="true" many-inverse="false" uuid="5e48e9d2-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\GradingType" local-name="GradingType" namespace="\" uuid="5e48f3b4-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="11" required="true" primary="true" auto-increment="true" uuid="633dd3f5-4c40-4d71-ab66-5d1d262e394b"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="beda3df6-87f2-4f77-966f-466ddc6f0179"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="53d49376-17fc-4c28-8560-b89ee16c1cc8"/>
+      <field name="name" type="string" size="255" required="true" uuid="4b7cd8a8-d626-4d99-8549-f317d3c6433d"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="2f6ad928-d5bb-4339-9229-1189167b4473"/>
+      <field name="created_at" type="date" required="true" uuid="6c532761-1901-4a73-a7b9-686e4e4555f3"/>
+      <field name="updated_at" type="date" default="NULL" uuid="44058870-7536-47dc-a245-925a6ca1c121"/>
+      <index name="IDX_739B38C9DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_739B38C916FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="name">
+        <index-field name="name"/>
+      </index>
+      <index name="gradingtype_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">GradingType</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\GradingType" to="\LisUser" caption="FK_739B38C916FE72E1" many-owner="true" many-inverse="false" uuid="5e48fce2-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\GradingType" to="\LisUser" caption="FK_739B38C9DE12AB56" many-owner="true" many-inverse="false" uuid="5e48fd5a-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\GradingTypeToModule" local-name="GradingTypeToModule" namespace="\" uuid="5e4905fc-110d-11e6-804a-0800272acedb">
+      <field name="module_id" type="integer" size="8" required="true" primary="true" uuid="7d621563-b9d0-4272-9086-fd6cdc0fda73"/>
+      <field name="grading_type_id" type="integer" size="11" required="true" primary="true" uuid="f25f6bda-8e72-4629-8fb9-8fd580853ae2"/>
+      <index name="IDX_444C5752AFC2B591">
+        <index-field name="module_id"/>
+      </index>
+      <index name="IDX_444C5752F54FA8CE">
+        <index-field name="grading_type_id"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">GradingTypeToModule</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\GradingTypeToModule" to="\GradingType" caption="FK_444C5752F54FA8CE" many-owner="true" many-inverse="false" parent-required="true" uuid="5e490b56-110d-11e6-804a-0800272acedb">
+      <association-field from="grading_type_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\GradingTypeToModule" to="\Module" caption="FK_444C5752AFC2B591" many-owner="true" many-inverse="false" parent-required="true" uuid="5e490bc4-110d-11e6-804a-0800272acedb">
+      <association-field from="module_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\GradingTypeToSubject" local-name="GradingTypeToSubject" namespace="\" uuid="5e4911aa-110d-11e6-804a-0800272acedb">
+      <field name="subject_id" type="integer" size="8" required="true" primary="true" uuid="24978999-8880-436c-8d1a-63393708a80d"/>
+      <field name="grading_type_id" type="integer" size="11" required="true" primary="true" uuid="3e842a1a-5a9a-49fb-ba54-a0b5cefd6d3b"/>
+      <index name="IDX_4B56CE2923EDC87">
+        <index-field name="subject_id"/>
+      </index>
+      <index name="IDX_4B56CE29F54FA8CE">
+        <index-field name="grading_type_id"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">GradingTypeToSubject</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\GradingTypeToSubject" to="\GradingType" caption="FK_4B56CE29F54FA8CE" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4918ee-110d-11e6-804a-0800272acedb">
+      <association-field from="grading_type_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\GradingTypeToSubject" to="\Subject" caption="FK_4B56CE2923EDC87" many-owner="true" many-inverse="false" parent-required="true" uuid="5e491998-110d-11e6-804a-0800272acedb">
+      <association-field from="subject_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\IndependentWork" local-name="IndependentWork" namespace="\" uuid="5e492366-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="8dd9d589-f281-482b-b5ec-dab1577d7b32"/>
+      <field name="subject_round_id" type="integer" size="8" required="true" uuid="55071743-5efc-4e68-ae05-9ea66d0271be"/>
+      <field name="teacher_id" type="integer" size="8" required="true" uuid="4834d72b-0c90-4cb5-a039-cc529b3e33c4"/>
+      <field name="student_id" type="integer" size="8" default="NULL" uuid="c6ee552e-d25d-407d-9cf6-dbb98dff5f85"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="0efeb5cb-8499-41de-9801-0504d642c04c"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="d1e40216-0908-425b-bcb6-9b8d98252b89"/>
+      <field name="duedate" type="date" required="true" uuid="4c70d204-fab1-4a8f-adbb-97fdfd56e107"/>
+      <field name="name" type="string" size="255" required="true" uuid="905d6337-d6ff-40bf-94c8-8c572ae0bc15"/>
+      <field name="description" type="string" size="255" required="true" uuid="853b9b12-533a-4bbc-9fd1-eb93418b59f0"/>
+      <field name="durationAK" type="integer" size="11" required="true" uuid="4b265f70-6647-4428-8094-2e9ee0fa89e7"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="83431283-fae4-4bcb-82a8-6374674b8536"/>
+      <field name="created_at" type="date" required="true" uuid="92f24a68-72ed-45bd-9cee-09ba71b282e2"/>
+      <field name="updated_at" type="date" default="NULL" uuid="e0ee7f7b-f4ae-4b15-a9c0-0cb090d1cd53"/>
+      <index name="IDX_6E5124F99E7D1CC8">
+        <index-field name="subject_round_id"/>
+      </index>
+      <index name="IDX_6E5124F941807E1D">
+        <index-field name="teacher_id"/>
+      </index>
+      <index name="IDX_6E5124F9CB944F1A">
+        <index-field name="student_id"/>
+      </index>
+      <index name="IDX_6E5124F9DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_6E5124F916FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="independentwork_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <index name="independentworkduedate">
+        <index-field name="duedate"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">IndependentWork</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\IndependentWork" to="\LisUser" caption="FK_6E5124F916FE72E1" many-owner="true" many-inverse="false" uuid="5e4be394-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\IndependentWork" to="\Teacher" caption="FK_6E5124F941807E1D" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4be434-110d-11e6-804a-0800272acedb">
+      <association-field from="teacher_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\IndependentWork" to="\SubjectRound" caption="FK_6E5124F99E7D1CC8" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4be4a2-110d-11e6-804a-0800272acedb">
+      <association-field from="subject_round_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\IndependentWork" to="\Student" caption="FK_6E5124F9CB944F1A" many-owner="true" many-inverse="false" uuid="5e4be506-110d-11e6-804a-0800272acedb">
+      <association-field from="student_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\IndependentWork" to="\LisUser" caption="FK_6E5124F9DE12AB56" many-owner="true" many-inverse="false" uuid="5e4be5b0-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\LisUser" local-name="LisUser" namespace="\" uuid="5e4bf32a-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="ea506322-6170-4e94-b4d1-70d54c319342"/>
+      <field name="email" type="string" size="255" required="true" uuid="fcab1373-ce1d-4316-857c-b85c8fa51d15"/>
+      <field name="password" type="string" size="255" required="true" uuid="dcf597d7-e95b-45e6-80db-61bbad630088"/>
+      <field name="state" type="integer" size="11" default="'1'" required="true" uuid="b69c38dc-388d-49a8-b9cd-dd8e1bc71776"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="bc9557a4-3ca0-4897-a01b-7362523f30fe"/>
+      <index name="UNIQ_83ABA295E7927C74" unique="true">
+        <index-field name="email"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="lisuser_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">LisUser</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\Module" local-name="Module" namespace="\" uuid="5e4c05ae-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="2853847f-8a5b-4336-889b-8c2c475bf4a3"/>
+      <field name="vocation_id" type="integer" size="8" required="true" uuid="d67c1ff2-38d0-47ee-9768-fb8a84ead750"/>
+      <field name="module_type_id" type="integer" size="8" required="true" uuid="3a79d552-83df-47c1-bad8-6bf43f80285b"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="eff81919-aa4a-4397-a3bd-dd30003827c9"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="c1e9a608-f8b1-4318-9f14-e285f198d47a"/>
+      <field name="name" type="string" size="255" required="true" uuid="d336a486-a780-4835-880a-047c24f230f3"/>
+      <field name="duration" type="integer" size="11" required="true" uuid="925a7f31-5d84-40c3-b9bb-69f766d6839a"/>
+      <field name="moduleCode" type="string" size="255" required="true" uuid="bdb99e9b-f33a-4006-9e4a-4566ca19a750"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="537290f2-b934-4ac7-948f-d7e00904c7c1"/>
+      <field name="created_at" type="date" required="true" uuid="7031f7ec-8bbe-414f-a575-bf5551f9ca8a"/>
+      <field name="updated_at" type="date" default="NULL" uuid="85f8b051-4254-40f2-8366-8d882f094fef"/>
+      <index name="IDX_B88231E4A14BDC1">
+        <index-field name="vocation_id"/>
+      </index>
+      <index name="IDX_B88231E6E37B28A">
+        <index-field name="module_type_id"/>
+      </index>
+      <index name="IDX_B88231EDE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_B88231E16FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="modulename">
+        <index-field name="name"/>
+      </index>
+      <index name="modulecode">
+        <index-field name="moduleCode"/>
+      </index>
+      <index name="moduleduration">
+        <index-field name="duration"/>
+      </index>
+      <index name="module_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Module</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Module" to="\LisUser" caption="FK_B88231E16FE72E1" many-owner="true" many-inverse="false" uuid="5e4c18a0-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Module" to="\Vocation" caption="FK_B88231E4A14BDC1" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4c1918-110d-11e6-804a-0800272acedb">
+      <association-field from="vocation_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Module" to="\ModuleType" caption="FK_B88231E6E37B28A" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4c1986-110d-11e6-804a-0800272acedb">
+      <association-field from="module_type_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Module" to="\LisUser" caption="FK_B88231EDE12AB56" many-owner="true" many-inverse="false" uuid="5e4c1a26-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\ModuleType" local-name="ModuleType" namespace="\" uuid="5e4c2714-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="3ff96e95-ba2b-43fa-a1db-74cbc570052d"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="662e6c05-1e9f-4877-a134-3420a5680cd9"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="da5bb032-37c5-48c6-81a9-d85b1eb409d0"/>
+      <field name="name" type="string" size="255" required="true" uuid="b6ca902e-c2c4-4557-a035-c1a8b1d1254b"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="4711cb9f-7597-48a6-8202-cf57555868cb"/>
+      <field name="created_at" type="date" required="true" uuid="a8187c74-d68f-4757-baf1-316b4008a5ba"/>
+      <field name="updated_at" type="date" default="NULL" uuid="2df682e4-54fe-4361-b2a7-6b14396852b9"/>
+      <index name="IDX_C2A9EBC9DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_C2A9EBC916FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="moduletype_name">
+        <index-field name="name"/>
+      </index>
+      <index name="moduletype_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">ModuleType</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\ModuleType" to="\LisUser" caption="FK_C2A9EBC916FE72E1" many-owner="true" many-inverse="false" uuid="5e4c307e-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\ModuleType" to="\LisUser" caption="FK_C2A9EBC9DE12AB56" many-owner="true" many-inverse="false" uuid="5e4c30f6-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\Rooms" local-name="Rooms" namespace="\" uuid="5e4cd916-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="56ccbbc5-a6dc-4e6d-8216-7cbc15cc3cc8"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="edcf73de-273d-447d-bb7d-bfd0cb1348c6"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="a39b4b7e-6d37-4502-aebb-7bb7b8a70b7a"/>
+      <field name="name" type="string" size="255" required="true" uuid="3cc68c10-9ab0-491f-91fb-3bdf92f733cd"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="d4e15947-88b0-4445-a5be-0e997ab892c0"/>
+      <field name="created_at" type="date" required="true" uuid="09060df0-a4b3-43cf-a020-19853ab0cc14"/>
+      <field name="updated_at" type="date" default="NULL" uuid="fefd5572-a92a-4f7f-8f76-c5c3e46d0655"/>
+      <index name="IDX_BD603592DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_BD60359216FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="roomname">
+        <index-field name="name"/>
+      </index>
+      <index name="room_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Rooms</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Rooms" to="\LisUser" caption="FK_BD60359216FE72E1" many-owner="true" many-inverse="false" uuid="5e4ce686-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Rooms" to="\LisUser" caption="FK_BD603592DE12AB56" many-owner="true" many-inverse="false" uuid="5e4ce71c-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\Student" local-name="Student" namespace="\" uuid="5e4cf3ba-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="c0a50873-bfbf-493b-84aa-7ec806cd2159"/>
+      <field name="lis_user_id" type="integer" size="8" default="NULL" uuid="defbb71a-d31c-4610-a730-8346a468c510"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="2c1cbb86-d6fc-49b7-8cc5-73e1af7c8dc4"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="da798f9a-5a93-40e5-88a3-ac85002ac248"/>
+      <field name="firstName" type="string" size="255" required="true" uuid="fa419a8a-ef02-437b-9518-fe3b450d1505"/>
+      <field name="lastName" type="string" size="255" required="true" uuid="432fc2a9-4807-4a03-9a37-1a923c545917"/>
+      <field name="name" type="string" size="255" required="true" uuid="8a565f2d-b53d-4e12-bbca-c858f4aa5ecd"/>
+      <field name="email" type="string" size="255" required="true" uuid="12bc0e1d-9cd1-49ac-9b6e-4e7b6a7d7ec3"/>
+      <field name="personalCode" type="string" size="255" required="true" uuid="59a448bc-aba8-4ef3-8328-6305f6661228"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="cd482781-ce76-42d2-9275-2d264b1febc0"/>
+      <field name="created_at" type="date" required="true" uuid="04e703cf-2399-4129-922e-1edec10d1047"/>
+      <field name="updated_at" type="date" default="NULL" uuid="a5549747-c140-48f7-8e01-7ceffb27682c"/>
+      <index name="UNIQ_789E96AFFEC554F2" unique="true">
+        <index-field name="personalCode"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="UNIQ_789E96AF63918838" unique="true">
+        <index-field name="lis_user_id"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="IDX_789E96AFDE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_789E96AF16FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="studentcode">
+        <index-field name="personalCode"/>
+      </index>
+      <index name="studentfirstname">
+        <index-field name="firstName"/>
+      </index>
+      <index name="studentlastname">
+        <index-field name="lastName"/>
+      </index>
+      <index name="studentname">
+        <index-field name="name"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Student</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Student" to="\LisUser" caption="FK_789E96AF16FE72E1" many-owner="true" many-inverse="false" uuid="5e4d0742-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Student" to="\LisUser" caption="FK_789E96AF63918838" many-owner="true" many-inverse="false" uuid="5e4d07ec-110d-11e6-804a-0800272acedb">
+      <association-field from="lis_user_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Student" to="\LisUser" caption="FK_789E96AFDE12AB56" many-owner="true" many-inverse="false" uuid="5e4d0864-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\StudentGrade" local-name="StudentGrade" namespace="\" uuid="5e4d18cc-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="a8907899-f021-48a8-b131-6f211188535c"/>
+      <field name="student_id" type="integer" size="8" required="true" uuid="ea860e3a-7367-41e7-bbac-68612583a4b0"/>
+      <field name="grade_choice_id" type="integer" size="8" required="true" uuid="4ac91765-485e-48b2-a864-68ade2d8162d"/>
+      <field name="teacher_id" type="integer" size="8" required="true" uuid="9bb8876b-cebc-4076-9a75-6813f88e9812"/>
+      <field name="independent_work_id" type="integer" size="8" default="NULL" uuid="7eab4ce9-4f33-42f7-a01c-53359c8ea9c1"/>
+      <field name="module_id" type="integer" size="8" default="NULL" uuid="fd4930cc-2116-4796-a975-003e81b88d1e"/>
+      <field name="subject_round_id" type="integer" size="8" default="NULL" uuid="d3a08b41-a450-4ab5-89f3-5833667f6eeb"/>
+      <field name="contact_lesson_id" type="integer" size="8" default="NULL" uuid="7e305e5d-52d2-40a4-a972-ebda5efeb20b"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="a7c23c8b-2976-4419-a194-94c0f3dae6e1"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="6baa1051-fdac-43a0-b742-238c5bed0a14"/>
+      <field name="notes" type="string" size="255" default="NULL" uuid="45e9beff-23eb-4afa-99cf-8e654e9a4aba"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="7bccf963-a9da-45c1-8eda-b0d61128061a"/>
+      <field name="created_at" type="date" required="true" uuid="1d55538c-2b7d-4e8d-b26d-467008a103dd"/>
+      <field name="updated_at" type="date" default="NULL" uuid="8894e15d-51da-4939-89d4-327aba8289da"/>
+      <index name="IDX_E2AC510BCB944F1A">
+        <index-field name="student_id"/>
+      </index>
+      <index name="IDX_E2AC510BEBCFFF9A">
+        <index-field name="grade_choice_id"/>
+      </index>
+      <index name="IDX_E2AC510B41807E1D">
+        <index-field name="teacher_id"/>
+      </index>
+      <index name="IDX_E2AC510BEA0B7FD9">
+        <index-field name="independent_work_id"/>
+      </index>
+      <index name="IDX_E2AC510BAFC2B591">
+        <index-field name="module_id"/>
+      </index>
+      <index name="IDX_E2AC510B9E7D1CC8">
+        <index-field name="subject_round_id"/>
+      </index>
+      <index name="IDX_E2AC510BA30922ED">
+        <index-field name="contact_lesson_id"/>
+      </index>
+      <index name="IDX_E2AC510BDE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_E2AC510B16FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="studentgrade_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">StudentGrade</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\StudentGrade" to="\LisUser" caption="FK_E2AC510B16FE72E1" many-owner="true" many-inverse="false" uuid="5e4d2fba-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\Teacher" caption="FK_E2AC510B41807E1D" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4d303c-110d-11e6-804a-0800272acedb">
+      <association-field from="teacher_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\SubjectRound" caption="FK_E2AC510B9E7D1CC8" many-owner="true" many-inverse="false" uuid="5e4d30a0-110d-11e6-804a-0800272acedb">
+      <association-field from="subject_round_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\ContactLesson" caption="FK_E2AC510BA30922ED" many-owner="true" many-inverse="false" uuid="5e4d315e-110d-11e6-804a-0800272acedb">
+      <association-field from="contact_lesson_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\Module" caption="FK_E2AC510BAFC2B591" many-owner="true" many-inverse="false" uuid="5e4d31c2-110d-11e6-804a-0800272acedb">
+      <association-field from="module_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\Student" caption="FK_E2AC510BCB944F1A" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4d337a-110d-11e6-804a-0800272acedb">
+      <association-field from="student_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\LisUser" caption="FK_E2AC510BDE12AB56" many-owner="true" many-inverse="false" uuid="5e4d3438-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\IndependentWork" caption="FK_E2AC510BEA0B7FD9" many-owner="true" many-inverse="false" uuid="5e4d34b0-110d-11e6-804a-0800272acedb">
+      <association-field from="independent_work_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGrade" to="\GradeChoice" caption="FK_E2AC510BEBCFFF9A" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4d3514-110d-11e6-804a-0800272acedb">
+      <association-field from="grade_choice_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\StudentGroup" local-name="StudentGroup" namespace="\" uuid="5e4d42a2-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="aaded46f-570c-49a9-87a7-6e55829ad27e"/>
+      <field name="vocation_id" type="integer" size="8" required="true" uuid="39fb88a9-8022-42a1-ae3f-69243638d244"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="9df06c3b-4b1e-4652-8a32-a84cce732f6d"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="e77595df-36e0-4a2b-ac06-2656fd65f445"/>
+      <field name="name" type="string" size="255" required="true" uuid="81b99489-bb81-4d95-87fc-53bb147ae00c"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="2f98c3b7-cea9-4b86-ac35-0e6fa9beb287"/>
+      <field name="created_at" type="date" required="true" uuid="abb8d7c0-56ea-454d-9ac9-e78d18c5582d"/>
+      <field name="updated_at" type="date" default="NULL" uuid="982d2865-46b8-4cb6-a938-da01b132e071"/>
+      <index name="IDX_D636BBFA4A14BDC1">
+        <index-field name="vocation_id"/>
+      </index>
+      <index name="IDX_D636BBFADE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_D636BBFA16FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="studentgroup_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">StudentGroup</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\StudentGroup" to="\LisUser" caption="FK_D636BBFA16FE72E1" many-owner="true" many-inverse="false" uuid="5e4d4e46-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGroup" to="\Vocation" caption="FK_D636BBFA4A14BDC1" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4d4ebe-110d-11e6-804a-0800272acedb">
+      <association-field from="vocation_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentGroup" to="\LisUser" caption="FK_D636BBFADE12AB56" many-owner="true" many-inverse="false" uuid="5e4d4f22-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\StudentInGroups" local-name="StudentInGroups" namespace="\" uuid="5e4d5b3e-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="e752143a-526e-4fef-b4c4-c365eb1a87d5"/>
+      <field name="student_id" type="integer" size="8" required="true" uuid="19cdf528-17de-47cd-ba46-57b8eb05c297"/>
+      <field name="student_group_id" type="integer" size="8" required="true" uuid="2f8f3c50-f303-4520-8b45-469bb8643ac3"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="568819b8-7132-412e-a053-572c0ade4098"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="471c265c-90bc-41df-a8ef-11ef07f2b472"/>
+      <field name="status" type="integer" size="11" default="'1'" required="true" uuid="257db455-7ed0-4801-a7a1-2a07cd5669f0"/>
+      <field name="notes" type="string" size="255" default="NULL" uuid="4b60f628-9502-4876-9622-37d0a455a081"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="2981144c-8eea-499d-ba6e-b578ee1eb9a7"/>
+      <field name="created_at" type="date" required="true" uuid="285a4c10-06af-4262-aba3-45be9d4c5a2d"/>
+      <field name="updated_at" type="date" default="NULL" uuid="d80ceee4-4c4d-41ac-b281-8f9661bd7691"/>
+      <index name="IDX_DFC1C6E9CB944F1A">
+        <index-field name="student_id"/>
+      </index>
+      <index name="IDX_DFC1C6E94DDF95DC">
+        <index-field name="student_group_id"/>
+      </index>
+      <index name="IDX_DFC1C6E9DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_DFC1C6E916FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="studentingroups_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <index name="studentingroups_index_status">
+        <index-field name="status"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">StudentInGroups</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\StudentInGroups" to="\LisUser" caption="FK_DFC1C6E916FE72E1" many-owner="true" many-inverse="false" uuid="5e4d6c8c-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentInGroups" to="\StudentGroup" caption="FK_DFC1C6E94DDF95DC" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4d6e80-110d-11e6-804a-0800272acedb">
+      <association-field from="student_group_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentInGroups" to="\Student" caption="FK_DFC1C6E9CB944F1A" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4d6f2a-110d-11e6-804a-0800272acedb">
+      <association-field from="student_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\StudentInGroups" to="\LisUser" caption="FK_DFC1C6E9DE12AB56" many-owner="true" many-inverse="false" uuid="5e4d6fa2-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\Subject" local-name="Subject" namespace="\" uuid="5e4d7c04-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="f80902ae-4e78-4881-b479-95952378a61f"/>
+      <field name="module_id" type="integer" size="8" required="true" uuid="e860d0a7-3e50-4b47-b572-af10dfc19e6d"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="44b2be3b-2719-48be-9a7e-8f5cbef9a570"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="49ace466-4228-4b84-b7b2-42661a991b72"/>
+      <field name="subjectCode" type="string" size="255" required="true" uuid="57903e7d-d02f-4b44-a7e2-85607448fe2d"/>
+      <field name="name" type="string" size="255" required="true" uuid="3fdaa9e6-8153-4611-be67-a92196e5d9cb"/>
+      <field name="durationAllAK" type="integer" size="11" required="true" uuid="d157235f-3cc1-4959-8a66-18c309df1577"/>
+      <field name="durationContactAK" type="integer" size="11" required="true" uuid="62271868-ca83-4647-bce6-28d767208cf4"/>
+      <field name="durationIndependentAK" type="integer" size="11" required="true" uuid="fcabee3b-60c5-4977-8684-676a5d3c2027"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="a6461dda-b2b4-4fcc-9715-87df54a45c5f"/>
+      <field name="created_at" type="date" required="true" uuid="1483e479-b5ff-45ee-a3b7-123031c30394"/>
+      <field name="updated_at" type="date" default="NULL" uuid="9cf98977-546d-4e57-a053-925e243fe1df"/>
+      <index name="IDX_347307E6AFC2B591">
+        <index-field name="module_id"/>
+      </index>
+      <index name="IDX_347307E6DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_347307E616FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="subjectname">
+        <index-field name="name"/>
+      </index>
+      <index name="subjectcode">
+        <index-field name="subjectCode"/>
+      </index>
+      <index name="subject_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <index name="subject_durationAllAK">
+        <index-field name="durationAllAK"/>
+      </index>
+      <index name="subject_durationContactAK">
+        <index-field name="durationContactAK"/>
+      </index>
+      <index name="subject_durationIndependentAK">
+        <index-field name="durationIndependentAK"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Subject</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Subject" to="\LisUser" caption="FK_347307E616FE72E1" many-owner="true" many-inverse="false" uuid="5e4e1a7e-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Subject" to="\Module" caption="FK_347307E6AFC2B591" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4e1b46-110d-11e6-804a-0800272acedb">
+      <association-field from="module_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">cascade</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Subject" to="\LisUser" caption="FK_347307E6DE12AB56" many-owner="true" many-inverse="false" uuid="5e4e1bd2-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\SubjectRound" local-name="SubjectRound" namespace="\" uuid="5e4e2b18-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="019e506c-edb6-4fb7-88ed-2d87e565286b"/>
+      <field name="subject_id" type="integer" size="8" required="true" uuid="848eba31-c641-404b-ab83-df98b52db0f8"/>
+      <field name="group_id" type="integer" size="8" required="true" uuid="f40c5d7d-3188-4095-b68e-32431c0d5903"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="864aa362-af71-41e9-8b5a-dd012074dd1d"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="6a9be54d-55db-41ed-975e-2198bc2efbe1"/>
+      <field name="name" type="string" size="255" required="true" uuid="e9f3470d-7365-43f9-90fb-f2f5d98bc1cc"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="3764265d-a8e6-4dd5-8809-5d907afcd7b3"/>
+      <field name="created_at" type="date" required="true" uuid="12ce16a8-a5d3-4cae-a058-6d062bc77f42"/>
+      <field name="updated_at" type="date" default="NULL" uuid="ad9087a1-37f8-4ebc-8d95-e985ebb88f61"/>
+      <index name="IDX_D3F1EA0823EDC87">
+        <index-field name="subject_id"/>
+      </index>
+      <index name="IDX_D3F1EA08FE54D947">
+        <index-field name="group_id"/>
+      </index>
+      <index name="IDX_D3F1EA08DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_D3F1EA0816FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="subjectround_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">SubjectRound</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\SubjectRound" to="\LisUser" caption="FK_D3F1EA0816FE72E1" many-owner="true" many-inverse="false" uuid="5e4e3932-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\SubjectRound" to="\Subject" caption="FK_D3F1EA0823EDC87" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4e39aa-110d-11e6-804a-0800272acedb">
+      <association-field from="subject_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\SubjectRound" to="\LisUser" caption="FK_D3F1EA08DE12AB56" many-owner="true" many-inverse="false" uuid="5e4e3a4a-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\SubjectRound" to="\StudentGroup" caption="FK_D3F1EA08FE54D947" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4e3ac2-110d-11e6-804a-0800272acedb">
+      <association-field from="group_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\Teacher" local-name="Teacher" namespace="\" uuid="5e4e485a-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="e060d5e2-7a78-40f3-90e0-e64488020604"/>
+      <field name="lis_user_id" type="integer" size="8" default="NULL" uuid="12ec23c0-b8f6-42b8-be17-d3c6f2a06c82"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="e75e650f-bab7-4198-9bd3-a5107a378dc1"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="971863ee-b8db-49eb-9f68-5dfcc5954f39"/>
+      <field name="firstName" type="string" size="255" required="true" uuid="686b8316-e1bb-4d1a-b665-a4ea10839b2e"/>
+      <field name="lastName" type="string" size="255" required="true" uuid="b4e193e9-4dcf-42c3-8591-78ab8a697c80"/>
+      <field name="name" type="string" size="255" required="true" uuid="9d94c119-cfe5-48e2-be85-23d1e1fbcabd"/>
+      <field name="email" type="string" size="255" required="true" uuid="a48a2545-da38-401d-bf97-a90b48f46347"/>
+      <field name="personalCode" type="string" size="255" required="true" uuid="0c0740ba-644b-4ae4-aa6d-7301f9927369"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="f571f517-7380-4000-a62f-91d469eae95d"/>
+      <field name="created_at" type="date" required="true" uuid="40f7fb74-7ca2-4f73-b09b-87d147c3a58f"/>
+      <field name="updated_at" type="date" default="NULL" uuid="1846884c-223e-447f-95a6-ab44ec549ac4"/>
+      <index name="UNIQ_7F4B9F49FEC554F2" unique="true">
+        <index-field name="personalCode"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="UNIQ_7F4B9F4963918838" unique="true">
+        <index-field name="lis_user_id"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="IDX_7F4B9F49DE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_7F4B9F4916FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="teachercode">
+        <index-field name="personalCode"/>
+      </index>
+      <index name="teacherfirstname">
+        <index-field name="firstName"/>
+      </index>
+      <index name="teacherlastname">
+        <index-field name="lastName"/>
+      </index>
+      <index name="teachertrashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Teacher</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Teacher" to="\LisUser" caption="FK_7F4B9F4916FE72E1" many-owner="true" many-inverse="false" uuid="5e4e5c8c-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Teacher" to="\LisUser" caption="FK_7F4B9F4963918838" many-owner="true" many-inverse="false" uuid="5e4e5d0e-110d-11e6-804a-0800272acedb">
+      <association-field from="lis_user_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Teacher" to="\LisUser" caption="FK_7F4B9F49DE12AB56" many-owner="true" many-inverse="false" uuid="5e4e5da4-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\TeacherToSubjectRound" local-name="TeacherToSubjectRound" namespace="\" uuid="5e4e67c2-110d-11e6-804a-0800272acedb">
+      <field name="subject_round_id" type="integer" size="8" required="true" primary="true" uuid="dcc3230b-d3fa-4cfe-b552-954b8828a52c"/>
+      <field name="teacher_id" type="integer" size="8" required="true" primary="true" uuid="298aa6b0-393b-4b74-9df6-459dcfc24793"/>
+      <index name="IDX_9E62F5CF9E7D1CC8">
+        <index-field name="subject_round_id"/>
+      </index>
+      <index name="IDX_9E62F5CF41807E1D">
+        <index-field name="teacher_id"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">TeacherToSubjectRound</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\TeacherToSubjectRound" to="\Teacher" caption="FK_9E62F5CF41807E1D" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4eabc4-110d-11e6-804a-0800272acedb">
+      <association-field from="teacher_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\TeacherToSubjectRound" to="\SubjectRound" caption="FK_9E62F5CF9E7D1CC8" many-owner="true" many-inverse="false" parent-required="true" uuid="5e4eac5a-110d-11e6-804a-0800272acedb">
+      <association-field from="subject_round_id" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="\Vocation" local-name="Vocation" namespace="\" uuid="5e4eb6d2-110d-11e6-804a-0800272acedb">
+      <field name="id" type="integer" size="8" required="true" primary="true" auto-increment="true" uuid="af8452a2-6c83-4cc4-9e3a-1d80804e4540"/>
+      <field name="created_by" type="integer" size="8" default="NULL" uuid="4376e5e5-d88f-46af-8d75-279297c377ff"/>
+      <field name="updated_by" type="integer" size="8" default="NULL" uuid="a2eccea9-ad2c-4b8d-9428-a9f591cca07f"/>
+      <field name="name" type="string" size="255" required="true" uuid="c6d78dfd-65e8-4480-af10-b4a11babd347"/>
+      <field name="vocationCode" type="string" size="255" required="true" uuid="7b9cc190-21eb-42fd-a67d-482850cb5b0d"/>
+      <field name="durationEKAP" type="integer" size="11" required="true" uuid="0a7cc742-c5cd-494b-a9a7-f40581c79c12"/>
+      <field name="trashed" type="integer" size="11" default="NULL" uuid="2d04d61e-6d96-4460-a1c1-179f45dc7f5f"/>
+      <field name="created_at" type="date" required="true" uuid="77dfd46b-2cec-4dfd-b7db-437ec71690b3"/>
+      <field name="updated_at" type="date" default="NULL" uuid="795a005c-08f3-499e-8951-0e2cf5d440b5"/>
+      <index name="UNIQ_4A93C67E1DB10854" unique="true">
+        <index-field name="vocationCode"/>
+        <orm-attributes>
+          <attribute name="type">UNIQUE</attribute>
+        </orm-attributes>
+      </index>
+      <index name="IDX_4A93C67EDE12AB56">
+        <index-field name="created_by"/>
+      </index>
+      <index name="IDX_4A93C67E16FE72E1">
+        <index-field name="updated_by"/>
+      </index>
+      <index name="vocationname">
+        <index-field name="name"/>
+      </index>
+      <index name="vocationcode">
+        <index-field name="vocationCode"/>
+      </index>
+      <index name="vocation_index_trashed">
+        <index-field name="trashed"/>
+      </index>
+      <orm-attributes>
+        <attribute name="table">Vocation</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\Vocation" to="\LisUser" caption="FK_4A93C67E16FE72E1" many-owner="true" many-inverse="false" uuid="5e4ec8e8-110d-11e6-804a-0800272acedb">
+      <association-field from="updated_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+    <association from="\Vocation" to="\LisUser" caption="FK_4A93C67EDE12AB56" many-owner="true" many-inverse="false" uuid="5e4ec988-110d-11e6-804a-0800272acedb">
+      <association-field from="created_by" to="id"/>
+      <orm-attributes>
+        <attribute name="onDelete">restrict</attribute>
+      </orm-attributes>
+    </association>
+  </module>
+  <visual-data>
+    <association uuid="5e47ce3a-110d-11e6-804a-0800272acedb" color="#00B4D0"/>
+    <association uuid="5e47cf3e-110d-11e6-804a-0800272acedb" color="#A8A8A8"/>
+    <association uuid="5e47cfc0-110d-11e6-804a-0800272acedb" color="#0A783D"/>
+    <association uuid="5e47d01a-110d-11e6-804a-0800272acedb" color="#61D351"/>
+    <association uuid="5e47d07e-110d-11e6-804a-0800272acedb" color="#CDC32B"/>
+    <association uuid="5e47f446-110d-11e6-804a-0800272acedb" color="#F4931F"/>
+    <association uuid="5e47f4c8-110d-11e6-804a-0800272acedb" color="#B31F24"/>
+    <association uuid="5e481070-110d-11e6-804a-0800272acedb" color="#C774AF"/>
+    <association uuid="5e4810f2-110d-11e6-804a-0800272acedb" color="#8A54A2"/>
+    <association uuid="5e48114c-110d-11e6-804a-0800272acedb" color="#2E63AF"/>
+    <association uuid="5e48ceac-110d-11e6-804a-0800272acedb" color="#00B4D0"/>
+    <association uuid="5e48cf42-110d-11e6-804a-0800272acedb" caption1-position-x="-18" caption1-position-y="-2" center-position-x="0" center-position-y="0" color="#A8A8A8"/>
+    <association uuid="5e48cfe2-110d-11e6-804a-0800272acedb" color="#0A783D"/>
+    <association uuid="5e48d064-110d-11e6-804a-0800272acedb" color="#61D351"/>
+    <association uuid="5e48d0d2-110d-11e6-804a-0800272acedb" color="#CDC32B"/>
+    <association uuid="5e48d12c-110d-11e6-804a-0800272acedb" color="#F4931F"/>
+    <association uuid="5e48d1d6-110d-11e6-804a-0800272acedb" color="#B31F24"/>
+    <association uuid="5e48d23a-110d-11e6-804a-0800272acedb" color="#C774AF"/>
+    <association uuid="5e48e964-110d-11e6-804a-0800272acedb" color="#8A54A2"/>
+    <association uuid="5e48e9d2-110d-11e6-804a-0800272acedb" color="#2E63AF"/>
+    <association uuid="5e48fce2-110d-11e6-804a-0800272acedb" color="#00B4D0"/>
+    <association uuid="5e48fd5a-110d-11e6-804a-0800272acedb" color="#A8A8A8"/>
+    <association uuid="5e490b56-110d-11e6-804a-0800272acedb" color="#0A783D"/>
+    <association uuid="5e490bc4-110d-11e6-804a-0800272acedb" color="#61D351"/>
+    <association uuid="5e4918ee-110d-11e6-804a-0800272acedb" color="#CDC32B"/>
+    <association uuid="5e491998-110d-11e6-804a-0800272acedb" color="#F4931F"/>
+    <association uuid="5e4be394-110d-11e6-804a-0800272acedb" color="#B31F24"/>
+    <association uuid="5e4be434-110d-11e6-804a-0800272acedb" caption1-position-x="-72" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#C774AF"/>
+    <association uuid="5e4be4a2-110d-11e6-804a-0800272acedb" color="#8A54A2"/>
+    <association uuid="5e4be506-110d-11e6-804a-0800272acedb" color="#2E63AF"/>
+    <association uuid="5e4be5b0-110d-11e6-804a-0800272acedb" color="#00B4D0"/>
+    <association uuid="5e4c18a0-110d-11e6-804a-0800272acedb" color="#A8A8A8"/>
+    <association uuid="5e4c1918-110d-11e6-804a-0800272acedb" color="#0A783D"/>
+    <association uuid="5e4c1986-110d-11e6-804a-0800272acedb" color="#61D351"/>
+    <association uuid="5e4c1a26-110d-11e6-804a-0800272acedb" color="#CDC32B"/>
+    <association uuid="5e4c307e-110d-11e6-804a-0800272acedb" color="#F4931F"/>
+    <association uuid="5e4c30f6-110d-11e6-804a-0800272acedb" color="#B31F24"/>
+    <association uuid="5e4ce686-110d-11e6-804a-0800272acedb" color="#C774AF"/>
+    <association uuid="5e4ce71c-110d-11e6-804a-0800272acedb" color="#8A54A2"/>
+    <association uuid="5e4d0742-110d-11e6-804a-0800272acedb" caption1-position-x="15" caption1-position-y="26" center-position-x="0" center-position-y="0" color="#2E63AF"/>
+    <association uuid="5e4d07ec-110d-11e6-804a-0800272acedb" caption1-position-x="13" caption1-position-y="32" center-position-x="0" center-position-y="0" color="#00B4D0"/>
+    <association uuid="5e4d0864-110d-11e6-804a-0800272acedb" caption1-position-x="15" caption1-position-y="48" center-position-x="0" center-position-y="0" color="#A8A8A8"/>
+    <association uuid="5e4d2fba-110d-11e6-804a-0800272acedb" color="#0A783D"/>
+    <association uuid="5e4d303c-110d-11e6-804a-0800272acedb" caption1-position-x="-96" caption1-position-y="3" center-position-x="0" center-position-y="0" color="#61D351"/>
+    <association uuid="5e4d30a0-110d-11e6-804a-0800272acedb" color="#CDC32B"/>
+    <association uuid="5e4d315e-110d-11e6-804a-0800272acedb" color="#F4931F"/>
+    <association uuid="5e4d31c2-110d-11e6-804a-0800272acedb" color="#B31F24"/>
+    <association uuid="5e4d337a-110d-11e6-804a-0800272acedb" color="#C774AF"/>
+    <association uuid="5e4d3438-110d-11e6-804a-0800272acedb" color="#8A54A2"/>
+    <association uuid="5e4d34b0-110d-11e6-804a-0800272acedb" color="#2E63AF"/>
+    <association uuid="5e4d3514-110d-11e6-804a-0800272acedb" color="#00B4D0"/>
+    <association uuid="5e4d4e46-110d-11e6-804a-0800272acedb" color="#A8A8A8"/>
+    <association uuid="5e4d4ebe-110d-11e6-804a-0800272acedb" color="#0A783D"/>
+    <association uuid="5e4d4f22-110d-11e6-804a-0800272acedb" color="#61D351"/>
+    <association uuid="5e4d6c8c-110d-11e6-804a-0800272acedb" color="#CDC32B"/>
+    <association uuid="5e4d6e80-110d-11e6-804a-0800272acedb" color="#F4931F"/>
+    <association uuid="5e4d6f2a-110d-11e6-804a-0800272acedb" color="#B31F24"/>
+    <association uuid="5e4d6fa2-110d-11e6-804a-0800272acedb" color="#C774AF"/>
+    <association uuid="5e4e1a7e-110d-11e6-804a-0800272acedb" color="#8A54A2"/>
+    <association uuid="5e4e1b46-110d-11e6-804a-0800272acedb" color="#2E63AF"/>
+    <association uuid="5e4e1bd2-110d-11e6-804a-0800272acedb" color="#00B4D0"/>
+    <association uuid="5e4e3932-110d-11e6-804a-0800272acedb" color="#A8A8A8"/>
+    <association uuid="5e4e39aa-110d-11e6-804a-0800272acedb" color="#0A783D"/>
+    <association uuid="5e4e3a4a-110d-11e6-804a-0800272acedb" color="#61D351"/>
+    <association uuid="5e4e3ac2-110d-11e6-804a-0800272acedb" color="#CDC32B"/>
+    <association uuid="5e4e5c8c-110d-11e6-804a-0800272acedb" color="#F4931F"/>
+    <association uuid="5e4e5d0e-110d-11e6-804a-0800272acedb" color="#B31F24"/>
+    <association uuid="5e4e5da4-110d-11e6-804a-0800272acedb" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#C774AF"/>
+    <association uuid="5e4eabc4-110d-11e6-804a-0800272acedb" caption1-position-x="-8" caption1-position-y="-104" center-position-x="0" center-position-y="0" color="#8A54A2"/>
+    <association uuid="5e4eac5a-110d-11e6-804a-0800272acedb" color="#2E63AF"/>
+    <association uuid="5e4ec8e8-110d-11e6-804a-0800272acedb" color="#00B4D0"/>
+    <association uuid="5e4ec988-110d-11e6-804a-0800272acedb" color="#A8A8A8"/>
+    <entity uuid="5e47bd32-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-11" position-y="1093" size-x="0" size-x2="149" size-y="0" size-y2="157"/>
+    <entity uuid="5e47dab0-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="250" position-y="1010" size-x="0" size-x2="118" size-y="0" size-y2="115"/>
+    <entity uuid="5e47fef0-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="785" position-y="1164" size-x="0" size-x2="151" size-y="0" size-y2="199"/>
+    <entity uuid="5e48ae90-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="568" position-y="316" size-x="0" size-x2="140" size-y="0" size-y2="241"/>
+    <entity uuid="5e48e0ea-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="59" position-y="170" size-x="0" size-x2="118" size-y="0" size-y2="115"/>
+    <entity uuid="5e48f3b4-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="466" position-y="565"/>
+    <entity uuid="5e4905fc-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="437" position-y="31" size-x="0" size-x2="140" size-y="0" size-y2="45"/>
+    <entity uuid="5e4911aa-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="410" position-y="390" size-x="0" size-x2="140" size-y="0" size-y2="45"/>
+    <entity uuid="5e492366-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="111" position-y="477" size-x="0" size-x2="139" size-y="0" size-y2="199"/>
+    <entity uuid="5e4bf32a-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="460" position-y="1150" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
+    <entity uuid="5e4c05ae-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="416" position-y="179" size-x="0" size-x2="134" size-y="0" size-y2="171"/>
+    <entity uuid="5e4c2714-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-42" position-y="216" size-x="0" size-x2="118" size-y="0" size-y2="115"/>
+    <entity uuid="5e4cd916-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-27" position-y="485" size-x="0" size-x2="118" size-y="0" size-y2="115"/>
+    <entity uuid="5e4cf3ba-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="231" position-y="1221" size-x="0" size-x2="131" size-y="0" size-y2="185"/>
+    <entity uuid="5e4d18cc-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="323" position-y="587" size-x="0" size-x2="156" size-y="0" size-y2="213"/>
+    <entity uuid="5e4d42a2-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="200" position-y="776" size-x="0" size-x2="118" size-y="0" size-y2="129"/>
+    <entity uuid="5e4d5b3e-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-27" position-y="759" size-x="0" size-x2="140" size-y="0" size-y2="157"/>
+    <entity uuid="5e4d7c04-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="222" position-y="265" size-x="0" size-x2="170" size-y="0" size-y2="185"/>
+    <entity uuid="5e4e2b18-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="550" position-y="720" size-x="0" size-x2="118" size-y="0" size-y2="143"/>
+    <entity uuid="5e4e485a-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="800" position-y="976" size-x="0" size-x2="131" size-y="0" size-y2="185"/>
+    <entity uuid="5e4e67c2-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="819" position-y="491" size-x="0" size-x2="139" size-y="0" size-y2="45"/>
+    <entity uuid="5e4eb6d2-110d-11e6-804a-0800272acedb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="763" position-y="226" size-x="0" size-x2="132" size-y="0" size-y2="143"/>
+    <module uuid="497e75e2-fac9-410b-974b-10f7d097d89c" bg-color="#E7F5FD" position-x="50" position-y="50" size-x="43" size-x2="970" size-y="0" size-y2="1420"/>
+    <project uuid="9082500b-2744-4451-83e8-7c48a2c0223c" size-x="0" size-x2="1046" size-y="0" size-y2="1490"/>
+  </visual-data>
+</skipper>
