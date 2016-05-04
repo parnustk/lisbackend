@@ -139,14 +139,12 @@
                 var searchStudentGrade = function (studentId, studentGrades) {
                     for (var x in studentGrades) {
                         if (studentGrades[x].student.id === studentId) {
-                            //console.log('found for current student');
                             return {
                                 gradeChoiceId: studentGrades[x].gradeChoice.id,
                                 gradeChoiceName: studentGrades[x].gradeChoice.name,
                                 teacherId: studentGrades[x].teacher.id,
                                 studentGradeId: studentGrades[x].id
                             };
-                            //console.log('found for current student');
                         }
                     }
                     return -1;
@@ -156,44 +154,53 @@
                     columns = [];//tmp
                     rows = [];//tmp
 
-                    //rows 
                     var students = rawDataStudentGroup[0].studentInGroups;
+                    
+                    var u = 0;
                     for (var y in students) {
-                        var row = [];
-                        //console.log(students[y].student);
-                        row.push({
+                        var row = {};
+                        row.nr = u;
+                        row.student = {
                             id: students[y].student.id,
-                            name: students[y].student.name});
+                            name: students[y].student.name
+                        };
                         rows.push(row);
-                        //break;
+                        u++;
                     }
 
-                    //columns -> studentName contactlesson1...contactLessonN
-                    columns.push('student');
-                    var contactLessons = rawDataSubjectRound[0].contactLesson;
-                    for (var x in contactLessons) {
-                        ////console.log(contactLessons[x]);
-                        var cl = contactLessons[x];
-                        columns.push({
-                            id: cl.id,
-                            name: contactLessons[x].name
-                        });
-                        for (var i = 0; i < rows.length; i++) {
+                    columns.push({
+                        field: 'nr', 
+                        name: 'nr'
+                    });
+                    
+                    columns.push({
+                        field: 'student', 
+                        name: 'student'
+                    });
 
+                    var contactLessons = rawDataSubjectRound[0].contactLesson;
+                    
+                    for (var x in contactLessons) {
+                        
+                        var cl = contactLessons[x];
+                        var columnName = contactLessons[x].name;//make it normal
+                        
+                        columns.push({
+                            field: columnName, 
+                            name: columnName
+                        });
+                        
+                        for (var i = 0; i < rows.length; i++) {
                             var studentGradeId,
                                 gradeChoiceId,
                                 gradeChoiceName,
                                 teacherId,
-                                studentId = rows[i][0].id;
-
+                                studentId = rows[i].student.id;
                             if (cl.studentGrade.length === 0) {
                                 gradeChoiceId = null;
                                 studentGradeId = null;
                                 gradeChoiceName = null;
                             } else {
-                                //console.log('found grades');
-                                //console.log(cl.studentGrade);
-                                //here comes the search by studentId search grade from the current contact lesson
                                 var r = searchStudentGrade(studentId, cl.studentGrade);
                                 if (r !== -1) {
                                     studentGradeId = r.studentGradeId;
@@ -201,16 +208,15 @@
                                     gradeChoiceName = r.gradeChoiceName;
                                     teacherId = r.teacherId;
                                 }
-                                //console.log('found grades');
                             }
-                            rows[i].push({
+                            rows[i][columnName] = {
                                 id: gradeChoiceId,
                                 name: gradeChoiceName,
                                 studentGradeId: studentGradeId,
                                 contactLessonId: cl.id,
                                 studentId: studentId,
                                 teacherId: teacherId
-                            });
+                            };
                         }
                     }
 
