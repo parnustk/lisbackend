@@ -150,12 +150,17 @@
                     return -1;
                 };
 
+                var createColumnName = function (cl) {
+                    var dt = new Date(cl.lessonDate.date);
+                    return 'cl' + String(dt.getTime()) + String(cl.sequenceNr);
+                };
+
                 var sortDataForDiary = function () {
                     columns = [];//tmp
                     rows = [];//tmp
 
                     var students = rawDataStudentGroup[0].studentInGroups;
-                    
+
                     var u = 0;
                     for (var y in students) {
                         var row = {};
@@ -169,27 +174,35 @@
                     }
 
                     columns.push({
-                        field: 'nr', 
+                        field: 'nr',
                         name: 'nr'
                     });
-                    
+
                     columns.push({
-                        field: 'student', 
-                        name: 'student'
+                        field: "student['name']",
+                        name: "student['name']"
                     });
 
                     var contactLessons = rawDataSubjectRound[0].contactLesson;
-                    
+
                     for (var x in contactLessons) {
-                        
+
                         var cl = contactLessons[x];
-                        var columnName = contactLessons[x].name;//make it normal
-                        
+                        console.log(cl);
+                        var columnName = createColumnName(cl);
+                        var columnDisplayName = contactLessons[x].name;//make it normal
+
                         columns.push({
-                            field: columnName, 
-                            name: columnName
+                            field: columnName['name'],
+                            name: columnName['name'],
+                            displayName: columnDisplayName
+                            /*,
+                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            cellFilter: 'griddropdown:this'*/
                         });
-                        
+
                         for (var i = 0; i < rows.length; i++) {
                             var studentGradeId,
                                 gradeChoiceId,
@@ -222,7 +235,40 @@
 
                     console.log(columns);
                     console.log(rows);
+                    $scope.clearGridData();
+                    
+                    $scope.addRows();
+                    $scope.addColumns();
+                    
+                    //http://stackoverflow.com/questions/26925131/how-to-add-a-column-at-runtime-in-a-grid-using-ui-grid
+                    //https://www.google.ee/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=angular+ui+grid+add+columns+dynamically
+//$scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
+                    
                 };
+
+                $scope.columns = [];
+
+                $scope.gridOptions = {
+                    enableSorting: true,
+                    columnDefs: $scope.columns,
+                    onRegisterApi: function (gridApi) {
+                        $scope.gridApi = gridApi;
+                    }
+                };
+
+                $scope.addColumns = function () {
+                    $scope.columns = columns;
+                };
+
+                $scope.addRows = function () {
+                    $scope.gridOptions.data = rows;
+                };
+
+                $scope.clearGridData = function () {
+                    $scope.columns.splice($scope.columns.length - 1, 1);
+                    $scope.gridOptions.data = [];
+                };
+
 
             }
 
