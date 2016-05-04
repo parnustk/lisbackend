@@ -66,5 +66,11 @@ class DumpController extends AbstractActionController
 //            'content' => 'Push Backup Placeholder'
 //        ]);
     }
+    
+    public function testAction()
+    {
+        $data = 'kontrollerist';
+        return new ViewModel(['something' => $data]);
+    }
 
 }
