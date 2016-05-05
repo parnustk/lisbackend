@@ -87,6 +87,10 @@
                         page: 1,
                         limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
                     };
+                    
+                    $scope.formats = ['dd.MM.yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
+                    $scope.format = $scope.formats[0];
+                    $scope.altInputFormats = ['M!/d!/yyyy'];
 
 
                     /**

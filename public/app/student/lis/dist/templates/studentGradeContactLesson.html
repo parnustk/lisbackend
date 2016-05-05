@@ -1,0 +1,19 @@
+<h2>{{ T('MY_GRADES')}}</h2>
+
+<div ng-model="studentGradeModel" ng-controller="studentGradeController">
+
+    <table>
+        <th>{{T('LIS_LESSONDATE')}}</th>
+        <th>{{T('LIS_CONTACTLESSON')}}</th>
+        <th>{{T('LIS_STUDENTGRADE')}}</th>
+        
+        <tr ng-repeat="contactLesson in contactLessons">
+            <td>{{ contactLesson.lessonDate.date}}</td>
+            <td>{{ contactLesson.sequenceNr}}</td>           
+            <td>{{ gradeChoice.name}}</td>
+        </tr>
+    </table>
+
+</div>
+<br><br>
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

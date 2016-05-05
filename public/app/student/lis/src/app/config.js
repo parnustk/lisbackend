@@ -35,6 +35,11 @@
                     controller: 'studentGradeController'
                 })
                 
+                .when('/studentgradecontactlesson', {
+                    templateUrl: 'lis/dist/templates/studentGradeContactLesson.html',
+                    controller: 'studentGradeController'
+                })
+                
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
