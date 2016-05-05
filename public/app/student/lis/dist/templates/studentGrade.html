@@ -124,5 +124,16 @@
         </div>
     </fieldset>
 </form>
+
+<div ng-model="studentGradeModel.module" ng-controller="studentGradeController">
+ 
+<table>
+  <tr ng-repeat="module in modules">
+    <td>{{ module.name }}</td>
+    <td>{{ module.duration }}</td>
+  </tr>
+</table>
+ 
+</div>
 <br><br>
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
