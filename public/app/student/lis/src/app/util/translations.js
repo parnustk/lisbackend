@@ -184,7 +184,8 @@
                 LIS_CREATE_NEW_MODULE:'Loo uus moodul',
                 MODULE_GRID_FILTERS:'Mooduli filtrid',
                 SEARCH_A_MODULECODE:'Otsi koodi järgi',
-                MY_GRADES:'Minu hinded'
+                MY_GRADES:'Minu hinded',
+                LIS_STUDENTMODULEGRADE:'Mooduli hinne'
                 
             },
             en: {
@@ -357,7 +358,8 @@
                 LIS_CREATE_NEW_MODULE:'Create new module',
                 MODULE_GRID_FILTERS:'Module filters',
                 SEARCH_A_MODULECODE:'Search by code',
-                MY_GRADES:'My grades'
+                MY_GRADES:'My grades',
+                LIS_STUDENTMODULEGRADE:'Module grade'
             }
         };
         return t;
