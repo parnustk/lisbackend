@@ -36,7 +36,9 @@
         /*17*/'app/model/independentWorkModel',
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
-        /*1*/'app/controller/loginController'
+        /*1*/'app/controller/loginController',
+        /*6*/'app/controller/absenceController',
+        /*18*/'app/controller/studentGradeController'
     ], function (
         /*1*/angular,
         /*2*/config,
