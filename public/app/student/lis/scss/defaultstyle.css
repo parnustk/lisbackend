@@ -1,0 +1,38 @@
+/** 
+ * 
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link       https://github.com/parnustk/lisbackend
+ * @copyright  Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license    You may use LIS for free, but you MAY NOT sell it without permission.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+ * 
+ */
+/* 
+    Author     : Eleri Apsolon <eleri.apsolon@gmail.com>
+*/
+
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.input-group{
+    width: 100%;
+}
+
+.row{
+    margin-bottom: 20px;
+}
+
+.glyphicon::before{
+    margin-right: 5px;
+}
