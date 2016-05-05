@@ -78,7 +78,7 @@
              * @description Used in ng-show and ng-hide for the language buttons. Because this is a function, the page doesn't need to be refreshed after running changeLanguage();
              * @returns {boolean}
              */
-            $scope.showButton = function(bool){
+            $scope.showButton = function(){
                 var lang = getCookieValue('userLang');
 
                 if (lang === 'et') {
@@ -89,9 +89,6 @@
                     console.log('Language button display error. Possible cookie error.');
                 }
 
-                if (bool) {
-                    window.location = window.location;
-                }
             };
 
             /**
@@ -159,13 +156,10 @@
             if (getCookieValue('userLang') === undefined) {
                 var currentLang = window.LisGlobals.L;
                 addCookie('userLang', currentLang);
-                $scope.langEt = true;
             } else if (getCookieValue('userLang') === 'et') {
                 window.LisGlobals.L = 'et';
-                $scope.langEt = true;
             } else if (getCookieValue('userLang') === 'en') {
                 window.LisGlobals.L = 'en';
-                $scope.langEt = false;
             } else {
                 console.log('ERROR in Login/Language Change. Possible cookie error.');
             }
