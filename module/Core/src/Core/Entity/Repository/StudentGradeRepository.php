@@ -33,6 +33,61 @@ class StudentGradeRepository extends AbstractBaseRepository
 
     /**
      * 
+     * @param type $params
+     * @param type $extra
+     * @return \Core\Entity\Repository\Paginator
+     */
+    public function diaryRelatedData($params = null, $extra = null)
+    {
+        //print_r($params);
+        $dql = "SELECT 
+                    partial studentgrade.{
+                        id
+                    },
+                    partial independentWork.{
+                        id,
+                        name
+                    },
+                    partial module.{
+                        id,
+                        name
+                    },
+                    partial subjectRound.{
+                        id,
+                        name
+                        },
+                    partial contactlesson.{
+                        id,
+                        name
+                        },
+                    partial student.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
+                    }
+                FROM Core\Entity\StudentGrade studentgrade
+                JOIN studentgrade.student student
+                JOIN studentgrade.teacher teacher
+                LEFT JOIN studentgrade.contactLesson contactlesson
+                LEFT JOIN studentgrade.independentWork independentWork
+                LEFT JOIN studentgrade.module module
+                LEFT JOIN studentgrade.subjectRound subjectRound
+                WHERE studentgrade.id=:studentGradeId";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('studentGradeId', $params['where']->studentGrade->id, Type::INTEGER);
+
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+
+    /**
+     * 
      * @return string
      */
     protected function dqlStart()
@@ -286,7 +341,7 @@ class StudentGradeRepository extends AbstractBaseRepository
         if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        
+
         $entity = $this->validateEntity(
                 new StudentGrade($this->getEntityManager()), $data
         );
