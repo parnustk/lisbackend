@@ -1,0 +1,20 @@
+<h2>{{ T('MY_GRADES')}}</h2>
+
+<div ng-model="studentGradeModel" ng-controller="studentGradeController">
+
+    <table>
+        <th>{{T('LIS_SUBJECTROUND')}}</th>
+        <th>{{T('LIS_STUDENTSUBJECTROUNDGRADE')}}</th>
+        <th>{{T('LIS_CONTACTLESSONGRADE')}}</th>
+        <th>{{T('LIS_INDEPENDENTWORKGRADE')}}</th>
+        <tr ng-repeat="subjectRound in subjectRounds">
+            <td>{{ subjectRound.name}}</td>
+            <td>{{ gradeChoice.name}}</td>
+            <td><a href="">{{T('LIS_CHECK')}}</a></td>
+            <td><a href="">{{T('LIS_CHECK')}}</a></td>
+        </tr>
+    </table>
+
+</div>
+<br><br>
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>

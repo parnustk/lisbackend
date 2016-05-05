@@ -97,6 +97,7 @@ class RegisterStudentControllerTest extends UnitHelpers
         $response = $this->controller->getResponse();
 
         $this->PrintOut($result, false);
+        $this->PrintOut($student->getId(), false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(true, $result->success);

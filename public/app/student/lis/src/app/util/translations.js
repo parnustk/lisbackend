@@ -185,7 +185,11 @@
                 MODULE_GRID_FILTERS:'Mooduli filtrid',
                 SEARCH_A_MODULECODE:'Otsi koodi järgi',
                 MY_GRADES:'Minu hinded',
-                LIS_STUDENTMODULEGRADE:'Mooduli hinne'
+                LIS_STUDENTMODULEGRADE:'Mooduli hinne',
+                LIS_STUDENTSUBJECTROUNDGRADE:'Aine hinne',
+                LIS_CONTACTLESSONGRADE:'Kontakttunni hinded',
+                LIS_INDEPENDENTWORKGRADE:'Iseseisva töö hinded',
+                LIS_CHECK:'Vaata'
                 
             },
             en: {
@@ -359,7 +363,11 @@
                 MODULE_GRID_FILTERS:'Module filters',
                 SEARCH_A_MODULECODE:'Search by code',
                 MY_GRADES:'My grades',
-                LIS_STUDENTMODULEGRADE:'Module grade'
+                LIS_STUDENTMODULEGRADE:'Module grade',
+                LIS_STUDENTSUBJECTROUNDGRADE:'Subject round grade',
+                LIS_CONTACTLESSONGRADE:'Contact lesson grades',
+                LIS_INDEPENDENTWORKGRADE:'Independent work grades',
+                LIS_CHECK:'Check'
             }
         };
         return t;

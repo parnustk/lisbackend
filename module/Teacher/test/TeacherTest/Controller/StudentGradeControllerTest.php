@@ -66,6 +66,40 @@ class StudentGradeControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
     
+    public function testCreateGradeToSpecificStudent()
+    {
+        //create and set correct teacheruser
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //add data
+        $notes = 'Notes' . uniqid();
+        $student = 4;
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('notes', $notes);
+        $this->request->getPost()->set('student', $student);
+        $this->request->getPost()->set('gradeChoice', $this->CreateGradeChoice()->getId());
+        $this->request->getPost()->set('teacher', $teacher->getId());
+//        $this->request->getPost()->set('independentWork', $this->CreateIndependentWork()->getId());
+        $this->request->getPost()->set('module', $this->CreateModule()->getId());
+//        $this->request->getPost()->set('subjectRound', $this->CreateSubjectRound()->getId());
+//        $this->request->getPost()->set('contactLesson', $this->CreateContactLesson()->getId());
+
+        //fire request
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, true);
+
+        //make assertions
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+    }
+    
     /**
      * should be successful
      */

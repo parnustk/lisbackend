@@ -125,14 +125,14 @@
     </fieldset>
 </form>
 
-<div ng-model="studentGradeModel.module" ng-controller="studentGradeController">
+<div ng-model="studentGradeModel" ng-controller="studentGradeController">
 
     <table>
         <th>{{T('LIS_MODULE')}}</th>
         <th>{{T('LIS_STUDENTMODULEGRADE')}}</th>
         <tr ng-repeat="module in modules">
-            <td>{{ module.name}} <br><br> ({{ module.duration}} EKAP)</td>
-            <td>{{ module.duration}}</td>
+            <td><a href="/app/student/#!/studentgradesubjectround">{{ module.name}}</a> <br><br> ({{ module.duration}} EKAP)</td>
+            <td>{{ gradeChoice.name}}</td>
         </tr>
     </table>
 
