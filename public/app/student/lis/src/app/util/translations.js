@@ -189,7 +189,8 @@
                 LIS_STUDENTSUBJECTROUNDGRADE:'Aine hinne',
                 LIS_CONTACTLESSONGRADE:'Kontakttunni hinded',
                 LIS_INDEPENDENTWORKGRADE:'Iseseisva töö hinded',
-                LIS_CHECK:'Vaata'
+                LIS_CHECK:'Vaata',
+                LIS_SUBJECTROUNDGRADES:'Aine hinded'
                 
             },
             en: {
