@@ -46,19 +46,24 @@ class StudentGradeRepository extends AbstractBaseRepository
                     },
                     partial independentWork.{
                         id,
-                        name
+                        name,
+                        duedate
                     },
                     partial module.{
                         id,
-                        name
+                        name,
+                        duration
                     },
                     partial subjectRound.{
                         id,
-                        name
+                        name,
+                        subject,
+                        studentGroup
                         },
-                    partial contactlesson.{
+                    partial contactLesson.{
                         id,
-                        name
+                        name,
+                        lessonDate
                         },
                     partial student.{
                         id,
@@ -71,7 +76,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 FROM Core\Entity\StudentGrade studentgrade
                 JOIN studentgrade.student student
                 JOIN studentgrade.teacher teacher
-                LEFT JOIN studentgrade.contactLesson contactlesson
+                LEFT JOIN studentgrade.contactLesson contactLesson
                 LEFT JOIN studentgrade.independentWork independentWork
                 LEFT JOIN studentgrade.module module
                 LEFT JOIN studentgrade.subjectRound subjectRound
@@ -104,7 +109,8 @@ class StudentGradeRepository extends AbstractBaseRepository
                         },
                     partial contactlesson.{
                         id,
-                        name
+                        name,
+                        lessonDate
                         },
                     partial gradeChoice.{
                         id,
@@ -116,15 +122,19 @@ class StudentGradeRepository extends AbstractBaseRepository
                         },
                     partial independentWork.{
                         id,
-                        name
+                        name,
+                        duedate
                         },
                     partial module.{
                         id,
-                        name
+                        name,
+                        duration
                         },
                     partial subjectRound.{
                         id,
-                        name
+                        name,
+                        subject,
+                        studentGroup
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -154,7 +164,8 @@ class StudentGradeRepository extends AbstractBaseRepository
                         },
                     partial contactlesson.{
                         id,
-                        name
+                        name,
+                        lessonDate
                         },
                     partial gradeChoice.{
                         id,
@@ -166,15 +177,19 @@ class StudentGradeRepository extends AbstractBaseRepository
                         },
                     partial independentWork.{
                         id,
-                        name
+                        name,
+                        duedate
                         },
                     partial module.{
                         id,
-                        name
+                        name,
+                        duration
                         },
                     partial subjectRound.{
                         id,
-                        name
+                        name,
+                        subject,
+                        studentGroup
                         }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
@@ -220,7 +235,8 @@ class StudentGradeRepository extends AbstractBaseRepository
                         },
                     partial module.{
                         id,
-                        name
+                        name,
+                        duration
                         },
                     partial subjectRound.{
                         id,
@@ -643,6 +659,11 @@ class StudentGradeRepository extends AbstractBaseRepository
     {
         $id = $extra->lisPerson->getId();
         $dqlRestriction = " AND $this->baseAlias.student=$id";
+        
+        if (array_key_exists('diaryview', $params)) {
+            return $this->diaryRelatedData($params, $extra, $dqlRestriction);
+        }
+        
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
