@@ -94,6 +94,27 @@
                     };
                 };
 
+                $scope.columns = [
+                    {
+                        field: 'nr',
+                        name: 'nr',
+                        displayName: 'Jrk'
+                    },
+                    {
+                        field: "student['name']",
+                        name: "student['name']",
+                        displayName: 'Student'
+                    }
+                ];
+
+                $scope.gridOptions = {
+                    enableSorting: true,
+                    columnDefs: $scope.columns,
+                    onRegisterApi: function (gridApi) {
+                        $scope.gridApi = gridApi;
+                    }
+                };
+
                 /**
                  * Set up StudentGroup as param SubkectRound
                  * @returns {undefined}
@@ -173,15 +194,15 @@
                         u++;
                     }
 
-                    columns.push({
-                        field: 'nr',
-                        name: 'nr'
-                    });
+//                    columns.push({
+//                        field: 'nr',
+//                        name: 'nr'
+//                    });
 
-                    columns.push({
-                        field: "student['name']",
-                        name: "student['name']"
-                    });
+//                    columns.push({
+//                        field: "student['name']",
+//                        name: "student['name']"
+//                    });
 
                     var contactLessons = rawDataSubjectRound[0].contactLesson;
 
@@ -190,18 +211,24 @@
                         var cl = contactLessons[x];
                         console.log(cl);
                         var columnName = createColumnName(cl);
+                        var columnNameId = createColumnName(cl)+"['id']";
+                        var columnNameName = createColumnName(cl)+"['name']";
                         var columnDisplayName = contactLessons[x].name;//make it normal
 
-                        columns.push({
-                            field: columnName['name'],
-                            name: columnName['name'],
+                        var newColumn = {
+                            field: columnNameId,
+                            name: columnNameName,
                             displayName: columnDisplayName
-                            /*,
-                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                            editDropdownIdLabel: "id",
-                            editDropdownValueLabel: "name",
-                            cellFilter: 'griddropdown:this'*/
-                        });
+                                /*,
+                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                                 editDropdownIdLabel: "id",
+                                 editDropdownValueLabel: "name",
+                                 cellFilter: 'griddropdown:this'*/
+                        };
+                        $scope.columns.push(newColumn);
+                        $scope.$watch('columns', function (newVal, oldVal) {
+                            console.log('added', newColumn);
+                        }, true);
 
                         for (var i = 0; i < rows.length; i++) {
                             var studentGradeId,
@@ -233,28 +260,19 @@
                         }
                     }
 
-                    console.log(columns);
-                    console.log(rows);
-                    $scope.clearGridData();
-                    
+//                    console.log(columns);
+//                    console.log(rows);
+//                    $scope.clearGridData();
+
                     $scope.addRows();
-                    $scope.addColumns();
-                    
+                    //$scope.addColumns();
+
                     //http://stackoverflow.com/questions/26925131/how-to-add-a-column-at-runtime-in-a-grid-using-ui-grid
                     //https://www.google.ee/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=angular+ui+grid+add+columns+dynamically
 //$scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
-                    
+
                 };
 
-                $scope.columns = [];
-
-                $scope.gridOptions = {
-                    enableSorting: true,
-                    columnDefs: $scope.columns,
-                    onRegisterApi: function (gridApi) {
-                        $scope.gridApi = gridApi;
-                    }
-                };
 
                 $scope.addColumns = function () {
                     $scope.columns = columns;
