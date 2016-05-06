@@ -133,7 +133,6 @@
 
                             angular.copy(origObj, buf);
 
-
                             for (x in $scope.gradeChoices) {
                                 if ($scope.gradeChoices[x].id === newValue) {
                                     newGrade.id = newValue;
@@ -141,6 +140,7 @@
                                     break;
                                 }
                             }
+                            //studentgrade update request
                             //if is empty choice, it will be DELETE request
                             buf.id = newGrade.id;
                             buf.name = newGrade.name;
