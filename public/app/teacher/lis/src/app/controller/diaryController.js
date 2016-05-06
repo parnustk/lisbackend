@@ -108,12 +108,13 @@
                         //field: 'nr',
                         name: 'nr',
                         displayName: 'Jrk',
-                        enableCellEdit: true
+                        enableCellEdit: false
                     },
                     {
                         //field: "student['name']",
                         name: "student['name']",
-                        displayName: 'Student'
+                        displayName: 'Student',
+                        enableCellEdit: false
                     }
                 ];
 
@@ -124,17 +125,27 @@
                         $scope.gridApi = gridApi;
                         //http://stackoverflow.com/questions/29219380/ui-grid-dropdown-editor-with-complex-json-object
                         gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-                            console.log('rowEntity', rowEntity);
-                            console.log('colDef', colDef);
-                            console.log('newValue', newValue);
-                            console.log('oldValue', oldValue);
-                            //$scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue;
-                            
-                            var oObj = originalRows[rowEntity.nr][colDef.name];
-                            
-                            console.log(oObj);
-                            rowEntity[colDef.name] = oObj;
-                            
+
+                            var x,
+                                buf = {},
+                                newGrade = {},
+                                origObj = originalRows[rowEntity.nr][colDef.name];
+
+                            angular.copy(origObj, buf);
+
+
+                            for (x in $scope.gradeChoices) {
+                                if ($scope.gradeChoices[x].id === newValue) {
+                                    newGrade.id = newValue;
+                                    newGrade.name = $scope.gradeChoices[x].name;
+                                    break;
+                                }
+                            }
+                            //if is empty choice, it will be DELETE request
+                            buf.id = newGrade.id;
+                            buf.name = newGrade.name;
+                            rowEntity[colDef.name] = buf;
+
                             $scope.$apply();
                         });
                     }
@@ -169,7 +180,7 @@
                             studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
                                     rawDataStudentGroup = result.data;
-                                    
+
                                     sortDataForDiary();
                                 }
                             });
@@ -242,7 +253,7 @@
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
                             cellFilter: 'griddropdown:this'
-                            //cellFilter: 'mapDropdown:row.grid.appScope.gradeChoices:"id":"name"'
+                                //cellFilter: 'mapDropdown:row.grid.appScope.gradeChoices:"id":"name"'
                         };
                         $scope.columns.push(newColumn);
                         $scope.$watch('columns', function (newVal, oldVal) {
@@ -293,7 +304,7 @@
 //                $scope.addColumns = function () {
 //                    $scope.columns = columns;
 //                };
-                var originalRows = []; 
+                var originalRows = [];
                 $scope.addRows = function () {
                     angular.copy(rows, originalRows);
                     $scope.gridOptions.data = rows;
