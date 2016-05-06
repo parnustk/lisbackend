@@ -29,7 +29,8 @@
                 'studentGroupModel',
                 'moduleModel',
                 'vocationModel',
-                'teacherModel'
+                'teacherModel',
+                'gradeChoiceModel'
             ];
 
             function diaryController(
@@ -44,7 +45,8 @@
                 studentGroupModel,
                 moduleModel,
                 vocationModel,
-                teacherModel) {
+                teacherModel,
+                gradeChoiceModel) {
 
                 $scope.T = globalFunctions.T;
 
@@ -66,14 +68,21 @@
 
                 $scope.subjectRounds = $scope.studentGroups = [];
 
-                subjectRoundModel.GetList({}).then(function (result) {
+                gradeChoiceModel.GetList({}).then(function (result) {//get them all
+
                     if (globalFunctions.resultHandler(result)) {
-                        $scope.subjectRounds = result.data;
+                        $scope.gradeChoices = result.data;
 
-                        studentGroupModel.GetList({}).then(function (result) {
+                        subjectRoundModel.GetList({}).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                $scope.studentGroups = result.data;
+                                $scope.subjectRounds = result.data;
 
+                                studentGroupModel.GetList({}).then(function (result) {
+                                    if (globalFunctions.resultHandler(result)) {
+                                        $scope.studentGroups = result.data;
+
+                                    }
+                                });
                             }
                         });
                     }
@@ -96,12 +105,13 @@
 
                 $scope.columns = [
                     {
-                        field: 'nr',
+                        //field: 'nr',
                         name: 'nr',
-                        displayName: 'Jrk'
+                        displayName: 'Jrk',
+                        enableCellEdit: true
                     },
                     {
-                        field: "student['name']",
+                        //field: "student['name']",
                         name: "student['name']",
                         displayName: 'Student'
                     }
@@ -112,6 +122,21 @@
                     columnDefs: $scope.columns,
                     onRegisterApi: function (gridApi) {
                         $scope.gridApi = gridApi;
+                        //http://stackoverflow.com/questions/29219380/ui-grid-dropdown-editor-with-complex-json-object
+                        gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+                            console.log('rowEntity', rowEntity);
+                            console.log('colDef', colDef);
+                            console.log('newValue', newValue);
+                            console.log('oldValue', oldValue);
+                            //$scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue;
+                            
+                            var oObj = originalRows[rowEntity.nr][colDef.name];
+                            
+                            console.log(oObj);
+                            rowEntity[colDef.name] = oObj;
+                            
+                            $scope.$apply();
+                        });
                     }
                 };
 
@@ -126,6 +151,9 @@
                     getData();
                 };
 
+
+                $scope.gradeChoices = [];
+
                 /**
                  * We get student related data from by StudentGroup related req, has default params
                  * Grade related data we get by SubjectRound req has params by StudentGroup.
@@ -133,19 +161,18 @@
                  * @returns {undefined}
                  */
                 var getData = function () {
+
                     subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
                             rawDataSubjectRound = result.data;
-                            ////console.log('RAW rawDataSubjectRound', rawDataSubjectRound);
 
                             studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
                                     rawDataStudentGroup = result.data;
-                                    ////console.log('rawDataSubjectRound', rawDataSubjectRound);
+                                    
                                     sortDataForDiary();
                                 }
                             });
-
                         }
                     });
                 };
@@ -177,8 +204,6 @@
                 };
 
                 var sortDataForDiary = function () {
-                    columns = [];//tmp
-                    rows = [];//tmp
 
                     var students = rawDataStudentGroup[0].studentInGroups;
 
@@ -194,39 +219,34 @@
                         u++;
                     }
 
-//                    columns.push({
-//                        field: 'nr',
-//                        name: 'nr'
-//                    });
-
-//                    columns.push({
-//                        field: "student['name']",
-//                        name: "student['name']"
-//                    });
-
                     var contactLessons = rawDataSubjectRound[0].contactLesson;
 
                     for (var x in contactLessons) {
 
                         var cl = contactLessons[x];
-                        console.log(cl);
+                        //console.log(cl);
                         var columnName = createColumnName(cl);
-                        var columnNameId = createColumnName(cl)+"['id']";
-                        var columnNameName = createColumnName(cl)+"['name']";
+                        var columnNameId = createColumnName(cl) + "['id']";
+                        var columnNameName = createColumnName(cl) + "['name']";
                         var columnDisplayName = contactLessons[x].name;//make it normal
 
                         var newColumn = {
-                            field: columnNameId,
-                            name: columnNameName,
-                            displayName: columnDisplayName
-                                /*,
-                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                                 editDropdownIdLabel: "id",
-                                 editDropdownValueLabel: "name",
-                                 cellFilter: 'griddropdown:this'*/
+                            //field: columnNameId,
+                            name: columnName,
+                            displayName: columnDisplayName,
+                            enableCellEdit: true,
+                            editDropdownOptionsArray: $scope.gradeChoices,
+                            type: 'object',
+                            editableCellTemplate: 'ui-grid/dropdownEditor',
+                            //editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            cellFilter: 'griddropdown:this'
+                            //cellFilter: 'mapDropdown:row.grid.appScope.gradeChoices:"id":"name"'
                         };
                         $scope.columns.push(newColumn);
                         $scope.$watch('columns', function (newVal, oldVal) {
+                            $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
                             console.log('added', newColumn);
                         }, true);
 
@@ -260,10 +280,6 @@
                         }
                     }
 
-//                    console.log(columns);
-//                    console.log(rows);
-//                    $scope.clearGridData();
-
                     $scope.addRows();
                     //$scope.addColumns();
 
@@ -273,19 +289,21 @@
 
                 };
 
-
-                $scope.addColumns = function () {
-                    $scope.columns = columns;
-                };
-
+//
+//                $scope.addColumns = function () {
+//                    $scope.columns = columns;
+//                };
+                var originalRows = []; 
                 $scope.addRows = function () {
+                    angular.copy(rows, originalRows);
                     $scope.gridOptions.data = rows;
+                    $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
                 };
 
-                $scope.clearGridData = function () {
-                    $scope.columns.splice($scope.columns.length - 1, 1);
-                    $scope.gridOptions.data = [];
-                };
+//                $scope.clearGridData = function () {
+//                    $scope.columns.splice($scope.columns.length - 1, 1);
+//                    $scope.gridOptions.data = [];
+//                };
 
 
             }
