@@ -1,141 +1,20 @@
 <h2>{{ T('MY_GRADES')}}</h2>
 
-<form class="form-horizontal" name="filterForm" ng-submit="Filter()">
-    <fieldset>
-        <div class="form-group">
 
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterStudentGrade.student" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENT')}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="student in students | filter: $select.search">
-                            <span ng-bind-html="student.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{student.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterStudentGrade.teacher" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_TEACHER')}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="teacher in teachers | filter: $select.search">
-                            <span ng-bind-html="teacher.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{teacher.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterStudentGrade.gradeChoice" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_GRADECHOICE')}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="gradeChoice in gradeChoices | filter: $select.search">
-                            <span ng-bind-html="gradeChoice.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{gradeChoice.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterStudentGrade.independentWork" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_AN_INDEPENDENTWORK')}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="independentWork in independentWorks | filter: $select.search">
-                            <span ng-bind-html="independentWork.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{independentWork.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterStudentGrade.module" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_MODULE')}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="module in modules | filter: $select.search">
-                            <span ng-bind-html="module.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{module.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterStudentGrade.subjectRound" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
-                            <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{subjectRound.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="input-group">
-
-                    <ui-select allow-clear ng-model="filterStudentGrade.contactLesson" theme="bootstrap">
-                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_CONTACTLESSON')}}">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="contactLesson in contactLessons | filter: $select.search">
-                            <span ng-bind-html="contactLesson.name | highlight: $select.search"></span>
-                            <small>
-                                id: {{contactLesson.id}}
-                            </small>
-                        </ui-select-choices>
-                    </ui-select>
-
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash"> {{ T('LIS_CLEAR')}}</span></button>
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER')}}</button>
-            </div><!-- /.col-lg-6 -->
-
-        </div>
-    </fieldset>
-</form>
-
+<!--
 <div ng-model="studentGradeModel" ng-controller="studentGradeController">
-
     <table>
         <th>{{T('LIS_MODULE')}}</th>
+        <th>{{T('LIS_GRADINGTYPE')}}</th>
         <th>{{T('LIS_STUDENTMODULEGRADE')}}</th>
         <tr ng-repeat="module in modules">
             <td><a href="/app/student/#!/studentgradesubjectround">{{ module.name}}</a> <br><br> ({{ module.duration}} EKAP)</td>
+            <td>
+                <ul>
+                    <li ng-repeat="gradingType in module.gradingType">{{ gradingType.name}}</li>
+                </ul>
+            </td>
             <td>{{ gradeChoice.name}}</td>
         </tr>
     </table>
-
-</div>
-<br><br>
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
+</div>-->

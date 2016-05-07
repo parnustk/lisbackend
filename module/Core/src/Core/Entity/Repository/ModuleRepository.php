@@ -12,10 +12,12 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\Module;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Zend\Paginator\Paginator;
 use Exception;
 use Zend\Json\Json;
 use Doctrine\ORM\Query;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
@@ -35,6 +37,28 @@ class ModuleRepository extends AbstractBaseRepository
      * @var string 
      */
     public $baseEntity = 'Core\Entity\Module';
+
+    protected function studentModuleGradesData($params = null, $extra = null)
+    {
+        $vocationId = 9; //need to get that from session -> create task for Juhan
+        $dql = "SELECT 
+                    partial module.{
+                        id,
+                        name
+                    }
+                FROM Core\Entity\Module module
+                JOIN module.vocation vocation
+                WHERE vocation.id=:vocationId
+                ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('vocationId', $vocationId, Type::INTEGER);
+//        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
 
     /**
      * 
@@ -90,7 +114,8 @@ class ModuleRepository extends AbstractBaseRepository
                     id
                     },
                     partial gradingType.{
-                    id
+                    id,
+                    name
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.vocation vocation
@@ -119,7 +144,8 @@ class ModuleRepository extends AbstractBaseRepository
                     id
                     },
                     partial gradingType.{
-                    id
+                    id,
+                    name
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.vocation vocation
@@ -150,7 +176,8 @@ class ModuleRepository extends AbstractBaseRepository
                         id
                     },
                     partial gradingType.{
-                        id
+                        id,
+                        name
                     }
                     FROM $this->baseEntity $this->baseAlias
                     JOIN $this->baseAlias.vocation vocation
@@ -193,19 +220,19 @@ class ModuleRepository extends AbstractBaseRepository
     public function defaultCreate($data, $returnPartial = false, $extra = null)
     {
         $this->validateVocation($data);
-        
+
         $entity = new Module($this->getEntityManager());
-        
+
         $vocation = $this->getEntityManager()
                 ->getRepository('Core\Entity\Vocation')
                 ->find($data['vocation']);
-        
+
         $entity->setVocation($vocation);
-        
+
         unset($data['vocation']);
-        
+
         $entity->hydrate($data, $this->getEntityManager());
-        
+
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
@@ -214,7 +241,7 @@ class ModuleRepository extends AbstractBaseRepository
         if (!count($entity->getGradingType())) {
             throw new Exception(Json::encode('MISSING_GRADING_TYPES', true));
         }
-        
+
         return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
@@ -572,6 +599,10 @@ class ModuleRepository extends AbstractBaseRepository
      */
     private function studentGetList($params = null, $extra = null)
     {
+        if (array_key_exists('studentModuleGrades', $params)) {
+            return $this->studentModuleGradesData($params, $extra);
+        }
+
         return $this->defaultGetList($params, $extra);
     }
 

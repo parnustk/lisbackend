@@ -39,52 +39,66 @@ class StudentGradeRepository extends AbstractBaseRepository
      */
     public function diaryRelatedData($params = null, $extra = null)
     {
-        //print_r($params);
+
+        /*
+          print_r($params); die();
+          $dql = "SELECT
+          partial studentgrade.{
+          id
+          },
+          partial independentWork.{
+          id,
+          name,
+          duedate
+          },
+          partial module.{
+          id,
+          name,
+          duration
+          },
+          partial subjectRound.{
+          id,
+          name,
+          subject,
+          studentGroup
+          },
+          partial contactLesson.{
+          id,
+          name,
+          lessonDate
+          },
+          partial student.{
+          id,
+          name
+          },
+          partial teacher.{
+          id,
+          name
+          }
+          FROM Core\Entity\StudentGrade studentgrade
+          JOIN studentgrade.student student
+          JOIN studentgrade.teacher teacher
+          LEFT JOIN studentgrade.contactLesson contactLesson
+          LEFT JOIN studentgrade.independentWork independentWork
+          LEFT JOIN studentgrade.module module
+          LEFT JOIN studentgrade.subjectRound subjectRound
+          WHERE student.id=:studentId";
+
+          $q = $this->getEntityManager()->createQuery($dql);
+          $q->setParameter('studentId', $params['where']->studentGrade->id, Type::INTEGER);
+
+          $q->setHydrationMode(Query::HYDRATE_ARRAY);
+         */
+
         $dql = "SELECT 
                     partial studentgrade.{
                         id
-                    },
-                    partial independentWork.{
-                        id,
-                        name,
-                        duedate
-                    },
-                    partial module.{
-                        id,
-                        name,
-                        duration
-                    },
-                    partial subjectRound.{
-                        id,
-                        name,
-                        subject,
-                        studentGroup
-                        },
-                    partial contactLesson.{
-                        id,
-                        name,
-                        lessonDate
-                        },
-                    partial student.{
-                        id,
-                        name
-                    },
-                    partial teacher.{
-                        id,
-                        name
                     }
                 FROM Core\Entity\StudentGrade studentgrade
-                JOIN studentgrade.student student
-                JOIN studentgrade.teacher teacher
-                LEFT JOIN studentgrade.contactLesson contactLesson
-                LEFT JOIN studentgrade.independentWork independentWork
-                LEFT JOIN studentgrade.module module
-                LEFT JOIN studentgrade.subjectRound subjectRound
-                WHERE studentgrade.id=:studentGradeId";
-
+                WHERE student.id=:studentId
+                ";
         $q = $this->getEntityManager()->createQuery($dql);
-        $q->setParameter('studentGradeId', $params['where']->studentGrade->id, Type::INTEGER);
-
+        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
@@ -659,11 +673,11 @@ class StudentGradeRepository extends AbstractBaseRepository
     {
         $id = $extra->lisPerson->getId();
         $dqlRestriction = " AND $this->baseAlias.student=$id";
-        
+
         if (array_key_exists('diaryview', $params)) {
-            return $this->diaryRelatedData($params, $extra, $dqlRestriction);
+            return $this->diaryRelatedData($params, $extra);
         }
-        
+
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
