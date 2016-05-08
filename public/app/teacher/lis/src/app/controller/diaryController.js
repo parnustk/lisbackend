@@ -212,7 +212,7 @@
                 };
 
                 var sortDataForDiary = function () {
-
+                    rows = [];
                     var students = rawDataStudentGroup[0].studentInGroups,
                         u = 0,
                         contactLessons = rawDataSubjectRound[0].contactLesson,
@@ -259,17 +259,13 @@
                         }, true);
 
                         for (var i = 0; i < rows.length; i++) {
-                            var studentGradeId,
-                                gradeChoiceId,
-                                gradeChoiceName,
-                                teacherId,
+                            var studentGradeId = null,
+                                gradeChoiceId = null,
+                                gradeChoiceName = null,
+                                teacherId = null,
                                 studentId = rows[i].student.id;
                             
-                            if (cl.studentGrade.length === 0) {
-                                gradeChoiceId = null;
-                                studentGradeId = null;
-                                gradeChoiceName = null;
-                            } else {
+                            if (cl.studentGrade.length !== 0) {
                                 var r = searchStudentGrade(studentId, cl.studentGrade);
                                 if (r !== -1) {
                                     studentGradeId = r.studentGradeId;
