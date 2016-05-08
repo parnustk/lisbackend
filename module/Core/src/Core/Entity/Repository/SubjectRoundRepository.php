@@ -52,7 +52,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial subjectround.{
                         id,
                         trashed
-                    }
+                    },
                     partial contactLesson.{
                             id,
                             name,

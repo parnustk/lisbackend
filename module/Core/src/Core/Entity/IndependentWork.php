@@ -73,7 +73,7 @@ class IndependentWork extends EntityValidation
     /**
      * @Annotation\Exclude()
 
-     * @ORM\OneToOne(targetEntity="StudentGrade", mappedBy="independentWork")
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="independentWork")
      */
     protected $studentGrade;
 

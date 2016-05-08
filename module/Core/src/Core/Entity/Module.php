@@ -89,7 +89,7 @@ class Module extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\OneToOne(targetEntity="StudentGrade", mappedBy="module")
+     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="module")
      */
     protected $studentGrade;
 
