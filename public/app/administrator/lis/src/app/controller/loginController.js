@@ -123,9 +123,9 @@
                         .then(function (result) {
                             if (result.success) {
                                 //GOOD
-                                $scope.credentials["lisPerson"] = result["lisPerson"];
-                                $scope.credentials["lisUser"] = result["lisUser"];
-                                $scope.credentials["role"] = result["role"];
+                                $scope.credentials.lisPerson = result.lisPerson;
+                                $scope.credentials.lisUser = result.lisUser;
+                                $scope.credentials.role = result.role;
 
                                 addCookieTimed('userObj', $scope.credentials);
                                 $scope.userLoginError = false;
