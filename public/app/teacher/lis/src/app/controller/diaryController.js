@@ -24,7 +24,8 @@
                 'moduleModel',
                 'vocationModel',
                 'teacherModel',
-                'gradeChoiceModel'
+                'gradeChoiceModel',
+                'studentGradeModel'
             ];
 
             function diaryController(
@@ -40,9 +41,12 @@
                 moduleModel,
                 vocationModel,
                 teacherModel,
-                gradeChoiceModel) {
+                gradeChoiceModel,
+                studentGradeModel) {
 
                 $scope.T = globalFunctions.T;
+
+                var teacherId = 1; //Static for now
 
                 var urlParamsStudentGroup = {
                     page: 1,
@@ -135,12 +139,54 @@
                                 }
                             }
                             //if studentgrade.id was null CREATE
+
                             //else if studentgrade was not null and gradechoice exists UPDATE
                             //else if studentgrade was not null and gradechoice does not exist DELETE
 
 
                             buf.id = newGrade.id;
                             buf.name = newGrade.name;
+                            console.log(originalEntity);
+
+                            var data = {
+                                student: buf.studentId,
+                                gradeChoice: buf.id,
+                                teacher: teacherId,
+                                contactLesson: buf.contactLessonId
+                            };
+
+                            if (originalEntity.studentGradeId === null && buf.name !== null) {//CREATE
+                                //alert('CREATE');
+
+                                studentGradeModel.Create(data).then(
+                                    function (result) {
+                                        if (globalFunctions.resultHandler(result)) {
+                                            alert('GOOD CREATE');
+                                            //console.log(result.data);
+                                            buf.studentGradeId = result.data.id;
+                                            originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                        } else {
+                                            alert('BAD CREATE');
+                                            buf = originalEntity;//reverse changes if unsuccessful
+                                        }
+                                    }
+                                );
+                            } else if (originalEntity.studentGradeId !== null && buf.name !== null && buf.id !== originalEntity.id) {//UPDATE
+                                studentGradeModel.Update(originalEntity.studentGradeId, data).then(
+                                    function (result) {
+                                        if (globalFunctions.resultHandler(result)) {
+                                            alert('GOOD UPDATE');
+                                            originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                        } else {
+                                            alert('BAD UPDATE');
+                                            buf = originalEntity;//reverse changes if unsuccessful
+                                        }
+                                    }
+                                );
+                            }
+
+                            console.log(buf);
+
                             rowEntity[colDef.name] = buf;
 
                             $scope.$apply();
@@ -218,7 +264,7 @@
                         contactLessons = rawDataSubjectRound[0].contactLesson,
                         y,
                         x;
-                    
+
                     for (y in students) {
                         var row = {};
                         row.nr = u;
@@ -249,9 +295,9 @@
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this'
                             };
-                            
+
                         $scope.columns.push(newColumn);
-                        
+
                         //is it needed?
                         $scope.$watch('columns', function (newVal, oldVal) {
                             $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
@@ -264,7 +310,7 @@
                                 gradeChoiceName = null,
                                 teacherId = null,
                                 studentId = rows[i].student.id;
-                            
+
                             if (cl.studentGrade.length !== 0) {
                                 var r = searchStudentGrade(studentId, cl.studentGrade);
                                 if (r !== -1) {
