@@ -1,4 +1,4 @@
-<h2>{{ T('MY_GRADES')}}</h2>
+<h2>{{ T('MODULE_GRADES')}}</h2>
 
 <div ng-model="studentGradeModel" ng-controller="studentGradeController">
     <table>
@@ -12,7 +12,11 @@
                     <li ng-repeat="gradingType in module.gradingType">{{ gradingType.name}}</li>
                 </ul>
             </td>
-            <td>{{ module.studentGrade.gradeChoice.name}}</td>
+            <td>
+                <ul>
+                    <li ng-repeat="studentGrade in module.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+                </ul>
+            </td>
         </tr>
     </table>
 </div>

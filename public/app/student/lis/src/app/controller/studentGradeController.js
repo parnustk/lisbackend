@@ -75,12 +75,12 @@
                         studentModuleGrades: true
 
                     };
-                    
+
                     /**
                      * Will hold all student related grades
                      */
                     $scope.modules = [];
-
+                    $scope.subjectRounds = [];
 
                     /**
                      * Before loading absence data, 

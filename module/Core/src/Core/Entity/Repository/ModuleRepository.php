@@ -58,11 +58,11 @@ class ModuleRepository extends AbstractBaseRepository
                     partial studentGrade.{
                         id
                     },
-                    partial gradeChoice.{
+                    partial gradingType.{
                         id,
                         name
                     },
-                    partial gradingType.{
+                    partial gradeChoice.{
                         id,
                         name
                     }
