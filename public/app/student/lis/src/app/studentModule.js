@@ -144,6 +144,7 @@
             'ngCookies',
             'ui.bootstrap',
             'ui.grid',
+            'ui.grid.pinning',
             'ui.grid.cellNav',
             'ui.grid.rowEdit',
             'ui.grid.edit',

@@ -1,6 +1,8 @@
 /* global define */
 
 /**
+ * http://stackoverflow.com/questions/26925131/how-to-add-a-column-at-runtime-in-a-grid-using-ui-grid
+ * 
  * @param {type} define
  * @param {type} document
  * @returns {undefined}
@@ -106,19 +108,25 @@
                         //field: 'nr',
                         name: 'nr',
                         displayName: 'Jrk',
+                        visible: false,
+                        type: 'number',
+                        width: 10,
                         enableCellEdit: false
                     },
                     {
                         //field: "student['name']",
                         name: "student['name']",
                         displayName: 'Student',
-                        enableCellEdit: false
+                        enableCellEdit: false,
+                        pinnedLeft: true,
+                        width: 150
                     }
                 ];
 
                 $scope.gridOptions = {
                     enableSorting: true,
                     columnDefs: $scope.columns,
+                    enableCellEditOnFocus: true,
                     onRegisterApi: function (gridApi) {
                         $scope.gridApi = gridApi;
                         //http://stackoverflow.com/questions/29219380/ui-grid-dropdown-editor-with-complex-json-object
@@ -208,14 +216,20 @@
                 };
 
                 /**
-                 * Set up StudentGroup as param SubkectRound
+                 * 
+                 * @param {Boolean} valid
                  * @returns {undefined}
                  */
-                $scope.Filter = function () {
-                    resetUrlParams();
-                    var data = globalFunctions.cleanData($scope.diaryFilter);
-                    urlParamsSubjectRound.where = angular.toJson(data);
-                    getData();
+                $scope.Filter = function (valid) {
+
+                    if (valid) {
+                        resetUrlParams();
+                        var data = globalFunctions.cleanData($scope.diaryFilter);
+                        urlParamsSubjectRound.where = angular.toJson(data);
+                        getData();
+                    } else {
+                        alert($scope.T('LIS_CHECK_FORM_FIELDS'));
+                    }
                 };
 
 
@@ -272,6 +286,16 @@
 
                 var sortDataForDiary = function () {
                     rows = [];
+                    if (rawDataStudentGroup.length < 1) {
+                        $scope.clearGridData();
+                        alert($scope.T('LIS_NO_STUDENTS_IN_GROUP'));
+                        return;
+                    }
+                    if (rawDataSubjectRound.length < 1) {
+                        $scope.clearGridData();
+                        alert($scope.T('LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED'));
+                        return;
+                    }
                     var students = rawDataStudentGroup[0].studentInGroups,
                         u = 0,
                         contactLessons = rawDataSubjectRound[0].contactLesson,
@@ -306,7 +330,8 @@
                                 editableCellTemplate: 'ui-grid/dropdownEditor',
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
-                                cellFilter: 'griddropdown:this'
+                                cellFilter: 'griddropdown:this',
+                                width: 150
                             };
 
                         $scope.columns.push(newColumn);
@@ -364,10 +389,15 @@
                     $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
                 };
 
-//                $scope.clearGridData = function () {
-//                    $scope.columns.splice($scope.columns.length - 1, 1);
-//                    $scope.gridOptions.data = [];
-//                };
+                /**
+                 * See http://stackoverflow.com/questions/1232040/how-do-i-empty-an-array-in-javascript
+                 * 
+                 * @returns {undefined}
+                 */
+                $scope.clearGridData = function () {
+                    $scope.columns.splice(2, $scope.columns.length - 2);
+                    $scope.gridOptions.data.splice(0, $scope.gridOptions.data.length);
+                };
 
 
             }

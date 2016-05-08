@@ -205,7 +205,7 @@
                                 }
                             });
                         } else {
-                            alert('CHECK_FORM_FIELDS');
+                            alert($scope.T('LIS_CHECK_FORM_FIELDS'));
                         }
                     };
 
