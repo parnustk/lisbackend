@@ -6,14 +6,13 @@
 
             <legend>{{ T('LIS_CREATE_NEW_GRADECHOICE') }}</legend>
 
-            <div class="form-group" ng-class="{ 'has-error': gradeChoiceForm.name.$invalid }">
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon" id="gradeChoiceForm-name">{{ T('LIS_NAME') }}</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="gradeChoiceForm-name" ng-model="gradeChoice.name">
+                        <input name="name" ng-required="false" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="gradeChoiceForm-name" ng-model="gradeChoice.name">
                     </div>
                 </div>
-            </div>
+           
 
             <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
 

@@ -85,6 +85,13 @@ class Vocation extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
+     * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="vocation")
+     */
+    protected $subjectRound;
+
+    /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
@@ -126,6 +133,17 @@ class Vocation extends EntityValidation
     public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
+    }
+
+    public function getSubjectRound()
+    {
+        return $this->subjectRound;
+    }
+
+    public function setSubjectRound($subjectRound)
+    {
+        $this->subjectRound = $subjectRound;
+        return $this;
     }
 
     /**

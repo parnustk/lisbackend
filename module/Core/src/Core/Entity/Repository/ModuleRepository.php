@@ -44,10 +44,20 @@ class ModuleRepository extends AbstractBaseRepository
         $dql = "SELECT 
                     partial module.{
                         id,
-                        name
+                        name,
+                        duration
+                    },
+                    partial vocation.{
+                    id,
+                    name
+                    },
+                    partial subjectRound.{
+                    id,
+                    name
                     }
                 FROM Core\Entity\Module module
                 JOIN module.vocation vocation
+                LEFT JOIN module.subjectRound subjectRound
                 WHERE vocation.id=:vocationId
                 ";
 

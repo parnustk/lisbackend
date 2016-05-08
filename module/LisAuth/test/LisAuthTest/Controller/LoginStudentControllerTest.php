@@ -30,127 +30,127 @@ class LoginStudentControllerTest extends UnitHelpers
         parent::setUp();
     }
 
-    /**
-     * Log in student
-     */
-    public function testCreateWithCorrectData()
-    {
-        $student = $this->CreateStudent();
-        $email = uniqid() . '@test.ee';
-        $password = uniqid();
-
-        $d = [
-            'personalCode' => $student->getPersonalCode(),
-            'email' => $email,
-            'password' => $password,
-        ];
-
-
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($d);
-
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
-
-        $this->request->setMethod('post');
-
-        $this->request->getPost()->set("email", $email);
-        $this->request->getPost()->set("password", $password);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(true, $result->success);
-        $this->assertEquals('NOW_LOGGED_IN', $result->message);
-    }
-
-    /**
-     * Log in student false password
-     */
-    public function testCreateWithFalsePassword()
-    {
-        $student = $this->CreateStudent();
-
-        $email = uniqid() . '@test.ee';
-        $password = uniqid();
-
-        $d = [
-            'personalCode' => $student->getPersonalCode(),
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($d);
-
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
-
-        $this->request->setMethod('post');
-
-        $falsePassword = 'TereMaailm87654';
-        $this->request->getPost()->set("email", $email);
-        $this->request->getPost()->set("password", $falsePassword);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, $result->success);
-        $this->assertEquals('FALSE_ATTEMPT', $result->message);
-    }
-
-    /**
-     * Log in student false email
-     */
-    public function testCreateWithFalseEmail()
-    {
-        $student = $this->CreateStudent();
-
-        $email = uniqid() . '@test.ee';
-        $password = uniqid();
-
-        $d = [
-            'personalCode' => $student->getPersonalCode(),
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($d);
-
-        $student->setLisUser($lisUser); //associate
-        $this->em->persist($student);
-        $this->em->flush($student);
-
-        $this->request->setMethod('post');
-
-        $falseEmail = 'tere@test.ee';
-        $this->request->getPost()->set("email", $falseEmail);
-        $this->request->getPost()->set("password", $password);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, $result->success);
-        $this->assertEquals('FALSE_ATTEMPT', $result->message);
-    }
+//    /**
+//     * Log in student
+//     */
+//    public function testCreateWithCorrectData()
+//    {
+//        $student = $this->CreateStudent();
+//        $email = uniqid() . '@test.ee';
+//        $password = uniqid();
+//
+//        $d = [
+//            'personalCode' => $student->getPersonalCode(),
+//            'email' => $email,
+//            'password' => $password,
+//        ];
+//
+//
+//        $lisUser = $this
+//                ->em
+//                ->getRepository('Core\Entity\LisUser')
+//                ->Create($d);
+//
+//        $student->setLisUser($lisUser); //associate
+//        $this->em->persist($student);
+//        $this->em->flush($student);
+//
+//        $this->request->setMethod('post');
+//
+//        $this->request->getPost()->set("email", $email);
+//        $this->request->getPost()->set("password", $password);
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, false);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(true, $result->success);
+//        $this->assertEquals('NOW_LOGGED_IN', $result->message);
+//    }
+//
+//    /**
+//     * Log in student false password
+//     */
+//    public function testCreateWithFalsePassword()
+//    {
+//        $student = $this->CreateStudent();
+//
+//        $email = uniqid() . '@test.ee';
+//        $password = uniqid();
+//
+//        $d = [
+//            'personalCode' => $student->getPersonalCode(),
+//            'email' => $email,
+//            'password' => $password,
+//        ];
+//
+//        $lisUser = $this
+//                ->em
+//                ->getRepository('Core\Entity\LisUser')
+//                ->Create($d);
+//
+//        $student->setLisUser($lisUser); //associate
+//        $this->em->persist($student);
+//        $this->em->flush($student);
+//
+//        $this->request->setMethod('post');
+//
+//        $falsePassword = 'TereMaailm87654';
+//        $this->request->getPost()->set("email", $email);
+//        $this->request->getPost()->set("password", $falsePassword);
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, false);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(false, $result->success);
+//        $this->assertEquals('FALSE_ATTEMPT', $result->message);
+//    }
+//
+//    /**
+//     * Log in student false email
+//     */
+//    public function testCreateWithFalseEmail()
+//    {
+//        $student = $this->CreateStudent();
+//
+//        $email = uniqid() . '@test.ee';
+//        $password = uniqid();
+//
+//        $d = [
+//            'personalCode' => $student->getPersonalCode(),
+//            'email' => $email,
+//            'password' => $password,
+//        ];
+//
+//        $lisUser = $this
+//                ->em
+//                ->getRepository('Core\Entity\LisUser')
+//                ->Create($d);
+//
+//        $student->setLisUser($lisUser); //associate
+//        $this->em->persist($student);
+//        $this->em->flush($student);
+//
+//        $this->request->setMethod('post');
+//
+//        $falseEmail = 'tere@test.ee';
+//        $this->request->getPost()->set("email", $falseEmail);
+//        $this->request->getPost()->set("password", $password);
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, false);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(false, $result->success);
+//        $this->assertEquals('FALSE_ATTEMPT', $result->message);
+//    }
 
     public function testCreateStaticStudentUser()
     {

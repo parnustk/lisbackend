@@ -52,7 +52,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial subjectround.{
                         id,
                         trashed
-                    },
+                    }
                     partial contactLesson.{
                             id,
                             name,
@@ -106,6 +106,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
                         name,
                         trashed
                     },
+                    partial vocation.{
+                            id,
+                            name
+                    },
+                    partial module.{
+                            id,
+                            name
+                    },
                     partial subject.{
                             id,
                             name
@@ -119,6 +127,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             name
                     }
                 FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
                 JOIN $this->baseAlias.studentGroup studentGroup";
@@ -135,6 +145,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
                         id,
                         trashed
                     },
+                    partial vocation.{
+                            id,
+                            name
+                    },
+                    partial module.{
+                            id,
+                            name
+                    },
                     partial subject.{
                             id
                     },
@@ -145,6 +163,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             id
                     }
                 FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
                 JOIN $this->baseAlias.studentGroup studentGroup";
@@ -161,6 +181,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
                         id,
                         trashed
                     },
+                    partial vocation.{
+                            id,
+                            name
+                    },
+                    partial module.{
+                            id,
+                            name
+                    },
                     partial subject.{
                             id
                     },
@@ -171,6 +199,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             id
                     }
                 FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
                 JOIN $this->baseAlias.studentGroup studentGroup";
@@ -188,6 +218,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
                         name,
                         trashed
                     },
+                    partial vocation.{
+                            id,
+                            name
+                    },
+                    partial module.{
+                            id,
+                            name
+                    },
                     partial subject.{
                             id,
                             name
@@ -201,6 +239,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             name
                     }
                 FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
                 JOIN $this->baseAlias.studentGroup studentGroup";

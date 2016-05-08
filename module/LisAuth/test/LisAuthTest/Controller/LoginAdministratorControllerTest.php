@@ -30,127 +30,127 @@ class LoginAdministratorControllerTest extends UnitHelpers
         parent::setUp();
     }
 
-    /**
-     * Log in administrator
-     */
-    public function testCreateWithCorrectData()
-    {
-        $administrator = $this->CreateAdministrator();
-
-        $email = uniqid() . '@test.ee';
-        $password = uniqid();
-
-        $d = [
-            'personalCode' => $administrator->getPersonalCode(),
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($d);
-
-        $administrator->setLisUser($lisUser); //associate
-        $this->em->persist($administrator);
-        $this->em->flush($administrator);
-
-        $this->request->setMethod('post');
-
-        $this->request->getPost()->set("email", $email);
-        $this->request->getPost()->set("password", $password);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(true, $result->success);
-        $this->assertEquals('NOW_LOGGED_IN', $result->message);
-    }
-
-    /**
-     * Log in administrator false password
-     */
-    public function testCreateWithFalsePassword()
-    {
-        $administrator = $this->CreateAdministrator();
-
-        $email = uniqid() . '@test.ee';
-        $password = uniqid();
-
-        $d = [
-            'personalCode' => $administrator->getPersonalCode(),
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($d);
-
-        $administrator->setLisUser($lisUser); //associate
-        $this->em->persist($administrator);
-        $this->em->flush($administrator);
-
-        $this->request->setMethod('post');
-
-        $falsePassword = 'TereMaailm87654';
-        $this->request->getPost()->set("email", $email);
-        $this->request->getPost()->set("password", $falsePassword);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, $result->success);
-        $this->assertEquals('FALSE_ATTEMPT', $result->message);
-    }
-
-    /**
-     * Log in administrator false password
-     */
-    public function testCreateWithFalseEmail()
-    {
-        $administrator = $this->CreateAdministrator();
-
-        $email = uniqid() . '@test.ee';
-        $password = uniqid();
-
-        $d = [
-            'personalCode' => $administrator->getPersonalCode(),
-            'email' => $email,
-            'password' => $password,
-        ];
-
-        $lisUser = $this
-                ->em
-                ->getRepository('Core\Entity\LisUser')
-                ->Create($d);
-
-        $administrator->setLisUser($lisUser); //associate
-        $this->em->persist($administrator);
-        $this->em->flush($administrator);
-
-        $this->request->setMethod('post');
-
-        $falseEmail = 'tere@test.ee';
-        $this->request->getPost()->set("email", $falseEmail);
-        $this->request->getPost()->set("password", $password);
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, false);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, $result->success);
-        $this->assertEquals('FALSE_ATTEMPT', $result->message);
-    }
+//    /**
+//     * Log in administrator
+//     */
+//    public function testCreateWithCorrectData()
+//    {
+//        $administrator = $this->CreateAdministrator();
+//
+//        $email = uniqid() . '@test.ee';
+//        $password = uniqid();
+//
+//        $d = [
+//            'personalCode' => $administrator->getPersonalCode(),
+//            'email' => $email,
+//            'password' => $password,
+//        ];
+//
+//        $lisUser = $this
+//                ->em
+//                ->getRepository('Core\Entity\LisUser')
+//                ->Create($d);
+//
+//        $administrator->setLisUser($lisUser); //associate
+//        $this->em->persist($administrator);
+//        $this->em->flush($administrator);
+//
+//        $this->request->setMethod('post');
+//
+//        $this->request->getPost()->set("email", $email);
+//        $this->request->getPost()->set("password", $password);
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, false);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(true, $result->success);
+//        $this->assertEquals('NOW_LOGGED_IN', $result->message);
+//    }
+//
+//    /**
+//     * Log in administrator false password
+//     */
+//    public function testCreateWithFalsePassword()
+//    {
+//        $administrator = $this->CreateAdministrator();
+//
+//        $email = uniqid() . '@test.ee';
+//        $password = uniqid();
+//
+//        $d = [
+//            'personalCode' => $administrator->getPersonalCode(),
+//            'email' => $email,
+//            'password' => $password,
+//        ];
+//
+//        $lisUser = $this
+//                ->em
+//                ->getRepository('Core\Entity\LisUser')
+//                ->Create($d);
+//
+//        $administrator->setLisUser($lisUser); //associate
+//        $this->em->persist($administrator);
+//        $this->em->flush($administrator);
+//
+//        $this->request->setMethod('post');
+//
+//        $falsePassword = 'TereMaailm87654';
+//        $this->request->getPost()->set("email", $email);
+//        $this->request->getPost()->set("password", $falsePassword);
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, false);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(false, $result->success);
+//        $this->assertEquals('FALSE_ATTEMPT', $result->message);
+//    }
+//
+//    /**
+//     * Log in administrator false password
+//     */
+//    public function testCreateWithFalseEmail()
+//    {
+//        $administrator = $this->CreateAdministrator();
+//
+//        $email = uniqid() . '@test.ee';
+//        $password = uniqid();
+//
+//        $d = [
+//            'personalCode' => $administrator->getPersonalCode(),
+//            'email' => $email,
+//            'password' => $password,
+//        ];
+//
+//        $lisUser = $this
+//                ->em
+//                ->getRepository('Core\Entity\LisUser')
+//                ->Create($d);
+//
+//        $administrator->setLisUser($lisUser); //associate
+//        $this->em->persist($administrator);
+//        $this->em->flush($administrator);
+//
+//        $this->request->setMethod('post');
+//
+//        $falseEmail = 'tere@test.ee';
+//        $this->request->getPost()->set("email", $falseEmail);
+//        $this->request->getPost()->set("password", $password);
+//
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, false);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(false, $result->success);
+//        $this->assertEquals('FALSE_ATTEMPT', $result->message);
+//    }
 
     /**
      * Create static user 

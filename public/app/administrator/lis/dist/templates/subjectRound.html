@@ -1,14 +1,46 @@
-<h2>{{ T('LIS_SUBJECTROUND') }}</h2>
+<h2>{{ T('LIS_SUBJECTROUND')}}</h2>
 <div class="row">
     <form class="form-horizontal col-md-6" role="form" name="subjectRoundForm" ng-submit="Create(subjectRoundForm.$valid)">
         <fieldset>
-            <legend>{{ T('LIS_CREATE_NEW_SUBJECTROUND') }}</legend>
+            <legend>{{ T('LIS_CREATE_NEW_SUBJECTROUND')}}</legend>
+
+            <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.vocation.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="vocation"  ng-required="true" ng-model="subjectRound.vocation" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_VOCATION')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{vocation.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.module.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="module"  ng-required="true" ng-model="subjectRound.module" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_MODULE')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{module.id}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.subject.$invalid }">
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <ui-select name="subject"  ng-required="true" ng-model="subjectRound.subject" convert-to-string theme="bootstrap" class="dropdown">
-                            <ui-select-match placeholder="{{ T('LIS_SUBJECT') }}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="{{ T('LIS_SUBJECT')}}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="subject in subjects | filter: $select.search">
                                 <span ng-bind-html="subject.name | highlight: $select.search"></span>
                                 <small>
@@ -24,7 +56,7 @@
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
                         <ui-select name="studentGroup"  ng-required="true" ng-model="subjectRound.studentGroup" convert-to-string theme="bootstrap" class="dropdown">
-                            <ui-select-match placeholder="{{ T('LIS_STUDENTGROUP') }}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-match placeholder="{{ T('LIS_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
                                 <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
                                 <small>
@@ -40,7 +72,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <ui-select name="teachers" multiple ng-required="true" ng-model="subjectRound.teacher" theme="bootstrap" close-on-select="false">
-                            <ui-select-match placeholder="{{ T('LIS_TEACHER') }}">{{$item.name}}</ui-select-match>
+                            <ui-select-match placeholder="{{ T('LIS_TEACHER')}}">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="teacher in teachers | filter: $select.search">
                                 <div ng-bind-html="teacher.name | highlight: $select.search"></div>
                                 <small>
@@ -55,28 +87,54 @@
             <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.name.$invalid }">
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="subjectRoundForm-name">{{ T('LIS_NAME') }}</span>
-                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}"
+                        <span class="input-group-addon" id="subjectRoundForm-name">{{ T('LIS_NAME')}}</span>
+                        <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME')}}"
                                aria-describedby="subjectRoundForm-name" ng-model="subjectRound.name">
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
-                    
+            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE')}}</button>
+
         </fieldset>
     </form>
     <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
         <fieldset>
 
-            <legend>{{ T('LIS_SUBJECTROUND_GRID_FILTERS') }}</legend>
+            <legend>{{ T('LIS_SUBJECTROUND_GRID_FILTERS')}}</legend>
 
             <div class="form-group">
 
                 <div class="col-md-12">
                     <div class="input-group">
+                        <ui-select allow-clear ng-model="filterSubjectRound.vocation" theme="bootstrap">
+                            <ui-select-match placeholder="{{ T('LIS_VOCATION')}}">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <ui-select allow-clear ng-model="filterSubjectRound.module" theme="bootstrap">
+                            <ui-select-match placeholder="{{ T('LIS_MODULE')}}">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group">
                         <ui-select allow-clear ng-model="filterSubjectRound.subject" theme="bootstrap">
-                            <ui-select-match placeholder="{{ T('LIS_SUBJECT') }}">
+                            <ui-select-match placeholder="{{ T('LIS_SUBJECT')}}">
                                 {{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices repeat="subject in subjects | filter: $select.search">
@@ -89,7 +147,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <ui-select allow-clear ng-model="filterSubjectRound.studentGroup" theme="bootstrap">
-                            <ui-select-match placeholder="{{ T('LIS_STUDENTGROUP') }}">
+                            <ui-select-match placeholder="{{ T('LIS_STUDENTGROUP')}}">
                                 {{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
@@ -102,7 +160,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <ui-select name="teachers" multiple ng-model="filterSubjectRound.teacher" theme="bootstrap" close-on-select="false">
-                            <ui-select-match placeholder="{{ T('LIS_TEACHER') }}">
+                            <ui-select-match placeholder="{{ T('LIS_TEACHER')}}">
                                 {{$item.name}}
                             </ui-select-match>
                             <ui-select-choices repeat="teacher in teachers | filter: $select.search">
@@ -115,17 +173,17 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <div class="input input-group">
-                            <span class="input-group-addon" id="filterSubjectRound-name">{{ T('LIS_NAME') }}</span>
+                            <span class="input-group-addon" id="filterSubjectRound-name">{{ T('LIS_NAME')}}</span>
                             <input name="name" ng-model="filterSubjectRound.name" type="text" class="form-control"
-                                   placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterSubjectRound-name"/>
+                                   placeholder="{{ T('LIS_NAME')}}" aria-describedby="filterSubjectRound-name"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span
-                            class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
-                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                            class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR')}}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER')}}</button>
                 </div>
             </div>
         </fieldset>

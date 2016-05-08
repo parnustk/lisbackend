@@ -95,6 +95,22 @@ class SubjectRound extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * 
+     * @ORM\ManyToOne(targetEntity="Module", inversedBy="subjectRound")
+     * @ORM\JoinColumn(name="module_id", referencedColumnName="id", nullable=false)
+     */
+    protected $module;
+
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\ManyToOne(targetEntity="Vocation", inversedBy="subjectRound")
+     * @ORM\JoinColumn(name="vocation_id", referencedColumnName="id", nullable=false)
+     */
+    protected $vocation;
+
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
      * @ORM\ManyToMany(targetEntity="Teacher", inversedBy="subjectRound")
      * @ORM\JoinTable(
      *     name="TeacherToSubjectRound",
@@ -149,6 +165,28 @@ class SubjectRound extends EntityValidation
     {
         $this->teacher = new ArrayCollection();
         parent::__construct($em);
+    }
+
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    public function getVocation()
+    {
+        return $this->vocation;
+    }
+
+    public function setModule($module)
+    {
+        $this->module = $module;
+        return $this;
+    }
+
+    public function setVocation($vocation)
+    {
+        $this->vocation = $vocation;
+        return $this;
     }
 
     /**

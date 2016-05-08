@@ -27,20 +27,24 @@ class GradeChoice extends EntityValidation
 {
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Annotation\Exclude()
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
-     * @Annotation\Required({"required":"true"})
+     * @Annotation\Exclude()
+     * 
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
 
     /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="gradeChoice")
      */
     protected $studentGrade;

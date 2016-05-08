@@ -82,6 +82,13 @@ class Module extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
+     * @ORM\OneToMany(targetEntity="SubjectRound", mappedBy="module")
+     */
+    protected $subjectRound;
+
+    /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="module")
      */
     protected $studentGrade;
@@ -160,6 +167,17 @@ class Module extends EntityValidation
     {
         $this->gradingType = new ArrayCollection();
         parent::__construct($em);
+    }
+
+    public function getSubjectRound()
+    {
+        return $this->subjectRound;
+    }
+
+    public function setSubjectRound($subjectRound)
+    {
+        $this->subjectRound = $subjectRound;
+        return $this;
     }
 
     /**
@@ -287,7 +305,7 @@ class Module extends EntityValidation
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * 
      * @param int $id
