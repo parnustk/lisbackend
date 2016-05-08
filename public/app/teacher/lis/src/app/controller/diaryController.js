@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* global define */
 
 /**
@@ -129,9 +123,9 @@
                             var x,
                                 buf = {},
                                 newGrade = {},
-                                origObj = originalRows[rowEntity.nr][colDef.name];
+                                originalEntity = originalRows[rowEntity.nr][colDef.name];
 
-                            angular.copy(origObj, buf);
+                            angular.copy(originalEntity, buf);
 
                             for (x in $scope.gradeChoices) {
                                 if ($scope.gradeChoices[x].id === newValue) {
@@ -140,8 +134,11 @@
                                     break;
                                 }
                             }
-                            //studentgrade update request
-                            //if is empty choice, it will be DELETE request
+                            //if studentgrade.id was null CREATE
+                            //else if studentgrade was not null and gradechoice exists UPDATE
+                            //else if studentgrade was not null and gradechoice does not exist DELETE
+
+
                             buf.id = newGrade.id;
                             buf.name = newGrade.name;
                             rowEntity[colDef.name] = buf;
@@ -216,10 +213,13 @@
 
                 var sortDataForDiary = function () {
 
-                    var students = rawDataStudentGroup[0].studentInGroups;
-
-                    var u = 0;
-                    for (var y in students) {
+                    var students = rawDataStudentGroup[0].studentInGroups,
+                        u = 0,
+                        contactLessons = rawDataSubjectRound[0].contactLesson,
+                        y,
+                        x;
+                    
+                    for (y in students) {
                         var row = {};
                         row.nr = u;
                         row.student = {
@@ -230,35 +230,32 @@
                         u++;
                     }
 
-                    var contactLessons = rawDataSubjectRound[0].contactLesson;
+                    for (x in contactLessons) {
 
-                    for (var x in contactLessons) {
-
-                        var cl = contactLessons[x];
-                        //console.log(cl);
-                        var columnName = createColumnName(cl);
-                        var columnNameId = createColumnName(cl) + "['id']";
-                        var columnNameName = createColumnName(cl) + "['name']";
-                        var columnDisplayName = contactLessons[x].name;//make it normal
-
-                        var newColumn = {
-                            //field: columnNameId,
-                            name: columnName,
-                            displayName: columnDisplayName,
-                            enableCellEdit: true,
-                            editDropdownOptionsArray: $scope.gradeChoices,
-                            type: 'object',
-                            editableCellTemplate: 'ui-grid/dropdownEditor',
-                            //editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                            editDropdownIdLabel: "id",
-                            editDropdownValueLabel: "name",
-                            cellFilter: 'griddropdown:this'
-                                //cellFilter: 'mapDropdown:row.grid.appScope.gradeChoices:"id":"name"'
-                        };
+                        var cl = contactLessons[x],
+                            columnName = createColumnName(cl),
+                            columnNameId = createColumnName(cl) + "['id']",
+                            columnNameName = createColumnName(cl) + "['name']",
+                            columnDisplayName = contactLessons[x].name, //make it normal,
+                            newColumn = {
+                                //field: columnNameId,
+                                name: columnName,
+                                displayName: columnDisplayName,
+                                enableCellEdit: true,
+                                editDropdownOptionsArray: $scope.gradeChoices,
+                                type: 'object',
+                                editableCellTemplate: 'ui-grid/dropdownEditor',
+                                editDropdownIdLabel: "id",
+                                editDropdownValueLabel: "name",
+                                cellFilter: 'griddropdown:this'
+                            };
+                            
                         $scope.columns.push(newColumn);
+                        
+                        //is it needed?
                         $scope.$watch('columns', function (newVal, oldVal) {
                             $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-                            console.log('added', newColumn);
+                            //console.log('added', newColumn);
                         }, true);
 
                         for (var i = 0; i < rows.length; i++) {
@@ -267,6 +264,7 @@
                                 gradeChoiceName,
                                 teacherId,
                                 studentId = rows[i].student.id;
+                            
                             if (cl.studentGrade.length === 0) {
                                 gradeChoiceId = null;
                                 studentGradeId = null;
