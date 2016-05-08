@@ -23,6 +23,7 @@ use Zend\Session\Container as SessionContainer;
  * LisAuthService. Checks for identity
  *
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInterface
 {
@@ -142,7 +143,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
      */
     public function read()
     {
-        $this->getStorage()->read();
+        return $this->getStorage()->read();
     }
 
     /**
@@ -169,13 +170,19 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     }
 
     /**
-     * 
+     * Logs out
+     * @param int $id
+     * @return void
      */
     public function logout($id)
     {
         $this->getStorage()->clear();
     }
 
+    /**
+     * Initalizes session to use/get data
+     * @return mixed
+     */
     public function session()
     {
         $session = new SessionContainer($this->getStorage()->getNameSpace());
@@ -184,14 +191,12 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         return $storage;
     }
 
+    /**
+     * Adds needed data from session
+     * @return array
+     */
     public function login_data()
     {
-
-        /*
-          $session = new SessionContainer($this->getStorage()->getNameSpace());
-          $session->getManager()->regenerateId();
-          $storage = $this->getStorage()->read();
-         */
         $storage = $this->session();
         $data = array();
         $data["lisPerson"] = $storage["lisPerson"];
@@ -214,22 +219,11 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
                 ->FetchUser($email); //all good if no exceptions
 
         Hash::verifyHash($password, $user['lisUser']['password']); //all good if no exceptions
-        /*
-          $session = new SessionContainer($this->getStorage()->getNameSpace()); //regen the id
-          $session->getManager()->regenerateId();
-
-          $storage = $this->getStorage()->read(); //fill session with relevant data
-         */
         $storage = $this->session();
         $storage['role'] = $role;
         $storage['lisPerson'] = $user['id'];
         $storage['lisUser'] = $user['lisUser']['id'];
         $this->getStorage()->write($storage);
-    }
-
-    public function loginCheck()
-    {
-        
     }
 
     /**

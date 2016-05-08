@@ -15,6 +15,7 @@ use Core\Controller\AbstractBaseController as Base;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class LoginAdministratorController extends Base
 {
@@ -60,7 +61,7 @@ class LoginAdministratorController extends Base
     /**
      * Register new user Administrator
      * 
-     * @param type $data
+     * @param array $data
      * @return JsonModel
      */
     public function create($data)
@@ -76,8 +77,8 @@ class LoginAdministratorController extends Base
     /**
      * Update existing user Administrator
      * 
-     * @param type $id
-     * @param type $data
+     * @param int $id
+     * @param array $data
      * @return JsonModel
      */
     public function update($id, $data)
@@ -88,7 +89,7 @@ class LoginAdministratorController extends Base
     /**
      * Delete existing user Administrator
      * 
-     * @param type $id
+     * @param int $id
      * @return JsonModel
      */
     public function delete($id)
