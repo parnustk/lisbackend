@@ -40,7 +40,7 @@ class ModuleRepository extends AbstractBaseRepository
 
     protected function studentModuleGradesData($params = null, $extra = null)
     {
-        $vocationId = 9; //need to get that from session -> create task for Juhan
+        $vocationId = 1; //need to get that from session -> create task for Juhan
         $dql = "SELECT 
                     partial module.{
                         id,
@@ -48,18 +48,17 @@ class ModuleRepository extends AbstractBaseRepository
                         duration
                     },
                     partial vocation.{
-                    id,
-                    name
+                        id,
+                        name
                     },
                     partial subjectRound.{
-                    id,
-                    name
+                        id,
+                        name
                     }
                 FROM Core\Entity\Module module
                 JOIN module.vocation vocation
                 LEFT JOIN module.subjectRound subjectRound
-                WHERE vocation.id=:vocationId
-                ";
+                WHERE vocation.id=:vocationId";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
