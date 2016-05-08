@@ -138,15 +138,10 @@
                                     break;
                                 }
                             }
-                            //if studentgrade.id was null CREATE
-
-                            //else if studentgrade was not null and gradechoice exists UPDATE
-                            //else if studentgrade was not null and gradechoice does not exist DELETE
-
 
                             buf.id = newGrade.id;
                             buf.name = newGrade.name;
-                            console.log(originalEntity);
+                            //throw new Exception('TEST');originalEntity);
 
                             var data = {
                                 student: buf.studentId,
@@ -155,37 +150,55 @@
                                 contactLesson: buf.contactLessonId
                             };
 
-                            if (originalEntity.studentGradeId === null && buf.name !== null) {//CREATE
-                                //alert('CREATE');
+                            if (originalEntity.studentGradeId === null && buf.name !== '') {//CREATE
+                                ////alert('CREATE');
 
                                 studentGradeModel.Create(data).then(
                                     function (result) {
                                         if (globalFunctions.resultHandler(result)) {
-                                            alert('GOOD CREATE');
-                                            //console.log(result.data);
+                                            //alert('GOOD CREATE');
+                                            ////throw new Exception('TEST');result.data);
                                             buf.studentGradeId = result.data.id;
                                             originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
                                         } else {
-                                            alert('BAD CREATE');
+                                            //alert('BAD CREATE');
                                             buf = originalEntity;//reverse changes if unsuccessful
                                         }
                                     }
                                 );
-                            } else if (originalEntity.studentGradeId !== null && buf.name !== null && buf.id !== originalEntity.id) {//UPDATE
+                            } else if (originalEntity.studentGradeId !== null && buf.name !== '' && buf.id !== originalEntity.id) {//UPDATE
                                 studentGradeModel.Update(originalEntity.studentGradeId, data).then(
                                     function (result) {
                                         if (globalFunctions.resultHandler(result)) {
-                                            alert('GOOD UPDATE');
+                                            //alert('GOOD UPDATE');
                                             originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
                                         } else {
-                                            alert('BAD UPDATE');
+                                            //alert('BAD UPDATE');
+                                            buf = originalEntity;//reverse changes if unsuccessful
+                                        }
+                                    }
+                                );
+                            } else if (originalEntity.studentGradeId !== null && buf.name === '') {//UPDATE
+                                studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
+                                    function (result) {
+                                        if (globalFunctions.resultHandler(result)) {
+                                            //alert('GOOD DELETE');
+                                            buf = {
+                                                id: null,
+                                                name: null,
+                                                studentGradeId: null,
+                                                teacherId: null
+                                            };
+                                            originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                        } else {
+                                            //alert('BAD DELETE');
                                             buf = originalEntity;//reverse changes if unsuccessful
                                         }
                                     }
                                 );
                             }
 
-                            console.log(buf);
+                            //throw new Exception('TEST');buf);
 
                             rowEntity[colDef.name] = buf;
 
@@ -301,7 +314,7 @@
                         //is it needed?
                         $scope.$watch('columns', function (newVal, oldVal) {
                             $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-                            //console.log('added', newColumn);
+                            ////throw new Exception('TEST');'added', newColumn);
                         }, true);
 
                         for (var i = 0; i < rows.length; i++) {

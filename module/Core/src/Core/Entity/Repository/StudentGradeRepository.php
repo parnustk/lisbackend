@@ -568,7 +568,7 @@ class StudentGradeRepository extends AbstractBaseRepository
     }
 
     /**
-     * Delete only trashed entities
+     * Teacher CAN delete not trashed studentgrades!!!
      * 
      * @param int $id
      * @param stdClass|null $extra
@@ -578,20 +578,23 @@ class StudentGradeRepository extends AbstractBaseRepository
     public function Delete($id, $extra = null)
     {
         $entity = $this->find($id);
-
         if (!$entity) {
             throw new Exception('NOT_FOUND_ENTITY');
-        } else if (!$entity->getTrashed()) {
-            throw new Exception("NOT_TRASHED");
         }
 
         if (!$extra) {
+            if (!$entity->getTrashed()) {
+                throw new Exception("NOT_TRASHED");
+            }
             return $this->defaultDelete($entity);
         } else if ($extra->lisRole === 'student') {
             return $this->studentDelete($entity, $extra);
         } else if ($extra->lisRole === 'teacher') {
             return $this->teacherDelete($entity, $extra);
         } else if ($extra->lisRole === 'administrator') {
+            if (!$entity->getTrashed()) {
+                throw new Exception("NOT_TRASHED");
+            }
             return $this->administratorDelete($entity, $extra);
         }
     }
