@@ -491,7 +491,6 @@ class StudentGradeRepository extends AbstractBaseRepository
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
         //set user related data
-        $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
 
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
