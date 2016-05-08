@@ -183,7 +183,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
      * Initalizes session to use/get data
      * @return mixed
      */
-    public function session()
+    private function session()
     {
         $session = new SessionContainer($this->getStorage()->getNameSpace());
         $session->getManager()->regenerateId();
@@ -195,7 +195,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
      * Adds needed data from session
      * @return array
      */
-    public function login_data()
+    private function login_data()
     {
         $storage = $this->session();
         $data = array();
