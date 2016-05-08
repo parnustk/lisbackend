@@ -101,7 +101,7 @@ class ContactLesson extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="contactLesson")
+     * @ORM\OneToOne(targetEntity="StudentGrade", mappedBy="contactLesson")
      */
     protected $studentGrade;
 

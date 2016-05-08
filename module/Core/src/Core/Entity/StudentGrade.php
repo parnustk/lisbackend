@@ -71,7 +71,7 @@ class StudentGrade extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToOne(targetEntity="IndependentWork", inversedBy="studentGrade")
+     * @ORM\OneToOne(targetEntity="IndependentWork", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="independent_work_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $independentWork;
@@ -87,7 +87,7 @@ class StudentGrade extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToOne(targetEntity="SubjectRound", inversedBy="studentGrade")
+     * @ORM\OneToOne(targetEntity="SubjectRound", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="subject_round_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $subjectRound;
@@ -95,7 +95,7 @@ class StudentGrade extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToOne(targetEntity="ContactLesson", inversedBy="studentGrade")
+     * @ORM\OneToOne(targetEntity="ContactLesson", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="contact_lesson_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $contactLesson;
