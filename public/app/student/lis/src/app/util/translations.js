@@ -34,8 +34,8 @@
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
                 LIS_ROOM_GRID_FILTERS: 'Ruumide filter',
 
-                LIS_CREATE_NEW_SUBJECTROUND: 'Uus SR',
-                LIS_SUBJECTROUND_GRID_FILTERS: 'SR filtrid',
+                LIS_CREATE_NEW_SUBJECTROUND: 'Uus õppeaine',
+                LIS_SUBJECTROUND_GRID_FILTERS: 'Õppeaine filtrid',
 
                 LIS_CONTACTLESSON_VIEW: 'Kontakttunnid',
                 
@@ -101,7 +101,7 @@
                 LIS_DUEDATE:'Tähtaeg',
                 LIS_INDEPENDENTWORK_VIEW:'Iseseisev töö',
                 INDEPENDENDWORK_GRID_FILTERS:'Iseseisva töö filtrid',
-                SELECT_OR_SEARCH_A_SUBJECTROUND:'Vali või otsi SR järgi',
+                SELECT_OR_SEARCH_A_SUBJECTROUND:'Vali või otsi õppeaine järgi',
                 SELECT_OR_SEARCH_A_TEACHER:'Vali või otsi õpetaja järgi',
                 LIS_GRADINGTYPE_VIEW:'Hindamise tüübid',
                 LIS_CREATE_NEW_GRADINGTYPE:'Loo uus hindamise tüüp',
@@ -128,7 +128,7 @@
                 LIS_ABSENCEREASON:'Puudumise põhjus',
                 LIS_INDEPENDENTWORK:'Iseseisev töö',
                 LIS_STUDENTGRADE:'Õpilase hinne',
-                LIS_SUBJECTROUND:'SR? tõlget please',
+                LIS_SUBJECTROUND:'Õppeaine',
                 
                 LIS_PERSONS:'Inimesed',
                 LIS_TEACHER:'Õpetaja',
@@ -163,7 +163,7 @@
                 
                 LIS_CREATE_NEW_CONTACTLESSON:'Loo uus kontakttund',
                 LIS_CHOOSE_ROOM:'Vali ruum',
-                LIS_CHOOSE_SUBJECTROUND:'Vali SR?',
+                LIS_CHOOSE_SUBJECTROUND:'Vali õppeaine',
                 LIS_CHOOSE_STUDENTGROUP:'Vali õppegrupp',
                 LIS_CHOOSE_MODULE:'Vali moodul',
                 LIS_CHOOSE_TEACHER:'Vali õpetaja',
