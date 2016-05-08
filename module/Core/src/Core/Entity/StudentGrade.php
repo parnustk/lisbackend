@@ -79,7 +79,7 @@ class StudentGrade extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToOne(targetEntity="Module", inversedBy="studentGrade")
+     * @ORM\OneToOne(targetEntity="Module", inversedBy="studentGrade")
      * @ORM\JoinColumn(name="module_id", referencedColumnName="id", onDelete="RESTRICT")
      */
     protected $module;

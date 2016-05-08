@@ -1,7 +1,5 @@
 <h2>{{ T('MY_GRADES')}}</h2>
 
-
-<!--
 <div ng-model="studentGradeModel" ng-controller="studentGradeController">
     <table>
         <th>{{T('LIS_MODULE')}}</th>
@@ -14,7 +12,7 @@
                     <li ng-repeat="gradingType in module.gradingType">{{ gradingType.name}}</li>
                 </ul>
             </td>
-            <td>{{ gradeChoice.name}}</td>
+            <td>{{ module.studentGrade.gradeChoice.name}}</td>
         </tr>
     </table>
-</div>-->
+</div>

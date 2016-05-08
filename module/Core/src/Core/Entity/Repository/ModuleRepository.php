@@ -54,10 +54,24 @@ class ModuleRepository extends AbstractBaseRepository
                     partial subjectRound.{
                         id,
                         name
+                    },
+                    partial studentGrade.{
+                        id
+                    },
+                    partial gradeChoice.{
+                        id,
+                        name
+                    },
+                    partial gradingType.{
+                        id,
+                        name
                     }
                 FROM Core\Entity\Module module
                 JOIN module.vocation vocation
+                JOIN module.gradingType gradingType
                 LEFT JOIN module.subjectRound subjectRound
+                LEFT JOIN module.studentGrade studentGrade
+                LEFT JOIN studentGrade.gradeChoice gradeChoice
                 WHERE vocation.id=:vocationId";
 
         $q = $this->getEntityManager()->createQuery($dql);

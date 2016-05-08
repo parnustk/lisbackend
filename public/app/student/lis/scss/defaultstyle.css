@@ -14,16 +14,26 @@
 */
 
 table, th , td  {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  padding: 5px;
-  width: 100%;
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    width: 100%;
 }
+
+ul, ol {
+    list-style-type: none;
+    padding: 0;
+}
+
+table, th , td, ul, li{
+    text-align: left;
+}
+
 table tr:nth-child(odd) {
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 table tr:nth-child(even) {
-  background-color: #ffffff;
+    background-color: #ffffff;
 }
 
 .input-group{
