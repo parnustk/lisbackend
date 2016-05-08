@@ -24,7 +24,10 @@
 
             $scope.credentials = {
                 email: 'admin@test.ee',
-                password: 'Tere1234'
+                password: 'Tere1234',
+                lisPerson: "",
+                lisUser: "",
+                role: "administrator"
             };
 
             $scope.keys = [];
@@ -36,14 +39,14 @@
              * @type {Date}
              */
             var expireDate = new Date();
-            expireDate.setDate(expireDate.getDate()+5); //current date + x hours - the expire date of timed cookies
+            expireDate.setDate(expireDate.getDate() + 5); //current date + x hours - the expire date of timed cookies
 
             /**
              *
              * @param itemKey
              * @param itemValue
              */
-            function addCookie (itemKey, itemValue){
+            function addCookie(itemKey, itemValue) {
                 $cookies.putObject(itemKey, itemValue); //these cookies never expire
             }
 
@@ -52,7 +55,7 @@
              * @param itemKey
              * @param itemValue
              */
-            function addCookieTimed (itemKey, itemValue){
+            function addCookieTimed(itemKey, itemValue) {
 
                 $cookies.putObject(itemKey, itemValue, {'expires': expireDate}); //these cookies expire at expireDate
             }
@@ -61,7 +64,7 @@
              *
              * @param itemKey
              */
-            function getCookie (itemKey) {
+            function getCookie(itemKey) {
                 $scope.currentItem = $cookies.get(itemKey); //gets the cookie object
             }
 
@@ -96,7 +99,7 @@
              * @param itemKey
              * @returns {*}
              */
-            function getCookieValue (itemKey){
+            function getCookieValue(itemKey) {
                 return $cookies.getObject(itemKey); //gets just the cookie value
             }
 
@@ -104,32 +107,35 @@
              *
              * @param itemKey
              */
-            function removeCookie (itemKey){
+            function removeCookie(itemKey) {
                 $cookies.remove(itemKey);
             }
 
             $scope.T = globalFunctions.T;
 
-            
+
 
             $scope.Login = function () {
                 loginModel
-                    .Create($scope.credentials)
-                    .then(function (result) {
-                        if (result.success) {
-                            //GOOD
+                        .Create($scope.credentials)
+                        .then(function (result) {
+                            if (result.success) {
+                                //GOOD
+                                console.log(result);
+                                $scope.credentials["lisPerson"] = result["lisPerson"];
+                                $scope.credentials["lisUser"] = result["lisUser"];
+                                $scope.credentials["role"] = result["role"];
 
-                            addCookieTimed('userObj', $scope.credentials);
+                                addCookieTimed('userObj', $scope.credentials);
+                                $scope.userLoginError = false;
+                                $scope.userLoggedIn = true;
+                            } else {
+                                //BAD
 
-                            $scope.userLoginError = false;
-                            $scope.userLoggedIn = true;
-                        } else {
-                            //BAD
-
-                            $scope.userLoggedIn = false;
-                            $scope.userLoginError = true;
-                        }
-                    });
+                                $scope.userLoggedIn = false;
+                                $scope.userLoginError = true;
+                            }
+                        });
             };
 
             /**
@@ -167,7 +173,7 @@
             /** /cookies **/
 
 
-            $scope.Logout = function() {
+            $scope.Logout = function () {
                 //console.log("Logout");
                 window.location.href = "#!/"; //for firefox
                 loginModel.Delete(1);

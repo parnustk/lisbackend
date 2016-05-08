@@ -142,7 +142,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
      */
     public function read()
     {
-        return $this->getStorage()->read();
+        $this->getStorage()->read();
     }
 
     /**
@@ -176,6 +176,30 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $this->getStorage()->clear();
     }
 
+    public function session()
+    {
+        $session = new SessionContainer($this->getStorage()->getNameSpace());
+        $session->getManager()->regenerateId();
+        $storage = $this->getStorage()->read();
+        return $storage;
+    }
+
+    public function login_data()
+    {
+
+        /*
+          $session = new SessionContainer($this->getStorage()->getNameSpace());
+          $session->getManager()->regenerateId();
+          $storage = $this->getStorage()->read();
+         */
+        $storage = $this->session();
+        $data = array();
+        $data["lisPerson"] = $storage["lisPerson"];
+        $data["lisUser"] = $storage["lisUser"];
+        $data["role"] = $storage["role"];
+        return $data;
+    }
+
     /**
      * 
      * @param string $email
@@ -190,15 +214,22 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
                 ->FetchUser($email); //all good if no exceptions
 
         Hash::verifyHash($password, $user['lisUser']['password']); //all good if no exceptions
+        /*
+          $session = new SessionContainer($this->getStorage()->getNameSpace()); //regen the id
+          $session->getManager()->regenerateId();
 
-        $session = new SessionContainer($this->getStorage()->getNameSpace()); //regen the id
-        $session->getManager()->regenerateId();
-
-        $storage = $this->getStorage()->read(); //fill session with relevant data
+          $storage = $this->getStorage()->read(); //fill session with relevant data
+         */
+        $storage = $this->session();
         $storage['role'] = $role;
         $storage['lisPerson'] = $user['id'];
         $storage['lisUser'] = $user['lisUser']['id'];
         $this->getStorage()->write($storage);
+    }
+
+    public function loginCheck()
+    {
+        
     }
 
     /**
@@ -216,7 +247,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
 
             $email = Validator::validateEmail($data['email']);
             $password = Validator::validatePassword($data['password']);
-
             if ($role === 'administrator') {
                 $this->auth($email, $password, 'Core\Entity\Administrator', $role);
             } else if ($role === 'teacher') {
@@ -226,10 +256,14 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
             } else {
                 throw new Exception('NO_ROLE_SPECIFIED');
             }
+            $data_login = $this->login_data();
 
             return [
                 'success' => true,
-                'message' => 'NOW_LOGGED_IN'
+                'message' => 'NOW_LOGGED_IN',
+                "lisPerson" => $data_login["lisPerson"],
+                "lisUser" => $data_login["lisUser"],
+                "role" => $data_login["role"],
             ];
         } catch (Exception $ex) {
 
