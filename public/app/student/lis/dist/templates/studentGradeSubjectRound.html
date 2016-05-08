@@ -7,7 +7,7 @@
         <th>{{T('LIS_STUDENTSUBJECTROUNDGRADE')}}</th>
         <th>{{T('LIS_CONTACTLESSONGRADE')}}</th>
         <th>{{T('LIS_INDEPENDENTWORKGRADE')}}</th>
-        <tr ng-repeat="module in modules">
+        <tr ng-repeat="module{{id}} in modules">
             <td>
                 <ul>
                     <li ng-repeat="subjectRound in module.subjectRound"> {{ subjectRound.name}}</li>

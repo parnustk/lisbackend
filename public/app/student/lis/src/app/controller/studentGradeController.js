@@ -72,8 +72,8 @@
                     var urlParams = {
                         page: 1,
                         limit: 100000,
-                        studentModuleGrades: true
-
+                        studentModuleGrades: true,
+                        id: null
                     };
 
                     /**
