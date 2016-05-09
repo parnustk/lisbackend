@@ -142,13 +142,14 @@ class DumpService implements ServiceManagerAwareInterface
     /**
      * 
      */
-    protected function setUp() //Should load values things from config later
+    protected function setUp()
     {
-//        include config.php;
-        $host = "localhost";
-        $dbname = "lis";
-        $uname = "root";
-        $dbpwd = "MgjsfF7";
+        $data   = include 'config/autoload/backupdb.local.php';
+        
+        $host = $data['backupdb']['connection']['params']['host'];
+        $dbname = $data['backupdb']['connection']['params']['dbname'];
+        $uname = $data['backupdb']['connection']['params']['user'];
+        $dbpwd = $data['backupdb']['connection']['params']['password'];
 
         $this->db = new PDO(
                 'mysql:host=' . $host .
