@@ -163,9 +163,9 @@ class IndependentWorkControllerTest extends UnitHelpers
             'createdBy' => $otherLisUser->getId()
         ]);
 
-        $subjectRoundIdOld = $independentWork->getSubjectRound()->getId();
-        $studentIdOld = $independentWork->getStudent()->getId();
-        $teacherIdOld = $independentWork->getTeacher()->getId();
+        //$subjectRoundIdOld = $independentWork->getSubjectRound()->getId();
+        //$studentIdOld = $independentWork->getStudent()->getId();
+        //$teacherIdOld = $independentWork->getTeacher()->getId();
 
         $this->request->setMethod('put');
         $this->routeMatch->setParam('id', $independentWork->getId());

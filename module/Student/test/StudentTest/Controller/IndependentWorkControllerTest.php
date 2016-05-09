@@ -90,7 +90,7 @@ class IndependentWorkControllerTest extends UnitHelpers
         $this->controller->setLisPerson($student);
 
         $this->request->setMethod('get');
-        $this->routeMatch->setParam('id', $this->CreateStudent()->getId());
+        $this->routeMatch->setParam('id', $this->CreateIndependentWork()->getId());
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
