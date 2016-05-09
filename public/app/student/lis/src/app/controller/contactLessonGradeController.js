@@ -32,6 +32,7 @@
             function (angular, globalFunctions) {
 
                 contactLessonGradeController.$inject = [
+                    '$location',
                     '$scope',
                     '$q',
                     '$routeParams',
@@ -43,10 +44,12 @@
                     'studentGroupModel',
                     'moduleModel',
                     'vocationModel',
-                    'teacherModel'
+                    'teacherModel',
+                    'gradeService'
                 ];
 
                 function contactLessonGradeController(
+                        $location,
                         $scope,
                         $q,
                         $routeParams,
@@ -58,45 +61,46 @@
                         studentGroupModel,
                         moduleModel,
                         vocationModel,
-                        teacherModel) {
+                        teacherModel,
+                        gradeService) {
 
                     $scope.T = globalFunctions.T;
-                    
-                    /**
-                     * For filters and maybe later pagination
-                     * 
-                     * @type type
-                     */
-                    var urlParams = {
-                        page: 1,
-                        limit: 100000,
-                        studentModuleGrades: true,
-                        id: null
-                    };
 
-                    /**
-                     * Will hold all student related grades
-                     */
-                    $scope.modules = [];
-                    $scope.subjectRounds = [];
-                    $scope.contactLessons = [];
+                    var moduleId = $routeParams.moduleId,
+                            subjectRoundId = $routeParams.subjectRoundId,
+                            allGrades = gradeService.list();
 
-//                    /**
-//                     * Before loading absence data, 
-//                     * we first load relations and check success
-//                     * 
-//                     * @returns {undefined}
-//                     */
-//                    function LoadData() {
-//                        contactLessonModel.GetList(urlParams).then(function (result) {
-//                            if (globalFunctions.resultHandler(result)) {
-//                                $scope.contactLessons = result.data;
-//                            }
-//                        });
-//                    }
-//
-//                    LoadData();//let's start loading data
-                }
+                    if (allGrades.length === 0) {
+                        $location.path("studentgrade");
+                    }
+
+                    $scope.contactLessons = $scope.independentWorks = [];
+
+
+
+                    for (var x in allGrades) {
+
+                        if (allGrades[x].id === moduleId) {
+                            var subjectRoundGrades = allGrades[x].subjectRound;
+
+                            for (var y in subjectRoundGrades) {
+                                if (subjectRoundGrades[y].id === subjectRoundId) {
+
+                                    $scope.contactLessons = subjectRoundGrades[y].contactLesson;
+                                    $scope.independentWorks = subjectRoundGrades[y].independentWork;
+
+                                    break;
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+
+                    console.log('contact', $scope.contactLessons);
+                    console.log('independentWorks', $scope.independentWorks);
+
+                }//class ends
 
                 return contactLessonGradeController;
             });

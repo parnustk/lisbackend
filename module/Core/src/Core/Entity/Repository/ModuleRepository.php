@@ -65,13 +65,57 @@ class ModuleRepository extends AbstractBaseRepository
                     partial gradeChoice.{
                         id,
                         name
+                    },
+                    partial studentGradeSR.{
+                            id
+                    },
+                    partial gradeChoiceSR.{
+                        id,
+                        name
+                    },
+                    partial contactLesson.{
+                        id,
+                        name,
+                        description
+                    },
+                    partial studentGradeCL.{
+                        id
+                    },
+                    partial gradeChoiceCL.{
+                        id,
+                        name
+                    },
+                    partial independentWork.{
+                        id,
+                        name,
+                        description
+                    },
+                    partial studentGradeIW.{
+                        id
+                    },
+                    partial gradeChoiceIW.{
+                        id,
+                        name
                     }
                 FROM Core\Entity\Module module
                 JOIN module.vocation vocation
                 JOIN module.gradingType gradingType
+                
                 LEFT JOIN module.subjectRound subjectRound
                 LEFT JOIN module.studentGrade studentGrade
+                
                 LEFT JOIN studentGrade.gradeChoice gradeChoice
+                LEFT JOIN subjectRound.studentGrade studentGradeSR
+                LEFT JOIN studentGradeSR.gradeChoice gradeChoiceSR
+                
+                LEFT JOIN subjectRound.contactLesson contactLesson
+                LEFT JOIN contactLesson.studentGrade studentGradeCL
+                LEFT JOIN studentGradeCL.gradeChoice gradeChoiceCL
+                
+                LEFT JOIN subjectRound.independentWork independentWork
+                LEFT JOIN independentWork.studentGrade studentGradeIW
+                LEFT JOIN studentGradeIW.gradeChoice gradeChoiceIW
+                
                 WHERE vocation.id=:vocationId";
 
         $q = $this->getEntityManager()->createQuery($dql);

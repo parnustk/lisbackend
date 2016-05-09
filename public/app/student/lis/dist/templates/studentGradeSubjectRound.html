@@ -11,7 +11,9 @@
                 {{subjectRoundGrade.name}}
             </td>
             <td>
-                DQL get grade TODO
+                <ul>
+                    <li ng-repeat="studentGrade in subjectRoundGrade.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+                </ul>
             </td>
             <td><a href="/app/student/#!/studentgradecontactlesson/{{moduleId}}/{{subjectRoundGrade.id}}">{{T('LIS_CHECK')}}</a></td>
         </tr>

@@ -32,6 +32,7 @@
             function (angular, globalFunctions) {
 
                 subjectRoundGradeController.$inject = [
+                    '$location',
                     '$scope',
                     '$q',
                     '$routeParams',
@@ -47,6 +48,7 @@
                 ];
 
                 function subjectRoundGradeController(
+                        $location,
                         $scope,
                         $q,
                         $routeParams,
@@ -65,13 +67,17 @@
                     $scope.moduleId = $routeParams.moduleId;
                     $scope.subjectRoundGrades = [];
                     var allGrades = gradeService.list();
-                    for(var x in allGrades) {
-                     
-                        if(allGrades[x].id === $scope.moduleId) {
+                    if (allGrades.length === 0) {
+                        $location.path("studentgrade");
+                    }
+                    for (var x in allGrades) {
+
+                        if (allGrades[x].id === $scope.moduleId) {
                             $scope.subjectRoundGrades = allGrades[x].subjectRound;
+                            break;
                         }
                     }
-                    
+
                     console.log($scope.subjectRoundGrades);
                 }
 

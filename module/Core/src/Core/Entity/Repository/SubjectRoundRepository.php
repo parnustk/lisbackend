@@ -125,13 +125,22 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial teacher.{
                             id,
                             name
+                    },
+                    partial studentGrade.{
+                            id
+                    },
+                    partial gradeChoice.{
+                        id,
+                        name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
-                JOIN $this->baseAlias.studentGroup studentGroup";
+                JOIN $this->baseAlias.studentGroup studentGroup
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade
+                LEFT JOIN studentGrade.gradeChoice gradeChoice";
     }
 
     /**
@@ -161,13 +170,22 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     },
                     partial teacher.{
                             id
+                    },
+                    partial studentGrade.{
+                            id
+                    },
+                    partial gradeChoice.{
+                        id,
+                        name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subject subject
-                JOIN $this->baseAlias.studentGroup studentGroup";
+                JOIN $this->baseAlias.studentGroup studentGroup
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade
+                LEFT JOIN studentGrade.gradeChoice gradeChoice";
     }
 
     /**
