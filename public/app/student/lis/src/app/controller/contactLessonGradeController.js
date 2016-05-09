@@ -32,6 +32,7 @@
             function (angular, globalFunctions) {
 
                 contactLessonGradeController.$inject = [
+                    '$filter',
                     '$location',
                     '$scope',
                     '$q',
@@ -49,6 +50,7 @@
                 ];
 
                 function contactLessonGradeController(
+                        $filter,
                         $location,
                         $scope,
                         $q,
@@ -63,6 +65,13 @@
                         vocationModel,
                         teacherModel,
                         gradeService) {
+
+                    $scope.tToDisplay = $filter('date')($scope.date, 'dd-MM-yyyy HH:mm:ss');
+
+                    $scope.formatDate = function (date) {
+                        var dateOut = new Date(date);
+                        return dateOut;
+                    };
 
                     $scope.T = globalFunctions.T;
 

@@ -24,12 +24,14 @@
 
 <table>
     <th>{{T('LIS_DUEDATE')}}</th>
+    <th>{{T('LIS_NAME')}}</th>
     <th>{{T('LIS_DESCRIPTION')}}</th>
     <th>{{T('LIS_STUDENTGRADE')}}</th>
     
     <tr ng-repeat="independentWork in independentWorks">
 
-    <td>{{ independentWork.duedate.date}}</td>
+    <td>{{ independentWork.duedate.date |  date:'dd/MM/yyyy' }}</td>
+    <td>{{ independentWork.name}}</td>   
     <td>{{ independentWork.description}}</td>           
     <td>
         <ul>
