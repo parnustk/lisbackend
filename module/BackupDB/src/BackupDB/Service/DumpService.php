@@ -21,7 +21,7 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use PDO;
 
-define("_PATH_", "/home/marten/LIS_workspace/lisbackend/data/BackupDB_Dumps/");
+define("_PATH_", "data/BackupDB_Dumps/");
 
 /**
  * @author Marten Kähr <marten@kahr.ee>

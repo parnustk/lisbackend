@@ -29,7 +29,7 @@ class DumpController extends AbstractActionController
      */
     public function indexAction()
     {
-        $this->pushAction("LISBACKUP_manual_29042016_121200", true);
+        $this->createManualAction();
         die('ENDPOINT');//we cut framework from here
 //        return new ViewModel([
 //            'content' => 'Backup Index Placeholder'
