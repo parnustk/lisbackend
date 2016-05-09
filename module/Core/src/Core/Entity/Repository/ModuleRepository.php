@@ -76,6 +76,8 @@ class ModuleRepository extends AbstractBaseRepository
                     partial contactLesson.{
                         id,
                         name,
+                        lessonDate,
+                        sequenceNr,
                         description
                     },
                     partial studentGradeCL.{
@@ -88,6 +90,7 @@ class ModuleRepository extends AbstractBaseRepository
                     partial independentWork.{
                         id,
                         name,
+                        duedate,
                         description
                     },
                     partial studentGradeIW.{

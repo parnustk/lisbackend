@@ -1,19 +1,41 @@
-<h2>{{ T('MY_GRADES')}}</h2>
+<h2>{{ T('LIS_CONTACTLESSONGRADES')}}</h2>
 
-<div ng-model="studentGradeModel" ng-controller="studentGradeController">
+<table>
+    <th>{{T('LIS_LESSONDATE')}}</th>
+    <th>{{T('LIS_CONTACTLESSON')}}</th>
+    <th>{{T('LIS_STUDENTGRADE')}}</th>
 
-    <table>
-        <th>{{T('LIS_LESSONDATE')}}</th>
-        <th>{{T('LIS_CONTACTLESSON')}}</th>
-        <th>{{T('LIS_STUDENTGRADE')}}</th>
-        
-        <tr ng-repeat="contactLesson in contactLessons">
-            <td>{{ contactLesson.lessonDate.date}}</td>
-            <td>{{ contactLesson.sequenceNr}}</td>           
-            <td>{{ gradeChoice.name}}</td>
-        </tr>
-    </table>
+    <tr ng-repeat="contactLesson in contactLessons">
+    <date-util format="dd/MM/yyyy"></date-util>
 
-</div>
-<br><br>
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
+    <td>{{ contactLesson.lessonDate.date}}</td>
+    <td>{{ contactLesson.sequenceNr}}</td>           
+    <td>
+        <ul>
+            <li ng-repeat="studentGrade in contactLesson.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+        </ul>
+    </td>
+</tr>
+
+</table>
+
+
+<h2>{{ T('LIS_INDEPENDENTWORKGRADES')}}</h2>
+
+<table>
+    <th>{{T('LIS_DUEDATE')}}</th>
+    <th>{{T('LIS_DESCRIPTION')}}</th>
+    <th>{{T('LIS_STUDENTGRADE')}}</th>
+    
+    <tr ng-repeat="independentWork in independentWorks">
+
+    <td>{{ independentWork.duedate.date}}</td>
+    <td>{{ independentWork.description}}</td>           
+    <td>
+        <ul>
+            <li ng-repeat="studentGrade in independentWork.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+        </ul>
+    </td>
+</tr>
+
+</table>

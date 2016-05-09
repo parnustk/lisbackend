@@ -71,7 +71,7 @@
                             allGrades = gradeService.list();
 
                     if (allGrades.length === 0) {
-                        $location.path("studentgrade");
+                        $location.path("/");
                     }
 
                     $scope.contactLessons = $scope.independentWorks = [];
@@ -97,8 +97,8 @@
                         }
                     }
 
-                    console.log('contact', $scope.contactLessons);
-                    console.log('independentWorks', $scope.independentWorks);
+//                    console.log('contact', $scope.contactLessons);
+//                    console.log('independentWorks', $scope.independentWorks);
 
                 }//class ends
 

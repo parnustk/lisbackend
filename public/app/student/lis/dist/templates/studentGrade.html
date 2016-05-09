@@ -1,25 +1,23 @@
 <h2>{{ T('MODULE_GRADES')}}</h2>
 
-<div ng-model="studentGradeModel" ng-controller="studentGradeController">
-    <table>
-        <th>{{T('LIS_MODULE')}}</th>
-        <th>{{T('LIS_GRADINGTYPE')}}</th>
-        <th>{{T('LIS_STUDENTMODULEGRADE')}}</th>
-        <tr ng-repeat="module in modules">
-            <td>
-                <a href="#!/studentgradesubjectround/{{module.id}}">{{ module.name}}</a> 
-                <br><br> ({{ module.duration}} EKAP)
-            </td>
-            <td>
-                <ul>
-                    <li ng-repeat="gradingType in module.gradingType">{{ gradingType.name}}</li>
-                </ul>
-            </td>
-            <td>
-                <ul>
-                    <li ng-repeat="studentGrade in module.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-</div>
+<table>
+    <th>{{T('LIS_MODULE')}}</th>
+    <th>{{T('LIS_GRADINGTYPE')}}</th>
+    <th>{{T('LIS_STUDENTMODULEGRADE')}}</th>
+    <tr ng-repeat="module in modules">
+        <td>
+            <a href="#!/studentgradesubjectround/{{module.id}}">{{ module.name}}</a> 
+            <br><br> ({{ module.duration}} EKAP)
+        </td>
+        <td>
+            <ul>
+                <li ng-repeat="gradingType in module.gradingType">{{ gradingType.name}}</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li ng-repeat="studentGrade in module.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+            </ul>
+        </td>
+    </tr>
+</table>

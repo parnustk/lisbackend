@@ -1,22 +1,18 @@
 <h2>{{ T('LIS_SUBJECTROUNDGRADES')}}</h2>
 
-<div ng-model="studentGradeModel" ng-controller="studentGradeController">
-
-    <table>
-        <th>{{T('LIS_SUBJECTROUND')}}</th>
-        <th>{{T('LIS_STUDENTSUBJECTROUNDGRADE')}}</th>
-        <th>{{T('LIS_CONTACTLESSONGRADE')}}</th>
-        <tr ng-repeat="subjectRoundGrade in subjectRoundGrades">
-            <td>
+<table>
+    <th>{{T('LIS_SUBJECTROUND')}}</th>
+    <th>{{T('LIS_STUDENTSUBJECTROUNDGRADE')}}</th>
+    <tr ng-repeat="subjectRoundGrade in subjectRoundGrades">
+        <td>
+            <a href="#!/studentgradecontactlesson/{{moduleId}}/{{subjectRoundGrade.id}}">
                 {{subjectRoundGrade.name}}
-            </td>
-            <td>
-                <ul>
-                    <li ng-repeat="studentGrade in subjectRoundGrade.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
-                </ul>
-            </td>
-            <td><a href="/app/student/#!/studentgradecontactlesson/{{moduleId}}/{{subjectRoundGrade.id}}">{{T('LIS_CHECK')}}</a></td>
-        </tr>
-    </table>
-
-</div>
+            </a>
+        </td>
+        <td>
+            <ul>
+                <li ng-repeat="studentGrade in subjectRoundGrade.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+            </ul>
+        </td>
+    </tr>
+</table>

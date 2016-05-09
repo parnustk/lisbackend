@@ -68,7 +68,7 @@
                     $scope.subjectRoundGrades = [];
                     var allGrades = gradeService.list();
                     if (allGrades.length === 0) {
-                        $location.path("studentgrade");
+                        $location.path("/");
                     }
                     for (var x in allGrades) {
 

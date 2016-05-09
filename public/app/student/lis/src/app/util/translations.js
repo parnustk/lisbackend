@@ -190,7 +190,9 @@
                 LIS_CONTACTLESSONGRADE:'Kontakttunni hinded',
                 LIS_INDEPENDENTWORKGRADE:'Iseseisva töö hinded',
                 LIS_CHECK:'Vaata',
-                LIS_SUBJECTROUNDGRADES:'Õppeaine hinded'
+                LIS_SUBJECTROUNDGRADES:'Õppeaine hinded',
+                LIS_CONTACTLESSONGRADES:'Kontakttunni hinded',
+                LIS_INDEPENDENTWORKGRADES:'Iseseisvate tööde hinded'
                 
             },
             en: {
@@ -368,7 +370,10 @@
                 LIS_STUDENTSUBJECTROUNDGRADE:'Subject round grade',
                 LIS_CONTACTLESSONGRADE:'Contact lesson grades',
                 LIS_INDEPENDENTWORKGRADE:'Independent work grades',
-                LIS_CHECK:'Check'
+                LIS_CHECK:'Check',
+                LIS_SUBJECTROUNDGRADES:'ÕSubject round grades',
+                LIS_CONTACTLESSONGRADES:'Contact lesson grades',
+                LIS_INDEPENDENTWORKGRADES:'Independent work grades'
             }
         };
         return t;
