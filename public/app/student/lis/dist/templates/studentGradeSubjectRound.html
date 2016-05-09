@@ -6,16 +6,14 @@
         <th>{{T('LIS_SUBJECTROUND')}}</th>
         <th>{{T('LIS_STUDENTSUBJECTROUNDGRADE')}}</th>
         <th>{{T('LIS_CONTACTLESSONGRADE')}}</th>
-        <th>{{T('LIS_INDEPENDENTWORKGRADE')}}</th>
-        <tr ng-repeat="module{{id}} in modules">
+        <tr ng-repeat="subjectRoundGrade in subjectRoundGrades">
             <td>
-                <ul>
-                    <li ng-repeat="subjectRound in module.subjectRound"> {{ subjectRound.name}}</li>
-                </ul>
+                {{subjectRoundGrade.name}}
             </td>
-            <td>{{ module.subjectRound.studentGrade.gradeChoice.name}}</td>
-            <td><a href="/app/student/#!/studentgradecontactlesson">{{T('LIS_CHECK')}}</a></td>
-            <td><a href="">{{T('LIS_CHECK')}}</a></td>
+            <td>
+                DQL get grade TODO
+            </td>
+            <td><a href="/app/student/#!/studentgradecontactlesson/{{moduleId}}/{{subjectRoundGrade.id}}">{{T('LIS_CHECK')}}</a></td>
         </tr>
     </table>
 

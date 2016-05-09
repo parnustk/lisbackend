@@ -26,47 +26,42 @@
      * 
      * @param {type} angular
      * @param {type} globalFunctions
-     * @returns {studentGradeController_L29.studentGradeController}
+     * @returns {contactLessonController_L29.contactLessonController}
      */
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
 
-                studentGradeController.$inject = [
+                contactLessonGradeController.$inject = [
                     '$scope',
                     '$q',
                     '$routeParams',
                     'rowSorter',
                     'uiGridConstants',
-                    'studentGradeModel',
-                    'studentModel',
-                    'teacherModel',
-                    'gradeChoiceModel',
-                    'independentWorkModel',
-                    'moduleModel',
-                    'subjectRoundModel',
                     'contactLessonModel',
-                    'gradeService'
+                    'roomModel',
+                    'subjectRoundModel',
+                    'studentGroupModel',
+                    'moduleModel',
+                    'vocationModel',
+                    'teacherModel'
                 ];
 
-                function studentGradeController(
+                function contactLessonGradeController(
                         $scope,
                         $q,
                         $routeParams,
                         rowSorter,
                         uiGridConstants,
-                        studentGradeModel,
-                        studentModel,
-                        teacherModel,
-                        gradeChoiceModel,
-                        independentWorkModel,
-                        moduleModel,
-                        subjectRoundModel,
                         contactLessonModel,
-                        gradeService
-                        ) {
+                        roomModel,
+                        subjectRoundModel,
+                        studentGroupModel,
+                        moduleModel,
+                        vocationModel,
+                        teacherModel) {
 
                     $scope.T = globalFunctions.T;
-
+                    
                     /**
                      * For filters and maybe later pagination
                      * 
@@ -84,28 +79,26 @@
                      */
                     $scope.modules = [];
                     $scope.subjectRounds = [];
+                    $scope.contactLessons = [];
 
-                    /**
-                     * Before loading absence data, 
-                     * we first load relations and check success
-                     * 
-                     * @returns {undefined}
-                     */
-                    function LoadData() {
-                        moduleModel.GetList(urlParams).then(function (result) {
-                            if (globalFunctions.resultHandler(result)) {
-                                $scope.modules = result.data;
-                                gradeService.clear();
-                                gradeService.fill(result.data);
-                                console.log(gradeService.list());
-                            }
-                        });
-                    }
-
-                    LoadData();//let's start loading data
+//                    /**
+//                     * Before loading absence data, 
+//                     * we first load relations and check success
+//                     * 
+//                     * @returns {undefined}
+//                     */
+//                    function LoadData() {
+//                        contactLessonModel.GetList(urlParams).then(function (result) {
+//                            if (globalFunctions.resultHandler(result)) {
+//                                $scope.contactLessons = result.data;
+//                            }
+//                        });
+//                    }
+//
+//                    LoadData();//let's start loading data
                 }
 
-                return studentGradeController;
+                return contactLessonGradeController;
             });
 
 }(define, document));

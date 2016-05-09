@@ -6,7 +6,10 @@
         <th>{{T('LIS_GRADINGTYPE')}}</th>
         <th>{{T('LIS_STUDENTMODULEGRADE')}}</th>
         <tr ng-repeat="module in modules">
-            <td><a ng-href="/app/student/#!/studentgradesubjectround/{{id}}" id="{{module.id}}">{{ module.name}}</a> <br><br> ({{ module.duration}} EKAP)</td>
+            <td>
+                <a href="#!/studentgradesubjectround/{{module.id}}">{{ module.name}}</a> 
+                <br><br> ({{ module.duration}} EKAP)
+            </td>
             <td>
                 <ul>
                     <li ng-repeat="gradingType in module.gradingType">{{ gradingType.name}}</li>

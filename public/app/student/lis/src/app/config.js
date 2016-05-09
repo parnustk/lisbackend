@@ -30,14 +30,14 @@
                     controller: 'studentGradeController'
                 })
                 
-                .when('/studentgradesubjectround', {
+                .when('/studentgradesubjectround/:moduleId', {
                     templateUrl: 'lis/dist/templates/studentGradeSubjectRound.html',
-                    controller: 'studentGradeController'
+                    controller: 'subjectRoundGradeController'
                 })
                 
-                .when('/studentgradecontactlesson', {
+                .when('/studentgradecontactlesson/:moduleId/:subjectRoundId', {
                     templateUrl: 'lis/dist/templates/studentGradeContactLesson.html',
-                    controller: 'studentGradeController'
+                    controller: 'contactLessonGradeController'
                 })
                 
                 .otherwise({redirectTo: '/'});
