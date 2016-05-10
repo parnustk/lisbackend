@@ -87,11 +87,24 @@ class ModuleRepository extends AbstractBaseRepository
                         id,
                         name
                     },
+                    partial teacherCL.{
+                        id,
+                        name
+                    },
+                    partial roomsCL.{
+                        id,
+                        name
+                    },
                     partial independentWork.{
                         id,
                         name,
                         duedate,
-                        description
+                        description,
+                        durationAK
+                    },
+                    partial teacherIW.{
+                        id,
+                        name
                     },
                     partial studentGradeIW.{
                         id
@@ -113,10 +126,13 @@ class ModuleRepository extends AbstractBaseRepository
                 
                 LEFT JOIN subjectRound.contactLesson contactLesson
                 LEFT JOIN contactLesson.studentGrade studentGradeCL
+                LEFT JOIN contactLesson.teacher teacherCL
+                LEFT JOIN contactLesson.rooms roomsCL
                 LEFT JOIN studentGradeCL.gradeChoice gradeChoiceCL
                 
                 LEFT JOIN subjectRound.independentWork independentWork
                 LEFT JOIN independentWork.studentGrade studentGradeIW
+                LEFT JOIN independentWork.teacher teacherIW
                 LEFT JOIN studentGradeIW.gradeChoice gradeChoiceIW
                 
                 WHERE vocation.id=:vocationId";

@@ -1,3 +1,5 @@
+/* global require */
+
 /**
  * LIS development
  *

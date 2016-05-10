@@ -8,28 +8,24 @@
 /* global define */
 
 /**
- * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
- * http://brianhann.com/ui-grid-and-multi-select/#more-732
- * http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
- * http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
- * adding content later https://github.com/angular-ui/ui-grid/issues/2050
- * dropdown menu http://brianhann.com/ui-grid-and-dropdowns/
  * 
+ * @param {type} window
  * @param {type} define
  * @param {type} document
  * @returns {undefined}
  */
-(function (define, document) {
+(function (window, define, document) {
     'use strict';
 
     /**
      * 
      * @param {type} angular
      * @param {type} globalFunctions
-     * @returns {contactLessonController_L29.contactLessonController}
+     * @param {type} moment
+     * @returns {contactLessonGradeController_L30.contactLessonGradeController}
      */
-    define(['angular', 'app/util/globalFunctions'],
-            function (angular, globalFunctions) {
+    define(['angular', 'app/util/globalFunctions', 'moment'],
+            function (angular, globalFunctions, moment) {
 
                 contactLessonGradeController.$inject = [
                     '$filter',
@@ -66,14 +62,18 @@
                         teacherModel,
                         gradeService) {
 
-                    $scope.tToDisplay = $filter('date')($scope.date, 'dd-MM-yyyy HH:mm:ss');
-
-                    $scope.formatDate = function (date) {
-                        var dateOut = new Date(date);
-                        return dateOut;
-                    };
-
                     $scope.T = globalFunctions.T;
+
+                    $scope.FormatDate = function (ds) {
+                        var dObj = new Date(ds),
+                                dFinal;
+                        if (window.LisGlobals.L === 'et') {
+                            dFinal = moment(dObj).format('DD.MM.YYYY');
+                        } else {
+                            dFinal = moment(dObj).format('DD/MM/YYYY');
+                        }
+                        return dFinal;
+                    };
 
                     var moduleId = $routeParams.moduleId,
                             subjectRoundId = $routeParams.subjectRoundId,
@@ -114,4 +114,4 @@
                 return contactLessonGradeController;
             });
 
-}(define, document));
+}(window, define, document));
