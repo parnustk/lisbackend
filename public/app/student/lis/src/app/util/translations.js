@@ -119,7 +119,7 @@
                 LIS_SUBJECT:'Teema',
                 LIS_MODULETYPE:'Mooduli tüüp',
                 LIS_GRADECHOICE:'Hinnete valik',
-                LIS_GRADINGTYPE:'Hindamise tüüp',
+                LIS_GRADINGTYPE:'Hindamine',
                 LIS_ROOM:'Ruumid',
                 
                 LIS_DIARY:'Päevik',
@@ -185,14 +185,15 @@
                 MODULE_GRID_FILTERS:'Mooduli filtrid',
                 SEARCH_A_MODULECODE:'Otsi koodi järgi',
                 MODULE_GRADES:'Mooduli hinded',
-                LIS_STUDENTMODULEGRADE:'Mooduli hinne',
-                LIS_STUDENTSUBJECTROUNDGRADE:'Aine hinne',
                 LIS_CONTACTLESSONGRADE:'Kontakttunni hinded',
                 LIS_INDEPENDENTWORKGRADE:'Iseseisva töö hinded',
                 LIS_CHECK:'Vaata',
                 LIS_SUBJECTROUNDGRADES:'Õppeaine hinded',
                 LIS_CONTACTLESSONGRADES:'Kontakttunni hinded',
-                LIS_INDEPENDENTWORKGRADES:'Iseseisvate tööde hinded'
+                LIS_INDEPENDENTWORKGRADES:'Iseseisvate tööde hinded',
+                LIS_LESSONDESCRIPTION:'Tunni kirjeldus',
+                LIS_GRADE:'Hinne',
+                LIS_INDEPENDENTWORKDESCRIPTION:'Iseseisva töö kirjeldus'
                 
             },
             en: {
@@ -366,14 +367,15 @@
                 MODULE_GRID_FILTERS:'Module filters',
                 SEARCH_A_MODULECODE:'Search by code',
                 MODULE_GRADES:'Module grades',
-                LIS_STUDENTMODULEGRADE:'Module grade',
-                LIS_STUDENTSUBJECTROUNDGRADE:'Subject round grade',
                 LIS_CONTACTLESSONGRADE:'Contact lesson grades',
                 LIS_INDEPENDENTWORKGRADE:'Independent work grades',
                 LIS_CHECK:'Check',
                 LIS_SUBJECTROUNDGRADES:'ÕSubject round grades',
                 LIS_CONTACTLESSONGRADES:'Contact lesson grades',
-                LIS_INDEPENDENTWORKGRADES:'Independent work grades'
+                LIS_INDEPENDENTWORKGRADES:'Independent work grades',
+                LIS_LESSONDESCRIPTION: 'Lesson description',
+                LIS_GRADE:'Grade',
+                LIS_INDEPENDENTWORKDESCRIPTION:'Independent work description'
             }
         };
         return t;
