@@ -84,6 +84,19 @@
                     s = false;
                 }
                 return s;
+            },
+            /**
+             * 
+             * @param {string} alertMessage
+             * @returns {string} modal window with custom text as input
+             */
+            alertMsg: function (alertMessage) {
+                var proxied = window.alert;
+                window.alert = function () {
+                    $("#errorModal .modal-body").text(arguments[0]);
+                    $("#errorModal").modal('show');
+                };
+                return alert(alertMessage);
             }
         };
     });

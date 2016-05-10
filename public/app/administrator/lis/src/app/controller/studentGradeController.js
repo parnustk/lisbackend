@@ -323,7 +323,7 @@
                                 }
                             });
                         } else {
-                            alert('CHECK_FORM_FIELDS');
+                            globalFunctions.alertMsg('Check form fields');
                         }
                     };
 

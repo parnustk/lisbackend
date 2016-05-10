@@ -205,7 +205,7 @@
                                 }
                             });
                         } else {
-                            alert($scope.T('LIS_CHECK_FORM_FIELDS'));
+                            globalFunctions.alertMsg('Check form fields');
                         }
                     };
 
