@@ -193,7 +193,8 @@
                 LIS_INDEPENDENTWORKGRADES:'Iseseisvate tööde hinded',
                 LIS_LESSONDESCRIPTION:'Tunni kirjeldus',
                 LIS_GRADE:'Hinne',
-                LIS_INDEPENDENTWORKDESCRIPTION:'Iseseisva töö kirjeldus'
+                LIS_INDEPENDENTWORKDESCRIPTION:'Iseseisva töö kirjeldus',
+                LIS_BACK:'Tagasi'
                 
             },
             en: {
@@ -375,7 +376,8 @@
                 LIS_INDEPENDENTWORKGRADES:'Independent work grades',
                 LIS_LESSONDESCRIPTION: 'Lesson description',
                 LIS_GRADE:'Grade',
-                LIS_INDEPENDENTWORKDESCRIPTION:'Independent work description'
+                LIS_INDEPENDENTWORKDESCRIPTION:'Independent work description',
+                LIS_BACK:'Back'
             }
         };
         return t;

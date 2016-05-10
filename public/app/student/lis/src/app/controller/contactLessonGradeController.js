@@ -63,6 +63,10 @@
                         gradeService) {
 
                     $scope.T = globalFunctions.T;
+                    
+                    $scope.goBack = function () {
+                        window.history.back();
+                    };
 
                     $scope.FormatDate = function (ds) {
                         var dObj = new Date(ds),

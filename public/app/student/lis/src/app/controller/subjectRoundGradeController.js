@@ -19,14 +19,15 @@
  * @param {type} document
  * @returns {undefined}
  */
-(function (define, document) {
+(function (window, define, document) {
     'use strict';
 
     /**
      * 
+     * @param {type} window
      * @param {type} angular
      * @param {type} globalFunctions
-     * @returns {subjectRoundController_L29.subjectRoundController}
+     * @returns {subjectRoundGradeController_L29.subjectRoundGradeController}
      */
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
@@ -63,6 +64,10 @@
                         gradeService
                         ) {
 
+                    $scope.goBack = function () {
+                        window.history.back();
+                    };
+
                     $scope.T = globalFunctions.T;
                     $scope.moduleId = $routeParams.moduleId;
                     $scope.subjectRoundGrades = [];
@@ -84,4 +89,4 @@
                 return subjectRoundGradeController;
             });
 
-}(define, document));
+}(window, define, document));

@@ -47,3 +47,8 @@ table tr:nth-child(even) {
 .glyphicon::before{
     margin-right: 5px;
 }
+
+#back-button{
+    margin-top: 15px;
+    float: right;
+}
