@@ -163,7 +163,7 @@
                 
                 LIS_CREATE_NEW_CONTACTLESSON:'Loo uus kontakttund',
                 LIS_CHOOSE_ROOM:'Vali ruum',
-                LIS_CHOOSE_ OUND:'Vali voor',
+                LIS_CHOOSE_ROUND:'Vali voor',
                 LIS_CHOOSE_STUDENTGROUP:'Vali õppegrupp',
                 LIS_CHOOSE_MODULE:'Vali moodul',
                 LIS_CHOOSE_TEACHER:'Vali õpetaja',
