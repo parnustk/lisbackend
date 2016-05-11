@@ -105,3 +105,5 @@ which will read from the lock file and not change anything. From StackOverlfow
 use built in php server for server. execut following task in lis root folder
 
  > php -S 0.0.0.0:8080 -t public/ public/index.php
+
+Mac OS X mysql problem [http://stackoverflow.com/questions/22188026/sqlstatehy000-2002-no-such-file-or-directory](http://stackoverflow.com/questions/22188026/sqlstatehy000-2002-no-such-file-or-directory)
