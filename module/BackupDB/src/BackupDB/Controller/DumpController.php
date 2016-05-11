@@ -3,6 +3,7 @@
 namespace BackupDB\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
 
 class DumpController extends AbstractActionController
@@ -20,6 +21,20 @@ class DumpController extends AbstractActionController
     public function getEntityManager()
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+    }
+
+    /**
+     * Changes the layout to layout/backupdb
+     * @param EventManagerInterface $events
+     */
+    public function setEventManager(EventManagerInterface $events)
+    {
+        //Zend_Layout::getMvcInstance()->setLayout(__DIR__ . '/../view/layout/application.phtml');
+        parent::setEventManager($events);
+        $controller = $this;
+        $events->attach('dispatch', function ($e) use ($controller) {
+            $controller -> layout('layout/backupdb');
+        }, 100);
     }
 
     /**
