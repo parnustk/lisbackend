@@ -202,21 +202,51 @@
             </nav>
 
             <div ng-if="!userLoggedIn" class="wrapper" ng-cloak>
-                <div>
-                    <button class="btn languageSwitcher" ng-show="showButton()" ng-click="changeLanguage('en')">in English</button>
-                    <button class="btn languageSwitcher" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</button>
-                </div>
-                <form class="form-signin">
-                    <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
-                        {{ T('LIS_LOGIN_ERROR')}}
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <button class="btn languageSwitcher btn-primary" ng-show="showButton()" ng-click="changeLanguage('en')">in English</button>
+                        <button class="btn languageSwitcher btn-primary" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</button>
                     </div>
-                    <h2 class="form-signin-heading">{{ T('LIS_LOGIN_GREETING')}}</h2>
-                    <input class="form-control" name="username" placeholder="{{ T('LIS_EMAIL')}}" type="text"
-                           ng-model="credentials.email" value="student@test.ee" autofocus=""/>
-                    <input class="form-control" type="password" name="password" placeholder="{{ T('LIS_PASSWORD')}}"
-                           ng-model="credentials.password" value="Tere1234">
-                    <button class="btn btn-lg btn-primary btn-block" ng-click="Login()">{{ T('LIS_LOGIN')}}</button>
-                </form>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <form class="form-signin">
+                            <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
+                                {{ T('LIS_LOGIN_ERROR')}}
+                            </div>
+                            <h2 class="form-signin-heading">{{ T('LIS_LOGIN_GREETING')}}</h2>
+                            <input class="form-control" name="username" placeholder="{{ T('LIS_EMAIL')}}" type="text"
+                                   ng-model="credentials.email" value="student@test.ee" autofocus=""/>
+                            <input class="form-control" type="password" name="password" placeholder="{{ T('LIS_PASSWORD')}}"
+                                   ng-model="credentials.password" value="Tere1234">
+                            <button class="btn btn-lg btn-primary btn-block" ng-click="Login()">{{ T('LIS_LOGIN')}}</button>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6">
+                        <form class="form-signin">
+                            <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
+                                {{ T('LIS_REGISTER_ERROR')}}
+                            </div>
+                            <h2 class="form-signin-heading">{{ T('LIS_REGISTER_GREETING')}}</h2>
+                            <input class="form-control" name="personalcode" placeholder="{{ T('LIS_PERSONALCODE')}}" type="text"
+                                   ng-model="credentialsReg.personalcode" value="12345678901" autofocus=""/>
+                            <input class="form-control" name="username" placeholder="{{ T('LIS_EMAIL')}}" type="text"
+                                   ng-model="credentialsReg.email" value="student@test.ee" autofocus=""/>
+                            <input class="form-control" type="password" name="password" placeholder="{{ T('LIS_PASSWORD')}}"
+                                   ng-model="credentialsReg.password" value="Tere1234">
+                            <button class="btn btn-lg btn-primary btn-block" ng-click="Register()">{{ T('LIS_REGISTER')}}</button>
+                        </form>
+                    </div>
+
+                </div>
+
+
             </div>
 
         </div>
