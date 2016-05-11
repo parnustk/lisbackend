@@ -19,7 +19,7 @@
  * @param {type} document
  * @returns {undefined}
  */
-(function (define, document) {
+(function (window, define, document) {
     'use strict';
 
     /**
@@ -108,4 +108,4 @@
                 return studentGradeController;
             });
 
-}(define, document));
+}(window, define, document));

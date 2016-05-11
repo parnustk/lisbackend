@@ -194,7 +194,8 @@
                 LIS_LESSONDESCRIPTION:'Tunni kirjeldus',
                 LIS_GRADE:'Hinne',
                 LIS_INDEPENDENTWORKDESCRIPTION:'Iseseisva töö kirjeldus',
-                LIS_BACK:'Tagasi'
+                LIS_BACK:'Tagasi',
+                LIS_STUDENTABSENCE:'Minu puudumised'
                 
             },
             en: {
@@ -377,7 +378,8 @@
                 LIS_LESSONDESCRIPTION: 'Lesson description',
                 LIS_GRADE:'Grade',
                 LIS_INDEPENDENTWORKDESCRIPTION:'Independent work description',
-                LIS_BACK:'Back'
+                LIS_BACK:'Back',
+                LIS_STUDENTABSENCE:'My absences'
             }
         };
         return t;

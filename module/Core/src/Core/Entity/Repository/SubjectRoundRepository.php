@@ -47,7 +47,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     public function diaryRelatedData($params = null, $extra = null)
     {
-        //print_r($params);
+//print_r($params);
         $dql = "SELECT 
                     partial subjectround.{
                         id,
@@ -92,6 +92,47 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
         );
+    }
+
+    public function studentAbsenceData($params = null, $extra = null)
+    {
+        $dql = "SELECT
+                    partial subjectRound.{
+                        id,
+                        name
+                    },
+                    partial contactLesson.{
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr,
+                        description
+                    },
+                    partial teacher.{
+                            id
+                    },
+                    partial absence.{
+                            id,
+                            description
+                    },
+                    partial absenceReason.{
+                            id,
+                            name
+                    }
+                    FROM Core\Entity\SubjectRound subjectRound
+                    LEFT JOIN subjectRound.teacher teacher
+                    LEFT JOIN subjectRound.contactLesson contactLesson
+                    LEFT JOIN contactLesson.absence absence
+                    LEFT JOIN absence.absenceReason absenceReason
+                    ";
+        
+//        $q = $this->getEntityManager()->createQuery($dql);
+//        $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
+//
+//        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+//        return new Paginator(
+//                new DoctrinePaginator(new ORMPaginator($q))
+//        );
     }
 
     /**
@@ -298,7 +339,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function studentCreate($data, $returnPartial = false, $extra = null)
     {
-        //set user related data
+//set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
         return $this->defaultCreate($data, $returnPartial, $extra);
@@ -365,7 +406,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
-        //IF required MANY TO MANY validate manually
+//IF required MANY TO MANY validate manually
         return $this->singleResult($entityValidated, $returnPartial, $extra);
     }
 
@@ -380,7 +421,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function studentUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //set user related data
+//set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
@@ -396,7 +437,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //set user related data
+//set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
@@ -412,7 +453,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        //set user related data
+//set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
@@ -637,6 +678,10 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function studentGetList($params = null, $extra = null)
     {
+        if (array_key_exists('studentAbsence', $params)) {
+            return $this->studentAbsenceData($params, $extra);
+        }
+        $id = $extra->lisPerson->getId();
         return $this->defaultGetList($params, $extra);
     }
 
@@ -654,7 +699,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
 //        $this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
         $dqlRestriction = null;
-        //$dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
+//$dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
