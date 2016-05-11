@@ -5,6 +5,8 @@ namespace BackupDB\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
+use BackupDB\Form\loginForm;
+use BackupDB\Form\panelForm;
 
 class DumpController extends AbstractActionController
 {
@@ -45,7 +47,7 @@ class DumpController extends AbstractActionController
     public function indexAction()
     {
         $this->createManualAction();
-        die('ENDPOINT');//we cut framework from here
+        die('ENDPOINT'); //we cut framework from here
 //        return new ViewModel([
 //            'content' => 'Backup Index Placeholder'
 //        ]);
@@ -70,7 +72,6 @@ class DumpController extends AbstractActionController
      * @param string $filename
      * @param boolean $clearTable
      */
-     
     public function pushAction($filename, $clearTable)
     {
         $this
@@ -81,10 +82,39 @@ class DumpController extends AbstractActionController
 //            'content' => 'Push Backup Placeholder'
 //        ]);
     }
-    
+
     public function testAction()
     {
         $data = 'kontrollerist';
+        return new ViewModel(['something' => $data]);
+    }
+
+    public function loginAction()
+    {//usr psq from config
+        //zend form
+        //if credentials ok, put to session and redirect to panel
+        $form = new loginForm('loginForm');
+        $form->get('submit')->setValue('Add');
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            echo '<pre>';
+            print_r($request->getPost());
+            die('HERE');
+            //check form fields against credentials in config file
+            
+            //if  valid save to session redirect to panel
+        }
+        //return array('form' => $form);
+
+        return new ViewModel(['form' => $form]);
+    }
+
+    public function panelAction()//control panel
+    {
+        //check session if credentials not ok redirect to login
+        //if credentials ok show panel form / file upload field, upload button, download button, serverside restore button, serverside back, logout button
+        $data = 'panel';
         return new ViewModel(['something' => $data]);
     }
 
