@@ -239,6 +239,18 @@
                     <button class="btn languageSwitcher" ng-show="showButton()" ng-click="changeLanguage('en')">in English</button>
                     <button class="btn languageSwitcher" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</button>
                 </div>
+                
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        
+                    </div>
+                    
+                    <div class="col-md-12">
+                        
+                    </div>
+                    
+                </div>
                 <form class="form-signin">
                     <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
                         {{ T('LIS_LOGIN_ERROR') }}
@@ -250,6 +262,8 @@
                                    ng-model="credentials.password" value="Tere1234">
                     <button class="btn btn-lg btn-primary btn-block" ng-click="Login()">{{ T('LIS_LOGIN') }}</button>
                 </form>
+                
+                
             </div>
 
         </div>
