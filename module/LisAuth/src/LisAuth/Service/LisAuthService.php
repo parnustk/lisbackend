@@ -260,9 +260,7 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
                 "role" => $data_login["role"],
             ];
         } catch (Exception $ex) {
-
             return [
-
                 'success' => false,
                 'message' => 'FALSE_ATTEMPT'
             ];

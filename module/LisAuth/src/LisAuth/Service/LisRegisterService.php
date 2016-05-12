@@ -14,6 +14,7 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Doctrine\ORM\EntityManager;
 use Exception;
+use LisAuth\Utility\Validator;
 
 /**
  * Description of LisRegisterService
@@ -131,6 +132,7 @@ class LisRegisterService implements ServiceManagerAwareInterface
     public function register($data, $e)
     {
         try {
+            Validator::validatePassword($data['password']);
             $entity = $this->_validateEntityAgainstUser(
                     $this->_getByPersonalCode(
                             $this->_validatePersonalCode($data), $e
