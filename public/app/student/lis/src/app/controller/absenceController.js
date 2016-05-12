@@ -74,7 +74,7 @@
                         ) {
 
                     $scope.T = globalFunctions.T;
-                    
+
                     $scope.dt = {};
 
                     //START datepicker
@@ -172,7 +172,7 @@
 
                         return '';
                     }
-                    
+
                     /**
                      * Remove criteria
                      * 
@@ -211,7 +211,7 @@
                         }
                         return dFinal;
                     };
-                    
+
                     /**
                      * 
                      * @param {type} valid

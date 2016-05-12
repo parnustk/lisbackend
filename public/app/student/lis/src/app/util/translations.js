@@ -195,7 +195,9 @@
                 LIS_GRADE:'Hinne',
                 LIS_INDEPENDENTWORKDESCRIPTION:'Iseseisva töö kirjeldus',
                 LIS_BACK:'Tagasi',
-                LIS_STUDENTABSENCE:'Minu puudumised'
+                LIS_STUDENTABSENCE:'Minu puudumised',
+                SEARCH_A_STARTLESSONDATE:'Algus',
+                SEARCH_A_ENDLESSONDATE:'Lõpp'
                 
             },
             en: {
@@ -379,7 +381,9 @@
                 LIS_GRADE:'Grade',
                 LIS_INDEPENDENTWORKDESCRIPTION:'Independent work description',
                 LIS_BACK:'Back',
-                LIS_STUDENTABSENCE:'My absences'
+                LIS_STUDENTABSENCE:'My absences',
+                SEARCH_A_STARTLESSONDATE:'Start',
+                SEARCH_A_ENDLESSONDATE:'End'
             }
         };
         return t;
