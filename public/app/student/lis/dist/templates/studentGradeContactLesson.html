@@ -8,7 +8,7 @@
     <tr ng-repeat="contactLesson in contactLessons">
 
         <td>{{ FormatDate(contactLesson.lessonDate.date)}} - {{ contactLesson.sequenceNr}}
-            <br>{{ contactLesson.teacher.name}}
+            <br>Õpetaja: {{ contactLesson.teacher.name}}
             <br>Klass: {{ contactLesson.rooms.name}}
             <br><br>{{ contactLesson.description}}
         </td>

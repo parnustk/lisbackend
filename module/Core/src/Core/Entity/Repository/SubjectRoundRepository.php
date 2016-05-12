@@ -109,7 +109,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
                         description
                     },
                     partial teacher.{
-                            id
+                            id,
+                            name
                     },
                     partial student.{
                             id,
