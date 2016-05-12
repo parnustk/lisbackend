@@ -166,7 +166,7 @@
                                 }
                             });
                         } else {
-                            globalFunctions.alertMsg('Check form fields');
+                            globalFunctions.alertMsg('LIS_CHECK_FORM_FIELDS');
                         }
                     };
 

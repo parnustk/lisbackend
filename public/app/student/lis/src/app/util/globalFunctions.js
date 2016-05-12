@@ -84,6 +84,16 @@
                     s = false;
                 }
                 return s;
+            },
+            /**
+             * 
+             * @param {string} alertMessage
+             * @returns {string} modal window with custom text as input
+             */
+            alertMsg: function (alertMessage) {
+                $("#errorModal .modal-title").text(this.T('LIS_ERROR'));
+                $("#errorModal .modal-body").text(alertMessage);
+                $("#errorModal").modal('show');
             }
         };
     });

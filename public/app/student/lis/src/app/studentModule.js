@@ -42,33 +42,33 @@
         /*15*/'app/controller/subjectRoundGradeController',
         /*18*/'app/controller/studentGradeController'
     ], function (
-            /*1*/angular,
-            /*2*/config,
-            /*1*/vocationModel,
-            /*2*/gradingTypeModel,
-            /*3*/gradeChoiceModel,
-            /*4*/teacherModel,
-            /*5*/absenceReasonModel,
-            /*6*/absenceModel,
-            /*7*/roomModel,
-            /*8*/moduleTypeModel,
-            /*9*/loginModel,
-            /*10*/moduleModel,
-            /*11*/studentModel,
-            /*12*/administratorModel,
-            /*13*/subjectModel,
-            /*14*/contactLessonModel,
-            /*15*/subjectRoundModel,
-            /*16*/studentGroupModel,
-            /*17*/independentWorkModel,
-            /*18*/studentGradeModel,
-            /*19*/studentInGroupsModel,
-            /*1*/loginController,
-            /*6*/absenceController,
-            /*14*/contactLessonGradeController,
-            /*15*/subjectRoundGradeController,
-            /*18*/studentGradeController
-            ) {
+        /*1*/angular,
+        /*2*/config,
+        /*1*/vocationModel,
+        /*2*/gradingTypeModel,
+        /*3*/gradeChoiceModel,
+        /*4*/teacherModel,
+        /*5*/absenceReasonModel,
+        /*6*/absenceModel,
+        /*7*/roomModel,
+        /*8*/moduleTypeModel,
+        /*9*/loginModel,
+        /*10*/moduleModel,
+        /*11*/studentModel,
+        /*12*/administratorModel,
+        /*13*/subjectModel,
+        /*14*/contactLessonModel,
+        /*15*/subjectRoundModel,
+        /*16*/studentGroupModel,
+        /*17*/independentWorkModel,
+        /*18*/studentGradeModel,
+        /*19*/studentInGroupsModel,
+        /*1*/loginController,
+        /*6*/absenceController,
+        /*14*/contactLessonGradeController,
+        /*15*/subjectRoundGradeController,
+        /*18*/studentGradeController
+        ) {
 
         /**
          * http://codepen.io/transistor1/pen/wGvMEE
@@ -97,11 +97,11 @@
                     }
 
                     var map,
-                            colDef = context.col.colDef,
-                            idField = colDef.editDropdownIdLabel,
-                            valueField = colDef.editDropdownValueLabel,
-                            initial = context.row.entity[context.col.field],
-                            result;
+                        colDef = context.col.colDef,
+                        idField = colDef.editDropdownIdLabel,
+                        valueField = colDef.editDropdownValueLabel,
+                        initial = context.row.entity[context.col.field],
+                        result;
 
                     if (typeof colDef.editDropdownOptionsArray !== 'undefined') {
                         map = colDef.editDropdownOptionsArray;
@@ -219,6 +219,27 @@
             };
         });
 
+        var compareTo = function () {
+            return {
+                require: "ngModel",
+                scope: {
+                    otherModelValue: "=compareTo"
+                },
+                link: function (scope, element, attributes, ngModel) {
+
+                    ngModel.$validators.compareTo = function (modelValue) {
+                        return modelValue === scope.otherModelValue;
+                    };
+
+                    scope.$watch("otherModelValue", function () {
+                        ngModel.$validate();
+                    });
+                }
+            };
+        };
+
+        studentModule.directive("compareTo", compareTo);
+
         /**
          * UI select
          * AngularJS default filter with the following expression:
@@ -259,11 +280,11 @@
             gradeService.fill = function (grades) {
                 _grades = grades;
             };
-            
+
             gradeService.list = function () {
                 return _grades;
             };
-            
+
             gradeService.clear = function () {
                 _grades.length = 0;
             };
