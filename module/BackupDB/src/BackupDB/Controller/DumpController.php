@@ -46,11 +46,7 @@ class DumpController extends AbstractActionController
      */
     public function indexAction()
     {
-        $this->createManualAction();
-        die('ENDPOINT'); //we cut framework from here
-//        return new ViewModel([
-//            'content' => 'Backup Index Placeholder'
-//        ]);
+        $this->loginAction();
     }
 
     /**
@@ -99,9 +95,24 @@ class DumpController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             echo '<pre>';
-            print_r($request->getPost());
-            die('HERE');
+            print_r($request->getPost('username'));
+            die('<br>ENDPOINT');
             //check form fields against credentials in config file
+            $data = include 'config/autoload/backupdb.local.php';
+            $inputname = $request->getPost('username');
+            $inputpwd = $request->getPost('password');
+            $uname = $data['backupdb']['connection']['params']['loginuser'];
+            $pwd = $data['backupdb']['connection']['params']['loginpwd'];
+            if ($inputname == $uname && $inputpwd == $pwd) {
+                $cookie = new Zend_Http_Cookie('BACKUPSESSION',
+                               'logintrue',
+                               '.lis.local',
+                               time() + 1200,
+                               '/backupdb/dump');
+                $this->panelAction();
+            } else {
+                $this->loginAction();
+            }
             
             //if  valid save to session redirect to panel
         }
@@ -113,9 +124,11 @@ class DumpController extends AbstractActionController
     public function panelAction()//control panel
     {
         //check session if credentials not ok redirect to login
+        if($this->Zend_Http_Cookie->match())
         //if credentials ok show panel form / file upload field, upload button, download button, serverside restore button, serverside back, logout button
-        $data = 'panel';
-        return new ViewModel(['something' => $data]);
+                
+        $panel = 'panel';
+        return new ViewModel(['form' => $panel]);
     }
 
 }

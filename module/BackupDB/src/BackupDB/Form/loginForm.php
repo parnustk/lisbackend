@@ -23,7 +23,7 @@ class loginForm extends Form
     public function __construct($name = null)
     {
         // we want to ignore the name passed
-        parent::__construct('album');
+        parent::__construct('login');
 
         $this->add(array(
             'name' => 'username',
