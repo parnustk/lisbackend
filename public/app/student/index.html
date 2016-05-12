@@ -237,7 +237,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <form class="form-signin" name="registerForm">
+                        <form class="form-signin" role="form" name="registerForm" ng-submit="Create(moduleForm.$valid)">
                             <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
                                 {{ T('LIS_REGISTER_ERROR')}}
                             </div>
