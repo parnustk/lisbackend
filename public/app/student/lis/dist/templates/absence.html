@@ -34,14 +34,14 @@
     </tr>
 </table>
 
-<form class="form-horizontal col-md-6" role="form" name="filterStudentAbsence" ng-submit="Filter()">
+<form class="form-horizontal col-md-6" role="form" name="filterStudentAbsence" ng-submit="Filter(filterStudentAbsence.$valid)">
     <fieldset>
         <legend>{{ T('LIS_STUDENTABSENCEFILTER')}}</legend>
 
         <div class="col-md-12">
             <p class="input-group">
                 <span class="input-group-addon" id="filterForm-startlessonDate">{{ T('SEARCH_A_STARTLESSONDATE')}}</span>
-                <input type="text" name="startlessonDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentAbsenceFilter.contactLesson.lessonDate.date" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-startlessonDateFilter" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                <input type="text" name="startDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentAbsenceFilter.startDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-startlessonDateFilter" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -51,7 +51,7 @@
         <div class="col-md-12">
             <p class="input-group">
                 <span class="input-group-addon" id="filterForm-endlessonDate">{{ T('SEARCH_A_ENDLESSONDATE')}}</span>
-                <input type="text" name="endlessonDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentAbsenceFilter.contactLesson.lessonDate.$invalid" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-endlessonDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close" />
+                <input type="text" name="endDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentAbsenceFilter.endDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-endlessonDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>

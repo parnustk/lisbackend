@@ -18,6 +18,7 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Zend\Paginator\Paginator;
 use Doctrine\ORM\Query;
 use Doctrine\DBAL\Types\Type;
+use DateTime;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
@@ -134,15 +135,28 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     JOIN contactLesson.absence absence
                     LEFT JOIN contactLesson.rooms rooms
                     LEFT JOIN absence.absenceReason absenceReason
-                    LEFT JOIN absence.student student
-                    
-                    WHERE student.id=:studentId";
-        /*WHERE student.id=:studentId AND contactLesson.lessonDate=:contactLessonDate*/
+                    LEFT JOIN absence.student student";
+
+
+        if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
+            $dql .= " WHERE student.id=:studentId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+        } else {
+            $dql .= " WHERE student.id=:studentId ";
+        }
+        
+        $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
+        
         $q = $this->getEntityManager()->createQuery($dql);
+
         $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
-//        $q->setParameter('contactLessonDate', $params['where']->contactLesson->lessonDate->date, Type::datetime);
+
+        if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
+            $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);
+            $q->setParameter('endDateTime', (new DateTime($params['endDate'])), Type::DATETIME);
+        }
 
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
+
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
         );

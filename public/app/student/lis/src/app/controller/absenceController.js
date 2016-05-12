@@ -173,14 +173,6 @@
                         return '';
                     }
 
-                    var resetUrlParams = function () {
-                        urlParams = {
-                            page: 1,
-                            limit: 100000,
-                            studentAbsence: true,
-                            id: null
-                        };
-                    };
 
                     /**
                      * Remove criteria
@@ -202,8 +194,15 @@
                     var urlParams = {
                         page: 1,
                         limit: 100000,
-                        studentAbsence: true,
-                        id: null
+                        studentAbsence: true
+                    };
+
+                    var resetUrlParams = function () {
+                        urlParams = {
+                            page: 1,
+                            limit: 100000,
+                            studentAbsence: true
+                        };
                     };
 
                     $scope.studentAbsenceFilter = {};
@@ -211,8 +210,10 @@
                     $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
                     $scope.FormatDate = function (ds) {
+                        
                         var dObj = new Date(ds),
                                 dFinal;
+                        
                         if (window.LisGlobals.L === 'et') {
                             dFinal = moment(dObj).format('DD.MM.YYYY');
                         } else {
@@ -228,26 +229,50 @@
                      */
                     $scope.Filter = function (valid) {
                         resetUrlParams();
-                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+                        if (valid) {
+//                            console.log(moment($scope.studentAbsenceFilter.startDate).format('YYYY-MM-DD'));
+//                            console.log(moment($scope.studentAbsenceFilter.endDate).format('YYYY-MM-DD'));
+                            urlParams.startDate = moment($scope.studentAbsenceFilter.startDate).format('YYYY-MM-DD');
+                            urlParams.endDate = moment($scope.studentAbsenceFilter.endDate).format('YYYY-MM-DD');
+                            LoadData();
+                            
+                        } else {
+                            alert('error');
+                        }
+//                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+//
+//                            var bufDate = null,
+//                                    data = globalFunctions.cleanData($scope.studentAbsenceFilter);
+//
+//                            if (!!$scope.studentAbsenceFilter.lessonDate) {
+//                                bufDate = $scope.studentAbsenceFilter.lessonDate;
+//                            }
+//
+//                            if (!!bufDate) {
+//                                data.lessonDate = moment(bufDate).format();
+//                            } else {
+//                                delete data.lessonDate;
+//                            }
+//
+//                            if (!!data) {
+//                                urlParamsDate.where = angular.toJson(data);
+//                            }
+//                        }
+//                        LoadData();
+                    };
 
-                            var bufDate = null,
-                                    data = globalFunctions.cleanData($scope.studentAbsenceFilter);
-
-                            if (!!$scope.studentAbsenceFilter.lessonDate) {
-                                bufDate = $scope.studentAbsenceFilter.lessonDate;
-                            }
-
-                            if (!!bufDate) {
-                                data.lessonDate = moment(bufDate).format();
-                            } else {
-                                delete data.lessonDate;
-                            }
-
-                            if (!!data) {
-                                urlParams.where = angular.toJson(data);
+                    $scope.dateFilter = function (items, startDate, endDate) {
+                        var startDate = parseDate(startDate);
+                        var endDate = parseDate(endDate);
+                        var result = [];
+                        for (var i = 0; i < items.length; i++) {
+                            var searchStartDate = new Date(),
+                                    searchEndDate = new Date(items[i].date2 * 1000);
+                            if (searchStartDate > startDate && searchEndDate < endDate) {
+                                result.push(items[i]);
                             }
                         }
-                        LoadData();
+                        return result;
                     };
 
                     /**
