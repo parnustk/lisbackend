@@ -185,7 +185,7 @@
                     delete $scope.credentialsReg.confirmPassword;
                     console.log($scope.credentialsReg);
                 } else {
-                    globalFunctions.alertMsg('LIS_CHECK_FORM_FIELDS');
+                    globalFunctions.alertErrorMsg('LIS_CHECK_FORM_FIELDS');
                 }
             };
         }

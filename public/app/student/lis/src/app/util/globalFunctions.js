@@ -79,7 +79,7 @@
                 var s = true;
                 if (!result.success) {
                     console.log(result.message);
-                    alert(result.message);
+                    this.alertErrorMsg(result.message);
                     
                     s = false;
                 }
@@ -90,7 +90,7 @@
              * @param {string} alertMessage
              * @returns {string} modal window with custom text as input
              */
-            alertMsg: function (alertMessage) {
+            alertErrorMsg: function (alertMessage) {
                 $("#errorModal .modal-title").text(this.T('LIS_ERROR'));
                 $("#errorModal .modal-body").text(alertMessage);
                 $("#errorModal").modal('show');
