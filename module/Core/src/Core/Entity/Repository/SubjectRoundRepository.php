@@ -129,17 +129,18 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             name
                     }
                     FROM Core\Entity\SubjectRound subjectRound
-                    LEFT JOIN subjectRound.teacher teacher
-                    LEFT JOIN subjectRound.contactLesson contactLesson
+                    JOIN subjectRound.contactLesson contactLesson
+                    LEFT JOIN subjectRound.teacher teacher  
                     JOIN contactLesson.absence absence
                     LEFT JOIN contactLesson.rooms rooms
                     LEFT JOIN absence.absenceReason absenceReason
                     LEFT JOIN absence.student student
                     
                     WHERE student.id=:studentId";
-        
+        /*WHERE student.id=:studentId AND contactLesson.lessonDate=:contactLessonDate*/
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
+//        $q->setParameter('contactLessonDate', $params['where']->contactLesson->lessonDate->date, Type::datetime);
 
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(

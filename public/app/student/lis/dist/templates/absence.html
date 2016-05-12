@@ -33,3 +33,20 @@
         </td>
     </tr>
 </table>
+
+<form class="form-horizontal col-md-6" role="form" name="filterStudentAbsence" ng-submit="Filter()">
+    <fieldset>
+        <legend>{{ T('LIS_STUDENTABSENCEFILTER')}}</legend>
+
+        <div class="col-md-12">
+            <p class="input-group">
+                <span class="input-group-addon" id="filterForm-lessonDate">{{ T('SEARCH_A_STARTLESSONDATE')}}</span>
+                <input type="text" name="startlessonDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentAbsenceFilter.contactLesson.lessonDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-lessonDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+
+    </fieldset>
+</form>

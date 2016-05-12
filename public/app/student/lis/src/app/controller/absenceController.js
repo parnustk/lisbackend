@@ -74,6 +74,116 @@
                         ) {
 
                     $scope.T = globalFunctions.T;
+                    
+                    $scope.dt = {};
+
+                    //START datepicker
+
+                    $scope.today = function () {
+                        $scope.dt = new Date();
+                    };
+                    $scope.today();
+
+                    $scope.clear = function () {
+                        $scope.dt = null;
+                    };
+
+                    $scope.inlineOptions = {
+                        customClass: getDayClass,
+                        minDate: new Date(),
+                        showWeeks: true
+                    };
+
+                    $scope.dateOptions = {
+                        dateDisabled: disabled,
+                        formatYear: 'yy',
+                        maxDate: new Date(2020, 5, 22),
+                        minDate: new Date(),
+                        startingDay: 1
+                    };
+
+                    // Disable weekend selection
+                    function disabled(data) {
+                        var date = data.date,
+                                mode = data.mode;
+                        return mode === 'day' && (date.getDay() === 0 /*|| date.getDay() === 6*/);
+                    }
+
+                    $scope.toggleMin = function () {
+                        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+                        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+                    };
+
+                    $scope.toggleMin();
+
+                    $scope.open1 = function () {
+                        $scope.popup1.opened = true;
+                    };
+
+                    $scope.open2 = function () {
+                        $scope.popup2.opened = true;
+                    };
+
+                    $scope.setDate = function (year, month, day) {
+                        $scope.dt = new Date(year, month, day);
+                    };
+
+                    $scope.formats = ['dd.MM.yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
+                    $scope.format = $scope.formats[0];
+                    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+                    $scope.popup1 = {
+                        opened: false
+                    };
+
+                    $scope.popup2 = {
+                        opened: false
+                    };
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    var afterTomorrow = new Date();
+                    afterTomorrow.setDate(tomorrow.getDate() + 1);
+                    $scope.events = [
+                        {
+                            date: tomorrow,
+                            status: 'full'
+                        },
+                        {
+                            date: afterTomorrow,
+                            status: 'partially'
+                        }
+                    ];
+
+                    function getDayClass(data) {
+                        var date = data.date,
+                                mode = data.mode;
+                        if (mode === 'day') {
+                            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+                            for (var i = 0; i < $scope.events.length; i++) {
+                                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                                if (dayToCheck === currentDay) {
+                                    return $scope.events[i].status;
+                                }
+                            }
+                        }
+
+                        return '';
+                    }
+                    
+                    /**
+                     * Remove criteria
+                     * 
+                     * @returns {undefined}
+                     */
+                    $scope.ClearFilters = function () {
+                        resetUrlParams();
+                        $scope.studentAbsenceFilter = {};
+                        delete urlParams.where;
+                        LoadGrid();
+                    };
 
                     /**
                      * For filters and maybe later pagination
@@ -87,7 +197,7 @@
                         id: null
                     };
 
-//                    $scope.studentAbsenceFilter = {};
+                    $scope.studentAbsenceFilter = {};
 
                     $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
@@ -102,50 +212,34 @@
                         return dFinal;
                     };
                     
-//                    $scope.absence = {};
-
-//                    $scope.columns = [
-//                        {
-//                            //field: 'nr',
-//                            name: 'nr',
-//                            displayName: 'Jrk',
-//                            visible: false,
-//                            type: 'number',
-//                            width: 10,
-//                            enableCellEdit: false
-//                        },
-//                        {
-//                            //field: "student['name']",
-//                            name: "absenceReason['name']",
-//                            displayName: 'Absence reason',
-//                            enableCellEdit: false,
-//                            pinnedLeft: true,
-//                            width: 150
-//                        }
-//                    ];
-
-                    /**
-                     * Grid set up
-                     */
-//                    $scope.gridOptions = {
-//                    };
-
                     /**
                      * 
                      * @param {type} valid
                      * @returns {undefined}
                      */
-//                    $scope.Filter = function (valid) {
-//
-//                        if (valid) {
-//                            resetUrlParams();
-//                            var data = globalFunctions.cleanData($scope.studentAbsenceFilter);
-//                            urlParamsSubjectRound.where = angular.toJson(data);
-//                            getData();
-//                        } else {
-//                            alert($scope.T('LIS_CHECK_FORM_FIELDS'));
-//                        }
-//                    };
+                    $scope.Filter = function (valid) {
+                        resetUrlParams();
+                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
+
+                            var bufDate = null,
+                                    data = globalFunctions.cleanData($scope.studentAbsenceFilter);
+
+                            if (!!$scope.studentAbsenceFilter.lessonDate) {
+                                bufDate = $scope.studentAbsenceFilter.lessonDate;
+                            }
+
+                            if (!!bufDate) {
+                                data.lessonDate = moment(bufDate).format();
+                            } else {
+                                delete data.lessonDate;
+                            }
+
+                            if (!!data) {
+                                urlParams.where = angular.toJson(data);
+                            }
+                        }
+                        LoadGrid();
+                    };
 
                     /**
                      * 
@@ -155,32 +249,6 @@
                         subjectRoundModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.subjectRounds = result.data;
-
-                                contactLessonModel.GetList(urlParams).then(function (result) {
-                                    if (globalFunctions.resultHandler(result)) {
-                                        $scope.contactLessons = result.data;
-
-                                        absenceReasonModel.GetList(urlParams).then(function (result) {
-                                            if (globalFunctions.resultHandler(result)) {
-                                                $scope.absenceReasons = result.data;
-
-                                                teacherModel.GetList(urlParams).then(function (result) {
-                                                    if (globalFunctions.resultHandler(result)) {
-                                                        $scope.teachers = result.data;
-
-                                                        roomModel.GetList(urlParams).then(function (result) {
-                                                            if (globalFunctions.resultHandler(result)) {
-                                                                $scope.rooms = result.data;
-
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
-
-                                    }
-                                });
                             }
                         });
                     }
