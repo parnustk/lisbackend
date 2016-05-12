@@ -111,6 +111,10 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial teacher.{
                             id
                     },
+                    partial student.{
+                            id,
+                            name
+                    },
                     partial absence.{
                             id,
                             description
@@ -118,21 +122,28 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial absenceReason.{
                             id,
                             name
+                    },
+                    partial rooms.{
+                            id,
+                            name
                     }
                     FROM Core\Entity\SubjectRound subjectRound
                     LEFT JOIN subjectRound.teacher teacher
                     LEFT JOIN subjectRound.contactLesson contactLesson
-                    LEFT JOIN contactLesson.absence absence
+                    JOIN contactLesson.absence absence
+                    LEFT JOIN contactLesson.rooms rooms
                     LEFT JOIN absence.absenceReason absenceReason
-                    ";
+                    LEFT JOIN absence.student student
+                    
+                    WHERE student.id=:studentId";
         
-//        $q = $this->getEntityManager()->createQuery($dql);
-//        $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
-//
-//        $q->setHydrationMode(Query::HYDRATE_ARRAY);
-//        return new Paginator(
-//                new DoctrinePaginator(new ORMPaginator($q))
-//        );
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
+
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
     }
 
     /**

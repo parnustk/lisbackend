@@ -38,7 +38,8 @@
                     'studentModel',
                     'contactLessonModel',
                     'subjectRoundModel',
-                    'teacherModel'
+                    'teacherModel',
+                    'roomModel'
                 ];
 
                 /**
@@ -54,6 +55,7 @@
                  * @param {type} contactLessonModel
                  * @param {type} subjectRoundModel
                  * @param {type} teacherModel
+                 * @param {type} roomModel
                  * @returns {absenceController_L28.absenceController}
                  */
                 function absenceController(
@@ -67,7 +69,8 @@
                         studentModel,
                         contactLessonModel,
                         subjectRoundModel,
-                        teacherModel
+                        teacherModel,
+                        roomModel
                         ) {
 
                     $scope.T = globalFunctions.T;
@@ -86,7 +89,7 @@
 
 //                    $scope.studentAbsenceFilter = {};
 
-                    $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = [];
+                    $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
 //                    $scope.absence = {};
 
@@ -138,13 +141,32 @@
                      * @returns {undefined}
                      */
                     function LoadData() {
-                        subjectRoundModel.GetList({}).then(function (result) {
+                        subjectRoundModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.subjectRounds = result.data;
 
-                                contactLessonModel.GetList({}).then(function (result) {
+                                contactLessonModel.GetList(urlParams).then(function (result) {
                                     if (globalFunctions.resultHandler(result)) {
                                         $scope.contactLessons = result.data;
+
+                                        absenceReasonModel.GetList(urlParams).then(function (result) {
+                                            if (globalFunctions.resultHandler(result)) {
+                                                $scope.absenceReasons = result.data;
+
+                                                teacherModel.GetList(urlParams).then(function (result) {
+                                                    if (globalFunctions.resultHandler(result)) {
+                                                        $scope.teachers = result.data;
+
+                                                        roomModel.GetList(urlParams).then(function (result) {
+                                                            if (globalFunctions.resultHandler(result)) {
+                                                                $scope.rooms = result.data;
+
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
 
                                     }
                                 });
