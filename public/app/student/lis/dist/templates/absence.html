@@ -2,39 +2,33 @@
 
 <table>
     <th>{{T('LIS_ABSENCE')}}</th>
-    <th>{{T('LIS_ABSENCEREASON')}}</th>
     <tr ng-repeat="subjectRound in subjectRounds">
-        
+
         <td>
-            <b>{{ subjectRound.name}}</b><br><br>
-            
+            <b class="subjectRoundFormating">{{ subjectRound.name}}</b><br><br>
+
             <ul>
                 <li ng-repeat="contactLesson in subjectRound.contactLesson" style="border-top: solid gray 1px">
+                    <ul>
+                        <li ng-repeat="absence in contactLesson.absence" class="absencereasonposition">
+                            <br>{{absence.absenceReason.name}}
+                        </li>
+                    </ul>
                     {{ FormatDate(contactLesson.lessonDate.date)}}
                     - {{ contactLesson.sequenceNr}}
                     <br>Klass: {{ contactLesson.rooms.name}}
-                   
+
                     <ul>
                         <li ng-repeat="teacher in subjectRound.teacher">
                             {{teacher.name}}
                         </li>
-                    </ul><br>
-                    
-                </li>
-                
-            </ul>
-        </td>
-        
-        
-        <td>
-            <ul>
-                <li ng-repeat="contactLesson in subjectRound.contactLesson">
-                    <ul>
-                        <li ng-repeat="absence in contactLesson.absence">
-                            {{absence.absenceReason.name}}
+                        <li>
+                            <br>
                         </li>
                     </ul>
+
                 </li>
+
             </ul>
         </td>
     </tr>

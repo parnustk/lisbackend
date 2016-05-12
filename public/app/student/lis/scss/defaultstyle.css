@@ -52,3 +52,12 @@ table tr:nth-child(even) {
     margin-top: 15px;
     float: right;
 }
+
+.absencereasonposition{
+    font-weight: bold;
+    color: #000033;
+}
+
+.subjectRoundFormating{
+    color: #660066;
+}
