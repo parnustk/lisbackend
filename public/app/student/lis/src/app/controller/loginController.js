@@ -19,9 +19,9 @@
     define(['app/util/globalFunctions'], function (globalFunctions) {
 
 
-        loginController.$inject = ['$scope', 'loginModel', '$cookies'];
+        loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
-        function loginController($scope, loginModel, $cookies) {
+        function loginController($scope, loginModel, $cookies, registerModel) {
 
             $scope.credentials = {
                 email: 'student@test.ee',
@@ -98,7 +98,6 @@
              */
             $scope.showButton = function () {
                 var lang = getCookieValue('userLang');
-
                 if (lang === 'et') {
                     return true;
                 } else if (lang === 'en') {
@@ -106,28 +105,19 @@
                 } else {
                     console.log('Language button display error. Possible cookie error.');
                 }
-
-
             };
 
             $scope.T = globalFunctions.T;
-
-
 
             $scope.Login = function () {
                 loginModel
                     .Create($scope.credentials)
                     .then(function (result) {
-                        if (result.success) {
-                            //GOOD
-
+                        if (result.success) {//GOOD
                             addCookieTimed('userObj', $scope.credentials);
-
                             $scope.userLoginError = false;
                             $scope.userLoggedIn = true;
-                        } else {
-                            //BAD
-
+                        } else {//BAD
                             $scope.userLoggedIn = false;
                             $scope.userLoginError = true;
                         }
@@ -138,19 +128,12 @@
              * If a cookie exists, that means that there has been a successful login.
              * Then we update the cookie to extend the expiration date.
              */
-            if (getCookieValue('userObj') !== undefined) {
-                //var loginData = getCookieValue('userObj');
+            if (typeof getCookieValue('userObj') !== 'undefined') {
                 $scope.userLoggedIn = true;
-                // $scope.credentials = {
-                //     email: loginData.email,
-                //     password: loginData.password
-                // };
                 addCookieTimed('userObj', $scope.credentials);
-                // $scope.Login(); //error
-
             }
 
-            if (getCookieValue('userLang') === undefined) {
+            if (typeof getCookieValue('userLang') === 'undefined') {
                 var currentLang = window.LisGlobals.L;
                 addCookie('userLang', currentLang);
             } else if (getCookieValue('userLang') === 'et') {
@@ -161,20 +144,17 @@
                 console.log('ERROR in Login/Language Change. Possible cookie error.');
             }
 
-
             /** /cookies **/
-
             $scope.Logout = function () {
-                //console.log("Logout");
                 window.location.href = "#!/"; //for firefox
                 loginModel.Delete(1);
                 removeCookie('userObj');
                 window.location.reload();
             };
 
-            //register new user logic
+            //start register new user logic
             $scope.credentialsReg = {};
-            
+
             /**
              * 
              * @param {Boolean} valid
@@ -184,6 +164,15 @@
                 if (valid) {
                     delete $scope.credentialsReg.confirmPassword;
                     console.log($scope.credentialsReg);
+                    registerModel
+                        .Create($scope.credentialsReg)
+                        .then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                console.log(result);
+                            } else {//BAD
+                                console.log(result);
+                            }
+                        });
                 } else {
                     globalFunctions.alertErrorMsg('LIS_CHECK_FORM_FIELDS');
                 }

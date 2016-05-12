@@ -36,6 +36,7 @@
         /*17*/'app/model/independentWorkModel',
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
+        /*20*/'app/model/registerModel',
         /*1*/'app/controller/loginController',
         /*6*/'app/controller/absenceController',
         /*14*/'app/controller/contactLessonGradeController',
@@ -63,6 +64,7 @@
         /*17*/independentWorkModel,
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
+        /*20*/registerModel,
         /*1*/loginController,
         /*6*/absenceController,
         /*14*/contactLessonGradeController,
@@ -312,6 +314,7 @@
         studentModule.factory('subjectRoundModel', subjectRoundModel);
         studentModule.factory('studentGradeModel', studentGradeModel);
         studentModule.factory('studentInGroupsModel', studentInGroupsModel);
+        studentModule.factory('registerModel', registerModel);
 
         studentModule.controller('loginController', loginController);
         studentModule.controller('absenceController', absenceController);
