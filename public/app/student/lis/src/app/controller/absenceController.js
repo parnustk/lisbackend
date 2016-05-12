@@ -173,6 +173,15 @@
                         return '';
                     }
 
+                    var resetUrlParams = function () {
+                        urlParams = {
+                            page: 1,
+                            limit: 100000,
+                            studentAbsence: true,
+                            id: null
+                        };
+                    };
+
                     /**
                      * Remove criteria
                      * 
@@ -182,7 +191,7 @@
                         resetUrlParams();
                         $scope.studentAbsenceFilter = {};
                         delete urlParams.where;
-                        LoadGrid();
+                        LoadData();
                     };
 
                     /**
@@ -238,7 +247,7 @@
                                 urlParams.where = angular.toJson(data);
                             }
                         }
-                        LoadGrid();
+                        LoadData();
                     };
 
                     /**

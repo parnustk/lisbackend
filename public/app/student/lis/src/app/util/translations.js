@@ -197,7 +197,8 @@
                 LIS_BACK:'Tagasi',
                 LIS_STUDENTABSENCE:'Minu puudumised',
                 SEARCH_A_STARTLESSONDATE:'Algus',
-                SEARCH_A_ENDLESSONDATE:'Lõpp'
+                SEARCH_A_ENDLESSONDATE:'Lõpp',
+                LIS_STUDENTABSENCEFILTER:'Filtreeri'
                 
             },
             en: {
@@ -383,7 +384,8 @@
                 LIS_BACK:'Back',
                 LIS_STUDENTABSENCE:'My absences',
                 SEARCH_A_STARTLESSONDATE:'Start',
-                SEARCH_A_ENDLESSONDATE:'End'
+                SEARCH_A_ENDLESSONDATE:'End',
+                LIS_STUDENTABSENCEFILTER:'Filter'
             }
         };
         return t;

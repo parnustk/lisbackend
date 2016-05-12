@@ -47,7 +47,7 @@
                 </span>
             </p>
         </div>
-        
+
         <div class="col-md-12">
             <p class="input-group">
                 <span class="input-group-addon" id="filterForm-endlessonDate">{{ T('SEARCH_A_ENDLESSONDATE')}}</span>
@@ -56,6 +56,11 @@
                     <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
             </p>
+        </div>
+
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR')}}</span></button>
+            <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER')}}</button>
         </div>
 
     </fieldset>
