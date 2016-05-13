@@ -201,21 +201,68 @@
 
 
             <div ng-if="!userLoggedIn" class="wrapper" ng-cloak>
-                <div>
-                    <button class="btn languageSwitcher" ng-show="showButton()" ng-click="changeLanguage('en')">in English</button>
-                    <button class="btn languageSwitcher" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</button>
-                </div>
-                <form class="form-signin">
-                    <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
-                        {{ T('LIS_LOGIN_ERROR') }}
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn languageSwitcher" ng-show="showButton()" ng-click="changeLanguage('en')">in English</button>
+                        <button class="btn languageSwitcher" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</button>
                     </div>
-                    <h2 class="form-signin-heading">{{ T('LIS_LOGIN_GREETING') }}</h2>
-                    <input class="form-control" name="username" placeholder="{{ T('LIS_EMAIL') }}" type="text"
-                                   ng-model="credentials.email" value="admin@test.ee" autofocus=""/>
-                    <input class="form-control" type="password" name="password" placeholder="{{ T('LIS_PASSWORD') }}"
-                                   ng-model="credentials.password" value="Tere1234">
-                    <button class="btn btn-lg btn-primary btn-block" ng-click="Login()">{{ T('LIS_LOGIN') }}</button>
-                </form>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <form class="form-signin" name="loginForm">
+                            <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
+                                {{ T('LIS_LOGIN_ERROR')}}
+                            </div>
+                            <h2 class="form-signin-heading">{{ T('LIS_LOGIN_GREETING')}}</h2>
+
+                            <div class="form-group" ng-class="{ 'has-error': loginForm.username.$invalid }">
+                                <input class="form-control" name="username" placeholder="{{ T('LIS_EMAIL')}}" type="text"
+                                       ng-model="credentials.email" value="admin@test.ee" autofocus=""/>
+                            </div>
+
+                            <div class="form-group" ng-class="{ 'has-error': loginForm.password.$invalid }">
+                                <input class="form-control" type="password" name="password" placeholder="{{ T('LIS_PASSWORD')}}"
+                                       ng-model="credentials.password" value="Tere1234">
+                            </div>
+
+                            <button class="btn btn-lg btn-primary btn-block" ng-click="Login()">{{ T('LIS_LOGIN')}}</button>
+                        </form><br>
+                    </div>
+
+                    <div class="col-md-6">
+                        <form class="form-signin" role="form" name="registerForm" ng-submit="Register(registerForm.$valid)">
+                            <div class="alert alert-danger" ng-if="userLoginError" ng-cloak>
+                                {{ T('LIS_REGISTER_ERROR') }}
+                            </div>
+                            <h2 class="form-signin-heading">{{ T('LIS_REGISTER_GREETING') }}</h2>
+
+                            <div class="form-group" ng-class="{ 'has-error': registerForm.personalCode.$invalid }">
+                                <input class="form-control" name="username" ng-required="true" placeholder="{{ T('LIS_PERSONALCODE') }}"
+                                       type="text" ng-model="credentialsReg.personalCode" autofocus=""/>
+                            </div>
+
+                            <div class="form-group" ng-class="{ 'has-error': registerForm.username.$invalid }">
+                                <input class="form-control" name="personalCode" ng-required="true" placeholder="{{ T('LIS_EMAIL') }}"
+                                       type="email" ng-model="credentialsReg.email"/>
+                            </div>
+
+                            <div class="form-group" ng-class="{ 'has-error': registerForm.password.$invalid }">
+                                <input class="form-control" name="password" ng-required="true" placeholder="{{ T('LIS_PASSWORD') }}"
+                                       type="password" ng-model="credentialsReg.password"/>
+                            </div>
+
+                            <div class="form-group" ng-class="{ 'has-error': registerForm.confirmPassword.$invalid }">
+                                <input class="form-control" name="password" ng-required="true" placeholder="{{ T('LIS_REPEAT_PASSWORD') }}"
+                                       ng-model="credentialsReg.confirmPassword" compare-to="credentialsReg.password"/>
+                            </div>
+
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">{{ T('LIS_REGISTER') }}</button>
+
+                        </form>
+                    </div>
+                </div>
             </div>
 
         </div>

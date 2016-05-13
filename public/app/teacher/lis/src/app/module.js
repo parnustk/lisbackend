@@ -36,6 +36,7 @@
         /*17*/'app/model/independentWorkModel',
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
+        /*20*/'app/model/registerModel',
         /*1*/'app/controller/loginController',
         /*2*/'app/controller/diaryController'
     ], function (
@@ -60,6 +61,7 @@
         /*17*/independentWorkModel,
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
+        /*20*/registerModel,
         /*1*/loginController,
         /*2*/diaryController
         ) {
@@ -287,6 +289,8 @@
         module.factory('subjectRoundModel', subjectRoundModel);
         module.factory('studentGradeModel', studentGradeModel);
         module.factory('studentInGroupsModel', studentInGroupsModel);
+        module.factory('registerModel', registerModel);
+
 
         module.controller('loginController', loginController);
         module.controller('diaryController', diaryController);

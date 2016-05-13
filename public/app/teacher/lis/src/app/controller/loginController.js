@@ -171,6 +171,38 @@
                 removeCookie('userObj');
                 window.location.reload();
             };
+
+            /**
+             *
+             * @param valid
+             * @constructor
+             */
+            $scope.Register = function (valid) {
+                if (valid) {
+                    if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
+                        globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
+
+                        $scope.credentialsReg.password = '';
+                        $scope.credentialsReg.confirmPassword = '';
+                        return;
+                    }
+
+                    delete $scope.credentialsReg.confirmPassword;
+                    registerModel
+                        .Create($scope.credentialsReg)
+                        .then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                console.log(result);
+                            } else {
+                                console.log(result);
+                            }
+                        });
+                } else {
+                    globalFunctions.alertErrorMsg('LIS_CHECK_FORM_FIELDS');
+                }
+            };
+
+
         }
 
         return loginController;
