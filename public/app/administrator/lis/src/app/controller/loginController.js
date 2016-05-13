@@ -182,6 +182,7 @@
                 window.location.reload();
             };
 
+            $scope.credentialsReg = {};
             /**
              *
              * @param valid
@@ -190,7 +191,7 @@
             $scope.Register = function (valid) {
                 if (valid) {
                     if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
-                        globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
+                        globalFunctions.alertErrorMsg('LIS_PASWORD_REQUIREMENTS');
 
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';
@@ -202,9 +203,10 @@
                         .Create($scope.credentialsReg)
                         .then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                console.log(result);
-                            } else {
-                                console.log(result);
+                                $scope.credentialsReg.email = '';
+                                $scope.credentialsReg.password = '';
+                                $scope.credentialsReg.confirmPassword = '';
+                                globalFunctions.alertSuccessMsg('LIS_YOU_CAN_LOGIN_NOW');
                             }
                         });
                 } else {

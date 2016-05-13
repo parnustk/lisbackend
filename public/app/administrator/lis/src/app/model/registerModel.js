@@ -46,5 +46,5 @@
         }
         registerModel.$inject = ['$http', '$resource'];
         return registerModel;
-    })
+    });
 }(define, window));
