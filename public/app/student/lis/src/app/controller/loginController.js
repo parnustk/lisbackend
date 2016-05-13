@@ -162,23 +162,24 @@
              */
             $scope.Register = function (valid) {
                 if (valid) {
-                    if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
+                    if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
                         globalFunctions.alertErrorMsg('LIS_PASWORD_REQUIREMENTS');
-                        
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';
                         return;
                     }
-                    
+
                     delete $scope.credentialsReg.confirmPassword;
-                    console.log($scope.credentialsReg);
                     registerModel
                         .Create($scope.credentialsReg)
                         .then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                console.log(result);
-                            } else {//BAD
-                                console.log(result);
+                                $scope.credentialsReg.email = '';
+                                $scope.credentialsReg.password = '';
+                                $scope.credentialsReg.password = '';
+                                $scope.credentialsReg.password = '';
+                                $scope.credentialsReg.confirmPassword = '';
+                                globalFunctions.alertSuccessMsg('LIS_YOU_CAN_LOGIN_NOW');
                             }
                         });
                 } else {
