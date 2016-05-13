@@ -17,6 +17,10 @@ table, th , td  {
     border: 1px solid grey;
     border-collapse: collapse;
     padding: 5px;
+    /*width: 100%;*/
+}
+
+.studentTable{
     width: 100%;
 }
 
@@ -60,4 +64,8 @@ table tr:nth-child(even) {
 
 .subjectRoundFormating{
     color: #330099;
+}
+
+.form-control{
+    width: inherit;
 }

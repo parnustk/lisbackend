@@ -239,26 +239,6 @@
                         } else {
                             alert('error');
                         }
-//                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-//
-//                            var bufDate = null,
-//                                    data = globalFunctions.cleanData($scope.studentAbsenceFilter);
-//
-//                            if (!!$scope.studentAbsenceFilter.lessonDate) {
-//                                bufDate = $scope.studentAbsenceFilter.lessonDate;
-//                            }
-//
-//                            if (!!bufDate) {
-//                                data.lessonDate = moment(bufDate).format();
-//                            } else {
-//                                delete data.lessonDate;
-//                            }
-//
-//                            if (!!data) {
-//                                urlParamsDate.where = angular.toJson(data);
-//                            }
-//                        }
-//                        LoadData();
                     };
 
                     $scope.dateFilter = function (items, startDate, endDate) {
