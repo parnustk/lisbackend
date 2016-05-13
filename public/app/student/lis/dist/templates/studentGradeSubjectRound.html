@@ -4,7 +4,7 @@
 
 <table class="studentTable">
     <th>{{T('LIS_SUBJECTROUND')}}</th>
-    <th>{{T('LIS_GRADE')}}</th>
+    <th class="studentGradeView">{{T('LIS_GRADE')}}</th>
     <tr ng-repeat="subjectRoundGrade in subjectRoundGrades">
         <td>
             <a href="#!/studentgradecontactlesson/{{moduleId}}/{{subjectRoundGrade.id}}">
@@ -13,7 +13,7 @@
         </td>
         <td>
             <ul>
-                <li ng-repeat="studentGrade in subjectRoundGrade.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+                <li ng-repeat="studentGrade in subjectRoundGrade.studentGrade" class="studentGradeView"><b>{{ studentGrade.gradeChoice.name}}</b></li>
             </ul>
         </td>
     </tr>

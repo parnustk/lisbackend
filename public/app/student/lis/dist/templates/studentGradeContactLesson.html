@@ -5,7 +5,7 @@
 <table class="studentTable">
     <th>{{T('LIS_LESSONDESCRIPTION')}}</th>
     <!--<th>{{T('LIS_CONTACTLESSON')}}</th>-->
-    <th>{{T('LIS_GRADE')}}</th>
+    <th class="studentGradeView">{{T('LIS_GRADE')}}</th>
 
     <tr ng-repeat="contactLesson in contactLessons">
 
@@ -17,7 +17,7 @@
     <!--<td>{{ contactLesson.sequenceNr}}</td>-->           
     <td>
         <ul>
-            <li ng-repeat="studentGrade in contactLesson.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+            <li ng-repeat="studentGrade in contactLesson.studentGrade" class="studentGradeView"><b>{{ studentGrade.gradeChoice.name}}</b></li>
         </ul>
     </td>
 </tr>
@@ -29,7 +29,7 @@
 
 <table class="studentTable">
     <th>{{T('LIS_INDEPENDENTWORKDESCRIPTION')}}</th>
-    <th>{{T('LIS_GRADE')}}</th>
+    <th class="studentGradeView">{{T('LIS_GRADE')}}</th>
     
     <tr ng-repeat="independentWork in independentWorks">
 
@@ -40,7 +40,7 @@
         </td>         
     <td>
         <ul>
-            <li ng-repeat="studentGrade in independentWork.studentGrade">{{ studentGrade.gradeChoice.name}}</li>
+            <li ng-repeat="studentGrade in independentWork.studentGrade" class="studentGradeView"><b>{{ studentGrade.gradeChoice.name}}</b></li>
         </ul>
     </td>
 </tr>
