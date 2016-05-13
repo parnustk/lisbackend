@@ -18,9 +18,9 @@
     define(['app/util/globalFunctions'], function (globalFunctions) {
 
 
-        loginController.$inject = ['$scope', 'loginModel', '$cookies'];
+        loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
-        function loginController($scope, loginModel, $cookies) {
+        function loginController($scope, loginModel, $cookies, registerModel) {
 
             $scope.credentials = {
                 email: 'teacher@test.ee',
@@ -172,6 +172,8 @@
                 window.location.reload();
             };
 
+
+            $scope.credentialsReg = {};
             /**
              *
              * @param valid
@@ -180,7 +182,7 @@
             $scope.Register = function (valid) {
                 if (valid) {
                     if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
-                        globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
+                        globalFunctions.alertErrorMsg('LIS_PASWORD_REQUIREMENTS');
 
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';
@@ -188,6 +190,7 @@
                     }
 
                     delete $scope.credentialsReg.confirmPassword;
+                    console.log($scope.credentialsReg);
                     registerModel
                         .Create($scope.credentialsReg)
                         .then(function (result) {
