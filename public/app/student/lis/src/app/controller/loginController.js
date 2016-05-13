@@ -162,6 +162,14 @@
              */
             $scope.Register = function (valid) {
                 if (valid) {
+                    if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
+                        globalFunctions.alertErrorMsg('LIS_PASWORD_REQUIREMENTS');
+                        
+                        $scope.credentialsReg.password = '';
+                        $scope.credentialsReg.confirmPassword = '';
+                        return;
+                    }
+                    
                     delete $scope.credentialsReg.confirmPassword;
                     console.log($scope.credentialsReg);
                     registerModel
