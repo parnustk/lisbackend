@@ -94,6 +94,17 @@
                 $("#errorModal .modal-title").text(this.T('LIS_ERROR'));
                 $("#errorModal .modal-body").text(alertMessage);
                 $("#errorModal").modal('show');
+            },
+            
+            /**
+             *
+             * @param alertmessage
+             * @returns {string} modal window with custom text as input
+             */
+            alertSuccessMsg: function (alertmessage) {
+                $("#successModal .modal-title").text(this.T('LIS_SUCCESS'));
+                $("#successModal .modal-body").text(alertMessage);
+                $("#successModal").modal('show');
             }
         };
     });

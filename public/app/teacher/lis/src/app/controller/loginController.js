@@ -190,14 +190,14 @@
                     }
 
                     delete $scope.credentialsReg.confirmPassword;
-                    console.log($scope.credentialsReg);
                     registerModel
                         .Create($scope.credentialsReg)
                         .then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                console.log(result);
-                            } else {
-                                console.log(result);
+                                $scope.credentialsReg.email = '';
+                                $scope.credentialsReg.password = '';
+                                $scope.credentialsReg.confirmPassword = '';
+                                globalFunctions.alertSuccessMsg('LIS_YOU_CAN_LOGIN_NOW');
                             }
                         });
                 } else {

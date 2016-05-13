@@ -34,7 +34,7 @@
             );
             return {
                 /**
-                 * 
+                 *
                  * @param data
                  * @returns {angular.IPromise<T>|angular.IPromise<Array<T>>|angular.IPromise<IResourceArray<T>>|*|Function}
                  * @constructor
@@ -46,5 +46,5 @@
         }
         registerModel.$inject = ['$http', '$resource'];
         return registerModel;
-    })
+    });
 }(define, window));
