@@ -20,9 +20,9 @@
     define(['app/util/globalFunctions'], function (globalFunctions) {
 
 
-        loginController.$inject = ['$scope', 'loginModel', '$cookies'];
+        loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
-        function loginController($scope, loginModel, $cookies) {
+        function loginController($scope, loginModel, $cookies, registerModel) {
 
             $scope.credentials = {
                 email: 'admin@test.ee',
@@ -180,6 +180,27 @@
                 loginModel.Delete(1);
                 removeCookie('userObj');
                 window.location.reload();
+            };
+
+            /**
+             * 
+             * @param valid
+             * @constructor
+             */
+            $scope.Register = function (valid) {
+                if (valid) {
+                    delete $scope.credentialsReg.confirmPassword;
+                    registerModel
+                        .Create($scope.credentialsReg)
+                        .then(function (result) {
+                            if (globalFunctions.resultHandler(result))
+                                console.log(result);
+                            else
+                                console.log(result);
+                        });
+                } else {
+                    globlFunctions.alertErrorMsg('LIS_CHECK_FORM_FIELDS');
+                }
             };
         }
 

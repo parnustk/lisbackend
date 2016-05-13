@@ -36,6 +36,7 @@
         /*17*/'app/model/independentWorkModel',
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
+        /*20*/'app/model/registerModel',
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -77,6 +78,7 @@
         /*17*/independentWorkModel,
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
+        /*20*/registerModel,
         /*1*/vocationController,
         /*2*/gradingTypeController,
         /*3*/gradeChoiceController,
@@ -321,6 +323,7 @@
         adminModule.factory('subjectRoundModel', subjectRoundModel);
         adminModule.factory('studentGradeModel', studentGradeModel);
         adminModule.factory('studentInGroupsModel', studentInGroupsModel);
+        adminModule.factory('registerModel', registerModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
