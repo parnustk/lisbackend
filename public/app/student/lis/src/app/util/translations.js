@@ -199,7 +199,8 @@
                 SEARCH_A_STARTLESSONDATE:'Algus',
                 SEARCH_A_ENDLESSONDATE:'Lõpp',
                 LIS_STUDENTABSENCEFILTER:'Filtreeri',
-                LIS_TIMETABLE:'Tunniplaan'
+                LIS_TIMETABLE:'Tunniplaan',
+                LIS_TIME:'Kellaaeg'
                 
             },
             en: {
@@ -387,7 +388,8 @@
                 SEARCH_A_STARTLESSONDATE:'Start',
                 SEARCH_A_ENDLESSONDATE:'End',
                 LIS_STUDENTABSENCEFILTER:'Filter',
-                LIS_TIMETABLE:'Timetable'
+                LIS_TIMETABLE:'Timetable',
+                LIS_TIME:'Time'
             }
         };
         return t;

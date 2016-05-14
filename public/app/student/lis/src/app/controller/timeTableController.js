@@ -210,10 +210,10 @@
                     $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
                     $scope.FormatDate = function (ds) {
-                        
+
                         var dObj = new Date(ds),
                                 dFinal;
-                        
+
                         if (window.LisGlobals.L === 'et') {
                             dFinal = moment(dObj).format('DD.MM.YYYY');
                         } else {
@@ -235,7 +235,7 @@
                             urlParams.startDate = moment($scope.studentAbsenceFilter.startDate).format('YYYY-MM-DD');
                             urlParams.endDate = moment($scope.studentAbsenceFilter.endDate).format('YYYY-MM-DD');
                             LoadData();
-                            
+
                         } else {
                             alert('error');
                         }
