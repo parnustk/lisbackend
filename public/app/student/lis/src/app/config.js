@@ -40,6 +40,11 @@
                     controller: 'contactLessonGradeController'
                 })
                 
+                .when('/timetable', {
+                    templateUrl: 'lis/dist/templates/timeTable.html',
+                    controller: 'timeTableController'
+                })
+                
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

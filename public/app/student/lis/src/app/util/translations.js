@@ -198,7 +198,8 @@
                 LIS_STUDENTABSENCE:'Minu puudumised',
                 SEARCH_A_STARTLESSONDATE:'Algus',
                 SEARCH_A_ENDLESSONDATE:'Lõpp',
-                LIS_STUDENTABSENCEFILTER:'Filtreeri'
+                LIS_STUDENTABSENCEFILTER:'Filtreeri',
+                LIS_TIMETABLE:'Tunniplaan'
                 
             },
             en: {
@@ -385,7 +386,8 @@
                 LIS_STUDENTABSENCE:'My absences',
                 SEARCH_A_STARTLESSONDATE:'Start',
                 SEARCH_A_ENDLESSONDATE:'End',
-                LIS_STUDENTABSENCEFILTER:'Filter'
+                LIS_STUDENTABSENCEFILTER:'Filter',
+                LIS_TIMETABLE:'Timetable'
             }
         };
         return t;
