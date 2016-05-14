@@ -94,20 +94,17 @@ class DumpController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            echo '<pre>';
-            print_r($request->getPost('username'));
-            die('<br>ENDPOINT');
             //check form fields against credentials in config file
             $data = include 'config/autoload/backupdb.local.php';
             $inputname = $request->getPost('username');
             $inputpwd = $request->getPost('password');
-            $uname = $data['backupdb']['connection']['params']['loginuser'];
-            $pwd = $data['backupdb']['connection']['params']['loginpwd'];
+            $uname = $data['backupdb']['login']['loginuser'];
+            $pwd = $data['backupdb']['login']['loginpwd'];
             if ($inputname == $uname && $inputpwd == $pwd) {
                 $cookie = new Zend_Http_Cookie('BACKUPSESSION',
                                'logintrue',
-                               '.lis.local',
-                               time() + 1200,
+                               $data['backupdb']['login']['domain'],
+                               null, //Session cookie. Expires when session closes.
                                '/backupdb/dump');
                 $this->panelAction();
             } else {
@@ -124,11 +121,16 @@ class DumpController extends AbstractActionController
     public function panelAction()//control panel
     {
         //check session if credentials not ok redirect to login
-        if($this->Zend_Http_Cookie->match())
-        //if credentials ok show panel form / file upload field, upload button, download button, serverside restore button, serverside back, logout button
-                
-        $panel = 'panel';
-        return new ViewModel(['form' => $panel]);
+        $data = include 'config/autoload/backupdb.local.php';
+        if($this->Zend_Http_Cookie->match('https://'.$data['backupdb']['login']['domain'].'/backupdb/dump')) { 
+            die('COOKIE SUCCESS');
+            $panel = 'panel';
+            return new ViewModel(['form' => $panel]);
+        } else {//if credentials not ok, return to login
+            die('COOKIE FAIL');
+            $login = 'login';
+            return new ViewModel(['form' => $login]);
+        }
     }
 
 }
