@@ -55,7 +55,8 @@ class StudentGroupController extends Base
      * <h2>POST student/studentgroup</h2>
      * <h3>Body</h3>
      * <code>name(string)*
-     * vocation(integer)</code>
+     * status(integer)*
+     * vocation(integer)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -71,6 +72,7 @@ class StudentGroupController extends Base
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>name(string)*
+     * status(integer)*
      * vocation(integer)*</code>
      * 
      * @param type $id
