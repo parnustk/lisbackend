@@ -78,14 +78,14 @@ class ContactLessonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Entity\ContactLesson::setDurationAK
-     * @covers Core\Entity\ContactLesson::getDurationAK
+     * @covers Core\Entity\ContactLesson::setSequenceNr
+     * @covers Core\Entity\ContactLesson::getSequenceNr
      */
-    public function testSetGetDurationAK()
+    public function testSetGetSequenceNr()
     {
-        $duration = '85';
-        $this->contactLesson->setDurationAK($duration);
-        $this->assertEquals($duration, $this->contactLesson->getDurationAK());
+        $duration = '4';
+        $this->contactLesson->setSequenceNr($duration);
+        $this->assertEquals($duration, $this->contactLesson->getSequenceNr());
     }
     
     /**
