@@ -1,22 +1,7 @@
 <h2>{{ T('LIS_TIMETABLE')}}</h2>
-<h2>TA 2014</h2>
-<table class="studentTable">
-    <th>{{T('LIS_TIMETABLE')}}</th>
-    <tr ng-repeat="subjectRound in subjectRounds">
-        <td>
-            <ul>
-                <li ng-repeat="contactLesson in contactLesson.subjectRound">
-            <ul>
-                <li ng-repeat="studentGroup in contactLesson.studentGroup" class="absencereasonposition">
-                    <br>{{studentGroup.name}}
-                </li>
-            </ul>
-                </li>
-            </ul>
-            {{studentGroup.name}}
-        </td>      
-    </tr>
-</table>
+
+<h3 ng-repeat="subjectRound in subjectRounds">{{subjectRound.studentGroup.name}}</h3>
+
 
 
 
