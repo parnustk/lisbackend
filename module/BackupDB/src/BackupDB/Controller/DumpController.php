@@ -5,6 +5,7 @@ namespace BackupDB\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
+use Zend\Http\Client;
 use BackupDB\Form\loginForm;
 use BackupDB\Form\panelForm;
 
@@ -15,6 +16,11 @@ class DumpController extends AbstractActionController
      * @var string
      */
     protected $service = 'dump_service';
+    
+    /**
+     * @var type 
+     */
+    protected $client;
 
     /**
      * 
@@ -101,8 +107,13 @@ class DumpController extends AbstractActionController
             $uname = $data['backupdb']['login']['loginuser'];
             $pwd = $data['backupdb']['login']['loginpwd'];
             if ($inputname == $uname && $inputpwd == $pwd) {
-                $cookie = new Zend_Http_Cookie('BACKUPSESSION',
-                               'logintrue',
+                $cookieUname = new Zend_Http_Cookie('uname',
+                               $inputname,
+                               $data['backupdb']['login']['domain'],
+                               null, //Session cookie. Expires when session closes.
+                               '/backupdb/dump');
+                $cookieUname = new Zend_Http_Cookie('pwd',
+                               $inputpwd,
                                $data['backupdb']['login']['domain'],
                                null, //Session cookie. Expires when session closes.
                                '/backupdb/dump');
@@ -122,7 +133,7 @@ class DumpController extends AbstractActionController
     {
         //check session if credentials not ok redirect to login
         $data = include 'config/autoload/backupdb.local.php';
-        if($this->Zend_Http_Cookie->match('https://'.$data['backupdb']['login']['domain'].'/backupdb/dump')) { 
+        if($this->$client) { 
             die('COOKIE SUCCESS');
             $panel = 'panel';
             return new ViewModel(['form' => $panel]);
