@@ -75,7 +75,8 @@
 
                     $scope.subjects = $scope.studentGroups = $scope.teachers = $scope.vocations = $scope.modules = [];
 
-                    $scope.subjectRound = $scope.filterSubjectRound = {};
+                    $scope.subjectRound = {};
+                    $scope.filterSubjectRound = {};
 
                     $scope.gridOptions = {
                         rowHeight: 38,

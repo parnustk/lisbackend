@@ -107,6 +107,7 @@
 
         </fieldset>
     </form>
+    
     <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
         <fieldset>
 
@@ -116,12 +117,16 @@
 
                 <div class="col-md-12">
                     <div class="input-group">
+                        
                         <ui-select allow-clear ng-model="filterSubjectRound.vocation" theme="bootstrap">
                             <ui-select-match placeholder="{{ T('LIS_VOCATION')}}">
                                 {{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                                 <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    id: {{vocation.id}}
+                                </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>
