@@ -19,6 +19,7 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
  * @author Kristen Sepp <seppkristen@gmail.com>
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Arnold Tserepov <tserepov@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentGroupController extends Base
 {
