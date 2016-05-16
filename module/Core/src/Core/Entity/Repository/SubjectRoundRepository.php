@@ -134,8 +134,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     LEFT JOIN subjectRound.teacher teacher  
                     JOIN contactLesson.absence absence
                     LEFT JOIN contactLesson.rooms rooms
-                    LEFT JOIN contactLesson.lessonDate lessonDate
-                    LEFT JOIN contactLesson.sequenceNr sequenceNr
                     LEFT JOIN absence.absenceReason absenceReason
                     LEFT JOIN absence.student student";
 
@@ -208,8 +206,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     LEFT JOIN subjectRound.studentGroup studentGroup
                     LEFT JOIN contactLesson.absence absence
                     LEFT JOIN contactLesson.rooms rooms
-                    LEFT JOIN contactLesson.lessonDate lessonDate
-                    LEFT JOIN contactLesson.sequenceNr sequenceNr
                     LEFT JOIN absence.absenceReason absenceReason
                     LEFT JOIN absence.student student";
 
