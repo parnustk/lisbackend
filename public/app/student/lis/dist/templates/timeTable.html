@@ -78,7 +78,7 @@
         <div class="col-md-12">
             <p class="input-group">
                 <span class="input-group-addon" id="filterForm-endlessonDate">{{ T('SEARCH_A_ENDLESSONDATE')}}</span>
-                <input type="text" name="endDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentTimeTableFilter.endDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-endlessonDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close" />
+                <input type="text" name="endDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentTimeTableFilter.endDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-endlessonDateFilter" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -95,34 +95,15 @@
 
 <table class="studentTable">
     <th>{{T('LIS_TIMETABLE')}}</th>
-    <tr ng-repeat="subjectRound in subjectRounds">
+    <tr ng-repeat="contactLesson in contactLessons">
 
         <td>
-            <b class="subjectRoundFormating">{{ subjectRound.name}}</b><br><br>
-
-            <ul>
-                <li ng-repeat="contactLesson in subjectRound.contactLesson" style="border-top: solid gray 1px">
-                    <ul>
-                        <li ng-repeat="absence in contactLesson.absence" class="absencereasonposition">
-                            <br>{{absence.absenceReason.name}}
-                        </li>
-                    </ul>
-                    {{ FormatDate(contactLesson.lessonDate.date)}}
-                    - {{ contactLesson.sequenceNr}}
-                    <br>Klass: {{ contactLesson.rooms.name}}
-
-                    <ul>
-                        <li ng-repeat="teacher in subjectRound.teacher">
-                            {{teacher.name}}
-                        </li>
-                        <li>
-                            <br>
-                        </li>
-                    </ul>
-
-                </li>
-
+            <b>{{ FormatDate(contactLesson.lessonDate.date)}}</b> - {{ contactLesson.sequenceNr}}
+            <ul ng-repeat="subjectRound in subjectRounds">
+                <br><li>{{ subjectRound.name}}</li>
             </ul>
+            <br>Õpetaja: {{ contactLesson.teacher.name}}
+            <br>Klass: {{ contactLesson.rooms.name}}
         </td>
     </tr>
 </table>
