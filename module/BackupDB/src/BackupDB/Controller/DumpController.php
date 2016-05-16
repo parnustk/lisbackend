@@ -5,7 +5,6 @@ namespace BackupDB\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
-use Zend\Http\Client;
 use BackupDB\Form\loginForm;
 use BackupDB\Form\panelForm;
 
@@ -107,16 +106,7 @@ class DumpController extends AbstractActionController
             $uname = $data['backupdb']['login']['loginuser'];
             $pwd = $data['backupdb']['login']['loginpwd'];
             if ($inputname == $uname && $inputpwd == $pwd) {
-                $cookieUname = new Zend_Http_Cookie('uname',
-                               $inputname,
-                               $data['backupdb']['login']['domain'],
-                               null, //Session cookie. Expires when session closes.
-                               '/backupdb/dump');
-                $cookieUname = new Zend_Http_Cookie('pwd',
-                               $inputpwd,
-                               $data['backupdb']['login']['domain'],
-                               null, //Session cookie. Expires when session closes.
-                               '/backupdb/dump');
+                //TODO: Session initialization
                 $this->panelAction();
             } else {
                 $this->loginAction();
@@ -133,9 +123,7 @@ class DumpController extends AbstractActionController
     {
         //check session if credentials not ok redirect to login
         $data = include 'config/autoload/backupdb.local.php';
-        if($this->$client) { 
-            die('COOKIE SUCCESS');
-            $panel = 'panel';
+        if(false) { //TODO: session check for credentials
             return new ViewModel(['form' => $panel]);
         } else {//if credentials not ok, return to login
             die('COOKIE FAIL');
