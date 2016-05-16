@@ -93,6 +93,15 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.status.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="subjectRoundForm-status">{{ T('LIS_STATUS') }}</span>
+                        <input name="status" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_STATUS') }}" aria-describedby="subjectRoundForm-status" ng-model="subjectRound.status">
+                    </div>
+                </div>
+            </div>
 
             <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE')}}</button>
 
@@ -176,6 +185,15 @@
                             <span class="input-group-addon" id="filterSubjectRound-name">{{ T('LIS_NAME')}}</span>
                             <input name="name" ng-model="filterSubjectRound.name" type="text" class="form-control"
                                    placeholder="{{ T('LIS_NAME')}}" aria-describedby="filterSubjectRound-name"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterSubjectRound-status">{{ T('LIS_STATUS') }}</span>
+                            <input name="status" ng-model="filterSubjectRound.status" type="number" class="form-control" placeholder="{{ T('LIS_STATUS') }}" aria-describedby="filterSubjectRound-status">
                         </div>
                     </div>
                 </div>

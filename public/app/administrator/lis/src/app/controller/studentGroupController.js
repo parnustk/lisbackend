@@ -1,19 +1,14 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- * @author Eleri Apsolon <eleri.apsolon@gmail.com>
- */
-
 /* global define */
 
 /**
- * READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
- * http://brianhann.com/ui-grid-and-multi-select/#more-732
- * http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
- * http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
- * adding content later https://github.com/angular-ui/ui-grid/issues/2050
- * dropdown menu http://brianhann.com/ui-grid-and-dropdowns/
+ * Licence of Learning Info System (LIS)
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ */
+
+/**
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * 
  * @param {type} define
  * @param {type} document
@@ -81,6 +76,7 @@
                         id: null,
                         vocation: null,
                         name: null,
+                        status: null,
                         trashed: null
                     };
 
@@ -121,10 +117,16 @@
                                 cellFilter: 'griddropdown:this',
                                 sortCellFiltered: $scope.sortFiltered
                             },
-                            {field: 'name',
+                            {
+                                field: 'name',
                                 displayName: $scope.T('LIS_NAME')
                             },
-                            {field: 'trashed',
+                            {
+                                field: 'status',
+                                displayName: $scope.T('LIS_STATUS')
+                            },
+                            {
+                                field: 'trashed',
                                 displayName: $scope.T('LIS_TRASHED')
                             }
                         ],

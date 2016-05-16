@@ -30,6 +30,15 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': studentGroupForm.status.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="studentGroupForm-status">{{ T('LIS_STATUS') }}</span>
+                        <input name="status" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_STATUS') }}" aria-describedby="studentGroupForm-status" ng-model="studentGroup.status">
+                    </div>
+                </div>
+            </div>
 
             <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE') }}</button>
 
@@ -63,6 +72,15 @@
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon" id="filterStudentGroup-name">{{ T('SEARCH_A_NAME') }}</span>
                             <input name="name" ng-model="filterStudentGroup.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterStudentGroup-name">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon" id="filterStudentGroup-status">{{ T('LIS_STATUS') }}</span>
+                            <input name="status" ng-model="filterStudentGroup.status" type="number" class="form-control" placeholder="{{ T('LIS_STATUS') }}" aria-describedby="filterStudentGroup-status">
                         </div>
                     </div>
                 </div>

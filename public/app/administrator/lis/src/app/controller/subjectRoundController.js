@@ -3,12 +3,13 @@
 /**
  * Licence of Learning Info System (LIS)
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tﾅ｡erepov, Marten Kﾃ､hr, Kristen Sepp, Alar Aasa, Juhan Kﾃｵks
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
 
 /**
  * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * 
  * @param {type} define
  * @param {type} document
@@ -63,6 +64,7 @@
                     $scope.model = {
                         id: null,
                         name: null,
+                        status: null,
                         subject: null,
                         studentGroup: null,
                         teacher: null,
@@ -141,6 +143,10 @@
                             {
                                 field: 'name',
                                 displayName: $scope.T('LIS_NAME')
+                            },
+                            {
+                                field: 'status',
+                                displayName: $scope.T('LIS_STATUS')
                             },
                             {
                                 field: 'trashed',
