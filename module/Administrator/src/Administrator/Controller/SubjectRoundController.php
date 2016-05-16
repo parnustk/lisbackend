@@ -55,8 +55,12 @@ class SubjectRoundController extends Base
     /**
      * <h2>POST admin/subjectround</h2>
      * <h3>Body</h3>
-     * <code>subject(integer)*
+     * <code>name(string)*
+     * status(integer)*
+     * subject(integer)*
      * studentGroup(integer)*
+     * module(integer)*
+     * vocation(integer)*
      * teacher(array) [ { id(integer) } ] ]*</code>
      * 
      * @param array $data
@@ -72,8 +76,12 @@ class SubjectRoundController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>subject(integer)*
+     * <code>name(string)*
+     * status(integer)*
+     * subject(integer)*
      * studentGroup(integer)*
+     * module(integer)*
+     * vocation(integer)*
      * teacher(array) [ { id(integer) } ] ]*</code>
      * 
      * @param type $id

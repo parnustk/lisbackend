@@ -49,11 +49,17 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->getPost()->set("subject", $subject->getId());
         $studentGroup = $this->CreateStudentGroup();
         $this->request->getPost()->set("studentGroup", $studentGroup->getId());
+        $module = $this->CreateModule();
+        $this->request->getPost()->set("module", $module->getId());
+        $vocation = $this->CreateVocation();
+        $this->request->getPost()->set("vocation", $vocation->getId());
         $teacher = [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],
         ];
         $this->request->getPost()->set("teacher", $teacher);
+        $this->request->getPost()->set('name', 'AB alused');
+        $this->request->getPost()->set('status', 2);
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
@@ -101,6 +107,10 @@ class SubjectRoundControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
         $this->request->getPost()->set("studentGroup", $this->CreateStudentGroup()->getId());
+        $module = $this->CreateModule();
+        $this->request->getPost()->set("module", $module->getId());
+        $vocation = $this->CreateVocation();
+        $this->request->getPost()->set("vocation", $vocation->getId());
         $this->request->getPost()->set("teacher", [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],
@@ -132,6 +142,10 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $subject = $this->CreateSubject();
         $this->request->getPost()->set("subject", $subject->getId());
+        $module = $this->CreateModule();
+        $this->request->getPost()->set("module", $module->getId());
+        $vocation = $this->CreateVocation();
+        $this->request->getPost()->set("vocation", $vocation->getId());
         $this->request->getPost()->set("teacher", [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],
@@ -162,10 +176,13 @@ class SubjectRoundControllerTest extends UnitHelpers
 
         $this->request->setMethod('post');
         $subject = $this->CreateSubject();
-
         $this->request->getPost()->set("subject", $subject->getId());
         $studentGroup = $this->CreateStudentGroup();
         $this->request->getPost()->set("studentGroup", $studentGroup->getId());
+        $module = $this->CreateModule();
+        $this->request->getPost()->set("module", $module->getId());
+        $vocation = $this->CreateVocation();
+        $this->request->getPost()->set("vocation", $vocation->getId());
         $result = $this->controller->dispatch($this->request);
 
         $response = $this->controller->getResponse();
@@ -216,7 +233,10 @@ class SubjectRoundControllerTest extends UnitHelpers
 
         //create one to  update later on
         $subjectRound = $this->CreateSubjectRound();
+        
         $studentGroupIdOld = $subjectRound->getStudentGroup()->getId();
+        $moduleIdOld = $subjectRound->getModule()->getId();
+        $vocationIdOld = $subjectRound->getVocation()->getId();
         $subjectIdOld = $subjectRound->getSubject()->getId();
         $teachersOld = [];
         foreach ($subjectRound->getTeacher() as $teacherOld) {
@@ -242,6 +262,8 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->setContent(http_build_query([
             'subject' => $this->CreateSubject()->getId(),
             'studentGroup' => $this->CreateStudentGroup()->getId(),
+            'module' => $this->CreateModule()->getId(),
+            'vocation' => $this->CreateVocation()->getId(),
             "teacher" => $teachers,
         ]));
         //fire request
@@ -253,6 +275,8 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
         $this->assertNotEquals($studentGroupIdOld, $result->data['studentGroup']['id']);
         $this->assertNotEquals($subjectIdOld, $result->data['subject']['id']);
+        $this->assertNotEquals($moduleIdOld, $result->data['module']['id']);
+        $this->assertNotEquals($vocationIdOld, $result->data['vocation']['id']);
         foreach ($teachersOld as $teacherOld) {//no double check figured out, pure linear looping
             foreach ($result->data['teacher'] as $teacherU) {
                 $this->assertNotEquals($teacherOld['id'], $teacherU['id']);
@@ -397,6 +421,10 @@ class SubjectRoundControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $subject = $this->CreateSubject();
         $this->request->getPost()->set("subject", $subject->getId());
+        $module = $this->CreateModule();
+        $this->request->getPost()->set("module", $module->getId());
+        $vocation = $this->CreateVocation();
+        $this->request->getPost()->set("vocation", $vocation->getId());
         $this->request->getPost()->set("teacher", [
             ['id' => $this->CreateTeacher()->getId()],
             ['id' => $this->CreateTeacher()->getId()],

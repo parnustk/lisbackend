@@ -22,7 +22,8 @@ use DateTime;
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\StudentGroupRepository")
  * @ORM\Table(
  *      indexes={
- *          @ORM\Index(name="studentgroup_index_trashed", columns={"trashed"})
+ *          @ORM\Index(name="studentgroup_index_trashed", columns={"trashed"}),
+ *          @ORM\Index(name="studentgroup_index_status", columns={"status"})
  *      }
  * )
  * @ORM\HasLifecycleCallbacks
@@ -49,6 +50,13 @@ class StudentGroup extends EntityValidation
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false, options={"default":1})
+     */
+    protected $status = 1;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -134,6 +142,15 @@ class StudentGroup extends EntityValidation
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * 
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
@@ -226,6 +243,17 @@ class StudentGroup extends EntityValidation
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param int $status
+     * @return \Core\Entity\StudentGroup
+     */
+    public function setStatus($status)
+    {
+        $this->status = (int) $status;
         return $this;
     }
 

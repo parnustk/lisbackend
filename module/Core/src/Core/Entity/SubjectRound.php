@@ -29,7 +29,9 @@ use Core\Entity\LisUser;
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\SubjectRoundRepository")
  * @ORM\Table(
- *     indexes={@ORM\Index(name="subjectround_index_trashed", columns={"trashed"})}
+ *     indexes={@ORM\Index(name="subjectround_index_trashed", columns={"trashed"}),
+ *              @ORM\Index(name="subjectround_index_status", columns={"status"})
+ * }
  * )
  * @ORM\HasLifecycleCallbacks
  * 
@@ -54,6 +56,13 @@ class SubjectRound extends EntityValidation
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
+    
+    /**
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="integer", nullable=false, options={"default":1})
+     */
+    protected $status = 1;
 
     /**
      * @Annotation\Exclude()
@@ -206,6 +215,15 @@ class SubjectRound extends EntityValidation
     {
         return $this->name;
     }
+    
+    /**
+     * 
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
      * 
@@ -324,6 +342,17 @@ class SubjectRound extends EntityValidation
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param int $status
+     * @return \Core\Entity\SubjectRound
+     */
+    public function setStatus($status)
+    {
+        $this->status = (int) $status;
         return $this;
     }
 

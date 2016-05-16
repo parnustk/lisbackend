@@ -100,7 +100,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $dql = "SELECT
                     partial subjectRound.{
                         id,
-                        name
+                        name,
+                        status,
+                        trashed
                     },
                     partial contactLesson.{
                         id,
@@ -143,9 +145,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
         } else {
             $dql .= " WHERE student.id=:studentId ";
         }
-        
+
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
-        
+
         $q = $this->getEntityManager()->createQuery($dql);
 
         $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
@@ -161,13 +163,15 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 new DoctrinePaginator(new ORMPaginator($q))
         );
     }
-    
+
     public function studentTimeTableData($params = null, $extra = null)
     {
         $dql = "SELECT
                     partial subjectRound.{
                         id,
-                        name
+                        name,
+                        status,
+                        trashed
                     },
                     partial contactLesson.{
                         id,
@@ -215,9 +219,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
         } else {
             $dql .= " WHERE student.id=:studentId ";
         }
-        
+
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
-        
+
         $q = $this->getEntityManager()->createQuery($dql);
 
         $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
@@ -244,6 +248,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
+                        status,
                         trashed
                     },
                     partial vocation.{
@@ -292,6 +297,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
+                        status,
                         trashed
                     },
                     partial vocation.{
@@ -337,6 +344,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
+                        name,
+                        status,
                         trashed
                     },
                     partial vocation.{
@@ -374,6 +383,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
+                        status,
                         trashed
                     },
                     partial vocation.{
@@ -783,7 +793,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         if (array_key_exists('studentTimeTable', $params)) {
             return $this->studentTimeTableData($params, $extra);
         }
-        
+
         $id = $extra->lisPerson->getId();
         return $this->defaultGetList($params, $extra);
     }

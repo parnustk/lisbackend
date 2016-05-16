@@ -23,6 +23,7 @@ chdir(__DIR__);
  * @author Kristen Sepp <seppkristen@gmail.com>
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Arnold Tserepov <tserepov@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentGroupControllerTest extends UnitHelpers
 {
@@ -50,6 +51,7 @@ class StudentGroupControllerTest extends UnitHelpers
         $this->request->setMethod('post');
         $vocation = $this->CreateVocation();
         $this->request->getPost()->set('name', $name);
+        $this->request->getPost()->set('status', 2);
         $this->request->getPost()->set('vocation', $vocation->getId());
 
         $result = $this->controller->dispatch($this->request);

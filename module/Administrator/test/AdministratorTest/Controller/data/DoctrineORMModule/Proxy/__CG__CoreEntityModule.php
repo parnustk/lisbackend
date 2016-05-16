@@ -64,10 +64,10 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'duration', 'moduleCode', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'duration', 'moduleCode', 'subject', 'subjectRound', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'duration', 'moduleCode', 'subject', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'duration', 'moduleCode', 'subject', 'subjectRound', 'studentGrade', 'vocation', 'moduleType', 'gradingType', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -170,6 +170,29 @@ class Module extends \Core\Entity\Module implements \Doctrine\ORM\Proxy\Proxy
     public function __getLazyProperties()
     {
         return self::$lazyPropertiesDefaults;
+    }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function getSubjectRound()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubjectRound', array());
+
+        return parent::getSubjectRound();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setSubjectRound($subjectRound)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubjectRound', array($subjectRound));
+
+        return parent::setSubjectRound($subjectRound);
     }
 
     /**

@@ -187,6 +187,7 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
 
         return $repository->Create([
                     'name' => 'StudentGroup' . uniqid(),
+                    'status' => 1,
                     'vocation' => $this->CreateVocation()->getId(),
         ]);
     }
@@ -250,6 +251,9 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         return $repository->Create([
                     'subject' => $this->CreateSubject()->getId(),
                     'studentGroup' => $this->CreateStudentGroup()->getId(),
+                    'status' => 1,
+                    'module' => $this->CreateModule()->getId(),
+                    'vocation' => $this->CreateVocation()->getId(),
                     'teacher' => [
                         ['id' => $this->CreateTeacher()->getId()],
                         ['id' => $this->CreateTeacher()->getId()],

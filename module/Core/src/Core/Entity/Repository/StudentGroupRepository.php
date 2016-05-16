@@ -52,7 +52,9 @@ class StudentGroupRepository extends AbstractBaseRepository
         //print_r($params);
         $dql = "SELECT 
                     partial studentgroup.{
-                        id
+                        id,
+                        name,
+                        status
                     },
                     partial studentInGroups.{
                         id
@@ -85,6 +87,7 @@ class StudentGroupRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
+                        status,
                         trashed
                     },
                     partial vocation.{
@@ -101,6 +104,7 @@ class StudentGroupRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
+                        status,
                         trashed
                     },
                     partial vocation.{
@@ -117,6 +121,7 @@ class StudentGroupRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
+                        status,
                         trashed
                     },
                     partial vocation.{
@@ -133,6 +138,7 @@ class StudentGroupRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                         id,
                         name,
+                        status,
                         trashed
                     },
                     partial vocation.{
