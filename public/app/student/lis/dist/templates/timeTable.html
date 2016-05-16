@@ -1,7 +1,26 @@
-<h2>{{ T('LIS_STUDENTABSENCE')}}</h2>
+<h2>{{ T('LIS_TIMETABLE')}}</h2>
 <h2>TA 2014</h2>
+<table class="studentTable">
+    <th>{{T('LIS_TIMETABLE')}}</th>
+    <tr ng-repeat="subjectRound in subjectRounds">
+        <td>
+            <ul>
+                <li ng-repeat="contactLesson in contactLesson.subjectRound">
+            <ul>
+                <li ng-repeat="studentGroup in contactLesson.studentGroup" class="absencereasonposition">
+                    <br>{{studentGroup.name}}
+                </li>
+            </ul>
+                </li>
+            </ul>
+            {{studentGroup.name}}
+        </td>      
+    </tr>
+</table>
 
-<div class="right">
+
+
+<!--<div class="right">
     <table>
         <tr>
             <td class="blank">{{ T('LIS_TIME')}}</td>
@@ -55,16 +74,16 @@
             <td class="time">10</td>
         </tr>
     </table>
-</div>
+</div>-->
 
-<form class="form-horizontal col-md-6" role="form" name="filterStudentAbsence" ng-submit="Filter(filterStudentAbsence.$valid)">
+<form class="form-horizontal col-md-6" role="form" name="filterStudentTimeTable" ng-submit="Filter(filterStudentTimeTable.$valid)">
     <fieldset>
         <legend>{{ T('LIS_STUDENTABSENCEFILTER')}}</legend>
 
         <div class="col-md-12">
             <p class="input-group">
                 <span class="input-group-addon" id="filterForm-startlessonDate">{{ T('SEARCH_A_STARTLESSONDATE')}}</span>
-                <input type="text" name="startDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentAbsenceFilter.startDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-startlessonDateFilter" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                <input type="text" name="startDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentTimeTableFilter.startDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-startlessonDateFilter" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -74,7 +93,7 @@
         <div class="col-md-12">
             <p class="input-group">
                 <span class="input-group-addon" id="filterForm-endlessonDate">{{ T('SEARCH_A_ENDLESSONDATE')}}</span>
-                <input type="text" name="endDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentAbsenceFilter.endDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-endlessonDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close" />
+                <input type="text" name="endDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="studentTimeTableFilter.endDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-endlessonDate" is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -90,7 +109,7 @@
 </form>
 
 <table class="studentTable">
-    <th>{{T('LIS_ABSENCE')}}</th>
+    <th>{{T('LIS_TIMETABLE')}}</th>
     <tr ng-repeat="subjectRound in subjectRounds">
 
         <td>

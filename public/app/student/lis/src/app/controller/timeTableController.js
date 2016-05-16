@@ -181,7 +181,7 @@
                      */
                     $scope.ClearFilters = function () {
                         resetUrlParams();
-                        $scope.studentAbsenceFilter = {};
+                        $scope.studentTimeTableFilter = {};
                         delete urlParams.where;
                         LoadData();
                     };
@@ -194,18 +194,18 @@
                     var urlParams = {
                         page: 1,
                         limit: 100000,
-                        studentAbsence: true
+                        studentTimeTable: true
                     };
 
                     var resetUrlParams = function () {
                         urlParams = {
                             page: 1,
                             limit: 100000,
-                            studentAbsence: true
+                            studentTimeTable: true
                         };
                     };
 
-                    $scope.studentAbsenceFilter = {};
+                    $scope.studentTimeTableFilter = {};
 
                     $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
@@ -232,8 +232,8 @@
                         if (valid) {
 //                            console.log(moment($scope.studentAbsenceFilter.startDate).format('YYYY-MM-DD'));
 //                            console.log(moment($scope.studentAbsenceFilter.endDate).format('YYYY-MM-DD'));
-                            urlParams.startDate = moment($scope.studentAbsenceFilter.startDate).format('YYYY-MM-DD');
-                            urlParams.endDate = moment($scope.studentAbsenceFilter.endDate).format('YYYY-MM-DD');
+                            urlParams.startDate = moment($scope.studentTimeTableFilter.startDate).format('YYYY-MM-DD');
+                            urlParams.endDate = moment($scope.studentTimeTableFilter.endDate).format('YYYY-MM-DD');
                             LoadData();
 
                         } else {
