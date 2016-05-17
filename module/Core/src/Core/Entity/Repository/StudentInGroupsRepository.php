@@ -11,7 +11,10 @@
 namespace Core\Entity\Repository;
 
 use Core\Entity\StudentInGroups;
+use Core\Entity\Student;
 use Exception;
+use Doctrine\ORM\Query;
+use Doctrine\DBAL\Types\Type;
 
 /**
  *
@@ -33,6 +36,38 @@ class StudentInGroupsRepository extends AbstractBaseRepository
      * @var string 
      */
     public $baseEntity = 'Core\Entity\StudentInGroups';
+
+    public function getStudentVocationByStudentId(Student $student)
+    {
+        $dql = "SELECT 
+                    partial studentInGroups.{
+                        id,
+                        status
+                    },
+                    partial student.{
+                        id
+                    },
+                    partial studentGroup.{
+                        id
+                    },
+                    partial studentGroup.{
+                        id
+                    },
+                    partial vocation.{
+                        id
+                    }
+                FROM Core\Entity\StudentInGroups studentInGroups
+                JOIN studentInGroups.student student
+                JOIN studentInGroups.studentGroup studentGroup
+                JOIN studentGroup.vocation vocation
+                WHERE studentInGroups.status=1 AND student.id=:studentId
+        ";
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('studentId', $student->getId(), Type::INTEGER);
+        //$q->setHydrationMode(Query::HYDRATE_ARRAY);
+        
+        $r = $q->execute(null, Query::HYDRATE_OBJECT);
+    }
 
     /**
      * 

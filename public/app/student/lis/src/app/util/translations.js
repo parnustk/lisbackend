@@ -124,10 +124,10 @@
                 
                 LIS_DIARY:'Päevik',
                 LIS_CONTACTLESSON:'Kontakttund',
-                LIS_ABSENCE:'Puudumine',
+                LIS_ABSENCE:'Puudumised',
                 LIS_ABSENCEREASON:'Puudumise põhjus',
                 LIS_INDEPENDENTWORK:'Iseseisev töö',
-                LIS_STUDENTGRADE:'Õpilase hinne',
+                LIS_STUDENTGRADE:'Hinded',
                 LIS_SUBJECTROUND:'Õppeaine',
                 
                 LIS_PERSONS:'Inimesed',

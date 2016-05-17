@@ -87,6 +87,11 @@ class LoginStudentController extends Base
                     }
                 }
             }
+            if($data_login["role"] === 'student') {//get vocation id
+                
+                $em = $this->getEntityManager();
+            }
+            
             $r = [
                 'success' => true,
                 'message' => 'NOW_LOGGED_IN',
