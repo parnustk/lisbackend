@@ -27,8 +27,8 @@
             $scope.credentials = {
                 email: 'admin@test.ee',
                 password: 'Tere1234',
-                lisPerson: "",
-                lisUser: "",
+                lisPerson: null,
+                lisUser: null,
                 role: "administrator"
             };
 

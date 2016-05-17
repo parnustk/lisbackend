@@ -1,8 +1,11 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Licence of Learning Info System (LIS)
+ * 
+ * @link      https://github.com/parnustk/lisbackend
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
+
 
 /* global define */
 
@@ -10,8 +13,7 @@
  *
  * @param {type} define
  * @returns {undefined}
- * @author Sander Mets <sandermets0@gmail.com>
- * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Juhan Kõks <juhankoks@gmail.com>
  */
 (function (define) {
     'use strict';
@@ -25,7 +27,11 @@
 
             $scope.credentials = {
                 email: 'student@test.ee',
-                password: 'Tere1234'
+                password: 'Tere1234',
+                lisPerson: null,
+                lisUser: null,
+                role: "student",
+                vocationId: null
             };
 
             $scope.keys = [];
@@ -109,19 +115,30 @@
 
             $scope.T = globalFunctions.T;
 
+
+
             $scope.Login = function () {
                 loginModel
-                    .Create($scope.credentials)
-                    .then(function (result) {
-                        if (result.success) {//GOOD
-                            addCookieTimed('userObj', $scope.credentials);
-                            $scope.userLoginError = false;
-                            $scope.userLoggedIn = true;
-                        } else {//BAD
-                            $scope.userLoggedIn = false;
-                            $scope.userLoginError = true;
-                        }
-                    });
+                        .Create($scope.credentials)
+                        .then(function (result) {
+                            if (result.success) {
+                                //GOOD
+                                $scope.credentials.lisPerson = result.lisPerson;
+                                $scope.credentials.lisUser = result.lisUser;
+                                $scope.credentials.role = result.role;
+                                $scope.credentials.role = result.role;
+
+                                addCookieTimed('userObj', $scope.credentials);
+
+                                $scope.userLoginError = false;
+                                $scope.userLoggedIn = true;
+                            } else {
+                                //BAD
+
+                                $scope.userLoggedIn = false;
+                                $scope.userLoginError = true;
+                            }
+                        });
             };
 
             /**
@@ -145,7 +162,10 @@
             }
 
             /** /cookies **/
+
+
             $scope.Logout = function () {
+                //console.log("Logout");
                 window.location.href = "#!/"; //for firefox
                 loginModel.Delete(1);
                 removeCookie('userObj');

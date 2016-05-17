@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Licence of Learning Info System (LIS)
  * 
@@ -7,9 +6,7 @@
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
-
 namespace LisAuth\Service;
-
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Doctrine\ORM\EntityManager;
@@ -18,7 +15,6 @@ use LisAuth\Utility\Hash;
 use Exception;
 use Zend\Authentication\Storage;
 use Zend\Session\Container as SessionContainer;
-
 /**
  * LisAuthService. Checks for identity
  *
@@ -27,23 +23,19 @@ use Zend\Session\Container as SessionContainer;
  */
 class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInterface
 {
-
     /**
      * @var ServiceManager
      */
     protected $serviceManager;
-
     /**
      *
      * @var EntityManager
      */
     protected $entityManager = null;
-
     /**
      * @var Storage\StorageInterface
      */
     protected $storage;
-
     /**
      * 
      * @return ServiceManager
@@ -52,7 +44,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         return $this->serviceManager;
     }
-
     /**
      * 
      * @return EntityManager
@@ -61,7 +52,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         return $this->entityManager;
     }
-
     /**
      * Returns the persistent storage handler
      *
@@ -74,10 +64,8 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         if (null === $this->storage) {
             $this->setStorage(new Storage\Session('LisAuthService'));
         }
-
         return $this->storage;
     }
-
     /**
      * 
      * @param ServiceManager $serviceManager
@@ -88,7 +76,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $this->serviceManager = $serviceManager;
         return $this;
     }
-
     /**
      * 
      * @param EntityManager $entityManager
@@ -99,7 +86,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $this->entityManager = $entityManager;
         return $this;
     }
-
     /**
      * Sets the persistent storage handler
      *
@@ -111,7 +97,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $this->storage = $storage;
         return $this;
     }
-
     /**
      * Returns true if and only if storage is empty
      *
@@ -129,10 +114,8 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
             $this->clear();
             return true;
         }
-
         return false;
     }
-
     /**
      * Returns the contents of storage
      *
@@ -145,7 +128,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         return $this->getStorage()->read();
     }
-
     /**
      * Writes $contents to storage
      *
@@ -157,7 +139,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         $this->getStorage()->write($contents);
     }
-
     /**
      * Clears contents from storage
      *
@@ -168,7 +149,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         $this->getStorage()->clear();
     }
-
     /**
      * Logs out
      * @param int $id
@@ -178,7 +158,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         $this->getStorage()->clear();
     }
-
     /**
      * Initalizes session to use/get data
      * @return mixed
@@ -190,7 +169,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $storage = $this->getStorage()->read();
         return $storage;
     }
-
     /**
      * Adds needed data from session
      * @return array
@@ -204,7 +182,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $data["role"] = $storage["role"];
         return $data;
     }
-
     /**
      * 
      * @param string $email
@@ -217,7 +194,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $user = $this->getEntityManager()
                 ->getRepository($entityName)
                 ->FetchUser($email); //all good if no exceptions
-
         Hash::verifyHash($password, $user['lisUser']['password']); //all good if no exceptions
         $storage = $this->session();
         $storage['role'] = $role;
@@ -225,7 +201,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
         $storage['lisUser'] = $user['lisUser']['id'];
         $this->getStorage()->write($storage);
     }
-
     /**
      * NB user can have many results
      * NB thin some way to deal brute force
@@ -238,7 +213,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     {
         try {
             $this->logout(1); //logout first 
-
             $email = Validator::validateEmail($data['email']);
             $password = Validator::validatePassword($data['password']);
             if ($role === 'administrator') {
@@ -251,7 +225,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
                 throw new Exception('NO_ROLE_SPECIFIED');
             }
             $data_login = $this->login_data();
-
             return [
                 'success' => true,
                 'message' => 'NOW_LOGGED_IN',
@@ -266,5 +239,4 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
             ];
         }
     }
-
 }

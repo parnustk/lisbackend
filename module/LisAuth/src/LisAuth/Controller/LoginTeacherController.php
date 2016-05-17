@@ -68,11 +68,40 @@ class LoginTeacherController extends Base
     public function create($data)
     {
         $this->headerAccessControlAllowOrigin();
-        return new JsonModel(
-                $this
-                        ->getLisAuthService()
-                        ->authenticate($data, 'teacher')
-        );
+        $lisAuthService = $this->getLisAuthService();
+        $r = [];
+        try {
+            $lisAuthService->authenticate($data, 'teacher');
+            $data_login = $lisAuthService->login_data();
+            if (!$lisAuthService->isEmpty()) {//check_logined
+                if (method_exists($this->getResponse(), 'getCookie')) {
+                    $cookie = $this->getResponse()->getCookie();
+                    if ($cookie) {
+                        if (property_exists($this->getResponse()->getCookie(), 'userObj')) {
+                            $cuserObj = $this->getResponse()->getCookie()->userObj;
+                            $id = $cuserObj->lisUser;
+                            if ($id !== $data_login["lisUser"]) {
+                                $lisAuthService->logout(1);
+                                throw new Exception('COOKIE_MISMATCH');
+                            }
+                        }
+                    }
+                }
+            }
+            $r = [
+                'success' => true,
+                'message' => 'NOW_LOGGED_IN',
+                "lisPerson" => $data_login["lisPerson"],
+                "lisUser" => $data_login["lisUser"],
+                "role" => $data_login["role"],
+            ];
+        } catch (Exception $ex) {
+            $r = [
+                'success' => false,
+                'message' => 'FALSE_ATTEMPT'
+            ];
+        }
+        return new JsonModel($r);
     }
 
     /**

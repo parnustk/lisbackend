@@ -65,13 +65,47 @@ class LoginAdministratorController extends Base
      * @return JsonModel
      */
     public function create($data)
-    {
+    {//umbes nii
         $this->headerAccessControlAllowOrigin();
-        return new JsonModel(
-                $this
-                        ->getLisAuthService()
-                        ->authenticate($data, 'administrator')
-        );
+        $lisAuthService = $this->getLisAuthService();
+        $r = [];
+        try {
+            $lisAuthService->authenticate($data, 'administrator');
+            $data_login = $lisAuthService->login_data();
+
+            if (!$lisAuthService->isEmpty()) {//check_logined
+                if (method_exists($this->getResponse(), 'getCookie')) {
+                    $cookie = $this->getResponse()->getCookie();
+                    if ($cookie) {
+                        if (property_exists($this->getResponse()->getCookie(), 'userObj')) {
+                            $cuserObj = $this->getResponse()->getCookie()->userObj;
+                            $id = $cuserObj->lisUser;
+                            if ($id !== $data_login["lisUser"]) {
+                                $lisAuthService->logout(1);
+                                throw new Exception('COOKIE_MISMATCH');
+                            }
+                        }
+                    }
+                }
+            }
+            $r = [
+                'success' => true,
+                'message' => 'NOW_LOGGED_IN',
+                "lisPerson" => $data_login["lisPerson"],
+                "lisUser" => $data_login["lisUser"],
+                "role" => $data_login["role"],
+            ];
+        } catch (Exception $ex) {
+
+            $r = [
+                'success' => false,
+                'message' => 'FALSE_ATTEMPT'
+            ];
+        }
+        return new JsonModel($r);//Login Student ja login Teacher tuleb ka nüüd ümber teha sarnaseks sellega siin
+        //iseenesst on see päris ok et cookiet kontrollida back endis kui see õnenstu
+        //ära seda koodi kommiti enne kui student ja tacher login jälle õnnestunuvad
+        //edu!
     }
 
     /**

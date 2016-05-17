@@ -10,7 +10,7 @@
  *
  * @param {type} define
  * @returns {undefined}
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>
+ * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Juhan Kõks <juhankoks@gmail.com>
  */
 (function (define) {
     'use strict';
@@ -24,7 +24,10 @@
 
             $scope.credentials = {
                 email: 'teacher@test.ee',
-                password: 'Tere1234'
+                password: 'Tere1234',
+                lisPerson: null,
+                lisUser: null,
+                role: "teacher"
             };
 
             $scope.keys = [];
@@ -36,14 +39,14 @@
              * @type {Date}
              */
             var expireDate = new Date();
-            expireDate.setDate(expireDate.getDate()+5); //current date + x hours - the expire date of timed cookies
+            expireDate.setDate(expireDate.getDate() + 5); //current date + x hours - the expire date of timed cookies
 
             /**
              *
              * @param itemKey
              * @param itemValue
              */
-            function addCookie (itemKey, itemValue){
+            function addCookie(itemKey, itemValue) {
                 $cookies.putObject(itemKey, itemValue); //these cookies never expire
             }
 
@@ -52,7 +55,7 @@
              * @param itemKey
              * @param itemValue
              */
-            function addCookieTimed (itemKey, itemValue){
+            function addCookieTimed(itemKey, itemValue) {
 
                 $cookies.putObject(itemKey, itemValue, {'expires': expireDate}); //these cookies expire at expireDate
             }
@@ -61,7 +64,7 @@
              *
              * @param itemKey
              */
-            function getCookie (itemKey) {
+            function getCookie(itemKey) {
                 $scope.currentItem = $cookies.get(itemKey); //gets the cookie object
             }
 
@@ -70,7 +73,7 @@
              * @param itemKey
              * @returns {*}
              */
-            function getCookieValue (itemKey){
+            function getCookieValue(itemKey) {
                 return $cookies.getObject(itemKey); //gets just the cookie value
             }
 
@@ -78,7 +81,7 @@
              *
              * @param itemKey
              */
-            function removeCookie (itemKey){
+            function removeCookie(itemKey) {
                 $cookies.remove(itemKey);
             }
 
@@ -86,7 +89,7 @@
              *
              * @param lang
              */
-            $scope.changeLanguage = function(lang){
+            $scope.changeLanguage = function (lang) {
                 addCookie('userLang', lang);
                 window.LisGlobals.L = lang;
             };
@@ -95,7 +98,7 @@
              * @description Used in ng-show and ng-hide for the language buttons. Because this is a function, the page doesn't need to be refreshed after running changeLanguage();
              * @returns {boolean}
              */
-            $scope.showButton = function(){
+            $scope.showButton = function () {
                 var lang = getCookieValue('userLang');
 
                 if (lang === 'et') {
@@ -109,26 +112,28 @@
 
             $scope.T = globalFunctions.T;
 
-            
+
 
             $scope.Login = function () {
                 loginModel
-                    .Create($scope.credentials)
-                    .then(function (result) {
-                        if (result.success) {
-                            //GOOD
+                        .Create($scope.credentials)
+                        .then(function (result) {
+                            if (result.success) {
+                                //GOOD
+                                $scope.credentials.lisPerson = result.lisPerson;
+                                $scope.credentials.lisUser = result.lisUser;
+                                $scope.credentials.role = result.role;
+                                addCookieTimed('userObj', $scope.credentials);
 
-                            addCookieTimed('userObj', $scope.credentials);
+                                $scope.userLoginError = false;
+                                $scope.userLoggedIn = true;
+                            } else {
+                                //BAD
 
-                            $scope.userLoginError = false;
-                            $scope.userLoggedIn = true;
-                        } else {
-                            //BAD
-
-                            $scope.userLoggedIn = false;
-                            $scope.userLoginError = true;
-                        }
-                    });
+                                $scope.userLoggedIn = false;
+                                $scope.userLoginError = true;
+                            }
+                        });
             };
 
             /**
@@ -164,7 +169,7 @@
             /** /cookies **/
 
 
-            $scope.Logout = function() {
+            $scope.Logout = function () {
                 //console.log("Logout");
                 window.location.href = "#!/"; //for firefox
                 loginModel.Delete(1);
