@@ -104,7 +104,6 @@ class DumpService implements ServiceManagerAwareInterface
     protected $dumpData;
     protected $tables = [
         "Absence",
-        "AbsenceReason",
         "Administrator",
         "ContactLesson",
         "GradeChoice",
