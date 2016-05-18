@@ -105,11 +105,12 @@ class DumpController extends AbstractActionController
             $inputpwd = $request->getPost('password');
             $uname = $data['backupdb']['login']['loginuser'];
             $pwd = $data['backupdb']['login']['loginpwd'];
-            if ($inputname == $uname && $inputpwd == $pwd) {
+//            if ($inputname == $uname && $inputpwd == $pwd) {
+            if (true) { //for panel testing
                 //TODO: Session initialization
-                $this->panelAction();
+                return $this->panelAction();
             } else {
-                $this->loginAction();
+                return $this->loginAction();
             }
             
             //if  valid save to session redirect to panel
@@ -123,7 +124,8 @@ class DumpController extends AbstractActionController
     {
         //check session if credentials not ok redirect to login
         $data = include 'config/autoload/backupdb.local.php';
-        if(false) { //TODO: session check for credentials
+        if(true) { //TODO: session check for credentials
+            $panel = new panelForm('panelForm');
             return new ViewModel(['form' => $panel]);
         } else {//if credentials not ok, return to login
             die('COOKIE FAIL');
