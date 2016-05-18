@@ -60,6 +60,13 @@ class GradeChoice extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $description;
+
+    /**
+     * @Annotation\Exclude()
+     * 
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="gradeChoice")
      */
     protected $studentGrade;
@@ -115,6 +122,26 @@ class GradeChoice extends EntityValidation
     public function __construct(EntityManager $em = null)
     {
         parent::__construct($em);
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    /**
+     * 
+     * @param string $description
+     * @return \Core\Entity\GradeChoice
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
     }
 
     /**
