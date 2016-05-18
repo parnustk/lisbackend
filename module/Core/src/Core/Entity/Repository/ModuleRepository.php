@@ -40,7 +40,13 @@ class ModuleRepository extends AbstractBaseRepository
 
     protected function studentModuleGradesData($params = null, $extra = null)
     {
-        $vocationId = 1; //need to get that from session -> create task for Juhan
+        $student = $extra->lisPerson;
+        $r = $this->_em->getRepository('Core\Entity\StudentInGroups')->getStudentVocationByStudentId($student);
+        $vocationId = -1;
+        if (count($r) > 0) {
+            $vocationId = $r[0]->getStudentGroup()->getVocation()->getId();
+        }
+
         $dql = "SELECT 
                     partial module.{
                         id,
@@ -119,6 +125,7 @@ class ModuleRepository extends AbstractBaseRepository
                 
                 LEFT JOIN module.subjectRound subjectRound
                 LEFT JOIN module.studentGrade studentGrade
+                LEFT JOIN studentGrade.student student
                 
                 LEFT JOIN studentGrade.gradeChoice gradeChoice
                 LEFT JOIN subjectRound.studentGrade studentGradeSR
@@ -135,11 +142,11 @@ class ModuleRepository extends AbstractBaseRepository
                 LEFT JOIN independentWork.teacher teacherIW
                 LEFT JOIN studentGradeIW.gradeChoice gradeChoiceIW
                 
-                WHERE vocation.id=:vocationId";
+                WHERE vocation.id=:vocationId AND student.id=:studentId";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
-//        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
+        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))

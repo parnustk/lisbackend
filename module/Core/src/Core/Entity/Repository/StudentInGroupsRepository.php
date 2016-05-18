@@ -60,13 +60,11 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                 JOIN studentInGroups.student student
                 JOIN studentInGroups.studentGroup studentGroup
                 JOIN studentGroup.vocation vocation
-                WHERE studentInGroups.status=1 AND student.id=:studentId
-        ";
+                WHERE studentInGroups.status=1 AND student.id=:studentId ";
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('studentId', $student->getId(), Type::INTEGER);
         //$q->setHydrationMode(Query::HYDRATE_ARRAY);
-        
-        $r = $q->execute(null, Query::HYDRATE_OBJECT);
+        return  $q->execute(null, Query::HYDRATE_OBJECT);
     }
 
     /**
