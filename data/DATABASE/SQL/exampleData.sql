@@ -49,17 +49,19 @@ INSERT INTO `Rooms` (`id`, `created_by`, `updated_by`, `name`, `trashed`, `creat
 --
 -- Dumping data for table `GradeChoice`
 --
+INSERT INTO `GradeChoice` (`id`, `created_by`, `updated_by`, `name`, `lisType`, `description`, `trashed`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, NULL, 'erase', 'LIS_ERASE', NULL, '2016-05-18 00:00:00', NULL),
+(2, 1, NULL, '2', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
+(3, 1, NULL, '3', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
+(4, 1, NULL, '4', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
+(5, 1, NULL, '5', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
+(6, 1, NULL, 'A', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
+(7, 1, NULL, 'MA', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
+(8, 1, NULL, 'P', 'absencereason', 'LIS_ABSENCE_NOTEXCUSED', NULL, '2016-05-18 00:00:00', NULL),
+(9, 1, NULL, 'T', 'absencereason', 'LIS_AT_WORK', NULL, '2016-05-18 00:00:00', NULL),
+(10, 1, NULL, 'H', 'absencereason', 'LIS_SICKDAYS', NULL, '2016-05-18 00:00:00', NULL),
+(11, 1, NULL, 'V', 'absencereason', 'LIS_EXCUSED', NULL, '2016-05-18 00:00:00', NULL);
 
-INSERT INTO `GradeChoice` (`id`, `created_by`, `updated_by`, `name`, `trashed`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, '1', NULL, '2016-05-08 10:37:06', NULL),
-(2, 1, NULL, '2', NULL, '2016-05-08 10:37:12', NULL),
-(3, 1, NULL, '3', NULL, '2016-05-08 10:37:17', NULL),
-(4, 1, NULL, '4', NULL, '2016-05-08 10:37:19', NULL),
-(5, 1, NULL, '5', NULL, '2016-05-08 10:37:23', NULL),
-(6, 1, NULL, 'A', NULL, '2016-05-08 10:37:28', NULL),
-(7, 1, NULL, 'MA', NULL, '2016-05-08 10:37:31', NULL),
-(8, 1, NULL, '', NULL, '2016-05-08 10:37:40', NULL),
-(9, 1, NULL, 'P', NULL, '2016-05-08 10:37:47', NULL);
 
 --
 -- Dumping data for table `GradingType`
