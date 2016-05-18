@@ -15,12 +15,19 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
+use Core\Entity\Absence;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradeChoiceRepository")
- * @ORM\Table(indexes={@ORM\Index(name="gradechoice_index_trashed", columns={"trashed"})})
+ * @ORM\Table(
+ *      indexes={
+ *          @ORM\Index(name="gradechoice_listype", columns={"lisType"}),
+ *          @ORM\Index(name="gradechoice_index_trashed", columns={"trashed"})
+ *      }
+ * )
  * @ORM\HasLifecycleCallbacks
  * 
+ * @author Sander Mets <sandermets0@gmail.com>
  * @author Arnold Tserepov <tserepov@gmail.com>
  */
 class GradeChoice extends EntityValidation
@@ -43,11 +50,26 @@ class GradeChoice extends EntityValidation
     protected $name;
 
     /**
+     * Has following selection - 'gradechoice', 'absencereason', 'erase'
+     * @Annotation\Required({"required":"true"})
+     * 
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected $lisType;
+
+    /**
      * @Annotation\Exclude()
      * 
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="gradeChoice")
      */
     protected $studentGrade;
+
+    /**
+     * @Annotation\Exclude()
+     * 
+     * @ORM\OneToMany(targetEntity="Absence", mappedBy="gradeChoice")
+     */
+    protected $absence;
 
     /**
      * @Annotation\Exclude()
@@ -97,6 +119,46 @@ class GradeChoice extends EntityValidation
 
     /**
      * 
+     * @return string|null
+     */
+    public function getLisType()
+    {
+        return $this->lisType;
+    }
+
+    /**
+     * 
+     * @return Absence
+     */
+    public function getAbsence()
+    {
+        return $this->absence;
+    }
+
+    /**
+     * 
+     * @param string $lisType
+     * @return \Core\Entity\GradeChoice
+     */
+    public function setLisType($lisType)
+    {
+        $this->lisType = $lisType;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param Absence $absence
+     * @return \Core\Entity\GradeChoice
+     */
+    public function setAbsence(Absence $absence)
+    {
+        $this->absence = $absence;
+        return $this;
+    }
+
+    /**
+     * 
      * @return int
      */
     public function getId()
@@ -104,7 +166,7 @@ class GradeChoice extends EntityValidation
         return $this->id;
     }
 
-     /**
+    /**
      * 
      * @return Name
      */
@@ -177,12 +239,12 @@ class GradeChoice extends EntityValidation
         $this->id = (int) $id;
         return $this;
     }
-    
+
     /**
      * 
      * @param string $name
      * @return \Core\Entity\GradeChoice
-     */ 
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -200,7 +262,7 @@ class GradeChoice extends EntityValidation
         return $this;
     }
 
-     /**
+    /**
      * 
      * @param int $trashed
      * @return \Core\Entity\GradeChoice
@@ -233,7 +295,7 @@ class GradeChoice extends EntityValidation
         return $this;
     }
 
-     /**
+    /**
      * 
      * @param DateTime $createdAt
      * @return \Core\Entity\GradeChoice
@@ -244,7 +306,7 @@ class GradeChoice extends EntityValidation
         return $this;
     }
 
-     /**
+    /**
      * 
      * @param DateTime $updatedAt
      * @return \Core\Entity\GradeChoice

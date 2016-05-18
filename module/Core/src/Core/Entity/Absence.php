@@ -15,7 +15,7 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
-use Core\Entity\AbsenceReason;
+use Core\Entity\GradeChoice;
 use Core\Entity\Student;
 use Core\Entity\ContactLesson;
 use Core\Entity\LisUser;
@@ -54,10 +54,10 @@ class Absence extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToOne(targetEntity="AbsenceReason", inversedBy="absence")
-     * @ORM\JoinColumn(name="absence_reason_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="GradeChoice", inversedBy="absence")
+     * @ORM\JoinColumn(name="grade_choice_id", referencedColumnName="id", nullable=false)
      */
-    protected $absenceReason;
+    protected $gradeChoice;
 
     /**
      * @Annotation\Required({"required":"true"})
@@ -123,6 +123,26 @@ class Absence extends EntityValidation
 
     /**
      * 
+     * @return type
+     */
+    public function getGradeChoice()
+    {
+        return $this->gradeChoice;
+    }
+
+    /**
+     * 
+     * @param GradeChoice $gradeChoice
+     * @return \Core\Entity\Absence
+     */
+    public function setGradeChoice(GradeChoice $gradeChoice)
+    {
+        $this->gradeChoice = $gradeChoice;
+        return $this;
+    }
+
+    /**
+     * 
      * @return int
      */
     public function getId()
@@ -137,15 +157,6 @@ class Absence extends EntityValidation
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * 
-     * @return AbsenceReason
-     */
-    public function getAbsenceReason()
-    {
-        return $this->absenceReason;
     }
 
     /**
@@ -230,17 +241,6 @@ class Absence extends EntityValidation
     public function setDescription($description)
     {
         $this->description = $description;
-        return $this;
-    }
-
-    /**
-     * 
-     * @param AbsenceReason $absenceReason
-     * @return \Core\Entity\Absence
-     */
-    public function setAbsenceReason(AbsenceReason $absenceReason)
-    {
-        $this->absenceReason = $absenceReason;
         return $this;
     }
 
