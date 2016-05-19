@@ -136,14 +136,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     LEFT JOIN subjectRound.teacher teacher  
                     JOIN contactLesson.absence absence
                     LEFT JOIN contactLesson.rooms rooms
-                    LEFT JOIN absence.absenceReason absenceReason
+                    LEFT JOIN absence.gradeChoice absenceReason
                     LEFT JOIN absence.student student";
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
-            $dql .= " WHERE student.id=:studentId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+            $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
         } else {
-            $dql .= " WHERE student.id=:studentId ";
+            $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId ";
         }
 
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
