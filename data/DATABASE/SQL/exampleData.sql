@@ -136,8 +136,8 @@ INSERT INTO `Teacher` (`id`, `lis_user_id`, `created_by`, `updated_by`, `firstNa
 --
 
 INSERT INTO `Student` (`id`, `lis_user_id`, `created_by`, `updated_by`, `firstName`, `lastName`, `name`, `email`, `personalCode`, `trashed`, `created_at`, `updated_at`) VALUES
-(1, 3, NULL, 1, 'Eleri', 'Apsolon', 'Apsolon, Eleri', 'student@test.ee', '48816045555', 0, '2016-05-08 13:35:34', '2016-05-08 10:43:19'),
-(2, NULL, 1, NULL, 'Sander', 'Mets', 'Mets, Sander', 'sander@mets.ee', '38110034444', NULL, '2016-05-08 10:42:55', NULL);
+(1, 3, NULL, 1, 'Jane', 'Doe', 'Doe, Jane', 'jane.doe@test.ee', '48816045555', 0, '2016-05-08 13:35:34', '2016-05-08 10:43:19'),
+(2, NULL, 1, NULL, 'John', 'Doe', 'Doe, John', 'john.doe@test.ee', '38110034444', NULL, '2016-05-08 10:42:55', NULL);
 
 --
 -- Dumping data for table `SubjectRound`
