@@ -1,65 +1,6 @@
 <h2>{{ T('LIS_TIMETABLE')}}</h2>
 
-<h3 ng-repeat="subjectRound in subjectRounds">{{subjectRound.studentGroup.name}}</h3>
-
-
-
-
-<!--<div class="right">
-    <table>
-        <tr>
-            <td class="blank">{{ T('LIS_TIME')}}</td>
-            <td class="blank">{{ T('LIS_SEQUENCENR')}}</td>
-            <td class="title">{{ T('LIS_MONDAY')}}<br>{{ T('LIS_DATE')}}</td>
-            <td class="title">{{ T('LIS_TUESDAY')}}</td>
-            <td class="title">{{ T('LIS_WEDNESDAY')}}</td>
-            <td class="title">{{ T('LIS_THURSDAY')}}</td>
-            <td class="title">{{ T('LIS_FRIDAY')}}</td>
-            <td class="title">{{ T('LIS_SATURDAY')}}</td>
-            <td class="title">{{ T('LIS_SUNDAY')}}</td>
-        </tr>
-        <tr>
-            <td class="time">08.30-09.15</td>
-            <td class="time">1</td>
-        </tr>
-        <tr>
-            <td class="drop">09.15-10.00</td>
-            <td class="time">2</td>
-        </tr>
-        <tr>
-            <td class="drop">10.10-10.55</td>
-            <td class="time">3</td>
-        </tr>
-        <tr>
-            <td class="drop">10.55-11.40</td>
-            <td class="time">4</td>
-        </tr>
-        <tr>
-            <td class="drop">12.20-13.05</td>
-            <td class="time">5</td>
-        </tr>
-        <tr>
-            <td class="drop">13.05-13.50</td>
-            <td class="time">6</td>
-        </tr>
-        <tr>
-            <td class="drop">14.00-14.45</td>
-            <td class="time">7</td>
-        </tr>
-        <tr>
-            <td class="drop">14.45-15.30</td>
-            <td class="time">8</td>
-        </tr>
-        <tr>
-            <td class="drop">15.40-16.25</td>
-            <td class="time">9</td>
-        </tr>
-        <tr>
-            <td class="drop">16.25-17.10</td>
-            <td class="time">10</td>
-        </tr>
-    </table>
-</div>-->
+<!--<h3>{{studentGroup.name}}</h3>-->
 
 <form class="form-horizontal col-md-6" role="form" name="filterStudentTimeTable" ng-submit="Filter(filterStudentTimeTable.$valid)">
     <fieldset>
@@ -93,14 +34,13 @@
     </fieldset>
 </form>
 
-<table class="studentTable">
+<table class="studentTable" ng-repeat="subjectRound in subjectRounds">
     <th>{{T('LIS_TIMETABLE')}}</th>
-    <tr ng-repeat="contactLesson in contactLessons">
-
+    <tr ng-repeat="contactLesson in subjectRound.contactLesson">
         <td>
-            <b>{{ FormatDate(contactLesson.lessonDate.date)}}</b> - {{ contactLesson.sequenceNr}}
-            <ul ng-repeat="subjectRound in subjectRounds">
-                <br><li>{{ subjectRound.name}}</li>
+            <b>{{ FormatDate(contactLesson.lessonDate.date)}}</b> - {{ contactLesson.sequenceNr}}<br>
+            <ul>
+                <li>{{ subjectRound.name}}</li>
             </ul>
             <br>Õpetaja: {{ contactLesson.teacher.name}}
             <br>Klass: {{ contactLesson.rooms.name}}

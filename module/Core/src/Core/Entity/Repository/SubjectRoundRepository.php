@@ -166,6 +166,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
     public function studentTimeTableData($params = null, $extra = null)
     {
+        
+        $student = $extra->lisPerson;
+        $r = $this->_em->getRepository('Core\Entity\StudentInGroups')->getStudentVocationByStudentId($student);
+        $studentGroupId = -1;
+        if (count($r) > 0) {
+            $studentGroupId = $r[0]->getStudentGroup()->getId();
+        }
+        
         $dql = "SELECT
                     partial subjectRound.{
                         id,
@@ -184,18 +192,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             id,
                             name
                     },
-                    partial student.{
-                            id,
-                            name
-                    },
-                    partial absence.{
-                            id,
-                            description
-                    },
-                    partial absenceReason.{
-                            id,
-                            name
-                    },
                     partial rooms.{
                             id,
                             name
@@ -206,25 +202,22 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     }
                     FROM Core\Entity\SubjectRound subjectRound
                     JOIN subjectRound.contactLesson contactLesson
-                    LEFT JOIN subjectRound.teacher teacher  
-                    LEFT JOIN subjectRound.studentGroup studentGroup
-                    LEFT JOIN contactLesson.absence absence
-                    LEFT JOIN contactLesson.rooms rooms
-                    LEFT JOIN absence.absenceReason absenceReason
-                    LEFT JOIN absence.student student";
+                    JOIN contactLesson.teacher teacher  
+                    JOIN subjectRound.studentGroup studentGroup
+                    JOIN contactLesson.rooms rooms";
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
-            $dql .= " WHERE student.id=:studentId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+            $dql .= " WHERE studentGroup.id=:studentGroupId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
         } else {
-            $dql .= " WHERE student.id=:studentId ";
+            $dql .= " WHERE studentGroup.id=:studentGroupId ";
         }
 
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
 
-        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
+        $q->setParameter('studentGroupId', $studentGroupId, Type::INTEGER);
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
             $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);
@@ -790,7 +783,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         if (array_key_exists('studentAbsence', $params)) {
             return $this->studentAbsenceData($params, $extra);
         }
-        if (array_key_exists('studentTimeTable', $params)) {
+        else if (array_key_exists('studentTimeTable', $params)) {
             return $this->studentTimeTableData($params, $extra);
         }
 

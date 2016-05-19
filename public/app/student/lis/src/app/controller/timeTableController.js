@@ -33,13 +33,12 @@
                     '$routeParams',
                     'rowSorter',
                     'uiGridConstants',
-                    'absenceModel',
-                    'absenceReasonModel',
                     'studentModel',
                     'contactLessonModel',
                     'subjectRoundModel',
                     'teacherModel',
-                    'roomModel'
+                    'roomModel',
+                    'studentGroupModel'
                 ];
 
                 /**
@@ -64,13 +63,12 @@
                         $routeParams,
                         rowSorter,
                         uiGridConstants,
-                        absenceModel,
-                        absenceReasonModel,
                         studentModel,
                         contactLessonModel,
                         subjectRoundModel,
                         teacherModel,
-                        roomModel
+                        roomModel,
+                        studentGroupModel
                         ) {
 
                     $scope.T = globalFunctions.T;
@@ -207,7 +205,7 @@
 
                     $scope.studentTimeTableFilter = {};
 
-                    $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
+                    $scope.studentGroups = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
                     $scope.FormatDate = function (ds) {
 
@@ -262,11 +260,11 @@
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.subjectRounds = result.data;
 
-                                contactLessonModel.GetList(urlParams).then(function (result) {
-                                    if (globalFunctions.resultHandler(result)) {
-                                        $scope.contactLessons = result.data;
-                                    }
-                                });
+//                                studentGroupModel.GetList(urlParams).then(function (result) {
+//                                    if (globalFunctions.resultHandler(result)) {
+//                                        $scope.studentGroups = result.data;
+//                                    }
+//                                });
                             }
                         });
                     }
