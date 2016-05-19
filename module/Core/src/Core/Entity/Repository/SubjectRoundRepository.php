@@ -142,7 +142,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     JOIN contactLesson.studentGrade studentGrade
                     LEFT JOIN contactLesson.rooms rooms
                     LEFT JOIN studentGrade.gradeChoice absenceReason
-                    LEFT JOIN studentGrade.teacher teacher
+                    LEFT JOIN contactLesson.teacher teacher
                     JOIN subjectRound.studentGroup studentGroup";
 
 
@@ -157,6 +157,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         
         $q->setParameter('studentGroupId', $studentGroupId, Type::INTEGER);
+//        $q->setParameter('student', $student, Type::INTEGER);
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
             $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);

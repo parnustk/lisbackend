@@ -48,8 +48,9 @@
                     </ul>
                     {{ FormatDate(contactLesson.lessonDate.date)}}
                     - {{ contactLesson.sequenceNr}}
+                    
+                    <br>Õpetaja: {{ contactLesson.teacher.name}}
                     <br>Klass: {{ contactLesson.rooms.name}}
-
                     <ul>
                         <li ng-repeat="teacher in subjectRound.teacher">
                             {{teacher.name}}
