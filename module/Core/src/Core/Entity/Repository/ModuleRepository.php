@@ -142,7 +142,7 @@ class ModuleRepository extends AbstractBaseRepository
                 LEFT JOIN independentWork.teacher teacherIW
                 LEFT JOIN studentGradeIW.gradeChoice gradeChoiceIW
                 
-                WHERE vocation.id=:vocationId AND student.id=:studentId";
+                WHERE vocation.id=:vocationId AND gradeChoice.lisType='gradechoice' AND gradeChoiceCL.lisType='gradechoice' AND student.id=:studentId";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
