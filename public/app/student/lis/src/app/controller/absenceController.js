@@ -33,13 +33,14 @@
                     '$routeParams',
                     'rowSorter',
                     'uiGridConstants',
-                    'absenceModel',
-                    'absenceReasonModel',
                     'studentModel',
                     'contactLessonModel',
                     'subjectRoundModel',
                     'teacherModel',
-                    'roomModel'
+                    'roomModel',
+                    'studentGradeModel',
+                    'gradeChoiceModel',
+                    'absenceReasonModel'
                 ];
 
                 /**
@@ -49,13 +50,14 @@
                  * @param {type} $routeParams
                  * @param {type} rowSorter
                  * @param {type} uiGridConstants
-                 * @param {type} absenceModel
-                 * @param {type} absenceReasonModel
                  * @param {type} studentModel
                  * @param {type} contactLessonModel
                  * @param {type} subjectRoundModel
                  * @param {type} teacherModel
                  * @param {type} roomModel
+                 * @param {type} studentGradeModel
+                 * @param {type} gradeChoiceModel
+                 * @param {type} absenceReasonModel
                  * @returns {absenceController_L28.absenceController}
                  */
                 function absenceController(
@@ -64,13 +66,14 @@
                         $routeParams,
                         rowSorter,
                         uiGridConstants,
-                        absenceModel,
-                        absenceReasonModel,
                         studentModel,
                         contactLessonModel,
                         subjectRoundModel,
                         teacherModel,
-                        roomModel
+                        roomModel,
+                        studentGradeModel,
+                        gradeChoiceModel,
+                        absenceReasonModel
                         ) {
 
                     $scope.T = globalFunctions.T;
@@ -207,7 +210,7 @@
 
                     $scope.studentAbsenceFilter = {};
 
-                    $scope.contactLessons = $scope.absenceReasons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
+                    $scope.contactLessons = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
                     $scope.FormatDate = function (ds) {
                         

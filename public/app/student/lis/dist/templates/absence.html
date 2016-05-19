@@ -42,8 +42,8 @@
             <ul>
                 <li ng-repeat="contactLesson in subjectRound.contactLesson" style="border-top: solid gray 1px">
                     <ul>
-                        <li ng-repeat="absence in contactLesson.absence" class="absencereasonposition">
-                            <br>{{absence.gradeChoice.name}}
+                        <li ng-repeat="studentGrade in contactLesson.studentGrade" class="absencereasonposition">
+                            <br>{{studentGrade.gradeChoice.name}}
                         </li>
                     </ul>
                     {{ FormatDate(contactLesson.lessonDate.date)}}
