@@ -61,10 +61,10 @@ class StudentGrade extends EntityValidation
     protected $gradeChoice;
 
     /**
-     * @Annotation\Required({"required":"true"})
+     * @Annotation\Exclude()
      * 
      * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="studentGrade")
-     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id", nullable=true)
      */
     protected $teacher;
 

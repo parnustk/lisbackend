@@ -84,13 +84,6 @@ class ContactLesson extends EntityValidation
     protected $sequenceNr;
 
     /**
-     * @Annotation\Exclude()
-     * 
-     * @ORM\OneToMany(targetEntity="Absence", mappedBy="contactLesson")
-     */
-    protected $absence;
-
-    /**
      * @Annotation\Required({"required":"true"})
      * 
      * @ORM\ManyToOne(targetEntity="Rooms", inversedBy="contactLesson")
@@ -239,15 +232,6 @@ class ContactLesson extends EntityValidation
     public function getSequenceNr()
     {
         return $this->sequenceNr;
-    }
-
-    /**
-     * 
-     * @return Absence
-     */
-    public function getAbsence()
-    {
-        return $this->absence;
     }
 
     /**
@@ -410,17 +394,6 @@ class ContactLesson extends EntityValidation
     public function setSequenceNr($sequenceNr)
     {
         $this->sequenceNr = (int) $sequenceNr;
-        return $this;
-    }
-
-    /**
-     * 
-     * @param Absence $absence
-     * @return \Core\Entity\ContactLesson
-     */
-    public function setAbsence(Absence $absence)
-    {
-        $this->absence = $absence;
         return $this;
     }
 

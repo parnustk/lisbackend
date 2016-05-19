@@ -94,13 +94,6 @@ class Student extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\OneToMany(targetEntity="Absence", mappedBy="student")
-     */
-    protected $absence;
-
-    /**
-     * @Annotation\Exclude()
-     * 
      * @ORM\OneToMany(targetEntity="StudentGrade", mappedBy="student")
      */
     protected $studentGrade;
@@ -226,15 +219,6 @@ class Student extends EntityValidation
     public function getLisUser()
     {
         return $this->lisUser;
-    }
-
-    /**
-     * 
-     * @return Absence
-     */
-    public function getAbsence()
-    {
-        return $this->absence;
     }
 
     /**
@@ -372,17 +356,6 @@ class Student extends EntityValidation
     public function setLisUser($lisUser)
     {
         $this->lisUser = $lisUser;
-        return $this;
-    }
-
-    /**
-     * 
-     * @param type $absence
-     * @return \Core\Entity\Student
-     */
-    public function setAbsence($absence)
-    {
-        $this->absence = $absence;
         return $this;
     }
 
