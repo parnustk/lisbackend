@@ -64,10 +64,10 @@ class GradeChoice extends \Core\Entity\GradeChoice implements \Doctrine\ORM\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'studentGrade', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'lisType', 'description', 'studentGrade', 'absence', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'studentGrade', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'lisType', 'description', 'studentGrade', 'absence', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -173,6 +173,72 @@ class GradeChoice extends \Core\Entity\GradeChoice implements \Doctrine\ORM\Prox
     }
 
     
+    /**
+     * {@inheritDoc}
+     */
+    public function getDescription()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDescription', array());
+
+        return parent::getDescription();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDescription($description)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDescription', array($description));
+
+        return parent::setDescription($description);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLisType()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLisType', array());
+
+        return parent::getLisType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAbsence()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAbsence', array());
+
+        return parent::getAbsence();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setLisType($lisType)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLisType', array($lisType));
+
+        return parent::setLisType($lisType);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAbsence(\Core\Entity\Absence $absence)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAbsence', array($absence));
+
+        return parent::setAbsence($absence);
+    }
+
     /**
      * {@inheritDoc}
      */

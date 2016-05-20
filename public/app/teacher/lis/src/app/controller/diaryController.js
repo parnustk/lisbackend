@@ -27,7 +27,8 @@
                 'vocationModel',
                 'teacherModel',
                 'gradeChoiceModel',
-                'studentGradeModel'
+                'studentGradeModel',
+                'absenceModel'
             ];
 
             function diaryController(
@@ -44,7 +45,8 @@
                 vocationModel,
                 teacherModel,
                 gradeChoiceModel,
-                studentGradeModel) {
+                studentGradeModel,
+                absenceModel) {
 
                 $scope.T = globalFunctions.T;
 
