@@ -85,7 +85,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
-print_r($q->getSQL()); die();
+        //print_r($q->getSQL()); die();
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
