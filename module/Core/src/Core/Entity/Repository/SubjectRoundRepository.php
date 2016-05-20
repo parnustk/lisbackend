@@ -46,9 +46,59 @@ class SubjectRoundRepository extends AbstractBaseRepository
      * @param type $params
      * @param type $extra
      */
+    public function diaryRelatedDataSubjectRound($params = null, $extra = null)
+    {
+        $dql = "SELECT 
+                    partial subjectround.{
+                        id,
+                        trashed
+                    },
+                    partial studentGrade.{
+                            id
+                    },
+                    partial student.{
+                            id,
+                            name
+                    },
+                    partial teacher.{
+                            id,
+                            name
+                    },
+                    partial gradeChoice.{
+                            id,
+                            name
+                    }
+                FROM Core\Entity\SubjectRound subjectround
+                
+                JOIN subjectround.studentGroup studentGroup
+                JOIN subjectround.studentGrade studentGrade
+                
+                LEFT JOIN studentGrade.student student
+                LEFT JOIN studentGrade.teacher teacher
+                LEFT JOIN studentGrade.gradeChoice gradeChoice
+                
+                WHERE 
+                    subjectround.id=:subjectroundId AND 
+                    studentGroup.id=:studentGroupId AND 
+                    gradeChoice.lisType='gradechoice' ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
+print_r($q->getSQL()); die();
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     */
     public function diaryRelatedData($params = null, $extra = null)
     {
-//print_r($params);
         $dql = "SELECT 
                     partial subjectround.{
                         id,
@@ -103,7 +153,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         if (count($r) > 0) {
             $studentGroupId = $r[0]->getStudentGroup()->getId();
         }
-        
+
         $dql = "SELECT
                     partial subjectRound.{
                         id,
@@ -155,7 +205,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
-        
+
         $q->setParameter('studentGroupId', $studentGroupId, Type::INTEGER);
 //        $q->setParameter('student', $student, Type::INTEGER);
 
@@ -173,14 +223,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
     public function studentTimeTableData($params = null, $extra = null)
     {
-        
+
         $student = $extra->lisPerson;
         $r = $this->_em->getRepository('Core\Entity\StudentInGroups')->getStudentVocationByStudentId($student);
         $studentGroupId = -1;
         if (count($r) > 0) {
             $studentGroupId = $r[0]->getStudentGroup()->getId();
         }
-        
+
         $dql = "SELECT
                     partial subjectRound.{
                         id,
@@ -789,8 +839,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
     {
         if (array_key_exists('studentAbsence', $params)) {
             return $this->studentAbsenceData($params, $extra);
-        }
-        else if (array_key_exists('studentTimeTable', $params)) {
+        } else if (array_key_exists('studentTimeTable', $params)) {
             return $this->studentTimeTableData($params, $extra);
         }
 
@@ -807,12 +856,17 @@ class SubjectRoundRepository extends AbstractBaseRepository
     private function teacherGetList($params = null, $extra = null)
     {
         if (array_key_exists('diaryview', $params)) {
-            return $this->diaryRelatedData($params, $extra);
+            switch ($params['diaryview']) {
+                case 'diaryview':
+                    return $this->diaryRelatedData($params, $extra);
+                case 'diaryviewsr':
+                    return $this->diaryRelatedDataSubjectRound($params, $extra);
+            }
         }
-//        $this->findingTeacher($entity, $extra);
+        //$this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
         $dqlRestriction = null;
-//$dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
+        //$dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 

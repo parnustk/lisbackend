@@ -64,10 +64,10 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'status', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'status', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -246,6 +246,17 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
+    public function getStatus()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
+
+        return parent::getStatus();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getIndependentWork()
     {
 
@@ -384,6 +395,17 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
 
         return parent::setName($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatus($status)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
+
+        return parent::setStatus($status);
     }
 
     /**

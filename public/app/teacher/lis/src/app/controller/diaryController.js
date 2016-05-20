@@ -64,7 +64,9 @@
                     diaryview: 1
                 };
 
-                var rawDataStudentGroup = null, rawDataSubjectRound = null;
+                var rawDataStudentGroup = null, 
+                    rawDataGradeSR = null, 
+                    rawDataSubjectRound = null;
 
                 $scope.diaryFilter = {};
 
@@ -249,12 +251,23 @@
                         if (globalFunctions.resultHandler(result)) {
                             rawDataSubjectRound = result.data;
 
-                            studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
+                            urlParamsSubjectRound.diaryview = 'diaryviewsr';
+                            subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
-                                    rawDataStudentGroup = result.data;
+                                    rawDataGradeSR = result.data;
 
-                                    sortDataForDiary();
+                                    urlParamsSubjectRound.diaryview = 'diaryview';
+
+                                    studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
+                                        if (globalFunctions.resultHandler(result)) {
+                                            rawDataStudentGroup = result.data;
+
+                                            sortDataForDiary();
+                                        }
+                                    });
+
                                 }
+
                             });
                         }
                     });
@@ -302,7 +315,8 @@
                         u = 0,
                         contactLessons = rawDataSubjectRound[0].contactLesson,
                         y,
-                        x;
+                        x,
+                        z;
 
                     for (y in students) {
                         var row = {};
@@ -315,14 +329,14 @@
                         u++;
                     }
 
-                    for (x in contactLessons) {
+                    for (x in contactLessons) {//add contact lesson stuff
 
                         var cl = contactLessons[x],
                             columnName = createColumnName(cl),
                             columnNameId = createColumnName(cl) + "['id']",
                             columnNameName = createColumnName(cl) + "['name']",
                             columnDisplayName = contactLessons[x].name, //make it normal,
-                            newColumn = {
+                            newColumnCL = {
                                 //field: columnNameId,
                                 name: columnName,
                                 displayName: columnDisplayName,
@@ -336,7 +350,7 @@
                                 width: 150
                             };
 
-                        $scope.columns.push(newColumn);
+                        $scope.columns.push(newColumnCL);
 
                         //is it needed?
                         $scope.$watch('columns', function (newVal, oldVal) {
@@ -371,6 +385,8 @@
                         }
                     }
 
+                    //add subjectround grade
+
                     $scope.addRows();
                     //$scope.addColumns();
 
@@ -400,8 +416,6 @@
                     $scope.columns.splice(2, $scope.columns.length - 2);
                     $scope.gridOptions.data.splice(0, $scope.gridOptions.data.length);
                 };
-
-
             }
 
             return diaryController;

@@ -50,7 +50,7 @@ INSERT INTO `Rooms` (`id`, `created_by`, `updated_by`, `name`, `trashed`, `creat
 -- Dumping data for table `GradeChoice`
 --
 INSERT INTO `GradeChoice` (`id`, `created_by`, `updated_by`, `name`, `lisType`, `description`, `trashed`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, NULL, 'erase', 'LIS_ERASE', NULL, '2016-05-18 00:00:00', NULL),
+(1, 1, NULL, ' ', 'erase', 'LIS_ERASE', NULL, '2016-05-18 00:00:00', NULL),
 (2, 1, NULL, '2', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
 (3, 1, NULL, '3', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
 (4, 1, NULL, '4', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
@@ -193,5 +193,5 @@ INSERT INTO `StudentGrade` (`id`, `student_id`, `grade_choice_id`, `teacher_id`,
 (4, 1, 4, 1, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, '2016-06-07 00:00:00', NULL),
 (5, 1, 6, 1, 1, NULL, NULL, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-05 00:00:00', NULL),
 (6, 1, 3, 1, NULL, 1, NULL, NULL, 2, NULL, 'Note', 0, '2016-05-08 00:00:00', NULL),
-(7, 1, 4, 1, NULL, NULL, 2, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-09 00:00:00', NULL);
+(7, 1, 4, 1, NULL, NULL, 1, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-09 00:00:00', NULL);
 

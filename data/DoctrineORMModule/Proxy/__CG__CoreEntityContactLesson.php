@@ -64,10 +64,10 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'absence', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'lessonDate', 'description', 'sequenceNr', 'rooms', 'studentGrade', 'subjectRound', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -230,17 +230,6 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSequenceNr', array());
 
         return parent::getSequenceNr();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getAbsence()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAbsence', array());
-
-        return parent::getAbsence();
     }
 
     /**
@@ -428,17 +417,6 @@ class ContactLesson extends \Core\Entity\ContactLesson implements \Doctrine\ORM\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSequenceNr', array($sequenceNr));
 
         return parent::setSequenceNr($sequenceNr);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setAbsence(\Core\Entity\Absence $absence)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAbsence', array($absence));
-
-        return parent::setAbsence($absence);
     }
 
     /**
