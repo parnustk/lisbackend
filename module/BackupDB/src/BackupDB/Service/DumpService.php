@@ -143,8 +143,8 @@ class DumpService implements ServiceManagerAwareInterface
      */
     protected function setUp()
     {
-        $data   = include 'config/autoload/backupdb.local.php';
-        
+        $data = include 'config/autoload/backupdb.local.php';
+
         $host = $data['backupdb']['connection']['params']['host'];
         $dbname = $data['backupdb']['connection']['params']['dbname'];
         $uname = $data['backupdb']['connection']['params']['user'];
@@ -384,5 +384,29 @@ class DumpService implements ServiceManagerAwareInterface
             die();
         }
     }
-
+    
+    /**
+     * Sends selected backup file to client.
+     * 
+     * @param string $filename
+     */
+    public function download($filename)
+    {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header("Content-disposition: attachment;filename=$filename");
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize(_PATH_ . $filename));
+        readfile(_PATH_ . $filename);
+        exit;
+    }
+    
+    public function upload($file)
+    {
+        $this->setFileName('upload');
+        file_put_contents(_PATH_ . $this->fileName, $file, FILE_APPEND);
+        exit;
+    }
 }

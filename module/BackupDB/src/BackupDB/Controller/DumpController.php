@@ -133,5 +133,27 @@ class DumpController extends AbstractActionController
             return new ViewModel(['form' => $login]);
         }
     }
+    
+    /**
+     * Passes download request to Service
+     * @param string $filename
+     */
+    public function downloadAction($filename) {
+        $this
+                ->getServiceLocator()
+                ->get($this->service)
+                ->download($filename);
+    }
+    
+    /**
+     * Passes upload request to Service
+     * @param string $file
+     */
+    public function uploadAction($file) {
+        $this
+                ->getServiceLocator()
+                ->get($this->service)
+                ->upload($file);
+    }
 
 }
