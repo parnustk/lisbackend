@@ -194,6 +194,6 @@ INSERT INTO `StudentGrade` (`id`, `student_id`, `grade_choice_id`, `teacher_id`,
 (4, 1, 4, 1, NULL, NULL, NULL, 5, 2, NULL, NULL, NULL, '2016-06-07 00:00:00', NULL),
 (5, 1, 6, 1, 1, NULL, NULL, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-05 00:00:00', NULL),
 (6, 1, 3, 1, NULL, 1, NULL, NULL, 2, NULL, 'Note', 0, '2016-05-08 00:00:00', NULL),
-(7, 1, 4, 1, NULL, NULL, 1, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-09 00:00:00', NULL);
-(8, 1, 6, 1, 2, NULL, NULL, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-05 00:00:00', NULL),
+(7, 1, 4, 1, NULL, NULL, 1, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-09 00:00:00', NULL),
+(8, 1, 6, 1, 2, NULL, NULL, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-05 00:00:00', NULL);
 
