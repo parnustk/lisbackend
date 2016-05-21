@@ -16,8 +16,8 @@
     'use strict';
 
     define([
-        'app/util/translations'
-    ], function (translations) {
+        'app/util/translations', 'moment'
+    ], function (translations, moment) {
 
         return {
             /**
@@ -25,18 +25,36 @@
              * @param {String} k
              * @returns {String}
              */
-            T: function(k) {
-                if(!!translations[window.LisGlobals.L][k]) {
+            T: function (k) {
+                if (!!translations[window.LisGlobals.L][k]) {
                     return translations[window.LisGlobals.L][k];
                 }
                 return k;
+            },
+            /**
+             * TODO: Should use moments locales
+             * 
+             * @param {String} ds
+             * @returns {String}
+             */
+            formatDate: function (ds) {
+
+                var dObj = new Date(ds),
+                    dFinal;
+
+                if (window.LisGlobals.L === 'et') {
+                    dFinal = moment(dObj).format('DD.MM.YYYY');
+                } else {
+                    dFinal = moment(dObj).format('DD/MM/YYYY');
+                }
+                return dFinal;
             },
             /**
              * Leaves only id property for sub level objects
              * required by Doctrine to work
              * Needed for models which have associotions
              * 
-             * @param {type} data
+             * @param {mixed} data
              * @returns {Array}
              */
             cleanData: function (data) {
@@ -47,7 +65,7 @@
                     for (_key in o) {
                         v = o[_key];
                         if (typeof v === "object" && v !== null) {
-                            if(level < 1 && !Array.isArray(o)) {
+                            if (level < 1 && !Array.isArray(o)) {
                                 level++;
                                 _out[_key] = copy(v);
                                 level--;
@@ -76,14 +94,11 @@
              * @returns {Boolean}
              */
             resultHandler: function (result) {
-                var s = true;
                 if (!result.success) {
                     console.log(result.message);
                     this.alertErrorMsg(result.message);
-                    
-                    s = false;
                 }
-                return s;
+                return !!result.success;
             },
             /**
              * 
@@ -96,11 +111,11 @@
                 $("#errorModal").modal('show');
             },
             /**
-             *
-             * @param alertmessage
+             * 
+             * @param {string} alertMessage
              * @returns {string} modal window with custom text as input
              */
-            alertSuccessMsg: function (alertmessage) {
+            alertSuccessMsg: function (alertMessage) {
                 $("#successModal .modal-title").text(this.T('LIS_SUCCESS'));
                 $("#successModal .modal-body").text(alertMessage);
                 $("#successModal").modal('show');

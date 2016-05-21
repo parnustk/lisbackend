@@ -41,6 +41,60 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     public $baseEntity = 'Core\Entity\SubjectRound';
 
+    public function diaryRelatedDataIndependentWork($params = null, $extra = null)
+    {
+        $dql = "SELECT 
+                    partial subjectround.{
+                        id,
+                        trashed
+                    },
+                    partial independentWork.{
+                        id,
+                        duedate,
+                        name,
+                        description,
+                        durationAK
+                    },
+                    partial studentGrade.{
+                        id
+                    },
+                    partial student.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
+                    },
+                    partial gradeChoice.{
+                        id,
+                        name
+                    }
+                    
+                FROM Core\Entity\SubjectRound subjectround
+
+                JOIN subjectround.studentGroup studentGroup
+                JOIN subjectround.independentWork independentWork
+                
+                LEFT JOIN independentWork.studentGrade studentGrade
+                LEFT JOIN studentGrade.student student
+                LEFT JOIN studentGrade.teacher teacher
+                LEFT JOIN studentGrade.gradeChoice gradeChoice
+                
+                WHERE 
+                    subjectround.id=:subjectroundId AND 
+                    studentGroup.id=:studentGroupId ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
+        //print_r($q->getSQL()); die();
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+
     /**
      * 
      * @param type $params
@@ -68,6 +122,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             id,
                             name
                     }
+                    
                 FROM Core\Entity\SubjectRound subjectround
                 
                 JOIN subjectround.studentGroup studentGroup
@@ -126,14 +181,20 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             id,
                             name
                     }
+                    
                 FROM Core\Entity\SubjectRound subjectround
-                JOIN subjectround.contactLesson contactLesson
+                
                 JOIN subjectround.studentGroup studentGroup
+                JOIN subjectround.contactLesson contactLesson
+                
                 LEFT JOIN contactLesson.studentGrade studentGrade
                 LEFT JOIN studentGrade.student student
                 LEFT JOIN studentGrade.teacher teacher
                 LEFT JOIN studentGrade.gradeChoice gradeChoice
-                WHERE subjectround.id=:subjectroundId AND studentGroup.id=:studentGroupId";
+                
+                WHERE 
+                    subjectround.id=:subjectroundId AND 
+                    studentGroup.id=:studentGroupId ";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
@@ -188,12 +249,14 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             name
                     }
                     FROM Core\Entity\SubjectRound subjectRound
+                    
+                    JOIN subjectRound.studentGroup studentGroup
                     JOIN subjectRound.contactLesson contactLesson 
                     JOIN contactLesson.studentGrade studentGrade
+                    
                     LEFT JOIN contactLesson.rooms rooms
                     LEFT JOIN studentGrade.gradeChoice absenceReason
-                    LEFT JOIN contactLesson.teacher teacher
-                    JOIN subjectRound.studentGroup studentGroup";
+                    LEFT JOIN contactLesson.teacher teacher ";
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
@@ -861,11 +924,13 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     return $this->diaryRelatedData($params, $extra);
                 case 'diaryviewsr':
                     return $this->diaryRelatedDataSubjectRound($params, $extra);
+                case 'diaryviewiw':
+                    return $this->diaryRelatedDataIndependentWork($params, $extra);
             }
         }
         //$this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
-        $dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
+        $dqlRestriction = " AND teacher=$id"; //TODO uncomment remove afterwoods
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
