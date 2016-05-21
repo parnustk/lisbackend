@@ -121,7 +121,7 @@ class ModuleRepository extends AbstractBaseRepository
                     }
                 FROM Core\Entity\Module module
                 JOIN module.vocation vocation
-                JOIN module.gradingType gradingType
+                LEFT JOIN module.gradingType gradingType
                 
                 LEFT JOIN module.subjectRound subjectRound
                 
@@ -147,9 +147,8 @@ class ModuleRepository extends AbstractBaseRepository
                 LEFT JOIN studentGradeIW.student studentIW
 
                 WHERE 
-                    vocation.id=:vocationId AND 
-                    gradeChoice.lisType='gradechoice' AND 
-                    gradeChoiceCL.lisType='gradechoice' AND 
+                    vocation.id=:vocationId AND
+                    gradeChoiceCL.lisType='gradechoice' AND
                     (student.id=:studentId OR student.id IS NULL) AND
                     (studentSR.id=:studentId OR studentSR.id IS NULL) AND
                     (studentCL.id=:studentId OR studentCL.id IS NULL) AND
