@@ -573,7 +573,8 @@
                             toolTip = (
                                 iw.name + "\n" +
                                 iw.description + "\n" +
-                                globalFunctions.formatDate(iw.duedate.date)),
+                                globalFunctions.formatDate(iw.duedate.date)+ "\n" +
+                                iw.durationAK + 'AK'),
                             newColumnIW = {//think of tooltips
                                 //field: columnNameId,
                                 name: columnName,

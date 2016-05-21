@@ -83,7 +83,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 
                 WHERE 
                     subjectround.id=:subjectroundId AND 
-                    studentGroup.id=:studentGroupId ";
+                    studentGroup.id=:studentGroupId 
+                
+                ORDER BY independentWork.duedate ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
@@ -194,7 +196,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 
                 WHERE 
                     subjectround.id=:subjectroundId AND 
-                    studentGroup.id=:studentGroupId ";
+                    studentGroup.id=:studentGroupId 
+                    
+                ORDER BY contactLesson.lessonDate ASC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
