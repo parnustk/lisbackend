@@ -311,9 +311,11 @@
                                     );
                                 }
                                 rowEntity[colDef.name] = buf;
-                            } else {
+
+                            } else {//Anomaly
                                 throw 'Whaaaaat column is this?';
                             }
+
                             $scope.$apply();
                         });
                     }
@@ -353,6 +355,10 @@
                 $scope.clearGridData = function () {
                     $scope.columns.splice(2, $scope.columns.length - 2);
                     $scope.gridOptions.data.splice(0, $scope.gridOptions.data.length);
+                };
+
+                $scope.clDescription = function () {
+                    console.log(arguments);
                 };
 
                 var resetUrlParams = function () {
@@ -402,6 +408,12 @@
                     });
                 };
 
+                /**
+                 * 
+                 * @param {type} studentId
+                 * @param {type} studentGrades
+                 * @returns {diaryController_L15.diaryController_L19.diaryController.searchStudentGrade.diaryControllerAnonym$6|Number}
+                 */
                 var searchStudentGrade = function (studentId, studentGrades) {
                     for (var x in studentGrades) {
                         if (studentGrades[x].student.id === studentId) {
@@ -477,14 +489,22 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
-                                width: 150
+                                width: 150,
+                                menuItems: [{
+                                    title: $scope.T('LIS_LESSON_DESCRIPTION'),
+                                        icon: 'ui-grid-icon-info-circled',
+                                        action: function ($event) {
+                                            this.context.clDescription(this.context.col); // $scope.clDescription() would work too, this is just an example
+                                        },
+                                        context: $scope
+                                    }]
                             };
 
                         $scope.columns.push(newColumnCL);
 
-                        $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-                            $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-                        }, true);
+//                        $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
+//                            $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+//                        }, true);
 
                         for (var i = 0; i < rows.length; i++) {
                             var studentGradeId = null,
@@ -534,9 +554,9 @@
 
                         $scope.columns.push(newColumnIW);
 
-                        $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-                            $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-                        }, true);
+//                        $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
+//                            $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+//                        }, true);
 
                         for (var i = 0; i < rows.length; i++) {
                             var studentGradeId = null,
@@ -582,9 +602,9 @@
 
                     $scope.columns.push(newColumnSR);
 
-                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-                    }, true);
+//                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
+//                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+//                    }, true);
 
                     for (var i = 0; i < rows.length; i++) {
                         var studentGradeId = null,
@@ -616,9 +636,9 @@
                         };
                     }
 
-                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-                    }, true);
+//                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
+//                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+//                    }, true);
 
                     $scope.addRows();
                 };
@@ -626,4 +646,5 @@
 
             return diaryController;
         });
+
 }(define, document));
