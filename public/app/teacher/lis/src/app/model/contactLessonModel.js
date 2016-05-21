@@ -72,6 +72,16 @@
                  * @param {type} data
                  * @return {undefined}
                  */
+                UpdateRegular: function (id, data) {
+                    var d = globalFunctions.cleanData(data);
+                    return _model.update({id: id}, d).$promise;
+                },
+                /**
+                 * 
+                 * @param {type} id
+                 * @param {type} data
+                 * @return {undefined}
+                 */
                 Update: function (id, data) {
                     var d = globalFunctions.cleanData(data);
                     delete d.studentGrade;//batch mapped by

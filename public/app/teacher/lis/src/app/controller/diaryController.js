@@ -15,8 +15,8 @@
 (function (define, document) {
     'use strict';
 
-    define(['angular', 'app/util/globalFunctions', 'moment'],
-        function (angular, globalFunctions, moment) {
+    define(['angular', 'app/util/globalFunctions', 'moment', 'bootbox'],
+        function (angular, globalFunctions, moment, bootbox) {
 
             diaryController.$inject = [
                 '$scope',
@@ -361,8 +361,23 @@
                 $scope.clDescription = function (c) {
                     var keys = c.colDef.name.split("_"),
                         key = parseInt(keys[1]),
-                        cl = clColumns[key];
-                    console.log(cl);
+                        cl = clColumns[key],
+                        description = cl.description;
+
+                    bootbox.prompt({
+                        title: $scope.T('LIS_UPDATE_DESCRIPTION'),
+                        value: description,
+                        callback: function (d) {
+                            contactLessonModel.UpdateRegular(cl.id, {description: d}).then(
+                                function (result) {
+                                    if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
+                                        clColumns[key].description = d;
+                                        getData();
+                                    }
+                                }
+                            );
+                        }
+                    });
                 };
 
                 var resetUrlParams = function () {
@@ -476,7 +491,7 @@
                     }
 
                     for (x in contactLessons) {//add contact lesson stuff. number of contactlesson is dynamic
-                        
+
                         var cl = contactLessons[x],
                             columnName = 'cl_' + cl.id,
                             //columnNameId = createColumnName(cl) + "['id']",
@@ -502,7 +517,7 @@
                                         }
                                     }]
                             };
-                        
+
                         clColumns[parseInt(cl.id)] = cl;
 
                         $scope.columns.push(newColumnCL);
@@ -586,7 +601,7 @@
                         newColumnSR = {//start defining column
                             //field: columnNameId,
                             name: columnNameSR,
-                            displayName: 'Final',
+                            displayName: $scope.T('LIS_SUBJECTROUND_GRADE'),
                             enableCellEdit: true,
                             editDropdownOptionsArray: $scope.gradeChoiceGradesOnly,
                             type: 'object',

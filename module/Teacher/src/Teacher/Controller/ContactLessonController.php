@@ -83,7 +83,8 @@ class ContactLessonController extends Base
      */
     public function update($id, $data)
     {
-        return parent::notAllowed();
+        return parent::update($id, $data);
+        //return parent::notAllowed();
     }
 
     /**

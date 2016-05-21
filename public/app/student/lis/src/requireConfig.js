@@ -31,6 +31,9 @@
             'bootstrap': {
                 deps: ['jquery']
             },
+            'bootbox': {
+                deps: ['bootstrap']
+            },
             'angular-cookies': [
                 'angular'
             ],
@@ -98,6 +101,7 @@
             'foundation': '../../bower_components/foundation-sites/dist/foundation',
             'pdfmake': '../../bower_components/pdfmake/build/vfs_fonts',
             'pdfMakeLib': '../../bower_components/pdfmake/build/pdfmake',
+            'bootbox': '../../lis/lib/bootbox/bootbox',
             'bootstrapApp': 'bootstrapApp'
         },
         deps: [
