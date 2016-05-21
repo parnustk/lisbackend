@@ -55,18 +55,13 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial student.{
-                        id,
-                        name
-                    },
                     partial teacher.{
                         id,
                         name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 LEFT JOIN $this->baseAlias.teacher teacher
-                LEFT JOIN $this->baseAlias.subjectRound subjectRound
-                LEFT JOIN $this->baseAlias.student student";
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound";
 
         return $dql;
     }
@@ -90,18 +85,13 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial student.{
-                        id,
-                        name
-                    },
                     partial teacher.{
                         id,
                         name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subjectRound subjectRound
-                JOIN $this->baseAlias.student student";
+                JOIN $this->baseAlias.subjectRound subjectRound";
 
         return $dql;
     }
@@ -125,18 +115,13 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial student.{
-                        id,
-                        name
-                    },
                     partial teacher.{
                         id,
                         name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subjectRound subjectRound
-                JOIN $this->baseAlias.student student";
+                JOIN $this->baseAlias.subjectRound subjectRound";
 
         return $dql;
     }
@@ -160,17 +145,12 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial student.{
-                        id,
-                        name
-                    },
                     partial teacher.{
                         id,
                         name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.subjectRound subjectRound";
 
         return $dql;

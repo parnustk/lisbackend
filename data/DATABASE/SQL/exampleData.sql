@@ -151,8 +151,9 @@ INSERT INTO `SubjectRound` (`id`, `subject_id`, `group_id`, `module_id`, `vocati
 -- Dumping data for table `IndependentWork`
 --
 
-INSERT INTO `IndependentWork` (`id`, `subject_round_id`, `teacher_id`, `student_id`, `created_by`, `updated_by`, `duedate`, `name`, `description`, `durationAK`, `trashed`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 2, NULL, '2016-05-31 00:00:00', 'Andmebaas', 'Loo hobuste andmebaas', 10, NULL, '2016-05-08 00:00:00', NULL);
+INSERT INTO `IndependentWork` (`id`, `subject_round_id`, `teacher_id`, `created_by`, `updated_by`, `duedate`, `name`, `description`, `durationAK`, `trashed`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 2, NULL, '2016-05-31 00:00:00', 'Andmebaas', 'Loo hobuste andmebaas', 10, NULL, '2016-05-08 00:00:00', NULL),
+(2, 1, 1, 2, NULL, '2016-06-01 00:00:00', 'Andmebaas ORM', 'Loo hobuste andmebaas', 20, NULL, '2016-05-08 00:00:00', NULL);
 
 --
 -- Dumping data for table `StudentInGroups`
@@ -194,4 +195,5 @@ INSERT INTO `StudentGrade` (`id`, `student_id`, `grade_choice_id`, `teacher_id`,
 (5, 1, 6, 1, 1, NULL, NULL, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-05 00:00:00', NULL),
 (6, 1, 3, 1, NULL, 1, NULL, NULL, 2, NULL, 'Note', 0, '2016-05-08 00:00:00', NULL),
 (7, 1, 4, 1, NULL, NULL, 1, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-09 00:00:00', NULL);
+(8, 1, 6, 1, 2, NULL, NULL, NULL, 2, NULL, 'Tehtud', NULL, '2016-05-05 00:00:00', NULL),
 

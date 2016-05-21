@@ -108,13 +108,6 @@ class Student extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\OneToMany(targetEntity="IndependentWork", mappedBy="student")
-     */
-    protected $independentWork;
-
-    /**
-     * @Annotation\Exclude()
-     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
@@ -237,15 +230,6 @@ class Student extends EntityValidation
     public function getStudentInGroups()
     {
         return $this->studentInGroups;
-    }
-
-    /**
-     * 
-     * @return IndependentWork
-     */
-    public function getIndependentWork()
-    {
-        return $this->independentWork;
     }
 
     /**
@@ -378,17 +362,6 @@ class Student extends EntityValidation
     public function setStudentInGroups($studentInGroups)
     {
         $this->studentInGroups = $studentInGroups;
-        return $this;
-    }
-
-    /**
-     * 
-     * @param type $independentWork
-     * @return \Core\Entity\Student
-     */
-    public function setIndependentWork($independentWork)
-    {
-        $this->independentWork = $independentWork;
         return $this;
     }
 

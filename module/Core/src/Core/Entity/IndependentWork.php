@@ -95,14 +95,6 @@ class IndependentWork extends EntityValidation
     /**
      * @Annotation\Exclude()
      * 
-     * @ORM\ManyToOne(targetEntity="Student", inversedBy="independentWork")
-     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=true)
-     */
-    protected $student;
-
-    /**
-     * @Annotation\Exclude()
-     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $trashed;
@@ -216,15 +208,6 @@ class IndependentWork extends EntityValidation
     public function getTeacher()
     {
         return $this->teacher;
-    }
-
-    /**
-     * 
-     * @return Student
-     */
-    public function getStudent()
-    {
-        return $this->student;
     }
 
     /**
@@ -345,17 +328,6 @@ class IndependentWork extends EntityValidation
     public function setTeacher($teacher)
     {
         $this->teacher = $teacher;
-        return $this;
-    }
-
-    /**
-     * 
-     * @param Student $student
-     * @return \Core\Entity\IndependentWork
-     */
-    public function setStudent($student)
-    {
-        $this->student = $student;
         return $this;
     }
 
