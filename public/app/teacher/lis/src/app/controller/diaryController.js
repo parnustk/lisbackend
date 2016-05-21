@@ -61,6 +61,7 @@
                     rawDataGradeSR = null,
                     rawDataSubjectRound = null,
                     rawDataGradeIW = null,
+                    clColumns = [],
                     rows = [],
                     originalRows = [],
                     urlParamsSubjectRound = {
@@ -357,8 +358,11 @@
                     $scope.gridOptions.data.splice(0, $scope.gridOptions.data.length);
                 };
 
-                $scope.clDescription = function () {
-                    console.log(arguments);
+                $scope.clDescription = function (c) {
+                    var keys = c.colDef.name.split("_"),
+                        key = parseInt(keys[1]),
+                        cl = clColumns[key];
+                    console.log(cl);
                 };
 
                 var resetUrlParams = function () {
@@ -428,12 +432,12 @@
                     return -1;
                 };
 
-                var createColumnNameCL = function (cl) {
+                var createColumnDisplayNameCL = function (cl) {
                     var dt = new Date(cl.lessonDate.date);
                     return 'cl' + String(dt.getTime()) + String(cl.sequenceNr);
                 };
 
-                var createColumnNameIW = function (iw) {
+                var createColumnDisplayNameIW = function (iw) {
                     var dt = new Date(iw.duedate.date);
                     return 'iw' + +String(iw.id) + String(dt.getTime());
                     //return 'iw' + globalFunctions.formatDate(iw.duedate.date);
@@ -472,9 +476,9 @@
                     }
 
                     for (x in contactLessons) {//add contact lesson stuff. number of contactlesson is dynamic
-
+                        
                         var cl = contactLessons[x],
-                            columnName = createColumnNameCL(cl),
+                            columnName = 'cl_' + cl.id,
                             //columnNameId = createColumnName(cl) + "['id']",
                             //columnNameName = createColumnName(cl) + "['name']",
                             columnDisplayName = cl.name, //make it normal,
@@ -491,14 +495,19 @@
                                 cellFilter: 'griddropdown:this',
                                 width: 150,
                                 menuItems: [{
-                                    title: $scope.T('LIS_LESSON_DESCRIPTION'),
+                                        title: $scope.T('LIS_LESSON_DESCRIPTION'),
                                         icon: 'ui-grid-icon-info-circled',
+                                        action: function () {
+                                            $scope.clDescription(this.context.col); // $scope.clDescription() would work too, this is just an example
+                                        }/*,
                                         action: function ($event) {
                                             this.context.clDescription(this.context.col); // $scope.clDescription() would work too, this is just an example
                                         },
-                                        context: $scope
+                                        context: $scope*/
                                     }]
                             };
+                        
+                        clColumns[parseInt(cl.id)] = cl;
 
                         $scope.columns.push(newColumnCL);
 
@@ -536,7 +545,7 @@
                     for (z in independentWorks) {//add independentwork stuff. number of iw is dynamic
 
                         var iw = independentWorks[z],
-                            columnName = createColumnNameIW(iw),
+                            columnName = 'iw_' + iw.id,
                             columnDisplayName = iw.name, //make it normal,
                             newColumnIW = {//think of tooltips
                                 //field: columnNameId,

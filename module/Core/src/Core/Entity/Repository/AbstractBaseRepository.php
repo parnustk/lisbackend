@@ -37,7 +37,7 @@ abstract class AbstractBaseRepository extends EntityRepository
         if (!(isset($extra) && property_exists($extra, 'lisRole') && property_exists($extra, 'lisUser'))) {
             throw new Exception("NO_ROLE");
         }
-        if (!$extra->lisUser instanceof \Core\Entity\LisUser) {
+        if (!($extra->lisUser instanceof \Core\Entity\LisUser)) {
             throw new Exception("NO_USER");
         }
     }
