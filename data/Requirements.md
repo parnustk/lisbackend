@@ -1,4 +1,4 @@
-#Technical requirements for using LIS süstem
+#Technical requirements for using LIS system
 ##Server OS
 TODO  
 
