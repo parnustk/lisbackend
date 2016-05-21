@@ -124,25 +124,36 @@ class ModuleRepository extends AbstractBaseRepository
                 JOIN module.gradingType gradingType
                 
                 LEFT JOIN module.subjectRound subjectRound
+                
                 LEFT JOIN module.studentGrade studentGrade
                 LEFT JOIN studentGrade.student student
                 
                 LEFT JOIN studentGrade.gradeChoice gradeChoice
                 LEFT JOIN subjectRound.studentGrade studentGradeSR
                 LEFT JOIN studentGradeSR.gradeChoice gradeChoiceSR
+                LEFT JOIN studentGradeSR.student studentSR
                 
                 LEFT JOIN subjectRound.contactLesson contactLesson
                 LEFT JOIN contactLesson.studentGrade studentGradeCL
                 LEFT JOIN contactLesson.teacher teacherCL
                 LEFT JOIN contactLesson.rooms roomsCL
                 LEFT JOIN studentGradeCL.gradeChoice gradeChoiceCL
-                
+                LEFT JOIN studentGradeCL.student studentCL
+
                 LEFT JOIN subjectRound.independentWork independentWork
                 LEFT JOIN independentWork.studentGrade studentGradeIW
                 LEFT JOIN independentWork.teacher teacherIW
                 LEFT JOIN studentGradeIW.gradeChoice gradeChoiceIW
-                
-                WHERE vocation.id=:vocationId AND gradeChoice.lisType='gradechoice' AND gradeChoiceCL.lisType='gradechoice' AND student.id=:studentId";
+                LEFT JOIN studentGradeIW.student studentIW
+
+                WHERE 
+                    vocation.id=:vocationId AND 
+                    gradeChoice.lisType='gradechoice' AND 
+                    gradeChoiceCL.lisType='gradechoice' AND 
+                    (student.id=:studentId OR student.id IS NULL) AND
+                    (studentSR.id=:studentId OR studentSR.id IS NULL) AND
+                    (studentCL.id=:studentId OR studentCL.id IS NULL) AND
+                    (studentIW.id=:studentId OR studentIW.id IS NULL) ";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
