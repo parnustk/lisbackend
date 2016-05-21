@@ -50,7 +50,7 @@ INSERT INTO `Rooms` (`id`, `created_by`, `updated_by`, `name`, `trashed`, `creat
 -- Dumping data for table `GradeChoice`
 --
 INSERT INTO `GradeChoice` (`id`, `created_by`, `updated_by`, `name`, `lisType`, `description`, `trashed`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, ' ', 'erase', 'LIS_ERASE', NULL, '2016-05-18 00:00:00', NULL),
+(1, 1, NULL, '', 'erase', 'LIS_ERASE', NULL, '2016-05-18 00:00:00', NULL),
 (2, 1, NULL, '2', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
 (3, 1, NULL, '3', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),
 (4, 1, NULL, '4', 'gradechoice', 'LIS_GRADECHOICE', NULL, '2016-05-18 00:00:00', NULL),

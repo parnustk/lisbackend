@@ -99,7 +99,8 @@ class LoginAdministratorController extends Base
 
             $r = [
                 'success' => false,
-                'message' => 'FALSE_ATTEMPT'
+                'message' => $ex->getMessage()
+                //'message' => 'FALSE_ATTEMPT'
             ];
         }
         return new JsonModel($r);//Login Student ja login Teacher tuleb ka nüüd ümber teha sarnaseks sellega siin

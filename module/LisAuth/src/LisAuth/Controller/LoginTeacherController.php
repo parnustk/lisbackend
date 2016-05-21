@@ -69,25 +69,25 @@ class LoginTeacherController extends Base
     {
         $this->headerAccessControlAllowOrigin();
         $lisAuthService = $this->getLisAuthService();
-        $r = [];
+
         try {
             $lisAuthService->authenticate($data, 'teacher');
             $data_login = $lisAuthService->login_data();
-            if (!$lisAuthService->isEmpty()) {//check_logined
-                if (method_exists($this->getResponse(), 'getCookie')) {
-                    $cookie = $this->getResponse()->getCookie();
-                    if ($cookie) {
-                        if (property_exists($this->getResponse()->getCookie(), 'userObj')) {
-                            $cuserObj = $this->getResponse()->getCookie()->userObj;
-                            $id = $cuserObj->lisUser;
-                            if ($id !== $data_login["lisUser"]) {
-                                $lisAuthService->logout(1);
-                                throw new Exception('COOKIE_MISMATCH');
-                            }
-                        }
-                    }
-                }
-            }
+//            if (!$lisAuthService->isEmpty()) {//check_logined
+//                if (method_exists($this->getResponse(), 'getCookie')) {
+//                    $cookie = $this->getResponse()->getCookie();
+//                    if ($cookie) {
+//                        if (property_exists($this->getResponse()->getCookie(), 'userObj')) {
+//                            $cuserObj = $this->getResponse()->getCookie()->userObj;
+//                            $id = $cuserObj->lisUser;
+//                            if ($id !== $data_login["lisUser"]) {
+//                                $lisAuthService->logout(1);
+//                                throw new Exception('COOKIE_MISMATCH');
+//                            }
+//                        }
+//                    }
+//                }
+//            }
             $r = [
                 'success' => true,
                 'message' => 'NOW_LOGGED_IN',
@@ -98,7 +98,8 @@ class LoginTeacherController extends Base
         } catch (Exception $ex) {
             $r = [
                 'success' => false,
-                'message' => 'FALSE_ATTEMPT'
+                'message' => $ex->getMessage()
+//                'message' => 'FALSE_ATTEMPT'
             ];
         }
         return new JsonModel($r);

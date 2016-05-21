@@ -865,8 +865,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         }
         //$this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
-        $dqlRestriction = null;
-        //$dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
+        $dqlRestriction = " AND teacher=$id";//TODO uncomment remove afterwoods
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 

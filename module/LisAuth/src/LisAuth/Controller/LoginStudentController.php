@@ -102,7 +102,8 @@ class LoginStudentController extends Base
         } catch (Exception $ex) {
             $r = [
                 'success' => false,
-                'message' => 'FALSE_ATTEMPT'
+                'message' => $ex->getMessage()
+                //'message' => 'FALSE_ATTEMPT'
             ];
         }
         return new JsonModel($r);

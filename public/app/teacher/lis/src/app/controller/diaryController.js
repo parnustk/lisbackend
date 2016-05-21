@@ -64,18 +64,23 @@
                     diaryview: 1
                 };
 
-                var rawDataStudentGroup = null, 
-                    rawDataGradeSR = null, 
+                var rawDataStudentGroup = null,
+                    rawDataGradeSR = null,
                     rawDataSubjectRound = null;
 
                 $scope.diaryFilter = {};
 
-                $scope.subjectRounds = $scope.studentGroups = [];
+                $scope.subjectRounds = $scope.studentGroups = $scope.gradeChoices = $scope.gradeChoiceGradesOnly = [];
 
                 gradeChoiceModel.GetList({}).then(function (result) {//get them all
 
                     if (globalFunctions.resultHandler(result)) {
                         $scope.gradeChoices = result.data;
+                        for (var a in result.data) {
+                            if (result.data[a].lisType !== "absencereason") {
+                                $scope.gradeChoiceGradesOnly.push(result.data[a]);
+                            }
+                        }
 
                         subjectRoundModel.GetList({}).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
@@ -109,16 +114,13 @@
 
                 $scope.columns = [
                     {
-                        //field: 'nr',
                         name: 'nr',
                         displayName: 'Jrk',
                         visible: false,
                         type: 'number',
                         width: 10,
                         enableCellEdit: false
-                    },
-                    {
-                        //field: "student['name']",
+                    }, {
                         name: "student['name']",
                         displayName: 'Student',
                         enableCellEdit: false,
@@ -135,85 +137,129 @@
                         $scope.gridApi = gridApi;
                         //http://stackoverflow.com/questions/29219380/ui-grid-dropdown-editor-with-complex-json-object
                         gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-
-                            var x,
-                                buf = {},
-                                newGrade = {},
-                                originalEntity = originalRows[rowEntity.nr][colDef.name];
-
-                            angular.copy(originalEntity, buf);
-
-                            for (x in $scope.gradeChoices) {
-                                if ($scope.gradeChoices[x].id === newValue) {
-                                    newGrade.id = newValue;
-                                    newGrade.name = $scope.gradeChoices[x].name;
-                                    break;
+                            if (colDef.name === 'SR') {////START SUBJECTROUND Grades CRUD
+                                var x,
+                                    buf = {},
+                                    newGrade = {},
+                                    originalEntity = originalRows[rowEntity.nr][colDef.name];
+                                angular.copy(originalEntity, buf);
+                                for (x in $scope.gradeChoiceGradesOnly) {
+                                    if ($scope.gradeChoiceGradesOnly[x].id === newValue) {
+                                        newGrade.id = newValue;
+                                        newGrade.name = $scope.gradeChoiceGradesOnly[x].name;
+                                        break;
+                                    }
                                 }
+                                buf.id = newGrade.id;
+                                buf.name = newGrade.name;
+                                var data = {
+                                    student: buf.studentId,
+                                    gradeChoice: buf.id,
+                                    teacher: teacherId,
+                                    subjectRound: buf.subjectRoundId
+                                };
+                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
+                                    studentGradeModel.Create(data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
+                                                buf.studentGradeId = result.data.id;
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {
+                                                //alert('BAD CREATE');
+                                                buf = originalEntity;//reverse changes if unsuccessful
+                                            }
+                                        }
+                                    );
+                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
+                                    studentGradeModel.Update(originalEntity.studentGradeId, data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {//alert('BAD UPDATE');
+                                                buf = originalEntity;//reverse changes if unsuccessful
+                                            }
+                                        }
+                                    );
+                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
+                                    studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
+                                                buf = {
+                                                    id: null,
+                                                    name: null,
+                                                    studentGradeId: null,
+                                                    teacherId: null
+                                                };
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {
+                                                buf = originalEntity;//reverse changes if unsuccessful//alert('BAD DELETE');
+                                            }
+                                        }
+                                    );
+                                }
+                                rowEntity[colDef.name] = buf;
+                            } else {//START CONTACTLESSON Grades CRUD
+                                var x,
+                                    buf = {},
+                                    newGrade = {},
+                                    originalEntity = originalRows[rowEntity.nr][colDef.name];
+                                angular.copy(originalEntity, buf);
+                                for (x in $scope.gradeChoices) {
+                                    if ($scope.gradeChoices[x].id === newValue) {
+                                        newGrade.id = newValue;
+                                        newGrade.name = $scope.gradeChoices[x].name;
+                                        break;
+                                    }
+                                }
+                                buf.id = newGrade.id;
+                                buf.name = newGrade.name;
+                                var data = {
+                                    student: buf.studentId,
+                                    gradeChoice: buf.id,
+                                    teacher: teacherId,
+                                    contactLesson: buf.contactLessonId
+                                };
+                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
+                                    studentGradeModel.Create(data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
+                                                buf.studentGradeId = result.data.id;
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {
+                                                //alert('BAD CREATE');
+                                                buf = originalEntity;//reverse changes if unsuccessful
+                                            }
+                                        }
+                                    );
+                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
+                                    studentGradeModel.Update(originalEntity.studentGradeId, data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {//alert('BAD UPDATE');
+                                                buf = originalEntity;//reverse changes if unsuccessful
+                                            }
+                                        }
+                                    );
+                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
+                                    studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
+                                                buf = {
+                                                    id: null,
+                                                    name: null,
+                                                    studentGradeId: null,
+                                                    teacherId: null
+                                                };
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {
+                                                buf = originalEntity;//reverse changes if unsuccessful//alert('BAD DELETE');
+                                            }
+                                        }
+                                    );
+                                }
+                                rowEntity[colDef.name] = buf;
                             }
-
-                            buf.id = newGrade.id;
-                            buf.name = newGrade.name;
-                            //throw new Exception('TEST');originalEntity);
-
-                            var data = {
-                                student: buf.studentId,
-                                gradeChoice: buf.id,
-                                teacher: teacherId,
-                                contactLesson: buf.contactLessonId
-                            };
-
-                            if (originalEntity.studentGradeId === null && buf.name !== '') {//CREATE
-                                ////alert('CREATE');
-
-                                studentGradeModel.Create(data).then(
-                                    function (result) {
-                                        if (globalFunctions.resultHandler(result)) {
-                                            //alert('GOOD CREATE');
-                                            ////throw new Exception('TEST');result.data);
-                                            buf.studentGradeId = result.data.id;
-                                            originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                        } else {
-                                            //alert('BAD CREATE');
-                                            buf = originalEntity;//reverse changes if unsuccessful
-                                        }
-                                    }
-                                );
-                            } else if (originalEntity.studentGradeId !== null && buf.name !== '' && buf.id !== originalEntity.id) {//UPDATE
-                                studentGradeModel.Update(originalEntity.studentGradeId, data).then(
-                                    function (result) {
-                                        if (globalFunctions.resultHandler(result)) {
-                                            //alert('GOOD UPDATE');
-                                            originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                        } else {
-                                            //alert('BAD UPDATE');
-                                            buf = originalEntity;//reverse changes if unsuccessful
-                                        }
-                                    }
-                                );
-                            } else if (originalEntity.studentGradeId !== null && buf.name === '') {//UPDATE
-                                studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
-                                    function (result) {
-                                        if (globalFunctions.resultHandler(result)) {
-                                            //alert('GOOD DELETE');
-                                            buf = {
-                                                id: null,
-                                                name: null,
-                                                studentGradeId: null,
-                                                teacherId: null
-                                            };
-                                            originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                        } else {
-                                            //alert('BAD DELETE');
-                                            buf = originalEntity;//reverse changes if unsuccessful
-                                        }
-                                    }
-                                );
-                            }
-
-                            //throw new Exception('TEST');buf);
-
-                            rowEntity[colDef.name] = buf;
-
                             $scope.$apply();
                         });
                     }
@@ -315,8 +361,7 @@
                         u = 0,
                         contactLessons = rawDataSubjectRound[0].contactLesson,
                         y,
-                        x,
-                        z;
+                        x;
 
                     for (y in students) {
                         var row = {};
@@ -329,12 +374,12 @@
                         u++;
                     }
 
-                    for (x in contactLessons) {//add contact lesson stuff
+                    for (x in contactLessons) {//add contact lesson stuff. number of contactlesson is dynamic
 
                         var cl = contactLessons[x],
                             columnName = createColumnName(cl),
-                            columnNameId = createColumnName(cl) + "['id']",
-                            columnNameName = createColumnName(cl) + "['name']",
+                            //columnNameId = createColumnName(cl) + "['id']",
+                            //columnNameName = createColumnName(cl) + "['name']",
                             columnDisplayName = contactLessons[x].name, //make it normal,
                             newColumnCL = {
                                 //field: columnNameId,
@@ -352,10 +397,8 @@
 
                         $scope.columns.push(newColumnCL);
 
-                        //is it needed?
-                        $scope.$watch('columns', function (newVal, oldVal) {
+                        $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
                             $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-                            ////throw new Exception('TEST');'added', newColumn);
                         }, true);
 
                         for (var i = 0; i < rows.length; i++) {
@@ -385,8 +428,60 @@
                         }
                     }
 
-                    //add subjectround grade
+                    /*TODO Independent work columns*/
 
+                    var columnNameSR = 'SR';//add subjectround grade. there is only one subjectround grade per subjectround - no loop is needed
+                    var newColumnSR = {//start defining column
+                        //field: columnNameId,
+                        name: columnNameSR,
+                        displayName: 'Final',
+                        enableCellEdit: true,
+                        editDropdownOptionsArray: $scope.gradeChoiceGradesOnly,
+                        type: 'object',
+                        editableCellTemplate: 'ui-grid/dropdownEditor',
+                        editDropdownIdLabel: "id",
+                        editDropdownValueLabel: "name",
+                        cellFilter: 'griddropdown:this',
+                        width: 150
+                    };
+                    $scope.columns.push(newColumnSR);
+                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
+                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+                    }, true);
+
+                    for (var i = 0; i < rows.length; i++) {
+                        var studentGradeId = null,
+                            gradeChoiceId = null,
+                            gradeChoiceName = null,
+                            teacherId = null,
+                            studentId = rows[i].student.id;
+
+                        if (rawDataGradeSR.length > 0) {
+                            var studentGrades = rawDataGradeSR[0].studentGrade;
+                            if (studentGrades.length !== 0) {
+                                var r = searchStudentGrade(studentId, studentGrades);
+                                if (r !== -1) {
+                                    studentGradeId = r.studentGradeId;
+                                    gradeChoiceId = r.gradeChoiceId;
+                                    gradeChoiceName = r.gradeChoiceName;
+                                    teacherId = r.teacherId;
+                                }
+                            }
+                        }
+
+                        rows[i][columnNameSR] = {
+                            id: gradeChoiceId,
+                            name: gradeChoiceName,
+                            studentGradeId: studentGradeId,
+                            subjectRoundId: $scope.diaryFilter.subjectRound.id,
+                            studentId: studentId,
+                            teacherId: teacherId
+                        };
+                    }
+
+                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
+                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+                    }, true);
                     $scope.addRows();
                     //$scope.addColumns();
 

@@ -171,11 +171,13 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
      */
     public function getList()
     {
+        $params = $this->GetParams();
+        $extra = $this->GetExtra();
         return new JsonModel(
                 $this
                         ->getServiceLocator()
                         ->get($this->service)
-                        ->GetList($this->GetParams(), $this->GetExtra())
+                        ->GetList($params, $extra)
         );
     }
 

@@ -40,6 +40,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                      id,
                      name,
+                     lisType,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
@@ -52,6 +53,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                      id,
                      name,
+                     lisType,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
@@ -64,6 +66,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                      id,
                      name,
+                     lisType,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
@@ -76,6 +79,7 @@ class GradeChoiceRepository extends AbstractBaseRepository
                     partial $this->baseAlias.{
                      id,
                      name,
+                     lisType,
                      trashed
                 }
                 FROM $this->baseEntity $this->baseAlias";
