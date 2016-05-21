@@ -368,25 +368,25 @@
                         title: $scope.T('LIS_UPDATE_DESCRIPTION'),
                         value: description,
                         callback: function (d) {
-                            
+
                             if (typeof d === "undefined" || d === null) {
                                 return;
-                            } 
+                            }
                             var desc = d.trim();
-                            if(desc.length > 0) {
-                            contactLessonModel
-                                .UpdateRegular(cl.id, {
-                                    subjectRound: $scope.diaryFilter.subjectRound.id,
-                                    description: desc
-                                })
-                                .then(
-                                    function (result) {
-                                        if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
-                                            clColumns[key].description = d;
-                                            getData();
+                            if (desc.length > 0) {
+                                contactLessonModel
+                                    .UpdateRegular(cl.id, {
+                                        subjectRound: $scope.diaryFilter.subjectRound.id,
+                                        description: desc
+                                    })
+                                    .then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
+                                                clColumns[key].description = d;
+                                                getData();
+                                            }
                                         }
-                                    }
-                                );                
+                                    );
                             }
                         }
                     });
@@ -460,15 +460,18 @@
                 };
 
                 var createColumnDisplayNameCL = function (cl) {
-                    var dt = new Date(cl.lessonDate.date);
-                    return 'cl' + String(dt.getTime()) + String(cl.sequenceNr);
+//                    var dt = new Date(cl.lessonDate.date);
+//                    return 'cl' + String(dt.getTime()) + String(cl.sequenceNr);
+                    return globalFunctions.formatDate(cl.lessonDate.date) +
+                        '-' +
+                        String(cl.sequenceNr);
                 };
 
-                var createColumnDisplayNameIW = function (iw) {
-                    var dt = new Date(iw.duedate.date);
-                    return 'iw' + +String(iw.id) + String(dt.getTime());
-                    //return 'iw' + globalFunctions.formatDate(iw.duedate.date);
-                };
+//                var createColumnDisplayNameIW = function (iw) {
+//                    var dt = new Date(iw.duedate.date);
+//                    return 'iw' + +String(iw.id) + String(dt.getTime());
+//                    //return 'iw' + globalFunctions.formatDate(iw.duedate.date);
+//                };
 
                 var sortDataForDiary = function () {
                     rows = [];
@@ -505,14 +508,12 @@
                     for (x in contactLessons) {//add contact lesson stuff. number of contactlesson is dynamic
 
                         var cl = contactLessons[x],
+                            toolTip = cl.description ? cl.description : '...',
                             columnName = 'cl_' + cl.id,
-                            //columnNameId = createColumnName(cl) + "['id']",
-                            //columnNameName = createColumnName(cl) + "['name']",
-                            columnDisplayName = cl.name, //make it normal,
                             newColumnCL = {
                                 //field: columnNameId,
                                 name: columnName,
-                                displayName: columnDisplayName,
+                                displayName: createColumnDisplayNameCL(cl),
                                 enableCellEdit: true,
                                 editDropdownOptionsArray: $scope.gradeChoices,
                                 type: 'object',
@@ -521,6 +522,7 @@
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
                                 width: 150,
+                                headerTooltip: toolTip,
                                 menuItems: [{
                                         title: $scope.T('LIS_LESSON_DESCRIPTION'),
                                         icon: 'ui-grid-icon-info-circled',
@@ -565,11 +567,14 @@
 
                         var iw = independentWorks[z],
                             columnName = 'iw_' + iw.id,
-                            columnDisplayName = iw.name, //make it normal,
+                            toolTip = (
+                                iw.name + "\n" +
+                                iw.description + "\n" +
+                                globalFunctions.formatDate(iw.duedate.date)),
                             newColumnIW = {//think of tooltips
                                 //field: columnNameId,
                                 name: columnName,
-                                displayName: columnDisplayName,
+                                displayName: iw.name,
                                 enableCellEdit: true,
                                 editDropdownOptionsArray: $scope.gradeChoiceGradesOnly,
                                 type: 'object',
@@ -577,6 +582,7 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 cellFilter: 'griddropdown:this',
+                                headerTooltip: toolTip,
                                 width: 150
                             };
 
