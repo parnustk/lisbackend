@@ -208,13 +208,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
     public function studentAbsenceData($params = null, $extra = null)
     {
-        $student = $extra->lisPerson;
-        $r = $this->_em->getRepository('Core\Entity\StudentInGroups')->getStudentVocationByStudentId($student);
-        $studentGroupId = -1;
-        if (count($r) > 0) {
-            $studentGroupId = $r[0]->getStudentGroup()->getId();
-        }
-
         $dql = "SELECT
                     partial subjectRound.{
                         id,
@@ -247,30 +240,33 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     partial studentGroup.{
                             id,
                             name
-                    }
+                    },
+                    partial student.{
+                             id,
+                             name
+                     }
                     FROM Core\Entity\SubjectRound subjectRound
                     
                     JOIN subjectRound.studentGroup studentGroup
                     JOIN subjectRound.contactLesson contactLesson 
                     JOIN contactLesson.studentGrade studentGrade
-                    
+                    LEFT JOIN studentGrade.student student
                     LEFT JOIN contactLesson.rooms rooms
                     LEFT JOIN studentGrade.gradeChoice absenceReason
                     LEFT JOIN contactLesson.teacher teacher ";
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
-            $dql .= " WHERE studentGroup.id=:studentGroupId AND absenceReason.lisType='absencereason' AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
-        } else {
-            $dql .= " WHERE studentGroup.id=:studentGroupId AND absenceReason.lisType='absencereason' ";
-        }
+             $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+          } else {
+             $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId ";
+          }
 
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
 
-        $q->setParameter('studentGroupId', $studentGroupId, Type::INTEGER);
-//        $q->setParameter('student', $student, Type::INTEGER);
+        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
             $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);
