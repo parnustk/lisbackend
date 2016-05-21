@@ -421,10 +421,13 @@
                 var searchStudentGrade = function (studentId, studentGrades) {
                     for (var x in studentGrades) {
                         if (studentGrades[x].student.id === studentId) {
+                            
+                            var teachId = !!studentGrades[x].teacher === true ? studentGrades[x].teacher.id : null;//if absence, teacher is not required
+                            
                             return {
                                 gradeChoiceId: studentGrades[x].gradeChoice.id,
                                 gradeChoiceName: studentGrades[x].gradeChoice.name,
-                                teacherId: studentGrades[x].teacher.id,
+                                teacherId: teachId,
                                 studentGradeId: studentGrades[x].id
                             };
                         }
