@@ -56,6 +56,7 @@
                 $scope.T = globalFunctions.T;
 
                 var teacherId = 1; //Static for now
+                bootbox.alert('still static teacherID');
 
                 var rawDataStudentGroup = null,
                     rawDataGradeSR = null,
