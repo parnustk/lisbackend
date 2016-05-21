@@ -499,21 +499,13 @@
                                         icon: 'ui-grid-icon-info-circled',
                                         action: function () {
                                             $scope.clDescription(this.context.col); // $scope.clDescription() would work too, this is just an example
-                                        }/*,
-                                        action: function ($event) {
-                                            this.context.clDescription(this.context.col); // $scope.clDescription() would work too, this is just an example
-                                        },
-                                        context: $scope*/
+                                        }
                                     }]
                             };
                         
                         clColumns[parseInt(cl.id)] = cl;
 
                         $scope.columns.push(newColumnCL);
-
-//                        $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-//                            $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-//                        }, true);
 
                         for (var i = 0; i < rows.length; i++) {
                             var studentGradeId = null,
@@ -563,10 +555,6 @@
 
                         $scope.columns.push(newColumnIW);
 
-//                        $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-//                            $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-//                        }, true);
-
                         for (var i = 0; i < rows.length; i++) {
                             var studentGradeId = null,
                                 gradeChoiceId = null,
@@ -611,10 +599,6 @@
 
                     $scope.columns.push(newColumnSR);
 
-//                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-//                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-//                    }, true);
-
                     for (var i = 0; i < rows.length; i++) {
                         var studentGradeId = null,
                             gradeChoiceId = null,
@@ -644,10 +628,6 @@
                             teacherId: teacherId
                         };
                     }
-
-//                    $scope.$watch('columns', function (newVal, oldVal) {//is it needed?
-//                        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-//                    }, true);
 
                     $scope.addRows();
                 };
