@@ -67,9 +67,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial absence.{
-                        id
-                    },
                     partial rooms.{
                         id,
                         name
@@ -87,7 +84,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
@@ -113,9 +109,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                     partial teacher.{
                         id
                         },
-                    partial absence.{
-                        id
-                        },
                     partial rooms.{
                         id
                         },
@@ -132,7 +125,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
@@ -158,9 +150,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                     partial teacher.{
                         id
                         },
-                    partial absence.{
-                        id
-                        },
                     partial rooms.{
                         id
                         },
@@ -177,7 +166,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
@@ -213,9 +201,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial absence.{
-                        id
-                    },
                     partial rooms.{
                         id,
                         name
@@ -233,7 +218,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }

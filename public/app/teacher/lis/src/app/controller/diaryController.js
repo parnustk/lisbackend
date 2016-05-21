@@ -334,7 +334,7 @@
                         urlParamsSubjectRound.where = angular.toJson(data);
                         getData();
                     } else {
-                        alert($scope.T('LIS_CHECK_FORM_FIELDS'));
+                        bootbox.alert($scope.T('LIS_CHECK_FORM_FIELDS'));
                     }
                 };
 
@@ -368,14 +368,26 @@
                         title: $scope.T('LIS_UPDATE_DESCRIPTION'),
                         value: description,
                         callback: function (d) {
-                            contactLessonModel.UpdateRegular(cl.id, {description: d}).then(
-                                function (result) {
-                                    if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
-                                        clColumns[key].description = d;
-                                        getData();
+                            
+                            if (typeof d === "undefined" || d === null) {
+                                return;
+                            } 
+                            var desc = d.trim();
+                            if(desc.length > 0) {
+                            contactLessonModel
+                                .UpdateRegular(cl.id, {
+                                    subjectRound: $scope.diaryFilter.subjectRound.id,
+                                    description: desc
+                                })
+                                .then(
+                                    function (result) {
+                                        if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
+                                            clColumns[key].description = d;
+                                            getData();
+                                        }
                                     }
-                                }
-                            );
+                                );                
+                            }
                         }
                     });
                 };
