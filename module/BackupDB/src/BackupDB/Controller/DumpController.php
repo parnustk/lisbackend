@@ -15,7 +15,7 @@ class DumpController extends AbstractActionController
      * @var string
      */
     protected $service = 'dump_service';
-    
+
     /**
      * @var type 
      */
@@ -40,7 +40,7 @@ class DumpController extends AbstractActionController
         parent::setEventManager($events);
         $controller = $this;
         $events->attach('dispatch', function ($e) use ($controller) {
-            $controller -> layout('layout/backupdb');
+            $controller->layout('layout/backupdb');
         }, 100);
     }
 
@@ -108,11 +108,11 @@ class DumpController extends AbstractActionController
 //            if ($inputname == $uname && $inputpwd == $pwd) {
             if (true) { //for panel testing
                 //TODO: Session initialization
-                return $this->panelAction();
+                return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
             } else {
-                return $this->loginAction();
+                return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
             }
-            
+
             //if  valid save to session redirect to panel
         }
         //return array('form' => $form);
@@ -122,34 +122,59 @@ class DumpController extends AbstractActionController
 
     public function panelAction()//control panel
     {
+
+
         //check session if credentials not ok redirect to login
         $data = include 'config/autoload/backupdb.local.php';
-        if(true) { //TODO: session check for credentials
-            $panel = new panelForm('panelForm');
-            return new ViewModel(['form' => $panel]);
+        if (true) { //TODO: session check for credentials
+            $request = $this->getRequest();
+            if ($request->isPost()) {
+                $postValues = $request->getPost();
+                if (array_key_exists('uploadsubmit', $postValues)) {
+                    //upload
+                    die('upload');
+
+                    //set no view render
+                } else if (array_key_exists('downloadsubmit', $postValues)) {
+                    //download
+                    die('download');
+                }
+                $i = 0;
+            } else {
+                $panel = new panelForm('panelForm');
+                $options = $this
+                    ->getServiceLocator()
+                    ->get($this->service)
+                    ->getFilenames();
+                $panel->get('fileselect')->setOptions($options);
+                return new ViewModel(['form' => $panel]);
+                
+            }
         } else {//if credentials not ok, return to login
             die('COOKIE FAIL');
             $login = 'login';
             return new ViewModel(['form' => $login]);
         }
     }
-    
+
     /**
      * Passes download request to Service
      * @param string $filename
      */
-    public function downloadAction($filename) {
+    public function downloadAction($filename)
+    {
         $this
                 ->getServiceLocator()
                 ->get($this->service)
                 ->download($filename);
     }
-    
+
     /**
      * Passes upload request to Service
      * @param string $file
      */
-    public function uploadAction($file) {
+    public function uploadAction($file)
+    {
         $this
                 ->getServiceLocator()
                 ->get($this->service)
