@@ -105,7 +105,7 @@
                 })
                 
                 .when('/superadmin', {
-                    templateURL: 'lis/dist/templates/superAdmin.html',
+                    templateUrl: 'lis/dist/templates/superAdmin.html',
                     controller: 'superAdminController'
                 })
                 

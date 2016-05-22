@@ -15,6 +15,7 @@ use Zend\ServiceManager\ServiceManager;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use LisAuth\Utility\Validator;
+use Zend\Crypt\Password\Bcrypt;
 
 /**
  * Description of LisRegisterService
@@ -121,6 +122,33 @@ class LisRegisterService implements ServiceManagerAwareInterface
         return $this->getEntityManager()
                         ->getRepository($e)
                         ->findOneBy(['personalCode' => $personalCode]);
+    }
+    
+    /**
+     * Password Cost
+     *
+     * The number represents the base-2 logarithm of the iteration count used for
+     * hashing. Default is 14 (about 10 hashes per second on an i5).
+     *
+     * Accepted values: integer between 4 and 31
+     * @var type 
+     */
+    private $passwordCost = 4;
+    
+    /**
+     * 
+     * @param type $password
+     * @return type
+     * @throws Exception
+     */
+    public function passwordToHash($password)
+    {
+        if (empty($password)) {
+            throw new Exception('NO_PASSWORD');
+        }
+        return (new Bcrypt)
+                        ->setCost($this->passwordCost)
+                        ->create($password);
     }
 
     /**

@@ -17,6 +17,7 @@
     define([
         /*1*/'angular',
         /*2*/'app/config',
+        
         /*1*/'app/model/vocationModel',
         /*2*/'app/model/gradingTypeModel',
         /*3*/'app/model/gradeChoiceModel',
@@ -36,8 +37,9 @@
         /*17*/'app/model/independentWorkModel',
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
-        /*20*/'app/model/superAdminModel',
-        /*21*/'app/model/registerModel',
+        /*20*/'app/model/registerModel',
+        /*21*/'app/model/lisUserModel',
+        
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -61,6 +63,7 @@
     ], function (
         /*1*/angular,
         /*2*/config,
+        
         /*1*/vocationModel,
         /*2*/gradingTypeModel,
         /*3*/gradeChoiceModel,
@@ -80,8 +83,9 @@
         /*17*/independentWorkModel,
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
-        /*20*/superAdminModel,
-        /*21*/registerModel,
+        /*20*/registerModel,
+        /*21*/lisUserModel,
+        
         /*1*/vocationController,
         /*2*/gradingTypeController,
         /*3*/gradeChoiceController,
@@ -327,8 +331,8 @@
         adminModule.factory('subjectRoundModel', subjectRoundModel);
         adminModule.factory('studentGradeModel', studentGradeModel);
         adminModule.factory('studentInGroupsModel', studentInGroupsModel);
-        adminModule.factory('superAdminModel', superAdminModel);
         adminModule.factory('registerModel', registerModel);
+        adminModule.factory('lisUserModel', lisUserModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
