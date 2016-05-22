@@ -104,6 +104,11 @@
                     controller: 'studentInGroupsController'
                 })
                 
+                .when('/superadmin', {
+                    templateURL: 'lis/dist/templates/superAdmin.html',
+                    controller: 'superAdminController'
+                })
+                
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

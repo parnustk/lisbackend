@@ -122,5 +122,41 @@ class LisUserRepository extends EntityRepository
 
         return $entity;
     }
+    
+    /**
+     * 
+     */
+    public function getLisUserList($params = null, $extra = null)
+    {
+        $dql = "SELECT
+                    partial lisuser.{
+                        id,
+                        email,
+                        password,
+                        state,
+                        trashed
+                    },
+                    partial administrator.{
+                        id,
+                        name,
+                        email,
+                        personalCode
+                    },
+                    partial teacher.{
+                        id,
+                        name,
+                        email,
+                        personalCode
+                    },
+                    partial student.{
+                        id,
+                        name,
+                        email,
+                        personalCode
+                    }
+                FROM Core\Entity\LisUser lisuser
+                
+                ";    
+    }
 
 }
