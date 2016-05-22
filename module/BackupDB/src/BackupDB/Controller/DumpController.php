@@ -5,6 +5,7 @@ namespace BackupDB\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
+use Zend\Form\Element\Select;
 use BackupDB\Form\loginForm;
 use BackupDB\Form\panelForm;
 
@@ -142,11 +143,13 @@ class DumpController extends AbstractActionController
                 $i = 0;
             } else {
                 $panel = new panelForm('panelForm');
-                $options = $this
+                $filenames = $this
                     ->getServiceLocator()
                     ->get($this->service)
                     ->getFilenames();
-                $panel->get('fileselect')->setOptions($options);
+                
+                echo $panel->get('fileselect')->getAttribute('filenames');
+                        
                 return new ViewModel(['form' => $panel]);
                 
             }

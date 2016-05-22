@@ -51,14 +51,13 @@ class panelForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'fileselect',
             'attributes' => array(
-                'id' => 'usernames',
+                'id' => 'filenames',
                 'options' => array(
-                    'test' => 'Hi, Im a test!',
-                    'Foo' => 'Bar',
+                    null
                 ),
             ),
             'options' => array(
-                'label' => 'User Name',
+                'label' => 'Select File',
             ),
         ));
         $this->add(array(

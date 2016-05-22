@@ -400,13 +400,31 @@ class DumpService implements ServiceManagerAwareInterface
         header('Pragma: public');
         header('Content-Length: ' . filesize(_PATH_ . $filename));
         readfile(_PATH_ . $filename);
-        exit;
     }
     
+    /**
+     * Saves uploaded file to server dump folder with filename
+     *  LISBACKUP_upload_DDMMYYYY_HHMMSS.sql
+     * TODO: Sanity checking, that the input file is actually an SQL dump.
+     * 
+     * @param string $file
+     */
     public function upload($file)
     {
         $this->setFileName('upload');
         file_put_contents(_PATH_ . $this->fileName, $file, FILE_APPEND);
-        exit;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getFilenames()
+    {
+        $dumpList = scandir(_PATH_);
+        $dumpList = array_reverse($dumpList);
+        array_pop($dumpList);
+        array_pop($dumpList);
+        return $dumpList;
     }
 }
