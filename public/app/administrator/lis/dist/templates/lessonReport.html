@@ -1,0 +1,105 @@
+<h2>{{T('LIS_LESSONREPORT')}}</h2>
+
+
+<form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
+    <fieldset>
+
+        <legend>{{ T('LIS_LESSONREPORT_GRID_FILTERS') }}</legend>
+
+        <div class="form-group">
+
+            <div class="col-md-12">
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterLessonReport-date">{{ T('SEARCH_A_LESSONDATE') }}</span>
+                        <input name="lessonDateFilter" ng-model="filterLessonReport.date" type="date" class="form-control" uib-datepicker-popup="{{format}}" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close"
+                               placeholder="{{ T('LIS_DATE') }}" aria-describedby="filterLessonReport-date">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterLessonReport-contactLesson">{{ T('LIS_CONTACTLESSON') }}</span>
+                        <input name="name" ng-model="filterLessonReport.contactLesson" type="text" class="form-control"
+                               placeholder="{{ T('LIS_CONTACTLESSON') }}" aria-describedby="filterLessonReport-contactLesson">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterLessonReport-studentGroup">{{ T('LIS_STUDENTGROUP') }}</span>
+                        <input name="name" ng-model="filterLessonReport.studentGroup" type="text" class="form-control"
+                               placeholder="{{ T('LIS_STUDENTGROUP') }}" aria-describedby="filterLessonReport-studentGroup">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterLessonReport-teacher">{{ T('LIS_TEACHER') }}</span>
+                        <input name="name" ng-model="filterLessonReport.teacher" type="text" class="form-control"
+                               placeholder="{{ T('LIS_TEACHER') }}" aria-describedby="filterLessonReport-teacher">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="filterLessonReport-room">{{ T('LIS_ROOM') }}</span>
+                        <input name="name" ng-model="filterLessonReport.room" type="text" class="form-control"
+                               placeholder="{{ T('LIS_ROOM') }}" aria-describedby="filterLessonReport-room">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR') }}</span></button>
+                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<table>
+    <th>{{T('LIS_DATE')}}</th>
+    <th>Ak. t</th>
+    <th>{{T('LIS_CONTACTLESSON')}}</th>
+    <th>{{T('LIS_STUDENTGROUP')}}</th>
+    <th>{{T('LIS_TEACHER')}}</th>
+    <th>{{T('LIS_ROOM')}}</th>
+
+    <tr ng-repeat="contactLesson in contactLessons">
+        <td>
+            <ul>
+                <!--ng-repeat="lessonDate in contactLesson.lessonDate"-->
+                <li> {{ contactLesson.lessonDate.date }}</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>{{ contactLesson.id }}</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <!--ng-repeat="name in contactLesson.name"-->
+                <li>{{ contactLesson.subjectRound.name }}</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <!--ng-repeat="studentGroup in contactLesson.studentGroup"-->
+                <li>{{ contactLesson.studentGroup.name }}</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <!--ng-repeat="teacher in contactLesson.teacher"-->
+                <li>{{ contactLesson.teacher.name }}</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <!--ng-repeat="room in contactLesson.rooms"-->
+                <li>{{ contactLesson.rooms.name }}</li>
+            </ul>
+        </td>
+    </tr>
+
+
+</table>

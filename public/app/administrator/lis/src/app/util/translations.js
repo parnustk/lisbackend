@@ -119,7 +119,7 @@
                 LIS_MODULETYPE:'Mooduli tüüp',
                 LIS_GRADECHOICE:'Hinnete valik',
                 LIS_GRADINGTYPE:'Hindamise tüüp',
-                LIS_ROOM:'Ruumid',
+                LIS_ROOM:'Klassiruum',
                 
                 LIS_DIARY:'Päevik',
                 LIS_CONTACTLESSON:'Kontakttund',
@@ -184,6 +184,9 @@
                 LIS_CREATE_NEW_MODULE:'Loo uus moodul',
                 MODULE_GRID_FILTERS:'Mooduli filtrid',
                 SEARCH_A_MODULECODE:'Otsi koodi järgi',
+
+                LIS_LESSONREPORT: 'Tundide aruanne',
+                LIS_LESSONREPORT_GRID_FILTERS: "Aruannete filtrid",
                 
                 LIS_ERROR: 'Viga!'
                 
@@ -357,6 +360,9 @@
                 LIS_CREATE_NEW_MODULE:'Create new module',
                 MODULE_GRID_FILTERS:'Module filters',
                 SEARCH_A_MODULECODE:'Search by code',
+
+                LIS_LESSONREPORT: 'Lesson report',
+                LIS_LESSONREPORT_GRID_FILTERS: "Lesson report filters",
                 
                 LIS_ERROR: 'Error!'
             }

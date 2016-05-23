@@ -103,6 +103,11 @@
                     templateUrl: 'lis/dist/templates/studentInGroups.html',
                     controller: 'studentInGroupsController'
                 })
+
+                .when('/lessonreport', {
+                    templateUrl: 'lis/dist/templates/lessonReport.html',
+                    controller: 'lessonReportController'
+                })
                 
                 .when('/superadmin', {
                     templateUrl: 'lis/dist/templates/superAdmin.html',

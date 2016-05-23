@@ -39,7 +39,8 @@
         /*19*/'app/model/studentInGroupsModel',
         /*20*/'app/model/registerModel',
         /*21*/'app/model/lisUserModel',
-        
+        /*22*/'app/model/lessonReportModel',
+
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -59,7 +60,8 @@
         /*17*/'app/controller/independentWorkController',
         /*18*/'app/controller/studentGradeController',
         /*19*/'app/controller/studentInGroupsController',
-        /*20*/'app/controller/superAdminController'
+        /*20*/'app/controller/superAdminController',
+        /*22*/'app/controller/lessonReportController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -85,6 +87,7 @@
         /*19*/studentInGroupsModel,
         /*20*/registerModel,
         /*21*/lisUserModel,
+        /*22*/lessonReportModel,
         
         /*1*/vocationController,
         /*2*/gradingTypeController,
@@ -105,7 +108,8 @@
         /*17*/independentWorkController,
         /*18*/studentGradeController,
         /*19*/studentInGroupsController,
-        /*20*/superAdminController
+        /*20*/superAdminController,
+        /*22*/lessonReportController
         ) {
 
         /**
@@ -333,6 +337,7 @@
         adminModule.factory('studentInGroupsModel', studentInGroupsModel);
         adminModule.factory('registerModel', registerModel);
         adminModule.factory('lisUserModel', lisUserModel);
+        adminModule.factory('lessonReportModel', lessonReportModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
@@ -354,6 +359,7 @@
         adminModule.controller('studentGradeController', studentGradeController);
         adminModule.controller('studentInGroupsController', studentInGroupsController);
         adminModule.controller('superAdminController', superAdminController);
+        adminModule.controller('lessonReportController', lessonReportController);
 
         return adminModule;
     });

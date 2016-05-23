@@ -88,6 +88,62 @@ class ContactLessonRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
 
+    protected function lessonReportsData()
+    {
+        //studentGrade rquires some thinking
+        return "SELECT 
+                    partial $this->baseAlias.{
+                        id,
+                        name,
+                        lessonDate,
+                        description,
+                        sequenceNr,
+                        trashed
+                    },
+                    partial subjectRound.{
+                        id,
+                        name
+                    },
+                    partial module.{
+                        id,
+                        name
+                    },
+                    partial vocation.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
+                    },
+                    partial absence.{
+                        id
+                    },
+                    partial rooms.{
+                        id,
+                        name
+                    },
+                    partial studentGrade.{
+                        id
+                    },
+                    partial studentGroup.{
+                    id,
+                    name
+                    }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subjectRound subjectRound
+                JOIN $this->baseAlias.module module
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.studentGroup studentGroup
+                LEFT JOIN $this->baseAlias.absence absence
+                LEFT JOIN $this->baseAlias.rooms rooms
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade
+                GROUP BY contactLesson.lessonDate
+                COUNT (contactLesson.id) as ak";
+
+    }
+
     /**
      * 
      * @return string
@@ -662,8 +718,12 @@ class ContactLessonRepository extends AbstractBaseRepository
      */
     private function administratorGetList($params = null, $extra = null)
     {
+        if (array_key_exists('lessonReport', $params)) {
+            return $this->lessonReportData($params, $extra);
+        }
         return $this->defaultGetList($params, $extra);
     }
+
 
     /**
      * 
