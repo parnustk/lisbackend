@@ -1,6 +1,6 @@
 #Technical requirements for using LIS system
 ##Server OS
-Crossplatform.
+Works on Linux, Mac and Windows operating systems.
 ##Server software  
 * SSH
 * Git client
