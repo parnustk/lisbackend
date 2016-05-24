@@ -201,7 +201,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 ORDER BY contactLesson.lessonDate ASC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
-        $q->setParameter('subjectrRoundId', $params['where']->subjectRound->id, Type::INTEGER);
+        $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
 
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
