@@ -93,27 +93,15 @@ class ContactLessonRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
 
-    protected function lessonReportData()
+    protected function lessonReportData($params = null, $extra = null)
     {
         $dql = "SELECT 
                     COUNT(contactLesson.id) as ak,
-                    partial $this->baseAlias.{
+                    partial contactLesson.{
                         id,
-                        name,
-                        lessonDate,
-                        description,
-                        sequenceNr,
-                        trashed
+                        lessonDate
                     },
                     partial subjectRound.{
-                        id,
-                        name
-                    },
-                    partial module.{
-                        id,
-                        name
-                    },
-                    partial vocation.{
                         id,
                         name
                     },
@@ -125,30 +113,40 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial studentGrade.{
-                        id
-                    },
                     partial studentGroup.{
                         id,
                         name
                     }
-                FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subjectRound subjectRound
-                JOIN $this->baseAlias.module module
-                JOIN $this->baseAlias.vocation vocation
-                JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.rooms rooms
-                LEFT JOIN $this->baseAlias.studentGrade studentGrade
-                GROUP BY contactLesson.lessonDate";
+                FROM Core\Entity\ContactLesson contactLesson
+                JOIN contactLesson.teacher teacher
+                JOIN contactLesson.subjectRound subjectRound
+                JOIN contactLesson.studentGroup studentGroup
+                JOIN contactLesson.rooms rooms ";
+
+
+        if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
+
+            $dql .= " WHERE teacher.id=:teacherId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+        
+        } else {
+
+            $dql .= " WHERE teacher.id=:teacherId ";
+            
+        }
+
+        $dql .=" GROUP BY contactLesson.lessonDate 
+                 ORDER BY contactLesson.lessonDate DESC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
 
-        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        $q->setParameter('teacherId', $params['teacherId'], Type::INTEGER);
 
-        return new Paginator(
-                new DoctrinePaginator(new ORMPaginator($q))
-        );
+        if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
+            $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);
+            $q->setParameter('endDateTime', (new DateTime($params['endDate'])), Type::DATETIME);
+        }
+
+        return $q->execute(null, Query::HYDRATE_ARRAY);
     }
 
     /**

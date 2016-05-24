@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Licence of Learning Info System (LIS)
  * 
@@ -6,6 +7,7 @@
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
+
 namespace Core\Service;
 
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -111,19 +113,23 @@ abstract class AbstractBaseService implements ServiceManagerAwareInterface
             $p = $this->getEntityManager()
                     ->getRepository($this->baseEntity)
                     ->GetList($params, $extra);
-
-            $p->setItemCountPerPage($params['limit']);
-            $p->setCurrentPageNumber($params['page']);
-
-
-            $params['itemCount'] = $p->getTotalItemCount();
-            $params['pageCount'] = $p->count();
-
-            return [
-                'success' => true,
-                'params' => $params,
-                'data' => (array) $p->getCurrentItems(),
-            ];
+            if (is_array($p)) {//if we do not use paginator
+                return [
+                    'success' => true,
+                    'params' => $params,
+                    'data' => $p,
+                ];
+            } else {
+                $p->setItemCountPerPage($params['limit']);
+                $p->setCurrentPageNumber($params['page']);
+                $params['itemCount'] = $p->getTotalItemCount();
+                $params['pageCount'] = $p->count();
+                return [
+                    'success' => true,
+                    'params' => $params,
+                    'data' => (array) $p->getCurrentItems(),
+                ];
+            }
         } catch (Exception $ex) {
 
             return [

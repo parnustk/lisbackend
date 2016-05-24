@@ -59,7 +59,10 @@
                 $scope.filterLessonReport = {};
                 $scope.lessonReports = [];
                 $scope.contactLessons = [];
-
+                
+                //you have to get at least teacherId into urlParams
+                //if no teacherId then filterForm is invalid
+                //3 fields required filter is teacherId, optional filters are startDate and endDate
                 $scope.Filter = function () {
                   if (!angular.equals({}, $scope.items)) {
                       urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterLessonReport));
@@ -77,7 +80,6 @@
                        }
                     });
                 }
-                LoadData();
             }
 
             return lessonReportController;

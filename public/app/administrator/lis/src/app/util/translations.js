@@ -112,13 +112,13 @@
                 LIS_TEACHER_CREATE: "Loo uus õpetaja",
                 LIS_TEACHER_GRID_FILTERS: "Õpetajate filtrid",
 //                MENÜÜ
-                LIS_CURRICULUM:'Muu',
-                LIS_VOCATION:'Eriala',
-                LIS_MODULE:'Moodul',
-                LIS_SUBJECT:'Teema',
-                LIS_MODULETYPE:'Mooduli tüüp',
+                LIS_CURRICULUM:'Õppekava',
+                LIS_VOCATION:'Erialad',
+                LIS_MODULE:'Moodulid',
+                LIS_SUBJECT:'Teemad',
+                LIS_MODULETYPE:'Mooduli tüübid',
                 LIS_GRADECHOICE:'Hinnete valik',
-                LIS_GRADINGTYPE:'Hindamise tüüp',
+                LIS_GRADINGTYPE:'Hindamise tüübid',
                 LIS_ROOM:'Klassiruum',
                 
                 LIS_DIARY:'Päevik',
@@ -292,7 +292,7 @@
                 LIS_TEACHER_GRID_FILTERS: "Teacher grid filters",
 
 //                MAIN MENU
-                LIS_CURRICULUM:'Others',
+                LIS_CURRICULUM:'Curriculum',
                 LIS_VOCATION:'Vocation',
                 LIS_MODULE:'Module',
                 LIS_SUBJECT:'Subject',
