@@ -49,7 +49,7 @@ Client side has to be covered at least with E2E tests for models.
     grid itself http://ui-grid.info/
     
 ## Demo link
-TODO
+[http://lis.ee/](http://lis.ee/)  
 
 ## Installation
 
