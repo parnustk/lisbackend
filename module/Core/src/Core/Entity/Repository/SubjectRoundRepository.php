@@ -156,6 +156,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     public function diaryRelatedData($params = null, $extra = null)
     {
+        die('here');
         $dql = "SELECT 
                     partial subjectRound.{
                         id,
