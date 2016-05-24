@@ -355,7 +355,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      * @return string
      */
     protected function dqlStart()
-    {
+    {die('default');
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
