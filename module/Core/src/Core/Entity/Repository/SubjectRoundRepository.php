@@ -194,9 +194,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 LEFT JOIN studentGrade.teacher teacher
                 LEFT JOIN studentGrade.gradeChoice gradeChoice
                 
-                WHERE 
-                    subjectRound=:subjectRoundId AND 
-                    studentGroup.id=:studentGroupId 
+                WHERE subjectRound.id = :subjectRoundId AND studentGroup.id=:studentGroupId 
                     
                 ORDER BY contactLesson.lessonDate ASC, contactLesson.sequenceNr ASC ";
 
