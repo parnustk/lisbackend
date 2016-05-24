@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
 use Zend\Form\Element\Select;
+use Zend\File\Transfer;
 use BackupDB\Form\loginForm;
 use BackupDB\Form\panelForm;
 
@@ -129,47 +130,45 @@ class DumpController extends AbstractActionController
         $data = include 'config/autoload/backupdb.local.php';
         if (true) { //TODO: session check for credentials
             $request = $this->getRequest();
-            if ($request->isPost()) {
+            if ($request->isPost()) { //Logic for panel reload after submit
                 $postValues = $request->getPost();
-                if (array_key_exists('uploadsubmit', $postValues)) {
-                    //upload
+                if (array_key_exists('uploadsubmit', $postValues)) { //Upload
+                    $post = array_merge_recursive(
+                            $request->getPost()->toArray(),
+                            $request->getFiles()->toArray()
+                    );
+                    
                     die('upload');
 
                     //set no view render
-                } else if (array_key_exists('downloadsubmit', $postValues)) {
-                    //download
-                    die('download');
+                } else if (array_key_exists('downloadsubmit', $postValues)) { //Download
+                    $list = $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->getFilenames();
+                    $fileName = $list[$postValues['fileselect']];
+                    $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->download($fileName);
                 }
                 $i = 0;
-            } else {
+            } else { //logic for first-time use
                 $panel = new panelForm('panelForm');
                 $filenames = $this
-                    ->getServiceLocator()
-                    ->get($this->service)
-                    ->getFilenames();
-                
-                echo $panel->get('fileselect')->getAttribute('filenames');
-                        
+                        ->getServiceLocator()
+                        ->get($this->service)
+                        ->getFilenames();
+                $element = $panel->get('fileselect');
+                $element->setAttribute('options', $filenames);
+
                 return new ViewModel(['form' => $panel]);
-                
             }
         } else {//if credentials not ok, return to login
             die('COOKIE FAIL');
             $login = 'login';
             return new ViewModel(['form' => $login]);
         }
-    }
-
-    /**
-     * Passes download request to Service
-     * @param string $filename
-     */
-    public function downloadAction($filename)
-    {
-        $this
-                ->getServiceLocator()
-                ->get($this->service)
-                ->download($filename);
     }
 
     /**
