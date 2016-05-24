@@ -156,7 +156,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     public function diaryRelatedData($params = null, $extra = null)
     {
-        die('here');
         $dql = "SELECT 
                     partial subjectRound.{
                         id,
@@ -195,7 +194,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 LEFT JOIN studentGrade.teacher teacher
                 LEFT JOIN studentGrade.gradeChoice gradeChoice
                 
-                WHERE id = :subjectRoundId AND studentGroup.id=:studentGroupId 
+                WHERE subjectRound.id = :subjectRoundId AND studentGroup.id=:studentGroupId 
                     
                 ORDER BY contactLesson.lessonDate ASC, contactLesson.sequenceNr ASC ";
 
@@ -355,7 +354,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      * @return string
      */
     protected function dqlStart()
-    {die('default');
+    {
         return "SELECT 
                     partial $this->baseAlias.{
                         id,
@@ -917,6 +916,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function teacherGetList($params = null, $extra = null)
     {
+        print_r($params);
         if (array_key_exists('diaryview', $params)) {
             switch ($params['diaryview']) {
                 case 'diaryview':
