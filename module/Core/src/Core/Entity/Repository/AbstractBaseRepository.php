@@ -37,11 +37,17 @@ abstract class AbstractBaseRepository extends EntityRepository
         if (!(isset($extra) && property_exists($extra, 'lisRole') && property_exists($extra, 'lisUser'))) {
             throw new Exception("NO_ROLE");
         }
-        if (!($extra->lisUser instanceof \Core\Entity\LisUser)) {
-            throw new Exception("NO_USER");
-        }
+//        if (!($extra->lisUser instanceof \Core\Entity\LisUser)) {
+//            throw new Exception("NO_USER");
+//        }
     }
 
+    /**
+     * 
+     * @param type $dql
+     * @param type $params
+     * @return type
+     */
     protected function dqlWhereInner($dql, $params)
     {
         $firstCycle = true;
