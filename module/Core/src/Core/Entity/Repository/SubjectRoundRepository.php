@@ -953,6 +953,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
     public function GetList($params = null, $extra = null)
     {
         if (!$extra) {
+            throw new Exception('MISSING_ROLE_GETLIST');
             return $this->defaultGetList($params, $extra);
         } else if ($extra->lisRole === 'student') {
             return $this->studentGetList($params, $extra);
