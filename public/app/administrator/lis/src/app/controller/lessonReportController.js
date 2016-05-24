@@ -1,3 +1,5 @@
+/* global define */
+
 /**
  * Licence of Learning Info System (LIS)
  * @link      https://github.com/parnustk/lisbackend
@@ -50,7 +52,7 @@
                 var urlParams = {
                     page: 1,
                     limit: 1000,
-                    lessonReports: 'lessonReport'
+                    lessonReport: 'lessonReport'
                 };
 
 

@@ -14,6 +14,11 @@ use Core\Entity\ContactLesson;
 use Exception;
 use Zend\Json\Json;
 use DateTime;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Zend\Paginator\Paginator;
+use Doctrine\ORM\Query;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * 
@@ -27,7 +32,7 @@ class ContactLessonRepository extends AbstractBaseRepository
      *
      * @var string
      */
-    public $baseAlias = 'contactlesson';
+    public $baseAlias = 'contactLesson';
 
     /**
      *
@@ -88,10 +93,10 @@ class ContactLessonRepository extends AbstractBaseRepository
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
     }
 
-    protected function lessonReportsData()
+    protected function lessonReportData()
     {
-        //studentGrade rquires some thinking
-        return "SELECT 
+        $dql = "SELECT 
+                    COUNT(contactLesson.id) as ak,
                     partial $this->baseAlias.{
                         id,
                         name,
@@ -116,9 +121,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id,
                         name
                     },
-                    partial absence.{
-                        id
-                    },
                     partial rooms.{
                         id,
                         name
@@ -127,8 +129,8 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id
                     },
                     partial studentGroup.{
-                    id,
-                    name
+                        id,
+                        name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
@@ -136,12 +138,17 @@ class ContactLessonRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.absence absence
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade
-                GROUP BY contactLesson.lessonDate
-                COUNT (contactLesson.id) as ak";
+                GROUP BY contactLesson.lessonDate";
 
+        $q = $this->getEntityManager()->createQuery($dql);
+
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
     }
 
     /**
@@ -723,7 +730,6 @@ class ContactLessonRepository extends AbstractBaseRepository
         }
         return $this->defaultGetList($params, $extra);
     }
-
 
     /**
      * 
