@@ -95,6 +95,9 @@ class ContactLessonRepository extends AbstractBaseRepository
 
     protected function lessonReportData($params = null, $extra = null)
     {
+        if (!array_key_exists('teacherId', $params)) {
+            throw new Exception('LIS_MISSING_TEACHERID');
+        }
         $dql = "SELECT 
                     COUNT(contactLesson.id) as ak,
                     partial contactLesson.{
