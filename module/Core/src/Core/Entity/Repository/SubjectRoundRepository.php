@@ -157,7 +157,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
     public function diaryRelatedData($params = null, $extra = null)
     {
         $dql = "SELECT 
-                    partial subjectround.{
+                    partial subjectRound.{
                         id,
                         trashed
                     },
@@ -184,10 +184,10 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             name
                     }
                     
-                FROM Core\Entity\SubjectRound subjectround
+                FROM Core\Entity\SubjectRound subjectRound
                 
-                JOIN subjectround.studentGroup studentGroup
-                JOIN subjectround.contactLesson contactLesson
+                JOIN subjectRound.studentGroup studentGroup
+                JOIN subjectRound.contactLesson contactLesson
                 
                 LEFT JOIN contactLesson.studentGrade studentGrade
                 LEFT JOIN studentGrade.student student
@@ -195,13 +195,13 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 LEFT JOIN studentGrade.gradeChoice gradeChoice
                 
                 WHERE 
-                    subjectround.id=:subjectroundId AND 
+                    subjectRound.id=:subjectRoundId AND 
                     studentGroup.id=:studentGroupId 
                     
                 ORDER BY contactLesson.lessonDate ASC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
-        $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
+        $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
 
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
