@@ -332,12 +332,8 @@
                      * @returns {undefined}
                      */
                     $scope.Filter = function () {
-                        if (!angular.equals({}, $scope.items)) {//do not send empty WHERE to BE, you'll get one nasty exception message
-                            var buf = $scope.filterIndependentWork.duedate,
-                                    data = globalFunctions.cleanData($scope.filterIndependentWork);
-                            data.duedate = moment(buf).format();
-                            var whereJSON = angular.toJson(data);
-                            urlParams.where = whereJSON;
+                        if (!angular.equals({}, $scope.items)) {
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterIndependentWork));
                             LoadGrid();
                         }
                     };
