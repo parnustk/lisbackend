@@ -90,7 +90,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
-        //print_r($q->getSQL()); die();
+//print_r($q->getSQL()); die();
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
@@ -142,7 +142,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
-        //print_r($q->getSQL()); die();
+//print_r($q->getSQL()); die();
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
@@ -261,10 +261,10 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
-             $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
-          } else {
-             $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId ";
-          }
+            $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+        } else {
+            $dql .= " WHERE absenceReason.lisType='absencereason' AND student.id=:studentId ";
+        }
 
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
 
@@ -351,34 +351,21 @@ class SubjectRoundRepository extends AbstractBaseRepository
         );
     }
 
-    /**
-     * 
-     * @return string
-     */
-    protected function dqlStart()
+    public function teacherIndependentWorkData($params = null, $extra = null)
     {
-        return "SELECT 
-                    partial $this->baseAlias.{
+        $dql = "SELECT
+                    partial subjectRound.{
                         id,
                         name,
                         status,
                         trashed
                     },
-                    partial vocation.{
-                            id,
-                            name
-                    },
-                    partial module.{
-                            id,
-                            name
-                    },
-                    partial subject.{
-                            id,
-                            name
-                    },
-                    partial studentGroup.{
-                            id,
-                            name
+                    partial contactLesson.{
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr,
+                        description
                     },
                     partial teacher.{
                             id,
@@ -388,17 +375,98 @@ class SubjectRoundRepository extends AbstractBaseRepository
                             id
                     },
                     partial gradeChoice.{
+                            id,
+                            name
+                    },
+                    partial studentGroup.{
+                            id,
+                            name
+                    },
+                    partial student.{
+                             id,
+                             name
+                    },
+                    partial independentWork.{
                         id,
-                        name
-                    }
-                FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.vocation vocation
-                JOIN $this->baseAlias.module module
-                JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subject subject
-                JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.studentGrade studentGrade
-                LEFT JOIN studentGrade.gradeChoice gradeChoice";
+                        duedate,
+                        name,
+                        description,
+                        durationAK
+                    } 
+                    FROM Core\Entity\SubjectRound subjectRound
+                    
+                    JOIN subjectRound.studentGroup studentGroup
+                    JOIN subjectRound.contactLesson contactLesson
+                    JOIN subjectround.independentWork independentWork
+                    LEFT JOIN independentWork.studentGrade studentGrade
+                    LEFT JOIN studentGrade.student student
+                    LEFT JOIN studentGrade.gradeChoice gradeChoice
+                    LEFT JOIN studentGrade.teacher teacher
+
+                    WHERE
+                        subjectround.id = :subjectroundId AND
+                        studentGroup.id = :studentGroupId
+
+                    ORDER BY independentWork.duedate ASC ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
+        
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStart()
+    {
+        return "SELECT
+partial $this->baseAlias.{
+id,
+ name,
+ status,
+ trashed
+},
+ partial vocation.{
+id,
+ name
+},
+ partial module.{
+id,
+ name
+},
+ partial subject.{
+id,
+ name
+},
+ partial studentGroup.{
+id,
+ name
+},
+ partial teacher.{
+id,
+ name
+},
+ partial studentGrade.{
+id
+},
+ partial gradeChoice.{
+id,
+ name
+}
+FROM $this->baseEntity $this->baseAlias
+JOIN $this->baseAlias.vocation vocation
+JOIN $this->baseAlias.module module
+JOIN $this->baseAlias.teacher teacher
+JOIN $this->baseAlias.subject subject
+JOIN $this->baseAlias.studentGroup studentGroup
+LEFT JOIN $this->baseAlias.studentGrade studentGrade
+LEFT JOIN studentGrade.gradeChoice gradeChoice";
     }
 
     /**
@@ -407,45 +475,45 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     protected function dqlStudentStart()
     {
-        return "SELECT 
-                    partial $this->baseAlias.{
-                        id,
-                        name,
-                        status,
-                        trashed
-                    },
-                    partial vocation.{
-                            id,
-                            name
-                    },
-                    partial module.{
-                            id,
-                            name
-                    },
-                    partial subject.{
-                            id
-                    },
-                    partial studentGroup.{
-                            id
-                    },
-                    partial teacher.{
-                            id
-                    },
-                    partial studentGrade.{
-                            id
-                    },
-                    partial gradeChoice.{
-                        id,
-                        name
-                    }
-                FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.vocation vocation
-                JOIN $this->baseAlias.module module
-                JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subject subject
-                JOIN $this->baseAlias.studentGroup studentGroup
-                LEFT JOIN $this->baseAlias.studentGrade studentGrade
-                LEFT JOIN studentGrade.gradeChoice gradeChoice";
+        return "SELECT
+partial $this->baseAlias.{
+id,
+ name,
+ status,
+ trashed
+},
+ partial vocation.{
+id,
+ name
+},
+ partial module.{
+id,
+ name
+},
+ partial subject.{
+id
+},
+ partial studentGroup.{
+id
+},
+ partial teacher.{
+id
+},
+ partial studentGrade.{
+id
+},
+ partial gradeChoice.{
+id,
+ name
+}
+FROM $this->baseEntity $this->baseAlias
+JOIN $this->baseAlias.vocation vocation
+JOIN $this->baseAlias.module module
+JOIN $this->baseAlias.teacher teacher
+JOIN $this->baseAlias.subject subject
+JOIN $this->baseAlias.studentGroup studentGroup
+LEFT JOIN $this->baseAlias.studentGrade studentGrade
+LEFT JOIN studentGrade.gradeChoice gradeChoice";
     }
 
     /**
@@ -454,36 +522,36 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     protected function dqlTeacherStart()
     {
-        return "SELECT 
-                    partial $this->baseAlias.{
-                        id,
-                        name,
-                        status,
-                        trashed
-                    },
-                    partial vocation.{
-                            id,
-                            name
-                    },
-                    partial module.{
-                            id,
-                            name
-                    },
-                    partial subject.{
-                            id
-                    },
-                    partial studentGroup.{
-                            id
-                    },
-                    partial teacher.{
-                            id
-                    }
-                FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.vocation vocation
-                JOIN $this->baseAlias.module module
-                JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subject subject
-                JOIN $this->baseAlias.studentGroup studentGroup";
+        return "SELECT
+partial $this->baseAlias.{
+id,
+ name,
+ status,
+ trashed
+},
+ partial vocation.{
+id,
+ name
+},
+ partial module.{
+id,
+ name
+},
+ partial subject.{
+id
+},
+ partial studentGroup.{
+id
+},
+ partial teacher.{
+id
+}
+FROM $this->baseEntity $this->baseAlias
+JOIN $this->baseAlias.vocation vocation
+JOIN $this->baseAlias.module module
+JOIN $this->baseAlias.teacher teacher
+JOIN $this->baseAlias.subject subject
+JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**
@@ -492,39 +560,39 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     protected function dqlAdministratorStart()
     {
-        return "SELECT 
-                    partial $this->baseAlias.{
-                        id,
-                        name,
-                        status,
-                        trashed
-                    },
-                    partial vocation.{
-                            id,
-                            name
-                    },
-                    partial module.{
-                            id,
-                            name
-                    },
-                    partial subject.{
-                            id,
-                            name
-                    },
-                    partial studentGroup.{
-                            id,
-                            name
-                    },
-                    partial teacher.{
-                            id,
-                            name
-                    }
-                FROM $this->baseEntity $this->baseAlias
-                JOIN $this->baseAlias.vocation vocation
-                JOIN $this->baseAlias.module module
-                JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subject subject
-                JOIN $this->baseAlias.studentGroup studentGroup";
+        return "SELECT
+partial $this->baseAlias.{
+id,
+ name,
+ status,
+ trashed
+},
+ partial vocation.{
+id,
+ name
+},
+ partial module.{
+id,
+ name
+},
+ partial subject.{
+id,
+ name
+},
+ partial studentGroup.{
+id,
+ name
+},
+ partial teacher.{
+id,
+ name
+}
+FROM $this->baseEntity $this->baseAlias
+JOIN $this->baseAlias.vocation vocation
+JOIN $this->baseAlias.module module
+JOIN $this->baseAlias.teacher teacher
+JOIN $this->baseAlias.subject subject
+JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**
@@ -928,9 +996,12 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     return $this->diaryRelatedDataIndependentWork($params, $extra);
             }
         }
+        else if (array_key_exists('teacherIndependentWork', $params)) {
+            return $this->teacherIndependentWorkData($params, $extra);
+        }
         //$this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
-        $dqlRestriction = " AND teacher=$id"; //TODO uncomment remove afterwoods
+        $dqlRestriction = " AND teacher = $id"; //TODO uncomment remove afterwoods
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 

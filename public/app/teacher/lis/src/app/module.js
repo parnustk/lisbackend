@@ -38,7 +38,8 @@
         /*19*/'app/model/studentInGroupsModel',
         /*20*/'app/model/registerModel',
         /*1*/'app/controller/loginController',
-        /*2*/'app/controller/diaryController'
+        /*2*/'app/controller/diaryController',
+        /*17*/'app/controller/independentWorkController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -63,7 +64,8 @@
         /*19*/studentInGroupsModel,
         /*20*/registerModel,
         /*1*/loginController,
-        /*2*/diaryController
+        /*2*/diaryController,
+        /*17*/independentWorkController
         ) {
 
         /**
@@ -294,7 +296,8 @@
 
         module.controller('loginController', loginController);
         module.controller('diaryController', diaryController);
-
+        module.controller('independentWorkController', independentWorkController);
+        
         return module;
     });
 

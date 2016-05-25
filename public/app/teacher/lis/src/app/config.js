@@ -23,6 +23,12 @@
                     templateUrl: 'lis/dist/templates/diary.html',
                     controller: 'diaryController'
                 })
+                
+                .when('/indepententwork', {
+                    templateUrl: 'lis/dist/templates/independentWork.html',
+                    controller: 'independentWorkController'
+                })
+                
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
