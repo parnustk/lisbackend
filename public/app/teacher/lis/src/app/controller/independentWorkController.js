@@ -42,9 +42,11 @@
                     'uiGridConstants',
                     'independentWorkModel',
                     'subjectRoundModel',
+                    'studentGroupModel',
                     'teacherModel',
                     'studentModel'
                 ];
+
                 /**
                  * 
                  * @param {type} $scope
@@ -54,9 +56,10 @@
                  * @param {type} uiGridConstants
                  * @param {type} independentWorkModel
                  * @param {type} subjectRoundModel
+                 * @param {type} studentGroupModel
                  * @param {type} teacherModel
                  * @param {type} studentModel
-                 * @returns {undefined}
+                 * @returns {independentWorkController_L35.independentWorkController}
                  */
                 function independentWorkController(
                         $scope,
@@ -66,6 +69,7 @@
                         uiGridConstants,
                         independentWorkModel,
                         subjectRoundModel,
+                        studentGroupModel,
                         teacherModel,
                         studentModel) {
 
@@ -177,11 +181,8 @@
                      */
                     var urlParams = {
                         page: 1,
-                        limit: 100000,
-                        teacherIndependentWork: 'teacherIndependentWork'
+                        limit: 100000
                     };
-                    
-                    var teacherId = 1; //Static for now
 
                     /**
                      * records sceleton used for reset operations
@@ -204,14 +205,14 @@
 
                     $scope.independentWork = {};//for form, object
 
-                    $scope.filterIndependentWork = {};//for form filters, object
+                    $scope.independentWorkFilter = {};
 
                     /**
                      * Grid set up
                      */
                     $scope.gridOptions = {
                         rowHeight: 38,
-                        enableCellEditOnFocus: false,
+                        enableCellEditOnFocus: true,
                         columnDefs: [
                             {
                                 field: 'id',
@@ -314,11 +315,23 @@
                     };
 
                     /**
+                     * 
+                     * @returns {undefined}
+                     */
+                    var resetUrlParams = function () {
+                        urlParams = {
+                            page: 1,
+                            limit: 1000
+                        };
+                    };
+
+                    /**
                      * Set remote criteria for DB
                      * 
                      * @returns {undefined}
                      */
                     $scope.Filter = function () {
+                        resetUrlParams();
                         if (!angular.equals({}, $scope.items)) {
                             urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterIndependentWork));
                             LoadGrid();
@@ -331,24 +344,12 @@
                      * @returns {undefined}
                      */
                     $scope.ClearFilters = function () {
-                        $scope.filterIndependentWork = {};
+                        resetUrlParams();
+                        $scope.independentWorkFilter = {};
                         delete urlParams.where;
                         LoadGrid();
                     };
-                    
-                    $scope.FormatDate = function (ds) {
 
-                        var dObj = new Date(ds),
-                                dFinal;
-
-                        if (window.LisGlobals.L === 'et') {
-                            dFinal = moment(dObj).format('DD.MM.YYYY');
-                        } else {
-                            dFinal = moment(dObj).format('DD/MM/YYYY');
-                        }
-                        return dFinal;
-                    };
-                    
                     /**
                      * Before loading independentWork data, 
                      * we first load relations and check success
@@ -363,19 +364,10 @@
                                 $scope.subjectRounds = result.data;
                                 $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.subjectRounds;
 
-                                teacherModel.GetList({}).then(function (result) {
-
+                                independentWorkModel.GetList(urlParams).then(function (result) {
                                     if (globalFunctions.resultHandler(result)) {
+                                        $scope.gridOptions.data = result.data;
 
-                                        $scope.teachers = result.data;
-                                        $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.teachers;
-
-                                        independentWorkModel.GetList(urlParams).then(function (result) {
-                                            if (globalFunctions.resultHandler(result)) {
-                                                $scope.gridOptions.data = result.data;
-
-                                            }
-                                        });
                                     }
                                 });
                             }
