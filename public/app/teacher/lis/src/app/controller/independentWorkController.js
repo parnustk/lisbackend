@@ -181,7 +181,8 @@
                      */
                     var urlParams = {
                         page: 1,
-                        limit: 100000
+                        limit: 100000,
+                        teacherIndependentWork: 'teacherIndependentWork'
                     };
 
                     /**
@@ -225,6 +226,7 @@
                             {//select one
                                 field: "subjectRound",
                                 name: "subjectRound",
+//                                visible: false,
                                 displayName: $scope.T('LIS_SUBJECTROUND'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
@@ -235,6 +237,7 @@
                             {
                                 field: "name",
                                 displayName: $scope.T('LIS_NAME')
+//                                visible: false
                             },
                             {
                                 field: "duedate['date']",
@@ -243,14 +246,17 @@
                                 type: "date",
                                 cellFilter: 'date:"yyyy-MM-dd"',
                                 width: '20%'
+//                                visible: false
                             },
                             {
                                 field: "description",
                                 displayName: $scope.T('LIS_DESCRIPTION')
+//                                visible: false
                             },
                             {
                                 field: "durationAK",
                                 displayName: $scope.T('LIS_DURATIONINDEPENDENTAK')
+//                                visible: false
                             }
                         ],
                         enableGridMenu: true,
@@ -319,7 +325,8 @@
                     var resetUrlParams = function () {
                         urlParams = {
                             page: 1,
-                            limit: 1000
+                            limit: 1000,
+                            teacherIndependentWork: 'teacherIndependentWork'
                         };
                     };
 

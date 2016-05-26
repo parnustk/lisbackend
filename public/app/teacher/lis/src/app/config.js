@@ -24,7 +24,7 @@
                     controller: 'diaryController'
                 })
                 
-                .when('/indepententwork', {
+                .when('/independentwork', {
                     templateUrl: 'lis/dist/templates/independentWork.html',
                     controller: 'independentWorkController'
                 })
