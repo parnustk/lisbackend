@@ -47,6 +47,41 @@ class StudentGroupRepository extends AbstractBaseRepository
      * @param type $extra
      * @return Paginator
      */
+    public function diaryInitTeacher($params = null, $extra = null)
+    {
+        //print_r($params);
+        $dql = "SELECT 
+                    partial studentgroup.{
+                        id,
+                        name,
+                        status
+                    },
+                    partial studentInGroups.{
+                        id
+                    },
+                    partial student.{
+                        id,
+                        name
+                    }
+                FROM Core\Entity\StudentGroup studentgroup
+                JOIN studentgroup.studentInGroups studentInGroups
+                JOIN studentInGroups.student student
+                WHERE studentgroup.id IS NOT NULL";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return Paginator
+     */
     public function diaryInitAdmin($params = null, $extra = null)
     {
         //print_r($params);
@@ -554,8 +589,14 @@ class StudentGroupRepository extends AbstractBaseRepository
     private function teacherGetList($params = null, $extra = null)
     {
         if (array_key_exists('diaryview', $params)) {
-            return $this->diaryRelatedData($params, $extra);
+            switch ($params['diaryview']) {
+                case 'diaryInitTeacher':
+                    return $this->diaryInitTeacher($params, $extra);
+                case 'diaryview':
+                    return $this->diaryRelatedData($params, $extra);
+            }
         }
+
         return $this->defaultGetList($params, $extra);
     }
 

@@ -177,6 +177,39 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 new DoctrinePaginator(new ORMPaginator($q))
         );
     }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     */
+    public function diaryInitTeacher($params = null, $extra = null)
+    {
+        $dql = "SELECT 
+                    partial subjectRound.{
+                        id,
+                        name,
+                        trashed
+                    },
+                    partial studentGroup.{
+                        id,
+                        name
+                    }
+                    
+                FROM Core\Entity\SubjectRound subjectRound
+                
+                JOIN subjectRound.contactLesson contactLesson
+                JOIN subjectRound.studentGroup studentGroup
+                
+                    
+                ORDER BY contactLesson.lessonDate ASC, contactLesson.sequenceNr ASC ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
     
     /**
      * 
@@ -1023,6 +1056,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
     {
         if (array_key_exists('diaryview', $params)) {
             switch ($params['diaryview']) {
+                case 'diaryInitTeacher':
+                    return $this->diaryInitTeacher($params, $extra);
                 case 'diaryview':
                     return $this->diaryRelatedData($params, $extra);
                 case 'diaryviewsr':
