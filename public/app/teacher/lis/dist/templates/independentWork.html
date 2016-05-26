@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="input-group input-group-lg">
                     <ui-select name="subjectRound" ng-required="true" ng-model="independentWork.subjectRound" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                        <ui-select-match placeholder="LIS_CHOOSE_SUBJECTROUND">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match placeholder="{{ T('LIS_CHOOSE_SUBJECTROUND') }}">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
                             <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
                             <small>
@@ -27,8 +27,8 @@
         <div class="form-group" ng-class="{ 'has-error': independentWorkForm.name.$invalid }">
             <div class="col-lg-6">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="independentWorkForm-name">LIS_NAME</span>
-                    <input name="name" ng-required="true" type="text" class="form-control" placeholder="LIS_NAME" aria-describedby="independentWorkForm-name" ng-model="independentWork.name">
+                    <span class="input-group-addon" id="independentWorkForm-name">{{ T('LIS_NAME') }}</span>
+                    <input name="name" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="independentWorkForm-name" ng-model="independentWork.name">
                 </div>
             </div>
         </div>

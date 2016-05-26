@@ -195,12 +195,10 @@
                         durationAK: null,
                         trashed: null,
                         subjectRound: null,
-                        teacher: null,
                         student: null
                     };
 
                     $scope.subjectRounds = [];
-                    $scope.teachers = [];
                     $scope.students = [];//for ui-select in form
 
                     $scope.independentWork = {};//for form, object
@@ -333,9 +331,24 @@
                     $scope.Filter = function () {
                         resetUrlParams();
                         if (!angular.equals({}, $scope.items)) {
-                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.independentWorkFilter));
-                            LoadGrid();
+                            var bufDate = null,
+                                    data = globalFunctions.cleanData($scope.independentWorkFilter);
+
+                            if (!!$scope.independentWorkFilter.duedate) {
+                                bufDate = $scope.independentWorkFilter.duedate;
+                            }
+
+                            if (!!bufDate) {
+                                data.duedate = moment(bufDate).format();
+                            } else {
+                                delete data.duedate;
+                            }
+
+                            if (!!data) {
+                                urlParams.where = angular.toJson(data);
+                            }
                         }
+                        LoadGrid();
                     };
 
                     /**
