@@ -333,7 +333,7 @@
                     $scope.Filter = function () {
                         resetUrlParams();
                         if (!angular.equals({}, $scope.items)) {
-                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.filterIndependentWork));
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.independentWorkFilter));
                             LoadGrid();
                         }
                     };
