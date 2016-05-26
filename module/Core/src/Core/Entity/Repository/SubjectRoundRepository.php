@@ -369,7 +369,11 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     },
                     partial teacher.{
                             id,
-                            name
+                            firstName,
+                            lastName,
+                            name,
+                            email,
+                            personalCode
                     },
                     partial studentGrade.{
                             id
@@ -405,14 +409,16 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
                     WHERE
                         subjectround.id = :subjectroundId AND
-                        studentGroup.id = :studentGroupId
+                        studentGroup.id = :studentGroupId AND
+                        teacher.id = :teacherId
 
                     ORDER BY independentWork.duedate ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
-        
+        $q->setParameter('teachertId', $extra->lisPerson->getId(), Type::INTEGER);
+
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
@@ -995,8 +1001,7 @@ JOIN $this->baseAlias.studentGroup studentGroup";
                 case 'diaryviewiw':
                     return $this->diaryRelatedDataIndependentWork($params, $extra);
             }
-        }
-        else if (array_key_exists('teacherIndependentWork', $params)) {
+        } else if (array_key_exists('teacherIndependentWork', $params)) {
             return $this->teacherIndependentWorkData($params, $extra);
         }
         //$this->findingTeacher($entity, $extra);

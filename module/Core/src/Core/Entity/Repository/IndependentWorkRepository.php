@@ -200,6 +200,7 @@ class IndependentWorkRepository extends AbstractBaseRepository
     private function teacherCreate($data, $returnPartial = false, $extra = null)
     {
         $data['createdBy'] = $extra->lisUser->getId();
+        $data['teacher'] = $extra->lisPerson->getId();
         $data['updatedBy'] = null;
 
         return $this->defaultCreate($data, $returnPartial, $extra);

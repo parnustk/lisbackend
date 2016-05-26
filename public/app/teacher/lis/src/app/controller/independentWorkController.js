@@ -177,8 +177,11 @@
                      */
                     var urlParams = {
                         page: 1,
-                        limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
+                        limit: 100000,
+                        teacherIndependentWork: 'teacherIndependentWork'
                     };
+                    
+                    var teacherId = 1; //Static for now
 
                     /**
                      * records sceleton used for reset operations
@@ -228,43 +231,27 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name",
                                 sortCellFiltered: $scope.sortFiltered,
-                                cellFilter: 'griddropdown:this',
-                                enableCellEdit: false
-                            },
-                            {//select one
-                                field: "teacher",
-                                name: "teacher",
-                                displayName: $scope.T('LIS_TEACHER'),
-                                editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                                editDropdownIdLabel: "id",
-                                editDropdownValueLabel: "name",
-                                sortCellFiltered: $scope.sortFiltered,
-                                cellFilter: 'griddropdown:this',
-                                enableCellEdit: false
+                                cellFilter: 'griddropdown:this'
                             },
                             {
                                 field: "name",
-                                displayName: $scope.T('LIS_NAME'),
-                                enableCellEdit: false
+                                displayName: $scope.T('LIS_NAME')
                             },
                             {
                                 field: "duedate['date']",
                                 name: "duedate['date']",
                                 displayName: $scope.T('LIS_DUEDATE'),
                                 type: "date",
-                                cellFilter: 'date:\"YYYY-MM-DD\"',
-                                width: '20%',
-                                enableCellEdit: false
+                                cellFilter: 'date:"yyyy-MM-dd"',
+                                width: '20%'
                             },
                             {
                                 field: "description",
-                                displayName: $scope.T('LIS_DESCRIPTION'),
-                                enableCellEdit: false
+                                displayName: $scope.T('LIS_DESCRIPTION')
                             },
                             {
                                 field: "durationAK",
-                                displayName: $scope.T('LIS_DURATIONINDEPENDENTAK'),
-                                enableCellEdit: false
+                                displayName: $scope.T('LIS_DURATIONINDEPENDENTAK')
                             }
                         ],
                         enableGridMenu: true,
@@ -348,6 +335,20 @@
                         delete urlParams.where;
                         LoadGrid();
                     };
+                    
+                    $scope.FormatDate = function (ds) {
+
+                        var dObj = new Date(ds),
+                                dFinal;
+
+                        if (window.LisGlobals.L === 'et') {
+                            dFinal = moment(dObj).format('DD.MM.YYYY');
+                        } else {
+                            dFinal = moment(dObj).format('DD/MM/YYYY');
+                        }
+                        return dFinal;
+                    };
+                    
                     /**
                      * Before loading independentWork data, 
                      * we first load relations and check success
