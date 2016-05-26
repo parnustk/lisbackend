@@ -68,6 +68,41 @@ class panelForm extends Form
                 'id' => 'downsubmit'
             ),
         ));
+        //Push elements
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'pushselect',
+            'attributes' => array(
+                'id' => 'pushnames',
+                'options' => array(
+                    null
+                ),
+            ),
+            'options' => array(
+                'label' => 'Select File',
+            ),
+        ));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'pushcheckbox',
+            'attributes' => array(
+                'id' => 'pushconfirm',
+                'options' => array(
+                    null
+                ),
+            ),
+            'options' => array(
+                'label' => 'Confirm Push to DB?',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'pushsubmit',
+            'attributes' => array(
+                'type' => 'submit',
+                'value' => 'Push Selected backup to DB',
+                'id' => 'pushsubmit'
+            ),
+        ));
     }
 
 }

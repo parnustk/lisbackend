@@ -26,3 +26,11 @@ echo $this->formRow($form->get('fileselect'));
 echo '<br>';
 echo $this->formSubmit($form->get('downloadsubmit'));
 echo $this->form()->closeTag();
+
+echo $this->form()->openTag($form);
+echo '<br>';
+echo $this->formRow($form->get('pushselect'));
+echo '<br>';
+echo $this->formRow($form->get('pushcheckbox'));
+echo $this->formSubmit($form->get('pushsubmit'));
+echo $this->form()->closeTag();

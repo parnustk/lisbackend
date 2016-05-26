@@ -151,8 +151,20 @@ class DumpController extends AbstractActionController
                             ->getServiceLocator()
                             ->get($this->service)
                             ->download($fileName);
+                } else if (array_key_exists('pushsubmit', $postValues) 
+                          && array_key_exists('pushcheckbox', $postValues)) { //Push
+                    $list = $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->getFilenames();
+                    $fileName = $list[$postValues['pushselect']];
+                    $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->pushDump($fileName, null);
+                } else {
+                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
                 }
-                $i = 0;
             } else { //logic for first-time use
                 $panel = new panelForm('panelForm');
                 $filenames = $this
@@ -160,6 +172,8 @@ class DumpController extends AbstractActionController
                         ->get($this->service)
                         ->getFilenames();
                 $element = $panel->get('fileselect');
+                $element->setAttribute('options', $filenames);
+                $element = $panel->get('pushselect');
                 $element->setAttribute('options', $filenames);
 
                 return new ViewModel(['form' => $panel]);

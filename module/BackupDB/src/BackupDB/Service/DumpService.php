@@ -359,30 +359,17 @@ class DumpService implements ServiceManagerAwareInterface
      * @param string $filename
      * @param bool $clearTable
      */
-    public function pushDump($filename, $clearTable)
+    public function pushDump($filename)
     {
-        $this->setUp();
-// Disabled for now, loop execute causes race conditions with db connection.
-//        if ($clearTable) {
-//            $clearStmt = $this->db->prepare(
-//                    "SET FOREIGN_KEY_CHECKS = 0;"
-//                    . "DROP TABLE *;"
-//                    . "SET FOREIGN_KEY_CHECKS = 1;");
-//            try {
-//                $clearStmt->execute();
-//            } catch (PDOException $ex) {
-//                print_r($ex);
-//                die();
-//            }
+        echo $filename;
+//        $this->setUp();
+//        $pushStatement = $this->db->prepare(file_get_contents(_PATH_ . $filename));
+//        try {
+//            $pushStatement->execute();
+//        } catch (PDOException $ex) {
+//            print_r($ex);
+//            die();
 //        }
-
-        $pushStatement = $this->db->prepare(file_get_contents(_PATH_ . $filename));
-        try {
-            $pushStatement->execute();
-        } catch (PDOException $ex) {
-            print_r($ex);
-            die();
-        }
     }
     
     /**
