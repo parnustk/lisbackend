@@ -17,7 +17,6 @@
     define([
         /*1*/'angular',
         /*2*/'app/config',
-        
         /*1*/'app/model/vocationModel',
         /*2*/'app/model/gradingTypeModel',
         /*3*/'app/model/gradeChoiceModel',
@@ -40,7 +39,6 @@
         /*20*/'app/model/registerModel',
         /*21*/'app/model/lisUserModel',
         /*22*/'app/model/lessonReportModel',
-
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -61,11 +59,11 @@
         /*18*/'app/controller/studentGradeController',
         /*19*/'app/controller/studentInGroupsController',
         /*20*/'app/controller/superAdminController',
-        /*22*/'app/controller/lessonReportController'
+        /*21*/'app/controller/lessonReportController',
+        /*22*/'app/controller/diaryController'
     ], function (
         /*1*/angular,
         /*2*/config,
-        
         /*1*/vocationModel,
         /*2*/gradingTypeModel,
         /*3*/gradeChoiceModel,
@@ -88,7 +86,6 @@
         /*20*/registerModel,
         /*21*/lisUserModel,
         /*22*/lessonReportModel,
-        
         /*1*/vocationController,
         /*2*/gradingTypeController,
         /*3*/gradeChoiceController,
@@ -109,7 +106,8 @@
         /*18*/studentGradeController,
         /*19*/studentInGroupsController,
         /*20*/superAdminController,
-        /*22*/lessonReportController
+        /*21*/lessonReportController,
+        /*22*/diaryController
         ) {
 
         /**
@@ -139,11 +137,11 @@
                     }
 
                     var map,
-                            colDef = context.col.colDef,
-                            idField = colDef.editDropdownIdLabel,
-                            valueField = colDef.editDropdownValueLabel,
-                            initial = context.row.entity[context.col.field],
-                            result;
+                        colDef = context.col.colDef,
+                        idField = colDef.editDropdownIdLabel,
+                        valueField = colDef.editDropdownValueLabel,
+                        initial = context.row.entity[context.col.field],
+                        result;
 
                     if (typeof colDef.editDropdownOptionsArray !== 'undefined') {
                         map = colDef.editDropdownOptionsArray;
@@ -260,7 +258,7 @@
                 }
             };
         });
-        
+
         var compareTo = function () {
             return {
                 require: "ngModel",
@@ -360,6 +358,7 @@
         adminModule.controller('studentInGroupsController', studentInGroupsController);
         adminModule.controller('superAdminController', superAdminController);
         adminModule.controller('lessonReportController', lessonReportController);
+        adminModule.controller('diaryController', diaryController);
 
         return adminModule;
     });

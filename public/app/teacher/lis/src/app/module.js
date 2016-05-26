@@ -216,7 +216,7 @@
                 }
             };
         });
-        
+
         var compareTo = function () {
             return {
                 require: "ngModel",
@@ -297,7 +297,7 @@
         module.controller('loginController', loginController);
         module.controller('diaryController', diaryController);
         module.controller('independentWorkController', independentWorkController);
-        
+
         return module;
     });
 

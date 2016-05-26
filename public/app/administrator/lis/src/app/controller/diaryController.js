@@ -85,11 +85,12 @@
                             }
                         }
 
-                        subjectRoundModel.GetList({}).then(function (result) {//get'em all no params for filter
+                        urlParamsSubjectRound.diaryview = 'diaryInitAdmin';
+                        subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//get'em all no params for filter
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.subjectRounds = result.data;
 
-                                studentGroupModel.GetList({}).then(function (result) {
+                                studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
                                     if (globalFunctions.resultHandler(result)) {
                                         $scope.studentGroups = result.data;
 

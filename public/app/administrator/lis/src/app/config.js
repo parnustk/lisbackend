@@ -114,6 +114,11 @@
                     controller: 'superAdminController'
                 })
                 
+                .when('/diary', {
+                    templateUrl: 'lis/dist/templates/diary.html',
+                    controller: 'diaryController'
+                })
+                
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

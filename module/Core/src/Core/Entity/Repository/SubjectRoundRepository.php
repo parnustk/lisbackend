@@ -149,6 +149,35 @@ class SubjectRoundRepository extends AbstractBaseRepository
         );
     }
 
+    
+    public function diaryInitAdmin($params = null, $extra = null)
+    {
+        $dql = "SELECT 
+                    partial subjectRound.{
+                        id,
+                        name,
+                        trashed
+                    },
+                    partial studentGroup.{
+                        id,
+                        name
+                    }
+                    
+                FROM Core\Entity\SubjectRound subjectRound
+                
+                JOIN subjectRound.contactLesson contactLesson
+                JOIN subjectRound.studentGroup studentGroup
+                
+                    
+                ORDER BY contactLesson.lessonDate ASC, contactLesson.sequenceNr ASC ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+    
     /**
      * 
      * @param type $params
@@ -432,47 +461,47 @@ class SubjectRoundRepository extends AbstractBaseRepository
     protected function dqlStart()
     {
         return "SELECT
-partial $this->baseAlias.{
-id,
- name,
- status,
- trashed
-},
- partial vocation.{
-id,
- name
-},
- partial module.{
-id,
- name
-},
- partial subject.{
-id,
- name
-},
- partial studentGroup.{
-id,
- name
-},
- partial teacher.{
-id,
- name
-},
- partial studentGrade.{
-id
-},
- partial gradeChoice.{
-id,
- name
-}
-FROM $this->baseEntity $this->baseAlias
-JOIN $this->baseAlias.vocation vocation
-JOIN $this->baseAlias.module module
-JOIN $this->baseAlias.teacher teacher
-JOIN $this->baseAlias.subject subject
-JOIN $this->baseAlias.studentGroup studentGroup
-LEFT JOIN $this->baseAlias.studentGrade studentGrade
-LEFT JOIN studentGrade.gradeChoice gradeChoice";
+            partial $this->baseAlias.{
+            id,
+             name,
+             status,
+             trashed
+            },
+             partial vocation.{
+            id,
+             name
+            },
+             partial module.{
+            id,
+             name
+            },
+             partial subject.{
+            id,
+             name
+            },
+             partial studentGroup.{
+            id,
+             name
+            },
+             partial teacher.{
+            id,
+             name
+            },
+             partial studentGrade.{
+            id
+            },
+             partial gradeChoice.{
+            id,
+             name
+            }
+            FROM $this->baseEntity $this->baseAlias
+            JOIN $this->baseAlias.vocation vocation
+            JOIN $this->baseAlias.module module
+            JOIN $this->baseAlias.teacher teacher
+            JOIN $this->baseAlias.subject subject
+            JOIN $this->baseAlias.studentGroup studentGroup
+            LEFT JOIN $this->baseAlias.studentGrade studentGrade
+            LEFT JOIN studentGrade.gradeChoice gradeChoice";
     }
 
     /**
@@ -482,44 +511,44 @@ LEFT JOIN studentGrade.gradeChoice gradeChoice";
     protected function dqlStudentStart()
     {
         return "SELECT
-partial $this->baseAlias.{
-id,
- name,
- status,
- trashed
-},
- partial vocation.{
-id,
- name
-},
- partial module.{
-id,
- name
-},
- partial subject.{
-id
-},
- partial studentGroup.{
-id
-},
- partial teacher.{
-id
-},
- partial studentGrade.{
-id
-},
- partial gradeChoice.{
-id,
- name
-}
-FROM $this->baseEntity $this->baseAlias
-JOIN $this->baseAlias.vocation vocation
-JOIN $this->baseAlias.module module
-JOIN $this->baseAlias.teacher teacher
-JOIN $this->baseAlias.subject subject
-JOIN $this->baseAlias.studentGroup studentGroup
-LEFT JOIN $this->baseAlias.studentGrade studentGrade
-LEFT JOIN studentGrade.gradeChoice gradeChoice";
+                partial $this->baseAlias.{
+                id,
+                 name,
+                 status,
+                 trashed
+                },
+                 partial vocation.{
+                id,
+                 name
+                },
+                 partial module.{
+                id,
+                 name
+                },
+                 partial subject.{
+                id
+                },
+                 partial studentGroup.{
+                id
+                },
+                 partial teacher.{
+                id
+                },
+                 partial studentGrade.{
+                id
+                },
+                 partial gradeChoice.{
+                id,
+                 name
+                }
+                FROM $this->baseEntity $this->baseAlias
+                JOIN $this->baseAlias.vocation vocation
+                JOIN $this->baseAlias.module module
+                JOIN $this->baseAlias.teacher teacher
+                JOIN $this->baseAlias.subject subject
+                JOIN $this->baseAlias.studentGroup studentGroup
+                LEFT JOIN $this->baseAlias.studentGrade studentGrade
+                LEFT JOIN studentGrade.gradeChoice gradeChoice";
     }
 
     /**
@@ -529,35 +558,35 @@ LEFT JOIN studentGrade.gradeChoice gradeChoice";
     protected function dqlTeacherStart()
     {
         return "SELECT
-partial $this->baseAlias.{
-id,
- name,
- status,
- trashed
-},
- partial vocation.{
-id,
- name
-},
- partial module.{
-id,
- name
-},
- partial subject.{
-id
-},
- partial studentGroup.{
-id
-},
- partial teacher.{
-id
-}
-FROM $this->baseEntity $this->baseAlias
-JOIN $this->baseAlias.vocation vocation
-JOIN $this->baseAlias.module module
-JOIN $this->baseAlias.teacher teacher
-JOIN $this->baseAlias.subject subject
-JOIN $this->baseAlias.studentGroup studentGroup";
+                    partial $this->baseAlias.{
+                    id,
+                     name,
+                     status,
+                     trashed
+                    },
+                     partial vocation.{
+                    id,
+                     name
+                    },
+                     partial module.{
+                    id,
+                     name
+                    },
+                     partial subject.{
+                    id
+                    },
+                     partial studentGroup.{
+                    id
+                    },
+                     partial teacher.{
+                    id
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.vocation vocation
+                    JOIN $this->baseAlias.module module
+                    JOIN $this->baseAlias.teacher teacher
+                    JOIN $this->baseAlias.subject subject
+                    JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**
@@ -567,38 +596,38 @@ JOIN $this->baseAlias.studentGroup studentGroup";
     protected function dqlAdministratorStart()
     {
         return "SELECT
-partial $this->baseAlias.{
-id,
- name,
- status,
- trashed
-},
- partial vocation.{
-id,
- name
-},
- partial module.{
-id,
- name
-},
- partial subject.{
-id,
- name
-},
- partial studentGroup.{
-id,
- name
-},
- partial teacher.{
-id,
- name
-}
-FROM $this->baseEntity $this->baseAlias
-JOIN $this->baseAlias.vocation vocation
-JOIN $this->baseAlias.module module
-JOIN $this->baseAlias.teacher teacher
-JOIN $this->baseAlias.subject subject
-JOIN $this->baseAlias.studentGroup studentGroup";
+                    partial $this->baseAlias.{
+                    id,
+                     name,
+                     status,
+                     trashed
+                    },
+                     partial vocation.{
+                    id,
+                     name
+                    },
+                     partial module.{
+                    id,
+                     name
+                    },
+                     partial subject.{
+                    id,
+                     name
+                    },
+                     partial studentGroup.{
+                    id,
+                     name
+                    },
+                     partial teacher.{
+                    id,
+                     name
+                    }
+                    FROM $this->baseEntity $this->baseAlias
+                    JOIN $this->baseAlias.vocation vocation
+                    JOIN $this->baseAlias.module module
+                    JOIN $this->baseAlias.teacher teacher
+                    JOIN $this->baseAlias.subject subject
+                    JOIN $this->baseAlias.studentGroup studentGroup";
     }
 
     /**
@@ -1018,6 +1047,19 @@ JOIN $this->baseAlias.studentGroup studentGroup";
      */
     private function administratorGetList($params = null, $extra = null)
     {
+        if (array_key_exists('diaryview', $params)) {
+            switch ($params['diaryview']) {
+                case 'diaryInitAdmin':
+                    return $this->diaryInitAdmin($params, $extra);
+                case 'diaryview':
+                    return $this->diaryRelatedData($params, $extra);
+                case 'diaryviewsr':
+                    return $this->diaryRelatedDataSubjectRound($params, $extra);
+                case 'diaryviewiw':
+                    return $this->diaryRelatedDataIndependentWork($params, $extra);
+            }
+        }
+
         return $this->defaultGetList($params, $extra);
     }
 
