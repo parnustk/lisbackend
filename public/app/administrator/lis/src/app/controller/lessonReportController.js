@@ -66,6 +66,7 @@
                 $scope.lessonReports = [];
                 $scope.contactLessons = [];
                 $scope.teachers = [];
+                $scope.objects = [];
 
                 $scope.popup1 = {
                     opened: false
@@ -86,8 +87,7 @@
                 $scope.dateOptions = {
                     format: 'dd.MM.yyyy',
                     maxDate: new Date(2020, 5, 22),
-                    minDate: new Date(1900, 1, 1),
-                    startingDay: 1
+                    minDate: new Date(1900, 1, 1)
                 };
 
                 //$scope.formats = ['dd.MM.yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
@@ -109,12 +109,12 @@
 
                     var i = 0;
                     while (i < objectLength) {
-                        $scope.contactLessons[i]['id'] = $scope.contactLessons[i][0]['id'];
-                        $scope.contactLessons[i]['lessonDate'] = $scope.contactLessons[i][0]['lessonDate'];
-                        $scope.contactLessons[i]['teacher'] = $scope.contactLessons[i][0]['teacher'];
-                        $scope.contactLessons[i]['subjectRound'] = $scope.contactLessons[i][0]['subjectRound'];
-                        $scope.contactLessons[i]['studentGroup'] = $scope.contactLessons[i][0]['studentGroup'];
-                        $scope.contactLessons[i]['rooms'] = $scope.contactLessons[i][0]['rooms'];
+                        // $scope.contactLessons[i]['id'] = $scope.contactLessons[i][0]['id'];
+                        // $scope.contactLessons[i]['lessonDate'] = $scope.contactLessons[i][0]['lessonDate'];
+                        // $scope.contactLessons[i]['teacher'] = $scope.contactLessons[i][0]['teacher'];
+                        // $scope.contactLessons[i]['subjectRound'] = $scope.contactLessons[i][0]['subjectRound'];
+                        // $scope.contactLessons[i]['studentGroup'] = $scope.contactLessons[i][0]['studentGroup'];
+                        // $scope.contactLessons[i]['rooms'] = $scope.contactLessons[i][0]['rooms'];
 
                         i++;
                     }

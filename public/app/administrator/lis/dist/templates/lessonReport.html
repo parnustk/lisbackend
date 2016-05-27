@@ -79,9 +79,10 @@
     <th>{{T('LIS_ROOM')}}</th>
 
     <tr ng-repeat="contactLesson in contactLessons">
+        <span ng-repeat="item in objects ">
         <td>
             <ul>
-                <li>{{ contactLesson.lessonDate.date }}</li>
+                <li>{{ item.lessonDate.date }}</li>
             </ul>
         </td>
         <td>
@@ -92,27 +93,29 @@
         <td>
             <ul>
                 <!--ng-repeat="name in contactLesson.name"-->
-                <li>{{ contactLesson.subjectRound.name }}</li>
+                <li>{{ item.subjectRound.name }}</li>
             </ul>
         </td>
         <td>
             <ul>
                 <!--ng-repeat="studentGroup in contactLesson.studentGroup"-->
-                <li>{{ contactLesson.studentGroup.name }}</li>
+                <li>{{ item.studentGroup.name }}</li>
             </ul>
         </td>
         <td>
             <ul>
                 <!--ng-repeat="teacher in contactLesson.teacher"-->
-                <li>{{ contactLesson.teacher.name }}</li>
+                <li>{{ item.teacher.name }}</li>
             </ul>
         </td>
         <td>
             <ul>
                 <!--ng-repeat="room in contactLesson.rooms"-->
-                <li>{{ contactLesson.rooms.name }}</li>
+                <li>{{ item.rooms.name }}</li>
             </ul>
         </td>
+        </span>
+
     </tr>
 
 
