@@ -52,7 +52,9 @@
                 gradeChoiceModel,
                 studentGradeModel,
                 absenceModel) {
-
+                    
+                /* jshint ignore:start */
+                
                 $scope.T = globalFunctions.T;
 
                 var teacherId = 1; //Static for now
@@ -670,6 +672,7 @@
 
                     $scope.addRows();
                 };
+                /* jshint ignore:end */
             }
 
             return diaryController;
