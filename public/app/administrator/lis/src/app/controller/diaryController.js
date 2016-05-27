@@ -52,6 +52,7 @@
                 gradeChoiceModel,
                 studentGradeModel,
                 absenceModel) {
+                /* jshint ignore:start */
 
                 $scope.T = globalFunctions.T;
 
@@ -670,6 +671,7 @@
 
                     $scope.addRows();
                 };
+                /* jshint ignore:end */
             }
 
             return diaryController;

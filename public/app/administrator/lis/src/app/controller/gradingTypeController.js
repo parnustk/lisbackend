@@ -51,7 +51,7 @@
                  * @returns {undefined}
                  */
                 function gradingTypeController($scope, $q, $routeParams, rowSorter, uiGridConstants, gradingTypeModel) {
-                    /* jshint ignore:start */
+                    
                     $scope.T = globalFunctions.T;
                     /**
                      * For filters and maybe later pagination
@@ -221,7 +221,7 @@
                     }
 
                     LoadGrid();//let's start loading data
-                    /* jshint ignore:end */
+
                 }
                 
                 return gradingTypeController;
