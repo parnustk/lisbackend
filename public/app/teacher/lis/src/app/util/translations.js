@@ -166,8 +166,11 @@
                 MODULE_GRID_FILTERS: 'Mooduli filtrid',
                 SEARCH_A_MODULECODE: 'Otsi koodi järgi',
                 LIS_CREATE_NEW_INDEPENDENTWORK: 'Loo uus iseseisev töö',
-                LIS_CHOOSE_SUBJECTROUND: 'Vali voor'
-
+                LIS_CHOOSE_SUBJECTROUND: 'Vali voor',
+                //timetable
+                TEACHERABSENCEFILTER:'Filteeri',
+                SEARCH_A_STARTLESSONDATE:'Algus',,
+                SEARCH_A_ENDLESSONDATE:'Lõpp'               
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -318,7 +321,11 @@
                 LIS_CREATE_NEW_MODULE: 'Create new module',
                 MODULE_GRID_FILTERS: 'Module filters',
                 SEARCH_A_MODULECODE: 'Search by code',
-                LIS_CREATE_NEW_INDEPENDENTWORK: 'Create new independent work'
+                LIS_CREATE_NEW_INDEPENDENTWORK: 'Create new independent work',
+                 //timetable
+                TEACHERABSENCEFILTER:'Filter',
+                SEARCH_A_STARTLESSONDATE:'Start',,
+                SEARCH_A_ENDLESSONDATE:'End'  
             }
         };
         return t;
