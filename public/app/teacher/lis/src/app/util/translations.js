@@ -169,7 +169,7 @@
                 LIS_CHOOSE_SUBJECTROUND: 'Vali voor',
                 //timetable
                 TEACHERABSENCEFILTER:'Filteeri',
-                SEARCH_A_STARTLESSONDATE:'Algus',,
+                SEARCH_A_STARTLESSONDATE:'Algus',
                 SEARCH_A_ENDLESSONDATE:'Lõpp'               
             },
             en: {
