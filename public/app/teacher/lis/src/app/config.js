@@ -19,17 +19,20 @@
         function config($routeProvider, $locationProvider, $httpProvider) {
 
             $routeProvider
-                .when('/diary', {
-                    templateUrl: 'lis/dist/templates/diary.html',
-                    controller: 'diaryController'
-                })
-                
-                .when('/independentwork', {
-                    templateUrl: 'lis/dist/templates/independentWork.html',
-                    controller: 'independentWorkController'
-                })
-                
-                .otherwise({redirectTo: '/'});
+                    .when('/diary', {
+                        templateUrl: 'lis/dist/templates/diary.html',
+                        controller: 'diaryController'
+                    })
+
+                    .when('/independentwork', {
+                        templateUrl: 'lis/dist/templates/independentWork.html',
+                        controller: 'independentWorkController'
+                    })
+                    .when('/timetable', {
+                        templateUrl: 'lis/dist/templates/timeTable.html',
+                        controller: 'timeTableController'
+                    })
+                    .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({
                 enabled: false,

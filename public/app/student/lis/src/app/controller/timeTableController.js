@@ -2,7 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>, Juhan Kõks <juhankoks@gmail.com>
  */
 
 /* global define */
@@ -22,12 +22,12 @@
      * @param {type} angular
      * @param {type} globalFunctions
      * @param {type} moment
-     * @returns {absenceController_L24.absenceController}
+     * @returns {timeTableController.timeTableController}
      */
     define(['angular', 'app/util/globalFunctions', 'moment'],
         function (angular, globalFunctions, moment) {
 
-            absenceController.$inject = [
+            timeTableController.$inject = [
                 '$scope',
                 '$q',
                 '$routeParams',
@@ -48,16 +48,15 @@
              * @param {type} $routeParams
              * @param {type} rowSorter
              * @param {type} uiGridConstants
-             * @param {type} absenceModel
-             * @param {type} absenceReasonModel
              * @param {type} studentModel
              * @param {type} contactLessonModel
              * @param {type} subjectRoundModel
              * @param {type} teacherModel
              * @param {type} roomModel
-             * @returns {absenceController_L28.absenceController}
+             * @param {type} studentGroupModel
+             * @returns {timeTableController.timeTableController}
              */
-            function absenceController(
+            function timeTableController(
                 $scope,
                 $q,
                 $routeParams,
@@ -272,7 +271,7 @@
                 LoadData();//let's start loading data
             }
 
-            return absenceController;
+            return timeTableController;
         });
 
 }(window, define, document));
