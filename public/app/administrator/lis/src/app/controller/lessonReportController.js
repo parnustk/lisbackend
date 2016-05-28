@@ -85,13 +85,12 @@
                 };
 
                 $scope.dateOptions = {
-                    format: 'dd.MM.yyyy',
                     maxDate: new Date(2020, 5, 22),
                     minDate: new Date(1900, 1, 1)
                 };
 
                 //$scope.formats = ['dd.MM.yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
-                //$scope.format = 'dd.MM.yyyy';
+                $scope.format = 'yyyy-MM-dd';
                 //$scope.altInputFormats = ['M!/d!/yyyy'];
 
 
@@ -104,18 +103,21 @@
                 //if no teacherId then filterForm is invalid
                 //3 fields required filter is teacherId, optional filters are startDate and endDate
 
+                /**
+                 * rearranges data in the object, so that it can be easily displayed using angular
+                 * angular can read from contactLessons[i], but most of the data is in contactLessons[i][0]
+                 */
                 function fixData() {
                     var objectLength = Object.keys($scope.contactLessons).length;
 
                     var i = 0;
                     while (i < objectLength) {
-                        // $scope.contactLessons[i]['id'] = $scope.contactLessons[i][0]['id'];
-                        // $scope.contactLessons[i]['lessonDate'] = $scope.contactLessons[i][0]['lessonDate'];
-                        // $scope.contactLessons[i]['teacher'] = $scope.contactLessons[i][0]['teacher'];
-                        // $scope.contactLessons[i]['subjectRound'] = $scope.contactLessons[i][0]['subjectRound'];
-                        // $scope.contactLessons[i]['studentGroup'] = $scope.contactLessons[i][0]['studentGroup'];
-                        // $scope.contactLessons[i]['rooms'] = $scope.contactLessons[i][0]['rooms'];
-
+                        $scope.contactLessons[i].id = $scope.contactLessons[i][0].id;
+                        $scope.contactLessons[i].lessonDate = $scope.contactLessons[i][0].lessonDate;
+                        $scope.contactLessons[i].teacher = $scope.contactLessons[i][0].teacher;
+                        $scope.contactLessons[i].subjectRound = $scope.contactLessons[i][0].subjectRound;
+                        $scope.contactLessons[i].studentGroup = $scope.contactLessons[i][0].studentGroup;
+                        $scope.contactLessons[i].rooms = $scope.contactLessons[i][0].rooms;
                         i++;
                     }
                 }
@@ -130,6 +132,8 @@
                           urlParams.teacherId = $scope.lessonReportFilter.teacher.id;
                           urlParams.startDate = $scope.lessonReportFilter.startDate;
                           urlParams.endDate = $scope.lessonReportFilter.endDate;
+                          console.log("Start date: " + urlParams.startDate);
+                          console.log("End date: " + urlParams.endDate);
 
 
                           urlParams.where = angular.toJson(globalFunctions.cleanData($scope.lessonReportFilter));
@@ -150,11 +154,13 @@
                     contactLessonModel.GetList(urlParams).then(function (result) {
                        if (globalFunctions.resultHandler(result)) {
                            $scope.contactLessons = result.data;
+                           //$scope.objects = result.data;
                            fixData();
 
-                           console.log($scope.contactLessons);
-                           console.log($scope.contactLessons[0]);
-                           console.log($scope.contactLessons[0][0]);
+                           // console.log($scope.contactLessons);
+                           // console.log($scope.contactLessons[0]);
+                           // console.log($scope.contactLessons[0][0]);
+                           // console.log($scope.objects);
                        }
                     });
                 }

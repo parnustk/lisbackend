@@ -34,10 +34,10 @@
                             <span class="input-group-addon"
                                   id="lessonReportFilter-startDate">{{ T('LIS_STARTDATE') }}</span>
                             <input name="lessonReportFilterStartDate" ng-model="lessonReportFilter.startDate"
-                                   type="date" class="form-control" uib-datepicker-popup="{{format}}"
+                                   type="text" class="form-control" uib-datepicker-popup="{{format}}"
                                    is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close"
                                    placeholder="{{ T('LIS_DATESTART') }}"
-                                   aria-describedby="lessonReportFilter-startDate" max="2020-5-22">
+                                   aria-describedby="lessonReportFilter-startDate" datetime="yyyy-mm-dd">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="open1()"><i
                                         class="glyphicon glyphicon-calendar"></i></button>
@@ -50,7 +50,7 @@
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon"
                                   id="lessonReportFilter-endDate">{{ T('LIS_DATEEND') }}</span>
-                            <input name="lessonReportFilterEndDate" ng-model="lessonReportFilter.endDate" type="date"
+                            <input name="lessonReportFilterEndDate" ng-model="lessonReportFilter.endDate" type="text"
                                    class="form-control" uib-datepicker-popup="{{format}}" is-open="popup2.opened"
                                    datepicker-options="dateOptions" close-text="Close"
                                    placeholder="{{ T('LIS_ENDDATE') }}" aria-describedby="lessonReportFilter-endDate">
@@ -79,10 +79,9 @@
     <th>{{T('LIS_ROOM')}}</th>
 
     <tr ng-repeat="contactLesson in contactLessons">
-        <span ng-repeat="item in objects ">
         <td>
             <ul>
-                <li>{{ item.lessonDate.date }}</li>
+                <li>{{ contactLesson.lessonDate.date }}</li>
             </ul>
         </td>
         <td>
@@ -93,28 +92,27 @@
         <td>
             <ul>
                 <!--ng-repeat="name in contactLesson.name"-->
-                <li>{{ item.subjectRound.name }}</li>
+                <li>{{ contactLesson.subjectRound.name }}</li>
             </ul>
         </td>
         <td>
             <ul>
                 <!--ng-repeat="studentGroup in contactLesson.studentGroup"-->
-                <li>{{ item.studentGroup.name }}</li>
+                <li>{{ contactLesson.studentGroup.name }}</li>
             </ul>
         </td>
         <td>
             <ul>
                 <!--ng-repeat="teacher in contactLesson.teacher"-->
-                <li>{{ item.teacher.name }}</li>
+                <li>{{ contactLesson.teacher.name }}</li>
             </ul>
         </td>
         <td>
             <ul>
                 <!--ng-repeat="room in contactLesson.rooms"-->
-                <li>{{ item.rooms.name }}</li>
+                <li>{{ contactLesson.rooms.name }}</li>
             </ul>
         </td>
-        </span>
 
     </tr>
 
