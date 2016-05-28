@@ -39,7 +39,8 @@
         /*20*/'app/model/registerModel',
         /*1*/'app/controller/loginController',
         /*2*/'app/controller/diaryController',
-        /*17*/'app/controller/independentWorkController'
+        /*17*/'app/controller/independentWorkController',
+        'app/controller/timeTableController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -65,7 +66,8 @@
         /*20*/registerModel,
         /*1*/loginController,
         /*2*/diaryController,
-        /*17*/independentWorkController
+        /*17*/independentWorkController,
+        timeTableController
         ) {
 
         /**
@@ -297,6 +299,7 @@
         module.controller('loginController', loginController);
         module.controller('diaryController', diaryController);
         module.controller('independentWorkController', independentWorkController);
+        module.controller('timeTableController', timeTableController);
 
         return module;
     });
