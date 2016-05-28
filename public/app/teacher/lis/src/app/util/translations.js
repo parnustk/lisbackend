@@ -324,7 +324,7 @@
                 LIS_CREATE_NEW_INDEPENDENTWORK: 'Create new independent work',
                  //timetable
                 TEACHERABSENCEFILTER:'Filter',
-                SEARCH_A_STARTLESSONDATE:'Start',,
+                SEARCH_A_STARTLESSONDATE:'Start',
                 SEARCH_A_ENDLESSONDATE:'End'  
             }
         };
