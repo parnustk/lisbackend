@@ -208,7 +208,7 @@
                         };
                     };
 
-                    $scope.studentTimeTableFilter = {};
+                    $scope.teacherTimeTableFilter = {};
 
                     $scope.studentGroups = $scope.subjectRounds = $scope.teachers = $scope.rooms = [];
 
@@ -233,8 +233,8 @@
                     $scope.Filter = function (valid) {
                         resetUrlParams();
                         if (valid) {
-                            urlParams.startDate = moment($scope.studentTimeTableFilter.startDate).format('YYYY-MM-DD');
-                            urlParams.endDate = moment($scope.studentTimeTableFilter.endDate).format('YYYY-MM-DD');
+                            urlParams.startDate = moment($scope.teacherTimeTableFilter.startDate).format('YYYY-MM-DD');
+                            urlParams.endDate = moment($scope.teacherTimeTableFilter.endDate).format('YYYY-MM-DD');
                             LoadData();
 
                         } else {
