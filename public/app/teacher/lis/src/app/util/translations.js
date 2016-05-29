@@ -168,9 +168,9 @@
                 LIS_CREATE_NEW_INDEPENDENTWORK: 'Loo uus iseseisev töö',
                 LIS_CHOOSE_SUBJECTROUND: 'Vali voor',
                 //timetable
-                LIS_TEACHERABSENCEFILTER:'Filteeri',
-                SEARCH_A_STARTLESSONDATE:'Algus',
-                SEARCH_A_ENDLESSONDATE:'Lõpp'               
+                LIS_TEACHERABSENCEFILTER: 'Filteeri',
+                SEARCH_A_STARTLESSONDATE: 'Algus',
+                SEARCH_A_ENDLESSONDATE: 'Lõpp'
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -322,10 +322,10 @@
                 MODULE_GRID_FILTERS: 'Module filters',
                 SEARCH_A_MODULECODE: 'Search by code',
                 LIS_CREATE_NEW_INDEPENDENTWORK: 'Create new independent work',
-                 //timetable
-                LIS_TEACHERABSENCEFILTER:'Filter',
-                SEARCH_A_STARTLESSONDATE:'Start',
-                SEARCH_A_ENDLESSONDATE:'End'  
+                //timetable
+                LIS_TEACHERABSENCEFILTER: 'Filter',
+                SEARCH_A_STARTLESSONDATE: 'Start',
+                SEARCH_A_ENDLESSONDATE: 'End'
             }
         };
         return t;
