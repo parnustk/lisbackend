@@ -184,7 +184,7 @@
                      */
                     $scope.ClearFilters = function () {
                         resetUrlParams();
-                        $scope.studentTimeTableFilter = {};
+                        $scope.teacherTimeTableFilter = {};
                         delete urlParams.where;
                         LoadData();
                     };
@@ -197,14 +197,14 @@
                     var urlParams = {
                         page: 1,
                         limit: 100000,
-                        studentTimeTable: true
+                        teacherTimeTable: true
                     };
 
                     var resetUrlParams = function () {
                         urlParams = {
                             page: 1,
                             limit: 100000,
-                            studentTimeTable: true
+                            teacherTimeTable: true
                         };
                     };
 
