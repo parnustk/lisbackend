@@ -365,6 +365,23 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
                     'email' => 'adminemail' . uniqid() . '@mail.ee'
         ]);
     }
+    
+    protected function CreateSuperAdministrator($data = null)
+    {
+        $repository = $this->em->getRepository('Core\Entity\Administrator');
+
+        if ($data !== null) {
+            return $repository->Create($data);
+        }
+
+        return $repository->Create([
+                    'firstName' => 'firstName' . uniqid(),
+                    'lastName' => 'lastName' . uniqid(),
+                    'personalCode' => 'code' . uniqid(),
+                    'email' => 'adminemail' . uniqid() . '@mail.ee',
+                    'superAdministrator' => 1
+        ]);
+    }
 
     /**
      * GradeChoice
