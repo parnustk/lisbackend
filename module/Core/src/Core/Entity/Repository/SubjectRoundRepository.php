@@ -519,14 +519,13 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     JOIN subjectRound.contactLesson contactLesson
                     JOIN contactLesson.teacher teacher  
                     JOIN subjectRound.studentGroup studentGroup
-                    JOIN contactLesson.rooms rooms
-                    WHERE teacher.id = :teacherId";
+                    JOIN contactLesson.rooms rooms";
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
-            $dql .= " WHERE studentGroup.id=:studentGroupId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+            $dql .= " WHERE teacher.id = :teacherId AND studentGroup.id=:studentGroupId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
         } else {
-            $dql .= " WHERE studentGroup.id=:studentGroupId ";
+            $dql .= " WHERE teacher.id = :teacherId AND studentGroup.id=:studentGroupId ";
         }
 
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
@@ -1128,9 +1127,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
             }
         } else if (array_key_exists('teacherIndependentWork', $params)) {
             return $this->teacherIndependentWorkData($params, $extra);
-        }
-         else if (array_key_exists('teacherTimeTable', $params)) {
-                    return $this->teacherTimeTableData($params,$extra);
+        } else if (array_key_exists('teacherTimeTable', $params)) {
+            return $this->teacherTimeTableData($params, $extra);
         }
         //$this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
