@@ -17,6 +17,7 @@ namespace BackupDB\Service;
 
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Filter\File\RenameUpload;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use PDO;
@@ -394,12 +395,16 @@ class DumpService implements ServiceManagerAwareInterface
      *  LISBACKUP_upload_DDMMYYYY_HHMMSS.sql
      * TODO: Sanity checking, that the input file is actually an SQL dump.
      * 
-     * @param string $file
+     * @param array $file
      */
     public function upload($file)
     {
         $this->setFileName('upload');
-        file_put_contents(_PATH_ . $this->fileName, $file, FILE_APPEND);
+        $filter = \Zend\Filter\File\RenameUpload(array (
+            "target" => _PATH_ . $this->fileName,
+            "randomize" => false,
+            ));
+        echo $filter->filter($file);
     }
     
     /**

@@ -2,6 +2,8 @@
 
 namespace BackupDB\Controller;
 
+use Zend\Http\PhpEnvironment\Request;
+use Zend\Filter\File\RenameUpload;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\Model\ViewModel;
@@ -101,13 +103,13 @@ class DumpController extends AbstractActionController
             if ($request->isPost()) { //Logic for panel reload after submit
                 $postValues = $request->getPost();
                 if (array_key_exists('uploadsubmit', $postValues)) { //Upload
-                    $post = array_merge_recursive(
-                            $request->getPost()->toArray(), $request->getFiles()->toArray()
-                    );
-
-                    die('upload');
-
-                    //set no view render
+                    $files = $request->getFiles();
+                    $filename = 'data/BackupDB_Dumps/LISBACKUP_upload_' . 
+                        date('dmY') . '_' . date('His');
+                    $filter = new \Zend\Filter\File\RenameUpload($filename);
+                    var_dump($filter->filter($files['fileupload']));
+                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                    
                 } else if (array_key_exists('downloadsubmit', $postValues)) { //Download
                     $list = $this
                             ->getServiceLocator()
@@ -118,6 +120,7 @@ class DumpController extends AbstractActionController
                             ->getServiceLocator()
                             ->get($this->service)
                             ->download($fileName);
+                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
                 } else if (array_key_exists('pushsubmit', $postValues)) { //Push
                     if ($postValues['pushcheckbox'] == 1) {
                         $list = $this
@@ -129,6 +132,7 @@ class DumpController extends AbstractActionController
                                 ->getServiceLocator()
                                 ->get($this->service)
                                 ->pushDump($fileName, null);
+                        return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
                     } else {
                         return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
                     }
