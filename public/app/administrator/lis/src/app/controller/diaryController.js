@@ -74,7 +74,11 @@
 
                 $scope.diaryFilter = {};
 
-                $scope.subjectRounds = $scope.studentGroups = $scope.gradeChoices = $scope.gradeChoiceGradesOnly = [];
+                $scope.subjectRounds = [];
+                $scope.studentGroups = [];
+                $scope.gradeChoices = [];
+                $scope.gradeChoiceGradesOnly = [];
+                $scope.absenceReasonsOnly = [];
 
                 gradeChoiceModel.GetList({}).then(function (result) {//get'em all no params for filter
 
@@ -83,6 +87,8 @@
                         for (var a in result.data) {
                             if (result.data[a].lisType !== "absencereason") {
                                 $scope.gradeChoiceGradesOnly.push(result.data[a]);
+                            } else if (result.data[a].lisType !== "gradechoice" && result.data[a].lisType !== 'erase') {
+                                $scope.absenceReasonsOnly.push(result.data[a]);
                             }
                         }
 
@@ -101,6 +107,15 @@
                         });
                     }
                 });
+
+                var isAbsenceReason = function (idAR) {
+                    for (var q in $scope.absenceReasonsOnly) {
+                        if ($scope.absenceReasonsOnly[q].id === parseInt(idAR)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                };
 
                 $scope.columns = [
                     {
@@ -149,7 +164,7 @@
                                     teacher: teacherId,
                                     contactLesson: buf.contactLessonId
                                 };
-                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
+                                if (originalEntity.studentGradeId === null && buf.name && buf.name.trim() !== '' && isAbsenceReason(newValue)) {//CREATE
                                     studentGradeModel.Create(data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
@@ -161,7 +176,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id && isAbsenceReason(newValue)) {//UPDATE
                                     studentGradeModel.Update(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
@@ -171,7 +186,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() === '' && isAbsenceReason(newValue)) {//DELETE
                                     studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
@@ -187,140 +202,14 @@
                                             }
                                         }
                                     );
+                                } else { //reverse original
+                                    buf = originalEntity;
                                 }
+
                                 rowEntity[colDef.name] = buf;
 
-                            } else if (/^iw/i.test(colDef.name)) {//START independentwork Grades CRUD
-
-                                var x,
-                                    buf = {},
-                                    newGrade = {},
-                                    originalEntity = originalRows[rowEntity.nr][colDef.name];
-                                angular.copy(originalEntity, buf);
-                                for (x in $scope.gradeChoiceGradesOnly) {
-                                    if ($scope.gradeChoiceGradesOnly[x].id === newValue) {
-                                        newGrade.id = newValue;
-                                        newGrade.name = $scope.gradeChoiceGradesOnly[x].name;
-                                        break;
-                                    }
-                                }
-                                buf.id = newGrade.id;
-                                buf.name = newGrade.name;
-                                var data = {
-                                    student: buf.studentId,
-                                    gradeChoice: buf.id,
-                                    teacher: teacherId,
-                                    independentWork: buf.independentWorkId
-                                };
-                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
-                                    studentGradeModel.Create(data).then(
-                                        function (result) {
-                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
-                                                buf.studentGradeId = result.data.id;
-                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                            } else {
-                                                //alert('BAD CREATE');
-                                                buf = originalEntity;//reverse changes if unsuccessful
-                                            }
-                                        }
-                                    );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
-                                    studentGradeModel.Update(originalEntity.studentGradeId, data).then(
-                                        function (result) {
-                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
-                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                            } else {//alert('BAD UPDATE');
-                                                buf = originalEntity;//reverse changes if unsuccessful
-                                            }
-                                        }
-                                    );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
-                                    studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
-                                        function (result) {
-                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
-                                                buf = {
-                                                    id: null,
-                                                    name: null,
-                                                    studentGradeId: null,
-                                                    teacherId: null
-                                                };
-                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                            } else {
-                                                buf = originalEntity;//reverse changes if unsuccessful//alert('BAD DELETE');
-                                            }
-                                        }
-                                    );
-                                }
-                                rowEntity[colDef.name] = buf;
-
-                            } else if (colDef.name === 'sr') {//START SUBJECTROUND Grades CRUD
-
-                                var x,
-                                    buf = {},
-                                    newGrade = {},
-                                    originalEntity = originalRows[rowEntity.nr][colDef.name];
-
-                                angular.copy(originalEntity, buf);
-                                for (x in $scope.gradeChoiceGradesOnly) {
-                                    if ($scope.gradeChoiceGradesOnly[x].id === newValue) {
-                                        newGrade.id = newValue;
-                                        newGrade.name = $scope.gradeChoiceGradesOnly[x].name;
-                                        break;
-                                    }
-                                }
-                                buf.id = newGrade.id;
-                                buf.name = newGrade.name;
-                                var data = {
-                                    student: buf.studentId,
-                                    gradeChoice: buf.id,
-                                    teacher: teacherId,
-                                    subjectRound: buf.subjectRoundId
-                                };
-                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
-                                    studentGradeModel.Create(data).then(
-                                        function (result) {
-                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
-                                                buf.studentGradeId = result.data.id;
-                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                            } else {
-                                                //alert('BAD CREATE');
-                                                buf = originalEntity;//reverse changes if unsuccessful
-                                            }
-                                        }
-                                    );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
-                                    studentGradeModel.Update(originalEntity.studentGradeId, data).then(
-                                        function (result) {
-                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
-                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                            } else {//alert('BAD UPDATE');
-                                                buf = originalEntity;//reverse changes if unsuccessful
-                                            }
-                                        }
-                                    );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
-                                    studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
-                                        function (result) {
-                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
-                                                buf = {
-                                                    id: null,
-                                                    name: null,
-                                                    studentGradeId: null,
-                                                    teacherId: null
-                                                };
-                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
-                                            } else {
-                                                buf = originalEntity;//reverse changes if unsuccessful//alert('BAD DELETE');
-                                            }
-                                        }
-                                    );
-                                }
-                                rowEntity[colDef.name] = buf;
-                                
                             } else {//Anomaly
-                                
                                 throw 'Whaaaaat column is this?';
-                                
                             }
 
                             $scope.$apply();
@@ -576,13 +465,13 @@
                             toolTip = (
                                 iw.name + "\n" +
                                 iw.description + "\n" +
-                                globalFunctions.formatDate(iw.duedate.date)+ "\n" +
+                                globalFunctions.formatDate(iw.duedate.date) + "\n" +
                                 iw.durationAK + 'AK'),
                             newColumnIW = {//think of tooltips
                                 //field: columnNameId,
                                 name: columnName,
                                 displayName: iw.name,
-                                enableCellEdit: true,
+                                enableCellEdit: false,
                                 editDropdownOptionsArray: $scope.gradeChoiceGradesOnly,
                                 type: 'object',
                                 editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -627,7 +516,7 @@
                             //field: columnNameId,
                             name: columnNameSR,
                             displayName: $scope.T('LIS_SUBJECTROUND_GRADE'),
-                            enableCellEdit: true,
+                            enableCellEdit: false,
                             editDropdownOptionsArray: $scope.gradeChoiceGradesOnly,
                             type: 'object',
                             editableCellTemplate: 'ui-grid/dropdownEditor',

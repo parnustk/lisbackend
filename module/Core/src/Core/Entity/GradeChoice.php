@@ -15,7 +15,6 @@ use Zend\Form\Annotation;
 use Core\Utils\EntityValidation;
 use Doctrine\ORM\EntityManager;
 use DateTime;
-use Core\Entity\Absence;
 
 /**
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\GradeChoiceRepository")

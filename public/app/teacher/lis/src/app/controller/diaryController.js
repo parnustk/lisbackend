@@ -52,9 +52,9 @@
                 gradeChoiceModel,
                 studentGradeModel,
                 absenceModel) {
-                    
+
                 /* jshint ignore:start */
-                
+
                 $scope.T = globalFunctions.T;
 
                 var teacherId = 1; //Static for now
@@ -75,7 +75,10 @@
 
                 $scope.diaryFilter = {};
 
-                $scope.subjectRounds = $scope.studentGroups = $scope.gradeChoices = $scope.gradeChoiceGradesOnly = [];
+                $scope.subjectRounds = [];
+                $scope.studentGroups = [];
+                $scope.gradeChoices = [];
+                $scope.gradeChoiceGradesOnly = [];
 
                 gradeChoiceModel.GetList({}).then(function (result) {//get'em all no params for filter
 
@@ -86,7 +89,7 @@
                                 $scope.gradeChoiceGradesOnly.push(result.data[a]);
                             }
                         }
-                        
+
                         urlParamsSubjectRound.diaryview = 'diaryInitTeacher';
                         subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//get'em all no params for filter
                             if (globalFunctions.resultHandler(result)) {
@@ -150,7 +153,7 @@
                                     teacher: teacherId,
                                     contactLesson: buf.contactLessonId
                                 };
-                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
+                                if (originalEntity.studentGradeId === null && buf.name && buf.name.trim() !== '') {//CREATE
                                     studentGradeModel.Create(data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
@@ -162,7 +165,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
                                     studentGradeModel.Update(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
@@ -172,7 +175,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() === '') {//DELETE
                                     studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
@@ -188,7 +191,10 @@
                                             }
                                         }
                                     );
+                                } else { //reverse original
+                                    buf = originalEntity;
                                 }
+                                
                                 rowEntity[colDef.name] = buf;
 
                             } else if (/^iw/i.test(colDef.name)) {//START independentwork Grades CRUD
@@ -213,7 +219,7 @@
                                     teacher: teacherId,
                                     independentWork: buf.independentWorkId
                                 };
-                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
+                                if (originalEntity.studentGradeId === null && buf.name && buf.name.trim() !== '') {//CREATE
                                     studentGradeModel.Create(data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
@@ -225,7 +231,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
                                     studentGradeModel.Update(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
@@ -235,7 +241,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() === '') {//DELETE
                                     studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
@@ -251,7 +257,10 @@
                                             }
                                         }
                                     );
+                                } else { //reverse original
+                                    buf = originalEntity;
                                 }
+                                
                                 rowEntity[colDef.name] = buf;
 
                             } else if (colDef.name === 'sr') {//START SUBJECTROUND Grades CRUD
@@ -277,7 +286,7 @@
                                     teacher: teacherId,
                                     subjectRound: buf.subjectRoundId
                                 };
-                                if (originalEntity.studentGradeId === null && buf.name.trim() !== '') {//CREATE
+                                if (originalEntity.studentGradeId === null && buf.name && buf.name.trim() !== '') {//CREATE
                                     studentGradeModel.Create(data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
@@ -289,7 +298,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
                                     studentGradeModel.Update(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
@@ -299,7 +308,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() === '') {//DELETE
                                     studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
@@ -315,13 +324,16 @@
                                             }
                                         }
                                     );
+                                } else { //reverse original
+                                    buf = originalEntity;
                                 }
+                                
                                 rowEntity[colDef.name] = buf;
-                                
+
                             } else {//Anomaly
-                                
+
                                 throw 'Whaaaaat column is this?';
-                                
+
                             }
 
                             $scope.$apply();
@@ -577,7 +589,7 @@
                             toolTip = (
                                 iw.name + "\n" +
                                 iw.description + "\n" +
-                                globalFunctions.formatDate(iw.duedate.date)+ "\n" +
+                                globalFunctions.formatDate(iw.duedate.date) + "\n" +
                                 iw.durationAK + 'AK'),
                             newColumnIW = {//think of tooltips
                                 //field: columnNameId,
