@@ -9,6 +9,8 @@ use Zend\Form\Element\Select;
 use Zend\File\Transfer;
 use BackupDB\Form\loginForm;
 use BackupDB\Form\panelForm;
+use Zend\Authentication\Storage;
+use Zend\Session\Container as SessionContainer;
 
 class DumpController extends AbstractActionController
 {
@@ -47,51 +49,19 @@ class DumpController extends AbstractActionController
     }
 
     /**
-     * Initial Display; List filenames of dumps on server for front-end display
-     * Set up XDebug
-     * @param type $filter
+     * Redirect to login action
+     * 
      */
     public function indexAction()
     {
-        $this->loginAction();
+        return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
     }
 
     /**
-     * Create new dump and return to client
+     * Display login view
      * 
      * @return ViewModel
      */
-    public function createManualAction()
-    {
-        $this
-                ->getServiceLocator()
-                ->get($this->service)
-                ->createDump('manual');
-    }
-
-    /**
-     * Push server dump named $dumpName to DB, or push raw $dumpData to DB
-     * 
-     * @param string $filename
-     * @param boolean $clearTable
-     */
-    public function pushAction($filename, $clearTable)
-    {
-        $this
-                ->getServiceLocator()
-                ->get($this->service)
-                ->pushDump($filename, $clearTable);
-//        return new ViewModel([
-//            'content' => 'Push Backup Placeholder'
-//        ]);
-    }
-
-    public function testAction()
-    {
-        $data = 'kontrollerist';
-        return new ViewModel(['something' => $data]);
-    }
-
     public function loginAction()
     {//usr psq from config
         //zend form
@@ -107,9 +77,9 @@ class DumpController extends AbstractActionController
             $inputpwd = $request->getPost('password');
             $uname = $data['backupdb']['login']['loginuser'];
             $pwd = $data['backupdb']['login']['loginpwd'];
-//            if ($inputname == $uname && $inputpwd == $pwd) {
-            if (true) { //for panel testing
+            if ($inputname == $uname && $inputpwd == $pwd) {
                 //TODO: Session initialization
+
                 return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
             } else {
                 return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
@@ -124,8 +94,6 @@ class DumpController extends AbstractActionController
 
     public function panelAction()//control panel
     {
-
-
         //check session if credentials not ok redirect to login
         $data = include 'config/autoload/backupdb.local.php';
         if (true) { //TODO: session check for credentials
@@ -134,10 +102,9 @@ class DumpController extends AbstractActionController
                 $postValues = $request->getPost();
                 if (array_key_exists('uploadsubmit', $postValues)) { //Upload
                     $post = array_merge_recursive(
-                            $request->getPost()->toArray(),
-                            $request->getFiles()->toArray()
+                            $request->getPost()->toArray(), $request->getFiles()->toArray()
                     );
-                    
+
                     die('upload');
 
                     //set no view render
@@ -151,17 +118,20 @@ class DumpController extends AbstractActionController
                             ->getServiceLocator()
                             ->get($this->service)
                             ->download($fileName);
-                } else if (array_key_exists('pushsubmit', $postValues) 
-                          && array_key_exists('pushcheckbox', $postValues)) { //Push
-                    $list = $this
-                            ->getServiceLocator()
-                            ->get($this->service)
-                            ->getFilenames();
-                    $fileName = $list[$postValues['pushselect']];
-                    $this
-                            ->getServiceLocator()
-                            ->get($this->service)
-                            ->pushDump($fileName, null);
+                } else if (array_key_exists('pushsubmit', $postValues)) { //Push
+                    if ($postValues['pushcheckbox'] == 1) {
+                        $list = $this
+                                ->getServiceLocator()
+                                ->get($this->service)
+                                ->getFilenames();
+                        $fileName = $list[$postValues['fileselect']];
+                        $this
+                                ->getServiceLocator()
+                                ->get($this->service)
+                                ->pushDump($fileName, null);
+                    } else {
+                        return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                    }
                 } else {
                     return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
                 }

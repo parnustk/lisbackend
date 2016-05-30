@@ -100,7 +100,7 @@ class panelForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Push Selected backup to DB',
-                'id' => 'pushsubmit'
+                'id' => 'dbpushsubmit'
             ),
         ));
     }
