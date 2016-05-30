@@ -87,7 +87,7 @@
                         for (var a in result.data) {
                             if (result.data[a].lisType !== "absencereason") {
                                 $scope.gradeChoiceGradesOnly.push(result.data[a]);
-                            } else if (result.data[a].lisType !== "gradechoice" && result.data[a].lisType !== 'erase') {
+                            } else if (result.data[a].lisType !== "gradechoice") {
                                 $scope.absenceReasonsOnly.push(result.data[a]);
                             }
                         }
@@ -110,7 +110,7 @@
 
                 var isAbsenceReason = function (idAR) {
                     for (var q in $scope.absenceReasonsOnly) {
-                        if ($scope.absenceReasonsOnly[q].id === parseInt(idAR)) {
+                        if ($scope.absenceReasonsOnly[q].id === idAR) {
                             return true;
                         }
                     }
@@ -176,7 +176,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id && isAbsenceReason(newValue)) {//UPDATE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id && isAbsenceReason(newValue)  && isAbsenceReason(oldValue.id)) {//UPDATE
                                     studentGradeModel.Update(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
@@ -186,7 +186,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() === '' && isAbsenceReason(newValue)) {//DELETE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() === '' && isAbsenceReason(newValue) && isAbsenceReason(oldValue.id)) {//DELETE
                                     studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
