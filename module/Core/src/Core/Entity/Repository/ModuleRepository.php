@@ -152,7 +152,9 @@ class ModuleRepository extends AbstractBaseRepository
                     (student.id=:studentId OR student.id IS NULL) AND
                     (studentSR.id=:studentId OR studentSR.id IS NULL) AND
                     (studentCL.id=:studentId OR studentCL.id IS NULL) AND
-                    (studentIW.id=:studentId OR studentIW.id IS NULL) ";
+                    (studentIW.id=:studentId OR studentIW.id IS NULL) 
+                    
+                ORDER BY independentWork.duedate ASC, contactLesson.lessonDate ASC";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
