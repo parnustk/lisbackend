@@ -366,6 +366,13 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         ]);
     }
     
+    /**
+     * SuperAdministrator
+     * @author Kristen Sepp <seppkristen@gmail.com>
+     * 
+     * @param type $data
+     * @return type
+     */
     protected function CreateSuperAdministrator($data = null)
     {
         $repository = $this->em->getRepository('Core\Entity\Administrator');
@@ -375,10 +382,10 @@ abstract class UnitHelpers extends \PHPUnit_Framework_TestCase
         }
 
         return $repository->Create([
-                    'firstName' => 'firstName' . uniqid(),
-                    'lastName' => 'lastName' . uniqid(),
+                    'firstName' => 'Super' . uniqid(),
+                    'lastName' => 'Admin' . uniqid(),
                     'personalCode' => 'code' . uniqid(),
-                    'email' => 'adminemail' . uniqid() . '@mail.ee',
+                    'email' => 'superadminemail' . uniqid() . '@mail.ee',
                     'superAdministrator' => 1
         ]);
     }

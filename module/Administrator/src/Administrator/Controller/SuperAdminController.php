@@ -27,7 +27,7 @@ class SuperAdminController extends Base
      *
      * @var string
      */
-    protected $service = 'administrator_service';
+    protected $service = 'superadmin_service';
 
     /**
      * <h2>GET admin/student</h2>
@@ -83,7 +83,7 @@ class SuperAdminController extends Base
      */
     public function update($id, $data)
     {
-        return parent::update($id, $data);
+        return parent::noAllowed();
     }
 
     /**

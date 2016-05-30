@@ -12,8 +12,12 @@ namespace Core\Entity\Repository;
 
 use Core\Entity\LisUser;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Zend\Paginator\Paginator;
 use Exception;
 use Zend\Json\Json;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Query;
 use Zend\Crypt\Password\Bcrypt;
 
@@ -126,10 +130,10 @@ class LisUserRepository extends EntityRepository
     /**
      * 
      */
-    public function getLisUserList($params = null, $extra = null)
+    public function GetList($params = null, $extra = null)
     {
         $dql = "SELECT
-                    partial lisuser.{
+                    partial lisUser.{
                         id,
                         email,
                         password,
@@ -154,9 +158,21 @@ class LisUserRepository extends EntityRepository
                         email,
                         personalCode
                     }
-                FROM Core\Entity\LisUser lisuser
+                FROM Core\Entity\LisUser lisUser
                 
-                ";    
+                LEFT JOIN lisUser.administrator administrator
+                LEFT JOIN lisUser.teacher teacher
+                LEFT JOIN lisUser.student student
+                
+                ";   
+        
+        $q = $this->getEntityManager()->createQuery($dql);
+//        var_dump($q); die();
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+//        var_dump(new Paginator(new DoctrinePaginator(new ORMPaginator($q))));
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
     }
 
 }
