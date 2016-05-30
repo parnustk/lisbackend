@@ -191,8 +191,7 @@
                     durationAK: null,
                     trashed: null,
                     subjectRound: null,
-                    teacher: null,
-                    student: null
+                    teacher: null
                 };
 
                 $scope.subjectRounds = [];
@@ -235,17 +234,6 @@
                             field: "teacher",
                             name: "teacher",
                             displayName: $scope.T('LIS_TEACHER'),
-                            editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
-                            editDropdownIdLabel: "id",
-                            editDropdownValueLabel: "name",
-                            sortCellFiltered: $scope.sortFiltered,
-                            cellFilter: 'griddropdown:this',
-                            enableCellEdit: false
-                        },
-                        {//select one
-                            field: "student",
-                            name: "student",
-                            displayName: $scope.T('LIS_STUDENT'),
                             editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                             editDropdownIdLabel: "id",
                             editDropdownValueLabel: "name",
@@ -384,17 +372,9 @@
                                     $scope.teachers = result.data;
                                     $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.teachers;
 
-                                    studentModel.GetList({}).then(function (result) {
-                                        if (globalFunctions.resultHandler(result)) {
-
-                                            $scope.students = result.data;
-                                            $scope.gridOptions.columnDefs[3].editDropdownOptionsArray = $scope.students;
-
                                             independentWorkModel.GetList(urlParams).then(function (result) {
                                                 if (globalFunctions.resultHandler(result)) {
                                                     $scope.gridOptions.data = result.data;
-                                                }
-                                            });
                                         }
                                     });
                                 }
