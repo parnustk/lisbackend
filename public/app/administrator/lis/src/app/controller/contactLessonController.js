@@ -170,7 +170,8 @@
                         studentGroup: null,
                         module: null,
                         vocation: null,
-                        teacher: null
+                        teacher: null,
+                        trashed: null
                     };
 
                     $scope.roomsAll = $scope.subjectRounds = $scope.studentGroups = $scope.modules = $scope.vocations = $scope.teachers = [];
@@ -274,6 +275,10 @@
                             },
                             {field: 'description',
                                 displayName: $scope.T('LIS_DESCRIPTION'),
+                            },
+                            {
+                                field: 'trashed',
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,
