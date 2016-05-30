@@ -1,6 +1,6 @@
 <h2>{{ T('LIS_INDEPENDENTWORK_VIEW')}}</h2>
 
-<form class="form-horizontal" name="independentWorkForm" ng-submit="Create(independentWorkForm.$valid)">
+<form class="form-horizontal col-md-6" role="form" name="independentWorkForm" ng-submit="Create(independentWorkForm.$valid)">
 
     <fieldset>
 
@@ -36,7 +36,7 @@
         <div class="form-group" ng-class="{ 'has-error': independentWorkForm.duedate.$invalid }">
             <div class="col-lg-6">
                 <p class="input-group">
-                    <span class="input-group-addon input-group-lg" id="independentWorkForm-duedate">{{ T('LIS_DUEDATE')}}</span>
+                    <span class="input-group-addon" id="independentWorkForm-duedate">{{ T('LIS_DUEDATE')}}</span>
                     <input type="text" name="duedate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="independentWork.duedate" placeholder="{{ T('LIS_DUEDATE')}}" aria-describedby="independentWorkForm-duedate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -48,8 +48,8 @@
         <div class="form-group" ng-class="{ 'has-error': independentWorkForm.description.$invalid }">
             <div class="col-lg-6">
                 <p class="input-group input-group-lg">
-                <span class="input-group-addon" id="independentWorkForm-description">{{ T('LIS_DESCRIPTION')}}</span>
-                <input name="description" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_DESCRIPTION')}}" aria-describedby="independentWorkForm-description" ng-model="independentWork.description">
+                    <span class="input-group-addon" id="independentWorkForm-description">{{ T('LIS_DESCRIPTION')}}</span>
+                    <input name="description" ng-required="true" type="text" class="form-control" placeholder="{{ T('LIS_DESCRIPTION')}}" aria-describedby="independentWorkForm-description" ng-model="independentWork.description">
                 </p>
             </div>
         </div>
@@ -63,12 +63,7 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE')}}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-
+        <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE')}}</button>
 
     </fieldset>
 </form>
@@ -83,7 +78,7 @@
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
 
-                        <ui-select allow-clear ng-model="independentWorkFilter.subjectRound" theme="bootstrap" class="dropdown" style="width: 310px;">
+                        <ui-select name="subjectRound" ng-required="true" ng-model="independentWorkFilter.subjectRound" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
                             <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
                                 <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
@@ -108,4 +103,4 @@
     </form>
 </div>
 
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid lis-grid"></div>
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-selection ui-grid-exporter ui-grid-cellNav class="grid"></div>

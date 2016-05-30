@@ -115,13 +115,18 @@ class IndependentWorkRepository extends AbstractBaseRepository
                         id,
                         name
                     },
+                    partial studentGroup.{
+                            id,
+                            name
+                    },
                     partial teacher.{
                         id,
                         name
                     }
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
-                JOIN $this->baseAlias.subjectRound subjectRound";
+                JOIN $this->baseAlias.subjectRound subjectRound
+                LEFT JOIN subjectRound.studentGroup studentGroup";
 
         return $dql;
     }
@@ -509,7 +514,9 @@ class IndependentWorkRepository extends AbstractBaseRepository
      */
     private function teacherGetList($params = null, $extra = null)
     {
-        return $this->defaultGetList($params, $extra);
+        $id = $extra->lisPerson->getId();
+        $dqlRestriction = " AND $this->baseAlias.teacher=$id";
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
     /**

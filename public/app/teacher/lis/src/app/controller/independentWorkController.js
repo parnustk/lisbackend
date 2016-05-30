@@ -40,6 +40,7 @@
                     '$routeParams',
                     'rowSorter',
                     'uiGridConstants',
+                    'contactLessonModel',
                     'independentWorkModel',
                     'subjectRoundModel',
                     'studentGroupModel',
@@ -54,6 +55,7 @@
                  * @param {type} $routeParams
                  * @param {type} rowSorter
                  * @param {type} uiGridConstants
+                 * @param {type} contactLessonModel
                  * @param {type} independentWorkModel
                  * @param {type} subjectRoundModel
                  * @param {type} studentGroupModel
@@ -67,6 +69,7 @@
                         $routeParams,
                         rowSorter,
                         uiGridConstants,
+                        contactLessonModel,
                         independentWorkModel,
                         subjectRoundModel,
                         studentGroupModel,
@@ -243,7 +246,7 @@
                                 field: "duedate['date']",
                                 name: "duedate['date']",
                                 displayName: $scope.T('LIS_DUEDATE'),
-                                type: "date",
+                                type: 'date',
                                 cellFilter: 'date:"yyyy-MM-dd"',
                                 width: '20%'
 //                                visible: false

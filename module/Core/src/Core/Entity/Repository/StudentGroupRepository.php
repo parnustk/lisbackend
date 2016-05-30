@@ -608,12 +608,15 @@ class StudentGroupRepository extends AbstractBaseRepository
      */
     private function administratorGetList($params = null, $extra = null)
     {
-        switch ($params['diaryview']) {
-            case 'diaryInitAdmin':
-                return $this->diaryInitAdmin($params, $extra);
-            case 'diaryview':
-                return $this->diaryRelatedData($params, $extra);
+        if (array_key_exists('diaryview', $params)) {
+            switch ($params['diaryview']) {
+                case 'diaryInitAdmin':
+                    return $this->diaryInitAdmin($params, $extra);
+                case 'diaryview':
+                    return $this->diaryRelatedData($params, $extra);
+            }
         }
+
         return $this->defaultGetList($params, $extra);
     }
 
