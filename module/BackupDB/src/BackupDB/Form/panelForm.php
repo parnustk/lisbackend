@@ -111,6 +111,14 @@ class panelForm extends Form
                 'id' => 'logoutsubmit'
             ),
         ));
+        $this->add(array(
+            'name' => 'createsubmit',
+            'attributes' => array(
+                'type' => 'submit',
+                'value' => 'Create Backup on Server',
+                'id' => 'createsubmit'
+            ),
+        ));
     }
 
 }

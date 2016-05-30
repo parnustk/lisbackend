@@ -151,7 +151,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $host = $data['backupdb']['connection']['params']['host'];
         $dbname = $data['backupdb']['connection']['params']['dbname'];
         $uname = $data['backupdb']['connection']['params']['user'];
-        $dbpwd = $data['backupdb']['connection']['params']['password'];
+        $dbpwd = $data['backupdb']['connection']['params']['pwd'];
 
         $this->db = new PDO(
                 'mysql:host=' . $host .
@@ -183,10 +183,10 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      * 
      * @param string $type
      */
-    public function createDump($type)
+    public function createDump()
     {
         $this->setUp(); //Open DB connection
-        $this->setFilename($type); //Set filename of backup file
+        $this->setFilename('server'); //Set filename of backup file
         $this->dumpData = "SET FOREIGN_KEY_CHECKS=0; \n"; //Disables foreign key checks when restoring backup
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
         $this->dumpData = null;
@@ -259,13 +259,6 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $this->dumpData = "SET FOREIGN_KEY_CHECKS=1;"; //Re-enables foreign key checks when db has been restored from backup file
         file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
         print_r("Created dumpfile " . $this->fileName);
-//        if ($type == 'manual') {
-//            header("Content-disposition: attachment;filename=$this->filename");
-//            file_get_contents($this->filename);
-//            return 'successM';
-//        } else {
-//            return 'successA';
-//        }
     }
 
     /**

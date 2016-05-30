@@ -108,7 +108,13 @@ class DumpController extends AbstractActionController
             $request = $this->getRequest();
             if ($request->isPost()) { //Logic for panel reload after submit
                 $postValues = $request->getPost();
-                if (array_key_exists('uploadsubmit', $postValues)) { //Upload
+                if (array_key_exists('createsubmit', $postValues)) { //Create new backup on server
+                    $list = $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->createDump();
+                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                } else if (array_key_exists('uploadsubmit', $postValues)) { //Upload
                     $files = $request->getFiles();
                     $filename = 'data/BackupDB_Dumps/LISBACKUP_upload_' .
                             date('dmY') . '_' . date('His');
@@ -171,17 +177,4 @@ class DumpController extends AbstractActionController
             die();
         }
     }
-
-    /**
-     * Passes upload request to Service
-     * @param string $file
-     */
-    public function uploadAction($file)
-    {
-        $this
-                ->getServiceLocator()
-                ->get($this->service)
-                ->upload($file);
-    }
-
 }
