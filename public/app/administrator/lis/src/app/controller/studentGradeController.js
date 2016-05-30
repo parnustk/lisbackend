@@ -248,11 +248,6 @@
                                 field: 'notes',
                                 displayName: $scope.T('LIS_NOTES'),
                                 enableCellEdit: false
-                            },
-                            {
-                                field: 'trashed',
-                                displayName: $scope.T('LIS_TRASHED'),
-                                enableCellEdit: false
                             }
                         ],
                         enableGridMenu: true,
