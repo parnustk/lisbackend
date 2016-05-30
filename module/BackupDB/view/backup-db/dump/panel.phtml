@@ -1,8 +1,4 @@
 <!-- here we have pure html-->
-<p>Action "panel", controller "Dump", module "BackupDB".<br>
-show panel form / file upload field, upload button, download button, 
-serverside restore button, serverside back, logout button
-</p>
 <?php
  $title = 'Backup Control Panel';
  $this->headTitle($title);
@@ -18,6 +14,8 @@ $form->prepare();
 echo $this->form()->openTag($form);
 echo $this->formRow($form->get('fileupload'));
 echo $this->formSubmit($form->get('uploadsubmit'));
+echo '<br>The file will be added to the selection list with the name: '
+. 'LISBACKUP_upload_[DATE]_[TIME]';
 echo $this->form()->closeTag();
 
 echo $this->form()->openTag($form);
@@ -29,4 +27,8 @@ echo '<br>';
 echo $this->formRow($form->get('pushcheckbox'));
 echo '<br>';
 echo $this->formSubmit($form->get('pushsubmit'));
+echo $this->form()->closeTag();
+
+echo $this->form()->openTag($form);
+echo $this->formSubmit($form->get('logoutsubmit'));
 echo $this->form()->closeTag();

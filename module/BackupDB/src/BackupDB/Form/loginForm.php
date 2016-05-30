@@ -29,23 +29,23 @@ class loginForm extends Form
             'name' => 'username',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Username*',
+                'label' => 'Username',
             ),
         ));
         
         $this->add(array(
             'name' => 'password',
-            'type' => 'Text',
+            'type' => 'Password',
             'options' => array(
-                'label' => 'Password*',
+                'label' => 'Password',
             ),
         ));
         
         $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
+            'label' => 'Log In',
             'attributes' => array(
-                'value' => 'LoginIn',
                 'id' => 'submitbutton',
             ),
         ));

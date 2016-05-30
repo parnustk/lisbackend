@@ -21,13 +21,15 @@ use Zend\Filter\File\RenameUpload;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use PDO;
+use Zend\Authentication\Storage;
+use Zend\Session\Container as SessionContainer;
 
 define("_PATH_", "data/BackupDB_Dumps/");
 
 /**
  * @author Marten Kähr <marten@kahr.ee>
  */
-class DumpService implements ServiceManagerAwareInterface
+class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterface
 {
 
     /**
@@ -418,5 +420,118 @@ class DumpService implements ServiceManagerAwareInterface
         array_pop($dumpList);
         array_pop($dumpList);
         return $dumpList;
+    }
+    
+    //END DB & File handling methods
+    //START Session Storage methods and variables
+    
+    /**
+     * @var Storage\StorageInterface
+     */
+    protected $storage;
+    
+    /**
+     * Returns the persistent storage handler
+     *
+     * Session storage is used by default unless a different storage adapter has been set.
+     *
+     * @return Storage\StorageInterface
+     */
+    public function getStorage()
+    {
+        if (null === $this->storage) {
+            $this->setStorage(new Storage\Session('DumpService'));
+        }
+        return $this->storage;
+    }
+    
+    /**
+     * Sets the persistent storage handler
+     *
+     * @param  Storage\StorageInterface $storage
+     * @return AbstractAdapter Provides a fluent interface
+     */
+    public function setStorage(Storage\StorageInterface $storage)
+    {
+        $this->storage = $storage;
+        return $this;
+    }
+    
+    /**
+     * Returns true if and only if storage is empty
+     *
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If it is impossible to determine whether
+     * storage is empty or not
+     * @return boolean
+     */
+    public function isEmpty()
+    {
+        if ($this->getStorage()->isEmpty()) {
+            return true;
+        }
+        $identity = $this->getStorage()->read();
+        if ($identity === null) {
+            $this->clear();
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Returns the contents of storage
+     *
+     * Behavior is undefined when storage is empty.
+     *
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If reading contents from storage is impossible
+     * @return mixed
+     */
+    public function read()
+    {
+        return $this->getStorage()->read();
+    }
+    
+    /**
+     * Writes $contents to storage
+     *
+     * @param  mixed $contents
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If writing $contents to storage is impossible
+     * @return void
+     */
+    public function write($contents)
+    {
+        $this->getStorage()->write($contents);
+    }
+    
+    /**
+     * Clears contents from storage
+     *
+     * @throws \Zend\Authentication\Exception\InvalidArgumentException If clearing contents from storage is impossible
+     * @return void
+     */
+    public function clear()
+    {
+        $this->getStorage()->clear();
+    }
+
+    /**
+     * Logs out
+     * @param int $id
+     * @return void
+     */
+    public function logout()
+    {
+        $this->getStorage()->clear();
+    }
+    
+    /**
+     * Initalizes session to use/get data
+     * @return mixed
+     */
+    private function session()
+    {
+        $session = new SessionContainer($this->getStorage()->getNameSpace());
+        $session->getManager()->regenerateId();
+        $storage = $this->getStorage()->read();
+        return $storage;
     }
 }

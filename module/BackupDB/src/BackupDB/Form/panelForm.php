@@ -99,8 +99,16 @@ class panelForm extends Form
             'name' => 'pushsubmit',
             'attributes' => array(
                 'type' => 'submit',
-                'value' => 'Push Selected backup to DB',
+                'value' => 'Push Selected Backup to DB',
                 'id' => 'dbpushsubmit'
+            ),
+        ));
+        $this->add(array(
+            'name' => 'logoutsubmit',
+            'attributes' => array(
+                'type' => 'submit',
+                'value' => 'Logout',
+                'id' => 'logoutsubmit'
             ),
         ));
     }

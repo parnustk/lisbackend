@@ -69,7 +69,7 @@ class DumpController extends AbstractActionController
         //zend form
         //if credentials ok, put to session and redirect to panel
         $form = new loginForm('loginForm');
-        $form->get('submit')->setValue('Add');
+        $form->get('submit')->setValue('Log In');
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -77,15 +77,16 @@ class DumpController extends AbstractActionController
             $data = include 'config/autoload/backupdb.local.php';
             $inputname = $request->getPost('username');
             $inputpwd = $request->getPost('password');
-            $uname = $data['backupdb']['login']['loginuser'];
-            $pwd = $data['backupdb']['login']['loginpwd'];
-            if ($inputname == $uname && $inputpwd == $pwd) {
-                //TODO: Session initialization
-
-                return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
-            } else {
-                return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
-            }
+            $uname = $data['backupdb']['login']['user'];
+            $pwd = $data['backupdb']['login']['pwd'];
+            $this
+                    ->getServiceLocator()
+                    ->get($this->service)
+                    ->write(array(
+                        'user' => $inputname,
+                        'pwd' => $inputpwd
+            ));
+            return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
 
             //if  valid save to session redirect to panel
         }
@@ -96,20 +97,24 @@ class DumpController extends AbstractActionController
 
     public function panelAction()//control panel
     {
-        //check session if credentials not ok redirect to login
         $data = include 'config/autoload/backupdb.local.php';
-        if (true) { //TODO: session check for credentials
+        //check session if credentials not ok redirect to login
+        $session = $this
+                ->getServiceLocator()
+                ->get($this->service)
+                ->read();
+        if ($session['user'] == $data['backupdb']['login']['user'] &&
+                $session['pwd'] == $data['backupdb']['login']['pwd']) { //If credentials match, proceed to panel
             $request = $this->getRequest();
             if ($request->isPost()) { //Logic for panel reload after submit
                 $postValues = $request->getPost();
                 if (array_key_exists('uploadsubmit', $postValues)) { //Upload
                     $files = $request->getFiles();
-                    $filename = 'data/BackupDB_Dumps/LISBACKUP_upload_' . 
-                        date('dmY') . '_' . date('His');
+                    $filename = 'data/BackupDB_Dumps/LISBACKUP_upload_' .
+                            date('dmY') . '_' . date('His');
                     $filter = new \Zend\Filter\File\RenameUpload($filename);
                     var_dump($filter->filter($files['fileupload']));
                     return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
-                    
                 } else if (array_key_exists('downloadsubmit', $postValues)) { //Download
                     $list = $this
                             ->getServiceLocator()
@@ -136,6 +141,12 @@ class DumpController extends AbstractActionController
                     } else {
                         return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
                     }
+                } else if (array_key_exists('logoutsubmit', $postValues)) { //Logout
+                    $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->logout();
+                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
                 } else {
                     return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
                 }
@@ -152,10 +163,12 @@ class DumpController extends AbstractActionController
 
                 return new ViewModel(['form' => $panel]);
             }
-        } else {//if credentials not ok, return to login
-            die('COOKIE FAIL');
-            $login = 'login';
-            return new ViewModel(['form' => $login]);
+        } 
+        else {//if credentials not ok, return to login
+            echo('LOGIN FAIL<br>');
+            echo('<a href="http://' . $data['backupdb']['login']['domain'] .
+            '/backupdb/dump/login">Return to Login</a>');
+            die();
         }
     }
 
