@@ -149,7 +149,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
         );
     }
 
-    
     public function diaryInitAdmin($params = null, $extra = null)
     {
         $dql = "SELECT 
@@ -210,7 +209,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 new DoctrinePaginator(new ORMPaginator($q))
         );
     }
-    
+
     /**
      * 
      * @param type $params
@@ -479,9 +478,71 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
-        $q->setParameter('teachertId', $extra->lisPerson->getId(), Type::INTEGER);
+        $q->setParameter('teacherId', $extra->lisPerson->getId(), Type::INTEGER);
 
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+
+    public function teacherTimeTableData($params = null, $extra = null)
+    {
+
+        $dql = "SELECT
+                    partial subjectRound.{
+                        id,
+                        name,
+                        status,
+                        trashed
+                    },
+                    partial contactLesson.{
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr,
+                        description
+                    },
+                    partial teacher.{
+                            id,
+                            name
+                    },
+                    partial rooms.{
+                            id,
+                            name
+                    },
+                    partial studentGroup.{
+                            id,
+                            name
+                    }
+                    FROM Core\Entity\SubjectRound subjectRound
+                    JOIN subjectRound.contactLesson contactLesson
+                    JOIN contactLesson.teacher teacher  
+                    JOIN subjectRound.studentGroup studentGroup
+                    JOIN contactLesson.rooms rooms
+                    WHERE  teacher.id = :teacherId";
+
+
+        if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
+            $dql .= " WHERE studentGroup.id=:studentGroupId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+        } else {
+            $dql .= " WHERE studentGroup.id=:studentGroupId ";
+        }
+
+        $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
+
+        $q->setParameter('teacherId', $extra->lisPerson->getId(), Type::INTEGER);
+
+        if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
+            $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);
+            $q->setParameter('endDateTime', (new DateTime($params['endDate'])), Type::DATETIME);
+        }
+
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
         );
@@ -1067,6 +1128,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
             }
         } else if (array_key_exists('teacherIndependentWork', $params)) {
             return $this->teacherIndependentWorkData($params, $extra);
+        }
+         else if (array_key_exists('teacherTimeTable', $params)) {
+                    return $this->teacherTimeTableData($params,$extra);
         }
         //$this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
