@@ -18,6 +18,7 @@
 
 /**
  * 
+ * @param {type} window
  * @param {type} define
  * @param {type} document
  * @returns {undefined}
@@ -25,12 +26,13 @@
 (function (window, define, document) {
     'use strict';
 
-    /**
-     * 
-     * @param {type} angular
-     * @param {type} globalFunctions
-     * @returns {independentWorkController_L21.independentWorkController_L32.independentWorkController}
-     */
+   /**
+    * 
+    * @param {type} angular
+    * @param {type} globalFunctions
+    * @param {type} moment
+    * @returns {independentWorkController_L32.independentWorkController}
+    */
     define(['angular', 'app/util/globalFunctions', 'moment'],
             function (angular, globalFunctions, moment) {
 
@@ -197,9 +199,9 @@
                         duedate: null,
                         description: null,
                         durationAK: null,
-                        trashed: null,
                         subjectRound: null,
-                        student: null
+                        student: null,
+                        trashed: null
                     };
 
                     $scope.subjectRounds = [];
@@ -229,7 +231,6 @@
                             {//select one
                                 field: "subjectRound",
                                 name: "subjectRound",
-//                                visible: false,
                                 displayName: $scope.T('LIS_SUBJECTROUND'),
                                 editableCellTemplate: 'lis/dist/templates/partial/uiSingleSelect.html',
                                 editDropdownIdLabel: "id",
@@ -240,7 +241,6 @@
                             {
                                 field: "name",
                                 displayName: $scope.T('LIS_NAME')
-//                                visible: false
                             },
                             {
                                 field: "duedate['date']",
@@ -249,17 +249,18 @@
                                 type: 'date',
                                 cellFilter: 'date:"yyyy-MM-dd"',
                                 width: '20%'
-//                                visible: false
                             },
                             {
                                 field: "description",
                                 displayName: $scope.T('LIS_DESCRIPTION')
-//                                visible: false
                             },
                             {
                                 field: "durationAK",
                                 displayName: $scope.T('LIS_DURATIONINDEPENDENTAK')
-//                                visible: false
+                            },
+                            {
+                                field: 'trashed',
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,
