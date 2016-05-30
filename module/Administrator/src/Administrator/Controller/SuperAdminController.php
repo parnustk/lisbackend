@@ -83,7 +83,7 @@ class SuperAdminController extends Base
      */
     public function update($id, $data)
     {
-        return parent::noAllowed();
+        return parent::update($id, $data);
     }
 
     /**

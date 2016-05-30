@@ -25,7 +25,7 @@ use Zend\Crypt\Password\Bcrypt;
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Juhan Kõks <juhankoks@gmail.com>
  */
-class LisUserRepository extends EntityRepository
+class LisUserRepository extends EntityRepository 
 {
 
     /**
@@ -129,8 +129,11 @@ class LisUserRepository extends EntityRepository
     
     /**
      * 
+     * @param type $params
+     * @param type $extra
+     * @return Paginator
      */
-    public function GetList($params = null, $extra = null)
+    private function SuperAdminGetList($params = null, $extra = null)
     {
         $dql = "SELECT
                     partial lisUser.{
@@ -163,16 +166,86 @@ class LisUserRepository extends EntityRepository
                 LEFT JOIN lisUser.administrator administrator
                 LEFT JOIN lisUser.teacher teacher
                 LEFT JOIN lisUser.student student
-                
                 ";   
         
         $q = $this->getEntityManager()->createQuery($dql);
-//        var_dump($q); die();
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
-//        var_dump(new Paginator(new DoctrinePaginator(new ORMPaginator($q))));
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
         );
+    }
+    
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return string
+     */
+    public function GetList($params = null, $extra = null)
+    {
+        if(!$extra){
+            return 'You must be admin';
+        } else if ($extra->lisRole === 'administrator'){
+            return $this->SuperAdminGetList($params, $extra);
+        } else {
+            return 'You have no permission';
+        }
+    }
+    
+    
+    private function SuperAdminUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        if (count($data) < 1) {
+            throw new Exception('NO_DATA');
+        }
+        
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+        
+        $dql = "UPDATE Core\Entity\LisUser lisUser";
+        
+        //add to query depending on what is wanted to be updated
+        if ((!empty($data['email'])) && (!empty($data['password']))){
+            $dql .= " SET lisUser.email = :email,
+                    lisUser.password = :password";
+            $data['password'] = $this->passwordToHash($data['password']);
+        } else if (!empty($data['email'])){
+            $dql .= " SET lisUser.email = :email";
+        } else if (!empty($data['password'])) {
+            $dql .= " SET lisUser.password = :password";
+            $data['password'] = $this->passwordToHash($data['password']);
+        }
+        $dql .= " WHERE lisUser.id = :id";
+        $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
+        
+        // if data send, set the parameters
+        if (!empty($data['email'])){
+            $q->setParameter('email', $data['email'], Type::STRING);
+        }
+        if (!empty($data['password'])) {
+            $q->setParameter('password', $data['password'], Type::STRING);
+        }
+        
+        $q->setParameter('id', $entity->getId(), Type::INTEGER);
+        
+        return $q->getSingleResult($hydrateMethod = Query::HYDRATE_ARRAY);
+    }
+    
+    
+    public function Update($id, $data, $returnPartial = false, $extra = null)
+    {
+        $entity = $this->find($id);
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        }
+        
+        if (!$extra) {
+            return 'You must be admin';
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->SuperAdminUpdate($entity, $data, $returnPartial, $extra);
+        } else {
+            return 'You have no permission';
+        }
     }
 
 }
