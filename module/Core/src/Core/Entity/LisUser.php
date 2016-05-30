@@ -47,7 +47,6 @@ class LisUser extends EntityValidation
 
     /**
      * @Annotation\Required({"required":"true"})
-     * @Annotation\Validator({"name":"Regex", "options":{"pattern":"/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/"}})
      * 
      * @ORM\Column(type="string", length=255, nullable=false)
      * 
