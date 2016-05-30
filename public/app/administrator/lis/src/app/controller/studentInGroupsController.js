@@ -122,11 +122,17 @@
                                 sortCellFiltered: $scope.sortFiltered,
                                 cellFilter: 'griddropdown:this'
                             },
-                            {field: 'status',
+                            {
+                                field: 'status',
                                 displayName: $scope.T('LIS_STATUS')
                             },
-                            {field: 'notes',
+                            {
+                                field: 'notes',
                                 displayName: $scope.T('LIS_NOTES')
+                            },
+                            {
+                                field: 'trashed',
+                                displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,
