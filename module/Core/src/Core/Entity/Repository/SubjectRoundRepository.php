@@ -520,7 +520,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                     JOIN contactLesson.teacher teacher  
                     JOIN subjectRound.studentGroup studentGroup
                     JOIN contactLesson.rooms rooms
-                    WHERE  teacher.id = :teacherId";
+                    WHERE teacher.id = :teacherId";
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
