@@ -473,7 +473,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                         studentGroup.id = :studentGroupId AND
                         teacher.id = :teacherId
 
-                    ORDER BY independentWork.duedate ASC ";
+                    ORDER BY independentWork.id ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
