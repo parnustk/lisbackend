@@ -187,6 +187,9 @@
 
                 LIS_LESSONREPORT: 'Tundide aruanne',
                 LIS_LESSONREPORT_GRID_FILTERS: "Aruannete filtrid",
+                LIS_STARTDATE: 'Vali varasem kuupäev',
+                LIS_ENDDATE: 'Vali viimane kuupäev',
+                LIS_NO_TEACHER: 'Filtreerimiseks on vaja valida õpetaja',
                 
                 LIS_ERROR: 'Viga!'
                 
@@ -363,7 +366,10 @@
 
                 LIS_LESSONREPORT: 'Lesson report',
                 LIS_LESSONREPORT_GRID_FILTERS: "Lesson report filters",
-                
+                LIS_STARTDATE: 'Choose the earliest date',
+                LIS_ENDDATE: 'Choose the latest date',
+                LIS_NO_TEACHER: 'You need to choose a teacher to filter',
+
                 LIS_ERROR: 'Error!'
             }
         };

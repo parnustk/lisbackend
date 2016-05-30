@@ -9,10 +9,10 @@
             <div class="form-group">
 
                 <div class="col-md-12">
-                    <div class="input-group">
+                    <div class="input-group input-group-lg">
                         <ui-select name="lessonReportFilterTeacher" ng-required="true"
                                    ng-model="lessonReportFilter.teacher"
-                                   theme="bootstrap" class="dropdown" style="width: 310px">
+                                   theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{T('SELECT_OR_SEARCH_A_TEACHER')}}">
                                 {{$select.selected.name}}
                             </ui-select-match>
@@ -23,6 +23,7 @@
                         </ui-select>
                     </div>
                 </div>
+
                 <div class="col-md-12">
                     <div class="input-group">
                         <!--<div class="input-group input-group-lg">-->
@@ -34,9 +35,9 @@
                             <span class="input-group-addon"
                                   id="lessonReportFilter-startDate">{{ T('LIS_STARTDATE') }}</span>
                             <input name="lessonReportFilterStartDate" ng-model="lessonReportFilter.startDate"
-                                   type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                   type="date" class="form-control" uib-datepicker-popup="{{format}}"
                                    is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close"
-                                   placeholder="{{ T('LIS_DATESTART') }}"
+                                   placeholder="{{ T('LIS_STARTDATE') }}"
                                    aria-describedby="lessonReportFilter-startDate" datetime="yyyy-mm-dd">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="open1()"><i
@@ -49,8 +50,8 @@
                     <div class="input-group">
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon"
-                                  id="lessonReportFilter-endDate">{{ T('LIS_DATEEND') }}</span>
-                            <input name="lessonReportFilterEndDate" ng-model="lessonReportFilter.endDate" type="text"
+                                  id="lessonReportFilter-endDate">{{ T('LIS_ENDDATE') }}</span>
+                            <input name="lessonReportFilterEndDate" ng-model="lessonReportFilter.endDate" type="date"
                                    class="form-control" uib-datepicker-popup="{{format}}" is-open="popup2.opened"
                                    datepicker-options="dateOptions" close-text="Close"
                                    placeholder="{{ T('LIS_ENDDATE') }}" aria-describedby="lessonReportFilter-endDate">
@@ -63,6 +64,8 @@
 
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER') }}</button>
+                        <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span
+                                class="glyphicon glyphicon-trash">{{T('LIS_CLEAR')}}</span></button>
                     </div>
 
                 </div>

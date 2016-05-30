@@ -13,16 +13,16 @@
 
     define(['angular', 'app/util/globalFunctions'],
         function (angular, globalFunctions) {
-           lessonReportController.$inject = [
-               '$scope',
-               '$q',
-               '$routeParams',
-               'rowSorter',
-               'uiGridConstants',
-               'lessonReportModel',
-               'contactLessonModel',
-               'teacherModel'
-           ];
+            lessonReportController.$inject = [
+                '$scope',
+                '$q',
+                '$routeParams',
+                'rowSorter',
+                'uiGridConstants',
+                'lessonReportModel',
+                'contactLessonModel',
+                'teacherModel'
+            ];
 
             /**
              *
@@ -35,18 +35,16 @@
              * @param contactLessonModel
              * @param teacherModel
              */
-            function lessonReportController(
-                $scope,
-                $q,
-                $routeparams,
-                rowSorter,
-                uiGridConstants,
-                lessonReportModel,
-                contactLessonModel,
-                teacherModel
-            ) {
+            function lessonReportController($scope,
+                                            $q,
+                                            $routeparams,
+                                            rowSorter,
+                                            uiGridConstants,
+                                            lessonReportModel,
+                                            contactLessonModel,
+                                            teacherModel) {
 
-            $scope.T = globalFunctions.T;
+                $scope.T = globalFunctions.T;
 
                 /**
                  *
@@ -66,7 +64,6 @@
                 $scope.lessonReports = [];
                 $scope.contactLessons = [];
                 $scope.teachers = [];
-                $scope.objects = [];
 
                 $scope.popup1 = {
                     opened: false
@@ -76,11 +73,11 @@
                     opened: false
                 };
 
-                $scope.open1 = function() {
+                $scope.open1 = function () {
                     $scope.popup1.opened = true;
                 };
 
-                $scope.open2 = function() {
+                $scope.open2 = function () {
                     $scope.popup2.opened = true;
                 };
 
@@ -89,12 +86,8 @@
                     minDate: new Date(1900, 1, 1)
                 };
 
-                //$scope.formats = ['dd.MM.yyyy', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
-                $scope.format = 'yyyy-MM-dd';
-                //$scope.altInputFormats = ['M!/d!/yyyy'];
 
-
-                teacherModel.GetList(urlParams).then(function (result){
+                teacherModel.GetList(urlParams).then(function (result) {
                     if (globalFunctions.resultHandler(result)) {
                         $scope.teachers = result.data;
                     }
@@ -125,43 +118,54 @@
 
                 $scope.Filter = function () {
 
-                  if (!angular.equals({}, $scope.items)) {
-                      if ($scope.lessonReportFilter.teacher !== undefined){
-                          console.log($scope.lessonReportFilter);
+                    if (!angular.equals({}, $scope.items)) {
+                        if ($scope.lessonReportFilter.teacher !== undefined) {
+                            urlParams.teacherId = $scope.lessonReportFilter.teacher.id;
+                            urlParams.startDate = $scope.lessonReportFilter.startDate;
 
-                          urlParams.teacherId = $scope.lessonReportFilter.teacher.id;
-                          urlParams.startDate = $scope.lessonReportFilter.startDate;
-                          urlParams.endDate = $scope.lessonReportFilter.endDate;
-                          console.log("Start date: " + urlParams.startDate);
-                          console.log("End date: " + urlParams.endDate);
+                            var fixedDate = $scope.lessonReportFilter.endDate;
+                            if (fixedDate) {
+                                fixedDate.setDate(fixedDate.getDate() + 1);
+                            }
 
+                            urlParams.endDate = fixedDate;
+                            urlParams.where = angular.toJson(globalFunctions.cleanData($scope.lessonReportFilter));
+                            LoadData();
 
-                          urlParams.where = angular.toJson(globalFunctions.cleanData($scope.lessonReportFilter));
-
-                          LoadData();
-
-                      }
-                      else {
-                          console.log('No teacher selected');
-                      }
-                  }
+                        }
+                        else {
+                            console.log('No teacher selected');
+                        }
+                    }
                 };
+
+                $scope.ClearFilters = function () {
+                    resetUrlParams();
+                    $scope.lessonReportFilter = {};
+                    delete urlParams.where;
+                };
+
+                var resetUrlParams = function () {
+                    urlParams = {
+                        page: 1,
+                        limit: 1000,
+                        lessonReport: 'lessonReport',
+                        teacherId: null,
+                        startDate: null,
+                        endDate: null
+                    };
+                };
+
                 /**
                  *
                  * @constructor
                  */
                 function LoadData() {
                     contactLessonModel.GetList(urlParams).then(function (result) {
-                       if (globalFunctions.resultHandler(result)) {
-                           $scope.contactLessons = result.data;
-                           //$scope.objects = result.data;
-                           fixData();
-
-                           // console.log($scope.contactLessons);
-                           // console.log($scope.contactLessons[0]);
-                           // console.log($scope.contactLessons[0][0]);
-                           // console.log($scope.objects);
-                       }
+                        if (globalFunctions.resultHandler(result)) {
+                            $scope.contactLessons = result.data;
+                            fixData();
+                        }
                     });
                 }
             }

@@ -131,10 +131,15 @@ class ContactLessonRepository extends AbstractBaseRepository
 
             $dql .= " WHERE teacher.id=:teacherId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
         
-        } else {
-
+        }
+        else if (array_key_exists('startDate', $params)) {
+            $dql .= " WHERE teacher.id=:teacherId AND contactLesson.lessonDate >=:startDateTime ";
+        }
+        else if (array_key_exists('endDate', $params)) {
+            $dql .= " WHERE teacher.id=:teacherId AND contactLesson.lessonDate <=:endDateTime ";
+        }
+        else {
             $dql .= " WHERE teacher.id=:teacherId ";
-            
         }
 
         $dql .=" GROUP BY contactLesson.lessonDate 
@@ -146,6 +151,10 @@ class ContactLessonRepository extends AbstractBaseRepository
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
             $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);
+            $q->setParameter('endDateTime', (new DateTime($params['endDate'])), Type::DATETIME);
+        } else if (array_key_exists('startDate', $params)) {
+            $q->setParameter('startDateTime', (new DateTime($params['startDate'])), Type::DATETIME);
+        } else if (array_key_exists('endDate', $params)) {
             $q->setParameter('endDateTime', (new DateTime($params['endDate'])), Type::DATETIME);
         }
 
