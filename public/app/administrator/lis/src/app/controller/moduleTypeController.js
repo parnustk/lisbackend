@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  * @author Arnold Tserepov <tserepov@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * 
  */
 
@@ -89,16 +90,18 @@
                                     priority: 1
                                 }
                             },
-                            {field: 'name',
+                            {
+                                field: 'name',
                                 displayName: $scope.T('LIS_NAME')
                             },
-                            {field: 'trashed',
+                            {
+                                field: 'trashed',
                                 displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
                         enableGridMenu: true,
                         enableSelectAll: true,
-                        exporterCsvFilename: 'moduleType.csv',
+                        exporterCsvFilename: 'moduleTypes.csv',
                         exporterPdfDefaultStyle: {fontSize: 9},
                         exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
                         exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
@@ -158,9 +161,7 @@
                             moduleTypeModel.Create($scope.moduleType).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
                                     console.log(result);
-                                    //$scope.gridOptions.data.push(result.data);
-                                    LoadGrid();//only needed if grid contains many column
-                                    //can be used for gridrefresh button
+                                    LoadGrid();
                                 }
                             });
                         } else {
@@ -202,11 +203,9 @@
                         moduleTypeModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.gridOptions.data = result.data;
-
                             }
                         });
                     }
-
 
                     LoadGrid();//let's start loading data
                 }

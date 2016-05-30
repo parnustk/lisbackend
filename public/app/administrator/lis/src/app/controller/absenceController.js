@@ -142,10 +142,12 @@
                                 cellFilter: 'griddropdown:this',
                                 sortCellFiltered: $scope.sortFiltered
                             },
-                            {field: 'description',
+                            {
+                                field: 'description',
                                 displayName: $scope.T('LIS_DESCRIPTION')
                             },
-                            {field: 'trashed',
+                            {
+                                field: 'trashed',
                                 displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
@@ -274,8 +276,6 @@
 
                                                 absenceModel.GetList(urlParams).then(function (result) {
                                                     if (globalFunctions.resultHandler(result)) {
-//                                                $scope.absences = result.data;
-//                                                $scope.gridOptions.data = $scope.absences;
                                                         $scope.gridOptions.data = result.data;
                                                     }
                                                 });
