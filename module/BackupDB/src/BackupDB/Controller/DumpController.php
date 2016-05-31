@@ -56,7 +56,7 @@ class DumpController extends AbstractActionController
      */
     public function indexAction()
     {
-        return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
+        return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/login");
     }
 
     /**
@@ -86,7 +86,7 @@ class DumpController extends AbstractActionController
                         'user' => $inputname,
                         'pwd' => $inputpwd
             ));
-            return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+            return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/panel");
 
             //if  valid save to session redirect to panel
         }
@@ -113,14 +113,20 @@ class DumpController extends AbstractActionController
                             ->getServiceLocator()
                             ->get($this->service)
                             ->createDump();
-                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                    echo('CREATE SUCCESS<br>');
+                    echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                    '/backupdb/dump/login">Return to Panel</a>');
+                    die();
                 } else if (array_key_exists('uploadsubmit', $postValues)) { //Upload
                     $files = $request->getFiles();
                     $filename = 'data/BackupDB_Dumps/LISBACKUP_upload_' .
                             date('dmY') . '_' . date('His');
                     $filter = new \Zend\Filter\File\RenameUpload($filename);
                     var_dump($filter->filter($files['fileupload']));
-                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                    echo('UPLOAD SUCCESS<br>');
+                    echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                    '/backupdb/dump/login">Return to Panel</a>');
+                    die();
                 } else if (array_key_exists('downloadsubmit', $postValues)) { //Download
                     $list = $this
                             ->getServiceLocator()
@@ -131,7 +137,10 @@ class DumpController extends AbstractActionController
                             ->getServiceLocator()
                             ->get($this->service)
                             ->download($fileName);
-                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                    echo('DOWNLOAD SUCCESS<br>');
+                    echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                    '/backupdb/dump/login">Return to Panel</a>');
+                    die();
                 } else if (array_key_exists('pushsubmit', $postValues)) { //Push
                     if ($postValues['pushcheckbox'] == 1) {
                         $list = $this
@@ -143,18 +152,24 @@ class DumpController extends AbstractActionController
                                 ->getServiceLocator()
                                 ->get($this->service)
                                 ->pushDump($fileName, null);
-                        return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                        echo('PUSH SUCCESS<br>');
+                        echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                        '/backupdb/dump/login">Return to Panel</a>');
+                        die();
                     } else {
-                        return $this->redirect()->toUrl("//lis.local/backupdb/dump/panel");
+                        echo('PUSH FAIL; Not Confirmed<br>');
+                        echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                        '/backupdb/dump/login">Return to Panel</a>');
+                        die();
                     }
                 } else if (array_key_exists('logoutsubmit', $postValues)) { //Logout
                     $this
                             ->getServiceLocator()
                             ->get($this->service)
                             ->logout();
-                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
+                    return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/login");
                 } else {
-                    return $this->redirect()->toUrl("//lis.local/backupdb/dump/login");
+                    return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/login");
                 }
             } else { //logic for first-time use
                 $panel = new panelForm('panelForm');
@@ -169,12 +184,12 @@ class DumpController extends AbstractActionController
 
                 return new ViewModel(['form' => $panel]);
             }
-        } 
-        else {//if credentials not ok, return to login
+        } else {//if credentials not ok, return to login
             echo('LOGIN FAIL<br>');
-            echo('<a href="http://' . $data['backupdb']['login']['domain'] .
+            echo('<a href="https://' . $data['backupdb']['login']['domain'] .
             '/backupdb/dump/login">Return to Login</a>');
             die();
         }
     }
+
 }
