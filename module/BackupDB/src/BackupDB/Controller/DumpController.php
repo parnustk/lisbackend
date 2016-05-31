@@ -167,8 +167,6 @@ class DumpController extends AbstractActionController
                             ->getFilenames();
                     $element = $panel->get('fileselect');
                     $element->setAttribute('options', $filenames);
-                    $element = $panel->get('pushselect');
-                    $element->setAttribute('options', $filenames);
 
                     return new ViewModel(['form' => $panel]);
                 }
@@ -179,8 +177,6 @@ class DumpController extends AbstractActionController
                         ->get($this->service)
                         ->getFilenames();
                 $element = $panel->get('fileselect');
-                $element->setAttribute('options', $filenames);
-                $element = $panel->get('pushselect');
                 $element->setAttribute('options', $filenames);
 
                 return new ViewModel(['form' => $panel]);
