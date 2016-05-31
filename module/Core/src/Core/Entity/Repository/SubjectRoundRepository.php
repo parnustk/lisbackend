@@ -488,7 +488,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
     public function teacherTimeTableData($params = null, $extra = null)
     {
-
         $dql = "SELECT
                     partial subjectRound.{
                         id,
@@ -523,15 +522,16 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
 
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
-            $dql .= " WHERE teacher.id = :teacherId AND studentGroup.id=:studentGroupId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
+            $dql .= " WHERE teacher.id = :teacherId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
         } else {
-            $dql .= " WHERE teacher.id = :teacherId AND studentGroup.id=:studentGroupId ";
+            $dql .= " WHERE teacher.id = :teacherId";
         }
 
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
-        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
+       
+        //$q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER); //broken
 
         $q->setParameter('teacherId', $extra->lisPerson->getId(), Type::INTEGER);
 
