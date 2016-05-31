@@ -51,15 +51,6 @@ class DumpController extends AbstractActionController
     }
 
     /**
-     * Redirect to login action
-     * 
-     */
-    public function indexAction()
-    {
-        return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/login");
-    }
-
-    /**
      * Display login view
      * 
      * @return ViewModel
