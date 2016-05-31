@@ -78,10 +78,7 @@ class DumpController extends AbstractActionController
                         'pwd' => $inputpwd
             ));
             return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/panel");
-
-            //if  valid save to session redirect to panel
         }
-        //return array('form' => $form);
 
         return new ViewModel(['form' => $form]);
     }
@@ -165,6 +162,9 @@ class DumpController extends AbstractActionController
                             ->getServiceLocator()
                             ->get($this->service)
                             ->getFilenames();
+                    if ($filenames == null) {
+                        $filenames = array();
+                    }
                     $element = $panel->get('fileselect');
                     $element->setAttribute('options', $filenames);
 
@@ -176,6 +176,10 @@ class DumpController extends AbstractActionController
                         ->getServiceLocator()
                         ->get($this->service)
                         ->getFilenames();
+                if ($filenames == null) {
+                    $filenames = array();
+                }
+
                 $element = $panel->get('fileselect');
                 $element->setAttribute('options', $filenames);
 
