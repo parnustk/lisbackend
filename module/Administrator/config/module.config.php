@@ -31,6 +31,7 @@ return [
             'Administrator\Controller\SubjectRound' => 'Administrator\Controller\SubjectRoundController',
             'Administrator\Controller\Teacher' => 'Administrator\Controller\TeacherController',
             'Administrator\Controller\Vocation' => 'Administrator\Controller\VocationController',
+            'Administrator\Controller\LisUser' => 'Administrator\Controller\SuperAdminController',
         ],
         
     ],

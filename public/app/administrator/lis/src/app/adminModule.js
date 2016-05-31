@@ -39,6 +39,7 @@
         /*20*/'app/model/registerModel',
         /*21*/'app/model/lisUserModel',
         /*22*/'app/model/lessonReportModel',
+        /*23*/'app/model/superAdminModel',
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -86,6 +87,7 @@
         /*20*/registerModel,
         /*21*/lisUserModel,
         /*22*/lessonReportModel,
+        /*23*/superAdminModel,
         /*1*/vocationController,
         /*2*/gradingTypeController,
         /*3*/gradeChoiceController,
@@ -336,6 +338,7 @@
         adminModule.factory('registerModel', registerModel);
         adminModule.factory('lisUserModel', lisUserModel);
         adminModule.factory('lessonReportModel', lessonReportModel);
+        adminModule.factory('superAdminModel', superAdminModel);
 
         adminModule.controller('vocationController', vocationController);
         adminModule.controller('teacherController', teacherController);
