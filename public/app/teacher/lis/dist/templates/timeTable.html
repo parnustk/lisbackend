@@ -36,7 +36,7 @@
 
 <table class="teacherTable" ng-repeat="subjectRound in subjectRounds">
     <th>{{T('LIS_TIMETABLE')}}</th>
-    <tr ng-repeat="subjectRound in subjectRound.contactLesson">
+    <tr ng-repeat="contactLesson in subjectRound.contactLesson">
         <td>
             <b>{{ FormatDate(contactLesson.lessonDate.date)}}</b> - {{ contactLesson.sequenceNr}}<br>
             <ul>
@@ -44,6 +44,7 @@
             </ul>
             <br>Õpetaja: {{ contactLesson.teacher.name}}
             <br>Klass: {{ contactLesson.rooms.name}}
+            <br>Grupp: {{ subjectRound.studentGroup.name}}
         </td>
     </tr>
 </table>
