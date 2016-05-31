@@ -106,7 +106,6 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      */
     protected $dumpData;
     protected $tables = [
-        "Absence",
         "Administrator",
         "ContactLesson",
         "GradeChoice",
