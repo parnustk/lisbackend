@@ -38,6 +38,8 @@ class LisUserRepository extends EntityRepository
      * @var type 
      */
     private $passwordCost = 4;
+    
+    protected $baseAlias = 'lisUser';
 
     /**
      * To hash function
@@ -127,6 +129,60 @@ class LisUserRepository extends EntityRepository
         return $entity;
     }
     
+    
+    protected function dqlWhereInner($dql, $params)
+    {
+        $firstCycle = true;
+        foreach ($params['where'] as $key => $value) {
+            if (!$firstCycle) {
+                $dql .= ' AND';
+            } else {
+                $dql .= " WHERE";
+                $firstCycle = false;
+            }
+
+            if (is_object($value)) {
+                $v = $value->id;
+                $dql .= " $this->baseAlias.$key=$v ";
+            } else if (is_array($value)) { //needs to be made using unit tests
+                $firstCycleI = true;
+                $dql .= ' (';
+                foreach ($value as $ki => $vi) {
+                    if (!$firstCycleI) {
+                        $dql .= ' OR ';
+                    } else {
+                        $firstCycleI = false;
+                    }
+
+                    $vInner = $vi->id;
+                    $dql .= " $key.id=$vInner ";
+                }
+                $dql .= ') ';
+            } else {
+                $dql .= " $this->baseAlias.$key='$value' ";
+            }
+        }
+        //throw new Exception($dql);//debug dql where part
+        return $dql;
+    }
+    
+    
+    protected function dqlWhere($params, $extra = null)
+    {
+        $dql = '';
+
+        if (!!$params['where']) {//if where is not null
+            $dql = $this->dqlWhereInner($dql, $params);
+        } else {//default WHERE has trashed IS NULL for now nothing else
+            $dql .= " WHERE ($this->baseAlias.trashed IS NULL OR $this->baseAlias.trashed=0)";
+        }
+        if (!!$extra) {
+            //TODO
+        }
+        //throw new Exception($dql);//debug dql where part
+        return $dql;
+    }
+    
     /**
      * 
      * @param type $params
@@ -167,6 +223,7 @@ class LisUserRepository extends EntityRepository
                 LEFT JOIN lisUser.teacher teacher
                 LEFT JOIN lisUser.student student
                 ";   
+        $dql .= $this->dqlWhere($params, $extra);
         
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
@@ -245,6 +302,38 @@ class LisUserRepository extends EntityRepository
             return $this->SuperAdminUpdate($entity, $data, $returnPartial, $extra);
         } else {
             return 'You have no permission';
+        }
+    }
+    
+    
+    private function defaultDelete($entity)
+    {
+        $id = $entity->getId();
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+        return $id;
+    }
+    
+    private function administratorDelete($entity, $extra = null)
+    {
+        return $this->defaultDelete($entity, $extra);
+    }
+    
+    
+    public function Delete($id, $extra = null)
+    {
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        } else if (!$entity->getTrashed()) {
+            throw new Exception("NOT_TRASHED");
+        }
+
+        if (!$extra) {
+            return $this->defaultDelete($entity);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorDelete($entity, $extra);
         }
     }
 
