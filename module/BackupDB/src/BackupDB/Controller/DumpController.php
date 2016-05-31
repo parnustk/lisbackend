@@ -160,7 +160,17 @@ class DumpController extends AbstractActionController
                             ->logout();
                     return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/login");
                 } else {
-                    return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/login");
+                    $panel = new panelForm('panelForm');
+                    $filenames = $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->getFilenames();
+                    $element = $panel->get('fileselect');
+                    $element->setAttribute('options', $filenames);
+                    $element = $panel->get('pushselect');
+                    $element->setAttribute('options', $filenames);
+
+                    return new ViewModel(['form' => $panel]);
                 }
             } else { //logic for first-time use
                 $panel = new panelForm('panelForm');
