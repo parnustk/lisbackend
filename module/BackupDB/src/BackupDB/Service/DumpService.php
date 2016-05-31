@@ -356,15 +356,14 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      */
     public function pushDump($filename)
     {
-        echo $filename;
-//        $this->setUp();
-//        $pushStatement = $this->db->prepare(file_get_contents(_PATH_ . $filename));
-//        try {
-//            $pushStatement->execute();
-//        } catch (PDOException $ex) {
-//            print_r($ex);
-//            die();
-//        }
+        $this->setUp();
+        $pushStatement = $this->db->prepare(file_get_contents(_PATH_ . $filename));
+        try {
+            $pushStatement->execute();
+        } catch (PDOException $ex) {
+            print_r($ex);
+            die();
+        }
     }
     
     /**
