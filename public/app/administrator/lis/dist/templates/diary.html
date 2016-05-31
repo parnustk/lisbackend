@@ -1,52 +1,62 @@
 <h2>{{ T('LIS_DIARY_VIEW')}}</h2>
 
-<form class="form-horizontal" name="filterContactLesson" ng-submit="Filter(filterContactLesson.$valid)">
-    <fieldset>
+<div class="row">
+    <div class="col-md-12">
 
-        <legend>{{ T('LIS_CONTACTLESSONFILTER')}}</legend>
-        <div class="form-group">
+        <form class="form-horizontal" role="form" name="filterContactLesson" ng-submit="Filter(filterContactLesson.$valid)">
+            <fieldset>
 
-            <div class="form-group" ng-class="{ 'has-error': filterContactLesson.subjectRound.$invalid }">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="input-group input-group-lg">
-                            <ui-select name="subjectRound" ng-required="true" ng-model="diaryFilter.subjectRound" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                                <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
-                                <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
-                                    <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
-                                    <small>
-                                        id: {{subjectRound.id}}
-                                    </small>
-                                </ui-select-choices>
-                            </ui-select>
+                <legend>{{ T('LIS_CONTACTLESSONFILTER')}}</legend>
+           
+                    <div class="row">
+                        
+                        <div class="form-group" ng-class="{ 'has-error': filterContactLesson.subjectRound.$invalid }">
+
+                            <div class="col-lg-6">
+                                <div class="input-group input-group-lg">
+                                    <ui-select name="subjectRound" ng-required="true" ng-model="diaryFilter.subjectRound" convert-to-string theme="bootstrap" class="dropdown">
+                                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
+                                            <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
+                                            <small>
+                                                id: {{subjectRound.id}}
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="form-group" ng-class="{ 'has-error': filterContactLesson.studentGroup.$invalid }">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="input-group input-group-lg">
-                            <ui-select name="studentGroup" ng-required="true" ng-model="diaryFilter.studentGroup" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
-                                <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
-                                <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
-                                    <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
-                                    <small>
-                                        id: {{studentGroup.id}}
-                                    </small>
-                                </ui-select-choices>
-                            </ui-select>
+                        <div class="form-group" ng-class="{ 'has-error': filterContactLesson.studentGroup.$invalid }">
+
+                            <div class="col-lg-6">
+                                <div class="input-group input-group-lg">
+                                    <ui-select name="studentGroup" ng-required="true" ng-model="diaryFilter.studentGroup" convert-to-string theme="bootstrap" class="dropdown">
+                                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
+                                            <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
+                                            <small>
+                                                id: {{studentGroup.id}}
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER_REFRESH')}}</button>
-            </div><!-- /.col-lg-6 -->
-        </div>
-    </fieldset>
-</form>
-<hr>
-<div ui-grid="gridOptions" ui-grid-edit ui-grid-cellNav ui-grid-pinning class="grid lis-grid" id="grid1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER_REFRESH')}}</button>
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+            
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-cellNav ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns class="grid lis-grid" id="grid1"></div>

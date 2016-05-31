@@ -1,14 +1,14 @@
 # Learning Information System 
 
-## Developers
+## Developers and responsibilities
 
-    Eleri Apsolon - Front-end key developer, analytics, developer, eleri.apsolon@gmail.com
-    Marten Kähr - addon backup module architect, analytic and developer, developer
-    Juhan Kõks - release manager(Jenkins), server administrator(LAMP), developer, juhankoks@gmail.com
-    Kristen Sepp - analytics, developer seppkristen@gmail.com
+    Eleri Apsolon - UI/UX, Front-end key developer, Independently responsible for student mobile-friendly web-application development, analytics, developer, eleri.apsolon@gmail.com
+    Marten Kähr - Independently responsible for backup module architecture, analytics and development, developer
+    Juhan Kõks - Release manager(Jenkins), Server administrator(LAMP), developer, juhankoks@gmail.com
+    Kristen Sepp - UI/UX, Front-end key developer, Analytics, developer seppkristen@gmail.com
     Arnold Tserepov - QA, developer, tserepov@gmail.com
-    Alar Aasa - UI/UX, developer, alar@alaraasa.ee
-    Sander Mets - team lead, software architect, developer, sandermets0@gmail.com
+    Alar Aasa - UI/UX, Front-end key developer, developer, alar@alaraasa.ee
+    Sander Mets - team lead, software architect, lead developer, sandermets0@gmail.com
 
 ## What
 
@@ -32,13 +32,11 @@ List of used technologies:
     RequireJS, 
     NodeJS, 
     Gulp, 
-    ~~Foundation6 sites~~ switched to Bootstrap3
-    ~Karma or Casper(probably as Angular docs suggest)~~ - if we get time, then like angular1 docs suggest :(
+    Bootstrap3
 
 ## Technical requirements
 
-Server side logic(back end) has to be covered by automated acceptance and functional tests.  
-Client side has to be covered at least with E2E tests for models.  
+Server side logic(back end) has to be covered by automated acceptance, functional and unit tests.
 
 ## Material
 

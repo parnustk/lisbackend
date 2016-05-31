@@ -153,7 +153,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.gradeChoice gradeChoice
-                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
                 LEFT JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
@@ -208,7 +208,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.gradeChoice gradeChoice
-                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
                 LEFT JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
@@ -259,7 +259,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.gradeChoice gradeChoice
-                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
                 LEFT JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
@@ -309,7 +309,7 @@ class StudentGradeRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.student student
                 JOIN $this->baseAlias.gradeChoice gradeChoice
-                JOIN $this->baseAlias.teacher teacher
+                LEFT JOIN $this->baseAlias.teacher teacher
                 LEFT JOIN $this->baseAlias.contactLesson contactlesson
                 LEFT JOIN $this->baseAlias.independentWork independentWork
                 LEFT JOIN $this->baseAlias.module module
@@ -412,6 +412,8 @@ class StudentGradeRepository extends AbstractBaseRepository
         //set user related data
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
+        
+        $data['teacher'] = null;
 
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
@@ -501,7 +503,9 @@ class StudentGradeRepository extends AbstractBaseRepository
         //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
-
+        
+        $data['teacher'] = null;
+        
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
 

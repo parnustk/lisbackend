@@ -41,6 +41,67 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     public $baseEntity = 'Core\Entity\SubjectRound';
 
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     */
+    public function diaryRelatedDataModule($params = null, $extra = null)
+    {
+        $dql = "SELECT 
+                    partial subjectRound.{
+                        id,
+                        trashed
+                    },
+                    partial module.{
+                        id,
+                        name
+                    },
+                    partial studentGrade.{
+                        id
+                    },
+                    partial student.{
+                        id,
+                        name
+                    },
+                    partial teacher.{
+                        id,
+                        name
+                    },
+                    partial gradeChoice.{
+                        id,
+                        name
+                    }
+                    
+                FROM Core\Entity\SubjectRound subjectRound
+
+                JOIN subjectRound.studentGroup studentGroup
+                JOIN subjectRound.module module
+                
+                LEFT JOIN module.studentGrade studentGrade
+                LEFT JOIN studentGrade.student student
+                LEFT JOIN studentGrade.teacher teacher
+                LEFT JOIN studentGrade.gradeChoice gradeChoice
+                
+                WHERE 
+                    subjectRound.id=:subjectRoundId AND 
+                    studentGroup.id=:studentGroupId ";
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER); //print_r($q->getSQL()); die();
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
+
+    /**
+     * 
+     * @param type $params
+     * @param type $extra
+     * @return Paginator
+     */
     public function diaryRelatedDataIndependentWork($params = null, $extra = null)
     {
         $dql = "SELECT 
@@ -89,8 +150,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
-        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
-//print_r($q->getSQL()); die();
+        $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER); //print_r($q->getSQL()); die();
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
@@ -530,7 +590,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
 
         $q = $this->getEntityManager()->createQuery($dql);
-       
+
         //$q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER); //broken
 
         $q->setParameter('teacherId', $extra->lisPerson->getId(), Type::INTEGER);
@@ -553,7 +613,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     protected function dqlStart()
     {
-        return "SELECT
+        $dql = "SELECT
             partial $this->baseAlias.{
             id,
              name,
@@ -595,6 +655,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
             JOIN $this->baseAlias.studentGroup studentGroup
             LEFT JOIN $this->baseAlias.studentGrade studentGrade
             LEFT JOIN studentGrade.gradeChoice gradeChoice";
+
+        return $dql;
     }
 
     /**
@@ -1146,6 +1208,8 @@ class SubjectRoundRepository extends AbstractBaseRepository
     {
         if (array_key_exists('diaryview', $params)) {
             switch ($params['diaryview']) {
+                case 'diaryviewmod':
+                    return $this->diaryRelatedDataModule($params, $extra);
                 case 'diaryInitAdmin':
                     return $this->diaryInitAdmin($params, $extra);
                 case 'diaryview':

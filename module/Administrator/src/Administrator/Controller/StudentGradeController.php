@@ -68,7 +68,7 @@ class StudentGradeController extends Base
      */
     public function create($data)
     {
-        return parent::notAllowed();
+        return parent::create($data);
     }
 
     /**
@@ -89,7 +89,7 @@ class StudentGradeController extends Base
      */
     public function update($id, $data)
     {
-        return parent::notAllowed();
+        return parent::update($id, $data);
     }
 
     /**

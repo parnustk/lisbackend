@@ -56,13 +56,12 @@
 
                 $scope.T = globalFunctions.T;
 
-                var teacherId = 1; //Static for now
-                bootbox.alert('still static teacherID');
-
-                var rawDataStudentGroup = null,
+                var teacherId = null,
+                    rawDataStudentGroup = null,
                     rawDataGradeSR = null,
                     rawDataSubjectRound = null,
                     rawDataGradeIW = null,
+                    rawDataGradeMOD = null,
                     clColumns = [],
                     rows = [],
                     originalRows = [],
@@ -176,7 +175,7 @@
                                             }
                                         }
                                     );
-                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id && isAbsenceReason(newValue)  && isAbsenceReason(oldValue.id)) {//UPDATE
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id && isAbsenceReason(newValue) && isAbsenceReason(oldValue.id)) {//UPDATE
                                     studentGradeModel.Update(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
@@ -303,6 +302,13 @@
                  */
                 var getData = function () {
 
+                    urlParamsSubjectRound.diaryview = 'diaryviewmod';
+                    subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//Module grades
+                        if (globalFunctions.resultHandler(result)) {
+                            rawDataGradeMOD = result.data;
+                        }
+                    });
+
                     urlParamsSubjectRound.diaryview = 'diaryview';
                     subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//CL grades
                         if (globalFunctions.resultHandler(result)) {
@@ -385,6 +391,8 @@
                         u = 0,
                         contactLessons = rawDataSubjectRound[0].contactLesson,
                         independentWorks = rawDataGradeIW.length > 0 ? rawDataGradeIW[0].independentWork : [],
+                        modules = rawDataGradeMOD.length > 0 ? rawDataGradeMOD[0].module : [],
+                        studentGradesSR = rawDataGradeSR.length > 0 ? rawDataGradeSR[0].studentGrade : [],
                         y,
                         x,
                         z;
@@ -399,6 +407,23 @@
                         rows.push(row);
                         u++;
                     }
+                    
+                    var columnNameMOD = 'mod', //add subjectround grade. there is only one subjectround grade per subjectround - no loop is needed
+                        newColumnMOD = {//start defining column
+                            //field: columnNameId,
+                            name: columnNameMOD,
+                            displayName: modules.name,
+                            enableCellEdit: false,
+                            editDropdownOptionsArray: $scope.gradeChoiceGradesOnly,
+                            type: 'object',
+                            editableCellTemplate: 'ui-grid/dropdownEditor',
+                            editDropdownIdLabel: "id",
+                            editDropdownValueLabel: "name",
+                            cellFilter: 'griddropdown:this',
+                            width: 150
+                        };
+
+                    $scope.columns.push(newColumnMOD);
 
                     for (x in contactLessons) {//add contact lesson stuff. number of contactlesson is dynamic
 
@@ -536,9 +561,9 @@
                             studentId = rows[i].student.id;
 
                         if (rawDataGradeSR.length > 0) {
-                            var studentGrades = rawDataGradeSR[0].studentGrade;
-                            if (studentGrades.length !== 0) {
-                                var r = searchStudentGrade(studentId, studentGrades);
+
+                            if (studentGradesSR.length !== 0) {
+                                var r = searchStudentGrade(studentId, studentGradesSR);
                                 if (r !== -1) {
                                     studentGradeId = r.studentGradeId;
                                     gradeChoiceId = r.gradeChoiceId;

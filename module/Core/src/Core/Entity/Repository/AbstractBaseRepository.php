@@ -150,7 +150,7 @@ abstract class AbstractBaseRepository extends EntityRepository
         $dql .= " WHERE $this->baseAlias.id = :id";
         $q = $this->getEntityManager()->createQuery($dql); //print_r($q->getSQL());
 
-        $q->setParameter('id', $id, Type::INTEGER);
+        $q->setParameter('id', ((int)$id), Type::INTEGER);
 //        throw new Exception($id."\n".$q->getSQL());
         return $q->getSingleResult($hydrateMethod);
     }
