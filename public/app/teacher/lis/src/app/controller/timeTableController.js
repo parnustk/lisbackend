@@ -264,7 +264,7 @@
                         subjectRoundModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.subjectRounds = result.data;
-
+                                
 //                                studentGroupModel.GetList(urlParams).then(function (result) {
 //                                    if (globalFunctions.resultHandler(result)) {
 //                                        $scope.studentGroups = result.data;
