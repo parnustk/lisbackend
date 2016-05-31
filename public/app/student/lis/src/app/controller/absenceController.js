@@ -233,8 +233,6 @@
                 $scope.Filter = function (valid) {
                     resetUrlParams();
                     if (valid) {
-//                            console.log(moment($scope.studentAbsenceFilter.startDate).format('YYYY-MM-DD'));
-//                            console.log(moment($scope.studentAbsenceFilter.endDate).format('YYYY-MM-DD'));
                         urlParams.startDate = moment($scope.studentAbsenceFilter.startDate).format('YYYY-MM-DD');
                         urlParams.endDate = moment($scope.studentAbsenceFilter.endDate).format('YYYY-MM-DD');
                         LoadData();

@@ -43,8 +43,10 @@ class ModuleRepository extends AbstractBaseRepository
         $student = $extra->lisPerson;
         $r = $this->_em->getRepository('Core\Entity\StudentInGroups')->getStudentVocationByStudentId($student);
         $vocationId = -1;
+        $studentGroupId = -1;
         if (count($r) > 0) {
             $vocationId = $r[0]->getStudentGroup()->getVocation()->getId();
+            $studentGroupId = $r[0]->getStudentGroup()->getId();
         }
 
         $dql = "SELECT 
@@ -152,13 +154,32 @@ class ModuleRepository extends AbstractBaseRepository
                     (student.id=:studentId OR student.id IS NULL) AND
                     (studentSR.id=:studentId OR studentSR.id IS NULL) AND
                     (studentCL.id=:studentId OR studentCL.id IS NULL) AND
-                    (studentIW.id=:studentId OR studentIW.id IS NULL) 
-                    
-                ORDER BY independentWork.duedate ASC, contactLesson.lessonDate ASC";
+                    (studentIW.id=:studentId OR studentIW.id IS NULL) ";
+
+        if (array_key_exists('startDateIW', $params) && array_key_exists('endDateIW', $params)) {//we have startDate and endDate from params add criteria to query
+            $dql .= " AND (independentWork.duedate >=:startDateTimeIW AND independentWork.duedate <=:endDateTimeIW) ";
+        }
+        
+        if (array_key_exists('startDateCL', $params) && array_key_exists('endDateCL', $params)) {//we have startDate and endDate from params add criteria to query
+            $dql .= " AND (contactLesson.lessonDate >=:startDateTimeCL AND contactLesson.lessonDate <=:endDateTimeCL)";
+        }
+
+        $dql .= " ORDER BY independentWork.duedate ASC, contactLesson.lessonDate ASC";
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
         $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
+
+        if (array_key_exists('startDateIW', $params) && array_key_exists('endDateIW', $params)) {//we have startDate and endDate from params add bind values to criteria
+            $q->setParameter('startDateTimeIW', (new DateTime($params['startDateIW'])), Type::DATETIME);
+            $q->setParameter('endDateTimeIW', (new DateTime($params['endDateIW'])), Type::DATETIME);
+        }
+        
+        if (array_key_exists('startDateCL', $params) && array_key_exists('endDateCL', $params)) {//we have startDate and endDate from params add bind values to criteria
+            $q->setParameter('startDateTimeCL', (new DateTime($params['startDateCL'])), Type::DATETIME);
+            $q->setParameter('endDateTimeCL', (new DateTime($params['endDateCL'])), Type::DATETIME);
+        }
+
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))

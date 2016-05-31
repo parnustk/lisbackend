@@ -501,9 +501,9 @@ class IndependentWorkRepository extends AbstractBaseRepository
      */
     private function studentGetList($params = null, $extra = null)
     {
-        $id = $extra->lisPerson->getId();
-        $dqlRestriction = " AND ($this->baseAlias.student=$id OR $this->baseAlias.student IS NULL) ";
-
+        //$id = $extra->lisPerson->getId();
+        //$dqlRestriction = " AND ($this->baseAlias.student=$id OR $this->baseAlias.student IS NULL) ";
+        $dqlRestriction = null;
         return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
