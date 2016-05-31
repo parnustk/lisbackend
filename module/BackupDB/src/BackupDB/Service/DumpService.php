@@ -227,7 +227,6 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
                             "` LIMIT " . $i . ",1;");
                     //Query data row
                     try {
-                        print_r("Fetch " . $this->tables[$t] . " row " . $i);
                         $stmt->execute();
                         $fetchData = $stmt->fetchAll(); //fetchData is data row
                         $fetchData = $fetchData[0];
@@ -375,7 +374,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
     {
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header("Content-disposition: attachment;filename=$filename");
+        header("Content-disposition: attachment;filename=$filename.sql");
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');

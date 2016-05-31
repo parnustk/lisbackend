@@ -102,7 +102,7 @@ class DumpController extends AbstractActionController
                             ->get($this->service)
                             ->createDump();
                     echo('CREATE SUCCESS<br>');
-                    echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                    echo('<a href="http://' . $data['backupdb']['login']['domain'] .
                     '/backupdb/dump/login">Return to Panel</a>');
                     die();
                 } else if (array_key_exists('uploadsubmit', $postValues)) { //Upload
@@ -112,7 +112,7 @@ class DumpController extends AbstractActionController
                     $filter = new \Zend\Filter\File\RenameUpload($filename);
                     var_dump($filter->filter($files['fileupload']));
                     echo('UPLOAD SUCCESS<br>');
-                    echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                    echo('<a href="http://' . $data['backupdb']['login']['domain'] .
                     '/backupdb/dump/login">Return to Panel</a>');
                     die();
                 } else if (array_key_exists('downloadsubmit', $postValues)) { //Download
@@ -126,7 +126,7 @@ class DumpController extends AbstractActionController
                             ->get($this->service)
                             ->download($fileName);
                     echo('DOWNLOAD SUCCESS<br>');
-                    echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                    echo('<a href="http://' . $data['backupdb']['login']['domain'] .
                     '/backupdb/dump/login">Return to Panel</a>');
                     die();
                 } else if (array_key_exists('pushsubmit', $postValues)) { //Push
@@ -141,12 +141,12 @@ class DumpController extends AbstractActionController
                                 ->get($this->service)
                                 ->pushDump($fileName, null);
                         echo('PUSH SUCCESS<br>');
-                        echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                        echo('<a href="http://' . $data['backupdb']['login']['domain'] .
                         '/backupdb/dump/login">Return to Panel</a>');
                         die();
                     } else {
                         echo('PUSH FAIL; Not Confirmed<br>');
-                        echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+                        echo('<a href="http://' . $data['backupdb']['login']['domain'] .
                         '/backupdb/dump/login">Return to Panel</a>');
                         die();
                     }
@@ -187,7 +187,7 @@ class DumpController extends AbstractActionController
             }
         } else {//if credentials not ok, return to login
             echo('LOGIN FAIL<br>');
-            echo('<a href="https://' . $data['backupdb']['login']['domain'] .
+            echo('<a href="http://' . $data['backupdb']['login']['domain'] .
             '/backupdb/dump/login">Return to Login</a>');
             die();
         }
