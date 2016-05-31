@@ -306,38 +306,41 @@
                     subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//Module grades
                         if (globalFunctions.resultHandler(result)) {
                             rawDataGradeMOD = result.data;
-                        }
-                    });
 
-                    urlParamsSubjectRound.diaryview = 'diaryview';
-                    subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//CL grades
-                        if (globalFunctions.resultHandler(result)) {
-                            rawDataSubjectRound = result.data;
-
-                            urlParamsSubjectRound.diaryview = 'diaryviewsr';
-                            subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//SR grades
+                            urlParamsSubjectRound.diaryview = 'diaryview';
+                            subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//CL grades
                                 if (globalFunctions.resultHandler(result)) {
-                                    rawDataGradeSR = result.data;
+                                    rawDataSubjectRound = result.data;
 
-                                    urlParamsSubjectRound.diaryview = 'diaryviewiw';
-                                    subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//IW grades
+                                    urlParamsSubjectRound.diaryview = 'diaryviewsr';
+                                    subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//SR grades
                                         if (globalFunctions.resultHandler(result)) {
-                                            rawDataGradeIW = result.data;
+                                            rawDataGradeSR = result.data;
 
-                                            urlParamsSubjectRound.diaryview = 'diaryview';
-                                            studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
+                                            urlParamsSubjectRound.diaryview = 'diaryviewiw';
+                                            subjectRoundModel.GetList(urlParamsSubjectRound).then(function (result) {//IW grades
                                                 if (globalFunctions.resultHandler(result)) {
-                                                    rawDataStudentGroup = result.data;
+                                                    rawDataGradeIW = result.data;
 
-                                                    sortDataForDiary();
+                                                    urlParamsSubjectRound.diaryview = 'diaryview';
+                                                    studentGroupModel.GetList(urlParamsSubjectRound).then(function (result) {
+                                                        if (globalFunctions.resultHandler(result)) {
+                                                            rawDataStudentGroup = result.data;
+
+                                                            sortDataForDiary();
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
                                     });
                                 }
                             });
+
                         }
                     });
+
+
                 };
 
                 /**
@@ -407,7 +410,7 @@
                         rows.push(row);
                         u++;
                     }
-                    
+
                     var columnNameMOD = 'mod', //add subjectround grade. there is only one subjectround grade per subjectround - no loop is needed
                         newColumnMOD = {//start defining column
                             //field: columnNameId,
