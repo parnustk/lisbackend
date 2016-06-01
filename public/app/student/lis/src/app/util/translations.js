@@ -2,7 +2,7 @@
  * LIS development
  *
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2016 LIS dev team
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://opensource.org/licenses/MIT MIT License
  */
 
@@ -97,7 +97,7 @@
                 SEARCH_DURATIONALLAK:'Otsi kogu kestuse (AK) järgi',
                 SEARCH_DURATIONCONTACTAK:'Otsi kontakttundide kestuse (AK) järgi',
                 SEARCH_DURATIONINDEPENDENTAK:'Otsi iseseisva töö kestuse (AK) järgi',
-//                Kristen
+
                 LIS_DUEDATE:'Tähtaeg',
                 LIS_INDEPENDENTWORK_VIEW:'Iseseisev töö',
                 INDEPENDENDWORK_GRID_FILTERS:'Iseseisva töö filtrid',
@@ -201,7 +201,9 @@
                 LIS_STUDENTABSENCEFILTER:'Filtreeri',
                 LIS_TIMETABLE:'Tunniplaan',
                 LIS_TIME:'Kellaaeg',
-                LIS_STUDENTTIMETABLE:'Minu tunniplaan'
+                LIS_STUDENTTIMETABLE:'Minu tunniplaan',
+                LIS_STARTLESSONDATE:'Alguskuupäev',
+                LIS_ENDLESSONDATE:'Lõppkuupäev'
                 
             },
             en: {
@@ -291,7 +293,7 @@
                 SEARCH_DURATIONALLAK:'Search by duration all (AK)',
                 SEARCH_DURATIONCONTACTAK:'Search by contact lesson duration (AK)',
                 SEARCH_DURATIONINDEPENDENTAK:'Search by independent work duration (AK)',
-//                Kristen
+
                 LIS_DUEDATE:'Due date',
                 INDEPENDENDWORK_GRID_FILTERS:'Independent work filters',
                 SELECT_OR_SEARCH_A_SUBJECTROUND:'Choose or search by a subject round',
@@ -391,7 +393,9 @@
                 LIS_STUDENTABSENCEFILTER:'Filter',
                 LIS_TIMETABLE:'Timetable',
                 LIS_TIME:'Time',
-                LIS_STUDENTTIMETABLE:'My timetable'
+                LIS_STUDENTTIMETABLE:'My timetable',
+                LIS_STARTLESSONDATE:'Start date',
+                LIS_ENDLESSONDATE:'End date'
             }
         };
         return t;
