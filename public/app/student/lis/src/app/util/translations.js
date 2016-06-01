@@ -82,15 +82,15 @@
                 LIS_CREATE_NEW_ADMINISTRATOR:'Loo uus administraator',
                 ADMINISTRATOR_GRID_FILTERS:'Administraatorite filtrid',
                 
-                LIS_SUBJECT_VIEW: 'Õppeained',
-                LIS_CREATE_NEW_SUBJECT:'Loo uus õppeaine',
+                LIS_SUBJECT_VIEW: 'Õppekava ained',
+                LIS_CREATE_NEW_SUBJECT:'Loo uus õppekava aine',
                 SELECT_A_MODULE:'Vali moodul',
                 SELECT_GRADINGTYPES:'Vali hindamise tüübid',
                 LIS_SUBJECTCODE:'Kood',
                 LIS_DURATIONALLAK:'Kogu kestus (AK)',
                 LIS_DURATIONCONTACTAK:'Kontakttundide kestus (AK)',
                 LIS_DURATIONINDEPENDENTAK:'Iseseisva töö kestus (AK)',
-                SUBJECT_GRID_FILTERS:'Õppeainete filtrid',
+                SUBJECT_GRID_FILTERS:'Õppekava ainete filtrid',
                 SELECT_OR_SEARCH_A_MODULE:'Vali või otsi mooduli järgi',
                 SELECT_OR_SEARCH_GRADINGTYPES:'Vali või otsi hindamise tüüpide järgi',
                 SEARCH_A_SUBJECTCODE:'Otsi koodi järgi',
@@ -116,7 +116,7 @@
                 LIS_CURRICULUM:'Muu',
                 LIS_VOCATION:'Eriala',
                 LIS_MODULE:'Moodul',
-                LIS_SUBJECT:'Teema',
+                LIS_SUBJECT:'Õppekava aine',
                 LIS_MODULETYPE:'Mooduli tüüp',
                 LIS_GRADECHOICE:'Hinnete valik',
                 LIS_GRADINGTYPE:'Hindamine',
@@ -200,7 +200,8 @@
                 SEARCH_A_ENDLESSONDATE:'Lõpp',
                 LIS_STUDENTABSENCEFILTER:'Filtreeri',
                 LIS_TIMETABLE:'Tunniplaan',
-                LIS_TIME:'Kellaaeg'
+                LIS_TIME:'Kellaaeg',
+                LIS_STUDENTTIMETABLE:'Minu tunniplaan'
                 
             },
             en: {
@@ -228,8 +229,8 @@
                 LIS_CREATE_NEW_ROOM: 'Create a new room',
                 LIS_ROOM_GRID_FILTERS: 'Room filter',
 
-                LIS_CREATE_NEW_SUBJECTROUND: 'New SR',
-                LIS_SUBJECTROUND_GRID_FILTERS: 'SR filters',
+                LIS_CREATE_NEW_SUBJECTROUND: 'New subject round',
+                LIS_SUBJECTROUND_GRID_FILTERS: 'Subject round filters',
 
                 LIS_CONTACTLESSON_VIEW: 'Contactlesson',
                 
@@ -275,15 +276,15 @@
                 LIS_CREATE_NEW_ADMINISTRATOR:'Create new administrator',
                 ADMINISTRATOR_GRID_FILTERS:'Administrator filters',
                 
-                LIS_SUBJECT_VIEW: 'Subjects',
-                LIS_CREATE_NEW_SUBJECT:'Create new subject',
+                LIS_SUBJECT_VIEW: 'Curriculum subjects',
+                LIS_CREATE_NEW_SUBJECT:'Create new curriculum subject',
                 SELECT_A_MODULE:'Select a module',
                 SELECT_GRADINGTYPES:'Select grading types',
                 LIS_SUBJECTCODE:'Code',
                 LIS_DURATIONALLAK:'Duration all (AK)',
                 LIS_DURATIONCONTACTAK:'Contact lesson duration (AK)',
                 LIS_DURATIONINDEPENDENTAK:'Independent work duration (AK)',
-                SUBJECT_GRID_FILTERS:'Subject filters',
+                SUBJECT_GRID_FILTERS:'Curriculum subject filters',
                 SELECT_OR_SEARCH_A_MODULE:'Select or search a module',
                 SELECT_OR_SEARCH_GRADINGTYPES:'Select or search grading types',
                 SEARCH_A_SUBJECTCODE:'Search by code',
@@ -293,7 +294,7 @@
 //                Kristen
                 LIS_DUEDATE:'Due date',
                 INDEPENDENDWORK_GRID_FILTERS:'Independent work filters',
-                SELECT_OR_SEARCH_A_SUBJECTROUND:'Choose or search by a SR',
+                SELECT_OR_SEARCH_A_SUBJECTROUND:'Choose or search by a subject round',
                 SELECT_OR_SEARCH_A_TEACHER:'Choose or search by a teacher',
                 LIS_GRADINGTYPE_VIEW:'Grading type',
                 LIS_CREATE_NEW_GRADINGTYPE:'Create new grading type',
@@ -309,7 +310,7 @@
                 LIS_CURRICULUM:'Others',
                 LIS_VOCATION:'Vocation',
                 LIS_MODULE:'Module',
-                LIS_SUBJECT:'Subject',
+                LIS_SUBJECT:'Curriculum subject',
                 LIS_MODULETYPE:'Module type',
                 LIS_GRADECHOICE:'Grade choice',
                 LIS_GRADINGTYPE:'Grading type',
@@ -377,7 +378,7 @@
                 LIS_CONTACTLESSONGRADE:'Contact lesson grades',
                 LIS_INDEPENDENTWORKGRADE:'Independent work grades',
                 LIS_CHECK:'Check',
-                LIS_SUBJECTROUNDGRADES:'ÕSubject round grades',
+                LIS_SUBJECTROUNDGRADES:'Subject round grades',
                 LIS_CONTACTLESSONGRADES:'Contact lesson grades',
                 LIS_INDEPENDENTWORKGRADES:'Independent work grades',
                 LIS_LESSONDESCRIPTION: 'Lesson description',
@@ -389,7 +390,8 @@
                 SEARCH_A_ENDLESSONDATE:'End',
                 LIS_STUDENTABSENCEFILTER:'Filter',
                 LIS_TIMETABLE:'Timetable',
-                LIS_TIME:'Time'
+                LIS_TIME:'Time',
+                LIS_STUDENTTIMETABLE:'My timetable'
             }
         };
         return t;
