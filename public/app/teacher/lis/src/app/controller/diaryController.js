@@ -116,7 +116,7 @@
                         enableCellEdit: false
                     }, {
                         name: "student['name']",
-                        displayName: 'Student',
+                        displayName: $scope.T('LIS_STUDENT'),
                         enableCellEdit: false,
                         pinnedLeft: true,
                         width: 150

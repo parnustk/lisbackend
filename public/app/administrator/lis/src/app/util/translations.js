@@ -206,6 +206,7 @@
                 SELECT_OR_SEARCH_A_SUBJECT:'Vali või otsi õppekava aine järgi',
                 LIS_SEARCH_STATUS:'Otsi staatuse järgi',
                 LIS_SUPERADMIN_VIEW:'Peaadministraatorid',
+                LIS_SUBJECTROUND_GRADE:'Õppeaine hinne',
                 
                 LIS_ERROR: 'Viga!'
                 
@@ -405,6 +406,7 @@
                 LIS_STUDENTGROUP_VIEW:'Student groups',
                 LIS_CREATE_NEW_STUDENTGROUP:'Create new student group',
                 LIS_SUPERADMIN_VIEW:'Main administrators',
+                LIS_SUBJECTROUND_GRADE:'Subject round grade',
 
                 LIS_ERROR: 'Error!'
             }
