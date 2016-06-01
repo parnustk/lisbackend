@@ -6,7 +6,7 @@
         <form class="form-horizontal" role="form" name="filterContactLesson" ng-submit="Filter(filterContactLesson.$valid)">
             <fieldset>
 
-                <legend>{{ T('LIS_CONTACTLESSONFILTER')}}</legend>
+                <legend>{{ T('LIS_DIARYVIEWFILTER')}}</legend>
            
                     <div class="row">
                         
@@ -15,7 +15,7 @@
                             <div class="col-lg-6">
                                 <div class="input-group input-group-lg">
                                     <ui-select name="subjectRound" ng-required="true" ng-model="diaryFilter.subjectRound" convert-to-string theme="bootstrap" class="dropdown">
-                                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-match placeholder="{{ T('LIS_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
                                         <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
                                             <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
                                             <small>
@@ -33,7 +33,7 @@
                             <div class="col-lg-6">
                                 <div class="input-group input-group-lg">
                                     <ui-select name="studentGroup" ng-required="true" ng-model="diaryFilter.studentGroup" convert-to-string theme="bootstrap" class="dropdown">
-                                        <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
+                                        <ui-select-match placeholder="{{ T('LIS_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
                                         <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
                                             <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
                                             <small>

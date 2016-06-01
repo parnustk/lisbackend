@@ -56,7 +56,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <div class="input-group input-group-lg">
-                            <span class="input-group-addon" id="filterIndependentWork-name">{{ T('LIS_NAME') }}</span>
+                            <span class="input-group-addon" id="filterIndependentWork-name">{{ T('LIS_SEARCH_NAME') }}</span>
                             <input name="name" ng-model="filterIndependentWork.name" type="text" class="form-control" placeholder="{{ T('LIS_NAME') }}" aria-describedby="filterIndependentWork-name">
                         </div>
                     </div>
@@ -64,7 +64,7 @@
 
                 <div class="col-md-12">
                     <div class="input-group">
-                        <span class="input-group-addon" id="filterIndependentWork-duedate">{{ T('LIS_DUEDATE') }}</span>
+                        <span class="input-group-addon" id="filterIndependentWork-duedate">{{ T('LIS_SEARCH_DUEDATE') }}</span>
                             <input type="text" name="dueDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="filterIndependentWork.duedate" placeholder="{{ T('LIS_DUEDATE') }}" aria-describedby="independentWorkForm-dueDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -75,7 +75,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <div class="input-group input-group-lg">
-                            <span class="input-group-addon" id="filterIndependentWork-description">{{ T('LIS_DESCRIPTION') }}</span>
+                            <span class="input-group-addon" id="filterIndependentWork-description">{{ T('LIS_SEARCH_DESCRIPTION') }}</span>
                             <input name="description" ng-model="filterIndependentWork.description" type="text" class="form-control" placeholder="{{ T('LIS_DESCRIPTION') }}" aria-describedby="filterIndependentWork-description">
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <div class="input-group input-group-lg">
-                            <span class="input-group-addon" id="filterIndependentWork-durationAK">{{ T('LIS_DURATIONINDEPENDENTAK') }}</span>
+                            <span class="input-group-addon" id="filterIndependentWork-durationAK">{{ T('LIS_SEARCH_DURATIONINDEPENDENTAK') }}</span>
                             <input name="description" ng-model="filterIndependentWork.durationAK" type="number" class="form-control" placeholder="{{ T('LIS_DURATIONINDEPENDENTAK') }}" aria-describedby="filterIndependentWork-durationAK">
                         </div>
                     </div>

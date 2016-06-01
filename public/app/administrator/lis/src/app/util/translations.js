@@ -28,13 +28,13 @@
                 LIS_TRASHED: 'Prügikastis',
                 LIS_NAME_FILTER: 'Nime filter',
                 LIS_DESCRIPTION: 'Kirjeldus',
-                LIS_PERSONALCODE: 'Kood',
+                LIS_PERSONALCODE: 'Isikukood',
 
                 LIS_CREATE_NEW_ROOM: 'Loo uus klassiruum',
                 LIS_ROOM_GRID_FILTERS: 'Klassiruumide filter',
 
-                LIS_CREATE_NEW_SUBJECTROUND: 'Uus õppeaine',
-                LIS_SUBJECTROUND_GRID_FILTERS: 'Õppeaine filtrid',
+                LIS_CREATE_NEW_SUBJECTROUND: 'Loo uus õppeaine',
+                LIS_SUBJECTROUND_GRID_FILTERS: 'Õppeainete filtrid',
 
                 LIS_CONTACTLESSON_VIEW: 'Kontakttunnid',
                 
@@ -74,7 +74,7 @@
                 SEARCH_A_FIRSTNAME:'Otsi eesnime järgi',
                 SEARCH_A_LASTNAME:'Otsi perekonnanime järgi',
                 SEARCH_AN_EMAIL:'Otsi e-posti aadressi järgi',
-                SEARCH_A_PERSONALCODE:'Otsi koodi järgi',
+                SEARCH_A_PERSONALCODE:'Otsi isikukoodi järgi',
                 STUDENT_GRID_FILTERS:'Õpilaste filtrid',
                 
                 LIS_ADMINISTRATOR_VIEW:'Administraatorid',
@@ -96,9 +96,9 @@
                 SEARCH_DURATIONALLAK:'Otsi kogu kestuse (AK) järgi',
                 SEARCH_DURATIONCONTACTAK:'Otsi kontakttundide kestuse (AK) järgi',
                 SEARCH_DURATIONINDEPENDENTAK:'Otsi iseseisva töö kestuse (AK) järgi',
-//                Kristen
+
                 LIS_DUEDATE:'Tähtaeg',
-                LIS_INDEPENDENTWORK_VIEW:'Iseseisev töö',
+                LIS_INDEPENDENTWORK_VIEW:'Iseseisevad tööd',
                 INDEPENDENDWORK_GRID_FILTERS:'Iseseisva töö filtrid',
                 SELECT_OR_SEARCH_A_SUBJECTROUND:'Vali või otsi õppeaine järgi',
                 SELECT_OR_SEARCH_A_TEACHER:'Vali või otsi õpetaja järgi',
@@ -107,7 +107,7 @@
                 LIS_GRADINGTYPE_FILTERS:'Hindamise tüüpide filter',
                 LIS_SEARCH_NAME:'Otsi nime järgi',
 //               Teacher
-                LIS_TEACHER_VIEW: "Õpetaja",
+                LIS_TEACHER_VIEW: "Õpetajad",
                 LIS_TEACHER_FILTER: "Õpetaja filtrid",
                 LIS_TEACHER_CREATE: "Loo uus õpetaja",
                 LIS_TEACHER_GRID_FILTERS: "Õpetajate filtrid",
@@ -142,7 +142,7 @@
 //                MENÜÜ LÕPP
                 
                 LIS_STUDENTGRADE_VIEW:'Õpilase hinded',
-                STUDENTGRADE_GRID_FILTERS:'Õpilase hinde filtrid',
+                STUDENTGRADE_GRID_FILTERS:'Õpilase hinnete filtrid',
                 SELECT_OR_SEARCH_A_GRADECHOICE:'Vali või otsi hinde valiku järgi',
                 SELECT_OR_SEARCH_AN_INDEPENDENTWORK:'Vali või otsi iseseisva töö järgi',
                 LIS_NOTES:'Märkmed',
@@ -157,12 +157,12 @@
                 LIS_STUDENTINGROUPS_VIEW:'Õpilased gruppides',
                 LIS_CREATE_NEW_STUDENTINGROUPS:'Loo uus õpilane gruppides',
                 SELECT_A_STUDENTGROUP:'Vali õppegrupp',
-                STUDENTINGROUPS_GRID_FILTERS:'Õpilane gruppides filter',
+                STUDENTINGROUPS_GRID_FILTERS:'Õpilane gruppides filtrid',
                 LIS_STATUS:'Staatus',
                 SELECT_OR_SEARCH_A_STUDENTGROUP:'Vali või otsi õppegrupi järgi',
                 
                 LIS_CREATE_NEW_CONTACTLESSON:'Loo uus kontakttund',
-                LIS_CHOOSE_ROOM:'Vali ruum',
+                LIS_CHOOSE_ROOM:'Vali klassiruum',
                 LIS_CHOOSE_SUBJECTROUND:'Vali õppeaine',
                 LIS_CHOOSE_STUDENTGROUP:'Vali õppegrupp',
                 LIS_CHOOSE_MODULE:'Vali moodul',
@@ -171,7 +171,7 @@
                 LIS_SEQUENCENR:'Tunni number',
                 LIS_LESSONDATE:'Tunni toimumise aeg',
                 LIS_DATE:'Kuupäev',
-                SELECT_OR_SEARCH_A_ROOM:'Otsi ruumi järgi',
+                SELECT_OR_SEARCH_A_ROOM:'Vali või otsi ruumi järgi',
                 SEARCH_A_SEQUENCENR:'Otsi tunni numbri järgi',
                 SEARCH_A_LESSONDATE:'Otsi kestuse järgi',
                 LIS_CONTACTLESSONFILTER:'Kontakttunni filtrid',
@@ -195,6 +195,17 @@
                 LIS_MODULEDURATION:'Kestus (EKAP)',
                 SEARCH_MODULEDURATION:'Otsi kestuse (EKAP) järgi',
                 LIS_ROOM_VIEW:'Klassiruumid',
+                LIS_DIARY_VIEW:'Päeviku vaade',
+                LIS_FILTER_REFRESH:'Filtreeri',
+                LIS_DIARYVIEWFILTER:'Vali õppeaine ja õppegrupp:',
+                LIS_SEARCH_DUEDATE:'Otsi tähtaja järgi',
+                LIS_SEARCH_DESCRIPTION:'Otsi kirjelduse järgi',
+                LIS_SEARCH_DURATIONINDEPENDENTAK:'Otsi iseseisva töö kestuse (AK) järgi',
+                LIS_SUBJECTROUNDVIEW:'Õppeained',
+                LIS_CHOOSE_SUBJECT:'Vali õppekava aine',
+                SELECT_OR_SEARCH_A_SUBJECT:'Vali või otsi õppekava aine järgi',
+                LIS_SEARCH_STATUS:'Otsi staatuse järgi',
+                LIS_SUPERADMIN_VIEW:'Peaadministraatorid',
                 
                 LIS_ERROR: 'Viga!'
                 
@@ -212,7 +223,7 @@
                 LIS_DESCRIPTION: 'Description',
                 LIS_FIRSTNAME: 'First name',
                 LIS_LASTNAME: 'Last name',
-                LIS_PERSONALCODE: 'Code',
+                LIS_PERSONALCODE: 'Personal identification number',
 
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
@@ -222,10 +233,10 @@
                 LIS_CREATE_NEW_ROOM: 'Create new classroom',
                 LIS_ROOM_GRID_FILTERS: 'Room filter',
 
-                LIS_CREATE_NEW_SUBJECTROUND: 'New subject round',
+                LIS_CREATE_NEW_SUBJECTROUND: 'Create new subject round',
                 LIS_SUBJECTROUND_GRID_FILTERS: 'Subject round filters',
 
-                LIS_CONTACTLESSON_VIEW: 'Contact lesson',
+                LIS_CONTACTLESSON_VIEW: 'Contact lessons',
                 
                 LIS_CREATE_NEW_ABSENCEREASON: 'Create new absence reason',
                 ABSENCEREASON_GRID_FILTERS: 'Absence reasons filter',
@@ -237,7 +248,7 @@
                 SELECT_A_CONTACTLESSON: 'Select a contact lesson',
                 ABSENCE_GRID_FILTERS: 'Absence filters',
                 SELECT_OR_SEARCH_AN_ABSENCEREASON: 'Select or search an absence reason',
-                SELECT_OR_SEARCH_A_STUDENT: 'Select or search a student',
+                SELECT_OR_SEARCH_A_STUDENT: 'Select or search by student',
                 SELECT_OR_SEARCH_A_CONTACTLESSON: 'Select or search a contact lesson',
                 
                 LIS_VOCATION_VIEW: 'Vocations',
@@ -262,7 +273,7 @@
                 SEARCH_A_FIRSTNAME:'Search by first name',
                 SEARCH_A_LASTNAME:'Search by last name',
                 SEARCH_AN_EMAIL:'Search by e-mail address',
-                SEARCH_A_PERSONALCODE:'Search by code',
+                SEARCH_A_PERSONALCODE:'Search by personal identification number',
                 STUDENT_GRID_FILTERS:'Student filters',
                 
                 LIS_ADMINISTRATOR_VIEW:'Administrators',
@@ -284,17 +295,17 @@
                 SEARCH_DURATIONALLAK:'Search by duration all (AK)',
                 SEARCH_DURATIONCONTACTAK:'Search by contact lesson duration (AK)',
                 SEARCH_DURATIONINDEPENDENTAK:'Search by independent work duration (AK)',
-//                Kristen
-                LIS_DUEDATE:'Due date',
+
+                LIS_DUEDATE:'Duedate',
                 INDEPENDENDWORK_GRID_FILTERS:'Independent work filters',
-                SELECT_OR_SEARCH_A_SUBJECTROUND:'Choose or search by a subject round',
-                SELECT_OR_SEARCH_A_TEACHER:'Choose or search by a teacher',
+                SELECT_OR_SEARCH_A_SUBJECTROUND:'Select or search by subject round',
+                SELECT_OR_SEARCH_A_TEACHER:'Select or search by teacher',
                 LIS_GRADINGTYPE_VIEW:'Grading types',
                 LIS_CREATE_NEW_GRADINGTYPE:'Create new grading type',
                 LIS_GRADINGTYPE_FILTERS:'Grading type filter',
                 LIS_SEARCH_NAME:'Search by name',
 //               Teacher
-                LIS_TEACHER_VIEW: "Teacher view",
+                LIS_TEACHER_VIEW: "Teachers",
                 LIS_TEACHER_FILTER: "Teacher filter",
                 LIS_TEACHER_CREATE: "Create new teacher",
                 LIS_TEACHER_GRID_FILTERS: "Teacher grid filters",
@@ -321,7 +332,7 @@
                 LIS_TEACHER:'Teacher',
                 LIS_STUDENT:'Student',
                 LIS_ADMINISTRATOR:'Administrator',
-                LIS_STUDENTGROUP:'Studentgroup',
+                LIS_STUDENTGROUP:'Student group',
                 LIS_STUDENTINGROUPS:'Student in groups',
                 
                 LIS_ME:'Me',
@@ -346,18 +357,18 @@
                 SELECT_OR_SEARCH_A_STUDENTGROUP:'Select or search by student group',
                 
                 LIS_CREATE_NEW_CONTACTLESSON:'Create new contact lesson',
-                LIS_CHOOSE_ROOM:'Choose room',
-                LIS_CHOOSE_SUBJECTROUND:'Choose subject round',
-                LIS_CHOOSE_STUDENTGROUP:'Choose student group',
-                LIS_CHOOSE_MODULE:'Choose module',
-                LIS_CHOOSE_TEACHER:'Choose teacher',
+                LIS_CHOOSE_ROOM:'Choose a room',
+                LIS_CHOOSE_SUBJECTROUND:'Choose a subject round',
+                LIS_CHOOSE_STUDENTGROUP:'Choose a student group',
+                LIS_CHOOSE_MODULE:'Choose a module',
+                LIS_CHOOSE_TEACHER:'Choose a teacher',
                 LIS_DURATIONAK:'Duration (AK)',
                 LIS_SEQUENCENR:'Lesson sequence number',
                 LIS_LESSONDATE:'Lesson date',
                 LIS_DATE:'Date',
                 SELECT_OR_SEARCH_A_ROOM:'Select or search by room',
-                SEARCH_A_SEQUENCENR:'Select or search by sequence number',
-                SEARCH_A_LESSONDATE:'Select or search by lesson date',
+                SEARCH_A_SEQUENCENR:'Search by sequence number',
+                SEARCH_A_LESSONDATE:'Search by lesson date',
                 LIS_CONTACTLESSONFILTER:'Contact lesson filters',
                 
                 LIS_CHOOSE_MODULETYPE:'Choose a module type',
@@ -380,6 +391,20 @@
                 SEARCH_MODULEDURATION:'Search by duration (EKAP)',
                 LIS_CHOOSE_VOCATION:'Choose a vocation',
                 LIS_ROOM_VIEW:'Classrooms',
+                LIS_DIARY_VIEW:'Diary view',
+                LIS_FILTER_REFRESH:'Filter',
+                LIS_DIARYVIEWFILTER:'Choose subject round and student group:',
+                LIS_SEARCH_DUEDATE:'Search by duedate',
+                LIS_SEARCH_DESCRIPTION:'Search by description',
+                LIS_SEARCH_DURATIONINDEPENDENTAK:'Search by independent work duration (AK)',
+                LIS_INDEPENDENTWORK_VIEW: 'Independent works',
+                LIS_SUBJECTROUNDVIEW:'Subject rounds',
+                LIS_CHOOSE_SUBJECT:'Choose a curriculum subject',
+                SELECT_OR_SEARCH_A_SUBJECT:'Select or search by curriculum subject',
+                LIS_SEARCH_STATUS:'Search by status',
+                LIS_STUDENTGROUP_VIEW:'Student groups',
+                LIS_CREATE_NEW_STUDENTGROUP:'Create new student group',
+                LIS_SUPERADMIN_VIEW:'Main administrators',
 
                 LIS_ERROR: 'Error!'
             }

@@ -148,7 +148,7 @@
                             },
                             {
                                 field: 'state',
-                                displayName: $scope.T('LIS_STATE')
+                                displayName: $scope.T('LIS_STATUS')
                             },
                             {
                                 field: 'trashed',
