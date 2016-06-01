@@ -6,7 +6,7 @@
     Marten Kähr - Independently responsible for backup module architecture, analytics and development, developer
     Juhan Kõks - Release manager(Jenkins), Server administrator(LAMP), developer, juhankoks@gmail.com
     Kristen Sepp - UI/UX, Front-end key developer, Analytics, developer seppkristen@gmail.com
-    Arnold Tserepov - QA, developer, tserepov@gmail.com
+    Arnold Tšerepov - QA, developer, tserepov@gmail.com
     Alar Aasa - UI/UX, Front-end key developer, developer, alar@alaraasa.ee
     Sander Mets - team lead, software architect, lead developer, sandermets0@gmail.com
 
