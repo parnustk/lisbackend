@@ -11,8 +11,7 @@ use Zend\Form\Element\Select;
 use Zend\File\Transfer;
 use BackupDB\Form\loginForm;
 use BackupDB\Form\panelForm;
-use Zend\Authentication\Storage;
-use Zend\Session\Container as SessionContainer;
+use Zend\Uri\UriFactory;
 
 class DumpController extends AbstractActionController
 {
@@ -62,14 +61,19 @@ class DumpController extends AbstractActionController
         $form = new loginForm('loginForm');
         $form->get('submit')->setValue('Log In');
 
+        $data = include 'config/autoload/backupdb.local.php';
+        if ($_SERVER['REQUEST_SCHEME'] != $data['backupdb']['login']['protocol']) {
+            return $this->redirect()
+                            ->toUrl($data['backupdb']['login']['protocol'] . '://' .
+                                    $data['backupdb']['login']['domain'] .
+                                    '/backupdb/dump/login');
+        }
+
         $request = $this->getRequest();
         if ($request->isPost()) {
             //check form fields against credentials in config file
-            $data = include 'config/autoload/backupdb.local.php';
             $inputname = $request->getPost('username');
             $inputpwd = $request->getPost('password');
-            $uname = $data['backupdb']['login']['user'];
-            $pwd = $data['backupdb']['login']['pwd'];
             $this
                     ->getServiceLocator()
                     ->get($this->service)
@@ -77,7 +81,10 @@ class DumpController extends AbstractActionController
                         'user' => $inputname,
                         'pwd' => $inputpwd
             ));
-            return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/panel");
+            return $this->redirect()
+                            ->toUrl($data['backupdb']['login']['protocol'] . '://' .
+                                    $data['backupdb']['login']['domain'] .
+                                    '/backupdb/dump/panel');
         }
 
         return new ViewModel(['form' => $form]);
@@ -87,6 +94,13 @@ class DumpController extends AbstractActionController
     {
         $data = include 'config/autoload/backupdb.local.php';
         //check session if credentials not ok redirect to login
+        $protocol = $this->getRequest();
+        if ($_SERVER['REQUEST_SCHEME'] != $data['backupdb']['login']['protocol']) {
+            return $this->redirect()
+                            ->toUrl($data['backupdb']['login']['protocol'] . '://' .
+                                    $data['backupdb']['login']['domain'] .
+                                    '/backupdb/dump/panel');
+        }
         $session = $this
                 ->getServiceLocator()
                 ->get($this->service)
