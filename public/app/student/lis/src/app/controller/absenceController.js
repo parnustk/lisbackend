@@ -4,11 +4,12 @@
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
  */
+
+/* global define */
+
 /* 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>, Juhan Kõks <juhankoks@gmail.com>
  */
-
-/* global define */
 
 /**
  * 
