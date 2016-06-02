@@ -191,6 +191,10 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $this->dumpData = null;
 
         for ($t = 0; $t < count($this->tables); $t++) { //Loop through all tables, append new data into output file with each loop
+            $this->dumpData = "DROP TABLE IF EXISTS " . $this->tables[$t] .  "; \n"; //Drops table if it exists when restoring backup
+            file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
+            $this->dumpData = null;
+
             //Prepare structure query statement
             $stmt1 = $this->db->prepare('SHOW CREATE TABLE `' . $this->tables[$t] . '`;');
 
@@ -200,6 +204,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
                 $fetchData = $stmt1->fetch();
                 $this->dumpData = $fetchData[1] . "; \n";
             } catch (PDOException $ex) {
+                echo "There was a problem with the database <br>";
                 print_r($ex);
                 die();
             }
@@ -231,6 +236,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
                         $fetchData = $stmt->fetchAll(); //fetchData is data row
                         $fetchData = $fetchData[0];
                     } catch (PDOException $ex) {
+                        echo "There was a problem with the database <br>";
                         print_r($ex);
                         die();
                     }
@@ -244,6 +250,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
                         $fetchData = $stmt->fetchAll(); //fetchData is data row
                         $fetchData = $fetchData[0];
                     } catch (PDOException $ex) {
+                        echo "There was a problem with the database <br>";
                         print_r($ex);
                         die();
                     }
@@ -360,6 +367,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         try {
             $pushStatement->execute();
         } catch (PDOException $ex) {
+            echo "There was a problem with the database <br>";
             print_r($ex);
             die();
         }
