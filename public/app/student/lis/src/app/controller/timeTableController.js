@@ -212,13 +212,12 @@
 
                     $scope.FormatDate = function (ds) {
 
-                        var dObj = new Date(ds),
-                                dFinal;
+                         var    dFinal;
 
                         if (window.LisGlobals.L === 'et') {
-                            dFinal = moment(dObj).format('DD.MM.YYYY');
+                            dFinal = moment(ds).format('DD.MM.YYYY');
                         } else {
-                            dFinal = moment(dObj).format('DD/MM/YYYY');
+                            dFinal = moment(ds).format('DD/MM/YYYY');
                         }
                         return dFinal;
                     };

@@ -38,7 +38,7 @@
     <th>{{T('LIS_TIMETABLE')}}</th>
     <tr ng-repeat="contactLesson in subjectRound.contactLesson">
         <td>
-            <b>{{ FormatDate(contactLesson.lessonDate.date)}}</b> - {{ contactLesson.sequenceNr}}<br>
+            <b>{{FormatDate(contactLesson.lessonDate.date)}}</b> - {{ contactLesson.sequenceNr}}<br>
             <ul>
                 <li>{{ subjectRound.name}}</li>
             </ul>

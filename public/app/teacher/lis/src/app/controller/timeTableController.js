@@ -214,15 +214,19 @@
 
                     $scope.FormatDate = function (ds) {
 
-                        var dObj = new Date(ds),
-                                dFinal;
+                        //var dObj = new Date(ds),
+                            var    dFinal;
 
                         if (window.LisGlobals.L === 'et') {
-                            dFinal = moment(dObj).format('DD.MM.YYYY');
+                            dFinal = moment(ds).format('DD.MM.YYYY');
                         } else {
-                            dFinal = moment(dObj).format('DD/MM/YYYY');
+                            dFinal = moment(ds).format('DD/MM/YYYY');
                         }
                         return dFinal;
+
+
+
+
                     };
 
                     /**
@@ -264,7 +268,7 @@
                         subjectRoundModel.GetList(urlParams).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
                                 $scope.subjectRounds = result.data;
-                                
+
 //                                studentGroupModel.GetList(urlParams).then(function (result) {
 //                                    if (globalFunctions.resultHandler(result)) {
 //                                        $scope.studentGroups = result.data;
