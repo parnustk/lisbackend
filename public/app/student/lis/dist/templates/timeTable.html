@@ -40,7 +40,7 @@
         <td>
             <b>{{ FormatDate(contactLesson.lessonDate.date)}}</b> - {{ contactLesson.sequenceNr}}<br>
             <ul>
-                <li>{{ subjectRound.name}}</li>
+                <li class="subjectRoundFormating"><b>{{ subjectRound.name}}</b></li>
             </ul>
             <br>Õpetaja: {{ contactLesson.teacher.name}}
             <br>Klass: {{ contactLesson.rooms.name}}
