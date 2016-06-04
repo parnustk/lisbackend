@@ -1,57 +1,5 @@
 # BE FR and ACL of entities
 
-## Absence RESOURCE
-
-* description(string)*
-* absenceReason(integer)
-* student(integer)*
-* contactLesson(integer)*
-
-####  Administrator ROLE
-
-* YES getList
-* YES get
-* YES create
-* YES update   - OWN CREATED
-* YES delete   - OWN CREATED
-
-####  Teacher ROLE
-
-* YES getList
-* YES get
-* YES create
-* YES update  - OWN CREATED ?PERIOD
-* YES delete  - OWN CREATED ?PERIOD
-
-####  Student ROLE
-
-* YES getList - OWN RELATED
-* YES get     - OWN RELATED
-* YES create  - OWN RELATED
-* YES update  - OWN CREATED RELATED ?PERIOD
-* YES delete  - OWN CREATED RELATED ?PERIOD
-
-## AbsenceReason RESOURCE
-
-* name(string)*
-
-####  Administrator ROLE
-
-* YES getList
-* YES get
-* YES create
-* YES update
-* YES delete
-
-####  Teacher ROLE
-
-* YES getList
-* YES get
-
-####  Student ROLE
-
-* YES getList
-* YES get
 
 ## Administrator RESOURCE
 
