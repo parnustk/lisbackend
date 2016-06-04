@@ -18,6 +18,7 @@ use Exception;
 use Zend\Json\Json;
 use Doctrine\ORM\Query;
 use Doctrine\DBAL\Types\Type;
+use DateTime;
 
 /**
  * @author Sander Mets <sandermets0@gmail.com>
@@ -157,11 +158,11 @@ class ModuleRepository extends AbstractBaseRepository
                     (studentIW.id=:studentId OR studentIW.id IS NULL) ";
 
         if (array_key_exists('startDateIW', $params) && array_key_exists('endDateIW', $params)) {//we have startDate and endDate from params add criteria to query
-            $dql .= " AND (independentWork.duedate >=:startDateTimeIW AND independentWork.duedate <=:endDateTimeIW) ";
+            $dql .= " WHERE studentIW.id=:studentId AND independentWork.duedate >=:startDateTimeIW AND independentWork.duedate <=:endDateTimeIW ";
         }
         
         if (array_key_exists('startDateCL', $params) && array_key_exists('endDateCL', $params)) {//we have startDate and endDate from params add criteria to query
-            $dql .= " AND (contactLesson.lessonDate >=:startDateTimeCL AND contactLesson.lessonDate <=:endDateTimeCL)";
+            $dql .= " WHERE studentCL.id=:studentId AND contactLesson.lessonDate >=:startDateTimeCL AND contactLesson.lessonDate <=:endDateTimeCL";
         }
 
         $dql .= " ORDER BY independentWork.duedate ASC, contactLesson.lessonDate ASC";

@@ -189,9 +189,9 @@
                         $scope.subjectRoundName = allGrades[0].name;
                     }
 
-                    $scope.contactLessons = $scope.independentWorks = [];
+                    $scope.contactLessons = $scope.independentWorks = $scope.modules= [];
 
-//                    $scope.studentGradeFilter = {};
+                    $scope.studentGradeFilter = {};
 
 
                     for (var x in allGrades) {
@@ -238,7 +238,7 @@
 //                        delete urlParams.where;
 //                        LoadData();
 //                    };
-//                    
+                    
 //                    /**
 //                 * 
 //                 * @param {type} valid
@@ -269,21 +269,15 @@
 //                    }
 //                    return result;
 //                };
-//
+
 //                    /**
 //                     * 
 //                     * @returns {undefined}
 //                     */
 //                    function LoadData() {
-//                        contactLessonModel.GetList(urlParams).then(function (result) {
-//                            if (globalFunctions.resultHandler(result)) {
-//                                $scope.subjectRounds = result.data;
-//
-//                                independentWorkModel.GetList(urlParams).then(function (result) {
-//                                    if (globalFunctions.resultHandler(result)) {
-//                                        $scope.subjectRounds = result.data;
-//                                    }
-//                                });
+//                        moduleModel.GetList(urlParams).then(function (result) {
+//                             if (globalFunctions.resultHandler(result)) {
+//                                $scope.modules = result.data;
 //                            }
 //                        });
 //                    }
