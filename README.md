@@ -2,12 +2,12 @@
 
 ## Developers and responsibilities
 
-    Eleri Apsolon - UX, Front-end key developer, student app, analytics, developer, eleri.apsolon@gmail.com
-    Marten Kähr - Independently responsible for backup module architecture, analytics and development, developer
-    Juhan Kõks - Release manager(Jenkins), Server administrator(LAMP), developer, juhankoks@gmail.com
-    Kristen Sepp - UI/UX, Front-end key developer, Analytics, developer seppkristen@gmail.com
+    Eleri Apsolon - UX, front-end key developer, student app, analytics, developer, eleri.apsolon@gmail.com
+    Marten Kähr - backup module architecture, analytics and development, developer
+    Juhan Kõks - release manager(Jenkins), Server administrator(LAMP), developer, juhankoks@gmail.com
+    Kristen Sepp - UI/UX, front-end key developer, analytics, developer seppkristen@gmail.com
     Arnold Tšerepov - QA, developer, tserepov@gmail.com
-    Alar Aasa - UX, Front-end key developer, developer, alar@alaraasa.ee
+    Alar Aasa - UX, front-end key developer, developer, alar@alaraasa.ee
     Sander Mets - team lead, software architect, lead developer, sandermets0@gmail.com
 
 ## What
