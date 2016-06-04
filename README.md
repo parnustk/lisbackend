@@ -2,7 +2,7 @@
 
 ## Developers and responsibilities
 
-    Eleri Apsolon - UI/UX, Front-end key developer, Independently responsible for student mobile-friendly web-application development, analytics, developer, eleri.apsolon@gmail.com
+    Eleri Apsolon - UI/UX, Front-end key developer, student app, analytics, developer, eleri.apsolon@gmail.com
     Marten Kähr - Independently responsible for backup module architecture, analytics and development, developer
     Juhan Kõks - Release manager(Jenkins), Server administrator(LAMP), developer, juhankoks@gmail.com
     Kristen Sepp - UI/UX, Front-end key developer, Analytics, developer seppkristen@gmail.com
