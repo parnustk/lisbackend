@@ -191,7 +191,7 @@
                 LIS_ENDDATE: 'Vali viimane kuupäev',
                 LIS_NO_TEACHER: 'Filtreerimiseks on vaja valida õpetaja',
                 LIS_DIARYS:'Päevik',
-                LIS_SUPERADMIN:'Peaadministraator',
+                LIS_SUPERADMIN:'Kasutajate haldus',
                 LIS_MODULEDURATION:'Kestus (EKAP)',
                 SEARCH_MODULEDURATION:'Otsi kestuse (EKAP) järgi',
                 LIS_ROOM_VIEW:'Klassiruumid',
@@ -205,7 +205,7 @@
                 LIS_CHOOSE_SUBJECT:'Vali õppekava aine',
                 SELECT_OR_SEARCH_A_SUBJECT:'Vali või otsi õppekava aine järgi',
                 LIS_SEARCH_STATUS:'Otsi staatuse järgi',
-                LIS_SUPERADMIN_VIEW:'Peaadministraatorid',
+                LIS_SUPERADMIN_VIEW:'Kasutajate haldus',
                 LIS_SUBJECTROUND_GRADE:'Õppeaine hinne',
                 
                 LIS_ERROR: 'Viga!'
@@ -387,7 +387,7 @@
                 LIS_ENDDATE: 'Choose the latest date',
                 LIS_NO_TEACHER: 'You need to choose a teacher to filter',
                 LIS_DIARYS:'Diary',
-                LIS_SUPERADMIN:'Main administrator',
+                LIS_SUPERADMIN:'User management',
                 LIS_MODULEDURATION:'Duration (EKAP)',
                 SEARCH_MODULEDURATION:'Search by duration (EKAP)',
                 LIS_CHOOSE_VOCATION:'Choose a vocation',
@@ -405,7 +405,7 @@
                 LIS_SEARCH_STATUS:'Search by status',
                 LIS_STUDENTGROUP_VIEW:'Student groups',
                 LIS_CREATE_NEW_STUDENTGROUP:'Create new student group',
-                LIS_SUPERADMIN_VIEW:'Main administrators',
+                LIS_SUPERADMIN_VIEW:'User management',
                 LIS_SUBJECTROUND_GRADE:'Subject round grade',
 
                 LIS_ERROR: 'Error!'
