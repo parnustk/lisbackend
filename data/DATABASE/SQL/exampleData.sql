@@ -36,7 +36,7 @@ INSERT INTO `Vocation` (`id`, `created_by`, `updated_by`, `name`, `vocationCode`
 --
 
 INSERT INTO `Administrator` (`id`, `lis_user_id`, `created_by`, `updated_by`, `firstName`, `lastName`, `name`, `email`, `personalCode`, `superAdministrator`, `trashed`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, NULL, 'firstName572f16694ce14', 'lastName572f16694ce5f', 'lastName572f16694ce5f, firstName572f16694ce14', 'admin@test.ee', 'code572f16694cea4', 1, NULL, '2016-05-08 13:35:21', '2016-05-08 13:35:21');
+(1, 1, 1, NULL, 'firstName572f16694ce14', 'lastName572f16694ce5f', 'lastName572f16694ce5f, firstName572f16694ce14', 'admin@test.ee', 'code572f16694cea4', 1, NULL, '2016-05-08 13:35:21', '2016-05-08 13:35:21');
 
 --
 -- Dumping data for table `Rooms`

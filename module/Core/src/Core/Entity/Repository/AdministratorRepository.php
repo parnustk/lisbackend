@@ -260,6 +260,10 @@ class AdministratorRepository extends AbstractBaseRepository
      */
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
+        $i = 0;
+        $userId = $extra->lisUser->getId();
+        $createdBy = $entity->getCreatedBy()->getId();
+        $userId = $extra->lisUser->getId();
         if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
             throw new Exception('SELF_CREATED_RESTRICTION');
         }
