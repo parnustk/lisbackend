@@ -39,13 +39,11 @@
              */
             formatDate: function (ds) {
 
-                var dObj = new Date(ds),
-                    dFinal;
-
+                var dFinal = new Date(ds);
                 if (window.LisGlobals.L === 'et') {
-                    dFinal = moment(dObj).format('DD.MM.YYYY');
+                    dFinal = moment(dFinal).format('DD.MM.YYYY');
                 } else {
-                    dFinal = moment(dObj).format('DD/MM/YYYY');
+                    dFinal = moment(dFinal).format('DD/MM/YYYY');
                 }
                 return dFinal;
             },
