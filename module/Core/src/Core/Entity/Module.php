@@ -61,7 +61,7 @@ class Module extends EntityValidation
     /**
      * @Annotation\Required({"required":"true"})
      * 
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="float", nullable=false)
      */
     protected $duration;
 
