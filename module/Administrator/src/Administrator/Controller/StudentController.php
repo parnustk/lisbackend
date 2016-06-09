@@ -17,6 +17,7 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
  * Description of StudentController
  * @author Marten Kähr <marten@kahr.ee>
  * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentController extends Base
 {
@@ -58,9 +59,9 @@ class StudentController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * personalCode(string)*
+     * name(string)*
      * email(string)*
-     * </code>
+     * personalCode(string)*</code>
      * @param int $data
      * @return JsonModel
      */
@@ -74,6 +75,8 @@ class StudentController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
+     * name(string)*
+     * email(string)*
      * personalCode(string)*</code>
      * @param int $id
      * @param array $data

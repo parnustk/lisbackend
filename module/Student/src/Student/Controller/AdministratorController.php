@@ -20,6 +20,7 @@ use Core\Controller\AbstractStudentBaseController as Base;
  * YES get
  * 
  * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 class AdministratorController extends Base
@@ -60,9 +61,10 @@ class AdministratorController extends Base
       * <h2>POST student/administrator</h2>
       * <h3>Body</h3>
       * <code>firstName(string)*
-      * lastName(string)*
-      * code(string)*
-      * lisUser(integer)</code>
+     * lastName(string)*
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
       * 
       * @param int $data
       * @return JsonModel
@@ -78,9 +80,10 @@ class AdministratorController extends Base
      * <code>id(integer)</code>
      * <h3>Body</h3>
      * <code>firstName(string)*
-      * lastName(string)*
-      * code(string)*
-      * lisUser(integer)</code>
+     * lastName(string)*
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
      * 
      * @param int $id
      * @return JsonModel

@@ -17,6 +17,7 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
  *
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Marten Kähr <marten@kahr.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * 
  */
 class AdministratorController extends Base
@@ -59,8 +60,9 @@ class AdministratorController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * code(string)*
-     * lisUser(integer)</code>
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
      * @param int $data
      * @return JsonModel
      */
@@ -74,8 +76,9 @@ class AdministratorController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * code(string)*
-     * lisUser(integer)</code>
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
      * @param int $id
      * @param array $data
      * @return JsonModel

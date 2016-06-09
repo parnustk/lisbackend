@@ -54,7 +54,7 @@ class GradeChoiceController extends Base
     /**
      * <h2>POST student/gradechoice</h2>
      * <h3>Body</h3>
-     * <code>name(string)*</code>
+     * <code>lisType(string)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -67,7 +67,7 @@ class GradeChoiceController extends Base
     /**
      * <h2>PUT student/gradechoice/:id</h2>
      * <h3>URL Parameters</h3>
-     * <code>id(integer)*</code>
+     * <code>lisType(string)*</code>
      * <h3>Body</h3>
      * <code>name(string)*</code>
      * 

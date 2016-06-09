@@ -59,8 +59,9 @@ class TeacherController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * personalCode(string)*
-     * lisUser(integer)</code>
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
      * @param int $data
      * @return JsonModel
      */
@@ -74,8 +75,9 @@ class TeacherController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * personalCode(string)*
-     * lisUser(integer)</code>
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
      * @param int $id
      * @param array $data
      * @return JsonModel

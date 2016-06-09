@@ -55,8 +55,8 @@ class ModuleController extends Base
     /**
      * <h2>POST admin/module</h2>
      * <h3>Body</h3>
-     * <code> name(string)*
-     * duration(integer)*
+     * <code>name(string)*
+     * duration(float)*
      * moduleCode(string)*
      * vocation(integer)*
      * moduleType(integer)*
@@ -75,8 +75,8 @@ class ModuleController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code> name(string)*
-     * duration(integer)*
+     * <code>name(string)*
+     * duration(float)*
      * moduleCode(string)*
      * vocation(integer)*
      * moduleType(integer)*

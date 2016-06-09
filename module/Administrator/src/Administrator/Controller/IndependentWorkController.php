@@ -19,6 +19,7 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
  * 
  * @author Kristen Sepp <seppkristen@gmail.com>
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class IndependentWorkController extends Base
 {
@@ -33,6 +34,7 @@ class IndependentWorkController extends Base
      * <h2>POST admin/independentwork</h2>
      * <h3>Body</h3>
      * <code>duedate(datetime)*
+     * name(string)*
      * description(string)*
      * durationAK(integer)*
      * subjectRound(integer)*
@@ -78,6 +80,7 @@ class IndependentWorkController extends Base
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>duedate(datetime)*
+     * name(string)*
      * description(string)*
      * durationAK(integer)*
      * subjectRound(integer)*

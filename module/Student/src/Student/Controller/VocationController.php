@@ -59,7 +59,7 @@ class VocationController extends Base
      * <h3>Body</h3>
      * <code>name(string)*
      * vocationCode(string)*
-     * durationEKAP(string)*</code>
+     * durationEKAP(integer)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -74,7 +74,7 @@ class VocationController extends Base
      * <h3>Body</h3>
      * <code>name(string)*
      * vocationCode(string)*
-     * durationEKAP(string)*</code>
+     * durationEKAP(integer)*</code>
      * 
      * @param type $id
      * @param type $data

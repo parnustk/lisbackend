@@ -32,7 +32,7 @@ class StudentInGroupsController extends Base
      * <h2>POST admin/studentingroups</h2>
      * <h3>Body</h3>
      * <code>student(integer)*
-     * studentgoup(integer)*
+     * studentGroup(integer)*
      * status(integer)*
      * notes(string)</code>
      * 
@@ -76,7 +76,7 @@ class StudentInGroupsController extends Base
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>student(integer)*
-     * studentgoup(integer)*
+     * studentGroup(integer)*
      * status(integer)*
      * notes(string)</code>
      * 

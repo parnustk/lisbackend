@@ -19,6 +19,7 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
 /**
  * Description of SuperAdminController
  * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class SuperAdminController extends Base
 {
@@ -60,6 +61,7 @@ class SuperAdminController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
+     * name(string)*
      * personalCode(string)*
      * email(string)*
      * </code>
@@ -76,7 +78,9 @@ class SuperAdminController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * personalCode(string)*</code>
+     * name(string)*
+     * personalCode(string)*
+     * email(string)*</code>
      * @param int $id
      * @param array $data
      * @return JsonModel

@@ -53,7 +53,7 @@ class RoomController extends Base
     /**
      * <h2>POST admin/room</h2>
      * <h3>Body</h3>
-     * <code>name(string)</code>
+     * <code>name(string)*</code>
      * @param int @data
      * @return JsonModel
      */
@@ -65,7 +65,7 @@ class RoomController extends Base
     /**
      * <h2>PUT admin/room/id</h2>
      * <h3>Body</h3>
-     * <code>name(string)</code>
+     * <code>name(string)*</code>
      * @return JsonModel
      */
     public function update($id, $data)

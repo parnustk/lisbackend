@@ -15,6 +15,7 @@ use Core\Controller\AbstractStudentBaseController as Base;
 
 /** 
  * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentInGroupsController extends Base
 {
@@ -28,7 +29,7 @@ class StudentInGroupsController extends Base
      * <h2>POST admin/studentingroups</h2>
      * <h3>Body</h3>
      * <code>student(integer)*
-     * studentgoup(integer)*
+     * studentGroup(integer)*
      * status(integer)*
      * notes(string)</code>
      * 
@@ -72,7 +73,7 @@ class StudentInGroupsController extends Base
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>student(integer)*
-     * studentgoup(integer)*
+     * studentGroup(integer)*
      * status(integer)*
      * notes(string)</code>
      * 

@@ -20,6 +20,7 @@ use Core\Controller\AbstractStudentBaseController as Base;
  * YES get
  * 
  * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 class IndependentWorkController extends Base
@@ -59,6 +60,7 @@ class IndependentWorkController extends Base
      * <h2>POST student/independentwork</h2>
      * <h3>Body</h3>
      * <code>duedate(datetime)*
+     * name(string)*
      * description(string)*
      * durationAK(integer)*
      * subjectRound(integer)*
@@ -78,6 +80,7 @@ class IndependentWorkController extends Base
      * <code>id(integer)*</code>
      * <h3>Body</h3>
      * <code>duedate(datetime)*
+     * name(string)*
      * description(string)*
      * durationAK(integer)*
      * subjectRound(integer)*

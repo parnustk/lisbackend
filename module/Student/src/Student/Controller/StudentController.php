@@ -21,6 +21,7 @@ use Core\Controller\AbstractStudentBaseController as Base;
  *
  * @author Marten Kähr <marten@kahr.ee>
  * @author Sander Mets <sandermets0@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentController extends Base
 {
@@ -60,7 +61,11 @@ class StudentController extends Base
     /**
      * <h2>POST student/student</h2>
      * <h3>Body</h3>
-     * <code>name(string)*</code>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -75,7 +80,11 @@ class StudentController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>name(string)*</code>
+     * <code>firstName(string)*
+     * lastName(string)*
+     * name(string)*
+     * email(string)*
+     * personalCode(string)*</code>
      * 
      * @param type $id
      * @param type $data
