@@ -127,12 +127,11 @@
                                 $scope.credentials.lisUser = result.lisUser;
                                 $scope.credentials.role = result.role;
 
-                                addCookieTimed('userObj', $scope.credentials);
+                                addCookie('userObj', $scope.credentials.role);
                                 $scope.userLoginError = false;
                                 $scope.userLoggedIn = true;
                             } else {
                                 //BAD
-
                                 $scope.userLoggedIn = false;
                                 $scope.userLoginError = true;
                             }
@@ -144,19 +143,10 @@
              * Then we update the cookie to extend the expiration date.
              */
             if (getCookieValue('userObj') !== undefined) {
-                //var loginData = getCookieValue('userObj');
                 $scope.userLoggedIn = true;
-
-                //this gives some HTML error in console, but seems harmless otherwise, doesn't actually break anything
-                // $scope.credentials = {
-                //     email: loginData.email,
-                //     password: loginData.password
-                // };
-                // $scope.Login();
-
-                addCookieTimed('userObj', $scope.credentials);
-                // $scope.Login(); //error
-
+                addCookie('userObj', $scope.credentials.role);
+            } else {
+                $scope.userLoggedIn = false;
             }
 
 
@@ -175,7 +165,6 @@
 
 
             $scope.Logout = function () {
-                //console.log("Logout");
                 window.location.href = "#!/"; //for firefox
                 loginModel.Delete(1);
                 removeCookie('userObj');
@@ -191,7 +180,7 @@
             $scope.Register = function (valid) {
                 if (valid) {
                     if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
-                        globalFunctions.alertErrorMsg('LIS_PASWORD_REQUIREMENTS');
+                        globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
 
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';

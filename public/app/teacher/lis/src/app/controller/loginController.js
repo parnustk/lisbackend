@@ -123,7 +123,7 @@
                                 $scope.credentials.lisPerson = result.lisPerson;
                                 $scope.credentials.lisUser = result.lisUser;
                                 $scope.credentials.role = result.role;
-                                addCookieTimed('userObj', $scope.credentials);
+                                addCookie('userObj', $scope.credentials.role);
 
                                 $scope.userLoginError = false;
                                 $scope.userLoggedIn = true;
@@ -141,18 +141,8 @@
              * Then we update the cookie to extend the expiration date.
              */
             if (getCookieValue('userObj') !== undefined) {
-                //var loginData = getCookieValue('userObj');
                 $scope.userLoggedIn = true;
-                // $scope.credentials = {
-                //     email: loginData.email,
-                //     password: loginData.password
-                // };
-                var lang = {
-                    lang: 'et'
-                };
-                addCookieTimed('userObj', $scope.credentials);
-                // $scope.Login(); //error
-
+                addCookie('userObj', $scope.credentials.role);
             }
 
             if (getCookieValue('userLang') === undefined) {
@@ -187,7 +177,7 @@
             $scope.Register = function (valid) {
                 if (valid) {
                     if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
-                        globalFunctions.alertErrorMsg('LIS_PASWORD_REQUIREMENTS');
+                        globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
 
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';

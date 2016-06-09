@@ -128,7 +128,7 @@
                                 $scope.credentials.role = result.role;
                                 $scope.credentials.role = result.role;
 
-                                addCookieTimed('userObj', $scope.credentials);
+                                addCookie('userObj', $scope.credentials.role);
 
                                 $scope.userLoginError = false;
                                 $scope.userLoggedIn = true;
@@ -147,7 +147,7 @@
              */
             if (typeof getCookieValue('userObj') !== 'undefined') {
                 $scope.userLoggedIn = true;
-                addCookieTimed('userObj', $scope.credentials);
+                addCookie('userObj', $scope.credentials.role);
             }
 
             if (typeof getCookieValue('userLang') === 'undefined') {
@@ -183,7 +183,7 @@
             $scope.Register = function (valid) {
                 if (valid) {
                     if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
-                        globalFunctions.alertErrorMsg('LIS_PASWORD_REQUIREMENTS');
+                        globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';
                         return;
