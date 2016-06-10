@@ -54,13 +54,7 @@ class SubjectController extends Base
     /**
      * <h2>POST student/subject</h2>
      * <h3>Body</h3>
-     * <code>subjectCode(string)*
-     * name(string)*
-     * durationAllAK(integer)*
-     * durationContactAK(integer)*
-     * durationIndependentAK(integer)*
-     * module(integer)*
-     * gradingType(array) [ { id(integer) } ] ]*</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -75,13 +69,7 @@ class SubjectController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>subjectCode(string)*
-     * name(string)*
-     * durationAllAK(integer)*
-     * durationContactAK(integer)*
-     * durationIndependentAK(integer)*
-     * module(integer)*
-     * gradingType(array) [ { id(integer) } ] ]*</code>
+     * <code>Not allowed</code>
      * @param int $id
      * @return JsonModel
      */

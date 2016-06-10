@@ -59,13 +59,7 @@ class StudentGradeController extends Base
     /**
      * <h2>POST student/studentgrade</h2>
      * <h3>Body</h3>
-     * <code>notes(string)
-     * student(integer)*
-     * gradeChoice(integer)*
-     * independentWork(integer)
-     * module(integer)
-     * subjectRound(integer)
-     * contactLesson(integer)</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -80,13 +74,7 @@ class StudentGradeController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>notes(string)
-     * student(integer)*
-     * gradeChoice(integer)*
-     * independentWork(integer)
-     * module(integer)
-     * subjectRound(integer)
-     * contactLesson(integer)</code>
+     * <code>Not allowed</code>
      * @param int $id
      * @return JsonModel
      */

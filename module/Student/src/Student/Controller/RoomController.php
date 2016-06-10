@@ -54,7 +54,7 @@ class RoomController extends Base
     /**
      * <h2>POST student/room</h2>
      * <h3>Body</h3>
-     * <code>name(string)*</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -67,7 +67,7 @@ class RoomController extends Base
     /**
      * <h2>PUT student/room/:id</h2>
      * <h3>URL Parameters</h3>
-     * <code>id(integer)*</code>
+     * <code>Not allowed</code>
      * <h3>Body</h3>
      * <code>name(string)*</code>
      * 

@@ -58,16 +58,7 @@ class ContactLessonController extends Base
     /**
      * <h2>POST student/contactlesson</h2>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * lessonDate(datetime)*
-     * description(string)
-     * sequenceNr(integer)*
-     * rooms(integer)*
-     * subjectRound(integer)*
-     * studentGroup(integer)*
-     * module(integer)*
-     * vocation(integer)*
-     * teacher(integer)*</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -82,16 +73,7 @@ class ContactLessonController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * lessonDate(datetime)*
-     * description(string)
-     * sequenceNr(integer)*
-     * rooms(integer)*
-     * subjectRound(integer)*
-     * studentGroup(integer)*
-     * module(integer)*
-     * vocation(integer)*
-     * teacher(integer)*</code>
+     * <code>Not allowed</code>
      * @param int $id
      * @return JsonModel
      */

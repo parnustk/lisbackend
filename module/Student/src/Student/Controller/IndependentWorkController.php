@@ -59,12 +59,7 @@ class IndependentWorkController extends Base
     /**
      * <h2>POST student/independentwork</h2>
      * <h3>Body</h3>
-     * <code>duedate(datetime)*
-     * name(string)*
-     * description(string)*
-     * durationAK(integer)*
-     * subjectRound(integer)*
-     * teacher(integer)*</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -79,12 +74,7 @@ class IndependentWorkController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>duedate(datetime)*
-     * name(string)*
-     * description(string)*
-     * durationAK(integer)*
-     * subjectRound(integer)*
-     * teacher(integer)*</code>
+     * <code>Not allowed</code>
      * 
      * @param type $id
      * @param type $data
