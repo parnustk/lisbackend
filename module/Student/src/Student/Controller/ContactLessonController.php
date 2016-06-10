@@ -14,9 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractStudentBaseController as Base;
 
 /**
- * Restrictions for student role:
- * YES getList
- * YES get
+ * Rest API access to contactlesson data.
  * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */

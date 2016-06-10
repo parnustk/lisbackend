@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractStudentBaseController as Base;
 
 /**
+ * Rest API access to module data.
+ * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class ModuleController extends Base

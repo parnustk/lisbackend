@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractTeacherBaseController as Base;
 
 /**
+ * Rest API access to subjectround data.
+ * 
  * @author Arnold Tserepov <tserepov@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */

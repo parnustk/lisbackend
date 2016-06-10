@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
+ * Rest API access to studentgrade data.
+ * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class StudentGradeController extends Base

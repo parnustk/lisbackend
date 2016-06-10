@@ -13,7 +13,7 @@ namespace Administrator\Controller;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * Description of AdministratorController
+ * Rest API access to administrator data.
  *
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Marten Kähr <marten@kahr.ee>

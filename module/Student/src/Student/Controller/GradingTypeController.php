@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractStudentBaseController as Base;
 
 /**
+ * Rest API access to gradingtype data.
+ * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class GradingtypeController extends Base

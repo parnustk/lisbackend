@@ -14,7 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractTeacherBaseController as Base;
 
 /**
- * 
+ * Rest API access to teacher data.
  *
  * @author Juhan Kõks <juhankoks@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>

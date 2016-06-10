@@ -14,7 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractTeacherBaseController as Base;
 
 /**
- * Description of VocationController
+ * Rest API access to vocation data.
  *
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>

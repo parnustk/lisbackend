@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
+ * Rest API access to module data.
+ * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * @author Sander Mets <sandermets0@gmail.com>
  */

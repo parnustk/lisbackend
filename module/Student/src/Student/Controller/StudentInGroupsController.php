@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractStudentBaseController as Base;
 
 /** 
+ * Rest API access to studentingroups data.
+ * 
  * @author Kristen Sepp <seppkristen@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */

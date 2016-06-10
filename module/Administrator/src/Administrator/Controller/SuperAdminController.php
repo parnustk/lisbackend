@@ -17,7 +17,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * Description of SuperAdminController
+ * Rest API access to superadmin data.
+ * 
  * @author Kristen Sepp <seppkristen@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */

@@ -14,10 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractStudentBaseController as Base;
 
 /**
- * Restrictions for student role:
- * 
- * YES getList - OWN RELATED
- * YES get - OWN RELATED
+ * Rest API access to student data.
  *
  * @author Marten Kähr <marten@kahr.ee>
  * @author Sander Mets <sandermets0@gmail.com>

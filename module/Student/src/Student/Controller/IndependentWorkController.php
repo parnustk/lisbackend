@@ -14,10 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractStudentBaseController as Base;
 
 /**
- *Restrictions for student role:
- * 
- * YES getList
- * YES get
+ * Rest API access to independentwork data.
  * 
  * @author Alar Aasa <alar@alaraasa.ee>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>

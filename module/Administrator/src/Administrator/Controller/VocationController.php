@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
+ * Rest API access to vocation data.
+ * 
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Juhan Kõks <juhankoks@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>

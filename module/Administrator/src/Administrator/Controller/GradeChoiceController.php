@@ -14,7 +14,7 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * Description of GradeChoiceController
+ * Rest API access to gradechoice data.
  *
  * @author Arnold Tserepov <tserepov@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>

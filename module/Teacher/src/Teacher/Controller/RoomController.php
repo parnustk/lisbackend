@@ -14,6 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractTeacherBaseController as Base;
 
 /**
+ * Rest API access to room data.
+ * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class RoomController extends Base

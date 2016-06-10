@@ -14,7 +14,8 @@ use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
 
 /**
- * Description of StudentController
+ * Rest API access to student data.
+ * 
  * @author Marten Kähr <marten@kahr.ee>
  * @author Juhan Kõks <juhankoks@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
