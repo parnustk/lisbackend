@@ -417,6 +417,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $dumpList = array_reverse($dumpList);
         array_pop($dumpList);
         array_pop($dumpList);
+        $dumpList = $this->autoDelete($dumpList);
         return $dumpList;
     }
     
@@ -425,7 +426,19 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      * @return array
      */
     protected function autoDelete($nameList) {
+        $cutoff = time() - 60*60*24*7; //Delete all backups older than 7 days
+        $nameListNew = array();
+        for($i = 0; $i < count($nameList); $i++) {
+            $file = _PATH_ . $nameList[$i];
+            if (filectime($file) < $cutoff) {
+                unlink($file);
+            }
+            else {
+                array_push($nameListNew,$nameList[$i]);
+            }
+        }
         
+        return $nameListNew;
     }
     
     //END DB & File handling methods
