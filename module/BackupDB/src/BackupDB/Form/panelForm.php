@@ -116,7 +116,8 @@ class panelForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Create Backup on Server',
-                'id' => 'createsubmit'
+                'id' => 'createsubmit',
+                'class' => 'btn btn-primary',
             ),
         ));
     }

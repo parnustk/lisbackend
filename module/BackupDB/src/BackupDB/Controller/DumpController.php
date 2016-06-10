@@ -92,6 +92,11 @@ class DumpController extends AbstractActionController
 
     public function panelAction()//control panel
     {
+        $showForm = false;
+        $viewMessage = '';
+        $panel = null;
+        $actionSuccess = false;
+
         $data = include 'config/autoload/backupdb.local.php';
         //check session if credentials not ok redirect to login
         $protocol = $this->getRequest();
@@ -101,24 +106,28 @@ class DumpController extends AbstractActionController
                                     $data['backupdb']['login']['domain'] .
                                     '/backupdb/dump/panel');
         }
+
         $session = $this
                 ->getServiceLocator()
                 ->get($this->service)
                 ->read();
+
         if ($session['user'] == $data['backupdb']['login']['user'] &&
                 $session['pwd'] == $data['backupdb']['login']['pwd']) { //If credentials match, proceed to panel
             $request = $this->getRequest();
-            if ($request->isPost()) { //Logic for panel reload after submit
+
+            if ($request->isPost()) { //no form
                 $postValues = $request->getPost();
+
                 if (array_key_exists('createsubmit', $postValues)) { //Create new backup on server
                     $list = $this
                             ->getServiceLocator()
                             ->get($this->service)
                             ->createDump();
-                    echo('CREATE SUCCESS<br>');
-                    echo('<a href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
-                    '/backupdb/dump/panel">Return to Panel</a>');
-                    die();
+                    
+                    $actionSuccess = true;
+                    $viewMessage = '<a class="btn btn-success" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                            '/backupdb/dump/panel">Return to Panel</a>';
                 } else if (array_key_exists('uploadsubmit', $postValues)) { //Upload
                     $files = $request->getFiles();
                     $filename = 'data/BackupDB_Dumps/LISBACKUP_upload_' .
@@ -164,47 +173,58 @@ class DumpController extends AbstractActionController
                         '/backupdb/dump/panel">Return to Panel</a>');
                         die();
                     }
-                } else if (array_key_exists('logoutsubmit', $postValues)) { //Logout
+                } else if (array_key_exists('logoutsubmit', $postValues)) { //Logout REDIRECTS
                     $this
                             ->getServiceLocator()
                             ->get($this->service)
                             ->logout();
                     return $this->redirect()->toUrl("//" . $data['backupdb']['login']['domain'] . "/backupdb/dump/login");
-                } else {
-                    $panel = new panelForm('panelForm');
-                    $filenames = $this
-                            ->getServiceLocator()
-                            ->get($this->service)
-                            ->getFilenames();
-                    if ($filenames == null) {
-                        $filenames = array();
-                    }
-                    $element = $panel->get('fileselect');
-                    $element->setAttribute('options', $filenames);
-
-                    return new ViewModel(['form' => $panel]);
-                }
-            } else { //logic for first-time use
-                $panel = new panelForm('panelForm');
-                $filenames = $this
-                        ->getServiceLocator()
-                        ->get($this->service)
-                        ->getFilenames();
-                if ($filenames == null) {
-                    $filenames = array();
+                } else {//shows form
+                    $showForm = true;
+                    $panel = $this->createForm();
                 }
 
-                $element = $panel->get('fileselect');
-                $element->setAttribute('options', $filenames);
-
-                return new ViewModel(['form' => $panel]);
+                return new ViewModel([
+                    'actionSuccess' => $actionSuccess,
+                    'showPanelForm' => $showForm,
+                    'message' => $viewMessage,
+                    'form' => $panel
+                ]);
+                
+            } else { //show form
+                $showForm = true;
+                $panel = $this->createForm();
+                return new ViewModel([
+                    'actionSuccess' => $actionSuccess,
+                    'showPanelForm' => $showForm,
+                    'message' => $viewMessage,
+                    'form' => $panel
+                ]);
             }
         } else {//if credentials not ok, return to login
+            //TODO redirect to loginform
             echo('LOGIN FAIL<br>');
             echo('<a href="http://' . $data['backupdb']['login']['domain'] .
             '/backupdb/dump/login">Return to Login</a>');
             die();
         }
+    }
+
+    private function createForm()
+    {
+        $panel = new panelForm('panelForm');
+        $filenames = $this
+                ->getServiceLocator()
+                ->get($this->service)
+                ->getFilenames();
+
+        if ($filenames == null) {
+            $filenames = array();
+        }
+
+        $element = $panel->get('fileselect');
+        $element->setAttribute('options', $filenames);
+        return $panel;
     }
 
 }
