@@ -59,7 +59,6 @@ class TeacherController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * name(string)*
      * email(string)*
      * personalCode(string)*</code>
      * @param int $data
@@ -75,7 +74,6 @@ class TeacherController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * name(string)*
      * email(string)*
      * personalCode(string)*</code>
      * @param int $id

@@ -61,7 +61,6 @@ class SuperAdminController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * name(string)*
      * personalCode(string)*
      * email(string)*
      * </code>
@@ -78,7 +77,6 @@ class SuperAdminController extends Base
      * <h3>Body</h3>
      * <code>firstName(string)*
      * lastName(string)*
-     * name(string)*
      * personalCode(string)*
      * email(string)*</code>
      * @param int $id

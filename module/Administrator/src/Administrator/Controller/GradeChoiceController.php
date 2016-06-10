@@ -55,13 +55,13 @@ class GradeChoiceController extends Base {
      * POST
      * <h2>POST admin/absencereason</h2>
      * <h3>Body</h3>
-     * <code>lisType(string)*</code>
+     * <code>Not allowed</code>
      * 
      * @param type $data
      * @return JsonModel
      */
     public function create($data) {
-        return parent::create($data);
+        return parent::notAllowed();
     }
 
     /**
@@ -70,14 +70,14 @@ class GradeChoiceController extends Base {
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>lisType(string)*</code>
+     * <code>Not allowed</code>
      * 
      * @param type $id
      * @param type $data
      * @return JsonModel
      */
     public function update($id, $data) {
-        return parent::update($id, $data);
+        return parent::notAllowed();
     }
 
     /**
