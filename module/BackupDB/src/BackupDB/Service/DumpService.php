@@ -408,7 +408,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
     }
     
     /**
-     * 
+     * Returns list of backup filenames
      * @return array
      */
     public function getFilenames()
@@ -418,6 +418,14 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         array_pop($dumpList);
         array_pop($dumpList);
         return $dumpList;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    protected function autoDelete($nameList) {
+        
     }
     
     //END DB & File handling methods
