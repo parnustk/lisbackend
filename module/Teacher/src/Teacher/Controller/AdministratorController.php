@@ -54,10 +54,7 @@ class AdministratorController extends Base
     /**
      * <h2>POST teacher/administrator</h2>
      * <h3>Body</h3>
-     *  <code>firstName(string)*
-     * lastName(string)*
-     * code(string)*
-     * lisUser(integer)</code>
+     *  <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -72,10 +69,7 @@ class AdministratorController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>firstName(string)*
-     * lastName(string)*
-     * code(string)*
-     * lisUser(integer)</code>
+     * <code>Not allowed</code>
      * 
      * @param type $id
      * @param type $data

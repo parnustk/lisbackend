@@ -16,7 +16,8 @@ use Core\Controller\AbstractTeacherBaseController as Base;
 /**
  * Description of StudentGradeController
  *
- * @author Marten Kähr
+ * @author Marten Kähr <marten@kahr.ee>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 class IndependentWorkController extends Base
 {
@@ -55,14 +56,11 @@ class IndependentWorkController extends Base
     /**
      * <h2>POST teacher/independentwork</h2>
      * <h3>Body</h3>
-     * <code> notes(string)
-     * student(integer)*
-     * gradeChoice(integer)*
-     * teacher(intiger)*
-     * independentWork(integer)
-     * module(intiger)
-     * subjectRound(intiger)
-     * contactLesson(intiger)</code>
+     * <code>duedate(datetime)*
+     * name(string)*
+     * description(string)*
+     * durationAK(integer)*
+     * subjectRound(integer)*</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -77,14 +75,11 @@ class IndependentWorkController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code> notes(string)
-     * student(integer)*
-     * gradeChoice(integer)*
-     * teacher(intiger)*
-     * independentWork(integer)
-     * module(intiger)
-     * subjectRound(intiger)
-     * contactLesson(intiger)</code>
+     * <code>duedate(datetime)*
+     * name(string)*
+     * description(string)*
+     * durationAK(integer)*
+     * subjectRound(integer)*</code>
      * @param int $id
      * @return JsonModel
      */

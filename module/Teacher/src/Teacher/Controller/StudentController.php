@@ -54,11 +54,7 @@ class StudentController extends Base
     /**
      * <h2>POST teacher/student</h2>
      * <h3>Body</h3>
-     * <code>firstName(string)*
-     * lastName(string)*
-     * email(string)*
-     * personalCode(string)*
-     * </code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -73,11 +69,7 @@ class StudentController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>firstName(string)*
-     * lastName(string)*
-     * email(string)*
-     * personalCode(string)*
-     * </code>
+     * <code>Not allowed</code>
      * 
      * @param type $id
      * @param type $data

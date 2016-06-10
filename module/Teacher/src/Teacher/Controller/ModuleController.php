@@ -54,12 +54,7 @@ class ModuleController extends Base
     /**
      * <h2>POST student/module</h2>
      * <h3>Body</h3>
-     * <code> name(string)*
-     * duration(integer)*
-     * moduleCode(string)*
-     * vocation(integer)*
-     * moduleType(integer)*
-     * gradingType(integer)*</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -74,12 +69,7 @@ class ModuleController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code> name(string)*
-     * duration(integer)*
-     * moduleCode(string)*
-     * vocation(integer)*
-     * moduleType(integer)*
-     * gradingType(integer)*</code>
+     * <code>Not allowed</code>
      * @param int $id
      * @return JsonModel
      */

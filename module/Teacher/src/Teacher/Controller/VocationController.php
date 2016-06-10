@@ -57,9 +57,7 @@ class VocationController extends Base
     /**
      * <h2>POST admin/vocation</h2>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * vocationCode(string)*
-     * durationEKAP(string)*</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -72,9 +70,7 @@ class VocationController extends Base
     /**
      * <h2>PUT admin/vocation/:id</h2>
      * <h3>Body</h3>
-     * <code>name(string)*
-     * vocationCode(string)*
-     * durationEKAP(string)*</code>
+     * <code>Not allowed</code>
      * 
      * @param type $id
      * @param type $data

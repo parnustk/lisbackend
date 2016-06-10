@@ -28,10 +28,7 @@ class StudentInGroupsController extends Base
     /**
      * <h2>POST teacher/studentingroups</h2>
      * <h3>Body</h3>
-     * <code>student(integer)*
-     * studentgoup(integer)*
-     * status(integer)*
-     * notes(string)</code>
+     * <code>Not allowed</code>
      * 
      * @param array $data
      * @return JsonModel
@@ -72,10 +69,7 @@ class StudentInGroupsController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>student(integer)*
-     * studentgoup(integer)*
-     * status(integer)*
-     * notes(string)</code>
+     * <code>Not allowed</code>
      * 
      * @param type $id
      * @param type $data
