@@ -69,7 +69,7 @@
                         notes: null,
                         trashed: null
                     };
-
+                    
                     /**
                      * will hold students
                      * for grid select
@@ -85,6 +85,9 @@
                     $scope.studentInGroups = {};
 
                     $scope.filterStudentInGroups = {};
+                    
+                    $scope.studentInGroups = {};
+                    $scope.studentInGroups.status = 1;
 
                     /**
                      * Grid set up
