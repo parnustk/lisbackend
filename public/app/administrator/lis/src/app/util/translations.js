@@ -216,6 +216,9 @@
                 LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
                 LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
                 NOT_FOUND:'Antud andmetega õpilast ei leitud',
+                LIS_LESSON_DESCRIPTION:'Tunni kirjeldus',
+                LIS_UPDATE_DESCRIPTION:'Uuenda kontakttunni kirjeldust',
+                LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'Õppeainet või kontakttunde pole sisestatud',
                 
                 LIS_ERROR: 'Viga!'
                 
@@ -426,6 +429,9 @@
                 LIS_CHECK_FORM_FIELDS:'Check form fields',
                 LIS_YOU_CAN_LOGIN_NOW:'You can log in now',
                 NOT_FOUND:'No student found with this data',
+                LIS_LESSON_DESCRIPTION:'Lesson description',
+                LIS_UPDATE_DESCRIPTION:'Update contact lesson description',
+                LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'No subject round or contact lessons inserted',
 
                 LIS_ERROR: 'Error!'
             }
