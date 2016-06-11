@@ -37,14 +37,13 @@
                 {
                     query: {
                         method: 'GET',
-                        isArray: true,
+                        isArray: false,
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     },
                     save: {
                         method: 'POST',
-                        isArray: true,
                         headers: {
                             'Content-Type': 'application/json'
                         }
