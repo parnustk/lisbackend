@@ -1,14 +1,21 @@
 <?php
- $title = 'Log in';
- $this->headTitle($title);
- ?>
- <h1><?php echo $this->escapeHtml($title); ?></h1>
- <?php
- //$form->setAttribute('action', $this->url('backupdb/dump', array('action' => 'login')));
- $form->prepare();
+$title = 'Log in';
+$this->headTitle($title);
+$this->form->prepare()
+?>
 
- echo $this->form()->openTag($form);
- echo $this->formRow($form->get('username'));
- echo $this->formRow($form->get('password'));
- echo $this->formSubmit($form->get('submit'));
- echo $this->form()->closeTag();
+<h1><?php echo $this->escapeHtml($title) ?></h1>
+<div class="row">
+    <div class="col-sm-12">
+
+        <?php echo $this->form()->openTag($form) ?><br>
+        <div class="form-group">
+            <?php echo $this->formRow($form->get('username')) ?>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formRow($form->get('password')) ?>
+        </div>
+        <?php echo $this->formSubmit($form->get('submit')) ?>
+        <?php echo $this->form()->closeTag() ?><br>
+    </div>
+</div>

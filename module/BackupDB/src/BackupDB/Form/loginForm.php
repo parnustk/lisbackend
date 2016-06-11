@@ -22,32 +22,36 @@ class loginForm extends Form
 
     public function __construct($name = null)
     {
-        // we want to ignore the name passed
         parent::__construct('login');
 
         $this->add(array(
             'name' => 'username',
-            'type' => 'Text',
-            'options' => array(
-                'label' => 'Username',
-            ),
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+                'placeholder' => 'Username',
+                'required' => "required"
+            )
         ));
-        
+
         $this->add(array(
             'name' => 'password',
-            'type' => 'Password',
-            'options' => array(
-                'label' => 'Password',
-            ),
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+                'placeholder' => 'Password',
+                'required' => "required"
+            )
         ));
-        
+
         $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
             'label' => 'Log In',
-            'attributes' => array(
+            'attributes' => [
                 'id' => 'submitbutton',
-            ),
+                'class' => 'btn btn-primary'
+            ],
         ));
     }
 
