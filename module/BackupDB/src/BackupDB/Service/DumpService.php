@@ -424,7 +424,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
     {
         try {
             $this->setFileName('upload');
-            $filter = new \Zend\Filter\File\RenameUpload($this->fileName);
+            $filter = new \Zend\Filter\File\RenameUpload(_PATH_ . $this->fileName);
             $filter->filter($file);
 
             if ($filter->filter($file)['error'] == 4) {
