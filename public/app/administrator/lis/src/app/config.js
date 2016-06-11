@@ -62,41 +62,41 @@
                 .when('/absence', {
                     templateUrl: 'lis/dist/templates/absence.html',
                     controller: 'absenceController'})
-                
+
                 .when('/module', {
                     templateUrl: 'lis/dist/templates/module.html',
                     controller: 'moduleController'})
-                
+
                 .when('/student', {
                     templateUrl: 'lis/dist/templates/student.html',
                     controller: 'studentController'
                 })
-                
+
                 .when('/administrator', {
                     templateUrl: 'lis/dist/templates/administrator.html',
                     controller: 'administratorController'
                 })
-                
+
                 .when('/subject', {
                     templateUrl: 'lis/dist/templates/subject.html',
                     controller: 'subjectController'
                 })
-                
+
                 .when('/contactlesson', {
                     templateUrl: 'lis/dist/templates/contactLesson.html',
                     controller: 'contactLessonController'
                 })
-                
+
                 .when('/independentwork', {
                     templateUrl: 'lis/dist/templates/independentWork.html',
                     controller: 'independentWorkController'
                 })
-                
+
                 .when('/studentgroup', {
                     templateUrl: 'lis/dist/templates/studentGroup.html',
                     controller: 'studentGroupController'
                 })
-                
+
                 .when('/studentgrade', {
                     templateUrl: 'lis/dist/templates/studentGrade.html',
                     controller: 'studentGradeController'
@@ -106,7 +106,7 @@
                     templateUrl: 'lis/dist/templates/subjectRound.html',
                     controller: 'subjectRoundController'
                 })
-                
+
                 .when('/studentingroups', {
                     templateUrl: 'lis/dist/templates/studentInGroups.html',
                     controller: 'studentInGroupsController'
@@ -116,22 +116,17 @@
                     templateUrl: 'lis/dist/templates/lessonReport.html',
                     controller: 'lessonReportController'
                 })
-                
+
                 .when('/superadmin', {
                     templateUrl: 'lis/dist/templates/superAdmin.html',
                     controller: 'superAdminController'
                 })
-                
+
                 .when('/diary', {
                     templateUrl: 'lis/dist/templates/diary.html',
                     controller: 'diaryController'
                 })
-                
-                .when('/', {
-                    templateUrl: 'lis/dist/templates/home.html',
-                    controller: 'homeController'
-                })
-                
+
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

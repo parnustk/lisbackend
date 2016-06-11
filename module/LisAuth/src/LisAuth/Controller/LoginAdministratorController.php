@@ -10,105 +10,63 @@
 
 namespace LisAuth\Controller;
 
-use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractBaseController as Base;
-use Exception;
-
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Juhan Kõks <juhankoks@gmail.com>
  */
-class LoginAdministratorController extends Base
+class LoginAdministratorController extends LoginBaseController
 {
 
+    protected $role = 'administrator';
+
     /**
      * 
-     * @return LisAuth\Service\LisRegisterService
+     * @return type
      */
-    public function getLisAuthService()
+    public function getList()
     {
-        return $this->getServiceLocator()->get('lisauth_service');
+        return parent::getList();
     }
 
     /**
      * 
-     * @return \Doctrine\ORM\EntityManager
-     */
-    public function getEntityManager()
-    {
-        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    }
-
-    /**
-     * Allow CORS
-     * 
-     * @return JsonModel
-     */
-    public function options()
-    {
-        $this->headerAccessControlAllowOrigin();
-        return new JsonModel([]);
-    }
-
-    /**
-     * Register new user Administrator
-     * 
-     * @param array $data
-     * @return JsonModel
-     */
-
-    /**
-     * Login administrator
-     * 
-     * @param array $data
-     * @return JsonModel
-     * @throws Exception
+     * @param type $data
+     * @return type
      */
     public function create($data)
     {
-        $this->headerAccessControlAllowOrigin();
-        $lisAuthService = $this->getLisAuthService();
-        
-        try {
-            $lisAuthService->authenticate($data, 'administrator');
-            $data_login = $lisAuthService->login_data();
-
-            if (is_null($data_login["lisPerson"]) ||
-                    is_null($data_login["lisPerson"]) ||
-                    is_null($data_login["role"])) {
-
-                $lisAuthService->logout();
-                throw new Exception('LIS_33_NOT_LOGGED_IN');
-            }
-
-            return new JsonModel([
-                'success' => true,
-                'message' => 'LIS_NOW_LOGGED_IN',
-                "lisPerson" => $data_login["lisPerson"],
-                "lisUser" => $data_login["lisPerson"],
-                "role" => $data_login["role"],
-            ]);
-        } catch (Exception $ex) {
-
-            return new JsonModel([
-                'success' => false,
-                'message' => $ex->getMessage()
-            ]);
-        }
+        return parent::create($data);
     }
 
     /**
-     * Delete existing user Administrator
      * 
-     * @param int $id
-     * @return JsonModel
+     * @param type $id
+     * @return type
      */
     public function delete($id)
     {
-        $this->headerAccessControlAllowOrigin();
-        return new JsonModel($this
-                        ->getLisAuthService()
-                        ->logout($id));
+        return parent::delete($id);
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
+    public function get($id)
+    {
+        return parent::notAllowed();
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @param type $data
+     * @return type
+     */
+    public function update($id, $data)
+    {
+        return parent::notAllowed();
     }
 
 }

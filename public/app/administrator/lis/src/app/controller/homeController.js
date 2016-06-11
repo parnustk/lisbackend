@@ -25,14 +25,15 @@
     define(['angular', 'app/util/globalFunctions'],
         function (angular, globalFunctions) {
 
-            homeController.$inject = ['$scope'];
-            
+            homeController.$inject = ['$scope', '$cookies'];
+
             /**
              * 
-             * @param {type} $scope
+             * @param {Object} $scope
+             * @param {Object} $cookies
              * @returns {undefined}
              */
-            function homeController($scope) {
+            function homeController($scope, $cookies) {
                 $scope.T = globalFunctions.T;
             }
 

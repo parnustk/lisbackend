@@ -25,9 +25,27 @@ abstract class AbstractBaseController extends AbstractRestfulController
 
     /**
      *
-     * @var stdClass 
+     * @var type 
      */
     protected $params;
+    
+    /**
+     *
+     * @var type 
+     */
+    protected $authService = null;
+    
+    /**
+     * 
+     * @return \LisAuth\Service\LisAuthService
+     */
+    public function getLisAuthService()
+    {
+        if(is_null($this->authService)) {
+            $this->authService = $this->getServiceLocator()->get('lisauth_service');
+        }
+        return $this->authService;
+    }
 
     /**
      * http://stackoverflow.com/questions/25727306/request-header-field-access-control-allow-headers-is-not-allowed-by-access-contr
@@ -66,15 +84,6 @@ abstract class AbstractBaseController extends AbstractRestfulController
     public function getEntityManager()
     {
         return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    }
-
-    /**
-     * 
-     * @return \LisAuth\Service\LisAuthService
-     */
-    public function getLisAuthService()
-    {
-        return $this->getServiceLocator()->get('lisauth_service');
     }
 
     /**

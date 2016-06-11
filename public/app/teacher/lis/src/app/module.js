@@ -40,8 +40,8 @@
         /*1*/'app/controller/loginController',
         /*2*/'app/controller/diaryController',
         /*17*/'app/controller/independentWorkController',
-        /*21*/'app/controller/homeController',
-        /*22*/'app/controller/timeTableController'
+        /*18*/'app/controller/timeTableController',
+        /*19*/'app/controller/homeController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -68,8 +68,8 @@
         /*1*/loginController,
         /*2*/diaryController,
         /*17*/independentWorkController,
-        /*21*/homeController,
-        /*22*/timeTableController
+        /*18*/timeTableController,
+        /*19*/homeController
         ) {
 
         /**

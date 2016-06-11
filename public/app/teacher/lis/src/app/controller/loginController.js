@@ -20,10 +20,20 @@
 
     define(['app/util/globalFunctions'], function (globalFunctions) {
 
-
         loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
         function loginController($scope, loginModel, $cookies, registerModel) {
+
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 5); //current date + x hours - the expire date of timed cookies
+
+            $scope.T = globalFunctions.T;
+
+            $scope.userLoginError = false;
+
+            $scope.userRegisterError = false;
+
+            $scope.credentialsReg = {};
 
             $scope.credentials = {
                 email: null,
@@ -34,15 +44,6 @@
             };
 
             $scope.keys = [];
-
-            /**cookies**/
-
-            /**
-             *
-             * @type {Date}
-             */
-            var expireDate = new Date();
-            expireDate.setDate(expireDate.getDate() + 5); //current date + x hours - the expire date of timed cookies
 
             /**
              *
@@ -89,6 +90,51 @@
             }
 
             /**
+             * 
+             * @param {type} result
+             * @returns {undefined}
+             */
+            function setUserInfo(result) {
+                $scope.credentials.lisPerson = result.lisPerson;
+                $scope.credentials.lisUser = result.lisUser;
+                $scope.credentials.role = result.role;
+
+                addCookie('userObj', angular.toJson({
+                    lisPerson: result.lisPerson,
+                    lisUser: result.lisUser,
+                    role: result.role
+                }));
+
+                $scope.userLoginError = false;
+                $scope.userLoggedIn = true;
+
+                $('#user-greeting').show();
+            }
+
+            /**
+             * 
+             * @returns {undefined}
+             */
+            function clearUserInfo() {
+                removeCookie('userObj');
+                $scope.userLoggedIn = false;
+                $scope.userLoginError = false;
+                $('#user-greeting').hide();
+                window.location.href = "#!/";
+            }
+
+            /**
+             * 
+             * @returns {undefined}
+             */
+            function clearUserInfoLogin() {
+                removeCookie('userObj');
+                $scope.userLoggedIn = false;
+                $scope.userLoginError = true;
+                $('#user-greeting').hide();
+            }
+
+            /**
              *
              * @param lang
              */
@@ -113,38 +159,11 @@
                 }
             };
 
-            $scope.T = globalFunctions.T;
-
-
-
-            $scope.Login = function () {
-                loginModel
-                        .Create($scope.credentials)
-                        .then(function (result) {
-                            if (result.success) {
-                                //GOOD
-                                $scope.credentials.lisPerson = result.lisPerson;
-                                $scope.credentials.lisUser = result.lisUser;
-                                $scope.credentials.role = result.role;
-                                addCookie('userObj', $scope.credentials.lisUser);
-
-                                $scope.userLoginError = false;
-                                $scope.userLoggedIn = true;
-                            } else {
-                                //BAD
-
-                                $scope.userLoggedIn = false;
-                                $scope.userLoginError = true;
-                            }
-                        });
-            };
-
             /**
-             * If a cookie exists, that means that there has been a successful login.
-             * If logged in before, relog with data to authenticate with back-end
+             * 
+             * @returns {undefined}
              */
-            if (getCookieValue('userObj') !== undefined) {
-                $scope.userLoggedIn = true;
+            $scope.Login = function () {
                 loginModel
                     .Create($scope.credentials)
                     .then(function (result) {
@@ -153,20 +172,23 @@
                             $scope.credentials.lisPerson = result.lisPerson;
                             $scope.credentials.lisUser = result.lisUser;
                             $scope.credentials.role = result.role;
+                            addCookie('userObj', $scope.credentials.lisUser);
+
+                            $scope.userLoginError = false;
+                            $scope.userLoggedIn = true;
                         } else {
                             //BAD
-                            removeCookie('userObj');
+
                             $scope.userLoggedIn = false;
+                            $scope.userLoginError = true;
                         }
                     });
-            } else {
-                window.location.href = "#!/";
-                $scope.userLoggedIn = false;
-            }
+            };
 
-            /** /cookies **/
-
-
+            /**
+             * 
+             * @returns {undefined}
+             */
             $scope.Logout = function () {
                 //console.log("Logout");
                 window.location.href = "#!/"; //for firefox
@@ -175,8 +197,6 @@
                 window.location.reload();
             };
 
-
-            $scope.credentialsReg = {};
             /**
              *
              * @param valid
@@ -184,11 +204,11 @@
              */
             $scope.Register = function (valid) {
                 if (valid) {
-                    if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
+                    if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
                         globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
-
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';
+                        $scope.userRegisterError = true;
                         return;
                     }
 
@@ -201,6 +221,8 @@
                                 $scope.credentialsReg.password = '';
                                 $scope.credentialsReg.confirmPassword = '';
                                 globalFunctions.alertSuccessMsg($scope.T('LIS_YOU_CAN_LOGIN_NOW'));
+                            } else {
+                                $scope.userRegisterError = true;
                             }
                         });
                 } else {
@@ -208,7 +230,17 @@
                 }
             };
 
+            //check BE session
+            loginModel
+                .GetList({ferole: 'teacher'})
+                .then(function (result) {
+                    result.success ? setUserInfo(result) : clearUserInfo();
+                });
 
+            //check language
+            typeof getCookieValue('userLang') === 'undefined' ?
+                addCookie('userLang', window.LisGlobals.L) :
+                window.LisGlobals.L = getCookieValue('userLang');
         }
 
         return loginController;

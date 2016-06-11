@@ -245,14 +245,6 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
             } else {
                 throw new Exception('NO_ROLE_SPECIFIED');
             }
-//            $data_login = $this->login_data();
-//            return [
-//                'success' => true,
-//                'message' => 'NOW_LOGGED_IN',
-//                "lisPerson" => $data_login["lisPerson"],
-//                "lisUser" => $data_login["lisUser"],
-//                "role" => $data_login["role"],
-//            ];
         } catch (Exception $ex) {
             return [
                 'success' => false,

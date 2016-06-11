@@ -17,47 +17,79 @@
     'use strict';
     define([], function () {
 
+        loginModel.$inject = ['$resource'];
+
         /**
          * 
          * @param {type} $http
          * @param {type} $resource
          * @return {absenceModel_L6.absenceModel.absenceModelAnonym$3}
          */
-        function loginModel($http, $resource) {
+        function loginModel($resource) {
 
-            var _login;
-            _login = $resource(
+            var _model;
+
+            _model = $resource(
                 window.LisGlobals.RegisterUrl + 'loginstudent/:id',
-                {id: '@id'},
                 {
-                    save: {
-                        method: 'POST',
+                    id: '@id'
+                },
+                {
+                    query: {
+                        method: 'GET',
+                        isArray: true,
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     },
-                    update: {method: "PUT"},
-                    query: {method: 'GET', isArray: false},
-                    remove: {method: "DELETE", isArray:true}
+                    save: {
+                        method: 'POST',
+                        isArray: true,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    },
+                    remove: {
+                        method: "DELETE",
+                        isArray: true,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
                 }
             );
+
             return {
                 /**
+                 * Check user session
+                 * 
+                 * @param {type} params
+                 * @return {unresolved}
+                 */
+                GetList: function (params) {
+                    return _model.query(params).$promise;
+                },
+                /**
+                 * Create user session
                  * 
                  * @param {type} data
                  * @return {undefined}
                  * @return {unresolved}
                  */
                 Create: function (data) {
-                    return _login.save(data).$promise;
+                    return _model.save(data).$promise;
                 },
-                 Delete: function (id) {
-                    return _login.remove({id: id}).$promise;
+                /**
+                 * Delte user session
+                 * 
+                 * @param {type} id
+                 * @returns {unresolved}
+                 */
+                Delete: function (id) {
+                    return _model.remove({id: id}).$promise;
                 }
-               
             };
         }
-        loginModel.$inject = ['$http', '$resource'];
         return loginModel;
     });
 }(define, window));

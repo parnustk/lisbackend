@@ -20,11 +20,19 @@
 (function (define) {
     'use strict';
 
-    define(['app/util/globalFunctions'], function (globalFunctions) {
+    define(['jquery', 'app/util/globalFunctions'], function ($, globalFunctions) {
 
         loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
         function loginController($scope, loginModel, $cookies, registerModel) {
+
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 5); //current date + x hours - the expire date of timed cookies
+
+            $scope.T = globalFunctions.T;
+
+            $scope.userLoginError = false;
+            $scope.userRegisterError = false;
 
             $scope.credentials = {
                 email: null,
@@ -36,12 +44,7 @@
 
             $scope.keys = [];
 
-            /**
-             *
-             * @type {Date}
-             */
-            var expireDate = new Date();
-            expireDate.setDate(expireDate.getDate() + 5); //current date + x hours - the expire date of timed cookies
+            $scope.credentialsReg = {};
 
             /**
              *
@@ -58,7 +61,6 @@
              * @param itemValue
              */
             function addCookieTimed(itemKey, itemValue) {
-
                 $cookies.putObject(itemKey, itemValue, {'expires': expireDate}); //these cookies expire at expireDate
             }
 
@@ -68,6 +70,68 @@
              */
             function getCookie(itemKey) {
                 $scope.currentItem = $cookies.get(itemKey); //gets the cookie object
+            }
+
+            /**
+             *
+             * @param itemKey
+             * @returns {*}
+             */
+            function getCookieValue(itemKey) {
+                return $cookies.getObject(itemKey); //gets just the cookie value
+            }
+
+            /**
+             *
+             * @param itemKey
+             */
+            function removeCookie(itemKey) {
+                $cookies.remove(itemKey);
+            }
+
+            /**
+             * 
+             * @param {type} result
+             * @returns {undefined}
+             */
+            function setUserInfo(result) {
+                $scope.credentials.lisPerson = result.lisPerson;
+                $scope.credentials.lisUser = result.lisUser;
+                $scope.credentials.role = result.role;
+
+                addCookie('userObj', angular.toJson({
+                    lisPerson: result.lisPerson,
+                    lisUser: result.lisUser,
+                    role: result.role
+                }));
+
+                $scope.userLoginError = false;
+                $scope.userLoggedIn = true;
+
+                $('#user-greeting').show();
+            }
+            
+            /**
+             * 
+             * @returns {undefined}
+             */
+            function clearUserInfo() {
+                removeCookie('userObj');
+                $scope.userLoggedIn = false;
+                $scope.userLoginError = false;
+                $('#user-greeting').hide();
+                window.location.href = "#!/";
+            }
+            
+            /**
+             * 
+             * @returns {undefined}
+             */
+            function clearUserInfoLogin() {
+                removeCookie('userObj');
+                $scope.userLoggedIn = false;
+                $scope.userLoginError = true;
+                $('#user-greeting').hide();
             }
 
             /**
@@ -97,86 +161,21 @@
             };
 
             /**
-             *
-             * @param itemKey
-             * @returns {*}
+             * 
+             * @returns {undefined}
              */
-            function getCookieValue(itemKey) {
-                return $cookies.getObject(itemKey); //gets just the cookie value
-            }
-
-            /**
-             *
-             * @param itemKey
-             */
-            function removeCookie(itemKey) {
-                $cookies.remove(itemKey);
-            }
-
-            $scope.T = globalFunctions.T;
-
-
             $scope.Login = function () {
                 loginModel
                     .Create($scope.credentials)
                     .then(function (result) {
-                        if (result.success) {
-                            //GOOD
-                            $scope.credentials.lisPerson = result.lisPerson;
-                            $scope.credentials.lisUser = result.lisUser;
-                            $scope.credentials.role = result.role;
-
-                            addCookie('userObj', $scope.credentials.lisUser);
-                            $scope.userLoginError = false;
-                            $scope.userLoggedIn = true;
-                        } else {
-                            //BAD
-                            $scope.userLoggedIn = false;
-                            $scope.userLoginError = true;
-                        }
+                        result.success ? setUserInfo(result) : clearUserInfoLogin();
                     });
             };
 
             /**
-             * If a cookie exists, that means that there has been a successful login.
-             * If logged in before, relog with data to authenticate with back-end
+             * cookies
+             * @returns {undefined}
              */
-            if (getCookieValue('userObj') !== undefined) {
-                $scope.userLoggedIn = true;
-                loginModel
-                    .Create($scope.credentials)
-                    .then(function (result) {
-                        if (result.success) {
-                            //GOOD
-                            $scope.credentials.lisPerson = result.lisPerson;
-                            $scope.credentials.lisUser = result.lisUser;
-                            $scope.credentials.role = result.role;
-                        } else {
-                            //BAD
-                            removeCookie('userObj');
-                            $scope.userLoggedIn = false;
-                        }
-                    });
-            } else {
-                window.location.href = "#!/";
-                $scope.userLoggedIn = false;
-            }
-
-
-            if (getCookieValue('userLang') === undefined) {
-                var currentLang = window.LisGlobals.L;
-                addCookie('userLang', currentLang);
-            } else if (getCookieValue('userLang') === 'et') {
-                window.LisGlobals.L = 'et';
-            } else if (getCookieValue('userLang') === 'en') {
-                window.LisGlobals.L = 'en';
-            } else {
-                console.log('ERROR in Login/Language Change. Possible cookie error.');
-            }
-
-            /** /cookies **/
-
-
             $scope.Logout = function () {
                 window.location.href = "#!/"; //for firefox
                 loginModel.Delete(1);
@@ -184,7 +183,6 @@
                 window.location.reload();
             };
 
-            $scope.credentialsReg = {};
             /**
              *
              * @param valid
@@ -194,12 +192,11 @@
                 if (valid) {
                     if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
                         globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
-
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';
+                        $scope.userRegisterError = true;
                         return;
                     }
-
                     delete $scope.credentialsReg.confirmPassword;
                     registerModel
                         .Create($scope.credentialsReg)
@@ -209,12 +206,26 @@
                                 $scope.credentialsReg.password = '';
                                 $scope.credentialsReg.confirmPassword = '';
                                 globalFunctions.alertSuccessMsg($scope.T('LIS_YOU_CAN_LOGIN_NOW'));
+                            } else {
+                                $scope.userRegisterError = true;
                             }
                         });
                 } else {
                     globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
                 }
             };
+
+            //check BE session
+            loginModel
+                .GetList({ferole: 'administrator'})
+                .then(function (result) {
+                    result.success ? setUserInfo(result) : clearUserInfo();
+                });
+
+            //check language
+            typeof getCookieValue('userLang') === 'undefined' ?
+                addCookie('userLang', window.LisGlobals.L) :
+                window.LisGlobals.L = getCookieValue('userLang');
         }
 
         return loginController;
