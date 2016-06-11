@@ -13,7 +13,10 @@
  *
  * @param {type} define
  * @returns {undefined}
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Juhan Kõks <juhankoks@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Juhan Kõks <juhankoks@gmail.com>
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 (function (define) {
     'use strict';
@@ -199,7 +202,7 @@
             $scope.Register = function (valid) {
                 if (valid) {
                     if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
-                        globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
+                        globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
                         $scope.credentialsReg.password = '';
                         $scope.credentialsReg.confirmPassword = '';
                         return;
@@ -215,11 +218,11 @@
                                 $scope.credentialsReg.password = '';
                                 $scope.credentialsReg.password = '';
                                 $scope.credentialsReg.confirmPassword = '';
-                                globalFunctions.alertSuccessMsg('LIS_YOU_CAN_LOGIN_NOW');
+                                globalFunctions.alertSuccessMsg($scope.T('LIS_YOU_CAN_LOGIN_NOW'));
                             }
                         });
                 } else {
-                    globalFunctions.alertErrorMsg('LIS_CHECK_FORM_FIELDS');
+                    globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
                 }
             };
         }

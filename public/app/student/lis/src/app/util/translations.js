@@ -34,7 +34,9 @@
                 LIS_PERSONALCODE: 'Isikukood',
                 LIS_LANGUAGE: 'Keel',
                 LIS_REGISTER:'Registreeru',
-
+                LIS_ERROR:'Viga',
+                LIS_PASSWORD_REQUIREMENTS:'Salasõna pikkus peab olema 8-20 märki, milles on vähemalt üks suur täht, üks väike täht ja üks number. Salasõna ei tohi sisaldada täpitähti ja tühikuid.',
+    
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
                 LIS_ROOM_GRID_FILTERS: 'Ruumide filter',
 
@@ -207,7 +209,9 @@
                 LIS_TIME:'Kellaaeg',
                 LIS_STUDENTTIMETABLE:'Minu tunniplaan',
                 LIS_STARTLESSONDATE:'Alguskuupäev',
-                LIS_ENDLESSONDATE:'Lõppkuupäev'
+                LIS_ENDLESSONDATE:'Lõppkuupäev',
+                LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
+                LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida'
                 
             },
             en: {
@@ -226,6 +230,7 @@
                 LIS_LASTNAME: 'Last name',
                 LIS_PERSONALCODE: 'Personal code',
                 LIS_REGISTER:'Register',
+                LIS_ERROR:'Error',
 
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
@@ -403,7 +408,10 @@
                 LIS_TIME:'Time',
                 LIS_STUDENTTIMETABLE:'My timetable',
                 LIS_STARTLESSONDATE:'Start date',
-                LIS_ENDLESSONDATE:'End date'
+                LIS_ENDLESSONDATE:'End date',
+                LIS_PASSWORD_REQUIREMENTS:'Password must be at least 8 characters, no more than 20 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Password can not include accented characters and spaces.',
+                LIS_CHECK_FORM_FIELDS:'Check form fields',
+                LIS_YOU_CAN_LOGIN_NOW:'You can log in now'
             }
         };
         return t;
