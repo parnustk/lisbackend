@@ -1,6 +1,6 @@
 /**
  * Licence of Learning Info System (LIS)
- * 
+ *
  * @link      https://github.com/parnustk/lisbackend
  * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
  * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
@@ -116,35 +116,47 @@
             $scope.T = globalFunctions.T;
 
 
-
             $scope.Login = function () {
                 loginModel
-                        .Create($scope.credentials)
-                        .then(function (result) {
-                            if (result.success) {
-                                //GOOD
-                                $scope.credentials.lisPerson = result.lisPerson;
-                                $scope.credentials.lisUser = result.lisUser;
-                                $scope.credentials.role = result.role;
+                    .Create($scope.credentials)
+                    .then(function (result) {
+                        if (result.success) {
+                            //GOOD
+                            $scope.credentials.lisPerson = result.lisPerson;
+                            $scope.credentials.lisUser = result.lisUser;
+                            $scope.credentials.role = result.role;
 
-                                addCookie('userObj', $scope.credentials.role);
-                                $scope.userLoginError = false;
-                                $scope.userLoggedIn = true;
-                            } else {
-                                //BAD
-                                $scope.userLoggedIn = false;
-                                $scope.userLoginError = true;
-                            }
-                        });
+                            addCookie('userObj', $scope.credentials.lisUser);
+                            $scope.userLoginError = false;
+                            $scope.userLoggedIn = true;
+                        } else {
+                            //BAD
+                            $scope.userLoggedIn = false;
+                            $scope.userLoginError = true;
+                        }
+                    });
             };
 
             /**
              * If a cookie exists, that means that there has been a successful login.
-             * Then we update the cookie to extend the expiration date.
+             * If logged in before, relog with data to authenticate with back-end
              */
             if (getCookieValue('userObj') !== undefined) {
                 $scope.userLoggedIn = true;
-                addCookie('userObj', $scope.credentials.role);
+                loginModel
+                    .Create($scope.credentials)
+                    .then(function (result) {
+                        if (result.success) {
+                            //GOOD
+                            $scope.credentials.lisPerson = result.lisPerson;
+                            $scope.credentials.lisUser = result.lisUser;
+                            $scope.credentials.role = result.role;
+                        } else {
+                            //BAD
+                            removeCookie('userObj');
+                            $scope.userLoggedIn = false;
+                        }
+                    });
             } else {
                 $scope.userLoggedIn = false;
             }
@@ -179,7 +191,7 @@
              */
             $scope.Register = function (valid) {
                 if (valid) {
-                    if(!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
+                    if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
                         globalFunctions.alertErrorMsg('LIS_PASSWORD_REQUIREMENTS');
 
                         $scope.credentialsReg.password = '';

@@ -23,8 +23,8 @@
         function loginController($scope, loginModel, $cookies, registerModel) {
 
             $scope.credentials = {
-                email: 'teacher@test.ee',
-                password: 'Tere1234',
+                email: null,
+                password: null,
                 lisPerson: null,
                 lisUser: null,
                 role: "teacher"
@@ -123,7 +123,7 @@
                                 $scope.credentials.lisPerson = result.lisPerson;
                                 $scope.credentials.lisUser = result.lisUser;
                                 $scope.credentials.role = result.role;
-                                addCookie('userObj', $scope.credentials.role);
+                                addCookie('userObj', $scope.credentials.lisUser);
 
                                 $scope.userLoginError = false;
                                 $scope.userLoggedIn = true;
@@ -138,22 +138,26 @@
 
             /**
              * If a cookie exists, that means that there has been a successful login.
-             * Then we update the cookie to extend the expiration date.
+             * If logged in before, relog with data to authenticate with back-end
              */
             if (getCookieValue('userObj') !== undefined) {
                 $scope.userLoggedIn = true;
-                addCookie('userObj', $scope.credentials.role);
-            }
-
-            if (getCookieValue('userLang') === undefined) {
-                var currentLang = window.LisGlobals.L;
-                addCookie('userLang', currentLang);
-            } else if (getCookieValue('userLang') === 'et') {
-                window.LisGlobals.L = 'et';
-            } else if (getCookieValue('userLang') === 'en') {
-                window.LisGlobals.L = 'en';
+                loginModel
+                    .Create($scope.credentials)
+                    .then(function (result) {
+                        if (result.success) {
+                            //GOOD
+                            $scope.credentials.lisPerson = result.lisPerson;
+                            $scope.credentials.lisUser = result.lisUser;
+                            $scope.credentials.role = result.role;
+                        } else {
+                            //BAD
+                            removeCookie('userObj');
+                            $scope.userLoggedIn = false;
+                        }
+                    });
             } else {
-                console.log('ERROR in Login/Language Change. Possible cookie error.');
+                $scope.userLoggedIn = false;
             }
 
             /** /cookies **/

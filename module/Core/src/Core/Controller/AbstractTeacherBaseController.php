@@ -136,6 +136,11 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
             if (!($lisPerson instanceof \Core\Entity\Teacher)) {
                 throw new Exception('7NOT_LOGGED_IN');
             }
+
+            if ($storage["role"] !== 'teacher') {
+                throw new Exception('8NOT_LOGGED_IN');
+            }
+
             $this->setlisPerson($lisPerson);
 
             return ['NOT_LOGGED_IN' => false];

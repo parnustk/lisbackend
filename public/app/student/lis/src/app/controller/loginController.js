@@ -26,8 +26,8 @@
         function loginController($scope, loginModel, $cookies, registerModel) {
 
             $scope.credentials = {
-                email: 'student@test.ee',
-                password: 'Tere1234',
+                email: null,
+                password: null,
                 lisPerson: null,
                 lisUser: null,
                 role: "student",
@@ -128,7 +128,7 @@
                                 $scope.credentials.role = result.role;
                                 $scope.credentials.role = result.role;
 
-                                addCookie('userObj', $scope.credentials.role);
+                                addCookie('userObj', $scope.credentials.lisUser);
 
                                 $scope.userLoginError = false;
                                 $scope.userLoggedIn = true;
@@ -143,11 +143,26 @@
 
             /**
              * If a cookie exists, that means that there has been a successful login.
-             * Then we update the cookie to extend the expiration date.
+             * If logged in before, relog with data to authenticate with back-end
              */
-            if (typeof getCookieValue('userObj') !== 'undefined') {
+            if (getCookieValue('userObj') !== undefined) {
                 $scope.userLoggedIn = true;
-                addCookie('userObj', $scope.credentials.role);
+                loginModel
+                    .Create($scope.credentials)
+                    .then(function (result) {
+                        if (result.success) {
+                            //GOOD
+                            $scope.credentials.lisPerson = result.lisPerson;
+                            $scope.credentials.lisUser = result.lisUser;
+                            $scope.credentials.role = result.role;
+                        } else {
+                            //BAD
+                            removeCookie('userObj');
+                            $scope.userLoggedIn = false;
+                        }
+                    });
+            } else {
+                $scope.userLoggedIn = false;
             }
 
             if (typeof getCookieValue('userLang') === 'undefined') {

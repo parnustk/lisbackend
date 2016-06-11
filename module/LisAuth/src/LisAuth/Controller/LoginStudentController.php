@@ -78,7 +78,7 @@ class LoginStudentController extends Base
                     if ($cookie) {
                         if (property_exists($this->getResponse()->getCookie(), 'userObj')) {
                             $cuserObj = $this->getResponse()->getCookie()->userObj;
-                            $id = $cuserObj->lisUser;
+                            $id = $cuserObj;
                             if ($id !== $data_login["lisUser"]) {
                                 $lisAuthService->logout(1);
                                 throw new Exception('COOKIE_MISMATCH');

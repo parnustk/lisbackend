@@ -139,6 +139,9 @@ abstract class AbstractAdministratorBaseController extends AbstractBaseControlle
             }
             $this->setlisPerson($lisPerson);
 
+            if ($storage["role"] !== 'administrator') {
+                throw new Exception('8NOT_LOGGED_IN');
+            }
             return ['NOT_LOGGED_IN' => false];
         } catch (Exception $ex) {
 //            print_r($ex->getMessage());die;
