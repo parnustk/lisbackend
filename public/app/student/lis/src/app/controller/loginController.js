@@ -162,6 +162,7 @@
                         }
                     });
             } else {
+                window.location.href = "#!/";
                 $scope.userLoggedIn = false;
             }
 
