@@ -33,6 +33,7 @@ class panelForm extends Form
             'name' => 'fileupload',
             'attributes' => array(
                 'type' => 'file',
+                'class' => 'btn btn-default'
             ),
             'options' => array(
                 'label' => 'Upload Backup',
@@ -43,7 +44,8 @@ class panelForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Upload Now',
-                'id' => 'upsubmit'
+                'id' => 'upsubmit',
+                'class' => 'btn btn-primary'
             ),
         ));
         //Download elements
@@ -65,7 +67,8 @@ class panelForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Download Selected',
-                'id' => 'downsubmit'
+                'id' => 'downsubmit',
+                'class' => 'btn btn-primary'
             ),
         ));
         //Push elements
@@ -100,7 +103,8 @@ class panelForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Push Selected Backup to DB',
-                'id' => 'dbpushsubmit'
+                'id' => 'dbpushsubmit',
+                'class' => 'btn btn-danger'
             ),
         ));
         $this->add(array(
@@ -108,7 +112,8 @@ class panelForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Logout',
-                'id' => 'logoutsubmit'
+                'id' => 'logoutsubmit',
+                'class' => 'btn btn-primary'
             ),
         ));
         $this->add(array(

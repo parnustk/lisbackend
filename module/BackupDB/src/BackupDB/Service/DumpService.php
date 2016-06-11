@@ -184,86 +184,98 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      */
     public function createDump()
     {
-        $this->setUp(); //Open DB connection
-        $this->setFilename('server'); //Set filename of backup file
-        $this->dumpData = "SET FOREIGN_KEY_CHECKS=0; \n"; //Disables foreign key checks when restoring backup
-        file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
-        $this->dumpData = null;
-
-        for ($t = 0; $t < count($this->tables); $t++) { //Loop through all tables, append new data into output file with each loop
-            $this->dumpData = "DROP TABLE IF EXISTS " . $this->tables[$t] .  "; \n"; //Drops table if it exists when restoring backup
+        try {
+            $this->setUp(); //Open DB connection
+            $this->setFilename('server'); //Set filename of backup file
+            $this->dumpData = "SET FOREIGN_KEY_CHECKS=0; \n"; //Disables foreign key checks when restoring backup
             file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
             $this->dumpData = null;
 
-            //Prepare structure query statement
-            $stmt1 = $this->db->prepare('SHOW CREATE TABLE `' . $this->tables[$t] . '`;');
-
-            //Query table structure
-            try {
-                $stmt1->execute();
-                $fetchData = $stmt1->fetch();
-                $this->dumpData = $fetchData[1] . "; \n";
-            } catch (PDOException $ex) {
-                echo "There was a problem with the database <br>";
-                print_r($ex);
-                die();
-            }
-            //Write table structure to dumpfile
-            file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
-            $this->dumpData = null;
-
-            //Count data rows of table
-            $stmt2 = $this->db->prepare('SELECT * FROM `' . $this->tables[$t] . '` WHERE 1;');
-            $stmt2->execute();
-            $rowCount = count($stmt2->fetchAll());
-            if ($rowCount == 0) { //Ends loop early if table contains no data
-                continue;
-            }
-            for ($i = 0; $i < $rowCount; $i++) { //Write data from single table
-                $fetchData = null;
-                $this->dumpData = null;
-                if ($i == 0) { //Begin backup INSERT statement
-                    $this->dumpTableBegin($t);
-                } else {
-                    
-                }
-                if ($i == $rowCount - 1) { //Add last data row
-                    $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
-                            "` LIMIT " . $i . ",1;");
-                    //Query data row
-                    try {
-                        $stmt->execute();
-                        $fetchData = $stmt->fetchAll(); //fetchData is data row
-                        $fetchData = $fetchData[0];
-                    } catch (PDOException $ex) {
-                        echo "There was a problem with the database <br>";
-                        print_r($ex);
-                        die();
-                    }
-                    $this->dumpTableRow($fetchData, true);
-                } else { //Add regular data row.
-                    $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
-                            "` LIMIT " . $i . ",1;");
-                    //Query data row
-                    try {
-                        $stmt->execute();
-                        $fetchData = $stmt->fetchAll(); //fetchData is data row
-                        $fetchData = $fetchData[0];
-                    } catch (PDOException $ex) {
-                        echo "There was a problem with the database <br>";
-                        print_r($ex);
-                        die();
-                    }
-                    $this->dumpTableRow($fetchData, false);
-                }
-                //Write current pass to file
+            for ($t = 0; $t < count($this->tables); $t++) { //Loop through all tables, append new data into output file with each loop
+                $this->dumpData = "DROP TABLE IF EXISTS " . $this->tables[$t] . "; \n"; //Drops table if it exists when restoring backup
                 file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
+                $this->dumpData = null;
+
+                //Prepare structure query statement
+                $stmt1 = $this->db->prepare('SHOW CREATE TABLE `' . $this->tables[$t] . '`;');
+
+                //Query table structure
+                try {
+                    $stmt1->execute();
+                    $fetchData = $stmt1->fetch();
+                    $this->dumpData = $fetchData[1] . "; \n";
+                } catch (PDOException $ex) {
+                    return array(
+                        'error' => true,
+                        'exception' => 'This database error happened:<br>' . $ex
+                    );
+                }
+                //Write table structure to dumpfile
+                file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
+                $this->dumpData = null;
+
+                //Count data rows of table
+                $stmt2 = $this->db->prepare('SELECT * FROM `' . $this->tables[$t] . '` WHERE 1;');
+                $stmt2->execute();
+                $rowCount = count($stmt2->fetchAll());
+                if ($rowCount == 0) { //Ends loop early if table contains no data
+                    continue;
+                }
+                for ($i = 0; $i < $rowCount; $i++) { //Write data from single table
+                    $fetchData = null;
+                    $this->dumpData = null;
+                    if ($i == 0) { //Begin backup INSERT statement
+                        $this->dumpTableBegin($t);
+                    } else {
+                        
+                    }
+                    if ($i == $rowCount - 1) { //Add last data row
+                        $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
+                                "` LIMIT " . $i . ",1;");
+                        //Query data row
+                        try {
+                            $stmt->execute();
+                            $fetchData = $stmt->fetchAll(); //fetchData is data row
+                            $fetchData = $fetchData[0];
+                        } catch (PDOException $ex) {
+                            return array(
+                                'error' => true,
+                                'exception' => 'This database error happened:<br>' . $ex
+                            );
+                        }
+                        $this->dumpTableRow($fetchData, true);
+                    } else { //Add regular data row.
+                        $stmt = $this->db->prepare("SELECT * FROM `" . $this->tables[$t] .
+                                "` LIMIT " . $i . ",1;");
+                        //Query data row
+                        try {
+                            $stmt->execute();
+                            $fetchData = $stmt->fetchAll(); //fetchData is data row
+                            $fetchData = $fetchData[0];
+                        } catch (PDOException $ex) {
+                            return array(
+                                'error' => true,
+                                'exception' => 'This database error happened:<br>' . $ex
+                            );
+                        }
+                        $this->dumpTableRow($fetchData, false);
+                    }
+                    //Write current pass to file
+                    file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
+                }
             }
+            $this->destructPDO(); //Close DB connection
+            $this->dumpData = "SET FOREIGN_KEY_CHECKS=1;"; //Re-enables foreign key checks when db has been restored from backup file
+            file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
+            return array(
+                'error' => false
+            );
+        } catch (Exception $ex) {
+            return array(
+                'error' => true,
+                'exception' => 'This Error happened:<br>' . $ex
+            );
         }
-        $this->destructPDO(); //Close DB connection
-        $this->dumpData = "SET FOREIGN_KEY_CHECKS=1;"; //Re-enables foreign key checks when db has been restored from backup file
-        file_put_contents(_PATH_ . $this->fileName, $this->dumpData, FILE_APPEND);
-        print_r("Created dumpfile " . $this->fileName);
     }
 
     /**
@@ -366,13 +378,17 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $pushStatement = $this->db->prepare(file_get_contents(_PATH_ . $filename));
         try {
             $pushStatement->execute();
+            return array(
+                'error' => false
+            );
         } catch (PDOException $ex) {
-            echo "There was a problem with the database <br>";
-            print_r($ex);
-            die();
+            return array(
+                'error' => true,
+                'exception' => 'This Error happened:<br>' . $ex
+            );
         }
     }
-    
+
     /**
      * Sends selected backup file to client.
      * 
@@ -380,16 +396,23 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      */
     public function download($filename)
     {
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header("Content-disposition: attachment;filename=$filename.sql");
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize(_PATH_ . $filename));
-        readfile(_PATH_ . $filename);
+        try {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header("Content-disposition: attachment;filename=$filename.sql");
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize(_PATH_ . $filename));
+            readfile(_PATH_ . $filename);
+        } catch (Exception $ex) {
+            return array(
+                'error' => true,
+                'exception' => 'This Error happened:<br>' . $ex
+            );
+        }
     }
-    
+
     /**
      * Saves uploaded file to server dump folder with filename
      *  LISBACKUP_upload_DDMMYYYY_HHMMSS.sql
@@ -399,14 +422,30 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      */
     public function upload($file)
     {
-        $this->setFileName('upload');
-        $filter = \Zend\Filter\File\RenameUpload(array (
-            "target" => _PATH_ . $this->fileName,
-            "randomize" => false,
-            ));
-        echo $filter->filter($file);
+        try {
+            $this->setFileName('upload');
+            $filter = new \Zend\Filter\File\RenameUpload($this->fileName);
+            $filter->filter($file);
+
+            if ($filter->filter($file)['error'] == 4) {
+                return array(
+                    'error' => true,
+                    'exception' => "You must select a file for upload."
+                );
+            } else {
+                var_dump($filter->filter($file));
+                return array(
+                    'error' => false
+                );
+            }
+        } catch (Exception $ex) {
+            return array(
+                'error' => true,
+                'exception' => 'This Error happened:<br>' . $ex
+            );
+        }
     }
-    
+
     /**
      * Returns list of backup filenames
      * @return array
@@ -420,35 +459,35 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $dumpList = $this->autoDelete($dumpList);
         return $dumpList;
     }
-    
+
     /**
      * 
      * @return array
      */
-    protected function autoDelete($nameList) {
-        $cutoff = time() - 60*60*24*7; //Delete all backups older than 7 days
+    protected function autoDelete($nameList)
+    {
+        $cutoff = time() - 60 * 60 * 24 * 7; //Delete all backups older than 7 days
         $nameListNew = array();
-        for($i = 0; $i < count($nameList); $i++) {
+        for ($i = 0; $i < count($nameList); $i++) {
             $file = _PATH_ . $nameList[$i];
             if (filectime($file) < $cutoff) {
                 unlink($file);
-            }
-            else {
-                array_push($nameListNew,$nameList[$i]);
+            } else {
+                array_push($nameListNew, $nameList[$i]);
             }
         }
-        
+
         return $nameListNew;
     }
-    
+
     //END DB & File handling methods
     //START Session Storage methods and variables
-    
+
     /**
      * @var Storage\StorageInterface
      */
     protected $storage;
-    
+
     /**
      * Returns the persistent storage handler
      *
@@ -463,7 +502,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         }
         return $this->storage;
     }
-    
+
     /**
      * Sets the persistent storage handler
      *
@@ -475,7 +514,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $this->storage = $storage;
         return $this;
     }
-    
+
     /**
      * Returns true if and only if storage is empty
      *
@@ -495,7 +534,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         }
         return false;
     }
-    
+
     /**
      * Returns the contents of storage
      *
@@ -508,7 +547,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
     {
         return $this->getStorage()->read();
     }
-    
+
     /**
      * Writes $contents to storage
      *
@@ -520,7 +559,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
     {
         $this->getStorage()->write($contents);
     }
-    
+
     /**
      * Clears contents from storage
      *
@@ -541,7 +580,7 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
     {
         $this->getStorage()->clear();
     }
-    
+
     /**
      * Initalizes session to use/get data
      * @return mixed
@@ -553,4 +592,5 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
         $storage = $this->getStorage()->read();
         return $storage;
     }
+
 }

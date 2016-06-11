@@ -1,4 +1,3 @@
-<!-- here we have pure html-->
 <?php
 $title = 'Backup Control Panel';
 $this->headTitle($title);
@@ -6,36 +5,39 @@ $this->headTitle($title);
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 
 
+<?php if ($this->loginReturn) { ?>
+    <div class="alert alert-danger">
+        <strong>Login Failed.</strong><br>
+        <?php echo $this->message; ?>
+    </div>
 <?php
-if ($this->showPanelForm) {
+} else if ($this->showPanelForm) {
     $this->form->prepare();
     echo $this->form()->openTag($form);
-    
-    echo '<div class="form-group">';        
+
+    echo '<div class="alert alert-primary form-group">';
     echo '<br>';
-    echo '<b>New Backup</b>';
+    echo '<strong>New Backup</strong>';
     echo '<br>';
     echo $this->formSubmit($form->get('createsubmit'));
-    echo '</div>';
-    
-    
     echo '<br>';
     echo 'This creates a backup of the current database on the server with the name: '
     . 'LISBACKUP_server_[DATE]_[TIME]';
-    echo '<br><br>';
     echo $this->form()->closeTag();
-
+    echo '</div>';
+    echo '<div class="alert alert-primary form-group">';
     echo $this->form()->openTag($form);
     echo $this->formRow($form->get('fileupload'));
     echo $this->formSubmit($form->get('uploadsubmit'));
     echo '<br>The file will be added to the selection list with the name: '
     . 'LISBACKUP_upload_[DATE]_[TIME]';
     echo $this->form()->closeTag();
-
+    echo '</div>';
+    echo '<div class="alert alert-primary form-group">';
     echo $this->form()->openTag($form);
+    echo '<strong>Server file controls</strong>';
     echo '<br>';
-    echo '<b>Server file controls</b>';
-    echo '<br>';
+    echo '<div class="form-group">';
     echo $this->formRow($form->get('fileselect'));
     echo '<br>';
     echo 'This interface does not allow deleting backups from the server.';
@@ -47,6 +49,8 @@ if ($this->showPanelForm) {
     echo '<br>';
     echo 'This downloads the selected backup from the server';
     echo '<br>';
+    echo '</div>';
+    echo '<div class="alert alert-warning form-group">';
     echo $this->formSubmit($form->get('pushsubmit'));
     echo '<br>';
     echo 'Warning: This overwrites the existing database with the selected backup. '
@@ -56,6 +60,8 @@ if ($this->showPanelForm) {
     echo '<br>';
     echo $this->formRow($form->get('pushcheckbox'));
     echo $this->form()->closeTag();
+    echo '</div>';
+    echo '<div class="form-group">';
 
     echo $this->form()->openTag($form);
     echo '<br>';
@@ -63,21 +69,42 @@ if ($this->showPanelForm) {
     echo '<br>';
     echo 'Safely logs out of the control panel.';
     echo $this->form()->closeTag();
+    echo '</div>';
+    echo '</div>';
 } else {
+
+    if ($this->actionSuccess && $this->actionFail) {
+        ?>
+        <div class="alert alert-danger">
+            <strong>Something has gone horribly wrong.</strong><br>
+        <?php echo $this->formSubmit($form->get('logoutsubmit')); ?>
+        </div>
+    <?php
+    }
     if ($this->actionSuccess) {
         ?>
 
         <div class="alert alert-success">
-            <strong>:)</strong> <?php echo $this->message?>
+            <strong><?php if (isset($this->actionType)) {
+            echo $this->actionType . ' ';
+        }
+        ?>Success</strong> 
+        <?php echo $this->message; ?>
         </div>
 
-    <?php } else { ?>
+        <?php } else { ?>
 
         <div class="alert alert-danger">
-            <strong>:(</strong> <?php echo $this->message?>
+            <?php
+            if (isset($this->actionException)) {
+                echo $this->actionException;
+                echo '<br>';
+            }
+            echo $this->message;
+            ?>
         </div>
 
-    <?php
+        <?php
     }
 }
 ?>

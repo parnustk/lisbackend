@@ -55,19 +55,11 @@ class DumpController extends AbstractActionController
      * @return ViewModel
      */
     public function loginAction()
-    {//usr psq from config
-        //zend form
-        //if credentials ok, put to session and redirect to panel
+    {
         $form = new loginForm('loginForm');
         $form->get('submit')->setValue('Log In');
 
         $data = include 'config/autoload/backupdb.local.php';
-        if ($_SERVER['REQUEST_SCHEME'] != $data['backupdb']['login']['protocol']) {
-            return $this->redirect()
-                            ->toUrl($data['backupdb']['login']['protocol'] . '://' .
-                                    $data['backupdb']['login']['domain'] .
-                                    '/backupdb/dump/login');
-        }
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -96,17 +88,12 @@ class DumpController extends AbstractActionController
         $viewMessage = '';
         $panel = null;
         $actionSuccess = false;
+        $actionFail = false;
+        $actionException = null;
+        $actionType = null;
 
         $data = include 'config/autoload/backupdb.local.php';
         //check session if credentials not ok redirect to login
-        $protocol = $this->getRequest();
-        if ($_SERVER['REQUEST_SCHEME'] != $data['backupdb']['login']['protocol']) {
-            return $this->redirect()
-                            ->toUrl($data['backupdb']['login']['protocol'] . '://' .
-                                    $data['backupdb']['login']['domain'] .
-                                    '/backupdb/dump/panel');
-        }
-
         $session = $this
                 ->getServiceLocator()
                 ->get($this->service)
@@ -120,58 +107,81 @@ class DumpController extends AbstractActionController
                 $postValues = $request->getPost();
 
                 if (array_key_exists('createsubmit', $postValues)) { //Create new backup on server
+                    $actionType = 'Create';
                     $list = $this
                             ->getServiceLocator()
                             ->get($this->service)
                             ->createDump();
-                    
-                    $actionSuccess = true;
-                    $viewMessage = '<a class="btn btn-success" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
-                            '/backupdb/dump/panel">Return to Panel</a>';
+                    if ($list['error']) {
+                        
+                    } else {
+                        $actionSuccess = true;
+                        $viewMessage = '<a class="btn btn-success" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                                '/backupdb/dump/panel">Return to Panel</a>';
+                    }
                 } else if (array_key_exists('uploadsubmit', $postValues)) { //Upload
+                    $actionType = 'Upload';
                     $files = $request->getFiles();
-                    $filename = 'data/BackupDB_Dumps/LISBACKUP_upload_' .
-                            date('dmY') . '_' . date('His');
-                    $filter = new \Zend\Filter\File\RenameUpload($filename);
-                    var_dump($filter->filter($files['fileupload']));
-                    echo('UPLOAD SUCCESS<br>');
-                    echo('<a href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
-                    '/backupdb/dump/panel">Return to Panel</a>');
-                    die();
+                    $upload = $this
+                            ->getServiceLocator()
+                            ->get($this->service)
+                            ->upload($files['fileupload']);
+                    if ($upload['error']) {
+                        $actionFail = true;
+                        $actionException = $upload['exception'];
+                        $viewMessage = '<a class="btn btn-danger" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                                '/backupdb/dump/panel">Return to Panel</a>';
+                    } else {
+                        $actionSuccess = true;
+                        $viewMessage = '<a class="btn btn-success" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                                '/backupdb/dump/panel">Return to Panel</a>';
+                    }
                 } else if (array_key_exists('downloadsubmit', $postValues)) { //Download
+                    $actionType = 'Download';
                     $list = $this
                             ->getServiceLocator()
                             ->get($this->service)
                             ->getFilenames();
                     $fileName = $list[$postValues['fileselect']];
-                    $this
+                    $download = $this
                             ->getServiceLocator()
                             ->get($this->service)
                             ->download($fileName);
-                    echo('DOWNLOAD SUCCESS<br>');
-                    echo('<a href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
-                    '/backupdb/dump/panel">Return to Panel</a>');
-                    die();
+                    if ($download['error']) {
+                        $actionFail = true;
+                        $actionType = 'Download';
+                        $actionException = $download['exception'];
+                    } else {
+                        $actionSuccess = true;
+                        $viewMessage = '<a class="btn btn-success" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                                '/backupdb/dump/panel">Return to Panel</a>';
+                    }
                 } else if (array_key_exists('pushsubmit', $postValues)) { //Push
+                    $actionType = 'Push';
                     if ($postValues['pushcheckbox'] == 1) {
                         $list = $this
                                 ->getServiceLocator()
                                 ->get($this->service)
                                 ->getFilenames();
                         $fileName = $list[$postValues['fileselect']];
-                        $this
+                        $push = $this
                                 ->getServiceLocator()
                                 ->get($this->service)
                                 ->pushDump($fileName, null);
-                        echo('PUSH SUCCESS<br>');
-                        echo('<a href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
-                        '/backupdb/dump/panel">Return to Panel</a>');
-                        die();
+                        if ($push['error']) {
+                            $actionFail = true;
+                            $actionException = $push['exception'];
+                            $viewMessage = '<a class="btn btn-danger" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                                    '/backupdb/dump/panel">Return to Panel</a>';
+                        }
+                        $actionSuccess = true;
+                        $viewMessage = '<a class="btn btn-success" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                                '/backupdb/dump/panel">Return to Panel</a>';
                     } else {
-                        echo('PUSH FAIL; Not Confirmed<br>');
-                        echo('<a href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
-                        '/backupdb/dump/panel">Return to Panel</a>');
-                        die();
+                        $actionFail = true;
+                        $actionException = 'You must check the box to confirm push to DB';
+                        $viewMessage = '<a class="btn btn-danger" href="' . $data['backupdb']['login']['protocol'] . '://' . $data['backupdb']['login']['domain'] .
+                                '/backupdb/dump/panel">Return to Panel</a>';
                     }
                 } else if (array_key_exists('logoutsubmit', $postValues)) { //Logout REDIRECTS
                     $this
@@ -185,28 +195,43 @@ class DumpController extends AbstractActionController
                 }
 
                 return new ViewModel([
+                    'loginReturn' => false,
                     'actionSuccess' => $actionSuccess,
+                    'actionFail' => $actionFail,
+                    'actionType' => $actionType,
+                    'actionException' => $actionException,
                     'showPanelForm' => $showForm,
                     'message' => $viewMessage,
                     'form' => $panel
                 ]);
-                
             } else { //show form
                 $showForm = true;
                 $panel = $this->createForm();
                 return new ViewModel([
+                    'loginReturn' => false,
                     'actionSuccess' => $actionSuccess,
+                    'actionFail' => $actionFail,
+                    'actionType' => $actionType,
+                    'actionException' => $actionException,
                     'showPanelForm' => $showForm,
                     'message' => $viewMessage,
                     'form' => $panel
                 ]);
             }
         } else {//if credentials not ok, return to login
-            //TODO redirect to loginform
-            echo('LOGIN FAIL<br>');
-            echo('<a href="http://' . $data['backupdb']['login']['domain'] .
-            '/backupdb/dump/login">Return to Login</a>');
-            die();
+            $viewMessage = '<a href="' . $data['backupdb']['login']['protocol'] . 
+                    '://' . $data['backupdb']['login']['domain'] .
+                    '/backupdb/dump/login">Return to Login</a>';
+            return new ViewModel([
+                    'loginReturn' => true,
+                    'actionSuccess' => $actionSuccess,
+                    'actionFail' => $actionFail,
+                    'actionType' => $actionType,
+                    'actionException' => $actionException,
+                    'showPanelForm' => $showForm,
+                    'message' => $viewMessage,
+                    'form' => $panel
+                ]);
         }
     }
 

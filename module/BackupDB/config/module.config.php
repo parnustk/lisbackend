@@ -26,7 +26,7 @@ return array(
                     'defaults' => array(
                         '__NAMESPACE__' => 'BackupDB\Controller',
                         'controller' => 'Dump',
-                        'action' => 'index',
+                        'action' => 'login',
                     ),
                 ),
                 'may_terminate' => true,
