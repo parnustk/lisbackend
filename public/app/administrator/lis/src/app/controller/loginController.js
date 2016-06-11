@@ -31,6 +31,7 @@
 
             $scope.T = globalFunctions.T;
 
+            $scope.superadmincheck = true;
             $scope.userLoginError = false;
             $scope.userRegisterError = false;
 
@@ -102,15 +103,16 @@
                 addCookie('userObj', angular.toJson({
                     lisPerson: result.lisPerson,
                     lisUser: result.lisUser,
-                    role: result.role
+                    role: result.role,
+                    superuser: result.super
+
                 }));
 
                 $scope.userLoginError = false;
                 $scope.userLoggedIn = true;
-
-                $('#user-greeting').show();
+                checkSuperuser();
             }
-            
+
             /**
              * 
              * @returns {undefined}
@@ -132,6 +134,11 @@
                 $scope.userLoggedIn = false;
                 $scope.userLoginError = true;
                 $('#user-greeting').hide();
+            }
+
+            function checkSuperuser() {
+                var userCookie = angular.fromJson($cookies.getObject('userObj'));
+                $scope.superadmincheck = userCookie.superuser;
             }
 
             /**
@@ -221,8 +228,12 @@
                 if(uInf.hasOwnProperty('role')) {
                     ferole = uInf.role;
                 }
+
+                checkSuperuser();
             }
-            
+
+
+
             //check BE session
             loginModel
                 .GetList({ferole: ferole})
