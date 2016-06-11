@@ -20,45 +20,40 @@
 
             diaryController.$inject = [
                 '$scope',
-                '$q',
-                '$routeParams',
-                'rowSorter',
+                '$cookies',
                 'uiGridConstants',
                 'contactLessonModel',
-                'roomModel',
                 'subjectRoundModel',
                 'studentGroupModel',
-                'moduleModel',
-                'vocationModel',
-                'teacherModel',
                 'gradeChoiceModel',
-                'studentGradeModel',
-                'absenceModel'
+                'studentGradeModel'
             ];
 
             function diaryController(
                 $scope,
-                $q,
-                $routeParams,
-                rowSorter,
+                $cookies,
                 uiGridConstants,
                 contactLessonModel,
-                roomModel,
                 subjectRoundModel,
                 studentGroupModel,
-                moduleModel,
-                vocationModel,
-                teacherModel,
                 gradeChoiceModel,
-                studentGradeModel,
-                absenceModel) {
+                studentGradeModel) {
 
                 /* jshint ignore:start */
 
                 $scope.T = globalFunctions.T;
 
-                var teacherId = 1; //Static for now
-                bootbox.alert('still static teacherID');
+
+                var teacherId = -1, 
+                    cRaw = $cookies.getObject('userObj');
+                
+                if (cRaw) {
+                    var uInf = angular.fromJson(cRaw);
+                    if (uInf.hasOwnProperty('lisPerson')) {
+                        teacherId = uInf.lisPerson;
+                    }
+                }
+                console.log(teacherId);
 
                 var rawDataStudentGroup = null,
                     rawDataGradeSR = null,
@@ -194,7 +189,7 @@
                                 } else { //reverse original
                                     buf = originalEntity;
                                 }
-                                
+
                                 rowEntity[colDef.name] = buf;
 
                             } else if (/^iw/i.test(colDef.name)) {//START independentwork Grades CRUD
@@ -260,7 +255,7 @@
                                 } else { //reverse original
                                     buf = originalEntity;
                                 }
-                                
+
                                 rowEntity[colDef.name] = buf;
 
                             } else if (colDef.name === 'sr') {//START SUBJECTROUND Grades CRUD
@@ -327,7 +322,7 @@
                                 } else { //reverse original
                                     buf = originalEntity;
                                 }
-                                
+
                                 rowEntity[colDef.name] = buf;
 
                             } else {//Anomaly

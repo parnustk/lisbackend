@@ -163,32 +163,21 @@
                 loginModel
                     .Create($scope.credentials)
                     .then(function (result) {
-                        if (result.success) {
-                            //GOOD
-                            $scope.credentials.lisPerson = result.lisPerson;
-                            $scope.credentials.lisUser = result.lisUser;
-                            $scope.credentials.role = result.role;
-                            $scope.credentials.role = result.role;
-
-                            addCookie('userObj', $scope.credentials.lisUser);
-
-                            $scope.userLoginError = false;
-                            $scope.userLoggedIn = true;
-                        } else {
-                            //BAD
-
-                            $scope.userLoggedIn = false;
-                            $scope.userLoginError = true;
-                        }
+                        result.success ?
+                            setUserInfo(result) :
+                            clearUserInfoLogin();
                     });
             };
-
+            
+            /**
+             * 
+             * @returns {undefined}
+             */
             $scope.Logout = function () {
-                //console.log("Logout");
-                window.location.href = "#!/"; //for firefox
-                loginModel.Delete(1);
-                removeCookie('userObj');
-                window.location.reload();
+                loginModel.Delete(1).then(function () {
+                    removeCookie('userObj');
+                    window.location.href = "#!/";
+                });
             };
 
             //start register new user logic

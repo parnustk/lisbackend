@@ -124,7 +124,7 @@
                 $('#user-greeting').hide();
                 window.location.href = "#!/";
             }
-            
+
             /**
              * 
              * @returns {undefined}
@@ -175,19 +175,21 @@
                 loginModel
                     .Create($scope.credentials)
                     .then(function (result) {
-                        result.success ? setUserInfo(result) : clearUserInfoLogin();
+                        result.success ?
+                            setUserInfo(result) :
+                            clearUserInfoLogin();
                     });
             };
 
             /**
-             * cookies
+             * 
              * @returns {undefined}
              */
             $scope.Logout = function () {
-                window.location.href = "#!/"; //for firefox
-                loginModel.Delete(1);
-                removeCookie('userObj');
-                window.location.reload();
+                loginModel.Delete(1).then(function () {
+                    removeCookie('userObj');
+                    window.location.href = "#!/";
+                });
             };
 
             /**
@@ -221,18 +223,16 @@
                     globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
                 }
             };
-            
+
             var ferole = '-', cRaw = $cookies.getObject('userObj');
-            if(cRaw){
+            if (cRaw) {
                 var uInf = angular.fromJson(cRaw);
-                if(uInf.hasOwnProperty('role')) {
+                if (uInf.hasOwnProperty('role')) {
                     ferole = uInf.role;
                 }
 
                 checkSuperuser();
             }
-
-
 
             //check BE session
             loginModel
