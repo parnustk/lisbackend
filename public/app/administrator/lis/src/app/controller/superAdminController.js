@@ -66,7 +66,7 @@
                      */
                     var urlParams = {
                         page: 1,
-                        limit: 100000,
+                        limit: 100000
 //                        usermng: 'usermng'
                     };
 

@@ -195,7 +195,6 @@ class LisUserRepository extends EntityRepository
                     partial lisUser.{
                         id,
                         email,
-                        password,
                         state,
                         trashed
                     },

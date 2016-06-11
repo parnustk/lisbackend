@@ -50,11 +50,25 @@ class LoginBaseController extends Base
             if (is_null($data_login["lisPerson"]) ||
                     is_null($data_login["lisPerson"]) ||
                     is_null($data_login["role"])) {
+
                 throw new Exception('LIS_33_NOT_LOGGED_IN');
             }
+
+            $super = false;
+            if ($this->role === 'administrator') {
+                $admin = $this->getEntityManager()
+                        ->find(
+                        'Core\Entity\Administrator', $data_login["lisPerson"]
+                );
+                if ($admin->getSuperAdministrator() === 1) {
+                    $super = true;
+                }
+            }
+
             return new JsonModel([
                 'success' => true,
                 'message' => 'LIS_ACTIVE_SESSION',
+                "super" => $super,
                 "lisPerson" => $data_login["lisPerson"],
                 "lisUser" => $data_login["lisPerson"],
                 "role" => $data_login["role"],
@@ -92,9 +106,21 @@ class LoginBaseController extends Base
                 throw new Exception('LIS_33_NOT_LOGGED_IN');
             }
 
+            $super = false;
+            if ($this->role === 'administrator') {
+                $admin = $this->getEntityManager()
+                        ->find(
+                        'Core\Entity\Administrator', $data_login["lisPerson"]
+                );
+                if ($admin->getSuperAdministrator() === 1) {
+                    $super = true;
+                }
+            }
+
             return new JsonModel([
                 'success' => true,
                 'message' => 'LIS_NOW_LOGGED_IN',
+                "super" => $super,
                 "lisPerson" => $data_login["lisPerson"],
                 "lisUser" => $data_login["lisPerson"],
                 "role" => $data_login["role"],
