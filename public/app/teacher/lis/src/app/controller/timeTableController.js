@@ -8,6 +8,7 @@
 
 /**
  *   @author Juhan Kõks <juhankoks@gmail.com>
+ *   @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
 
 
@@ -196,14 +197,14 @@
                      */
                     var urlParams = {
                         page: 1,
-                        limit: 100000,
+                        limit: 100,
                         teacherTimeTable: true
                     };
 
                     var resetUrlParams = function () {
                         urlParams = {
                             page: 1,
-                            limit: 100000,
+                            limit: 100,
                             teacherTimeTable: true
                         };
                     };
