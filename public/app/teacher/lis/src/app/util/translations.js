@@ -13,7 +13,10 @@
         var t = {
             et: {
                 LIS_LOGIN_ERROR: 'Sisestatud kasutajanimi või parool on vale. Palun proovige uuesti.',
+                LIS_REGISTER_ERROR: 'Kasutaja loomine ebaõnnestus. Palun võtke ühendust kooli haldustöötajaga.',
                 LIS_LOGIN_GREETING: 'Sisselogimine',
+                LIS_REGISTER_GREETING:'Loo uus kasutaja',
+                LIS_REPEAT_PASSWORD:'Korda salasõna',
                 LIS_EMAIL: 'E-posti aadress',
                 LIS_PASSWORD: 'Salasõna',
                 LIS_LOGIN: 'Logi sisse',
@@ -28,8 +31,11 @@
                 LIS_TRASHED: 'Prügikastis',
                 LIS_NAME_FILTER: 'Nime filter',
                 LIS_DESCRIPTION: 'Kirjeldus',
-                LIS_PERSONALCODE: 'Kood',
+                LIS_PERSONALCODE: 'Isikukood',
                 LIS_LANGUAGE: 'Keel',
+                LIS_REGISTER:'Registreeru',
+                LIS_PASSWORD_REQUIREMENTS:'Salasõna pikkus peab olema 8-20 märki, milles on vähemalt üks suur täht, üks väike täht ja üks number. Salasõna ei tohi sisaldada täpitähti ja tühikuid.',
+
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
                 LIS_ROOM_GRID_FILTERS: 'Ruumide filter',
                 LIS_CREATE_NEW_SUBJECTROUND: 'Loo uus õppeaine',
@@ -86,7 +92,14 @@
                 SEARCH_DURATIONALLAK: 'Otsi kogu kestuse (AK) järgi',
                 SEARCH_DURATIONCONTACTAK: 'Otsi kontakttundide kestuse (AK) järgi',
                 SEARCH_DURATIONINDEPENDENTAK: 'Otsi iseseisva töö kestuse (AK) järgi',
-//                Kristen
+
+                LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
+                LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
+                NOT_FOUND:'Antud andmetega õpilast ei leitud',
+                LIS_LESSON_DESCRIPTION:'Tunni kirjeldus',
+                LIS_UPDATE_DESCRIPTION:'Uuenda kontakttunni kirjeldust',
+                LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'Õppeainet või kontakttunde pole sisestatud',
+                
                 LIS_DUEDATE: 'Tähtaeg',
                 LIS_INDEPENDENTWORK_VIEW: 'Iseseisvad tööd',
                 INDEPENDENDWORK_GRID_FILTERS: 'Filtreeri',
@@ -175,11 +188,14 @@
                 LIS_DIARYVIEWFILTER:'Vali õppeaine ja õppegrupp:',
                 LIS_DIARY_VIEW:'Päeviku vaade',
                 LIS_FILTER_REFRESH:'Filtreeri',
-                LIS_SUBJECTROUND_GRADE:'Õppeaine hinne'
+                LIS_SUBJECTROUND_GRADE:'Õppeaine hinne',
+                
+                LIS_ERROR:'Viga!'
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
                 LIS_PASSWORD: 'Password',
+                LIS_REPEAT_PASSWORD:'Repeat password',
                 LIS_NAME: 'Name',
                 LIS_CREATE: 'Create',
                 LIS_DELETE: 'Delete',
@@ -190,11 +206,16 @@
                 LIS_DESCRIPTION: 'Description',
                 LIS_FIRSTNAME: 'First name',
                 LIS_LASTNAME: 'Last name',
-                LIS_PERSONALCODE: 'Code',
+                LIS_PERSONALCODE: 'Personal code',
+                LIS_REGISTER:'Register',
+                
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
                 LIS_LOGIN_GREETING: 'Please log in',
                 LIS_LOGIN_ERROR: 'The entered username or password are incorrect. Please try again',
+                LIS_REGISTER_ERROR: 'Failed to create new user. Please contact with school administrator.',
+                LIS_REGISTER_GREETING:'Create new user',
+                
                 LIS_LANGUAGE: 'Language',
                 LIS_CREATE_NEW_ROOM: 'Create a new room',
                 LIS_ROOM_GRID_FILTERS: 'Room filter',
@@ -335,7 +356,16 @@
                 LIS_DIARYVIEWFILTER:'Choose subject round and student group:',
                 LIS_DIARY_VIEW:'Diary view',
                 LIS_FILTER_REFRESH:'Filter',
-                LIS_SUBJECTROUND_GRADE:'Subject round grade'
+                LIS_SUBJECTROUND_GRADE:'Subject round grade',
+                LIS_PASSWORD_REQUIREMENTS:'Password must be at least 8 characters, no more than 20 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Password can not include accented characters and spaces.',
+                LIS_CHECK_FORM_FIELDS:'Check form fields',
+                LIS_YOU_CAN_LOGIN_NOW:'You can log in now',
+                NOT_FOUND:'No student found with this data',
+                LIS_LESSON_DESCRIPTION:'Lesson description',
+                LIS_UPDATE_DESCRIPTION:'Update contact lesson description',
+                LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'No subject round or contact lessons inserted',
+
+                LIS_ERROR: 'Error!'
             }
         };
         return t;
