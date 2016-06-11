@@ -189,6 +189,7 @@
                 LIS_DIARY_VIEW:'Päeviku vaade',
                 LIS_FILTER_REFRESH:'Filtreeri',
                 LIS_SUBJECTROUND_GRADE:'Õppeaine hinne',
+                SELF_CREATED_RESTRICTION:'Saad muuta ainult enda loodud andmeid',
                 
                 LIS_ERROR:'Viga!'
             },
@@ -364,7 +365,8 @@
                 LIS_LESSON_DESCRIPTION:'Lesson description',
                 LIS_UPDATE_DESCRIPTION:'Update contact lesson description',
                 LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'No subject round or contact lessons inserted',
-
+                SELF_CREATED_RESTRICTION:'You can only change data created by yourself',
+                
                 LIS_ERROR: 'Error!'
             }
         };
