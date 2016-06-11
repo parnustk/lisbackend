@@ -31,7 +31,7 @@
 
             $scope.T = globalFunctions.T;
 
-            $scope.superadmincheck = true;
+            $scope.superadmincheck = false;
             $scope.userLoginError = false;
             $scope.userRegisterError = false;
 
