@@ -211,7 +211,8 @@
                 LIS_STARTLESSONDATE:'Alguskuupäev',
                 LIS_ENDLESSONDATE:'Lõppkuupäev',
                 LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
-                LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida'
+                LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
+                NOT_FOUND:'Antud andmetega õpilast ei leitud'
                 
             },
             en: {
@@ -235,7 +236,7 @@
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
                 LIS_LOGIN_GREETING: 'Please log in',
-                LIS_LOGIN_ERROR: 'The entered username or password are incorrect. Please try again',
+                LIS_LOGIN_ERROR: 'The entered username or password is incorrect. Please try again',
                 LIS_REGISTER_ERROR: 'Failed to create new user. Please contact with school administrator.',
                 LIS_REGISTER_GREETING:'Create new user',
 
@@ -411,7 +412,8 @@
                 LIS_ENDLESSONDATE:'End date',
                 LIS_PASSWORD_REQUIREMENTS:'Password must be at least 8 characters, no more than 20 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Password can not include accented characters and spaces.',
                 LIS_CHECK_FORM_FIELDS:'Check form fields',
-                LIS_YOU_CAN_LOGIN_NOW:'You can log in now'
+                LIS_YOU_CAN_LOGIN_NOW:'You can log in now',
+                NOT_FOUND:'No student found with this data'
             }
         };
         return t;

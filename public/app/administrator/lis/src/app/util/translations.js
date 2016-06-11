@@ -13,7 +13,10 @@
         var t = {
             et: {
                 LIS_LOGIN_ERROR: 'Sisestatud kasutajanimi või parool on vale. Palun proovige uuesti.',
+                LIS_REGISTER_ERROR: 'Kasutaja loomine ebaõnnestus. Palun võtke ühendust kooli haldustöötajaga.',
                 LIS_LOGIN_GREETING: 'Sisselogimine',
+                LIS_REGISTER_GREETING:'Loo uus kasutaja',
+                LIS_REPEAT_PASSWORD:'Korda salasõna',
                 LIS_EMAIL: 'E-posti aadress',
                 LIS_PASSWORD: 'Salasõna',
                 LIS_LOGIN: 'Logi sisse',
@@ -29,9 +32,12 @@
                 LIS_NAME_FILTER: 'Nime filter',
                 LIS_DESCRIPTION: 'Kirjeldus',
                 LIS_PERSONALCODE: 'Isikukood',
+                LIS_REGISTER:'Registreeru',
+                LIS_PASSWORD_REQUIREMENTS:'Salasõna pikkus peab olema 8-20 märki, milles on vähemalt üks suur täht, üks väike täht ja üks number. Salasõna ei tohi sisaldada täpitähti ja tühikuid.',
 
                 LIS_CREATE_NEW_ROOM: 'Loo uus klassiruum',
                 LIS_ROOM_GRID_FILTERS: 'Klassiruumide filter',
+                LIS_LANGUAGE: 'Keel',
 
                 LIS_CREATE_NEW_SUBJECTROUND: 'Loo uus õppeaine',
                 LIS_SUBJECTROUND_GRID_FILTERS: 'Õppeainete filtrid',
@@ -207,6 +213,9 @@
                 LIS_SEARCH_STATUS:'Otsi staatuse järgi',
                 LIS_SUPERADMIN_VIEW:'Kasutajate haldus',
                 LIS_SUBJECTROUND_GRADE:'Õppeaine hinne',
+                LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
+                LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
+                NOT_FOUND:'Antud andmetega õpilast ei leitud',
                 
                 LIS_ERROR: 'Viga!'
                 
@@ -214,6 +223,7 @@
             en: {
                 LIS_EMAIL: 'E-mail address',
                 LIS_PASSWORD: 'Password',
+                LIS_REPEAT_PASSWORD:'Repeat password',
                 LIS_NAME: 'Name',
                 LIS_CREATE: 'Create',
                 LIS_DELETE: 'Delete',
@@ -224,12 +234,17 @@
                 LIS_DESCRIPTION: 'Description',
                 LIS_FIRSTNAME: 'First name',
                 LIS_LASTNAME: 'Last name',
-                LIS_PERSONALCODE: 'Personal identification number',
+                LIS_PERSONALCODE: 'Personal code',
+                LIS_REGISTER:'Register',
 
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
                 LIS_LOGIN_GREETING: 'Please log in',
-                LIS_LOGIN_ERROR: 'The entered username or password are incorrect. Please try again',
+                LIS_LOGIN_ERROR: 'The entered username or password is incorrect. Please try again',
+                LIS_REGISTER_ERROR: 'Failed to create new user. Please contact with school administrator.',
+                LIS_REGISTER_GREETING:'Create new user',
+                
+                LIS_LANGUAGE: 'Language',
                 
                 LIS_CREATE_NEW_ROOM: 'Create new classroom',
                 LIS_ROOM_GRID_FILTERS: 'Room filter',
@@ -407,6 +422,10 @@
                 LIS_CREATE_NEW_STUDENTGROUP:'Create new student group',
                 LIS_SUPERADMIN_VIEW:'User management',
                 LIS_SUBJECTROUND_GRADE:'Subject round grade',
+                LIS_PASSWORD_REQUIREMENTS:'Password must be at least 8 characters, no more than 20 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Password can not include accented characters and spaces.',
+                LIS_CHECK_FORM_FIELDS:'Check form fields',
+                LIS_YOU_CAN_LOGIN_NOW:'You can log in now',
+                NOT_FOUND:'No student found with this data',
 
                 LIS_ERROR: 'Error!'
             }
