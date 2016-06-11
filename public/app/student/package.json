@@ -23,6 +23,7 @@
   "private": true,
   "dependencies": {
     "browser-sync": "^2.10.0",
+    "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.5.2",
@@ -38,13 +39,16 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.2.0",
     "gulp-uncss": "^1.0.1",
+    "js-beautify": "^1.6.3",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
     "panini": "^1.0.0",
     "requirejs": "^2.1.22",
     "rimraf": "^2.4.3",
-    "run-sequence": "^1.1.0",
+    "run-sequence": "^1.2.1",
+    "smartcomments": "^0.3.2",
     "style-sherpa": "^1.0.0",
+    "sync-exec": "^0.6.2",
     "yargs": "^3.8.0"
   }
 }

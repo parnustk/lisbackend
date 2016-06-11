@@ -168,11 +168,10 @@ class LisAuthService implements Storage\StorageInterface, ServiceManagerAwareInt
     }
 
     /**
-     * Logs out
-     * @param int $id
-     * @return void
+     * Clears session
+     * @param type $id
      */
-    public function logout($id)
+    public function logout($id = null)
     {
         $this->getStorage()->clear();
     }

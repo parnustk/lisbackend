@@ -8,11 +8,10 @@
  * http://stackoverflow.com/questions/29219380/ui-grid-dropdown-editor-with-complex-json-object
  * 
  * @param {type} define
- * @param {type} document
  * @returns {undefined}
  * @author Sander Mets <sandermets0@gmail.com>
  */
-(function (define, document) {
+(function (define) {
     'use strict';
 
     define(['angular', 'app/util/globalFunctions', 'moment', 'bootbox'],
@@ -25,15 +24,10 @@
                 'rowSorter',
                 'uiGridConstants',
                 'contactLessonModel',
-                'roomModel',
                 'subjectRoundModel',
                 'studentGroupModel',
-                'moduleModel',
-                'vocationModel',
-                'teacherModel',
                 'gradeChoiceModel',
-                'studentGradeModel',
-                'absenceModel'
+                'studentGradeModel'
             ];
 
             function diaryController(
@@ -43,15 +37,11 @@
                 rowSorter,
                 uiGridConstants,
                 contactLessonModel,
-                roomModel,
                 subjectRoundModel,
                 studentGroupModel,
-                moduleModel,
-                vocationModel,
-                teacherModel,
                 gradeChoiceModel,
-                studentGradeModel,
-                absenceModel) {
+                studentGradeModel) {
+
                 /* jshint ignore:start */
 
                 $scope.T = globalFunctions.T;
@@ -594,4 +584,4 @@
             return diaryController;
         });
 
-}(define, document));
+}(define));

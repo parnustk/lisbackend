@@ -12,29 +12,28 @@
  *
  * @param {type} define
  * @returns {undefined}
- * @author Sander Mets <sandermets0@gmail.com>, Alar Aasa <alar@alaraasa.ee>, Juhan Kõks <juhankoks@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
+ * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 (function (define) {
     'use strict';
 
     define(['app/util/globalFunctions'], function (globalFunctions) {
 
-
         loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
         function loginController($scope, loginModel, $cookies, registerModel) {
 
             $scope.credentials = {
-                email: 'admin@test.ee',
-                password: 'Tere1234',
+                email: null,
+                password: null,
                 lisPerson: null,
                 lisUser: null,
                 role: "administrator"
             };
 
             $scope.keys = [];
-
-            /**cookies**/
 
             /**
              *

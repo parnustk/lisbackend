@@ -50,15 +50,6 @@ class LoginStudentController extends Base
     }
 
     /**
-     * 
-     * @return JsonModel
-     */
-    public function getList()
-    {
-        return new JsonModel([]);
-    }
-
-    /**
      * Register new user Student
      * 
      * @param type $data
@@ -68,57 +59,33 @@ class LoginStudentController extends Base
     {
         $this->headerAccessControlAllowOrigin();
         $lisAuthService = $this->getLisAuthService();
-        $r = [];
+        
         try {
             $lisAuthService->authenticate($data, 'student');
             $data_login = $lisAuthService->login_data();
-            if (!$lisAuthService->isEmpty()) {//check_logined
-                if (method_exists($this->getResponse(), 'getCookie')) {
-                    $cookie = $this->getResponse()->getCookie();
-                    if ($cookie) {
-                        if (property_exists($this->getResponse()->getCookie(), 'userObj')) {
-                            $cuserObj = $this->getResponse()->getCookie()->userObj;
-                            $id = $cuserObj;
-                            if ($id !== $data_login["lisUser"]) {
-                                $lisAuthService->logout(1);
-                                throw new Exception('COOKIE_MISMATCH');
-                            }
-                        }
-                    }
-                }
+
+            if (is_null($data_login["lisPerson"]) ||
+                    is_null($data_login["lisPerson"]) ||
+                    is_null($data_login["role"])) {
+
+                $lisAuthService->logout();
+                throw new Exception('LIS_33_NOT_LOGGED_IN');
             }
-            if($data_login["role"] === 'student') {//get vocation id
-                
-                $em = $this->getEntityManager();
-            }
-            
-            $r = [
+
+            return new JsonModel([
                 'success' => true,
-                'message' => 'NOW_LOGGED_IN',
+                'message' => 'LIS_NOW_LOGGED_IN',
                 "lisPerson" => $data_login["lisPerson"],
-                "lisUser" => $data_login["lisUser"],
+                "lisUser" => $data_login["lisPerson"],
                 "role" => $data_login["role"],
-            ];
+            ]);
         } catch (Exception $ex) {
-            $r = [
+
+            return new JsonModel([
                 'success' => false,
                 'message' => $ex->getMessage()
-                //'message' => 'FALSE_ATTEMPT'
-            ];
+            ]);
         }
-        return new JsonModel($r);
-    }
-
-    /**
-     * Update existing user Student
-     * 
-     * @param type $id
-     * @param type $data
-     * @return JsonModel
-     */
-    public function update($id, $data)
-    {
-        return new JsonModel([$id, $data]);
     }
 
     /**

@@ -27,7 +27,6 @@ gulp.task('webserver', ['jshint'], function () {
 });
 
 var jsHintFail = function () {
-    console.log(arguments);
     notify({
         title: 'JSHint',
         message: 'Failed'
