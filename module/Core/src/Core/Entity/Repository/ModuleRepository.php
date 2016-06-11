@@ -127,6 +127,7 @@ class ModuleRepository extends AbstractBaseRepository
                 LEFT JOIN module.gradingType gradingType
                 
                 LEFT JOIN module.subjectRound subjectRound
+                LEFT JOIN subjectRound.studentGroup studentGroup
                 
                 LEFT JOIN module.studentGrade studentGrade
                 LEFT JOIN studentGrade.student student
@@ -151,7 +152,7 @@ class ModuleRepository extends AbstractBaseRepository
 
                 WHERE 
                     vocation.id=:vocationId AND
-                    gradeChoiceCL.lisType='gradechoice' AND
+                    studentGroup.id=:studentGroupId AND
                     (student.id=:studentId OR student.id IS NULL) AND
                     (studentSR.id=:studentId OR studentSR.id IS NULL) AND
                     (studentCL.id=:studentId OR studentCL.id IS NULL) AND
@@ -169,6 +170,7 @@ class ModuleRepository extends AbstractBaseRepository
 
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
+        $q->setParameter('studentGroupId', $studentGroupId, Type::INTEGER);
         $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
 
         if (array_key_exists('startDateIW', $params) && array_key_exists('endDateIW', $params)) {//we have startDate and endDate from params add bind values to criteria

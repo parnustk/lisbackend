@@ -53,6 +53,10 @@ class LoginBaseController extends Base
 
                 throw new Exception('LIS_33_NOT_LOGGED_IN');
             }
+            
+            if($this->params['ferole'] !== $data_login["role"]) {
+                throw new Exception('LIS_35_NOT_LOGGED_IN');
+            }
 
             $super = false;
             if ($this->role === 'administrator') {
@@ -60,8 +64,10 @@ class LoginBaseController extends Base
                         ->find(
                         'Core\Entity\Administrator', $data_login["lisPerson"]
                 );
-                if ($admin->getSuperAdministrator() === 1) {
-                    $super = true;
+                if ($admin) {
+                    if ($admin->getSuperAdministrator() === 1) {
+                        $super = true;
+                    }
                 }
             }
 
