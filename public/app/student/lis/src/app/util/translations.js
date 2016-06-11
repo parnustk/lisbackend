@@ -13,7 +13,10 @@
         var t = {
             et: {
                 LIS_LOGIN_ERROR: 'Sisestatud kasutajanimi või parool on vale. Palun proovige uuesti.',
+                LIS_REGISTER_ERROR: 'Kasutaja loomine ebaõnnestus. Palun võtke ühendust kooli haldustöötajaga.',
                 LIS_LOGIN_GREETING: 'Sisselogimine',
+                LIS_REGISTER_GREETING:'Loo uus kasutaja',
+                LIS_REPEAT_PASSWORD:'Korda salasõna',
                 LIS_EMAIL: 'E-posti aadress',
                 LIS_PASSWORD: 'Salasõna',
                 LIS_LOGIN: 'Logi sisse',
@@ -28,8 +31,9 @@
                 LIS_TRASHED: 'Prügikastis',
                 LIS_NAME_FILTER: 'Nime filter',
                 LIS_DESCRIPTION: 'Kirjeldus',
-                LIS_PERSONALCODE: 'Kood',
+                LIS_PERSONALCODE: 'Isikukood',
                 LIS_LANGUAGE: 'Keel',
+                LIS_REGISTER:'Registreeru',
 
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
                 LIS_ROOM_GRID_FILTERS: 'Ruumide filter',
@@ -209,6 +213,7 @@
             en: {
                 LIS_EMAIL: 'E-mail address',
                 LIS_PASSWORD: 'Password',
+                LIS_REPEAT_PASSWORD:'Repeat password',
                 LIS_NAME: 'Name',
                 LIS_CREATE: 'Create',
                 LIS_DELETE: 'Delete',
@@ -219,12 +224,15 @@
                 LIS_DESCRIPTION: 'Description',
                 LIS_FIRSTNAME: 'First name',
                 LIS_LASTNAME: 'Last name',
-                LIS_PERSONALCODE: 'Code',
+                LIS_PERSONALCODE: 'Personal code',
+                LIS_REGISTER:'Register',
 
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
                 LIS_LOGIN_GREETING: 'Please log in',
                 LIS_LOGIN_ERROR: 'The entered username or password are incorrect. Please try again',
+                LIS_REGISTER_ERROR: 'Failed to create new user. Please contact with school administrator.',
+                LIS_REGISTER_GREETING:'Create new user',
 
                 LIS_LANGUAGE: 'Language',
 
@@ -320,10 +328,10 @@
                 
                 LIS_DIARY:'Diary',
                 LIS_CONTACTLESSON:'Contactlesson',
-                LIS_ABSENCE:'Absence',
+                LIS_ABSENCE:'Absences',
                 LIS_ABSENCEREASON:'Absence reason',
                 LIS_INDEPENDENTWORK:'Independent work',
-                LIS_STUDENTGRADE:'Student grade',
+                LIS_STUDENTGRADE:'Grades',
                 LIS_SUBJECTROUND:'Subject round',
                 
                 LIS_PERSONS:'Persons',
