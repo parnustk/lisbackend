@@ -61,7 +61,8 @@
         /*19*/'app/controller/studentInGroupsController',
         /*20*/'app/controller/superAdminController',
         /*21*/'app/controller/lessonReportController',
-        /*22*/'app/controller/diaryController'
+        /*22*/'app/controller/diaryController',
+        /*23*/'app/controller/homeController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -109,7 +110,8 @@
         /*19*/studentInGroupsController,
         /*20*/superAdminController,
         /*21*/lessonReportController,
-        /*22*/diaryController
+        /*22*/diaryController,
+        /*23*/homeController
         ) {
 
         /**
@@ -181,7 +183,7 @@
             };
         });
 
-        var adminModule = angular.module('adminModule', [
+        var administratorModule = angular.module('adminModule', [
             'ngRoute',
             'ngResource',
             'ngTouch',
@@ -206,9 +208,9 @@
             'ui.select'
         ]);
 
-        adminModule.config(config);
+        administratorModule.config(config);
 
-        adminModule.directive('uiSelectWrap', uiSelectWrap);
+        administratorModule.directive('uiSelectWrap', uiSelectWrap);
 
         uiSelectWrap.$inject = ['$document', 'uiGridEditConstants'];
 
@@ -224,7 +226,7 @@
             };
         }
 
-        adminModule.directive('uiSelectRequired', function () {
+        administratorModule.directive('uiSelectRequired', function () {
             return {
                 require: 'ngModel',
                 link: function (scope, element, attr, ctrl) {
@@ -249,7 +251,7 @@
             };
         });
 
-        adminModule.directive('datepickerPopup', function () {
+        administratorModule.directive('datepickerPopup', function () {
             /* http://stackoverflow.com/questions/24198669/angular-bootsrap-datepicker-date-format-does-not-format-ng-model-value */
             return {
                 restrict: 'EAC',
@@ -280,7 +282,7 @@
             };
         };
 
-        adminModule.directive("compareTo", compareTo);
+        administratorModule.directive("compareTo", compareTo);
 
         /**
          * UI select
@@ -289,7 +291,7 @@
          * performs a AND between 'name: $select.search' and 'age: $select.search'.
          * We want to perform a OR.
          */
-        adminModule.filter('propsFilter', function () {
+        administratorModule.filter('propsFilter', function () {
             return function (items, props) {
                 var out = [];
                 if (angular.isArray(items)) {
@@ -316,54 +318,55 @@
         });
 
         //Here we start with our Business Logic itself
-        adminModule.factory('vocationModel', vocationModel);
-        adminModule.factory('teacherModel', teacherModel);
-        adminModule.factory('gradingTypeModel', gradingTypeModel);
-        adminModule.factory('gradeChoiceModel', gradeChoiceModel);
-        adminModule.factory('absenceReasonModel', absenceReasonModel);
-        adminModule.factory('absenceModel', absenceModel);
-        adminModule.factory('roomModel', roomModel);
-        adminModule.factory('moduleTypeModel', moduleTypeModel);
-        adminModule.factory('loginModel', loginModel);
-        adminModule.factory('moduleModel', moduleModel);
-        adminModule.factory('studentModel', studentModel);
-        adminModule.factory('administratorModel', administratorModel);
-        adminModule.factory('subjectModel', subjectModel);
-        adminModule.factory('contactLessonModel', contactLessonModel);
-        adminModule.factory('studentGroupModel', studentGroupModel);
-        adminModule.factory('independentWorkModel', independentWorkModel);
-        adminModule.factory('subjectRoundModel', subjectRoundModel);
-        adminModule.factory('studentGradeModel', studentGradeModel);
-        adminModule.factory('studentInGroupsModel', studentInGroupsModel);
-        adminModule.factory('registerModel', registerModel);
-        adminModule.factory('lisUserModel', lisUserModel);
-        adminModule.factory('lessonReportModel', lessonReportModel);
-        adminModule.factory('superAdminModel', superAdminModel);
+        administratorModule.factory('vocationModel', vocationModel);
+        administratorModule.factory('teacherModel', teacherModel);
+        administratorModule.factory('gradingTypeModel', gradingTypeModel);
+        administratorModule.factory('gradeChoiceModel', gradeChoiceModel);
+        administratorModule.factory('absenceReasonModel', absenceReasonModel);
+        administratorModule.factory('absenceModel', absenceModel);
+        administratorModule.factory('roomModel', roomModel);
+        administratorModule.factory('moduleTypeModel', moduleTypeModel);
+        administratorModule.factory('loginModel', loginModel);
+        administratorModule.factory('moduleModel', moduleModel);
+        administratorModule.factory('studentModel', studentModel);
+        administratorModule.factory('administratorModel', administratorModel);
+        administratorModule.factory('subjectModel', subjectModel);
+        administratorModule.factory('contactLessonModel', contactLessonModel);
+        administratorModule.factory('studentGroupModel', studentGroupModel);
+        administratorModule.factory('independentWorkModel', independentWorkModel);
+        administratorModule.factory('subjectRoundModel', subjectRoundModel);
+        administratorModule.factory('studentGradeModel', studentGradeModel);
+        administratorModule.factory('studentInGroupsModel', studentInGroupsModel);
+        administratorModule.factory('registerModel', registerModel);
+        administratorModule.factory('lisUserModel', lisUserModel);
+        administratorModule.factory('lessonReportModel', lessonReportModel);
+        administratorModule.factory('superAdminModel', superAdminModel);
 
-        adminModule.controller('vocationController', vocationController);
-        adminModule.controller('teacherController', teacherController);
-        adminModule.controller('gradingTypeController', gradingTypeController);
-        adminModule.controller('gradeChoiceController', gradeChoiceController);
-        adminModule.controller('absenceReasonController', absenceReasonController);
-        adminModule.controller('absenceController', absenceController);
-        adminModule.controller('roomController', roomController);
-        adminModule.controller('moduleTypeController', moduleTypeController);
-        adminModule.controller('loginController', loginController);
-        adminModule.controller('moduleController', moduleController);
-        adminModule.controller('studentController', studentController);
-        adminModule.controller('administratorController', administratorController);
-        adminModule.controller('subjectController', subjectController);
-        adminModule.controller('contactLessonController', contactLessonController);
-        adminModule.controller('independentWorkController', independentWorkController);
-        adminModule.controller('subjectRoundController', subjectRoundController);
-        adminModule.controller('studentGroupController', studentGroupController);
-        adminModule.controller('studentGradeController', studentGradeController);
-        adminModule.controller('studentInGroupsController', studentInGroupsController);
-        adminModule.controller('superAdminController', superAdminController);
-        adminModule.controller('lessonReportController', lessonReportController);
-        adminModule.controller('diaryController', diaryController);
+        administratorModule.controller('vocationController', vocationController);
+        administratorModule.controller('teacherController', teacherController);
+        administratorModule.controller('gradingTypeController', gradingTypeController);
+        administratorModule.controller('gradeChoiceController', gradeChoiceController);
+        administratorModule.controller('absenceReasonController', absenceReasonController);
+        administratorModule.controller('absenceController', absenceController);
+        administratorModule.controller('roomController', roomController);
+        administratorModule.controller('moduleTypeController', moduleTypeController);
+        administratorModule.controller('loginController', loginController);
+        administratorModule.controller('moduleController', moduleController);
+        administratorModule.controller('studentController', studentController);
+        administratorModule.controller('administratorController', administratorController);
+        administratorModule.controller('subjectController', subjectController);
+        administratorModule.controller('contactLessonController', contactLessonController);
+        administratorModule.controller('independentWorkController', independentWorkController);
+        administratorModule.controller('subjectRoundController', subjectRoundController);
+        administratorModule.controller('studentGroupController', studentGroupController);
+        administratorModule.controller('studentGradeController', studentGradeController);
+        administratorModule.controller('studentInGroupsController', studentInGroupsController);
+        administratorModule.controller('superAdminController', superAdminController);
+        administratorModule.controller('lessonReportController', lessonReportController);
+        administratorModule.controller('diaryController', diaryController);
+        administratorModule.controller('homeController', homeController);
 
-        return adminModule;
+        return administratorModule;
     });
 
 }(define));

@@ -42,7 +42,8 @@
         /*6*/'app/controller/absenceController',
         /*14*/'app/controller/contactLessonGradeController',
         /*15*/'app/controller/subjectRoundGradeController',
-        /*18*/'app/controller/studentGradeController'
+        /*18*/'app/controller/studentGradeController',
+        /*19*/'app/controller/homeController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -71,7 +72,8 @@
         /*6*/absenceController,
         /*14*/contactLessonGradeController,
         /*15*/subjectRoundGradeController,
-        /*18*/studentGradeController
+        /*18*/studentGradeController,
+        /*19*/homeController
         ) {
 
         /**
@@ -324,6 +326,7 @@
         studentModule.controller('contactLessonGradeController', contactLessonGradeController);
         studentModule.controller('subjectRoundGradeController', subjectRoundGradeController);
         studentModule.controller('studentGradeController', studentGradeController);
+        studentModule.controller('homeController', homeController);
 
         return studentModule;
     });
