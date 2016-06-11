@@ -1,4 +1,6 @@
-/** 
+<?php
+
+/**
  * 
  * Licence of Learning Info System (LIS)
  * 
@@ -9,23 +11,15 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
  * 
  */
-/* 
-    Created on : Apr 25, 2016, 4:54:19 PM
-    Author     : Kristen Sepp < seppkristen@gmail.com >
-*/
-.input-group{
-    width: 100%;
-}
 
-.row{
-    margin-bottom: 20px;
-}
-.center-block{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+namespace Core\Service;
 
-.glyphicon::before{
-    margin-right: 5px;
+/**
+ * Description of UserDataService
+ *
+ * @author Kristen Sepp <seppkristen@gmail.com>
+ */
+class UserDataService extends AbstractBaseService
+{
+    protected $baseEntity = 'Core\Entity\Administrator';
 }

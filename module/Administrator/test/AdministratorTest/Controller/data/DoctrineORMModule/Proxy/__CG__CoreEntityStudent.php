@@ -64,10 +64,10 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'name', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'independentWork', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'firstName', 'lastName', 'name', 'email', 'personalCode', 'lisUser', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'name', 'email', 'personalCode', 'lisUser', 'absence', 'studentGrade', 'studentInGroups', 'independentWork', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'firstName', 'lastName', 'name', 'email', 'personalCode', 'lisUser', 'studentGrade', 'studentInGroups', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -257,17 +257,6 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getAbsence()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAbsence', array());
-
-        return parent::getAbsence();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getStudentGrade()
     {
 
@@ -285,17 +274,6 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStudentInGroups', array());
 
         return parent::getStudentInGroups();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getIndependentWork()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIndependentWork', array());
-
-        return parent::getIndependentWork();
     }
 
     /**
@@ -422,17 +400,6 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setAbsence($absence)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAbsence', array($absence));
-
-        return parent::setAbsence($absence);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setStudentGrade($studentGrade)
     {
 
@@ -450,17 +417,6 @@ class Student extends \Core\Entity\Student implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStudentInGroups', array($studentInGroups));
 
         return parent::setStudentInGroups($studentInGroups);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setIndependentWork($independentWork)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIndependentWork', array($independentWork));
-
-        return parent::setIndependentWork($independentWork);
     }
 
     /**

@@ -29,6 +29,7 @@ use Core\Service\IndependentWorkService;
 use Core\Service\StudentGradeService;
 use Core\Service\StudentInGroupsService;
 use Core\Service\SuperAdminService;
+use Core\Service\UserDataService;
 
 /**
  * 
@@ -178,6 +179,12 @@ class Module
                 },
                 'superadmin_service' => function ($serviceManager) {
                     $t = new SuperAdminService();
+                    $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
+                    $t->setEntityManager($entityManager);
+                    return $t;
+                },
+                'userdata_service' => function ($serviceManager) {
+                    $t = new UserDataService();
                     $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
                     $t->setEntityManager($entityManager);
                     return $t;

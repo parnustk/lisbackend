@@ -126,7 +126,17 @@
                     templateUrl: 'lis/dist/templates/diary.html',
                     controller: 'diaryController'
                 })
-
+                
+                .when('/', {
+                    templateUrl: 'lis/dist/templates/home.html',
+                    controller: 'homeController'
+                })
+                
+                .when('/userdata', {
+                    templateUrl: 'lis/dist/templates/userData.html',
+                    controller: 'userDataController'
+                })
+                
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

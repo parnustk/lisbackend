@@ -40,6 +40,7 @@
         /*21*/'app/model/lisUserModel',
         /*22*/'app/model/lessonReportModel',
         /*23*/'app/model/superAdminModel',
+        /*24*/'app/model/userDataModel',
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -62,7 +63,8 @@
         /*20*/'app/controller/superAdminController',
         /*21*/'app/controller/lessonReportController',
         /*22*/'app/controller/diaryController',
-        /*23*/'app/controller/homeController'
+        /*23*/'app/controller/homeController',
+        /*24*/'app/controller/userDataController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -89,6 +91,7 @@
         /*21*/lisUserModel,
         /*22*/lessonReportModel,
         /*23*/superAdminModel,
+        /*24*/userDataModel,
         /*1*/vocationController,
         /*2*/gradingTypeController,
         /*3*/gradeChoiceController,
@@ -111,7 +114,8 @@
         /*20*/superAdminController,
         /*21*/lessonReportController,
         /*22*/diaryController,
-        /*23*/homeController
+        /*23*/homeController,
+        /*24*/userDataController
         ) {
 
         /**
@@ -341,6 +345,8 @@
         administratorModule.factory('lisUserModel', lisUserModel);
         administratorModule.factory('lessonReportModel', lessonReportModel);
         administratorModule.factory('superAdminModel', superAdminModel);
+        administratorModule.factory('userDataModel', userDataModel);
+
 
         administratorModule.controller('vocationController', vocationController);
         administratorModule.controller('teacherController', teacherController);
@@ -365,6 +371,7 @@
         administratorModule.controller('lessonReportController', lessonReportController);
         administratorModule.controller('diaryController', diaryController);
         administratorModule.controller('homeController', homeController);
+        administratorModule.controller('userDataController', userDataController);
 
         return administratorModule;
     });

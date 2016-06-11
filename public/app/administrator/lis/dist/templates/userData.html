@@ -1,0 +1,33 @@
+<h2>{{ T('LIS_CHANGE_MY_DATA') }}</h2>
+<div class="row center-block">
+    <form class="form-horizontal col-md-6" role="form" name="userDataForm" ng-submit="Update(userDataForm.$valid)">
+        <fieldset>
+            <div class="form-group" ng-class="{ 'has-error': userDataForm.firstName.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="userDataForm-firstName">{{ T('LIS_FIRSTNAME')}}</span>
+                        <input name="firstName" type="text" class="form-control" aria-describedby="userDataForm-firstName" ng-model="userData.firstName">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': userDataForm.lastName.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="userDataForm-lastName">{{ T('LIS_LASTNAME')}}</span>
+                        <input name="lastName" type="text" class="form-control" aria-describedby="userDataForm-lastName" ng-model="userData.lastName">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': userDataForm.email.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="userDataForm-email">{{ T('LIS_EMAIL')}}</span>
+                        <input  name="email" type="text" class="form-control" aria-describedby="userDataForm-email" ng-model="userData.email">
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">{{ T('LIS_UPDATE_DATA') }}</button>
+        </fieldset>
+    </form>
+</div>
