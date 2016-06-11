@@ -20,7 +20,7 @@
 (function (define) {
     'use strict';
 
-    define(['jquery', 'app/util/globalFunctions'], function ($, globalFunctions) {
+    define(['angular', 'jquery', 'app/util/globalFunctions'], function (angular, $, globalFunctions) {
 
         loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
@@ -214,10 +214,18 @@
                     globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
                 }
             };
-
+            
+            var ferole = '-', cRaw = $cookies.getObject('userObj');
+            if(cRaw){
+                var uInf = angular.fromJson(cRaw);
+                if(uInf.hasOwnProperty('role')) {
+                    ferole = uInf.role;
+                }
+            }
+            
             //check BE session
             loginModel
-                .GetList({ferole: 'administrator'})
+                .GetList({ferole: ferole})
                 .then(function (result) {
                     result.success ? setUserInfo(result) : clearUserInfo();
                 });

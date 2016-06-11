@@ -44,7 +44,6 @@
                     },
                     save: {
                         method: 'POST',
-                        isArray: true,
                         headers: {
                             'Content-Type': 'application/json'
                         }

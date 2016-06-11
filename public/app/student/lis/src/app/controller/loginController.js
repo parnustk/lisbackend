@@ -21,7 +21,7 @@
 (function (define) {
     'use strict';
 
-    define(['app/util/globalFunctions'], function (globalFunctions) {
+    define(['angular', 'jquery', 'app/util/globalFunctions'], function (angular, $, globalFunctions) {
 
         loginController.$inject = ['$scope', 'loginModel', '$cookies', 'registerModel'];
 
@@ -226,9 +226,17 @@
                 }
             };
 
+            var ferole = '-', cRaw = $cookies.getObject('userObj');
+            if (cRaw) {
+                var uInf = angular.fromJson(cRaw);
+                if (uInf.hasOwnProperty('role')) {
+                    ferole = uInf.role;
+                }
+            }
+
             //check BE session
             loginModel
-                .GetList({ferole: 'student'})
+                .GetList({ferole: ferole})
                 .then(function (result) {
                     result.success ? setUserInfo(result) : clearUserInfo();
                 });
