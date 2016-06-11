@@ -28,7 +28,7 @@
                             <ui-select-choices repeat="module in modules | filter: $select.search">
                                 <span ng-bind-html="module.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{module.id}}
+                                    Õppekava: {{module.vocation.name}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -44,7 +44,7 @@
                             <ui-select-choices repeat="subject in subjects | filter: $select.search">
                                 <span ng-bind-html="subject.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{subject.id}}
+                                    id: {{subject.module.name}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
