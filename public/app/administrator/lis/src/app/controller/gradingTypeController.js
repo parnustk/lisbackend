@@ -38,7 +38,13 @@
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
                 
-                gradingTypeController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'gradingTypeModel'];
+                gradingTypeController.$inject = [
+                    '$scope',
+                    '$q',
+                    '$routeParams',
+                    'rowSorter',
+                    'uiGridConstants',
+                    'gradingTypeModel'];
                 
                 /**
                  * 
@@ -92,10 +98,23 @@
                                     priority: 1
                                 }
                             },
-                            {field: 'name',
-                                displayName: $scope.T('LIS_NAME')},
-                            {field: 'trashed',
-                                displayName: $scope.T('LIS_TRASHED')}
+                            {
+                                field: 'name',
+                                displayName: $scope.T('LIS_NAME'),
+                                minWidth: 50,
+                                maxWidth: 9000,
+                                resizable: true,
+                                pinnable: true
+                            },
+                                
+                            {
+                                field: 'trashed',
+                                displayName: $scope.T('LIS_TRASHED'),
+                                minWidth: 50,
+                                maxWidth: 9000,
+                                resizable: true,
+                                pinnable: true
+                            }
                         ],
                         enableGridMenu: true,
                         enalbeSelectAll: true,
