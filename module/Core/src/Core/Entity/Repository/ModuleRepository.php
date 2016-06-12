@@ -153,6 +153,7 @@ class ModuleRepository extends AbstractBaseRepository
                 WHERE 
                     vocation.id=:vocationId AND
                     studentGroup.id=:studentGroupId AND
+                    gradeChoiceCL.lisType ='gradechoice' AND
                     (student.id=:studentId OR student.id IS NULL) AND
                     (studentSR.id=:studentId OR studentSR.id IS NULL) AND
                     (studentCL.id=:studentId OR studentCL.id IS NULL) AND
