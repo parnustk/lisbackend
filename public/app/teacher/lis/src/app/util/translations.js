@@ -192,7 +192,6 @@
                 SELF_CREATED_RESTRICTION:'Saad muuta ainult enda loodud andmeid',
                 
                 LIS_ERROR:'Viga!',
-                LIS_HOME_WELCOME:'Avaleht',
                 LIS_HOME_GREETING: 'Tere',
                 LIS_PARAGRAPH_TEXT:'Tere tulemast Pärnu Saksa Tehnoloogiakooli õppeinfosüsteemi, kus saad mugavalt lisada hindeid, puudumist ning iseseisvaid töid. Probleemide esinemisel võtke palun ühendust kooli haldustöötajaga.'
             },
@@ -371,7 +370,6 @@
                 SELF_CREATED_RESTRICTION:'You can only change data created by yourself',
                 
                 LIS_ERROR: 'Error!',
-                LIS_HOME_WELCOME:'Main page',
                 LIS_HOME_GREETING: 'Hello',
                 LIS_PARAGRAPH_TEXT:'Welcome to the learning information system of German Technological School of Pärnu, where you can add grades, absences and independent works. In case of problems please contact with school administrator.'
             }

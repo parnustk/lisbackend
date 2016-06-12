@@ -128,7 +128,7 @@
                                 displayName: $scope.T('LIS_MODULECODE')
                             },
                             {field: 'duration',
-                                displayName: $scope.T('LIS_DURATION')
+                                displayName: $scope.T('LIS_DURATIONEKAP')
                             },
                             {field: 'trashed',
                                 displayName: $scope.T('LIS_TRASHED')

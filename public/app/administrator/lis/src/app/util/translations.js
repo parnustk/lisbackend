@@ -221,7 +221,6 @@
                 LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'Õppeainet või kontakttunde pole sisestatud',
                 
                 LIS_ERROR: 'Viga!',
-                LIS_HOME_WELCOME:'Avaleht',
                 LIS_HOME_GREETING: 'Tere',
                 LIS_PARAGRAPH_TEXT:'Tere tulemast Pärnu Saksa Tehnoloogiakooli õppeinfosüsteemi, kus toimub süsteemi, ligipääsude, õppekavade ja isikute haldamine.'
                 
@@ -247,24 +246,24 @@
                 LIS_LOGOUT: 'Log out',
                 LIS_LOGIN_GREETING: 'Please log in',
                 LIS_LOGIN_ERROR: 'The entered username or password is incorrect. Please try again',
-                LIS_REGISTER_ERROR: 'Failed to create new user. Please contact with school administrator.',
-                LIS_REGISTER_GREETING:'Create new user',
+                LIS_REGISTER_ERROR: 'Failed to create a new user. Please contact with school administrator.',
+                LIS_REGISTER_GREETING:'Create a new user',
                 
                 LIS_LANGUAGE: 'Language',
                 
-                LIS_CREATE_NEW_ROOM: 'Create new classroom',
+                LIS_CREATE_NEW_ROOM: 'Create a new classroom',
                 LIS_ROOM_GRID_FILTERS: 'Room filter',
 
-                LIS_CREATE_NEW_SUBJECTROUND: 'Create new subject round',
+                LIS_CREATE_NEW_SUBJECTROUND: 'Create a new subject round',
                 LIS_SUBJECTROUND_GRID_FILTERS: 'Subject round filters',
 
                 LIS_CONTACTLESSON_VIEW: 'Contact lessons',
                 
-                LIS_CREATE_NEW_ABSENCEREASON: 'Create new absence reason',
+                LIS_CREATE_NEW_ABSENCEREASON: 'Create a new absence reason',
                 ABSENCEREASON_GRID_FILTERS: 'Absence reasons filter',
                 
                 LIS_ABSENCE_VIEW: 'Absences',
-                LIS_CREATE_NEW_ABSENCE: 'Create new absence',
+                LIS_CREATE_NEW_ABSENCE: 'Create a new absence',
                 SELECT_AN_ABSENCEREASON: 'Select an absence reason',
                 SELECT_A_STUDENT: 'Select a student',
                 SELECT_A_CONTACTLESSON: 'Select a contact lesson',
@@ -274,7 +273,7 @@
                 SELECT_OR_SEARCH_A_CONTACTLESSON: 'Select or search a contact lesson',
                 
                 LIS_VOCATION_VIEW: 'Vocations',
-                LIS_CREATE_NEW_VOCATION: 'Create new vocation',
+                LIS_CREATE_NEW_VOCATION: 'Create a new vocation',
                 LIS_VOCATIONCODE: 'Vocation code',
                 LIS_DURATIONEKAP: 'Duration (EKAP)',
                 VOCATION_GRID_FILTERS:'Vocation filters',
@@ -283,15 +282,15 @@
                 SEARCH_A_DURATIONEKAP: 'Search by duration (EKAP)',
                 
                 LIS_GRADECHOICE_VIEW:'Grade choices',
-                LIS_CREATE_NEW_GRADECHOICE: 'Create new grade choice',
+                LIS_CREATE_NEW_GRADECHOICE: 'Create a new grade choice',
                 GRADECHOICE_GRID_FILTERS: 'Grade choice filter',
                 
                 LIS_MODULETYPE_VIEW:'Module types',
-                LIS_CREATE_NEW_MODULETYPE:'Create new module type',
+                LIS_CREATE_NEW_MODULETYPE:'Create a new module type',
                 MODULETYPE_GRID_FILTERS:'Module type filter',
                 
                 LIS_STUDENT_VIEW: 'Students',
-                LIS_CREATE_NEW_STUDENT: 'Create new student',
+                LIS_CREATE_NEW_STUDENT: 'Create a new student',
                 SEARCH_A_FIRSTNAME:'Search by first name',
                 SEARCH_A_LASTNAME:'Search by last name',
                 SEARCH_AN_EMAIL:'Search by e-mail address',
@@ -299,11 +298,11 @@
                 STUDENT_GRID_FILTERS:'Student filters',
                 
                 LIS_ADMINISTRATOR_VIEW:'Administrators',
-                LIS_CREATE_NEW_ADMINISTRATOR:'Create new administrator',
+                LIS_CREATE_NEW_ADMINISTRATOR:'Create a new administrator',
                 ADMINISTRATOR_GRID_FILTERS:'Administrator filters',
                 
                 LIS_SUBJECT_VIEW: 'Curriculum subjects',
-                LIS_CREATE_NEW_SUBJECT:'Create new curriculum subject',
+                LIS_CREATE_NEW_SUBJECT:'Create a new curriculum subject',
                 SELECT_A_MODULE:'Choose a module',
                 SELECT_GRADINGTYPES:'Choose grading type(s)',
                 LIS_SUBJECTCODE:'Curriculum subject code',
@@ -323,13 +322,13 @@
                 SELECT_OR_SEARCH_A_SUBJECTROUND:'Select or search by subject round',
                 SELECT_OR_SEARCH_A_TEACHER:'Select or search by teacher',
                 LIS_GRADINGTYPE_VIEW:'Grading types',
-                LIS_CREATE_NEW_GRADINGTYPE:'Create new grading type',
+                LIS_CREATE_NEW_GRADINGTYPE:'Create a new grading type',
                 LIS_GRADINGTYPE_FILTERS:'Grading type filter',
                 LIS_SEARCH_NAME:'Search by name',
 //               Teacher
                 LIS_TEACHER_VIEW: "Teachers",
                 LIS_TEACHER_FILTER: "Teacher filter",
-                LIS_TEACHER_CREATE: "Create new teacher",
+                LIS_TEACHER_CREATE: "Create a new teacher",
                 LIS_TEACHER_GRID_FILTERS: "Teacher grid filters",
 
 //                MAIN MENU
@@ -372,13 +371,13 @@
                 SELECT_OR_SEARCH_A_VOCATION:'Select or search by vocation',
                 
                 LIS_STUDENTINGROUPS_VIEW:'Students in groups',
-                LIS_CREATE_NEW_STUDENTINGROUPS:'Create new student in groups',
+                LIS_CREATE_NEW_STUDENTINGROUPS:'Create a new student in groups',
                 SELECT_A_STUDENTGROUP:'Select a student group',
                 STUDENTINGROUPS_GRID_FILTERS:'Student in groups filters',
                 LIS_STATUS:'Status',
                 SELECT_OR_SEARCH_A_STUDENTGROUP:'Select or search by student group',
                 
-                LIS_CREATE_NEW_CONTACTLESSON:'Create new contact lesson',
+                LIS_CREATE_NEW_CONTACTLESSON:'Create a new contact lesson',
                 LIS_CHOOSE_ROOM:'Choose a room',
                 LIS_CHOOSE_SUBJECTROUND:'Choose a subject round',
                 LIS_CHOOSE_STUDENTGROUP:'Choose a student group',
@@ -398,7 +397,7 @@
                 LIS_DURATION:'Duration',
                 SEARCH_DURATION:'Search by duration',
                 LIS_MODULE_VIEW:'Modules',
-                LIS_CREATE_NEW_MODULE:'Create new module',
+                LIS_CREATE_NEW_MODULE:'Create a new module',
                 MODULE_GRID_FILTERS:'Module filters',
                 SEARCH_A_MODULECODE:'Search by module code',
 
@@ -425,7 +424,7 @@
                 SELECT_OR_SEARCH_A_SUBJECT:'Select or search by curriculum subject',
                 LIS_SEARCH_STATUS:'Search by status',
                 LIS_STUDENTGROUP_VIEW:'Student groups',
-                LIS_CREATE_NEW_STUDENTGROUP:'Create new student group',
+                LIS_CREATE_NEW_STUDENTGROUP:'Create a new student group',
                 LIS_SUPERADMIN_VIEW:'User management',
                 LIS_SUBJECTROUND_GRADE:'Subject round grade',
                 LIS_PASSWORD_REQUIREMENTS:'Password must be at least 8 characters, no more than 20 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Password can not include accented characters and spaces.',
@@ -437,7 +436,6 @@
                 LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'No subject round or contact lessons inserted',
 
                 LIS_ERROR: 'Error!',
-                LIS_HOME_WELCOME:'Main page',
                 LIS_HOME_GREETING: 'Hello',
                 LIS_PARAGRAPH_TEXT:'Welcome to the learning information system of German Technological School of Pärnu, where you can manage the system, accesses, curriculums and persons.'    
             }

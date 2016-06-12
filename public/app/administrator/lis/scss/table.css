@@ -63,10 +63,6 @@ table tr:nth-child(even) {
     color: #000033;
 }
 
-.subjectRoundFormating{
-    color: #330099;
-}
-
 .form-control{
     width: inherit;
 }
@@ -76,4 +72,12 @@ table tr:nth-child(even) {
 }
 .studentGradeView{
     text-align: center;
+}
+
+.justify{
+    text-align: justify;
+}
+
+.subjectRoundFormating{
+    color: #337ab7;
 }

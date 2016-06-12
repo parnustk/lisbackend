@@ -77,6 +77,9 @@
 
                     $scope.subjectRound = {};
                     $scope.filterSubjectRound = {};
+                    
+                    $scope.subjectRound = {};
+                    $scope.subjectRound.status = 1;
 
                     $scope.gridOptions = {
                         rowHeight: 38,

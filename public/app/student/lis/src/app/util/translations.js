@@ -213,7 +213,6 @@
                 LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
                 LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
                 NOT_FOUND:'Antud andmetega õpilast ei leitud',
-                LIS_HOME_WELCOME:'Avaleht',
                 LIS_HOME_GREETING: 'Tere',
                 LIS_PARAGRAPH_TEXT:'Tere tulemast Pärnu Saksa Tehnoloogiakooli õppeinfosüsteemi, kus saad mugavalt vaadata oma hindeid, puudumist ning tunniplaani. Probleemide esinemisel võtke palun ühendust kooli haldustöötajaga.'
                 
@@ -417,7 +416,6 @@
                 LIS_CHECK_FORM_FIELDS:'Check form fields',
                 LIS_YOU_CAN_LOGIN_NOW:'You can log in now',
                 NOT_FOUND:'No student found with this data',
-                LIS_HOME_WELCOME:'Main page',
                 LIS_HOME_GREETING:'Hello',
                 LIS_PARAGRAPH_TEXT:'Welcome to the learning information system of German Technological School of Pärnu, where you can check your grades, absences and timetable. In case of problems please contact with school administrator.'
             }
