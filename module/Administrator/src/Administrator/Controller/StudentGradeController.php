@@ -102,7 +102,7 @@ class StudentGradeController extends Base
      */
     public function delete($id)
     {
-        return parent::notAllowed();
+        return parent::delete($id);
     }
 
 }

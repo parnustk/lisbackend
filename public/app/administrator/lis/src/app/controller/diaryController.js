@@ -138,6 +138,8 @@
                     onRegisterApi: function (gridApi) {
                         $scope.gridApi = gridApi;
                         gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+                            //mod
+
 
                             if (/^cl/i.test(colDef.name)) {//START CONTACTLESSON Grades CRUD
 
@@ -184,6 +186,72 @@
                                         }
                                     );
                                 } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() === '' && isAbsenceReason(newValue) && isAbsenceReason(oldValue.id)) {//DELETE
+                                    studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
+                                                buf = {
+                                                    id: null,
+                                                    name: null,
+                                                    studentGradeId: null,
+                                                    teacherId: null
+                                                };
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {
+                                                buf = originalEntity;//reverse changes if unsuccessful//alert('BAD DELETE');
+                                            }
+                                        }
+                                    );
+                                } else { //reverse original
+                                    buf = originalEntity;
+                                }
+
+                                rowEntity[colDef.name] = buf;
+
+                            } else if (colDef.name === 'mod') {//START SUBJECTROUND Grades CRUD
+                                var x,
+                                    buf = {},
+                                    newGrade = {},
+                                    originalEntity = originalRows[rowEntity.nr][colDef.name];
+
+                                angular.copy(originalEntity, buf);
+                                for (x in $scope.gradeChoiceGradesOnly) {
+                                    if ($scope.gradeChoiceGradesOnly[x].id === newValue) {
+                                        newGrade.id = newValue;
+                                        newGrade.name = $scope.gradeChoiceGradesOnly[x].name;
+                                        break;
+                                    }
+                                }
+                                buf.id = newGrade.id;
+                                buf.name = newGrade.name;
+                                var data = {
+                                    student: buf.studentId,
+                                    gradeChoice: buf.id,
+                                    teacher: teacherId,
+                                    module: buf.moduleId
+                                };
+                                if (originalEntity.studentGradeId === null && buf.name && buf.name.trim() !== '') {//CREATE
+                                    studentGradeModel.Create(data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD CREATE');
+                                                buf.studentGradeId = result.data.id;
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {
+                                                //alert('BAD CREATE');
+                                                buf = originalEntity;//reverse changes if unsuccessful
+                                            }
+                                        }
+                                    );
+                                } else if (originalEntity.studentGradeId !== null && buf.name && buf.name.trim() !== '' && buf.id !== originalEntity.id) {//UPDATE
+                                    studentGradeModel.Update(originalEntity.studentGradeId, data).then(
+                                        function (result) {
+                                            if (globalFunctions.resultHandler(result)) {//alert('GOOD UPDATE');
+                                                originalEntity = originalRows[rowEntity.nr][colDef.name] = buf;
+                                            } else {//alert('BAD UPDATE');
+                                                buf = originalEntity;//reverse changes if unsuccessful
+                                            }
+                                        }
+                                    );
+                                } else if (originalEntity.studentGradeId !== null && buf.name.trim() === '') {//DELETE
                                     studentGradeModel.Delete(originalEntity.studentGradeId, data).then(
                                         function (result) {
                                             if (globalFunctions.resultHandler(result)) {//alert('GOOD DELETE');
@@ -337,8 +405,6 @@
 
                         }
                     });
-
-
                 };
 
                 /**
@@ -392,7 +458,7 @@
                         u = 0,
                         contactLessons = rawDataSubjectRound[0].contactLesson,
                         independentWorks = rawDataGradeIW.length > 0 ? rawDataGradeIW[0].independentWork : [],
-                        modules = rawDataGradeMOD.length > 0 ? rawDataGradeMOD[0].module : [],
+                        moduleStudentGrades = rawDataGradeMOD.length > 0 ? rawDataGradeMOD[0].module : [],
                         studentGradesSR = rawDataGradeSR.length > 0 ? rawDataGradeSR[0].studentGrade : [],
                         y,
                         x,
@@ -413,8 +479,8 @@
                         newColumnMOD = {//start defining column
                             //field: columnNameId,
                             name: columnNameMOD,
-                            displayName: modules.name,
-                            enableCellEdit: false,
+                            displayName: moduleStudentGrades.name,
+                            enableCellEdit: true,
                             editDropdownOptionsArray: $scope.gradeChoiceGradesOnly,
                             type: 'object',
                             editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -425,6 +491,36 @@
                         };
 
                     $scope.columns.push(newColumnMOD);
+                    
+                    for (var i = 0; i < rows.length; i++) {
+                        var studentGradeId = null,
+                            gradeChoiceId = null,
+                            gradeChoiceName = null,
+                            teacherId = null,
+                            studentId = rows[i].student.id;
+
+                        if (rawDataGradeMOD.length > 0) {
+
+                            if (rawDataGradeMOD[0].module.studentGrade.length !== 0) {
+                                var r = searchStudentGrade(studentId, rawDataGradeMOD[0].module.studentGrade);
+                                if (r !== -1) {
+                                    studentGradeId = r.studentGradeId;
+                                    gradeChoiceId = r.gradeChoiceId;
+                                    gradeChoiceName = r.gradeChoiceName;
+                                    teacherId = r.teacherId;
+                                }
+                            }
+                        }
+
+                        rows[i][columnNameMOD] = {
+                            id: gradeChoiceId,
+                            name: gradeChoiceName,
+                            studentGradeId: studentGradeId,
+                            moduleId: rawDataGradeMOD[0].id,
+                            studentId: studentId,
+                            teacherId: teacherId
+                        };
+                    }
 
                     for (x in contactLessons) {//add contact lesson stuff. number of contactlesson is dynamic
 
