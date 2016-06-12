@@ -38,17 +38,19 @@
                     '$scope',
                     '$q',
                     '$cookies',
-                    'lisUserModel'
+                    'lisUserModel',
+                    'loginModel'
                 ];
 
                 function userDataController(
                         $scope,
                         $q,
                         $cookies,
-                        lisUserModel) {
+                        lisUserModel,
+                        loginModel) {
 
                     $scope.T = globalFunctions.T;
-                    
+
                     $scope.userData = {};
 
                     /**
@@ -56,47 +58,55 @@
                      * 
                      * @param {type} rowEntity
                      * @returns {undefined}
-                     */                    
+                     */
                     $scope.ChangeData = function (valid) {
-                        if(valid) {
+                        if (valid) {
                             var deferred = $q.defer();
-                            //do auth request - see loginController,  use entered current pasword and seprately saved emadil
+                            var password = $scope.password;
+                            if (password)//if password is not empy
+                            {
+                                if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
+                                    globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
+                                    return;
+                                }
+                            }
                             
-                            //if auth success update user model if password
-                            
+                            var email = $scope.userData.email;
+                            delete $scope.userData.passwordRepeat;
+                            lisUserModel.Update(lisUser, $scope.userData)
+                                    .then(function (result) {
+                                        if (globalFunctions.resultHandler(result)) {
+                                            globalFunctions.alertSuccessMsg($scope.T('LIS_USER_DATA_SUCCESSFULLY_CHANGED'));
+                                        } else {
+                                            globalFunctions.alertErrorMsg($scope.T('LIS_USER_DATA_CHANGE_ERROR'));
+                                        }
+                            });
+                        } else {
+                            globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
                         }
-//                        var deferred = $q.defer();
-//                        lisUserModel.Update(rowEntity.id, rowEntity).then(
-//                                function (result) {
-//                                    if (result.success) {
-//                                        deferred.resolve();
-//                                    } else {
-//                                        deferred.reject();
-//                                    }
-//                                }
-//                        );
                     };
 
-                    
+                    var currentEmail;
                     /**
                      * Before loading lisUser data, 
                      * we first load relations and check success
                      * 
                      * @param {type} id
                      * @returns {undefined}
-                     */                    
+                     */
                     function LoadDataUser(id) {
 
                         lisUserModel.Get(id).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                if(result.success) {
+                                if (result.success) {
                                     //current email save seprately
-                                    console.log(result.data);
+                                    currentEmail = result.data.email;
+                                    $scope.userData.email = currentEmail;
                                 }
                             }
                         });
                     }
-                    
+
                     var lisUser, cRaw = $cookies.getObject('userObj');
                     if (cRaw) {
                         var uInf = angular.fromJson(cRaw);
@@ -105,7 +115,6 @@
                             LoadDataUser(lisUser);
                         }
                     }
-                    
                 }
 
                 return userDataController;
