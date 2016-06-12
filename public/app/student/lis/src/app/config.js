@@ -53,6 +53,11 @@
                     controller: 'timeTableController'
                 })
 
+                .when('/userdata', {
+                    templateUrl: 'lis/dist/templates/userData.html',
+                    controller: 'userDataController'
+                })
+
                 .when('/', {
                     templateUrl: 'lis/dist/templates/home.html',
                     controller: 'homeController'
