@@ -30,6 +30,7 @@ return [
             'Teacher\Controller\SubjectRound' => 'Teacher\Controller\SubjectRoundController',
             'Teacher\Controller\Teacher' => 'Teacher\Controller\TeacherController',
             'Teacher\Controller\Vocation' => 'Teacher\Controller\VocationController',
+            'Teacher\Controller\LisUser' => 'Teacher\Controller\LisUser',
         ],
     ],
     'router' => [

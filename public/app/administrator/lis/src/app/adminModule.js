@@ -122,11 +122,6 @@
          */
         angular.module('gridFilters', []).filter('griddropdown', function () {
             return function (input, context) {
-//                function hasOwnProperty(obj, prop) {
-//                    var proto = obj.__proto__ || obj.constructor.prototype;
-//                    return (prop in obj) &&
-//                        (!(prop in proto) || proto[prop] !== obj[prop]);
-//                }
                 try {
                     //For some reason the text "this" is occasionally directly beingpassed here
                     if (typeof context === 'undefined' || context === 'this') {

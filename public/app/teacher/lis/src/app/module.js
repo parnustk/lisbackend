@@ -37,11 +37,14 @@
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
         /*20*/'app/model/registerModel',
+        /*21*/'app/model/lisUserModel',
+        
         /*1*/'app/controller/loginController',
         /*2*/'app/controller/diaryController',
-        /*17*/'app/controller/independentWorkController',
-        /*18*/'app/controller/timeTableController',
-        /*19*/'app/controller/homeController'
+        /*3*/'app/controller/independentWorkController',
+        /*4*/'app/controller/timeTableController',
+        /*5*/'app/controller/homeController',
+        /*6*/'app/controller/userDataController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -65,11 +68,14 @@
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
         /*20*/registerModel,
+        /*21*/lisUserModel,
+        
         /*1*/loginController,
         /*2*/diaryController,
-        /*17*/independentWorkController,
-        /*18*/timeTableController,
-        /*19*/homeController
+        /*3*/independentWorkController,
+        /*4*/timeTableController,
+        /*5*/homeController,
+        /*6*/userDataController
         ) {
 
         /**
@@ -78,11 +84,6 @@
          */
         angular.module('gridFilters', []).filter('griddropdown', function () {
             return function (input, context) {
-//                function hasOwnProperty(obj, prop) {
-//                    var proto = obj.__proto__ || obj.constructor.prototype;
-//                    return (prop in obj) &&
-//                        (!(prop in proto) || proto[prop] !== obj[prop]);
-//                }
                 try {
                     //For some reason the text "this" is occasionally directly beingpassed here
                     if (typeof context === 'undefined' || context === 'this') {
@@ -135,7 +136,6 @@
                     return result;
                 } catch (e) {
                     console.log("Error: " + e);
-                    //context.grid.appScope.log("Error: " + e);
                     context.grid.appScope.log("Error: " + e);
                 }
             };
@@ -296,13 +296,14 @@
         module.factory('studentGradeModel', studentGradeModel);
         module.factory('studentInGroupsModel', studentInGroupsModel);
         module.factory('registerModel', registerModel);
-
-
+        module.factory('lisUserModel', lisUserModel);
+        
         module.controller('loginController', loginController);
         module.controller('diaryController', diaryController);
         module.controller('independentWorkController', independentWorkController);
         module.controller('timeTableController', timeTableController);
         module.controller('homeController', homeController);
+        module.controller('userDataController', userDataController);
 
         return module;
     });

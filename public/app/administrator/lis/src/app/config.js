@@ -8,6 +8,11 @@
 
 /* global define */
 
+/**
+ * 
+ * @param {type} define
+ * @returns {undefined}
+ */
 (function (define) {
     'use strict';
 

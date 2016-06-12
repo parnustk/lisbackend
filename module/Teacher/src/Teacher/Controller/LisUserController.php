@@ -11,7 +11,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
  * 
  */
-namespace Administrator\Controller;
+namespace Teacher\Controller;
 
 use Zend\View\Model\JsonModel;
 use Core\Controller\AbstractAdministratorBaseController as Base;
@@ -21,8 +21,9 @@ use Core\Controller\AbstractAdministratorBaseController as Base;
  * 
  * @author Kristen Sepp <seppkristen@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
-class SuperAdminController extends Base
+class LisUserController extends Base
 {
 
     /**

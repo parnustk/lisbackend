@@ -8,6 +8,11 @@
 
 /* global define */
 
+/**
+ * 
+ * @param {type} define
+ * @returns {undefined}
+ */
 (function (define) {
     'use strict';
 
@@ -27,6 +32,7 @@
         function config($routeProvider, $locationProvider, $httpProvider) {
 
             $routeProvider
+            
                 .when('/diary', {
                     templateUrl: 'lis/dist/templates/diary.html',
                     controller: 'diaryController'
@@ -44,6 +50,11 @@
                 .when('/', {
                     templateUrl: 'lis/dist/templates/home.html',
                     controller: 'homeController'
+                })
+
+                .when('/userdata', {
+                    templateUrl: 'lis/dist/templates/userData.html',
+                    controller: 'userDataController'
                 })
 
                 .otherwise({redirectTo: '/'});

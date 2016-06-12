@@ -16,102 +16,7 @@
         <link rel="stylesheet" type="text/css" href="bower_components/ui-select/dist/select.css" />
         <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.css" />
-        <link rel="stylesheet" type="text/css" href="lis/scss/defaultstyle.css" />
-
-        <style>
-
-            body {
-                padding: 20px;
-            }
-
-            .grid {
-                width: 600px;
-                height: 250px;
-            }
-
-            .ui-grid-cell {
-                overflow: visible;
-                z-index: 99999;
-            }
-
-            .ui-grid-cell, ui-select-wrap {
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-                -khtml-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-            .grid {
-                width: 100%;
-                min-height: 40%;
-            }
-
-            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-                display: none !important;
-            }
-
-            .wrapper {
-                margin-top: 80px;
-                margin-bottom: 80px;
-            }
-
-            .form-signin {
-                max-width: 380px;
-                padding: 15px 35px 45px;
-                margin: 0 auto;
-                background-color: #fff;
-                border: 1px solid rgba(0,0,0,0.1);
-
-                .form-signin-heading,
-                .checkbox {
-                    margin-bottom: 30px;
-                }
-
-                .checkbox {
-                    font-weight: normal;
-                }
-
-                .form-control {
-                    position: relative;
-                    font-size: 16px;
-                    height: auto;
-                    padding: 10px;
-                    @include box-sizing(border-box);
-
-                    &:focus {
-                        z-index: 2;
-                    }
-                }
-
-                input[type="text"] {
-                    margin-bottom: -1px;
-                    border-bottom-left-radius: 0;
-                    border-bottom-right-radius: 0;
-                }
-
-                input[type="password"] {
-                    margin-bottom: 20px;
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
-                }
-            }
-
-
-
-            .languageSwitcher {
-                float: right;
-            }
-
-            .languageSwitcherMenu {
-                background: none;
-                margin-top:0.5em;
-            }
-
-            .simple-hide {
-                display: none
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="lis/dist/styles/lis.css" />
 
         <script src="lis/dist/globals.config.local.js"></script>
         <script data-main="lis/src/requireConfig" src="bower_components/requirejs/require.js"></script>
@@ -142,14 +47,7 @@
                             <li><a href="#!/timetable">{{ T('LIS_TIMETABLE')}}</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ T('LIS_ME')}}<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">{{ T('LIS_CHANGE_MY_USER_DATA')}}</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">{{ T('LIS_MY_DATA')}}</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="#!/userdata">{{ T('LIS_CHANGE_MY_USER_DATA')}}</a></li>
                             <li><a href="#" ng-click="Logout()">{{ T('LIS_LOGOUT')}}</a></li>
                             <li><a href="javascript:history.go(0);" ng-show="showButton()" ng-click="changeLanguage('en')">in English</a></li>
                             <li><a href="javascript:history.go(0);" ng-hide="showButton()" ng-click="changeLanguage('et')">Eesti keeles</a></li>

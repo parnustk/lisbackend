@@ -20,16 +20,17 @@
         'app/util/globalFunctions'
     ], function (globalFunctions) {
 
+        lisUserModel.$inject = ['$resource'];
+
         /**
          * 
-         * @param {type} $http
          * @param {type} $resource
          * @returns {lisUserModel_L19.lisUserModel.lisUserModelAnonym$3}
          */
-        function lisUserModel($http, $resource) {
+        function lisUserModel($resource) {
 
             var _model;
-            
+
             _model = $resource(
                 window.LisGlobals.RestUrl + 'lisUser/:id',
                 {id: '@id'},
@@ -72,20 +73,10 @@
                  * @return {undefined}
                  */
                 Update: function (id, data) {
-                    return _model.update({ id:id }, globalFunctions.cleanData(data)).$promise;
-                },
-                /**
-                 * 
-                 * @param {type} id
-                 * @return {undefined}
-                 * @return {unresolved}
-                 */
-                Delete: function (id) {
-//                    return _model.delete({ id:id }, data).$promise;
+                    return _model.update({id: id}, globalFunctions.cleanData(data)).$promise;
                 }
             };
         }
-        lisUserModel.$inject = ['$http', '$resource'];
         return lisUserModel;
     });
 
