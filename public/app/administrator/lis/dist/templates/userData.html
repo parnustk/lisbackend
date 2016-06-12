@@ -1,45 +1,43 @@
 <h2>{{ T('LIS_CHANGE_MY_USER_DATA')}}</h2>
 
 <div class="row">
+    <div class="col-sm-12">
 
+        <form class="form-signin" role="form" name="registerForm" ng-submit="ChangeData(registerForm.$valid)">
+
+            <div class="alert alert-danger" ng-if="userRegisterError" ng-cloak>
+                {{ T('LIS_REGISTER_ERROR')}}
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': registerForm.password.$invalid }">
+                <input class="form-control" name="password" ng-required="true" placeholder="{{ T('LIS_CURRENT_PASSWORD')}}"
+                       type="password" ng-model="credentialsReg.password"/>
+            </div>
+
+            <hr>
+
+            <div class="form-group" ng-class="{ 'has-error': registerForm.emailnew.$invalid }">
+                <input class="form-control" name="emailnew" ng-required="false" placeholder="{{ T('LIS_EMAIL')}}"
+                       type="email" ng-model="userData.email"/>
+            </div>
+
+
+            <div class="form-group" ng-class="{ 'has-error': registerForm.passwordnew.$invalid }">
+                <input class="form-control" name="passwordnew" ng-required="false" placeholder="{{ T('LIS_NEW_PASSWORD')}}"
+                       type="password" ng-model="userData.password"/>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': registerForm.confirmPasswordnew.$invalid }">
+                <input class="form-control" name="confirmPasswordnew" type="password" ng-required="false" placeholder="{{ T('LIS_REPEAT_NEW_PASSWORD')}}"
+                       ng-model="userData.passwordRepeat" compare-to="userData.password"/>
+            </div>
+
+
+            <button type="submit" class="btn btn-lg btn-primary btn-block">{{ T('LIS_UPDATE_DATA')}}</button>
+
+        </form>
+
+    </div>
 </div>
 
 
-<form class="form-signin" role="form" name="registerForm" ng-submit="ChangeData(registerForm.$valid)">
-    <div class="alert alert-danger" ng-if="userRegisterError" ng-cloak>
-        {{ T('LIS_REGISTER_ERROR')}}
-    </div>
-
-
-<!--    <div class="form-group" ng-class="{ 'has-error': registerForm.email.$invalid }">
-        <input class="form-control" name="email" ng-required="true" placeholder="{{ T('LIS_EMAIL')}}"
-               type="email" ng-model="credentialsReg.email"/>
-    </div>-->
-
-    <div class="form-group" ng-class="{ 'has-error': registerForm.password.$invalid }">
-        <input class="form-control" name="password" ng-required="true" placeholder="{{ T('LIS_CURRENT_PASSWORD')}}"
-               type="password" ng-model="credentialsReg.password"/>
-    </div>
-
-<hr>
-
-    <div class="form-group" ng-class="{ 'has-error': registerForm.emailnew.$invalid }">
-        <input class="form-control" name="emailnew" ng-required="false" placeholder="{{ T('LIS_EMAIL')}}"
-               type="email" ng-model="userData.email"/>
-    </div>
-
-
-    <div class="form-group" ng-class="{ 'has-error': registerForm.passwordnew.$invalid }">
-        <input class="form-control" name="passwordnew" ng-required="false" placeholder="{{ T('LIS_NEW_PASSWORD')}}"
-               type="password" ng-model="userData.password"/>
-    </div>
-
-    <div class="form-group" ng-class="{ 'has-error': registerForm.confirmPasswordnew.$invalid }">
-        <input class="form-control" name="confirmPasswordnew" type="password" ng-required="false" placeholder="{{ T('LIS_REPEAT_NEW_PASSWORD')}}"
-               ng-model="userData.passwordRepeat" compare-to="userData.password"/>
-    </div>
-
-
-    <button type="submit" class="btn btn-lg btn-primary btn-block">{{ T('LIS_UPDATE_DATA')}}</button>
-
-</form>

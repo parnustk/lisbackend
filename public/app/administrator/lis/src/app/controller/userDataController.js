@@ -14,6 +14,7 @@
 /**
  * 
  * @author Kristen Sepp <seppkristen@gmail.com>
+ * @author Sander Mets <sandermets0@gmail.com>
  */
 
 /**
@@ -22,7 +23,7 @@
  * @param {type} document
  * @returns {undefined}
  */
-(function (define, document) {
+(function (define) {
     'use strict';
 
     /**
@@ -32,92 +33,105 @@
      * @returns {}
      */
     define(['angular', 'app/util/globalFunctions', 'moment'],
-            function (angular, globalFunctions, moment) {
+        function (angular, globalFunctions, moment) {
 
-                userDataController.$inject = [
-                    '$scope',
-                    '$q',
-                    '$cookies',
-                    'lisUserModel',
-                    'loginModel'
-                ];
+            userDataController.$inject = [
+                '$scope',
+                '$q',
+                '$cookies',
+                'lisUserModel',
+                'loginModel'
+            ];
 
-                function userDataController(
-                        $scope,
-                        $q,
-                        $cookies,
-                        lisUserModel,
-                        loginModel) {
+            function userDataController(
+                $scope,
+                $q,
+                $cookies,
+                lisUserModel,
+                loginModel) {
 
-                    $scope.T = globalFunctions.T;
+                var currentEmail;//auth purposes
 
-                    $scope.userData = {};
+                $scope.T = globalFunctions.T;
 
-                    /**
-                     * Update logic
-                     * 
-                     * @param {type} rowEntity
-                     * @returns {undefined}
-                     */
-                    $scope.ChangeData = function (valid) {
-                        if (valid) {
-                            var deferred = $q.defer();
-                            var password = $scope.password;
-                            if (password)//if password is not empy
-                            {
-                                if (!/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test($scope.credentialsReg.confirmPassword)) {
-                                    globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
-                                    return;
-                                }
+                $scope.userData = {};
+
+                /**
+                 * Update logic
+                 * 
+                 * @param {type} rowEntity
+                 * @returns {undefined}
+                 */
+                $scope.ChangeData = function (valid) {
+                    
+                    if (valid) {
+
+                        var updateData = {},
+                            password = $scope.userData.password,
+                            email = $scope.userData.email;
+
+                        if (password) {
+                            if (!(/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test(password))) {
+                                globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
+                                return;
                             }
-                            
-                            var email = $scope.userData.email;
-                            delete $scope.userData.passwordRepeat;
-                            lisUserModel.Update(lisUser, $scope.userData)
-                                    .then(function (result) {
-                                        if (globalFunctions.resultHandler(result)) {
-                                            globalFunctions.alertSuccessMsg($scope.T('LIS_USER_DATA_SUCCESSFULLY_CHANGED'));
-                                        } else {
-                                            globalFunctions.alertErrorMsg($scope.T('LIS_USER_DATA_CHANGE_ERROR'));
-                                        }
-                            });
-                        } else {
-                            globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
+                            updateData.password = password;
                         }
-                    };
-
-                    var currentEmail;
-                    /**
-                     * Before loading lisUser data, 
-                     * we first load relations and check success
-                     * 
-                     * @param {type} id
-                     * @returns {undefined}
-                     */
-                    function LoadDataUser(id) {
-
-                        lisUserModel.Get(id).then(function (result) {
-                            if (globalFunctions.resultHandler(result)) {
-                                if (result.success) {
-                                    //current email save seprately
-                                    currentEmail = result.data.email;
-                                    $scope.userData.email = currentEmail;
-                                }
+                        
+                        if (email) {
+                            if (currentEmail !== email) {
+                                updateData.email = email;
                             }
-                        });
-                    }
-
-                    var lisUser, cRaw = $cookies.getObject('userObj');
-                    if (cRaw) {
-                        var uInf = angular.fromJson(cRaw);
-                        if (uInf.hasOwnProperty('lisPerson')) {
-                            lisUser = uInf.lisUser;
-                            LoadDataUser(lisUser);
                         }
+
+                        if (updateData.hasOwnProperty('password') || updateData.hasOwnProperty('email')) {
+
+                            lisUserModel.Update(lisUser, updateData)
+                                .then(function (result) {
+                                    if (globalFunctions.resultHandler(result)) {
+                                        globalFunctions.alertSuccessMsg($scope.T('LIS_USER_DATA_SUCCESSFULLY_CHANGED'));
+                                    } else {
+                                        globalFunctions.alertErrorMsg($scope.T('LIS_USER_DATA_CHANGE_ERROR'));
+                                    }
+                                });
+
+                        }
+
+                    } else {
+                        globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
                     }
+                };
+
+                /**
+                 * Before loading lisUser data, 
+                 * we first load relations and check success
+                 * 
+                 * @param {type} id
+                 * @returns {undefined}
+                 */
+                function LoadDataUser(id) {
+                    lisUserModel.Get(id).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            if (result.success) {
+                                //current email save seprately
+                                currentEmail = result.data.email;
+                                $scope.userData.email = currentEmail;
+                            }
+                        }
+                    });
                 }
 
-                return userDataController;
-            });
+                var lisUser, cRaw = $cookies.getObject('userObj');
+                if (cRaw) {
+                    var uInf = angular.fromJson(cRaw);
+                    if (uInf.hasOwnProperty('lisPerson')) {
+                        lisUser = uInf.lisUser;
+                        LoadDataUser(lisUser);
+                    }
+                }
+            }
 
-}(define, document));
+            return userDataController;
+        });
+
+}(define));
