@@ -615,46 +615,37 @@ class SubjectRoundRepository extends AbstractBaseRepository
     {
         $dql = "SELECT
             partial $this->baseAlias.{
-            id,
-             name,
-             status,
-             trashed
+                id,
+                name,
+                status,
+                trashed
             },
-             partial vocation.{
-            id,
-             name
+            partial vocation.{
+                id,
+                name
             },
-             partial module.{
-            id,
-             name
+            partial module.{
+                id,
+                name
             },
-             partial subject.{
-            id,
-             name
+            partial subject.{
+                id,
+                name
             },
-             partial studentGroup.{
-            id,
-             name
+            partial studentGroup.{
+                id,
+                name
             },
-             partial teacher.{
-            id,
-             name
-            },
-             partial studentGrade.{
-            id
-            },
-             partial gradeChoice.{
-            id,
-             name
+            partial teacher.{
+                id,
+                name
             }
             FROM $this->baseEntity $this->baseAlias
             JOIN $this->baseAlias.vocation vocation
             JOIN $this->baseAlias.module module
             JOIN $this->baseAlias.teacher teacher
             JOIN $this->baseAlias.subject subject
-            JOIN $this->baseAlias.studentGroup studentGroup
-            LEFT JOIN $this->baseAlias.studentGrade studentGrade
-            LEFT JOIN studentGrade.gradeChoice gradeChoice";
+            JOIN $this->baseAlias.studentGroup studentGroup";
 
         return $dql;
     }
