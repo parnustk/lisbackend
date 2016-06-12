@@ -179,6 +179,7 @@
                 loginModel.Delete(1).then(function () {
                     removeCookie('userObj');
                     window.location.href = "#!/";
+                    clearUserInfo();
                 });
             };
 

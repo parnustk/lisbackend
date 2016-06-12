@@ -102,7 +102,9 @@
                 addCookie('userObj', angular.toJson({
                     lisPerson: result.lisPerson,
                     lisUser: result.lisUser,
-                    role: result.role
+                    role: result.role,
+                    firstName: result.firstName,
+                    lastName: result.lastName
                 }));
 
                 $scope.userLoginError = false;
@@ -180,6 +182,7 @@
                 loginModel.Delete(1).then(function () {
                     removeCookie('userObj');
                     window.location.href = "#!/";
+                    clearUserInfo();
                 });
             };
 

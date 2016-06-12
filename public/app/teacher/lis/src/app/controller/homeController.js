@@ -25,19 +25,32 @@
     define(['angular', 'app/util/globalFunctions'],
         function (angular, globalFunctions) {
 
-            homeController.$inject = ['$scope'];
+            homeController.$inject = ['$scope', '$cookies'];
             
             /**
              * 
              * @param {type} $scope
              * @returns {undefined}
              */
-            function homeController($scope) {
-                $scope.T = globalFunctions.T;
-            }
+            function homeController($scope, $cookies) {
 
-            return homeController;
-        });
+                    $scope.T = globalFunctions.T;
+                    $scope.firstName = '';
+                    $scope.lastName = '';
+                    var cRaw = $cookies.getObject('userObj');
+                    if (cRaw) {
+                        var uInfo = angular.fromJson(cRaw);
+                        if (uInfo.hasOwnProperty('firstName')) {
+                            $scope.firstName = uInfo.firstName;
+                        }
+                        if (uInfo.hasOwnProperty('lastName')) {
+                            $scope.lastName = uInfo.lastName;
+                        }
+                    }
+                }
+
+                return homeController;
+            });
 
 }(define));
 

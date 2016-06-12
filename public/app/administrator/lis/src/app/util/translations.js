@@ -220,7 +220,10 @@
                 LIS_UPDATE_DESCRIPTION:'Uuenda kontakttunni kirjeldust',
                 LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'Õppeainet või kontakttunde pole sisestatud',
                 
-                LIS_ERROR: 'Viga!'
+                LIS_ERROR: 'Viga!',
+                LIS_HOME_WELCOME:'Avaleht',
+                LIS_HOME_GREETING: 'Tere',
+                LIS_PARAGRAPH_TEXT:'Tere tulemast Pärnu Saksa Tehnoloogiakooli õppeinfosüsteemi, kus toimub süsteemi, ligipääsude, õppekavade ja isikute haldamine.'
                 
             },
             en: {
@@ -433,7 +436,10 @@
                 LIS_UPDATE_DESCRIPTION:'Update contact lesson description',
                 LIS_NO_SUBJECTROUND_OR_CONTACTLESSONS_INSERTED:'No subject round or contact lessons inserted',
 
-                LIS_ERROR: 'Error!'
+                LIS_ERROR: 'Error!',
+                LIS_HOME_WELCOME:'Main page',
+                LIS_HOME_GREETING: 'Hello',
+                LIS_PARAGRAPH_TEXT:'Welcome to the learning information system of German Technological School of Pärnu, where you can manage the system, accesses, curriculums and persons.'    
             }
         };
         return t;

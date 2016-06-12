@@ -104,13 +104,16 @@
                     lisPerson: result.lisPerson,
                     lisUser: result.lisUser,
                     role: result.role,
-                    superuser: result.super
+                    superuser: result.super,
+                    firstName: result.firstName,
+                    lastName: result.lastName
 
                 }));
 
                 $scope.userLoginError = false;
                 $scope.userLoggedIn = true;
                 checkSuperuser();
+                $('#user-greeting').show();
             }
 
             /**
@@ -189,6 +192,7 @@
                 loginModel.Delete(1).then(function () {
                     removeCookie('userObj');
                     window.location.href = "#!/";
+                    clearUserInfo();
                 });
             };
 

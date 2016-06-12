@@ -34,7 +34,7 @@
                 LIS_PERSONALCODE: 'Isikukood',
                 LIS_LANGUAGE: 'Keel',
                 LIS_REGISTER:'Registreeru',
-                LIS_ERROR:'Viga',
+                LIS_ERROR:'Viga!',
                 LIS_PASSWORD_REQUIREMENTS:'Salasõna pikkus peab olema 8-20 märki, milles on vähemalt üks suur täht, üks väike täht ja üks number. Salasõna ei tohi sisaldada täpitähti ja tühikuid.',
     
                 LIS_CREATE_NEW_ROOM: 'Uus ruum',
@@ -214,7 +214,8 @@
                 LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
                 NOT_FOUND:'Antud andmetega õpilast ei leitud',
                 LIS_HOME_WELCOME:'Avaleht',
-                LIS_HOME_GREETING: 'Tere'
+                LIS_HOME_GREETING: 'Tere',
+                LIS_PARAGRAPH_TEXT:'Tere tulemast Pärnu Saksa Tehnoloogiakooli õppeinfosüsteemi, kus saad mugavalt vaadata oma hindeid, puudumist ning tunniplaani. Probleemide esinemisel võtke palun ühendust kooli haldustöötajaga.'
                 
             },
             en: {
@@ -233,7 +234,7 @@
                 LIS_LASTNAME: 'Last name',
                 LIS_PERSONALCODE: 'Personal code',
                 LIS_REGISTER:'Register',
-                LIS_ERROR:'Error',
+                LIS_ERROR:'Error!',
 
                 LIS_LOGIN: 'Log in',
                 LIS_LOGOUT: 'Log out',
@@ -417,7 +418,8 @@
                 LIS_YOU_CAN_LOGIN_NOW:'You can log in now',
                 NOT_FOUND:'No student found with this data',
                 LIS_HOME_WELCOME:'Main page',
-                LIS_HOME_GREETING:'Hello'
+                LIS_HOME_GREETING:'Hello',
+                LIS_PARAGRAPH_TEXT:'Welcome to the learning information system of German Technological School of Pärnu, where you can check your grades, absences and timetable. In case of problems please contact with school administrator.'
             }
         };
         return t;

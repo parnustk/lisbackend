@@ -35,8 +35,8 @@
                 function homeController($scope, $cookies) {
 
                     $scope.T = globalFunctions.T;
-                    $scope.firstName = '-';
-                    $scope.lastName = '-';
+                    $scope.firstName = '';
+                    $scope.lastName = '';
                     var cRaw = $cookies.getObject('userObj');
                     if (cRaw) {
                         var uInfo = angular.fromJson(cRaw);
@@ -46,12 +46,6 @@
                         if (uInfo.hasOwnProperty('lastName')) {
                             $scope.lastName = uInfo.lastName;
                         }
-                    }
-
-                    function getName($scope, lisUser) {
-
-                        $scope.name = "Hello " + lisUser.id;
-
                     }
                 }
 
