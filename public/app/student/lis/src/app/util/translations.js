@@ -212,7 +212,9 @@
                 LIS_ENDLESSONDATE:'Lõppkuupäev',
                 LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
                 LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
-                NOT_FOUND:'Antud andmetega õpilast ei leitud'
+                NOT_FOUND:'Antud andmetega õpilast ei leitud',
+                LIS_HOME_WELCOME:'Avaleht',
+                LIS_HOME_GREETING: 'Tere'
                 
             },
             en: {
@@ -413,7 +415,9 @@
                 LIS_PASSWORD_REQUIREMENTS:'Password must be at least 8 characters, no more than 20 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Password can not include accented characters and spaces.',
                 LIS_CHECK_FORM_FIELDS:'Check form fields',
                 LIS_YOU_CAN_LOGIN_NOW:'You can log in now',
-                NOT_FOUND:'No student found with this data'
+                NOT_FOUND:'No student found with this data',
+                LIS_HOME_WELCOME:'Main page',
+                LIS_HOME_GREETING:'Hello'
             }
         };
         return t;

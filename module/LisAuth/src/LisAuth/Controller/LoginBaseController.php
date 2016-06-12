@@ -34,14 +34,70 @@ class LoginBaseController extends Base
     }
 
     /**
+     * 
+     * @param string $entityName
+     * @param array $data_login
+     * @return stdClass
+     * @throws Exception
+     */
+    protected function additionalUserInfo($entityName, $data_login)
+    {
+        $userinfo = (object) [
+                    'super' => false,
+                    'firstName' => '',
+                    'lastName' => '',
+        ];
+        $model = $this->getEntityManager()
+                ->find(
+                $entityName, $data_login["lisPerson"]
+        );
+        if ($model) {
+            if ($entityName === 'Core\Entity\Administrator') {
+                if ($model->getSuperAdministrator() === 1) {
+                    $userinfo->super = true;
+                }
+            }
+            $userinfo->firstName = $model->getFirstName();
+            $userinfo->lastName = $model->getLastName();
+        } else {
+            throw new Exception('NOT_48_LOGGED_IN');
+        }
+        return $userinfo;
+    }
+
+    protected function sessionBasedChecks($data_login)
+    {
+
+        $entityName = '';
+        if ($this->role === 'administrator') {
+            $entityName = 'Core\Entity\Administrator';
+        } else if ($this->role === 'student') {
+            $entityName = 'Core\Entity\Student';
+        } else if ($this->role === 'teacher') {
+            $entityName = 'Core\Entity\Teacher';
+        }
+        $userinfo = $this->additionalUserInfo($entityName, $data_login);
+        return [
+            "super" => $userinfo->super,
+            "firstName" => $userinfo->firstName,
+            "lastName" => $userinfo->lastName,
+            'success' => true,
+            'message' => 'LIS_ACTIVE_SESSION',
+            "lisPerson" => $data_login["lisPerson"],
+            "lisUser" => $data_login["lisPerson"],
+            "role" => $data_login["role"],
+        ];
+    }
+
+    /**
      * Check for active session
      * 
      * @return JsonModel
      */
     public function getList()
     {
+        $this->headerAccessControlAllowOrigin();
         try {
-            $this->headerAccessControlAllowOrigin();
             if ($this->getLisAuthService()->isEmpty()) {
                 throw new Exception('NOT_40_LOGGED_IN');
             }
@@ -53,32 +109,12 @@ class LoginBaseController extends Base
 
                 throw new Exception('LIS_33_NOT_LOGGED_IN');
             }
-            
-            if($this->params['ferole'] !== $data_login["role"]) {
+
+            if ($this->params['ferole'] !== $data_login["role"]) {
                 throw new Exception('LIS_35_NOT_LOGGED_IN');
             }
-
-            $super = false;
-            if ($this->role === 'administrator') {
-                $admin = $this->getEntityManager()
-                        ->find(
-                        'Core\Entity\Administrator', $data_login["lisPerson"]
-                );
-                if ($admin) {
-                    if ($admin->getSuperAdministrator() === 1) {
-                        $super = true;
-                    }
-                }
-            }
-
-            return new JsonModel([
-                'success' => true,
-                'message' => 'LIS_ACTIVE_SESSION',
-                "super" => $super,
-                "lisPerson" => $data_login["lisPerson"],
-                "lisUser" => $data_login["lisPerson"],
-                "role" => $data_login["role"],
-            ]);
+            
+            return new JsonModel($this->sessionBasedChecks($data_login));
         } catch (Exception $ex) {
             $this->getLisAuthService()->clear();
             return new JsonModel([
@@ -98,39 +134,10 @@ class LoginBaseController extends Base
     public function create($data)
     {
         $this->headerAccessControlAllowOrigin();
-        $lisAuthService = $this->getLisAuthService();
-
         try {
-            $lisAuthService->authenticate($data, $this->role);
-            $data_login = $lisAuthService->login_data();
-
-            if (is_null($data_login["lisPerson"]) ||
-                    is_null($data_login["lisPerson"]) ||
-                    is_null($data_login["role"])) {
-
-                $lisAuthService->logout();
-                throw new Exception('LIS_33_NOT_LOGGED_IN');
-            }
-
-            $super = false;
-            if ($this->role === 'administrator') {
-                $admin = $this->getEntityManager()
-                        ->find(
-                        'Core\Entity\Administrator', $data_login["lisPerson"]
-                );
-                if ($admin->getSuperAdministrator() === 1) {
-                    $super = true;
-                }
-            }
-
-            return new JsonModel([
-                'success' => true,
-                'message' => 'LIS_NOW_LOGGED_IN',
-                "super" => $super,
-                "lisPerson" => $data_login["lisPerson"],
-                "lisUser" => $data_login["lisPerson"],
-                "role" => $data_login["role"],
-            ]);
+            $this->getLisAuthService()->authenticate($data, $this->role);
+            $data_login = $this->getLisAuthService()->login_data();
+            return new JsonModel($this->sessionBasedChecks($data_login));
         } catch (Exception $ex) {
             sleep(1);
             $this->getLisAuthService()->clear();

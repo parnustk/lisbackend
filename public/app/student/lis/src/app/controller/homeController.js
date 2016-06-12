@@ -23,21 +23,40 @@
      * @returns {homeController_L11.homeController_L23.homeController}
      */
     define(['angular', 'app/util/globalFunctions'],
-        function (angular, globalFunctions) {
+            function (angular, globalFunctions) {
 
-            homeController.$inject = ['$scope'];
-            
-            /**
-             * 
-             * @param {type} $scope
-             * @returns {undefined}
-             */
-            function homeController($scope) {
-                $scope.T = globalFunctions.T;
-            }
+                homeController.$inject = ['$scope', '$cookies'];
 
-            return homeController;
-        });
+                /**
+                 * 
+                 * @param {type} $scope
+                 * @returns {undefined}
+                 */
+                function homeController($scope, $cookies) {
+
+                    $scope.T = globalFunctions.T;
+                    $scope.firstName = '-';
+                    $scope.lastName = '-';
+                    var cRaw = $cookies.getObject('userObj');
+                    if (cRaw) {
+                        var uInfo = angular.fromJson(cRaw);
+                        if (uInfo.hasOwnProperty('firstName')) {
+                            $scope.firstName = uInfo.firstName;
+                        }
+                        if (uInfo.hasOwnProperty('lastName')) {
+                            $scope.lastName = uInfo.lastName;
+                        }
+                    }
+
+                    function getName($scope, lisUser) {
+
+                        $scope.name = "Hello " + lisUser.id;
+
+                    }
+                }
+
+                return homeController;
+            });
 
 }(define));
 
