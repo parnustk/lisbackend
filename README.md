@@ -41,7 +41,7 @@ Server side logic(back end) has to be covered by automated acceptance, functiona
     grid itself http://ui-grid.info/
     
 ## Demo link
-[http://lis.ee/](http://lis.ee/)  
+[http://alpha.lis.ee/](http://alpha.lis.ee/)  
 
 ## Installation
 
