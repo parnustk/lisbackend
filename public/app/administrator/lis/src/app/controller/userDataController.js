@@ -63,40 +63,59 @@
                  * @returns {undefined}
                  */
                 $scope.ChangeData = function (valid) {
-                    
-                    if (valid) {
 
+                    if (valid) {
                         var updateData = {},
                             password = $scope.userData.password,
-                            email = $scope.userData.email;
+                            email = $scope.userData.email,
+                            loginData = {
+                                email: currentEmail,
+                                password: $scope.credentialsReg.password
+                            };
 
-                        if (password) {
-                            if (!(/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test(password))) {
-                                globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
-                                return;
-                            }
-                            updateData.password = password;
-                        }
-                        
-                        if (email) {
-                            if (currentEmail !== email) {
-                                updateData.email = email;
-                            }
+                        if (!(/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test(loginData.password))) {
+                            globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
+                            return;
                         }
 
-                        if (updateData.hasOwnProperty('password') || updateData.hasOwnProperty('email')) {
+                        loginModel
+                            .Create(loginData)
+                            .then(function (result) {
+                                if (result.success) {//successgul auth
 
-                            lisUserModel.Update(lisUser, updateData)
-                                .then(function (result) {
-                                    if (globalFunctions.resultHandler(result)) {
-                                        globalFunctions.alertSuccessMsg($scope.T('LIS_USER_DATA_SUCCESSFULLY_CHANGED'));
-                                    } else {
-                                        globalFunctions.alertErrorMsg($scope.T('LIS_USER_DATA_CHANGE_ERROR'));
+                                    if (password) {
+                                        if (!(/((?=.*\d)(?=.*[a-zA-Z]).{8,20})/.test(password))) {
+                                            globalFunctions.alertErrorMsg($scope.T('LIS_PASSWORD_REQUIREMENTS'));
+                                            return;
+                                        }
+                                        updateData.password = password;
                                     }
-                                });
 
-                        }
+                                    if (email) {
+                                        if (currentEmail !== email) {
+                                            updateData.email = email;
+                                        }
+                                    }
 
+                                    if (updateData.hasOwnProperty('password') || updateData.hasOwnProperty('email')) {
+
+                                        lisUserModel.Update(lisUser, updateData)
+                                            .then(function (result) {
+                                                if (globalFunctions.resultHandler(result)) {
+                                                    $scope.credentialsReg.password = null;
+                                                    $scope.userData.password = null;
+                                                    $scope.userData.passwordRepeat = null;
+                                                    currentEmail = email;
+                                                    globalFunctions.alertSuccessMsg($scope.T('LIS_USER_DATA_SUCCESSFULLY_CHANGED'));
+                                                } else {
+                                                    globalFunctions.alertErrorMsg($scope.T('LIS_USER_DATA_CHANGE_ERROR'));
+                                                }
+                                            });
+                                    }
+                                } else {
+                                    globalFunctions.alertErrorMsg($scope.T('LIS_INCORRECT_CREDENTIALS'));
+                                }
+                            });
                     } else {
                         globalFunctions.alertErrorMsg($scope.T('LIS_CHECK_FORM_FIELDS'));
                     }
