@@ -67,7 +67,6 @@ class LoginBaseController extends Base
 
     protected function sessionBasedChecks($data_login)
     {
-
         $entityName = '';
         if ($this->role === 'administrator') {
             $entityName = 'Core\Entity\Administrator';
@@ -84,7 +83,7 @@ class LoginBaseController extends Base
             'success' => true,
             'message' => 'LIS_ACTIVE_SESSION',
             "lisPerson" => $data_login["lisPerson"],
-            "lisUser" => $data_login["lisPerson"],
+            "lisUser" => $data_login["lisUser"],
             "role" => $data_login["role"],
         ];
     }

@@ -143,7 +143,7 @@
                 var lisUser, cRaw = $cookies.getObject('userObj');
                 if (cRaw) {
                     var uInf = angular.fromJson(cRaw);
-                    if (uInf.hasOwnProperty('lisPerson')) {
+                    if (uInf.hasOwnProperty('lisUser')) {
                         lisUser = uInf.lisUser;
                         LoadDataUser(lisUser);
                     }

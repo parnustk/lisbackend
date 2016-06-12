@@ -98,7 +98,6 @@
                 $scope.credentials.lisPerson = result.lisPerson;
                 $scope.credentials.lisUser = result.lisUser;
                 $scope.credentials.role = result.role;
-
                 addCookie('userObj', angular.toJson({
                     lisPerson: result.lisPerson,
                     lisUser: result.lisUser,

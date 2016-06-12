@@ -14,7 +14,7 @@
 namespace Teacher\Controller;
 
 use Zend\View\Model\JsonModel;
-use Core\Controller\AbstractAdministratorBaseController as Base;
+use Core\Controller\AbstractTeacherBaseController as Base;
 
 /**
  * Rest API access to superadmin data.
