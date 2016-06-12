@@ -37,13 +37,15 @@
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
         /*20*/'app/model/registerModel',
+        /*21*/'app/model/lisUserModel',
         /*1*/'app/controller/loginController',
         /*2*/'app/controller/timeTableController',
         /*6*/'app/controller/absenceController',
         /*14*/'app/controller/contactLessonGradeController',
         /*15*/'app/controller/subjectRoundGradeController',
         /*18*/'app/controller/studentGradeController',
-        /*19*/'app/controller/homeController'
+        /*19*/'app/controller/homeController',
+        /*22*/'app/controller/userDataController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -67,13 +69,15 @@
         /*18*/studentGradeModel,
         /*19*/studentInGroupsModel,
         /*20*/registerModel,
+        /*21*/lisUserModel,
         /*1*/loginController,
         /*2*/timeTableController,
         /*6*/absenceController,
         /*14*/contactLessonGradeController,
         /*15*/subjectRoundGradeController,
         /*18*/studentGradeController,
-        /*19*/homeController
+        /*19*/homeController,
+        /*22*/userDataController
         ) {
 
         /**
@@ -319,6 +323,8 @@
         studentModule.factory('studentGradeModel', studentGradeModel);
         studentModule.factory('studentInGroupsModel', studentInGroupsModel);
         studentModule.factory('registerModel', registerModel);
+        studentModule.factory('lisUserModel', lisUserModel);
+
 
         studentModule.controller('loginController', loginController);
         studentModule.controller('timeTableController', timeTableController);
@@ -327,6 +333,8 @@
         studentModule.controller('subjectRoundGradeController', subjectRoundGradeController);
         studentModule.controller('studentGradeController', studentGradeController);
         studentModule.controller('homeController', homeController);
+        studentModule.controller('userDataController', userDataController);
+
 
         return studentModule;
     });
