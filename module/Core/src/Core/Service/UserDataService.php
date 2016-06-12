@@ -21,5 +21,5 @@ namespace Core\Service;
  */
 class UserDataService extends AbstractBaseService
 {
-    protected $baseEntity = 'Core\Entity\Administrator';
+    protected $baseEntity = 'Core\Entity\LisUser';
 }

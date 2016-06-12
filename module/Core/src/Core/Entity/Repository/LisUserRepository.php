@@ -25,7 +25,7 @@ use Zend\Crypt\Password\Bcrypt;
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Juhan Kõks <juhankoks@gmail.com>
  */
-class LisUserRepository extends EntityRepository 
+class LisUserRepository extends AbstractBaseRepository
 {
 
     /**
@@ -39,7 +39,9 @@ class LisUserRepository extends EntityRepository
      */
     private $passwordCost = 4;
     
-    protected $baseAlias = 'lisUser';
+    public $baseAlias = 'lisUser';
+    
+    public $baseEntity = 'Core\Entity\LisUser';
 
     /**
      * To hash function
@@ -288,20 +290,169 @@ class LisUserRepository extends EntityRepository
     }
     
     
+//    public function Update($id, $data, $returnPartial = false, $extra = null)
+//    {
+//        $entity = $this->find($id);
+//        if (!$entity) {
+//            throw new Exception('NOT_FOUND_ENTITY');
+//        }
+//        
+//        if (!$extra) {
+//            return 'You must be admin';
+//        } else if ($extra->lisRole === 'administrator') {
+//            return $this->SuperAdminUpdate($entity, $data, $returnPartial, $extra);
+//        } else {
+//            return 'You have no permission';
+//        }
+//    }
+    protected function dqlStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                        email,
+                        state,
+                        trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+        return $dql;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlStudentStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                        email,
+                        state,
+                        trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+
+        return $dql;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlTeacherStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                        email,
+                        state,
+                        trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+
+        return $dql;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function dqlAdministratorStart()
+    {
+        $dql = "SELECT
+                    partial $this->baseAlias.{
+                     id,
+                        email,
+                        state,
+                        trashed
+                }
+                FROM $this->baseEntity $this->baseAlias";
+
+        return $dql;
+    }
+    
     public function Update($id, $data, $returnPartial = false, $extra = null)
     {
         $entity = $this->find($id);
         if (!$entity) {
             throw new Exception('NOT_FOUND_ENTITY');
         }
-        
         if (!$extra) {
-            return 'You must be admin';
+            return $this->defaultUpdate($entity, $data, $returnPartial);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentUpdate($entity, $data, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherUpdate($entity, $data, $returnPartial, $extra);
         } else if ($extra->lisRole === 'administrator') {
             return $this->SuperAdminUpdate($entity, $data, $returnPartial, $extra);
-        } else {
-            return 'You have no permission';
         }
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        $entityValidated = $this->validateEntity(
+                $entity, $data
+        );
+        //IF required MANY TO MANY validate manually
+        return $this->singleResult($entityValidated, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     * @throws Exception
+     */
+    private function studentUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $data
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
+    {
+        //set user related data
+        $data['createdBy'] = null;
+        $data['updatedBy'] = $extra->lisUser->getId();
+        return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
     }
     
     
@@ -336,4 +487,79 @@ class LisUserRepository extends EntityRepository
         }
     }
 
+    /**
+     * 
+     * @param int $id
+     * @param bool|null $returnPartial
+     * @param stdClass|null $extra
+     * @return mixed
+     */
+    public function Get($id, $returnPartial = false, $extra = null)
+    {
+        $entity = $this->find($id);
+        if (!$entity) {
+            throw new Exception('NOT_FOUND_ENTITY');
+        }
+        if (!$extra) {
+            return $this->defaultGet($id, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'student') {
+            return $this->studentGet($entity, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'teacher') {
+            return $this->teacherGet($entity, $returnPartial, $extra);
+        } else if ($extra->lisRole === 'administrator') {
+            return $this->administratorGet($entity, $returnPartial, $extra);
+        }
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function defaultGet($id, $returnPartial = false, $extra = null)
+    {
+        if ($returnPartial) {
+            return $this->singlePartialById($id, $extra);
+        }
+        return $this->find($id);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * 
+     * @return array
+     */
+    private function studentGet($entity, $returnPartial = false, $extra = null)
+    {
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function teacherGet($entity, $returnPartial = false, $extra = null)
+    {
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $returnPartial
+     * @param type $extra
+     * @return type
+     */
+    private function administratorGet($entity, $returnPartial = false, $extra = null)
+    {
+        return $this->defaultGet($entity->getId(), $returnPartial, $extra);
+    }
 }

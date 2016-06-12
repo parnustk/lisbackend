@@ -34,7 +34,7 @@ class UserDataControllerTest extends UnitHelpers
         parent::setUp();
     }
     
-    public function testGetWithAdminUser()
+    public function testGet()
     {
         //create user
         $administrator = $this->CreateAdministrator();
@@ -55,114 +55,71 @@ class UserDataControllerTest extends UnitHelpers
         $this->assertEquals(1, $result->success);
     }
     
-    public function testUpdateSelfCreated()
+    public function testUpdateSelfRelated()
     {
         //create user
         $administrator = $this->CreateAdministrator();
         $lisUser = $this->CreateAdministratorUser($administrator);
-
-        //now we have created adminuser set to current controller
+        
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($administrator);
-
-        $repository = $this->em->getRepository('Core\Entity\Administrator');
-
-        $entity = $repository->Create([
-            'firstName' => 'firstName' . uniqid(),
-            'lastName' => 'lastName' . uniqid(),
-            'personalCode' => 'code' . uniqid(),
-            'email' => 'adminemail' . uniqid() . '@mail.ee',
-            'createdBy' => $lisUser->getId()
-        ]);
-
-        $id = $entity->getId();
-
-        $firstNameOld = $entity->getFirstName();
-        $lastNameOld = $entity->getLastName();
-        $codeOld = $entity->getPersonalCode();
-        $emailOld = $entity->getEmail();
-
-
-        $this->routeMatch->setParam('id', $id);
+        
+        $oldEmail = $lisUser->getEmail();
+        $oldPW = $lisUser->getPassword();
+        
         $this->request->setMethod('put');
-
+        $this->routeMatch->setParam('id', $lisUser->getId());
+        
         $this->request->setContent(http_build_query([
-            'firstName' => 'Updated',
-            'lastName' => 'Updated',
-            'personalCode' => uniqid(),
-            'email' => uniqid() . '@asd.ee',
+            'password' => 'Test1234',
+            'email' => 'updatedemail'.uniqid().'@test.ee',
         ]));
-
+        
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
         $this->PrintOut($result, FALSE);
-
+        
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
-
-        $r = $this->em
-                ->getRepository('Core\Entity\Administrator')
-                ->find($result->data['id']);
-
-        $this->assertNotEquals(
-                $firstNameOld, $r->getFirstName()
-        );
-        $this->assertNotEquals(
-                $lastNameOld, $r->getLastName()
-        );
-        $this->assertNotEquals(
-                $codeOld, $r->getPersonalCode()
-        );
-
-        $this->assertNotEquals(
-                $emailOld, $r->getEmail()
-        );
+        
+        $this->assertNotEquals($oldEmail, $result->data['email']);
+        $this->assertNotEquals($oldPW, $result->data['password']);
     }
     
-    public function testUpdateNotSelfCreated()
-    {
-        //create user
-        $administrator = $this->CreateAdministrator();
-        $lisUser = $this->CreateAdministratorUser($administrator);
-
-        //now we have created adminuser set to current controller
-        $this->controller->setLisUser($lisUser);
-        $this->controller->setLisPerson($administrator);
-
-        $repository = $this->em->getRepository('Core\Entity\Administrator');
-
-        $anotherAdministrator = $this->CreateAdministrator();
-        $anotherLisUser = $this->CreateAdministratorUser($anotherAdministrator);
-
-        $entity = $repository->Create([
-            'firstName' => 'firstName' . uniqid(),
-            'lastName' => 'lastName' . uniqid(),
-            'personalCode' => 'code' . uniqid(),
-            'email' => 'adminemail' . uniqid() . '@mail.ee',
-            'createdBy' => $anotherLisUser->getId()
-        ]);
-
-        $id = $entity->getId();
-
-
-        $this->routeMatch->setParam('id', $id);
-        $this->request->setMethod('put');
-
-        $this->request->setContent(http_build_query([
-            'firstName' => 'Updated',
-            'lastName' => 'Updated',
-            'personalCode' => uniqid(),
-            'email' => uniqid() . '@asd.ee',
-        ]));
-
-        $result = $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->PrintOut($result, FALSE);
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(false, $result->success);
-        $this->assertEquals('SELF_CREATED_RESTRICTION', $result->message);
-    }
+//    public function testUpdateNOTSelfRelated()
+//    {
+//        //create user
+//        $administrator = $this->CreateAdministrator();
+//        $lisUser = $this->CreateAdministratorUser($administrator);
+//        
+//        $this->controller->setLisUser($lisUser);
+//        $this->controller->setLisPerson($administrator);
+//        
+//        $otherAdministrator = $this->CreateAdministrator();
+//        $otherLisUser = $this->CreateAdministratorUser($otherAdministrator);
+//        
+//        $oldEmail = $lisUser->getEmail();
+//        $oldPW = $lisUser->getPassword();
+//        
+//        $this->request->setMethod('put');
+//        $this->routeMatch->setParam('id', $lisUser->getId());
+//        
+//        $this->request->setContent(http_build_query([
+//            'password' => 'Test1234',
+//            'email' => 'updatedemail'.uniqid().'@test.ee',
+//        ]));
+//        
+//        $result = $this->controller->dispatch($this->request);
+//        $response = $this->controller->getResponse();
+//
+//        $this->PrintOut($result, TRUE);
+//        
+//        $this->assertEquals(200, $response->getStatusCode());
+//        $this->assertEquals(1, $result->success);
+//        
+//        $this->assertNotEquals($oldEmail, $result->data['email']);
+//        $this->assertNotEquals($oldPW, $result->data['password']);
+//    }
+    
 }

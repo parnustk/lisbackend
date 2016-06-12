@@ -264,9 +264,9 @@ class AdministratorRepository extends AbstractBaseRepository
         $userId = $extra->lisUser->getId();
         $createdBy = $entity->getCreatedBy()->getId();
         $userId = $extra->lisUser->getId();
-        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
-            throw new Exception('SELF_CREATED_RESTRICTION');
-        }
+//        if ($entity->getCreatedBy()->getId() !== $extra->lisUser->getId()) {
+//            throw new Exception('SELF_CREATED_RESTRICTION');
+//        }
 
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();

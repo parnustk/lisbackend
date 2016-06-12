@@ -239,12 +239,12 @@
                             <h2 class="form-signin-heading">{{ T('LIS_REGISTER_GREETING')}}</h2>
 
                             <div class="form-group" ng-class="{ 'has-error': registerForm.personalCode.$invalid }">
-                                <input class="form-control" name="username" ng-required="true" placeholder="{{ T('LIS_PERSONALCODE')}}"
+                                <input class="form-control" name="personalCode" ng-required="true" placeholder="{{ T('LIS_PERSONALCODE')}}"
                                        type="text" ng-model="credentialsReg.personalCode" autofocus=""/>
                             </div>
 
-                            <div class="form-group" ng-class="{ 'has-error': registerForm.username.$invalid }">
-                                <input class="form-control" name="personalCode" ng-required="true" placeholder="{{ T('LIS_EMAIL')}}"
+                            <div class="form-group" ng-class="{ 'has-error': registerForm.email.$invalid }">
+                                <input class="form-control" name="email" ng-required="true" placeholder="{{ T('LIS_EMAIL')}}"
                                        type="email" ng-model="credentialsReg.email"/>
                             </div>
 

@@ -40,7 +40,6 @@
         /*21*/'app/model/lisUserModel',
         /*22*/'app/model/lessonReportModel',
         /*23*/'app/model/superAdminModel',
-        /*24*/'app/model/userDataModel',
         /*1*/'app/controller/vocationController',
         /*2*/'app/controller/gradingTypeController',
         /*3*/'app/controller/gradeChoiceController',
@@ -91,7 +90,6 @@
         /*21*/lisUserModel,
         /*22*/lessonReportModel,
         /*23*/superAdminModel,
-        /*24*/userDataModel,
         /*1*/vocationController,
         /*2*/gradingTypeController,
         /*3*/gradeChoiceController,
@@ -345,7 +343,6 @@
         administratorModule.factory('lisUserModel', lisUserModel);
         administratorModule.factory('lessonReportModel', lessonReportModel);
         administratorModule.factory('superAdminModel', superAdminModel);
-        administratorModule.factory('userDataModel', userDataModel);
 
 
         administratorModule.controller('vocationController', vocationController);
