@@ -1,6 +1,6 @@
 <button type="button" class="btn btn-primary" id="back-button" ng-click="goBack()">{{ T('LIS_BACK') }}</button>
 
-<h2 class="subjectRoundFormating">{{subjectRoundName}}</h2>
+<h2 ng-repeat="contactLesson in contactLessons | limitTo : 1" class="subjectRoundFormating">{{contactLesson.subjectRound.name}}</h2>
 
 <h2>{{ T('LIS_CONTACTLESSONGRADES')}}</h2>
 

@@ -121,6 +121,10 @@ class ModuleRepository extends AbstractBaseRepository
                     partial gradeChoiceIW.{
                         id,
                         name
+                    },
+                    partial subjectRoundCL.{
+                    id,
+                    name
                     }
                 FROM Core\Entity\Module module
                 JOIN module.vocation vocation
@@ -141,6 +145,7 @@ class ModuleRepository extends AbstractBaseRepository
                 LEFT JOIN contactLesson.studentGrade studentGradeCL
                 LEFT JOIN contactLesson.teacher teacherCL
                 LEFT JOIN contactLesson.rooms roomsCL
+                LEFT JOIN contactLesson.subjectRound subjectRoundCL
                 LEFT JOIN studentGradeCL.gradeChoice gradeChoiceCL
                 LEFT JOIN studentGradeCL.student studentCL
 

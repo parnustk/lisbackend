@@ -186,7 +186,7 @@
                     if (allGrades.length === 0) {
                         $location.path("/");
                     } else {
-                        $scope.subjectRoundName = allGrades[0].name;
+                        $scope.subjectRoundName = allGrades.name;
                     }
 
                     $scope.contactLessons = $scope.independentWorks = $scope.modules= [];
