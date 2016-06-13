@@ -193,7 +193,14 @@
                 
                 LIS_ERROR:'Viga!',
                 LIS_HOME_GREETING: 'Tere',
-                LIS_PARAGRAPH_TEXT:'Tere tulemast Pärnu Saksa Tehnoloogiakooli õppeinfosüsteemi, kus saad mugavalt lisada hindeid, puudumist ning iseseisvaid töid. Probleemide esinemisel võtke palun ühendust kooli haldustöötajaga.'
+                LIS_PARAGRAPH_TEXT:'Tere tulemast Pärnu Saksa Tehnoloogiakooli õppeinfosüsteemi, kus saad mugavalt lisada hindeid, puudumist ning iseseisvaid töid. Probleemide esinemisel võtke palun ühendust kooli haldustöötajaga.',
+                
+                LIS_CURRENT_PASSWORD: 'Parool',
+                LIS_NEW_PASSWORD: 'Uus parool',
+                LIS_REPEAT_NEW_PASSWORD: 'Korda uut parooli',
+                LIS_UPDATE_DATA: 'Uuenda andmeid',
+                LIS_SUCCESS: 'Õnnestus!',
+                LIS_USER_DATA_SUCCESSFULLY_CHANGED: 'Andmed edukalt uuendatud, palun logi välja ja logi uute andmetega sisse.'
             },
             en: {
                 LIS_EMAIL: 'E-mail address',
@@ -371,7 +378,14 @@
                 
                 LIS_ERROR: 'Error!',
                 LIS_HOME_GREETING: 'Hello',
-                LIS_PARAGRAPH_TEXT:'Welcome to the learning information system of German Technological School of Pärnu, where you can add grades, absences and independent works. In case of problems please contact with school administrator.'
+                LIS_PARAGRAPH_TEXT:'Welcome to the learning information system of German Technological School of Pärnu, where you can add grades, absences and independent works. In case of problems please contact with school administrator.',
+                
+                LIS_CURRENT_PASSWORD: 'Password',
+                LIS_NEW_PASSWORD: 'New password',
+                LIS_REPEAT_NEW_PASSWORD: 'Repeat new password',
+                LIS_UPDATE_DATA: 'Update data',
+                LIS_SUCCESS: 'Success!',
+                LIS_USER_DATA_SUCCESSFULLY_CHANGED: 'Data successfully updated, please log out and log in using new data.'
             }
         };
         return t;
