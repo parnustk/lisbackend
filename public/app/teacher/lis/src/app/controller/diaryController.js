@@ -371,7 +371,12 @@
                     $scope.columns.splice(2, $scope.columns.length - 2);
                     $scope.gridOptions.data.splice(0, $scope.gridOptions.data.length);
                 };
-
+                
+                /**
+                 * 
+                 * @param {type} c
+                 * @returns {undefined}
+                 */
                 $scope.clDescription = function (c) {
                     var keys = c.colDef.name.split("_"),
                         key = parseInt(keys[1]),

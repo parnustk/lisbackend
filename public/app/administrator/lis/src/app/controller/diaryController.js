@@ -27,9 +27,6 @@
 
             diaryController.$inject = [
                 '$scope',
-                '$q',
-                '$routeParams',
-                'rowSorter',
                 'uiGridConstants',
                 'contactLessonModel',
                 'subjectRoundModel',
@@ -40,9 +37,6 @@
 
             function diaryController(
                 $scope,
-                $q,
-                $routeParams,
-                rowSorter,
                 uiGridConstants,
                 contactLessonModel,
                 subjectRoundModel,
@@ -491,7 +485,7 @@
                         };
 
                     $scope.columns.push(newColumnMOD);
-                    
+
                     for (var i = 0; i < rows.length; i++) {
                         var studentGradeId = null,
                             gradeChoiceId = null,
