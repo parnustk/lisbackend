@@ -466,15 +466,33 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
      */
     protected function autoDelete($nameList)
     {
+        
         $cutoff = time() - 60 * 60 * 24 * 7; //Delete all backups older than 7 days
         $nameListNew = array();
+        $oldFileCount = 0;
         for ($i = 0; $i < count($nameList); $i++) {
+            $file = _PATH_ . $nameList[$i];
+            if (filectime($file) < $cutoff) {
+                $oldFileCount++;
+            }
+        }
+        
+        if(count($nameList) == $oldFileCount) { //If all backups listed are old, return file list without deleting anything.
+            return $nameList;
+        }
+        
+        for ($i = 0; $i < count($nameList); $i++) {
+            
             $file = _PATH_ . $nameList[$i];
             if (filectime($file) < $cutoff) {
                 unlink($file);
             } else {
                 array_push($nameListNew, $nameList[$i]);
             }
+            if (count($nameList)-count($nameListNew) < 8) { 
+                
+                    return $nameListNew;                    
+            } //If only 7 backups remain, return
         }
 
         return $nameListNew;
