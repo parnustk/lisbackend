@@ -373,7 +373,7 @@
                             }
                         });
                     } else {
-                        globalFunctions.alertMsg('Check form fields');
+                        globalFunctions.alertMsg(T('LIS_CHECK_FORM_FIELDS'));
                     }
                 };
 

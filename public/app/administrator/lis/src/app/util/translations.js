@@ -213,7 +213,7 @@
                 LIS_SEARCH_STATUS:'Otsi staatuse järgi',
                 LIS_SUPERADMIN_VIEW:'Kasutajate haldus',
                 LIS_SUBJECTROUND_GRADE:'Õppeaine hinne',
-                LIS_CHECK_FORM_FIELDS:'Kontrollige vormi väljasid',
+                LIS_CHECK_FORM_FIELDS:'Kontrolli vormi väljasid',
                 LIS_YOU_CAN_LOGIN_NOW:'Võite sisse logida',
                 NOT_FOUND:'Antud andmetega õpilast ei leitud',
                 LIS_LESSON_DESCRIPTION:'Tunni kirjeldus',
