@@ -489,10 +489,6 @@ class DumpService implements ServiceManagerAwareInterface, Storage\StorageInterf
             } else {
                 array_push($nameListNew, $nameList[$i]);
             }
-            if (count($nameList)-count($nameListNew) < 8) { 
-                
-                    return $nameListNew;                    
-            } //If only 7 backups remain, return
         }
 
         return $nameListNew;
