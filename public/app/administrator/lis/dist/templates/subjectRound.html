@@ -1,11 +1,11 @@
 <h2>{{ T('LIS_SUBJECTROUNDVIEW')}}</h2>
 
 <div class="row">
-    
+
     <form class="form-horizontal col-md-6" role="form" name="subjectRoundForm" ng-submit="Create(subjectRoundForm.$valid)">
-        
+
         <fieldset>
-            
+
             <legend>{{ T('LIS_CREATE_NEW_SUBJECTROUND')}}</legend>
 
             <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.vocation.$invalid }">
@@ -16,14 +16,14 @@
                             <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                                 <span ng-bind-html="vocation.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{vocation.id}}
+                                    {{ T('LIS_VOCATIONCODE') }}: {{vocation.vocationCode}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.studentGroup.$invalid }">
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
@@ -31,9 +31,6 @@
                             <ui-select-match placeholder="{{ T('LIS_CHOOSE_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="studentGroup in studentGroupsInVocation | filter: $select.search">
                                 <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
-                                <small>
-                                    id: {{subject.id}}
-                                </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>
@@ -48,7 +45,7 @@
                             <ui-select-choices repeat="module in modulesInVocation | filter: $select.search">
                                 <span ng-bind-html="module.name | highlight: $select.search"></span>
                                 <small>
-                                    Õppekava: {{module.vocation.name}}
+                                    {{module.moduleCode}} {{module.moduleType.name}} {{module.vocation.name}} {{module.vocation.vocationCode}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -59,12 +56,12 @@
             <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.subject.$invalid }">
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="subject"  ng-required="true" ng-model="subjectRound.subject" convert-to-string theme="bootstrap" class="dropdown">
+                        <ui-select name="subject"  ng-required="true" ng-model="subjectRound.subject" on-select="onSelectSubject($item, $model)" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('LIS_CHOOSE_SUBJECT')}}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="subject in subjectsInModule | filter: $select.search">
                                 <span ng-bind-html="subject.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{subject.module.name}}
+                                    {{subject.subjectCode}} {{subject.durationAllAK}} ({{subject.durationContactAK}}|{{subject.durationIndependentAK}})
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -80,7 +77,7 @@
                             <ui-select-choices repeat="teacher in teachers | filter: $select.search">
                                 <div ng-bind-html="teacher.name | highlight: $select.search"></div>
                                 <small>
-                                    id: {{teacher.id}}
+                                    {{teacher.email}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -97,12 +94,12 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group" ng-class="{ 'has-error': subjectRoundForm.status.$invalid }">
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <span class="input-group-addon" id="subjectRoundForm-status">{{ T('LIS_STATUS') }}</span>
-                        <input name="status" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_STATUS') }}" aria-describedby="subjectRoundForm-status" ng-model="subjectRound.status">
+                        <span class="input-group-addon" id="subjectRoundForm-status">{{ T('LIS_STATUS')}}</span>
+                        <input name="status" ng-required="true" ng-disabled="true" type="number" class="form-control" placeholder="{{ T('LIS_STATUS')}}" aria-describedby="subjectRoundForm-status" ng-model="subjectRound.status">
                     </div>
                 </div>
             </div>
@@ -111,7 +108,7 @@
 
         </fieldset>
     </form>
-    
+
     <form class="form-horizontal col-md-6" role="form" name="filterForm" ng-submit="Filter()">
         <fieldset>
 
@@ -121,7 +118,7 @@
 
                 <div class="col-md-12">
                     <div class="input-group">
-                        
+
                         <ui-select allow-clear ng-model="filterSubjectRound.vocation" theme="bootstrap">
                             <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_VOCATION')}}">
                                 {{$select.selected.name}}
@@ -197,12 +194,12 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-12">
                     <div class="input-group">
                         <div class="input-group input-group-lg">
-                            <span class="input-group-addon" id="filterSubjectRound-status">{{ T('LIS_SEARCH_STATUS') }}</span>
-                            <input name="status" ng-model="filterSubjectRound.status" type="number" class="form-control" placeholder="{{ T('LIS_STATUS') }}" aria-describedby="filterSubjectRound-status">
+                            <span class="input-group-addon" id="filterSubjectRound-status">{{ T('LIS_SEARCH_STATUS')}}</span>
+                            <input name="status" ng-model="filterSubjectRound.status" type="number" class="form-control" placeholder="{{ T('LIS_STATUS')}}" aria-describedby="filterSubjectRound-status">
                         </div>
                     </div>
                 </div>
@@ -212,13 +209,13 @@
                             class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR')}}</span></button>
                     <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER')}}</button>
                 </div>
-                
+
             </div>
-            
+
         </fieldset>
-        
+
     </form>
-    
+
 </div>
 
 <div ui-grid="gridOptions" ui-grid-edit ui-grid-cellNav ui-grid-row-edit ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns class="grid lis-grid" id="grid1"></div>

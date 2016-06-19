@@ -314,6 +314,15 @@
                 };
 
                 /**
+                 * 
+                 * @param {type} $item
+                 * @returns {undefined}
+                 */
+                $scope.onSelectSubject = function ($item) {
+                    $scope.subjectRound.name = $item.name;
+                };
+
+                /**
                  *
                  * @param gridApi
                  */
@@ -347,11 +356,19 @@
                  * @returns {undefined}
                  */
                 $scope.Create = function (valid) {
+                    resetUrlParams();
                     if (valid) {
                         subjectRoundModel.Create($scope.subjectRound).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                //console.log(result);
-                                //$scope.gridOptions.data.push(result.data);
+                                resetDependentDropDowns([
+                                    {
+                                        module: 'modulesInVocation'
+                                    }, {
+                                        studentGroup: 'studentGroupsInVocation'
+                                    }, {
+                                        subject: 'subjectsInModule'
+                                    }
+                                ]);
                                 LoadGrid();
                             }
                         });

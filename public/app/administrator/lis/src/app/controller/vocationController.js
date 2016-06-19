@@ -87,17 +87,17 @@
                                 direction: uiGridConstants.DESC,
                                 priority: 1
                             }
-                        },
-                        {field: 'name',
+                        },{
+                            field: 'name',
                             displayName: $scope.T('LIS_NAME')
-                        },
-                        {field: 'vocationCode',
+                        },{
+                            field: 'vocationCode',
                             displayName: $scope.T('LIS_VOCATIONCODE')
-                        },
-                        {field: 'durationEKAP',
+                        },{
+                            field: 'durationEKAP',
                             displayName: $scope.T('LIS_DURATIONEKAP')
-                        },
-                        {field: 'trashed',
+                        },{
+                            field: 'trashed',
                             displayName: $scope.T('LIS_TRASHED')
                         }
                     ],
