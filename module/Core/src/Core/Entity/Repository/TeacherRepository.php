@@ -112,8 +112,18 @@ class TeacherRepository extends AbstractBaseRepository
                      personalCode,
                      email,
                      trashed
+                },
+                partial subjectRound.{
+                    id,
+                    name
+                },
+                partial contactLesson.{
+                    id,
+                    name
                 }
-                FROM $this->baseEntity $this->baseAlias";
+                FROM $this->baseEntity $this->baseAlias
+                LEFT JOIN $this->baseAlias.subjectRound subjectRound
+                LEFT JOIN $this->baseAlias.contactLesson contactLesson";
 
         return $dql;
     }

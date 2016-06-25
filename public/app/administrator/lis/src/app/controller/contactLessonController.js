@@ -411,7 +411,7 @@
                             }
                         }
 //                        $scope.contactLesson.teacher = null;
-//                        $scope.contactLesson.name = null;
+                        $scope.contactLesson.rooms = null;
                     };
 
                     /**

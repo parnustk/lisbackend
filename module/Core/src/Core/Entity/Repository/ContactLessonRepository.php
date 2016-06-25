@@ -274,6 +274,10 @@ class ContactLessonRepository extends AbstractBaseRepository
                         id,
                         name
                     },
+                    partial teacherSR.{
+                        id,
+                        name
+                    },
                     partial rooms.{
                         id,
                         name
@@ -288,11 +292,13 @@ class ContactLessonRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.teacher teacher
                 JOIN $this->baseAlias.subjectRound subjectRound
+                LEFT JOIN subjectRound.teacher teacherSR
                 JOIN $this->baseAlias.module module
                 JOIN $this->baseAlias.vocation vocation
                 JOIN $this->baseAlias.studentGroup studentGroup
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
+        
     }
 
     /**

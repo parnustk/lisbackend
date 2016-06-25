@@ -76,7 +76,7 @@
                     <div class="input-group input-group-lg">
                         <ui-select name="teacher" ng-required="true" ng-model="contactLesson.teacher" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('LIS_CHOOSE_TEACHER')}}">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="teacher in teachers | filter: $select.search">
+                            <ui-select-choices repeat="teacher in teachersInSubjectRound | filter: $select.search">
                                 <span ng-bind-html="teacher.name | highlight: $select.search"></span>
                                 <small>
                                     {{teacher.email}}
