@@ -32,8 +32,6 @@
                 contactLessonController.$inject = [
                     '$scope',
                     '$q',
-                    '$routeParams',
-                    'rowSorter',
                     'uiGridConstants',
                     'contactLessonModel',
                     'roomModel',
@@ -47,8 +45,6 @@
                 function contactLessonController(
                         $scope,
                         $q,
-                        $routeParams,
-                        rowSorter,
                         uiGridConstants,
                         contactLessonModel,
                         roomModel,
@@ -292,11 +288,13 @@
                                 cellFilter: 'date:"yyyy-MM-dd"',
                                 width: '20%'
                             },
-                            {field: 'sequenceNr',
+                            {
+                                field: 'sequenceNr',
                                 type: 'number',
                                 displayName: $scope.T('LIS_SEQUENCENR'),
                             },
-                            {field: 'description',
+                            {
+                                field: 'description',
                                 displayName: $scope.T('LIS_DESCRIPTION'),
                             },
                             {
@@ -363,10 +361,10 @@
                                         },
                                         {
                                             module: 'modulesInVocation'
-                                        }, 
+                                        },
                                         {
                                             studentGroup: 'studentGroupsInVocation'
-                                        }, 
+                                        },
                                         {
                                             subjectRound: 'subjectRoundsInModule'
                                         },
@@ -469,7 +467,7 @@
                             }
                         });
                     };
-                    
+
                     /**
                      * 
                      * @param {type} subjectRoundId
