@@ -7,6 +7,11 @@
 /* global define */
 
 /**
+ * 
+ * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ */
+
+/**
  * @param {type} define
  * @param {type} document
  * @returns {undefined}
@@ -14,6 +19,13 @@
 (function (define, document) {
     'use strict';
 
+    /**
+     * 
+     * @param {type} angular
+     * @param {type} globalFunctions
+     * @param {type} moment
+     * @returns {contactLessonController_L21.contactLessonController}
+     */
     define(['angular', 'app/util/globalFunctions', 'moment'],
             function (angular, globalFunctions, moment) {
 
@@ -154,7 +166,7 @@
                      */
                     var urlParams = {
                         page: 1,
-                        limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
+                        limit: 10000
                     };
 
                     /**
@@ -174,7 +186,16 @@
                         trashed: null
                     };
 
-                    $scope.roomsAll = $scope.subjectRounds = $scope.studentGroups = $scope.modules = $scope.vocations = $scope.teachers = [];
+                    $scope.roomsAll = [];
+                    $scope.subjectRounds = [];
+                    $scope.studentGroups = [];
+                    $scope.modules = [];
+                    $scope.vocations = [];
+                    $scope.teachers = [];
+
+                    $scope.modulesInVocation = [];
+                    $scope.studentGroupsInVocation = [];
+                    $scope.subjectRoundsInModule = [];
 
                     $scope.contactLesson = {};//for form, object
 
@@ -269,7 +290,7 @@
                                 cellFilter: 'date:"yyyy-MM-dd"',
                                 width: '20%'
                             },
-                            {field: 'sequenceNr', 
+                            {field: 'sequenceNr',
                                 type: 'number',
                                 displayName: $scope.T('LIS_SEQUENCENR'),
                             },
@@ -326,12 +347,24 @@
                      * @returns {undefined}
                      */
                     $scope.Create = function (valid) {
+                        resetUrlParams();
                         if (valid) {
                             var buf = $scope.contactLesson.lessonDate;
                             $scope.contactLesson.lessonDate = moment($scope.contactLesson.lessonDate).format();
                             contactLessonModel.Create($scope.contactLesson).then(function (result) {
                                 $scope.contactLesson.lessonDate = buf;
                                 if (globalFunctions.resultHandler(result)) {
+
+                                    resetDependentDropDowns([
+                                        {
+                                            module: 'modulesInVocation'
+                                        }, {
+                                            studentGroup: 'studentGroupsInVocation'
+                                        }, {
+                                            subjectRound: 'subjectRoundsInModule'
+                                        }
+                                    ]);
+
                                     LoadGrid();
                                 }
                             });
@@ -345,11 +378,128 @@
                      * @returns {undefined}
                      */
                     var resetUrlParams = function () {
+                        if (urlParams.hasOwnProperty('where')) {
+                            delete urlParams.where;
+                        }
                         urlParams = {
                             page: 1,
                             limit: 1000
                         };
                     };
+
+                    /**
+                     * 
+                     * @param {Array} items
+                     * @returns {undefined}
+                     */
+                    var resetDependentDropDowns = function (items) {
+                        for (var x in items) {
+                            var item = items[x];
+                            for (var y in item) {
+                                $scope.contactLesson[y] = null;
+                                $scope[item[y]].splice(0, $scope[item[y]].length);
+                            }
+                        }
+                        $scope.contactLesson.teacher = null;
+//                        $scope.contactLesson.name = null;
+                    };
+
+                    /**
+                     * 
+                     * @param {type} vocationId
+                     * @returns {undefined}
+                     */
+                    var getModulesInVocation = function (vocationId) {
+
+                        var params = {
+                            vocation: parseInt(vocationId, 10)
+                        };
+
+                        resetUrlParams();
+                        urlParams.where = angular.toJson(params);
+                        moduleModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.modulesInVocation = result.data;
+                            }
+                        });
+                    };
+
+                    /**
+                     * 
+                     * @param {type} vocationId
+                     * @returns {undefined}
+                     */
+                    var getStudentGroupsInVocation = function (vocationId) {
+                        var params = {
+                            vocation: parseInt(vocationId, 10)
+                        };
+                        resetUrlParams();
+                        urlParams.where = angular.toJson(params);
+                        studentGroupModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.studentGroupsInVocation = result.data;
+                            }
+                        });
+                    };
+
+                    /**
+                     * 
+                     * @param {type} moduleId
+                     * @returns {undefined}
+                     */
+                    var getSubjectRoundsInModule = function (moduleId) {
+                        var params = {
+                            module: parseInt(moduleId, 10)
+                        };
+                        resetUrlParams();
+                        urlParams.where = angular.toJson(params);
+                        subjectRoundModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.subjectRoundsInModule = result.data;
+                            }
+                        });
+                    };
+
+                    /**
+                     * Resets dependent fields
+                     * Fields' content by vocation PK
+                     * 
+                     * @param {type} $item
+                     * @returns {undefined}
+                     */
+                    $scope.onSelectVocation = function ($item) {
+                        $scope.contactLesson.module = null;
+                        resetDependentDropDowns([
+                            {
+                                module: 'modulesInVocation'
+                            }, {
+                                studentGroup: 'studentGroupsInVocation'
+                            }, {
+                                subjectRound: 'subjectRoundsInModule'
+                            }
+                        ]);
+                        getModulesInVocation($item.id);
+                        getStudentGroupsInVocation($item.id);
+                    };
+
+                    /**
+                     * 
+                     * @param {type} $item
+                     * @returns {undefined}
+                     */
+                    $scope.onSelectModule = function ($item) {
+                        resetDependentDropDowns([{subjectRound: 'subjectRoundsInModule'}]);
+                        getSubjectRoundsInModule($item.id);
+                    };
+
+//                    /**
+//                     * 
+//                     * @param {type} $item
+//                     * @returns {undefined}
+//                     */
+//                    $scope.onSelectSubjectRound = function ($item) {
+//                        $scope.contactLesson.name = $item.name;
+//                    };
 
                     /**
                      * Set remote criteria for DB
@@ -386,9 +536,10 @@
                      * @returns {undefined}
                      */
                     $scope.ClearFilters = function () {
-                        resetUrlParams();
+
                         $scope.contactLessonFilter = {};
                         delete urlParams.where;
+                        resetUrlParams();
                         LoadGrid();
                     };
 
