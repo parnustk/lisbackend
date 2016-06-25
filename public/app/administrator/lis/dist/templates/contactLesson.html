@@ -58,7 +58,7 @@
             <div class="form-group" ng-class="{ 'has-error': contactLessonForm.subjectRound.$invalid }">
                 <div class="col-md-12">
                     <div class="input-group input-group-lg">
-                        <ui-select name="subjectRound" ng-required="true" ng-model="contactLesson.subjectRound" on-select="onSelectSubjectRound($item, $subject)" convert-to-string theme="bootstrap" class="dropdown">
+                        <ui-select name="subjectRound" ng-required="true" ng-model="contactLesson.subjectRound" on-select="onSelectSubjectRound($item, $model)" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('LIS_CHOOSE_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="subjectRound in subjectRoundsInModule | filter: $select.search">
                                 <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>

@@ -529,7 +529,7 @@
                      */
                     $scope.onSelectSubjectRound = function ($item) {
                         resetDependentDropDowns([{teacher: 'teachersInSubjectRound'}]);
-                        getTeachersInSubjectRound($item.id);
+                        $scope.teachersInSubjectRound = $item.teacher;
                     };
 
                     /**
