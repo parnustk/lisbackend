@@ -193,6 +193,8 @@
                     $scope.vocations = [];
                     $scope.teachers = [];
 
+                    $scope.teachersInSubjectRound = [];
+                    $scope.allVocations = [];
                     $scope.modulesInVocation = [];
                     $scope.studentGroupsInVocation = [];
                     $scope.subjectRoundsInModule = [];
@@ -357,11 +359,19 @@
 
                                     resetDependentDropDowns([
                                         {
+                                            vocation: 'allVocations'
+                                        },
+                                        {
                                             module: 'modulesInVocation'
-                                        }, {
+                                        }, 
+                                        {
                                             studentGroup: 'studentGroupsInVocation'
-                                        }, {
+                                        }, 
+                                        {
                                             subjectRound: 'subjectRoundsInModule'
+                                        },
+                                        {
+                                            teacher: 'teachersInSubjectRound'
                                         }
                                     ]);
 
@@ -400,7 +410,7 @@
                                 $scope[item[y]].splice(0, $scope[item[y]].length);
                             }
                         }
-                        $scope.contactLesson.teacher = null;
+//                        $scope.contactLesson.teacher = null;
 //                        $scope.contactLesson.name = null;
                     };
 
@@ -459,6 +469,24 @@
                             }
                         });
                     };
+                    
+                    /**
+                     * 
+                     * @param {type} subjectRoundId
+                     * @returns {undefined}
+                     */
+                    var getTeachersInSubjectRound = function (subjectRoundId) {
+                        var params = {
+                            subjectRound: parseInt(subjectRoundId, 10)
+                        };
+                        resetUrlParams();
+                        urlParams.where = angular.toJson(params);
+                        teacherModel.GetList(urlParams).then(function (result) {
+                            if (globalFunctions.resultHandler(result)) {
+                                $scope.teachersInSubjectRound = result.data;
+                            }
+                        });
+                    };
 
                     /**
                      * Resets dependent fields
@@ -476,6 +504,8 @@
                                 studentGroup: 'studentGroupsInVocation'
                             }, {
                                 subjectRound: 'subjectRoundsInModule'
+                            }, {
+                                teacher: 'teachersInSubjectRound'
                             }
                         ]);
                         getModulesInVocation($item.id);
@@ -492,14 +522,15 @@
                         getSubjectRoundsInModule($item.id);
                     };
 
-//                    /**
-//                     * 
-//                     * @param {type} $item
-//                     * @returns {undefined}
-//                     */
-//                    $scope.onSelectSubjectRound = function ($item) {
-//                        $scope.contactLesson.name = $item.name;
-//                    };
+                    /**
+                     * 
+                     * @param {type} $item
+                     * @returns {undefined}
+                     */
+                    $scope.onSelectSubjectRound = function ($item) {
+                        resetDependentDropDowns([{teacher: 'teachersInSubjectRound'}]);
+                        getTeachersInSubjectRound($item.id);
+                    };
 
                     /**
                      * Set remote criteria for DB
