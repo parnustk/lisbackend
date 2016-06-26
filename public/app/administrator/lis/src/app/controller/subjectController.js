@@ -31,6 +31,7 @@
                 '$scope',
                 '$q',
                 'uiGridConstants',
+                'vocationModel',
                 'subjectModel',
                 'moduleModel',
                 'gradingTypeModel'
@@ -41,6 +42,7 @@
              * @param {type} $scope
              * @param {type} $q
              * @param {type} uiGridConstants
+             * @param {type} vocationModel
              * @param {type} subjectModel
              * @param {type} moduleModel
              * @param {type} gradingTypeModel
@@ -50,6 +52,7 @@
                 $scope,
                 $q,
                 uiGridConstants,
+                vocationModel,
                 subjectModel,
                 moduleModel,
                 gradingTypeModel) {
@@ -66,11 +69,17 @@
                     limit: 100000 //unreal right :D think of remote pagination, see angular ui grid docs
                 };
 
+                $scope.vocations = [];
+
+                $scope.modulesInVocation = [];
+
                 $scope.modules = [];
 
                 $scope.gradingTypes = [];
 
                 $scope.subject = {};
+
+                $scope.subjectHelper = {};
 
                 $scope.filterSubject = {};
 
@@ -171,17 +180,68 @@
                 };
 
                 /**
+                 * 
+                 * @returns {undefined}
+                 */
+                var resetUrlParams = function () {
+                    if (urlParams.hasOwnProperty('where')) {
+                        delete urlParams.where;
+                    }
+                    urlParams = {
+                        page: 1,
+                        limit: 1000
+                    };
+                };
+
+                /**
+                 * 
+                 * @param {Array} items
+                 * @returns {undefined}
+                 */
+                var resetDependentDropDowns = function (items) {
+                    for (var x in items) {
+                        var item = items[x];
+                        for (var y in item) {
+                            $scope.subject[y] = null;
+                            $scope[item[y]].splice(0, $scope[item[y]].length);
+                        }
+                    }
+                };
+
+                /**
+                 * 
+                 * @param {type} vocationId
+                 * @returns {undefined}
+                 */
+                var getModulesInVocation = function (vocationId) {
+                    var params = {
+                        vocation: parseInt(vocationId, 10)
+                    };
+                    resetUrlParams();
+                    urlParams.where = angular.toJson(params);
+                    moduleModel.GetList(urlParams).then(function (result) {
+                        if (globalFunctions.resultHandler(result)) {
+                            $scope.modulesInVocation = result.data;
+                        }
+                    });
+                };
+
+                /**
                  * Adding event handlers
                  * 
                  * @param {type} gridApi
                  * @returns {undefined}
                  */
                 $scope.gridOptions.onRegisterApi = function (gridApi) {
-                    //set gridApi on scope
                     $scope.gridApi = gridApi;
                     gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
                 };
 
+                /**
+                 * 
+                 * @param {type} rowEntity
+                 * @returns {undefined}
+                 */
                 $scope.saveRow = function (rowEntity) {
                     var deferred = $q.defer();
                     subjectModel.Update(rowEntity.id, rowEntity).then(
@@ -205,6 +265,12 @@
                     if (valid) {
                         subjectModel.Create($scope.subject).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
+                                $scope.subject.gradingType = null;
+                                $scope.subject.name = null;
+                                $scope.subject.subjectCode = null;
+                                $scope.subject.durationAllAK = null;
+                                $scope.subject.durationContactAK = null;
+                                $scope.subject.durationIndependentAK = null;
                                 LoadGrid();
                             }
                         });
@@ -238,36 +304,67 @@
                 };
 
                 /**
+                 * Resets dependent fields
+                 * Fields' content by vocation PK
+                 * 
+                 * @param {type} $item
+                 * @returns {undefined}
+                 */
+                $scope.onSelectVocation = function ($item) {
+                    $scope.subject.module = null;
+                    $scope.subject.gradingType = null;
+                    $scope.subject.name = null;
+                    $scope.subject.subjectCode = null;
+                    $scope.subject.durationAllAK = null;
+                    $scope.subject.durationContactAK = null;
+                    $scope.subject.durationIndependentAK = null;
+                    resetDependentDropDowns([{
+                            module: 'modulesInVocation'
+                        }]);
+                    getModulesInVocation($item.id);
+                };
+
+                /**
                  * Before loading module data, 
                  * we first load relations and check success
                  * 
                  * @returns {undefined}
                  */
                 function LoadGrid() {
-                    moduleModel.GetList({}).then(function (result) {
-                        $scope.gridOptions.data = [];
+                    resetUrlParams();
+                    vocationModel.GetList({}).then(function (result) {
                         if (globalFunctions.resultHandler(result)) {
 
-                            $scope.modules = result.data;
-                            $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.modules;
+                            $scope.vocations = result.data;
 
-                            gradingTypeModel.GetList($scope.params).then(function (result) {
+                            moduleModel.GetList({}).then(function (result) {
+                                $scope.gridOptions.data = [];
                                 if (globalFunctions.resultHandler(result)) {
 
-                                    $scope.gradingTypes = result.data;
-                                    $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradingTypes;
+                                    $scope.modules = result.data;
+                                    $scope.gridOptions.columnDefs[1].editDropdownOptionsArray = $scope.modules;
 
-                                    subjectModel.GetList(urlParams).then(function (result) {
+                                    gradingTypeModel.GetList($scope.params).then(function (result) {
                                         if (globalFunctions.resultHandler(result)) {
-                                            $scope.gridOptions.data = result.data;
+
+                                            $scope.gradingTypes = result.data;
+                                            $scope.gridOptions.columnDefs[2].editDropdownOptionsArray = $scope.gradingTypes;
+
+                                            subjectModel.GetList(urlParams).then(function (result) {
+                                                if (globalFunctions.resultHandler(result)) {
+                                                    $scope.gridOptions.data = result.data;
+                                                }
+                                            });
                                         }
                                     });
                                 }
                             });
+
                         }
                     });
+
                 }
-                
+
                 LoadGrid();
             }
 

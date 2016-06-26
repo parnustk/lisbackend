@@ -14,7 +14,7 @@
                             <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                                 <span ng-bind-html="vocation.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{vocation.id}}
+                                    {{ T('LIS_VOCATIONCODE') }}: {{vocation.vocationCode}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -29,9 +29,6 @@
                             <ui-select-match placeholder="{{ T('LIS_CHOOSE_MODULETYPE') }}">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="moduleType in moduleTypes | filter: $select.search">
                                 <span ng-bind-html="moduleType.name | highlight: $select.search"></span>
-                                <small>
-                                    id: {{moduleType.id}}
-                                </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>
@@ -45,9 +42,6 @@
                             <ui-select-match placeholder="{{ T('SELECT_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
-                                <small>
-                                    id: {{gradingType.id}}
-                                </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>
@@ -100,7 +94,7 @@
                             <ui-select-choices repeat="vocation in vocations | filter: $select.search">
                                 <span ng-bind-html="vocation.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{vocation.id}}
+                                    {{ T('LIS_VOCATIONCODE') }}: {{vocation.vocationCode}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -132,9 +126,6 @@
                             <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
-                                <small>
-                                    id: {{gradingType.id}}
-                                </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>

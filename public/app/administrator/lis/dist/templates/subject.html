@@ -27,10 +27,10 @@
                     <div class="input-group input-group-lg">
                         <ui-select name="module" ng-required="true" ng-model="subject.module" convert-to-string theme="bootstrap" class="dropdown">
                             <ui-select-match placeholder="{{ T('SELECT_A_MODULE') }}">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                            <ui-select-choices repeat="module in modulesInVocation | filter: $select.search">
                                 <span ng-bind-html="module.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{module.id}}
+                                    {{module.moduleCode}} {{module.moduleType.name}} {{module.vocation.name}} {{module.vocation.vocationCode}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -45,9 +45,6 @@
                             <ui-select-match placeholder="{{ T('SELECT_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
-                                <small>
-                                    id: {{gradingType.id}}
-                                </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>
@@ -119,7 +116,7 @@
                             <ui-select-choices repeat="module in modules | filter: $select.search">
                                 <span ng-bind-html="module.name | highlight: $select.search"></span>
                                 <small>
-                                    id: {{module.id}}
+                                    {{module.moduleCode}} {{module.moduleType.name}} {{module.vocation.name}} {{module.vocation.vocationCode}}
                                 </small>
                             </ui-select-choices>
                         </ui-select>
@@ -133,9 +130,6 @@
                             <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_GRADINGTYPES') }}">{{$item.name}}</ui-select-match>
                             <ui-select-choices repeat="gradingType in gradingTypes | filter: $select.search">
                                 <div ng-bind-html="gradingType.name | highlight: $select.search"></div>
-                                <small>
-                                    id: {{gradingType.id}}
-                                </small>
                             </ui-select-choices>
                         </ui-select>
                     </div>
