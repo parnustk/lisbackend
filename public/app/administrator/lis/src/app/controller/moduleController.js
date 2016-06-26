@@ -30,13 +30,12 @@
     define(['angular', 'app/util/globalFunctions'],
             function (angular, globalFunctions) {
 
-                moduleController.$inject = ['$scope', '$q', '$routeParams', 'rowSorter', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduleTypeModel', 'gradingTypeModel'];
+                moduleController.$inject = ['$scope', '$q', 'uiGridConstants', 'moduleModel', 'vocationModel', 'moduleTypeModel', 'gradingTypeModel'];
+
                 /**
                  * 
                  * @param {type} $scope
                  * @param {type} $q
-                 * @param {type} $routeParams
-                 * @param {type} rowSorter
                  * @param {type} uiGridConstants
                  * @param {type} moduleModel
                  * @param {type} vocationModel
@@ -44,7 +43,7 @@
                  * @param {type} gradingTypeModel
                  * @returns {undefined}
                  */
-                function moduleController($scope, $q, $routeParams, rowSorter, uiGridConstants, moduleModel, vocationModel, moduleTypeModel, gradingTypeModel) {
+                function moduleController($scope, $q, uiGridConstants, moduleModel, vocationModel, moduleTypeModel, gradingTypeModel) {
 
                     $scope.T = globalFunctions.T;
                     /**
@@ -121,16 +120,20 @@
                                 editDropdownIdLabel: "id",
                                 editDropdownValueLabel: "name"
                             },
-                            {field: 'name',
+                            {
+                                field: 'name',
                                 displayName: $scope.T('LIS_NAME')
                             },
-                            {field: 'moduleCode',
+                            {
+                                field: 'moduleCode',
                                 displayName: $scope.T('LIS_MODULECODE')
                             },
-                            {field: 'duration',
+                            {
+                                field: 'duration',
                                 displayName: $scope.T('LIS_DURATIONEKAP')
                             },
-                            {field: 'trashed',
+                            {
+                                field: 'trashed',
                                 displayName: $scope.T('LIS_TRASHED')
                             }
                         ],
@@ -197,11 +200,12 @@
                         if (valid) {
                             moduleModel.Create($scope.module).then(function (result) {
                                 if (globalFunctions.resultHandler(result)) {
-                                    console.log(result);
-                                    //$scope.gridOptions.data.push(result.data);
-                                    LoadGrid();//only needed if grid contains many column
-                                    //can be used for gridrefresh button
-                                    //maybe it is good to refresh after create?
+                                    $scope.module.moduleType = null;
+                                    $scope.module.gradingType = null;
+                                    $scope.module.name = null;
+                                    $scope.module.moduleCode = null;
+                                    $scope.module.duration = null;
+                                    LoadGrid();
                                 }
                             });
                         } else {
