@@ -355,23 +355,8 @@
                                 $scope.contactLesson.lessonDate = buf;
                                 if (globalFunctions.resultHandler(result)) {
 
-                                    resetDependentDropDowns([
-                                        {
-                                            vocation: 'allVocations'
-                                        },
-                                        {
-                                            module: 'modulesInVocation'
-                                        },
-                                        {
-                                            studentGroup: 'studentGroupsInVocation'
-                                        },
-                                        {
-                                            subjectRound: 'subjectRoundsInModule'
-                                        },
-                                        {
-                                            teacher: 'teachersInSubjectRound'
-                                        }
-                                    ]);
+                                    $scope.contactLesson.sequenceNr = null;
+                                    $scope.contactLesson.description = null;
 
                                     LoadGrid();
                                 }
