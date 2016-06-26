@@ -360,15 +360,9 @@
                     if (valid) {
                         subjectRoundModel.Create($scope.subjectRound).then(function (result) {
                             if (globalFunctions.resultHandler(result)) {
-                                resetDependentDropDowns([
-                                    {
-                                        module: 'modulesInVocation'
-                                    }, {
-                                        studentGroup: 'studentGroupsInVocation'
-                                    }, {
-                                        subject: 'subjectsInModule'
-                                    }
-                                ]);
+                                $scope.subjectRound.subject = null;
+                                $scope.subjectRound.teacher = null;
+                                $scope.subjectRound.name = null;
                                 LoadGrid();
                             }
                         });
