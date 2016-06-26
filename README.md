@@ -85,6 +85,13 @@ Server side logic(back end) has to be covered by automated acceptance, functiona
 https://github.com/composer/composer/issues/3542
 
 ## Random
+
+ READ - http://brianhann.com/create-a-modal-row-editor-for-ui-grid-in-minutes/
+ http://brianhann.com/ui-grid-and-multi-select/#more-732
+ http://www.codelord.net/2015/09/24/$q-dot-defer-youre-doing-it-wrong/
+ http://stackoverflow.com/questions/25983035/angularjs-function-available-to-multiple-controllers
+ adding content later https://github.com/angular-ui/ui-grid/issues/2050
+ dropdown menu http://brianhann.com/ui-grid-and-dropdowns/
 	
 In production you should not update your dependencies, you should run  
   

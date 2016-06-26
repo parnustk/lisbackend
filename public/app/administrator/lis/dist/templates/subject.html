@@ -5,6 +5,22 @@
         <fieldset>
 
             <legend>{{ T('LIS_CREATE_NEW_SUBJECT') }}</legend>
+            
+            <div class="form-group" ng-class="{ 'has-error': subjectForm.vocation.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="vocation"  ng-required="true" ng-model="subjectHelper.vocation" on-select="onSelectVocation($item, $model)" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_CHOOSE_VOCATION')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    {{ T('LIS_VOCATIONCODE') }}: {{vocation.vocationCode}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group" ng-class="{ 'has-error': subjectForm.module.$invalid }">
                 <div class="col-md-12">
