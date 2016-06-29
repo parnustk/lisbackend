@@ -14,6 +14,13 @@
 Purpose of the current project is to provide web based e-diary for http://www.saksatk.ee/en/. Deadline is 1st June of 2016.   
 Project will be taken into account as internship and final practical work to graduate school for all developers involved with the project.  
 
+## Front-end apps
+AnularJS based web-apps:  
+
+**Student** [https://github.com/parnustk/lisbackend/tree/master/public/app/student](https://github.com/parnustk/lisbackend/tree/master/public/app/student)  
+**Teacher** [https://github.com/parnustk/lisbackend/tree/master/public/app/teacher](https://github.com/parnustk/lisbackend/tree/master/public/app/teacher)  
+**Administrator** [https://github.com/parnustk/lisbackend/tree/master/public/app/administrator](https://github.com/parnustk/lisbackend/tree/master/public/app/administrator)  
+
 ## Technologies used
 List of used technologies:
 
@@ -35,14 +42,7 @@ Server side logic(back end) has to be covered by automated acceptance, functiona
     http://framework.zend.com/manual/current/en/index.html  
     bootstrap - https://getbootstrap.com/components/
     angular ui select http://angular-ui.github.io/ui-select/#examples
-    grid itself http://ui-grid.info/
-
-## Front-end apps
-AnularJS based web-apps:  
-
-**Student** [https://github.com/parnustk/lisbackend/tree/master/public/app/student](https://github.com/parnustk/lisbackend/tree/master/public/app/student)  
-**Teacher** [https://github.com/parnustk/lisbackend/tree/master/public/app/teacher](https://github.com/parnustk/lisbackend/tree/master/public/app/teacher)  
-**Administrator** [https://github.com/parnustk/lisbackend/tree/master/public/app/administrator](https://github.com/parnustk/lisbackend/tree/master/public/app/administrator)  
+    grid itself http://ui-grid.info/  
     
 ## Demo link
 [http://alpha.lis.ee/](http://alpha.lis.ee/)  
