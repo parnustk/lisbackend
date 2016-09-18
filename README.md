@@ -4,7 +4,7 @@
 
     Eleri Apsolon - UX, front-end key developer, student app, analytics, developer, eleri.apsolon@gmail.com
     Marten Kähr - backup module architecture, analytics and development, developer
-    Juhan Kõks - release manager(Jenkins), Server administrator(LAMP), developer, juhankoks@gmail.com
+    Juhan Kõks - release manager (Jenkins), Server administrator (LAMP), developer, juhankoks@gmail.com
     Kristen Sepp - UI/UX, front-end key developer, analytics, developer seppkristen@gmail.com
     Arnold Tšerepov - QA, developer, tserepov@gmail.com
     Alar Aasa - UX, front-end key developer, developer, alar@alaraasa.ee
@@ -34,7 +34,7 @@ List of used technologies:
     Bootstrap3
 
 ## Technical requirements
-Server side logic(back end) has to be covered by automated acceptance, functional and unit tests.
+Server side logic (back end) has to be covered by automated acceptance, functional and unit tests.
 
 ## Material
 
@@ -105,7 +105,7 @@ which will read from the lock file and not change anything. From StackOverlfow
 
 >  CREATE SCHEMA `lis` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-use built in php server for server. execut following task in lis root folder
+use built in php server for server. execute following task in lis root folder
 
  > php -S 0.0.0.0:8080 -t public/ public/index.php
 
