@@ -1,5 +1,3 @@
-/* global define */
-
 /**
  * Licence of Learning Info System (LIS)
  * @link      https://github.com/parnustk/lisbackend
@@ -14,6 +12,9 @@
  * @param {type} document
  * @returns {undefined}
  */
+
+/* global define */
+
 (function (define, document) {
     'use strict';
 

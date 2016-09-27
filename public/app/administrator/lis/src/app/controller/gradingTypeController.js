@@ -6,7 +6,6 @@
  */
 
 /**
- * 
  * @author Kristen Sepp <seppkristen@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  */
