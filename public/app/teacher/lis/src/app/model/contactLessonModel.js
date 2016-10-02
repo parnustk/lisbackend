@@ -87,7 +87,6 @@
                     delete d.studentGrade;//batch mapped by
                     delete d.absence;//batch mapped by
                     d.lessonDate = moment(data.lessonDate.date).format();
-                    //d.lessonDate = data.lessonDate.date;
                     return _model.update({id: id}, d).$promise;
                 },
                 /**

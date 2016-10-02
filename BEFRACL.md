@@ -46,6 +46,9 @@
 
 * YES getList
 * YES get
+* YES create
+* YES update
+* YES delete
 
 ####  Student ROLE
 

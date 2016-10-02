@@ -17,6 +17,7 @@ use Core\Controller\AbstractTeacherBaseController as Base;
  * Rest API access to contactlesson data.
  * 
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class ContactLessonController extends Base
 {
@@ -56,14 +57,22 @@ class ContactLessonController extends Base
     /**
      * <h2>POST teacher/contactlesson</h2>
      * <h3>Body</h3>
-     * <code>Not allowed</code>
+     * <code>name(string)*
+     * lessonDate(datetime)*
+     * description(string)
+     * sequenceNr(integer)*
+     * rooms(integer)*
+     * subjectRound(integer)*
+     * studentGroup(integer)*
+     * module(integer)*
+     * vocation(integer)*
      * 
      * @param array $data
      * @return JsonModel
      */
     public function create($data)
     {
-        return parent::notAllowed();
+        return parent::create($data);
     }
 
     /**
@@ -71,14 +80,22 @@ class ContactLessonController extends Base
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * <h3>Body</h3>
-     * <code>description(string)</code>
+     * <code>name(string)*
+     * lessonDate(datetime)*
+     * description(string)
+     * sequenceNr(integer)*
+     * rooms(integer)*
+     * subjectRound(integer)*
+     * studentGroup(integer)*
+     * module(integer)*
+     * vocation(integer)*
+     * teacher(integer)*</code>
      * @param int $id
      * @return JsonModel
      */
     public function update($id, $data)
     {
         return parent::update($id, $data);
-        //return parent::notAllowed();
     }
 
     /**
@@ -91,7 +108,7 @@ class ContactLessonController extends Base
      */
     public function delete($id)
     {
-        return parent::notAllowed();
+        return parent::delete($id);
     }
 
 }

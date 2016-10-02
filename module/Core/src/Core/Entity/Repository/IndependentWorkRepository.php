@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LIS development
- *
+ * Licence of Learning Info System (LIS)
+ * 
  * @link      https://github.com/parnustk/lisbackend
- * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tﾅ｡erepov, Marten Kﾃ､hr, Kristen Sepp, Alar Aasa, Juhan Kﾃｵks
- * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE.txt
+ * @copyright Copyright (c) 2015-2016 Sander Mets, Eleri Apsolon, Arnold Tšerepov, Marten Kähr, Kristen Sepp, Alar Aasa, Juhan Kõks
+ * @license   https://github.com/parnustk/lisbackend/blob/master/LICENSE
  */
 
 namespace Core\Entity\Repository;
@@ -419,11 +419,13 @@ class IndependentWorkRepository extends AbstractBaseRepository
      */
     private function studentGet($entity, $returnPartial = false, $extra = null)
     {
+
         if ($entity->getStudent() !== null) {
             if ($entity->getStudent()->getId() !== $extra->lisPerson->getId()) {
                 throw new Exception('SELF_RELATED_RESTRICTION');
             }
         }
+
         return $this->defaultGet($entity->getId(), $returnPartial, $extra);
     }
 

@@ -64,10 +64,10 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+            return array('__isInitialized__', 'id', 'name', 'status', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
+        return array('__isInitialized__', 'id', 'name', 'status', 'independentWork', 'contactLesson', 'studentGrade', 'subject', 'studentGroup', 'module', 'vocation', 'teacher', 'trashed', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'VF', 'form', 'doctrineHydrator', 'entityManager');
     }
 
     /**
@@ -176,6 +176,50 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
+    public function getModule()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModule', array());
+
+        return parent::getModule();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getVocation()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getVocation', array());
+
+        return parent::getVocation();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setModule($module)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModule', array($module));
+
+        return parent::setModule($module);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setVocation($vocation)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVocation', array($vocation));
+
+        return parent::setVocation($vocation);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -197,6 +241,17 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getName', array());
 
         return parent::getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatus()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
+
+        return parent::getStatus();
     }
 
     /**
@@ -340,6 +395,17 @@ class SubjectRound extends \Core\Entity\SubjectRound implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
 
         return parent::setName($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatus($status)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
+
+        return parent::setStatus($status);
     }
 
     /**

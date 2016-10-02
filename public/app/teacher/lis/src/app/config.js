@@ -56,7 +56,10 @@
                     templateUrl: 'lis/dist/templates/userData.html',
                     controller: 'userDataController'
                 })
-
+                .when('/contactlesson', {
+                    templateUrl: 'lis/dist/templates/contactLesson.html',
+                    controller: 'contactLessonController'
+                })
                 .otherwise({redirectTo: '/'});
 
             $locationProvider.html5Mode({

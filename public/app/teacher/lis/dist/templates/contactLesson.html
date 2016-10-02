@@ -1,0 +1,227 @@
+<h2>{{ T('LIS_CONTACTLESSON_VIEW')}}</h2>
+<div class="row">
+    <form class="form-horizontal col-md-6" role="form" name="contactLessonForm" ng-submit="Create(contactLessonForm.$valid)">
+
+        <fieldset>
+
+            <legend>{{ T('LIS_CREATE_NEW_CONTACTLESSON')}}</legend>
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.vocation.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="vocation" ng-required="true" ng-model="contactLesson.vocation" on-select="onSelectVocation($item, $model)" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_CHOOSE_VOCATION')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    {{ T('LIS_VOCATIONCODE')}}: {{vocation.vocationCode}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.studentGroup.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="studentGroup" ng-required="true" ng-model="contactLesson.studentGroup" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_CHOOSE_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="studentGroup in studentGroupsInVocation | filter: $select.search">
+
+                                <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.module.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="module" ng-required="true" ng-model="contactLesson.module" on-select="onSelectModule($item, $model)" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_CHOOSE_MODULE')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="module in modulesInVocation | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    {{module.moduleCode}} {{module.moduleType.name}} {{module.vocation.name}} {{module.vocation.vocationCode}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.subjectRound.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="subjectRound" ng-required="true" ng-model="contactLesson.subjectRound" on-select="onSelectSubjectRound($item, $model)" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_CHOOSE_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="subjectRound in subjectRoundsInModule | filter: $select.search">
+                                <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
+                                <small>
+                                    {{ T('LIS_MODULE')}}: {{subjectRound.name}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.room.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="room" ng-required="true" ng-model="contactLesson.rooms" convert-to-string theme="bootstrap" class="dropdown">
+                            <ui-select-match placeholder="{{ T('LIS_CHOOSE_ROOM')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="room in roomsAll | filter: $select.search">
+                                <span ng-bind-html="room.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.sequenceNr.$invalid }">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonForm-sequenceNr">{{ T('LIS_SEQUENCENR')}}</span>
+                        <input name="sequenceNr" ng-model="contactLesson.sequenceNr" ng-required="true" type="number" class="form-control" placeholder="{{ T('LIS_SEQUENCENR')}}" aria-describedby="contactLessonForm-sequenceNr">
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>
+
+            <!-- http://plnkr.co/edit/9mq6W6XfoGK2vDP4PZLA?p=preview look for more-->
+            <div class="form-group" ng-class="{ 'has-error': contactLessonForm.lessonDate.$invalid }">
+                <div class="col-md-12">
+                    <p class="input-group">
+                        <span class="input-group-addon" id="contactLessonForm-lessonDate">{{ T('LIS_LESSONDATE')}}</span>
+                        <input type="text" name="lessonDate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="contactLesson.lessonDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="contactLessonForm-lessonDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonForm-description">{{ T('LIS_DESCRIPTION')}}</span>
+                        <input name="description" ng-model="contactLesson.description" ng-required="false" type="text" class="form-control" placeholder="{{ T('LIS_DESCRIPTION')}}" aria-describedby="contactLessonForm-description">
+                    </div>
+                </div>
+            </div>      
+
+            <button type="submit" class="btn btn-primary">{{ T('LIS_CREATE')}}</button>
+
+        </fieldset>
+
+    </form>
+
+    <form class="form-horizontal col-md-6" role="form" name="filterContactLesson" ng-submit="Filter()">
+        <fieldset>
+
+            <legend>{{ T('LIS_CONTACTLESSONFILTER')}}</legend>
+            <div class="form-group">
+
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="vocationFilter" ng-required="false" ng-model="contactLessonFilter.vocation" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_VOCATION')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="vocation in vocations | filter: $select.search">
+                                <span ng-bind-html="vocation.name | highlight: $select.search"></span>
+                                <small>
+                                    {{ T('LIS_VOCATIONCODE')}}: {{vocation.vocationCode}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="moduleFilter" ng-required="false" ng-model="contactLessonFilter.module" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_MODULE')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="module in modules | filter: $select.search">
+                                <span ng-bind-html="module.name | highlight: $select.search"></span>
+                                <small>
+                                    {{module.moduleCode}} {{module.moduleType.name}} {{module.vocation.name}} {{module.vocation.vocationCode}}
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="studentGroupFilter" ng-required="false" ng-model="contactLessonFilter.studentGroup" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_STUDENTGROUP')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="studentGroup in studentGroups | filter: $select.search">
+                                <span ng-bind-html="studentGroup.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="roomFilter" ng-required="false" ng-model="contactLessonFilter.rooms" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_ROOM')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="room in roomsAll | filter: $select.search">
+                                <span ng-bind-html="room.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <ui-select name="subjectRoundFilter" ng-required="false" ng-model="contactLessonFilter.subjectRound" convert-to-string theme="bootstrap" class="dropdown" style="width: 310px;">
+                            <ui-select-match placeholder="{{ T('SELECT_OR_SEARCH_A_SUBJECTROUND')}}">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="subjectRound in subjectRounds | filter: $select.search">
+                                <span ng-bind-html="subjectRound.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonFilter-name">{{ T('SEARCH_A_NAME')}}</span>
+                        <input name="name" ng-model="contactLessonFilter.name" ng-required="false" type="text" class="form-control" placeholder="{{ T('LIS_NAME')}}" aria-describedby="contactLessonFilter-name">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon" id="contactLessonFilter-sequenceNr">{{ T('SEARCH_A_SEQUENCENR')}}</span>
+                        <input name="sequenceNrFilter" ng-model="contactLessonFilter.sequenceNr" ng-required="false" type="number" class="form-control" placeholder="{{ T('LIS_SEQUENCENR')}}" aria-describedby="contactLessonFilter-sequenceNr">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <p class="input-group">
+                        <span class="input-group-addon" id="filterForm-lessonDate">{{ T('SEARCH_A_LESSONDATE')}}</span>
+                        <input type="text" name="lessonDateFilter" class="form-control" uib-datepicker-popup="{{format}}" ng-model="contactLessonFilter.lessonDate" placeholder="{{ T('LIS_LESSONDATE')}}" aria-describedby="filterForm-lessonDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+
+
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="ClearFilters()"><span class="glyphicon glyphicon-trash">{{ T('LIS_CLEAR')}}</span></button>
+                    <button type="submit" class="btn btn-primary">{{ T('LIS_FILTER')}}</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div ui-grid="gridOptions" ui-grid-edit ui-grid-cellNav ui-grid-row-edit ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns class="grid lis-grid" id="grid1"></div>

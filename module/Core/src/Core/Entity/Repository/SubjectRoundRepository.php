@@ -25,6 +25,7 @@ use DateTime;
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
  * @author Arnold Tserepov <tserepov@gmail.com>
  * @author Alar Aasa <alar@alaraasa.ee>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class SubjectRoundRepository extends AbstractBaseRepository
 {
@@ -202,7 +203,6 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('subjectRoundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
-//print_r($q->getSQL()); die();
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
@@ -539,7 +539,72 @@ class SubjectRoundRepository extends AbstractBaseRepository
         $q->setParameter('subjectroundId', $params['where']->subjectRound->id, Type::INTEGER);
         $q->setParameter('studentGroupId', $params['where']->studentGroup->id, Type::INTEGER);
         $q->setParameter('teacherId', $extra->lisPerson->getId(), Type::INTEGER);
+        $q->setHydrationMode(Query::HYDRATE_ARRAY);
+        return new Paginator(
+                new DoctrinePaginator(new ORMPaginator($q))
+        );
+    }
 
+    public function teacherContactLessonData($params = null, $extra = null)
+    {
+        $dql = "SELECT
+                    partial subjectRound.{
+                        id,
+                        name,
+                        status,
+                        trashed,
+                        subject
+                    },
+                    partial contactLesson.{
+                        id,
+                        name,
+                        lessonDate,
+                        sequenceNr,
+                        description
+                    },
+                    partial teacher.{
+                            id,
+                            name
+                    },
+                    partial studentGroup.{
+                            id,
+                            name
+                    },
+                    partial subject.{
+                              id,
+                              name
+                    },
+                    partial module.{
+                               id,
+                               name
+                    },
+                    partial rooms.{
+                               id,
+                               name                               
+                    },
+                    partial vocation.{
+                               id,
+                               name                               
+                    },
+                    partial module.{
+                                id,
+                                name
+                                }
+                    FROM Core\Entity\SubjectRound subjectRound
+                    JOIN subjectRound.studentGroup studentGroup
+                    JOIN subjectRound.contactLesson contactLesson
+                    JOIN contactLesson.rooms rooms
+                    JOIN contactLesson.vocation vocation
+                    JOIN contactLesson.module module
+                    JOIN contactLesson.teacher teacher
+                    JOIN subjectRound.subject subject
+                     ";
+        $dql .= " WHERE teacher.id = :teacherId";
+        $dql .= " ORDER BY contactLesson.lessonDate DESC, contactLesson.sequenceNr ASC ";
+
+
+        $q = $this->getEntityManager()->createQuery($dql);
+        $q->setParameter('teacherId', $extra->lisPerson->getId(), Type::INTEGER);
         $q->setHydrationMode(Query::HYDRATE_ARRAY);
         return new Paginator(
                 new DoctrinePaginator(new ORMPaginator($q))
@@ -908,7 +973,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function teacherUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-//set user related data
+        //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
@@ -924,7 +989,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
      */
     private function administratorUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-//set user related data
+        //set user related data
         $data['createdBy'] = null;
         $data['updatedBy'] = $extra->lisUser->getId();
         return $this->defaultUpdate($entity, $data, $returnPartial, $extra);
@@ -1069,6 +1134,7 @@ class SubjectRoundRepository extends AbstractBaseRepository
                 $teacherNotExists = false;
             }
         }
+
         if ($teacherNotExists) {
             throw new Exception('SELF_RELATED_RESTRICTION');
         }
@@ -1182,8 +1248,9 @@ class SubjectRoundRepository extends AbstractBaseRepository
             return $this->teacherIndependentWorkData($params, $extra);
         } else if (array_key_exists('teacherTimeTable', $params)) {
             return $this->teacherTimeTableData($params, $extra);
+        } else if (array_key_exists('teacherContactLesson', $params)) {
+            return $this->teacherContactLessonData($params, $extra);
         }
-        //$this->findingTeacher($entity, $extra);
         $id = $extra->lisPerson->getId();
         $dqlRestriction = " AND teacher = $id"; //TODO uncomment remove afterwoods
         return $this->defaultGetList($params, $extra, $dqlRestriction);

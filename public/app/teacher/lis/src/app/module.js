@@ -37,14 +37,14 @@
         /*18*/'app/model/studentGradeModel',
         /*19*/'app/model/studentInGroupsModel',
         /*20*/'app/model/registerModel',
-        /*21*/'app/model/lisUserModel',
-        
+        /*21*/'app/model/lisUserModel',  
         /*1*/'app/controller/loginController',
         /*2*/'app/controller/diaryController',
         /*3*/'app/controller/independentWorkController',
         /*4*/'app/controller/timeTableController',
         /*5*/'app/controller/homeController',
-        /*6*/'app/controller/userDataController'
+        /*6*/'app/controller/userDataController',
+        /*7*/'app/controller/contactLessonController'
     ], function (
         /*1*/angular,
         /*2*/config,
@@ -69,13 +69,13 @@
         /*19*/studentInGroupsModel,
         /*20*/registerModel,
         /*21*/lisUserModel,
-        
         /*1*/loginController,
         /*2*/diaryController,
         /*3*/independentWorkController,
         /*4*/timeTableController,
         /*5*/homeController,
-        /*6*/userDataController
+        /*6*/userDataController,
+        /*7*/contactLessonController
         ) {
 
         /**
@@ -304,6 +304,8 @@
         module.controller('timeTableController', timeTableController);
         module.controller('homeController', homeController);
         module.controller('userDataController', userDataController);
+        module.controller('contactLessonController', contactLessonController);
+
 
         return module;
     });

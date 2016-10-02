@@ -24,6 +24,7 @@ use Doctrine\DBAL\Types\Type;
  * 
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class ContactLessonRepository extends AbstractBaseRepository
 {
@@ -130,15 +131,11 @@ class ContactLessonRepository extends AbstractBaseRepository
         if (array_key_exists('startDate', $params) && array_key_exists('endDate', $params)) {
 
             $dql .= " WHERE teacher.id=:teacherId AND contactLesson.lessonDate >=:startDateTime AND contactLesson.lessonDate <=:endDateTime ";
-        
-        }
-        else if (array_key_exists('startDate', $params)) {
+        } else if (array_key_exists('startDate', $params)) {
             $dql .= " WHERE teacher.id=:teacherId AND contactLesson.lessonDate >=:startDateTime ";
-        }
-        else if (array_key_exists('endDate', $params)) {
+        } else if (array_key_exists('endDate', $params)) {
             $dql .= " WHERE teacher.id=:teacherId AND contactLesson.lessonDate <=:endDateTime ";
-        }
-        else {
+        } else {
             $dql .= " WHERE teacher.id=:teacherId ";
         }
 
@@ -298,7 +295,6 @@ class ContactLessonRepository extends AbstractBaseRepository
                 JOIN $this->baseAlias.studentGroup studentGroup
                 LEFT JOIN $this->baseAlias.rooms rooms
                 LEFT JOIN $this->baseAlias.studentGrade studentGrade";
-        
     }
 
     /**
@@ -368,6 +364,7 @@ class ContactLessonRepository extends AbstractBaseRepository
     {
         $data['createdBy'] = $extra->lisUser->getId();
         $data['updatedBy'] = null;
+        $data['teacher'] = $extra->lisPerson->getId();
 
         return $this->defaultCreate($data, $returnPartial, $extra);
     }
@@ -730,7 +727,9 @@ class ContactLessonRepository extends AbstractBaseRepository
      */
     private function teacherGetList($params = null, $extra = null)
     {
-        return $this->defaultGetList($params, $extra);
+        $id = $extra->lisPerson->getId();
+        $dqlRestriction = " AND $this->baseAlias.teacher=$id";
+        return $this->defaultGetList($params, $extra, $dqlRestriction);
     }
 
     /**

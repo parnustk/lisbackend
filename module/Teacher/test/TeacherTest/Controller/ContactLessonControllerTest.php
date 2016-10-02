@@ -16,6 +16,7 @@ use TeacherTest\UnitHelpers;
 
 /**
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class ContactLessonTest extends UnitHelpers
 {
@@ -30,17 +31,78 @@ class ContactLessonTest extends UnitHelpers
     }
 
     /**
-     * NOT ALLOWED
+     * Should be NOT successful
      */
-    public function testCreate()
+    public function testCreateNoData()
     {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created teacher set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
         $this->request->setMethod('post');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->PrintOut($result, false);
 
-        $this->assertEquals(405, $response->getStatusCode());
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(false, (bool) $result->success);
+    }
+    
+    /**
+     * Imitate POST request
+     * Should be successful
+     */
+    public function testCreate()
+    {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created teacheruser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $this->request->setMethod('post');
+
+        $lessonDate = new \DateTime;
+        $description = ' Description for contactlesson' . uniqid();
+        $sequenceNr = 4;
+        $teacher_id = $this->CreateTeacher()->getId();
+        $durationAK = 120;
+        $subjectRound = $this->CreateSubjectRound()->getId();
+        $studentGroup = $this->CreateStudentGroup()->getId();
+        $module = $this->CreateModule();
+        $vocation = $this->CreateVocation();
+        $rooms = $this->CreateRoom();
+
+
+
+        $this->request->getPost()->set("lessonDate", $lessonDate);
+        $this->request->getPost()->set("description", $description);
+        $this->request->getPost()->set("sequenceNr", $sequenceNr);
+        $this->request->getPost()->set("teacher", $teacher_id);
+        $this->request->getPost()->set('subjectRound', $subjectRound);
+        $this->request->getPost()->set('studentGroup', $studentGroup);
+        $this->request->getPost()->set('module', $module);
+        $this->request->getPost()->set('vocation', $vocation);
+        $this->request->getPost()->set('rooms', $rooms);
+        $this->request->getPost()->set('durationAK', $durationAK);
+
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->PrintOut($result, false); //true
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $repository = $this->em->getRepository('Core\Entity\ContactLesson');
+        $newContactLesson = $repository->find($result->data['id']);
+        $this->assertNotNull($newContactLesson->getCreatedAt());
     }
 
     /**
@@ -59,18 +121,62 @@ class ContactLessonTest extends UnitHelpers
     }
 
     /**
-     * NOT ALLOWED
+     * Should be successful
      */
     public function testUpdate()
     {
-        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created teacheruser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        //create one to  update later on
+        $contactLesson = $this->CreateContactLesson();
+        $id = $contactLesson->getId();
+
+        $lessonDateO = $contactLesson->getLessonDate()->format('Y-m-d H:i:s');
+        $descriptionO = $contactLesson->getDescription();
+        $sequenceNrO = $contactLesson->getSequenceNr();
+        $subjectRoundIdO = $contactLesson->getSubjectRound();
         $this->request->setMethod('put');
+        $this->routeMatch->setParam('id', $id);
+
+        //start new data creation
+        $lessonDate = (new \DateTime)
+                ->add(new \DateInterval('P10D'))
+                ->format('Y-m-d H:i:s');
+
+        $description = ' Updated Description for contactlesson';
+        $sequenceNr = 44;
+        $subjectRound = $this->CreateSubjectRound();
+
+        $insertData = [
+            "lessonDate" => $lessonDate,
+            "description" => $description,
+            "sequenceNr" => $sequenceNr,
+            "subjectRound" => $subjectRound->getId(),
+            "teacher" => $contactLesson->getTeacher()->getId(),
+        ];
+
+        //set new data
+        $this->request->setContent(http_build_query($insertData));
+
+//        //fire request
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
-
         $this->PrintOut($result, false);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
 
-        $this->assertEquals(405, $response->getStatusCode());
+        //start checking for changed data
+        $this->assertNotEquals($lessonDateO, $result->data['lessonDate']);
+        $this->assertNotEquals($descriptionO, $result->data['description']);
+        $this->assertNotEquals($sequenceNrO, $result->data['sequenceNr']);
+        $this->assertNotEquals($subjectRoundIdO->getId(), $result->data['subjectRound']);
+        $this->assertNotEquals($teacher->getId(), $result->data['teacher']);
     }
 
     /**

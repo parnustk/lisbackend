@@ -19,7 +19,6 @@ use Doctrine\Common\Collections\Collection;
 use DateTime;
 
 /**
- * @author Alar Aasa <alar@alaraasa.ee>, Juhan Kõks
  * @ORM\Entity(repositoryClass="Core\Entity\Repository\RoomsRepository")
  * @ORM\Table(
  *  indexes={
@@ -30,6 +29,8 @@ use DateTime;
  * )
  * @ORM\HasLifecycleCallbacks
  * 
+ *  @author Alar Aasa <alar@alaraasa.ee>
+*   @author Juhan Kõks <juhankoks@gmail.com>
  */
 class Rooms extends EntityValidation
 {
