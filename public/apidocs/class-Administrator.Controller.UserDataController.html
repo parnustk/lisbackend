@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Administrator\Controller\VocationController | LIS eDiary API documentation</title>
+	<title>Class Administrator\Controller\UserDataController | LIS eDiary API documentation</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -101,8 +101,8 @@
 				<li><a href="class-Administrator.Controller.SubjectController.html">SubjectController</a></li>
 				<li><a href="class-Administrator.Controller.SubjectRoundController.html">SubjectRoundController</a></li>
 				<li><a href="class-Administrator.Controller.TeacherController.html">TeacherController</a></li>
-				<li><a href="class-Administrator.Controller.UserDataController.html">UserDataController</a></li>
-				<li class="active"><a href="class-Administrator.Controller.VocationController.html">VocationController</a></li>
+				<li class="active"><a href="class-Administrator.Controller.UserDataController.html">UserDataController</a></li>
+				<li><a href="class-Administrator.Controller.VocationController.html">VocationController</a></li>
 			</ul>
 
 
@@ -118,12 +118,9 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Class VocationController</h1>
+	<h1>Class UserDataController</h1>
 
 
-	<div class="description">
-	<p>Rest API access to vocation data.</p>
-	</div>
 
 	<dl class="tree well">
 		<dd style="padding-left:0px">
@@ -133,7 +130,7 @@ Core\Controller\AbstractAdministratorBaseController
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Administrator\Controller\VocationController</span></b>			
+<b><span>Administrator\Controller\UserDataController</span></b>			
 			
 			
 		</dd>
@@ -153,12 +150,8 @@ Core\Controller\AbstractAdministratorBaseController
 		
 
 				<b>Author:</b>
-				Sander Mets <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x73;&#x61;&#110;&#x64;&#x65;&#114;&#x6d;&#x65;&#116;&#x73;&#x30;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x73;&#x61;&#110;&#x64;&#x65;&#114;&#x6d;&#x65;&#116;&#x73;&#x30;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a><br>
-				<b>Author:</b>
-				Juhan Kõks <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x6a;&#117;&#104;a&#x6e;&#x6b;&#111;&#107;&#115;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;">&#x6a;&#117;&#104;a&#x6e;&#x6b;&#111;&#107;&#115;&#x40;&#x67;&#x6d;&#97;&#105;l&#x2e;&#x63;&#111;&#109;</a><br>
-				<b>Author:</b>
-				Eleri Apsolon <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#101;l&#x65;&#x72;&#105;&#46;&#x61;&#x70;&#115;&#111;l&#x6f;&#x6e;&#64;&#103;&#x6d;&#x61;&#105;&#108;.&#x63;&#x6f;&#109;">&#101;l&#x65;&#x72;&#105;&#46;&#x61;&#x70;&#115;&#111;l&#x6f;&#x6e;&#64;&#103;&#x6d;&#x61;&#105;&#108;.&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> VocationController.php		<br>
+				Kristen Sepp <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;:&#x73;&#101;&#x70;&#112;&#x6b;&#114;&#105;&#x73;&#116;&#x65;&#110;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;">&#x73;&#101;&#x70;&#112;&#x6b;&#114;&#105;&#x73;&#116;&#x65;&#110;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;</a><br>
+			<b>Located at</b> UserDataController.php		<br>
 	</div>
 
 
@@ -166,42 +159,28 @@ Core\Controller\AbstractAdministratorBaseController
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
-		<tr data-order="getList" id="_getList">
+		<tr data-order="create" id="_create">
 
 			<td class="attributes"><code>
 				 public 
-				Zend\View\Model\JsonModel
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getList">#</a>
-			<code>getList( )</code>
+			<a class="anchor" href="#_create">#</a>
+			<code>create( <span> <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<h2>GET admin/vocation</h2>
-
-<h3>URL Parameters</h3>
-
-<pre>limit(integer)
-page(integer)</pre>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<h2>GET admin/vocation</h2>
-
-<h3>URL Parameters</h3>
-
-<pre>limit(integer)
-page(integer)</pre>
+				
 
 
 
-					<h4>Returns</h4>
-					<div class="list">
-						Zend\View\Model\JsonModel
-					</div>
 
 
 
@@ -213,41 +192,24 @@ page(integer)</pre>
 
 			<td class="attributes"><code>
 				 public 
-				Zend\View\Model\JsonModel
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code>get( <span>type <var>$id</var></span> )</code>
+			<code>get( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<h2>GET admin/vocation/:id</h2>
-
-<h3>URL Parameters</h3>
-
-<pre>id(integer)*</pre>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<h2>GET admin/vocation/:id</h2>
-
-<h3>URL Parameters</h3>
-
-<pre>id(integer)*</pre>
+				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$id</var></dt>
-						<dd></dd>
-					</dl></div>
 
-					<h4>Returns</h4>
-					<div class="list">
-						Zend\View\Model\JsonModel
-					</div>
 
 
 
@@ -255,49 +217,28 @@ page(integer)</pre>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="create" id="_create">
+		<tr data-order="getList" id="_getList">
 
 			<td class="attributes"><code>
 				 public 
-				Zend\View\Model\JsonModel
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_create">#</a>
-			<code>create( <span>array <var>$data</var></span> )</code>
+			<a class="anchor" href="#_getList">#</a>
+			<code>getList( )</code>
 
 			<div class="description short">
-				<h2>POST admin/vocation</h2>
-
-<h3>Body</h3>
-
-<pre>name(string)*
-vocationCode(string)*
-durationEKAP(integer)*</pre>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<h2>POST admin/vocation</h2>
-
-<h3>Body</h3>
-
-<pre>name(string)*
-vocationCode(string)*
-durationEKAP(integer)*</pre>
+				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$data</var></dt>
-						<dd></dd>
-					</dl></div>
 
-					<h4>Returns</h4>
-					<div class="list">
-						Zend\View\Model\JsonModel
-					</div>
 
 
 
@@ -309,47 +250,24 @@ durationEKAP(integer)*</pre>
 
 			<td class="attributes"><code>
 				 public 
-				Zend\View\Model\JsonModel
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_update">#</a>
-			<code>update( <span>type <var>$id</var></span>, <span>type <var>$data</var></span> )</code>
+			<code>update( <span> <var>$id</var></span>, <span> <var>$data</var></span> )</code>
 
 			<div class="description short">
-				<h2>PUT admin/vocation/:id</h2>
-
-<h3>Body</h3>
-
-<pre>name(string)*
-vocationCode(string)*
-durationEKAP(integer)*</pre>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<h2>PUT admin/vocation/:id</h2>
-
-<h3>Body</h3>
-
-<pre>name(string)*
-vocationCode(string)*
-durationEKAP(integer)*</pre>
+				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$id</var></dt>
-						<dd></dd>
-						<dt><var>$data</var></dt>
-						<dd></dd>
-					</dl></div>
 
-					<h4>Returns</h4>
-					<div class="list">
-						Zend\View\Model\JsonModel
-					</div>
 
 
 
@@ -361,41 +279,24 @@ durationEKAP(integer)*</pre>
 
 			<td class="attributes"><code>
 				 public 
-				Zend\View\Model\JsonModel
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code>delete( <span>integer <var>$id</var></span> )</code>
+			<code>delete( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<h2>DELETE admin/administrator/:id</h2>
-
-<h3>URL Parameters</h3>
-
-<pre>id(integer)*</pre>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<h2>DELETE admin/administrator/:id</h2>
-
-<h3>URL Parameters</h3>
-
-<pre>id(integer)*</pre>
+				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$id</var></dt>
-						<dd></dd>
-					</dl></div>
 
-					<h4>Returns</h4>
-					<div class="list">
-						Zend\View\Model\JsonModel
-					</div>
 
 
 
@@ -439,7 +340,7 @@ durationEKAP(integer)*</pre>
 			<td class="value">
 				<div>
 					<a href="#$service" class="anchor">#</a>
-					<code><span class="php-quote">'vocation_service'</span></code>
+					<code><span class="php-quote">'userdata_service'</span></code>
 				</div>
 			</td>
 		</tr>
