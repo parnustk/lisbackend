@@ -51,7 +51,7 @@ class ContactLessonTest extends UnitHelpers
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(false, (bool) $result->success);
     }
-    
+
     /**
      * Imitate POST request
      * Should be successful
@@ -106,18 +106,78 @@ class ContactLessonTest extends UnitHelpers
     }
 
     /**
-     * NOT ALLOWED
+     * Should be NOT successful
+     */
+    public function testDeleteNotTrashed()
+    {
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created teacheruser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $entity = $this->CreateContactLesson();
+        $idOld = $entity->getId();
+
+        $this->routeMatch->setParam('id', $entity->getId());
+        $this->request->setMethod('delete');
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
+
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(1, $result->success);
+        $this->em->clear();
+
+        //test it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\ContactLesson')
+                ->Get($idOld);
+
+        $this->assertNotEquals(null, $deleted);
+    }
+
+    /**
+     * Should be successful
      */
     public function testDelete()
     {
-        $this->routeMatch->setParam('id', 1); //fake id no need for real id
+        //create user
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //now we have created teacheruser set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $entity = $this->CreateContactLesson();
+        $idOld = $entity->getId();
+        $entity->setTrashed(1);
+        $this->em->persist($entity);
+        $this->em->flush($entity);
+
+        $this->routeMatch->setParam('id', $entity->getId());
         $this->request->setMethod('delete');
+
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
-        $this->PrintOut($result, false);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        $this->em->clear();
 
-        $this->assertEquals(405, $response->getStatusCode());
+        //test if it is not in the database anymore
+        $deleted = $this->em
+                ->getRepository('Core\Entity\ContactLesson')
+                ->find($idOld);
+
+        $this->assertEquals(null, $deleted);
+
+        $this->PrintOut($result, false);
     }
 
     /**
@@ -192,7 +252,10 @@ class ContactLessonTest extends UnitHelpers
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
-        $this->CreateContactLesson();
+        //create one to get first
+        $contactLesson = $this->CreateContactLesson();
+        $id = $contactLesson->getId();
+        $this->routeMatch->setParam('id', $id);
         $this->request->setMethod('get');
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
@@ -255,24 +318,38 @@ class ContactLessonTest extends UnitHelpers
         $this->PrintOut($result, false);
     }
 
-    public function testGetTrashedList()
+    public function testGetTrashedListSelfRelated()
     {
-        //create user
+        //create and set correct teacheruser
         $teacher = $this->CreateTeacher();
         $lisUser = $this->CreateTeacherUser($teacher);
 
-        //now we have created studentuser set to current controller
+        //set to current controller
         $this->controller->setLisUser($lisUser);
         $this->controller->setLisPerson($teacher);
 
-        //prepare one AbsenceReason with trashed flag set up
-        $entity = $this->CreateContactLesson();
-        $entity->setTrashed(1);
-        $this->em->persist($entity);
-        $this->em->flush($entity); //save to db with trashed 1
+        $contactLesson = $this->CreateContactLesson([
+            'name' => 'contact lesson',
+            'lessonDate' => new \DateTime,
+            'description' => uniqid() . ' Description for contactlesson',
+            'sequenceNr' => 5,
+            'subject' => $this->CreateSubject()->getId(),
+            'studentGroup' => $this->CreateStudentGroup()->getId(),
+            'module' => $this->CreateModule()->getId(),
+            'vocation' => $this->CreateVocation()->getId(),
+            'teacher' => $teacher->getId(),
+            "rooms" => $this->CreateRoom()->getId(),
+            "module" => $this->CreateModule()->getId(),
+            "subjectRound" => $this->CreateSubjectRound()->getId(),
+            'createdBy' => $lisUser->getId()
+        ]);
+
+        $contactLesson->setTrashed(1);
+        $this->em->persist($contactLesson);
+        $this->em->flush($contactLesson); //save to db with trashed 1
         $where = [
             'trashed' => 1,
-            'id' => $entity->getId()
+            'id' => $contactLesson->getId()
         ];
         $whereJSON = Json::encode($where);
         $whereURL = urlencode($whereJSON);
@@ -286,17 +363,82 @@ class ContactLessonTest extends UnitHelpers
         }
 
         $this->request->setMethod('get');
-
         $result = $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
+        $this->PrintOut($result, false);
 
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(1, $result->success);
+        //limit is set to 1
+        $this->assertEquals(1, count($result->data));
+
+        //assert all results have trashed not null
+        foreach ($result->data as $value) {
+            $this->assertEquals(1, $value['trashed']);
+        }
+    }
+    
+     public function testGetTrashedListNotSelfRelated()
+    {
+        //create and set correct teacheruser
+        $teacher = $this->CreateTeacher();
+        $lisUser = $this->CreateTeacherUser($teacher);
+
+        //set to current controller
+        $this->controller->setLisUser($lisUser);
+        $this->controller->setLisPerson($teacher);
+
+        $contactLesson = $this->CreateContactLesson([
+            'name' => 'contact lesson',
+            'lessonDate' => new \DateTime,
+            'description' => uniqid() . ' Description for contactlesson',
+            'sequenceNr' => 5,
+            'subject' => $this->CreateSubject()->getId(),
+            'studentGroup' => $this->CreateStudentGroup()->getId(),
+            'module' => $this->CreateModule()->getId(),
+            'vocation' => $this->CreateVocation()->getId(),
+            'teacher' => $teacher->getId(),
+            "rooms" => $this->CreateRoom()->getId(),
+            "module" => $this->CreateModule()->getId(),
+            "subjectRound" => $this->CreateSubjectRound()->getId(),
+            'createdBy' => $lisUser->getId()
+        ]);
+
+        $contactLesson->setTrashed(1);
+        $this->em->persist($contactLesson);
+        $this->em->flush($contactLesson); //save to db with trashed 1
+        $where = [
+            'trashed' => 1,
+            'id' => $contactLesson->getId()
+        ];
+        $whereJSON = Json::encode($where);
+        $whereURL = urlencode($whereJSON);
+        $whereURLPart = "where=$whereURL";
+        $q = "page=1&limit=1&$whereURLPart"; //imitate real param format
+
+        $params = [];
+        parse_str($q, $params);
+        foreach ($params as $key => $value) {
+            $this->request->getQuery()->set($key, $value);
+        }
+
+        //create another user set it to controller
+
+        $anotherTeacher = $this->CreateTeacher();
+        $anotherLisUser = $this->CreateTeacherUser($anotherTeacher);
+
+        //now we have created another studentuser set to current controller
+        $this->controller->setLisUser($anotherLisUser);
+        $this->controller->setLisPerson($anotherTeacher);
+
+        $this->request->setMethod('get');
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
         $this->PrintOut($result, false);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(1, $result->success);
 
-        //limit is set to 1
-        $this->assertEquals(1, count($result->data));
 
         //assert all results have trashed not null
         foreach ($result->data as $value) {
