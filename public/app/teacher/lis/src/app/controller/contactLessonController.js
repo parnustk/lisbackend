@@ -363,7 +363,6 @@
                         urlParams = {
                             page: 1,
                             limit: 1000,
-                            teacherContactLesson: true
                         };
                     };
 

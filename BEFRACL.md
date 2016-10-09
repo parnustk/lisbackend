@@ -46,9 +46,9 @@
 
 * YES getList
 * YES get
-* YES create
-* YES update
-* YES delete
+* YES create - OWN CREATED
+* YES update - OWN CREATED
+* YES delete - OWN CREATED
 
 ####  Student ROLE
 
