@@ -161,7 +161,7 @@ class TeacherRepository extends AbstractBaseRepository
             throw new Exception('NO_DATA');
         }
 
-        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
+        $data['name'] = $data['lastName'] . ', ' . $data['firstName'];
         $entity = $this->validateEntity(
                 new Teacher($this->getEntityManager()), $data
         );
@@ -391,6 +391,7 @@ class TeacherRepository extends AbstractBaseRepository
      */
     private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
+        $data['name'] = $data['lastName'] . ', ' . $data['firstName'];
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );

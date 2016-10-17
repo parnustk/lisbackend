@@ -21,6 +21,7 @@ use Doctrine\DBAL\Types\Type;
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Marten Kähr <marten@kahr.ee>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class AdministratorRepository extends AbstractBaseRepository
 {
@@ -208,6 +209,7 @@ class AdministratorRepository extends AbstractBaseRepository
      */
     private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
+        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
