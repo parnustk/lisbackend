@@ -31,12 +31,12 @@
             var _model;
 
             _model = $resource(
-                window.LisGlobals.RestUrl + 'room/:id',
-                {id: '@id'},
-                {
-                    update: {method: "PUT"},
-                    query: {method: 'GET', isArray: false}
-                }
+                    window.LisGlobals.RestUrl + 'room/:id',
+                    {id: '@id'},
+                    {
+                        update: {method: "PUT"},
+                        query: {method: 'GET', isArray: false}
+                    }
             );
 
             return {
