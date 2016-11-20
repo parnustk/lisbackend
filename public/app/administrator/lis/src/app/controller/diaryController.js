@@ -241,13 +241,11 @@
                                         );
                                     }else { //reverse original
                                         buf = originalEntity;
-                                        console.log("TESTTTT");
                                     }
 
                                     rowEntity[colDef.name] = buf;
 
                                 } else if (colDef.name === 'mod') {//START SUBJECTROUND Grades CRUD
-                                    console.log("DEBUG2");
                                     var x,
                                             buf = {},
                                             newGrade = {},
@@ -269,8 +267,6 @@
                                         teacher: teacherId,
                                         module: buf.moduleId
                                     };
-                                    console.log(data);
-                                    console.log(originalEntity);
 
                                     if (typeof buf.name !== "undefined" && originalEntity.studentGradeId === null && buf.name && buf.name.trim() !== '') {//CREATE
                                         studentGradeModel.Create(data).then(
@@ -315,7 +311,6 @@
                                         );
                                     } else { //reverse original
                                         buf = originalEntity;
-                                        console.log("DEBUG3");
                                     }
 
                                     rowEntity[colDef.name] = buf;
