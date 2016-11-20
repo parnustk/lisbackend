@@ -36,7 +36,7 @@ class AdministratorRepository extends AbstractBaseRepository
      *
      * @var string 
      */
-   public $baseEntity = 'Core\Entity\Administrator';
+    public $baseEntity = 'Core\Entity\Administrator';
 
     /**
      * 
@@ -127,7 +127,7 @@ class AdministratorRepository extends AbstractBaseRepository
         if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
+        $data['name'] = $data['lastName'] . ', ' . $data['firstName'];
         $entity = $this->validateEntity(
                 new Administrator($this->getEntityManager()), $data
         );
@@ -209,7 +209,7 @@ class AdministratorRepository extends AbstractBaseRepository
      */
     private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
+        $data['name'] = $data['lastName'] . ', ' . $data['firstName'];
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
@@ -290,12 +290,12 @@ class AdministratorRepository extends AbstractBaseRepository
         if (!$entity) {
             throw new Exception('NOT_FOUND_ENTITY');
         }
-        
+
         //TODO Comment it back
 //        if(!$entity->getCreatedBy()) {
 //            throw new Exception('INVALID_OBJECT');
 //        }
-        
+
 
         if (!$extra) {
             return $this->defaultUpdate($entity, $data, $returnPartial);
@@ -551,7 +551,7 @@ class AdministratorRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.lisUser lisUser
                 WHERE lisUser.email=:email AND lisUser.state=1";
-        
+
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('email', $email, Type::STRING);
         $r = $q->getSingleResult(Query::HYDRATE_ARRAY);

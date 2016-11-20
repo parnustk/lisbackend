@@ -121,7 +121,7 @@ class StudentRepository extends AbstractBaseRepository
         if (count($data) < 1) {
             throw new Exception('NO_DATA');
         }
-        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
+        $data['name'] = $data['lastName'] . ', ' . $data['firstName'];
         $entity = $this->validateEntity(
                 new Student($this->getEntityManager()), $data
         );
@@ -192,7 +192,7 @@ class StudentRepository extends AbstractBaseRepository
      */
     private function defaultUpdate($entity, $data, $returnPartial = false, $extra = null)
     {
-        $data['name'] = $data['lastName'] . ', '. $data['firstName'];
+        $data['name'] = $data['lastName'] . ', ' . $data['firstName'];
         $entityValidated = $this->validateEntity(
                 $entity, $data
         );
@@ -513,7 +513,7 @@ class StudentRepository extends AbstractBaseRepository
             return $this->administratorGetList($params, $extra);
         }
     }
-    
+
     /**
      * 
      * @param string $email
@@ -532,7 +532,7 @@ class StudentRepository extends AbstractBaseRepository
                 FROM $this->baseEntity $this->baseAlias
                 JOIN $this->baseAlias.lisUser lisUser
                 WHERE lisUser.email=:email AND lisUser.state=1";
-        
+
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('email', $email, Type::STRING);
         $r = $q->getSingleResult(Query::HYDRATE_ARRAY);
