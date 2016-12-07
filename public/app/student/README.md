@@ -21,7 +21,7 @@ Create lis/dist/globals.config.local.js with content:
 
     (function (window) {
         window.LisGlobals = {
-            RestUrl: 'http://lis.local/teacher/',
+            RestUrl: 'http://lis.local/student/',
             RegisterUrl: 'http://lis.local/lisauth/',
             L: 'et'//default for PSTK
         };
