@@ -50,9 +50,6 @@ class StudentInGroupsRepository extends AbstractBaseRepository
                     partial studentGroup.{
                         id
                     },
-                    partial studentGroup.{
-                        id
-                    },
                     partial vocation.{
                         id
                     }
@@ -64,7 +61,7 @@ class StudentInGroupsRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('studentId', $student->getId(), Type::INTEGER);
         //$q->setHydrationMode(Query::HYDRATE_ARRAY);
-        return  $q->execute(null, Query::HYDRATE_OBJECT);
+        return $q->execute(null, Query::HYDRATE_OBJECT);
     }
 
     /**
