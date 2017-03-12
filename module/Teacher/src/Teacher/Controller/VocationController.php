@@ -29,7 +29,7 @@ class VocationController extends Base
     protected $service = 'vocation_service';
 
     /**
-     * <h2>GET admin/vocation</h2>
+     * <h2>GET teacher/vocation</h2>
      * <h3>URL Parameters</h3>
      * <code>limit(integer)
      * page(integer)</code>
@@ -42,7 +42,7 @@ class VocationController extends Base
     }
 
     /**
-     * <h2>GET admin/vocation/:id</h2>
+     * <h2>GET teacher/vocation/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 
@@ -55,7 +55,7 @@ class VocationController extends Base
     }
 
     /**
-     * <h2>POST admin/vocation</h2>
+     * <h2>POST teacher/vocation</h2>
      * <h3>Body</h3>
      * <code>Not allowed</code>
      * 
@@ -68,7 +68,7 @@ class VocationController extends Base
     }
 
     /**
-     * <h2>PUT admin/vocation/:id</h2>
+     * <h2>PUT teacher/vocation/:id</h2>
      * <h3>Body</h3>
      * <code>Not allowed</code>
      * 
@@ -82,7 +82,7 @@ class VocationController extends Base
     }
 
     /**
-     * <h2>DELETE admin/administrator/:id</h2>
+     * <h2>DELETE teacher/administrator/:id</h2>
      * <h3>URL Parameters</h3>
      * <code>id(integer)*</code>
      * 
