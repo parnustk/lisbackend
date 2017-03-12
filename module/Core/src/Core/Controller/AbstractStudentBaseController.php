@@ -102,14 +102,11 @@ abstract class AbstractStudentBaseController extends AbstractBaseController
         return $this;
     }
 
-    /**
-     * 
-     */
     protected function checkUserSession()
     {
         $auth = $this->getLisAuthService();
         $storage = $auth->read();
-//        print_r(gettype($storage));
+        //print_r(gettype($storage));
         try {
             if (!$storage) {
                 throw new Exception('1NOT_LOGGED_IN');
@@ -141,11 +138,13 @@ abstract class AbstractStudentBaseController extends AbstractBaseController
             if ($storage["role"] !== 'student') {
                 throw new Exception('8NOT_LOGGED_IN');
             }
+
             $this->setlisPerson($lisPerson);
 
             return ['NOT_LOGGED_IN' => false];
         } catch (Exception $ex) {
-//            print_r($ex->getMessage());die;
+            print_r($ex->getMessage());
+            die;
             return ['NOT_LOGGED_IN' => true];
         }
     }

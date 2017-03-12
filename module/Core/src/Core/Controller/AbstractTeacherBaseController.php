@@ -108,7 +108,7 @@ abstract class AbstractTeacherBaseController extends AbstractBaseController
     {
         $auth = $this->getLisAuthService();
         $storage = $auth->read();
-//        print_r(gettype($storage));
+       //print_r(gettype($storage));
         try {
             if (!$storage) {
                 throw new Exception('1NOT_LOGGED_IN');

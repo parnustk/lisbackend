@@ -109,7 +109,7 @@ abstract class AbstractAdministratorBaseController extends AbstractBaseControlle
     {
         $auth = $this->getLisAuthService();
         $storage = $auth->read();
-//        print_r(gettype($storage));
+//   print_r(gettype($storage));
         try {
             if (!$storage) {
                 throw new Exception('1NOT_LOGGED_IN');
@@ -144,7 +144,7 @@ abstract class AbstractAdministratorBaseController extends AbstractBaseControlle
             }
             return ['NOT_LOGGED_IN' => false];
         } catch (Exception $ex) {
-//            print_r($ex->getMessage());die;
+            print_r($ex->getMessage());die;
             return ['NOT_LOGGED_IN' => true];
         }
     }
