@@ -23,6 +23,7 @@ use DateTime;
 /**
  * @author Sander Mets <sandermets0@gmail.com>
  * @author Eleri Apsolon <eleri.apsolon@gmail.com>
+ * @author Juhan Kõks <juhankoks@gmail.com>
  */
 class ModuleRepository extends AbstractBaseRepository
 {
@@ -158,7 +159,7 @@ class ModuleRepository extends AbstractBaseRepository
                 WHERE 
                     vocation.id=:vocationId AND
                     studentGroup.id=:studentGroupId AND
-                    gradeChoiceCL.lisType ='gradechoice' AND
+                    (gradeChoiceCL.lisType ='gradechoice' OR gradeChoiceCL.lisType IS NULL) AND
                     (student.id=:studentId OR student.id IS NULL) AND
                     (studentSR.id=:studentId OR studentSR.id IS NULL) AND
                     (studentCL.id=:studentId OR studentCL.id IS NULL) AND
@@ -177,7 +178,7 @@ class ModuleRepository extends AbstractBaseRepository
         $q = $this->getEntityManager()->createQuery($dql);
         $q->setParameter('vocationId', $vocationId, Type::INTEGER);
         $q->setParameter('studentGroupId', $studentGroupId, Type::INTEGER);
-        $q->setParameter('studentId', $extra->lisPerson->getId(), Type::INTEGER);
+        $q->setParameter('studentId',  $student->getId(), Type::INTEGER);
 
         if (array_key_exists('startDateIW', $params) && array_key_exists('endDateIW', $params)) {//we have startDate and endDate from params add bind values to criteria
             $q->setParameter('startDateTimeIW', (new DateTime($params['startDateIW'])), Type::DATETIME);
