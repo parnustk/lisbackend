@@ -102,6 +102,9 @@ abstract class AbstractStudentBaseController extends AbstractBaseController
         return $this;
     }
 
+    /**
+     * 
+     */
     protected function checkUserSession()
     {
         $auth = $this->getLisAuthService();
